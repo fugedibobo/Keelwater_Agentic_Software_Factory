@@ -1,0 +1,12 @@
+# One byte form on every OS, so data_hash, raw_sha256 and prompt hashes match on Windows and elsewhere.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.sqlite binary
+*.woff binary
+*.woff2 binary
