@@ -143,7 +143,7 @@ Each L1 work order follows the same path: the orchestrator creates the worktree 
 
 ## 6. The author's pastes
 
-Morning, block 1. Open Claude Code in `C:\dev\keelwater`, choose the model and effort below, and paste:
+Morning, block 1. Open Claude Code in `C:\dev`, choose the model and effort below, and paste:
 
 - Machine: `laptop` (L1, main checkout `C:\dev\keelwater`)
 - Model: `opus`
@@ -151,7 +151,7 @@ Morning, block 1. Open Claude Code in `C:\dev\keelwater`, choose the model and e
 - Parallel: `yes, with L2 (start L2 once #18 is merged)`
 
 ```
-Implement milestone Demo v1: read AGENTS.md and docs/build-plan.md, then run the setup in section 13 and the dispatch loop in section 7.
+Clone https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory.git into C:\dev\keelwater (outside OneDrive) and work inside it. Then implement milestone Demo v1: read AGENTS.md (from PR #20 if not yet merged) and docs/build-plan.md, run the setup in section 13 and the dispatch loop in section 7.
 ```
 
 Morning, block 2, once #18 is merged. Open a second Claude Code session in `C:\dev\keelwater\.worktrees\L2` and paste:
@@ -286,7 +286,7 @@ Never cut: replay mode, quote verification, the ground-truth, held-out and stabi
 
 Pre-flight, step 0, by the orchestrator at 08:30 (results posted on #14 once it is filed):
 
-- The repo folder is `C:\dev\keelwater` and is not under OneDrive. It already holds `docs/`, `README.md`, `AGENTS.md`, `.github/`, `.claude/`, `.gitattributes` and `.gitignore`; the 18 issue bodies are in `C:\dev\keelwater-wo\`, outside the repo.
+- The repo folder is `C:\dev\keelwater` and is not under OneDrive. It already holds `docs/`, `README.md`, `AGENTS.md`, `.github/`, `.claude/`, `.gitattributes` and `.gitignore`.
 - `git --version`; `uv --version`; `uv python find 3.12` (if missing, `uv python install 3.12` is a download, so it waits for the author's approval).
 - `gh auth status` shows the `repo` scope; `codex` is logged in and the codex plugin answers; Claude and codex usage left.
 - `node --version`; `playwright-cli` and a browser installed; `npx impeccable` available; the Archify skill installed; Edge found in one of the Program Files folders.
@@ -295,13 +295,14 @@ Pre-flight, step 0, by the orchestrator at 08:30 (results posted on #14 once it 
 
 Setup, 08:30 to 08:50:
 
-1. `git init -b main` and `git config core.longpaths true`. First commit: `docs/`, `README.md`, `.gitattributes`, `.gitignore`. AGENTS.md, `.github/` and `.claude/` wait for the gated pull request.
-2. Create the private GitHub repository from the first commit with `gh repo create keelwater --private --source . --remote origin --push`. It is not in the allow list, so it asks the author; this is the only time `main` is written outside a pull request.
-3. Create the labels (`work-order`, `needs:human-action`, `gate`, `optional`, `critical-path`, `lane:L1`, `lane:L2`) and the milestone "Demo v1: Signal Engine", due 05/11/2026.
-4. File the 18 issue bodies in file order, so that body NN becomes issue #NN. Take the title and labels from each body's `TITLE:` and `LABELS:` lines and strip those lines from the body. Assign #14 to #18 to the repo owner. Confirm the numbers #1 to #18 before any pull request exists.
-5. Post the pre-flight results on #14.
-6. Branch `issue-18-agents-md` with AGENTS.md, `.github/ISSUE_TEMPLATE/work-order.md` and `.claude/settings.json`; open the pull request "Add AGENTS.md, the work-order template and Claude Code permissions" and link it from #18.
-7. After #18 merges: `git worktree add .worktrees/L2 main` for L2 and `git worktree add --detach .worktrees/check` for checks. Per-issue worktrees are created at dispatch.
+The repo, the 18 issues (#1-#18) and the gated PR #20 (AGENTS.md, `.claude/settings.json`) already exist on GitHub, and main already holds `docs/`, `README.md`, `.github/`, `.gitattributes` and `.gitignore`.
+
+1. Clone into `C:\dev\keelwater` and run `git config core.longpaths true`.
+2. Confirm issues #1-#18 are open and PR #20 is open (the author approves and merges it as #18; until then AGENTS.md is read from the PR branch).
+3. Labels already exist from issue filing; use the label set on the issues, no milestone object (track the milestone by the issue list).
+4. Post the pre-flight results on #14.
+5. Branch `issue-18-agents-md` with AGENTS.md, `.github/ISSUE_TEMPLATE/work-order.md` and `.claude/settings.json`; open the pull request "Add AGENTS.md, the work-order template and Claude Code permissions" and link it from #18.
+6. After #18 merges: `git worktree add .worktrees/L2 main` for L2 and `git worktree add --detach .worktrees/check` for checks. Per-issue worktrees are created at dispatch.
 
 Conventions:
 
@@ -309,3 +310,12 @@ Conventions:
 - `.env` exists only in the main checkout; the loader finds it from any worktree through git's common directory, and a separate clone (such as #13's clean clone) has no keys.
 - Local stores and scratch live in `.local/` and `.scratch/`, both git-ignored; every `run` rebuilds its store. Committed outputs: `data/`, `data/holdout/`, `generator/cache/`, `fixtures/llm_cache/`, `labels/`, `reports/`, `site/`, `docs/diagrams/`, `docs/screenshots/`, the two-pager PDF.
 - Every work order ends with a teardown: scratch deleted, processes stopped, free disk reported before and after.
+
+## Planning session handover (03/11/2026)
+
+- State: plan v1 merged to main (PR #19). Work orders are issues #1-#13; human steps #14-#18 are assigned to the author. PR #20 (AGENTS.md and .claude/settings.json) waits for the author's approval as #18.
+- Done overnight: grilling interview; six research reports (docs/research/); architecture, evals, data, board, decisions, diagram specs and the factory-job contract; Part 1 draft (1,246 words); README; build plan; three adversarial reviews (product leadership, engineering leadership, one-day feasibility) and two fix rounds; byte-exact publishing checked against blob hashes.
+- Next: Tuesday morning the author does #14 and #18, then pastes block 1 (L1) and, once #18 is merged, block 2 (L2) from section 6. Wednesday 08:30: handover paste, #13, then #16 and #17. Thursday morning: submit.
+- Decisions taken without the author (vetoable): production triage runs inside the VPC from day one, Jev is demo-only; demo models are open weights that Bedrock also serves where possible; three judges built (coherence designed only), certified on a Wilson lower bound of at least 0.75 with at least 50 real PM labels per class, so no judge is trusted in the demo; held-out seed 43 and a two-batch stability replay against overfitting; factory job carries evidence references and a de-identified problem, never quotes; OpenRouter key limit USD 10; one orchestrator dispatching codex workers so the author pastes two blocks; work orders use Markdown headings (the work-order template) while AGENTS.md uses tagged sections.
+- Risks: model ids drift weekly (the probe catches it); Jev signup or limits (one fallback, Jev optional); Phoenix install on Windows (optional, cut first); Archify layout repair rounds; the live run cannot start before about 15:30 on Tuesday.
+- Lessons: a published brief and review findings should be passed to subagents as files, not retyped; push early, because the session limit stopped two subagents mid-task; every cross-document number (judge count, thresholds, spend caps, CLI names) needs one canonical home, here docs/architecture.md, or parallel writers drift.
