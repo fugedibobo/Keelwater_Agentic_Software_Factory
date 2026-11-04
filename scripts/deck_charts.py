@@ -16,7 +16,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 def _svg(w, h, title, desc, body, defs=""):
     i = "t" + str(zlib.crc32(title.encode()))
-    return (f'<svg class="chart" viewBox="0 0 {w} {h}" role="img" aria-labelledby="{i}" xmlns="http://www.w3.org/2000/svg">'
+    return (f'<svg class="chart" viewBox="0 0 {w} {h}" role="img" aria-labelledby="{i}">'
             f'<title id="{i}">{title}</title><desc>{desc}</desc>{defs}{body}</svg>')
 
 

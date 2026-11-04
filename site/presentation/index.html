@@ -222,7 +222,7 @@ figure img{width:100%;height:auto;display:block;border:1px solid var(--rule);bor
 <ul>
 <li>Halving idea-to-customer time within 18 months is not plausible on my mid inputs: 79% of today's lead time at month 18.<!-- src: reports/halving/summary.md --></li>
 <li>Six recommendations follow, each linked to its slide.<!-- src: docs/part1-diagnosis-and-plan.md --></li>
-<li>Part 2 runs end to end, but its quality floors fail on the latest eval run (slide 7).<!-- src: reports/eval/ground-truth-64291143bfc1454b.json --></li>
+<li>Part 2 runs end to end, but its quality floors fail on the latest eval run (slide 7).<!-- src: reports/eval/ground-truth-f035b27a33a941fb.json --></li>
 </ul>
 </div>
 <table>
@@ -565,7 +565,7 @@ figure img{width:100%;height:auto;display:block;border:1px solid var(--rule);bor
 <li>On this build, Gemini (agy) was used only to save cost. It is not part of the proposal.<!-- src: docs/delegation.md --></li>
 </ul>
 <figure class="fig" style="margin-top:1.6em">
-<svg class="chart" viewBox="0 0 960 190" role="img" aria-labelledby="t1924307061"><title id="t1924307061">Delegation cost scenario, USD a day</title><desc>All Opus 5.5 costs 1,142.00 USD a day; routed by task class costs 368.29 USD a day. INFERRED.</desc><text class="tl" x="0" y="48">All Opus 5.5</text><rect class="bar ink2" x="210" y="16" width="520.0" height="48" rx="3"/><text class="tl" x="744.0" y="48">1,142.00 USD a day</text><text class="tl" x="0" y="114">Routed by class</text><rect class="bar c1" x="210" y="82" width="167.7" height="48" rx="3"/><text class="tl" x="391.7" y="114">368.29 USD a day</text><text class="tk" x="210" y="172">100 tasks a day. INFERRED: list-price arithmetic, not a measurement.</text></svg>
+<svg class="chart" viewBox="0 0 960 190" role="img" aria-labelledby="t1924307061"><title id="t1924307061">Delegation cost scenario, USD a day</title><desc>All Opus 5.5 costs 1,142.00 USD a day; routed by task class costs 368.30 USD a day. INFERRED.</desc><text class="tl" x="0" y="48">All Opus 5.5</text><rect class="bar ink2" x="210" y="16" width="520.0" height="48" rx="3"/><text class="tl" x="744.0" y="48">1,142.00 USD a day</text><text class="tl" x="0" y="114">Routed by class</text><rect class="bar c1" x="210" y="82" width="167.7" height="48" rx="3"/><text class="tl" x="391.7" y="114">368.30 USD a day</text><text class="tk" x="210" y="172">100 tasks a day. INFERRED: list-price arithmetic, not a measurement.</text></svg>
 <figcaption>Routing a day of 100 tasks by class costs about a third of running everything on Opus 5.5 (saving 67.8%) <span class="tag">INFERRED</span>. The Opus figure is likely high for routine work, so the saving is probably overstated.<!-- src: docs/delegation.md section 9, scripts/delegation_cost.py --></figcaption>
 </figure>
 </div>
@@ -1128,7 +1128,7 @@ figure img{width:100%;height:auto;display:block;border:1px solid var(--rule);bor
 <h2 id="h7">It runs end to end; its quality floors fail on the latest eval run.</h2><!-- src: reports/runs/latest-demo.json -->
 <ul>
 <li>The demo data is synthetic: 30 fictional insurers, about 200 records from seven tools, about 1,200 snippets. Code checks every quote and citation.<!-- src: README.md --></li>
-<li>The three AI judges show "calibrating": none has the 50 real PM labels per class it needs.<!-- src: reports/eval/judges-767cecdb470d41a1.json --></li>
+<li>The three AI judges show "calibrating": none has the 50 real PM labels per class it needs.<!-- src: reports/eval/judges-8599c14cfab44628.json --></li>
 <li>Fixes are in progress and these numbers will change.</li>
 </ul>
 <p class="cue">Detail below</p>
@@ -1159,66 +1159,66 @@ figure img{width:100%;height:auto;display:block;border:1px solid var(--rule);bor
 
 <!-- EVAL-RESULTS START -->
 <div class="block" id="eval">
-<h3>Eval results, as of 04/11/2026 12:19 UTC</h3>
-<p>Floors come from docs/evals.md. PASS and FAIL are each suite's own gates. Suite files are in reports/eval/ (ground truth 64291143bfc1454b, holdout 562c69badc9f40b1, stability aafd2f15752044d1, judges 767cecdb470d41a1). Merged to main in PR #48. Fixes in flight: an extraction filter for #7 and review fixes for #13 (PRs #51 and #52); the numbers will move when they land.<!-- src: reports/eval/ground-truth-64291143bfc1454b.json --></p>
+<h3>Eval results, as of 04/11/2026 12:54 UTC</h3>
+<p>Floors come from docs/evals.md. PASS and FAIL are each suite's own gates. Suite files are in reports/eval/ (ground truth f035b27a33a941fb, holdout f855ef88e0354c36, stability cf084dc8a2c94087, judges 8599c14cfab44628). They were re-recorded under the stricter citation-number rule of PR #51, merged with PR #52 as the #13 review fixes. Compared with the first run (PR #48), citation failures rose from 7 to 10 on seed 42 and from 4 to 7 on seed 43; nothing else changed.<!-- src: reports/eval/ground-truth-f035b27a33a941fb.json, reports/eval/holdout-f855ef88e0354c36.json --> The extract filter for #7 is built on a branch and not merged, and its two live re-runs (seed 42, then seed 43) have not run, so the numbers will move when they do.<!-- src: GitHub issue #7, latest comment 11:48 UTC (not a repo file) --></p>
 <table>
 <caption>Triage and extraction, seed 42</caption>
 <thead><tr><th>Check</th><th class="n">Result</th><th class="n">Floor</th><th>Gate</th></tr></thead>
 <tbody>
-<tr><td>Signal recall</td><td class="n">0.952</td><td class="n">0.90</td><td class="pass">PASS</td><!-- src: reports/eval/ground-truth-64291143bfc1454b.json --></tr>
-<tr><td>Noise-drop rate</td><td class="n">0.637</td><td class="n">0.60</td><td class="pass">PASS</td><!-- src: reports/eval/ground-truth-64291143bfc1454b.json --></tr>
-<tr><td>Bucket accuracy</td><td class="n">0.899</td><td class="n">0.75</td><td class="pass">PASS</td><!-- src: reports/eval/ground-truth-64291143bfc1454b.json --></tr>
-<tr><td>Quote verification</td><td class="n">0.992 (357 of 360)</td><td class="n">0.93</td><td class="pass">PASS</td><!-- src: reports/eval/ground-truth-64291143bfc1454b.json --></tr>
-<tr><td>Account attribution</td><td class="n">0.983</td><td class="n">1.00</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-64291143bfc1454b.json --></tr>
-<tr><td>Noise-audit miss rate</td><td class="n">estimate 0%; exact 0.57%</td><td class="n">reported</td><td>n/a</td><!-- src: reports/eval/ground-truth-64291143bfc1454b.json --></tr>
+<tr><td>Signal recall</td><td class="n">0.952</td><td class="n">0.90</td><td class="pass">PASS</td><!-- src: reports/eval/ground-truth-f035b27a33a941fb.json --></tr>
+<tr><td>Noise-drop rate</td><td class="n">0.637</td><td class="n">0.60</td><td class="pass">PASS</td><!-- src: reports/eval/ground-truth-f035b27a33a941fb.json --></tr>
+<tr><td>Bucket accuracy</td><td class="n">0.899</td><td class="n">0.75</td><td class="pass">PASS</td><!-- src: reports/eval/ground-truth-f035b27a33a941fb.json --></tr>
+<tr><td>Quote verification</td><td class="n">0.992 (357 of 360)</td><td class="n">0.93</td><td class="pass">PASS</td><!-- src: reports/eval/ground-truth-f035b27a33a941fb.json --></tr>
+<tr><td>Account attribution</td><td class="n">0.983</td><td class="n">1.00</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-f035b27a33a941fb.json --></tr>
+<tr><td>Noise-audit miss rate</td><td class="n">estimate 0%; exact 0.57%</td><td class="n">reported</td><td>n/a</td><!-- src: reports/eval/ground-truth-f035b27a33a941fb.json --></tr>
 </tbody>
 </table>
 <table>
 <caption>Clusters, ranking and briefs, seed 42</caption>
 <thead><tr><th>Check</th><th class="n">Result</th><th class="n">Floor</th><th>Gate</th></tr></thead>
 <tbody>
-<tr><td>Themes recovered</td><td class="n">1 of 6</td><td class="n">6 of 6</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-64291143bfc1454b.json --></tr>
-<tr><td>Mean purity</td><td class="n">0.620</td><td class="n">0.75</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-64291143bfc1454b.json --></tr>
-<tr><td>Split themes</td><td class="n">3</td><td class="n">1 at most</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-64291143bfc1454b.json --></tr>
-<tr><td>Over-merges</td><td class="n">0</td><td class="n">1 at most</td><td class="pass">PASS</td><!-- src: reports/eval/ground-truth-64291143bfc1454b.json --></tr>
-<tr><td>Citation failures</td><td class="n">7</td><td class="n">0</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-64291143bfc1454b.json --></tr>
-<tr><td>Noise themes in top 10</td><td class="n">1</td><td class="n">0</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-64291143bfc1454b.json --></tr>
-<tr><td>Exact top-6 set</td><td class="n">no</td><td class="n">yes</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-64291143bfc1454b.json --></tr>
-<tr><td>Adversarial probe below all six</td><td class="n">no</td><td class="n">yes</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-64291143bfc1454b.json --></tr>
+<tr><td>Themes recovered</td><td class="n">1 of 6</td><td class="n">6 of 6</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-f035b27a33a941fb.json --></tr>
+<tr><td>Mean purity</td><td class="n">0.620</td><td class="n">0.75</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-f035b27a33a941fb.json --></tr>
+<tr><td>Split themes</td><td class="n">3</td><td class="n">1 at most</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-f035b27a33a941fb.json --></tr>
+<tr><td>Over-merges</td><td class="n">0</td><td class="n">1 at most</td><td class="pass">PASS</td><!-- src: reports/eval/ground-truth-f035b27a33a941fb.json --></tr>
+<tr><td>Citation failures</td><td class="n">10</td><td class="n">0</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-f035b27a33a941fb.json --></tr>
+<tr><td>Noise themes in top 10</td><td class="n">1</td><td class="n">0</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-f035b27a33a941fb.json --></tr>
+<tr><td>Exact top-6 set</td><td class="n">no</td><td class="n">yes</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-f035b27a33a941fb.json --></tr>
+<tr><td>Adversarial probe below all six</td><td class="n">no</td><td class="n">yes</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-f035b27a33a941fb.json --></tr>
 </tbody>
 </table>
 <table>
 <caption>Held-out seed 43</caption>
 <thead><tr><th>Check</th><th class="n">Result</th><th class="n">Floor</th><th>Gate</th></tr></thead>
 <tbody>
-<tr><td>Signal recall</td><td class="n">1.000</td><td class="n">0.85</td><td class="pass">PASS</td><!-- src: reports/eval/holdout-562c69badc9f40b1.json --></tr>
-<tr><td>Quote verification</td><td class="n">1.000</td><td class="n">0.93</td><td class="pass">PASS</td><!-- src: reports/eval/holdout-562c69badc9f40b1.json --></tr>
-<tr><td>Account attribution</td><td class="n">1.000</td><td class="n">1.00</td><td class="pass">PASS</td><!-- src: reports/eval/holdout-562c69badc9f40b1.json --></tr>
-<tr><td>Themes recovered</td><td class="n">0 of 3</td><td class="n">2 of 3</td><td class="fail">FAIL</td><!-- src: reports/eval/holdout-562c69badc9f40b1.json --></tr>
-<tr><td>Mean purity</td><td class="n">not reported</td><td class="n">0.75</td><td class="fail">FAIL</td><!-- src: reports/eval/holdout-562c69badc9f40b1.json --></tr>
-<tr><td>Noise theme in top 10</td><td class="n">1</td><td class="n">0</td><td class="fail">FAIL</td><!-- src: reports/eval/holdout-562c69badc9f40b1.json --></tr>
-<tr><td>Citation failures</td><td class="n">4</td><td class="n">no floor listed</td><td class="fail">FAIL</td><!-- src: reports/eval/holdout-562c69badc9f40b1.json --></tr>
+<tr><td>Signal recall</td><td class="n">1.000</td><td class="n">0.85</td><td class="pass">PASS</td><!-- src: reports/eval/holdout-f855ef88e0354c36.json --></tr>
+<tr><td>Quote verification</td><td class="n">1.000</td><td class="n">0.93</td><td class="pass">PASS</td><!-- src: reports/eval/holdout-f855ef88e0354c36.json --></tr>
+<tr><td>Account attribution</td><td class="n">1.000</td><td class="n">1.00</td><td class="pass">PASS</td><!-- src: reports/eval/holdout-f855ef88e0354c36.json --></tr>
+<tr><td>Themes recovered</td><td class="n">0 of 3</td><td class="n">2 of 3</td><td class="fail">FAIL</td><!-- src: reports/eval/holdout-f855ef88e0354c36.json --></tr>
+<tr><td>Mean purity</td><td class="n">not reported</td><td class="n">0.75</td><td class="fail">FAIL</td><!-- src: reports/eval/holdout-f855ef88e0354c36.json --></tr>
+<tr><td>Noise theme in top 10</td><td class="n">1</td><td class="n">0</td><td class="fail">FAIL</td><!-- src: reports/eval/holdout-f855ef88e0354c36.json --></tr>
+<tr><td>Citation failures</td><td class="n">7</td><td class="n">no floor listed</td><td class="fail">FAIL</td><!-- src: reports/eval/holdout-f855ef88e0354c36.json --></tr>
 </tbody>
 </table>
 <table>
 <caption>Two-batch stability replay</caption>
 <thead><tr><th>Check</th><th class="n">Result</th><th class="n">Floor</th><th>Gate</th></tr></thead>
 <tbody>
-<tr><td>Opportunity IDs lost</td><td class="n">0</td><td class="n">0</td><td class="pass">PASS</td><!-- src: reports/eval/stability-aafd2f15752044d1.json --></tr>
-<tr><td>Memberships shrunk</td><td class="n">0</td><td class="n">0</td><td class="pass">PASS</td><!-- src: reports/eval/stability-aafd2f15752044d1.json --></tr>
-<tr><td>Themes forked across two opportunities</td><td class="n">3</td><td class="n">0</td><td class="fail">FAIL</td><!-- src: reports/eval/stability-aafd2f15752044d1.json --></tr>
+<tr><td>Opportunity IDs lost</td><td class="n">0</td><td class="n">0</td><td class="pass">PASS</td><!-- src: reports/eval/stability-cf084dc8a2c94087.json --></tr>
+<tr><td>Memberships shrunk</td><td class="n">0</td><td class="n">0</td><td class="pass">PASS</td><!-- src: reports/eval/stability-cf084dc8a2c94087.json --></tr>
+<tr><td>Themes forked across two opportunities</td><td class="n">3</td><td class="n">0</td><td class="fail">FAIL</td><!-- src: reports/eval/stability-cf084dc8a2c94087.json --></tr>
 </tbody>
 </table>
 <table>
 <caption>Judges (synthetic labels only; synthetic labels never certify)</caption>
 <thead><tr><th>Judge</th><th class="n">Synthetic labels</th><th class="n">TPR</th><th class="n">TNR</th><th class="n">Real PM labels</th><th>State</th></tr></thead>
 <tbody>
-<tr><td>Signal</td><td class="n">42</td><td class="n">1.00</td><td class="n">0.85</td><td class="n">0 of 50 per class</td><td>calibrating</td><!-- src: reports/eval/judges-767cecdb470d41a1.json --></tr>
-<tr><td>Faithfulness</td><td class="n">8</td><td class="n">1.00</td><td class="n">0.75</td><td class="n">0 of 50 per class</td><td>calibrating</td><!-- src: reports/eval/judges-767cecdb470d41a1.json --></tr>
-<tr><td>Duplicate</td><td class="n">37</td><td class="n">0.95</td><td class="n">0.80</td><td class="n">0 of 50 per class</td><td>calibrating</td><!-- src: reports/eval/judges-767cecdb470d41a1.json --></tr>
+<tr><td>Signal</td><td class="n">42</td><td class="n">1.00</td><td class="n">0.85</td><td class="n">0 of 50 per class</td><td>calibrating</td><!-- src: reports/eval/judges-8599c14cfab44628.json --></tr>
+<tr><td>Faithfulness</td><td class="n">8</td><td class="n">1.00</td><td class="n">0.75</td><td class="n">0 of 50 per class</td><td>calibrating</td><!-- src: reports/eval/judges-8599c14cfab44628.json --></tr>
+<tr><td>Duplicate</td><td class="n">37</td><td class="n">0.95</td><td class="n">0.80</td><td class="n">0 of 50 per class</td><td>calibrating</td><!-- src: reports/eval/judges-8599c14cfab44628.json --></tr>
 </tbody>
 </table>
-<p>Passing on seed 42: signal recall, noise-drop rate, bucket accuracy, quote verification, over-merges, and tagging (both post-ship mentions found). The judges suite passes its own gates: every item judged, no trust without labels. Brief faithfulness on seed 42 is 0.80, reported but not gated.<!-- src: reports/eval/ground-truth-64291143bfc1454b.json, reports/eval/judges-767cecdb470d41a1.json --></p>
+<p>Passing on seed 42: signal recall, noise-drop rate, bucket accuracy, quote verification, over-merges, and tagging (both post-ship mentions found). The judges suite passes its own gates: every item judged, no trust without labels. Brief faithfulness on seed 42 is 0.90, reported but not gated.<!-- src: reports/eval/ground-truth-f035b27a33a941fb.json, reports/eval/judges-8599c14cfab44628.json --></p>
 </div>
 <!-- EVAL-RESULTS END -->
 
