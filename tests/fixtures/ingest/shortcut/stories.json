@@ -1,0 +1,12 @@
+{
+  "stories": [
+    {
+      "id": 1,
+      "name": "Fix upload",
+      "story_type": "bug",
+      "completed": true,
+      "completed_at": "2026-10-01T00:00:00Z",
+      "description": null
+    }
+  ]
+}
