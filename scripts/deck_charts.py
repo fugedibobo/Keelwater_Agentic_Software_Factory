@@ -89,7 +89,7 @@ def telemetry_rows():
     with open(ROOT / "reports" / "factory" / "build-telemetry.csv", encoding="utf-8", newline="") as f:
         for r in csv.DictReader(f):
             b, t = r["tokens_basis"], r["tokens_total"]
-            if b in ("measured", "estimated"):
+            if b in ("measured", "estimated") and t.isdigit():
                 d[r["engine"]][b] += int(t)
             else:
                 d[r["engine"]]["none"] += 1
@@ -98,7 +98,8 @@ def telemetry_rows():
 
 def telemetry_chart():
     d = telemetry_rows()
-    W, X0, SC = 960, 90, 500 / 3_555_000
+    W, X0 = 960, 90
+    SC = 500 / max(max(v["measured"], v["estimated"]) for v in d.values())
     H = 50 + 84 * len(d)
     defs = ('<defs><pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">'
             '<rect width="7" height="7" class="sf"/><line x1="0" y1="0" x2="0" y2="7" class="hl"/></pattern></defs>')

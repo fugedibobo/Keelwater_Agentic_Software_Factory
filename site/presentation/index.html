@@ -222,7 +222,7 @@ figure img{width:100%;height:auto;display:block;border:1px solid var(--rule);bor
 <ul>
 <li>Halving idea-to-customer time within 18 months is not plausible on my mid inputs: 79% of today's lead time at month 18.<!-- src: reports/halving/summary.md --></li>
 <li>Six recommendations follow, each linked to its slide.<!-- src: docs/part1-diagnosis-and-plan.md --></li>
-<li>Part 2 runs end to end, but its quality floors fail on the latest eval run (slide 7).<!-- src: reports/eval/ground-truth-6eb6524e16bf4ed7.json --></li>
+<li>Part 2 runs end to end, but its quality floors fail on the latest eval run (slide 7).<!-- src: reports/eval/ground-truth-efe009d511d14c7d.json --></li>
 </ul>
 </div>
 <table>
@@ -1128,8 +1128,8 @@ figure img{width:100%;height:auto;display:block;border:1px solid var(--rule);bor
 <h2 id="h7">It runs end to end; its quality floors fail on the latest eval run.</h2><!-- src: reports/runs/latest-demo.json -->
 <ul>
 <li>The demo data is synthetic: 30 fictional insurers, about 200 records from seven tools, about 1,200 snippets. Code checks every quote and citation.<!-- src: README.md --></li>
-<li>The three AI judges show "calibrating": none has the 50 real PM labels per class it needs.<!-- src: reports/eval/judges-c8f850aeaaae4f24.json --></li>
-<li>The extract filter is merged (PR #55) and each seed has had its one re-run. The floors still fail, and per the author's ruling there is no further loop.<!-- src: GitHub issue #7 Done report (not a repo file) --></li>
+<li>The three AI judges show "calibrating": none has the 50 real PM labels per class it needs.<!-- src: reports/eval/judges-8483fdb0aaee4817.json --></li>
+<li>The extract filter is merged (PR #55) and each seed had its one re-run. The floors still fail, and per the author's ruling there is no further loop.<!-- src: GitHub issue #7 Done report (not a repo file) --></li>
 </ul>
 <p class="cue">Detail below</p>
 </div>
@@ -1157,68 +1157,77 @@ figure img{width:100%;height:auto;display:block;border:1px solid var(--rule);bor
 <p>Running cost is about USD 0.8 per nightly run at demo volume <span class="tag">INFERRED</span> from list prices.<!-- src: docs/architecture.md --> The first live run cost about USD 1.0, estimated by the runner, not metered.<!-- src: docs/ai-usage.md --></p>
 <p>Phoenix also holds 4 datasets and 1 experiment. There are no human labels yet, so human and judge verdicts cannot be shown side by side.<!-- src: docs/screenshots/phoenix-experiments.png (also GitHub issue #10 final comment, not a repo file) --></p>
 
+<h3>Verification</h3>
+<ul class="plain">
+<li>The pre-publish scan of the tree, history, PR heads and issue text (main 480d221) found 0 hits.<!-- src: GitHub issue #13 Done report (not a repo file) --></li>
+<li>From a clean clone with no .env, the replay printed MATCH in 58 s.<!-- src: README.md --></li>
+<li>The canonical run cost USD 0.00 (every call a cache hit); the fresh live proof cost USD 0.198 metered.<!-- src: GitHub issue #13 Done report (not a repo file) --></li>
+<li>An adversarial review by gpt-6.1-sol, a different model family from the Sonnet builders, returned BLOCK twice. Fixes came with failing-first tests; three narrowed items and the outbox ordering are in the README Limits.<!-- src: docs/build-plan.md, README.md --></li>
+<li>The README now carries the results, the limits and how AI was used.<!-- src: README.md --></li>
+</ul>
+
 <!-- EVAL-RESULTS START -->
 <div class="block" id="eval">
-<h3>Eval results, as of 04/11/2026 13:16 UTC</h3>
-<p>Floors come from docs/evals.md. PASS and FAIL are each suite's own gates. Suite files are in reports/eval/ (ground truth 6eb6524e16bf4ed7, holdout 18689fbcca9d4b0a, stability 13baecb8ba094d06, judges c8f850aeaaae4f24). The extract filter is merged (PR #55), one re-run per seed is done, and the floors still fail; per the author's ruling there is no further loop.<!-- src: reports/eval/ground-truth-6eb6524e16bf4ed7.json --> The filter dropped 57 of 360 snippets at extract and kept 303 insights.<!-- src: GitHub issue #7 Done report (not a repo file) --> The diagnosis is that clustering is the limit: average-linkage cosine cannot separate planted themes that share vocabulary.<!-- src: GitHub issue #7 Done report (not a repo file) --> Issue #13 (verification) is still open; its README limits and Done report are pending.<!-- src: GitHub issue #13 (not a repo file) --></p>
+<h3>Eval results, as of 04/11/2026 15:34 UTC</h3>
+<p>Floors come from docs/evals.md. PASS and FAIL are each suite's own gates. Suite files are in reports/eval/ (ground truth efe009d511d14c7d, holdout 67fb4d4fbff640ad, stability 6d7f81793bec4276, judges 8483fdb0aaee4817). The extract filter is merged (PR #55), one re-run per seed is done, and the floors still fail; per the author's ruling there is no further loop.<!-- src: reports/eval/ground-truth-efe009d511d14c7d.json --> The filter dropped 57 of 360 snippets at extract and kept 303 insights.<!-- src: GitHub issue #7 Done report (not a repo file) --> The diagnosis is that clustering is the limit: average-linkage cosine cannot separate planted themes that share vocabulary.<!-- src: GitHub issue #7 Done report (not a repo file) --> The #13 verification re-ran eval --suite all and gave the same verdicts and metrics.<!-- src: reports/eval/ground-truth-efe009d511d14c7d.json, reports/eval/stability-6d7f81793bec4276.json --></p>
 <table>
 <caption>Triage and extraction, seed 42</caption>
 <thead><tr><th>Check</th><th class="n">Result</th><th class="n">Floor</th><th>Gate</th></tr></thead>
 <tbody>
-<tr><td>Signal recall</td><td class="n">0.952</td><td class="n">0.90</td><td class="pass">PASS</td><!-- src: reports/eval/ground-truth-6eb6524e16bf4ed7.json --></tr>
-<tr><td>Noise-drop rate</td><td class="n">0.637</td><td class="n">0.60</td><td class="pass">PASS</td><!-- src: reports/eval/ground-truth-6eb6524e16bf4ed7.json --></tr>
-<tr><td>Bucket accuracy</td><td class="n">0.899</td><td class="n">0.75</td><td class="pass">PASS</td><!-- src: reports/eval/ground-truth-6eb6524e16bf4ed7.json --></tr>
-<tr><td>Quote verification</td><td class="n">0.990 (300 of 303)</td><td class="n">0.93</td><td class="pass">PASS</td><!-- src: reports/eval/ground-truth-6eb6524e16bf4ed7.json --></tr>
-<tr><td>Account attribution</td><td class="n">0.981</td><td class="n">1.00</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-6eb6524e16bf4ed7.json --></tr>
-<tr><td>Noise-audit miss rate</td><td class="n">estimate 0%; exact 0.57%</td><td class="n">reported</td><td>n/a</td><!-- src: reports/eval/ground-truth-6eb6524e16bf4ed7.json --></tr>
+<tr><td>Signal recall</td><td class="n">0.952</td><td class="n">0.90</td><td class="pass">PASS</td><!-- src: reports/eval/ground-truth-efe009d511d14c7d.json --></tr>
+<tr><td>Noise-drop rate</td><td class="n">0.637</td><td class="n">0.60</td><td class="pass">PASS</td><!-- src: reports/eval/ground-truth-efe009d511d14c7d.json --></tr>
+<tr><td>Bucket accuracy</td><td class="n">0.899</td><td class="n">0.75</td><td class="pass">PASS</td><!-- src: reports/eval/ground-truth-efe009d511d14c7d.json --></tr>
+<tr><td>Quote verification</td><td class="n">0.990 (300 of 303)</td><td class="n">0.93</td><td class="pass">PASS</td><!-- src: reports/eval/ground-truth-efe009d511d14c7d.json --></tr>
+<tr><td>Account attribution</td><td class="n">0.981</td><td class="n">1.00</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-efe009d511d14c7d.json --></tr>
+<tr><td>Noise-audit miss rate</td><td class="n">estimate 0%; exact 0.57%</td><td class="n">reported</td><td>n/a</td><!-- src: reports/eval/ground-truth-efe009d511d14c7d.json --></tr>
 </tbody>
 </table>
 <table>
 <caption>Clusters, ranking and briefs, seed 42</caption>
 <thead><tr><th>Check</th><th class="n">Result</th><th class="n">Floor</th><th>Gate</th></tr></thead>
 <tbody>
-<tr><td>Themes recovered</td><td class="n">2 of 6</td><td class="n">6 of 6</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-6eb6524e16bf4ed7.json --></tr>
-<tr><td>Mean purity</td><td class="n">0.588</td><td class="n">0.75</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-6eb6524e16bf4ed7.json --></tr>
-<tr><td>Split themes</td><td class="n">2</td><td class="n">1 at most</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-6eb6524e16bf4ed7.json --></tr>
-<tr><td>Over-merges</td><td class="n">0</td><td class="n">1 at most</td><td class="pass">PASS</td><!-- src: reports/eval/ground-truth-6eb6524e16bf4ed7.json --></tr>
-<tr><td>Citation failures</td><td class="n">7</td><td class="n">0</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-6eb6524e16bf4ed7.json --></tr>
-<tr><td>Noise themes in top 10</td><td class="n">0</td><td class="n">0</td><td class="pass">PASS</td><!-- src: reports/eval/ground-truth-6eb6524e16bf4ed7.json --></tr>
-<tr><td>Exact top-6 set</td><td class="n">no</td><td class="n">yes</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-6eb6524e16bf4ed7.json --></tr>
-<tr><td>Adversarial probe below all six</td><td class="n">yes</td><td class="n">yes</td><td class="pass">PASS</td><!-- src: reports/eval/ground-truth-6eb6524e16bf4ed7.json --></tr>
+<tr><td>Themes recovered</td><td class="n">2 of 6</td><td class="n">6 of 6</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-efe009d511d14c7d.json --></tr>
+<tr><td>Mean purity</td><td class="n">0.588</td><td class="n">0.75</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-efe009d511d14c7d.json --></tr>
+<tr><td>Split themes</td><td class="n">2</td><td class="n">1 at most</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-efe009d511d14c7d.json --></tr>
+<tr><td>Over-merges</td><td class="n">0</td><td class="n">1 at most</td><td class="pass">PASS</td><!-- src: reports/eval/ground-truth-efe009d511d14c7d.json --></tr>
+<tr><td>Citation failures</td><td class="n">7</td><td class="n">0</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-efe009d511d14c7d.json --></tr>
+<tr><td>Noise themes in top 10</td><td class="n">0</td><td class="n">0</td><td class="pass">PASS</td><!-- src: reports/eval/ground-truth-efe009d511d14c7d.json --></tr>
+<tr><td>Exact top-6 set</td><td class="n">no</td><td class="n">yes</td><td class="fail">FAIL</td><!-- src: reports/eval/ground-truth-efe009d511d14c7d.json --></tr>
+<tr><td>Adversarial probe below all six</td><td class="n">yes</td><td class="n">yes</td><td class="pass">PASS</td><!-- src: reports/eval/ground-truth-efe009d511d14c7d.json --></tr>
 </tbody>
 </table>
 <table>
 <caption>Held-out seed 43</caption>
 <thead><tr><th>Check</th><th class="n">Result</th><th class="n">Floor</th><th>Gate</th></tr></thead>
 <tbody>
-<tr><td>Signal recall</td><td class="n">1.000</td><td class="n">0.85</td><td class="pass">PASS</td><!-- src: reports/eval/holdout-18689fbcca9d4b0a.json --></tr>
-<tr><td>Quote verification</td><td class="n">1.000</td><td class="n">0.93</td><td class="pass">PASS</td><!-- src: reports/eval/holdout-18689fbcca9d4b0a.json --></tr>
-<tr><td>Account attribution</td><td class="n">1.000</td><td class="n">1.00</td><td class="pass">PASS</td><!-- src: reports/eval/holdout-18689fbcca9d4b0a.json --></tr>
-<tr><td>Themes recovered</td><td class="n">0 of 3</td><td class="n">2 of 3</td><td class="fail">FAIL</td><!-- src: reports/eval/holdout-18689fbcca9d4b0a.json --></tr>
-<tr><td>Mean purity</td><td class="n">0.389</td><td class="n">0.75</td><td class="fail">FAIL</td><!-- src: reports/eval/holdout-18689fbcca9d4b0a.json --></tr>
-<tr><td>Noise theme in top 10</td><td class="n">1</td><td class="n">0</td><td class="fail">FAIL</td><!-- src: reports/eval/holdout-18689fbcca9d4b0a.json --></tr>
-<tr><td>Citation failures</td><td class="n">5</td><td class="n">no floor listed</td><td class="fail">FAIL</td><!-- src: reports/eval/holdout-18689fbcca9d4b0a.json --></tr>
+<tr><td>Signal recall</td><td class="n">1.000</td><td class="n">0.85</td><td class="pass">PASS</td><!-- src: reports/eval/holdout-67fb4d4fbff640ad.json --></tr>
+<tr><td>Quote verification</td><td class="n">1.000</td><td class="n">0.93</td><td class="pass">PASS</td><!-- src: reports/eval/holdout-67fb4d4fbff640ad.json --></tr>
+<tr><td>Account attribution</td><td class="n">1.000</td><td class="n">1.00</td><td class="pass">PASS</td><!-- src: reports/eval/holdout-67fb4d4fbff640ad.json --></tr>
+<tr><td>Themes recovered</td><td class="n">0 of 3</td><td class="n">2 of 3</td><td class="fail">FAIL</td><!-- src: reports/eval/holdout-67fb4d4fbff640ad.json --></tr>
+<tr><td>Mean purity</td><td class="n">0.389</td><td class="n">0.75</td><td class="fail">FAIL</td><!-- src: reports/eval/holdout-67fb4d4fbff640ad.json --></tr>
+<tr><td>Noise theme in top 10</td><td class="n">1</td><td class="n">0</td><td class="fail">FAIL</td><!-- src: reports/eval/holdout-67fb4d4fbff640ad.json --></tr>
+<tr><td>Citation failures</td><td class="n">5</td><td class="n">no floor listed</td><td class="fail">FAIL</td><!-- src: reports/eval/holdout-67fb4d4fbff640ad.json --></tr>
 </tbody>
 </table>
 <table>
 <caption>Two-batch stability replay</caption>
 <thead><tr><th>Check</th><th class="n">Result</th><th class="n">Floor</th><th>Gate</th></tr></thead>
 <tbody>
-<tr><td>Opportunity IDs lost</td><td class="n">0</td><td class="n">0</td><td class="pass">PASS</td><!-- src: reports/eval/stability-13baecb8ba094d06.json --></tr>
-<tr><td>Memberships shrunk</td><td class="n">0</td><td class="n">0</td><td class="pass">PASS</td><!-- src: reports/eval/stability-13baecb8ba094d06.json --></tr>
-<tr><td>Themes forked across two opportunities</td><td class="n">2</td><td class="n">0</td><td class="fail">FAIL</td><!-- src: reports/eval/stability-13baecb8ba094d06.json --></tr>
+<tr><td>Opportunity IDs lost</td><td class="n">0</td><td class="n">0</td><td class="pass">PASS</td><!-- src: reports/eval/stability-6d7f81793bec4276.json --></tr>
+<tr><td>Memberships shrunk</td><td class="n">0</td><td class="n">0</td><td class="pass">PASS</td><!-- src: reports/eval/stability-6d7f81793bec4276.json --></tr>
+<tr><td>Themes forked across two opportunities</td><td class="n">2</td><td class="n">0</td><td class="fail">FAIL</td><!-- src: reports/eval/stability-6d7f81793bec4276.json --></tr>
 </tbody>
 </table>
 <table>
 <caption>Judges (synthetic labels only; synthetic labels never certify)</caption>
 <thead><tr><th>Judge</th><th class="n">Synthetic labels</th><th class="n">TPR</th><th class="n">TNR</th><th class="n">Real PM labels</th><th>State</th></tr></thead>
 <tbody>
-<tr><td>Signal</td><td class="n">42</td><td class="n">1.00</td><td class="n">0.85</td><td class="n">0 of 50 per class</td><td>calibrating</td><!-- src: reports/eval/judges-c8f850aeaaae4f24.json --></tr>
-<tr><td>Faithfulness</td><td class="n">8</td><td class="n">1.00</td><td class="n">0.75</td><td class="n">0 of 50 per class</td><td>calibrating</td><!-- src: reports/eval/judges-c8f850aeaaae4f24.json --></tr>
-<tr><td>Duplicate</td><td class="n">37</td><td class="n">0.95</td><td class="n">0.80</td><td class="n">0 of 50 per class</td><td>calibrating</td><!-- src: reports/eval/judges-c8f850aeaaae4f24.json --></tr>
+<tr><td>Signal</td><td class="n">42</td><td class="n">1.00</td><td class="n">0.85</td><td class="n">0 of 50 per class</td><td>calibrating</td><!-- src: reports/eval/judges-8483fdb0aaee4817.json --></tr>
+<tr><td>Faithfulness</td><td class="n">8</td><td class="n">1.00</td><td class="n">0.75</td><td class="n">0 of 50 per class</td><td>calibrating</td><!-- src: reports/eval/judges-8483fdb0aaee4817.json --></tr>
+<tr><td>Duplicate</td><td class="n">37</td><td class="n">0.95</td><td class="n">0.80</td><td class="n">0 of 50 per class</td><td>calibrating</td><!-- src: reports/eval/judges-8483fdb0aaee4817.json --></tr>
 </tbody>
 </table>
-<p>Also failing on seed 42: the tagging check (a hard negative was tagged on_roadmap) and the contradictory-evidence check. Both post-ship mentions were found. Brief faithfulness on seed 42 is 0.80, reported but not gated. The judges suite passes its own gates: every item judged, no trust without labels.<!-- src: reports/eval/ground-truth-6eb6524e16bf4ed7.json --><!-- src: reports/eval/judges-c8f850aeaaae4f24.json --></p>
+<p>Also failing on seed 42: the tagging check (a hard negative was tagged on_roadmap) and the contradictory-evidence check. Both post-ship mentions were found. Brief faithfulness on seed 42 is 0.80, reported but not gated. The judges suite passes its own gates: every item judged, no trust without labels.<!-- src: reports/eval/ground-truth-efe009d511d14c7d.json --><!-- src: reports/eval/judges-8483fdb0aaee4817.json --></p>
 </div>
 <!-- EVAL-RESULTS END -->
 
@@ -1233,34 +1242,35 @@ figure img{width:100%;height:auto;display:block;border:1px solid var(--rule);bor
 <h2 id="h8">AI built most of it; I held the spend limit and every judgement call.</h2><!-- src: docs/ai-usage.md -->
 <ul>
 <!-- TELEMETRY START -->
-<li>Sonnet subagents built 11 of the 12 done or partial work orders (92%).<!-- src: reports/factory/build-telemetry.csv --></li>
-<li>Build rows took 1,274.2 wall minutes in total, including waiting. Measured tokens: 3,608,000.<!-- src: reports/factory/build-telemetry.csv --></li>
-<li>Live model spend: USD 1.27, estimated.<!-- src: reports/factory/build-telemetry.csv --></li>
+<li>Sonnet subagents built 12 of the 13 work orders (92%); Codex and agy built 1 of 13 (8%).<!-- src: reports/factory/build-telemetry.csv --></li>
+<li>Build rows took 2,180.4 wall minutes in total, including waiting. Measured tokens: 4,321,000.<!-- src: reports/factory/build-telemetry.csv --></li>
+<li>Live model spend: USD 0.51 measured and USD 1.44 estimated, never added together.<!-- src: reports/factory/build-telemetry.csv --></li>
 <!-- TELEMETRY END -->
 </ul>
 <p class="cue">Detail below</p>
 </div>
 <h3>The short account</h3>
 <ol class="plain">
-<li>What was used. Claude did most of the work. An Opus session planned, dispatched work orders and merged. Sonnet subagents built 11 of the 12 done or partial work orders (92%), checked every pull request and ran the live steps. Haiku read and searched. Codex was the planned builder but built only one offline generator.<!-- src: docs/ai-usage.md --></li>
+<li>What was used. Claude did most of the work. An Opus session planned, dispatched work orders and merged. Sonnet subagents built 12 of the 13 work orders (92%), checked every pull request and ran the live steps. Haiku read and searched. Codex was the planned builder but built only #2's offline generator (PR #33); it stalled or hit its usage limit on #1, #4, #5, #6 and #10. agy (Gemini) was blocked on #7. Together they built 1 of 13 (8%).<!-- src: docs/ai-usage.md --></li>
 <li>Where I trusted it, and where I overrode it. I trusted mechanical work once the tests ran and a separate check passed. I overrode four AI recommendations: open-weight models instead of a paid frontier API, a public repo, a one-day demo build, and keeping a decision model the AI had dismissed.<!-- src: docs/ai-usage.md --></li>
-<li>What AI got wrong, and how it was caught. The AI put a closed-weight, US-hosted decision model into production triage. Research found it cannot run inside a private network, so I replaced it. A worker's report also said 5 links where the PDF had 4. An independent check caught it, but the first check had passed the same commit, and the issue was reopened.<!-- src: docs/ai-usage.md --></li>
+<li>What AI got wrong, and how it was caught. The AI put a closed-weight, US-hosted decision model into production triage. Research found it cannot run inside a private network, so I replaced it. A worker's report also said 5 links where the PDF had 4, and a footnote link went nowhere (#12, PR #22). The planning chat flagged it seven minutes after the Done report. The first Sonnet check then passed the same commit four minutes later, the merge went ahead on that pass, and the issue was reopened.<!-- src: docs/ai-usage.md --></li>
 </ol>
 <figure class="fig">
-<svg class="chart" viewBox="0 0 960 386" role="img" aria-labelledby="t652925536"><title id="t652925536">Tokens per engine on this build, measured and estimated apart</title><desc>Measured tokens, estimated tokens and the count of rows with no figure, per engine, from the build telemetry file. sonnet: 3,555,000 measured, 187,000 estimated, 5 rows not reported; agy: 53,000 measured, 0 estimated, 0 rows not reported; codex: 0 measured, 0 estimated, 9 rows not reported; opus: 0 measured, 107,000 estimated, 0 rows not reported.</desc><defs><pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="7" height="7" class="sf"/><line x1="0" y1="0" x2="0" y2="7" class="hl"/></pattern></defs><text class="tk" x="952" y="18" text-anchor="end">Rows with no token figure (one square each)</text><text class="tl" x="0" y="72">sonnet</text><rect class="bar c1" x="90" y="36" width="500.0" height="26" rx="3"/><text class="tk" x="600.0" y="55">3,555,000 measured</text><rect class="bar est" x="90" y="70" width="26.3" height="26" rx="3"/><text class="tk" x="126.3" y="89">187,000 estimated</text><rect class="nr" x="936" y="54" width="18" height="18" rx="2"/><rect class="nr" x="912" y="54" width="18" height="18" rx="2"/><rect class="nr" x="888" y="54" width="18" height="18" rx="2"/><rect class="nr" x="864" y="54" width="18" height="18" rx="2"/><rect class="nr" x="840" y="54" width="18" height="18" rx="2"/><text class="tl" x="0" y="156">agy</text><rect class="bar c1" x="90" y="120" width="7.5" height="26" rx="3"/><text class="tk" x="107.5" y="139">53,000 measured</text><text class="tk" x="94" y="173">0 estimated</text><text class="tl" x="0" y="240">codex</text><text class="tk" x="94" y="223">0 measured</text><text class="tk" x="94" y="257">0 estimated</text><rect class="nr" x="936" y="222" width="18" height="18" rx="2"/><rect class="nr" x="912" y="222" width="18" height="18" rx="2"/><rect class="nr" x="888" y="222" width="18" height="18" rx="2"/><rect class="nr" x="864" y="222" width="18" height="18" rx="2"/><rect class="nr" x="840" y="222" width="18" height="18" rx="2"/><rect class="nr" x="816" y="222" width="18" height="18" rx="2"/><rect class="nr" x="792" y="222" width="18" height="18" rx="2"/><rect class="nr" x="768" y="222" width="18" height="18" rx="2"/><rect class="nr" x="744" y="222" width="18" height="18" rx="2"/><text class="tl" x="0" y="324">opus</text><text class="tk" x="94" y="307">0 measured</text><rect class="bar est" x="90" y="322" width="15.0" height="26" rx="3"/><text class="tk" x="115.0" y="341">107,000 estimated</text></svg>
-<figcaption>Tokens per engine across the 47 telemetry rows. Measured and estimated tokens are kept apart; rows with no figure are counted, never added in. Haiku and the planning chat's own tokens are not in this file.<!-- src: reports/factory/build-telemetry.csv --></figcaption>
+<svg class="chart" viewBox="0 0 960 386" role="img" aria-labelledby="t652925536"><title id="t652925536">Tokens per engine on this build, measured and estimated apart</title><desc>Measured tokens, estimated tokens and the count of rows with no figure, per engine, from the build telemetry file. sonnet: 4,268,000 measured, 2,087,000 estimated, 6 rows not reported; agy: 53,000 measured, 0 estimated, 0 rows not reported; codex: 0 measured, 0 estimated, 8 rows not reported; opus: 0 measured, 157,000 estimated, 0 rows not reported.</desc><defs><pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="7" height="7" class="sf"/><line x1="0" y1="0" x2="0" y2="7" class="hl"/></pattern></defs><text class="tk" x="952" y="18" text-anchor="end">Rows with no token figure (one square each)</text><text class="tl" x="0" y="72">sonnet</text><rect class="bar c1" x="90" y="36" width="500.0" height="26" rx="3"/><text class="tk" x="600.0" y="55">4,268,000 measured</text><rect class="bar est" x="90" y="70" width="244.5" height="26" rx="3"/><text class="tk" x="344.5" y="89">2,087,000 estimated</text><rect class="nr" x="936" y="54" width="18" height="18" rx="2"/><rect class="nr" x="912" y="54" width="18" height="18" rx="2"/><rect class="nr" x="888" y="54" width="18" height="18" rx="2"/><rect class="nr" x="864" y="54" width="18" height="18" rx="2"/><rect class="nr" x="840" y="54" width="18" height="18" rx="2"/><rect class="nr" x="816" y="54" width="18" height="18" rx="2"/><text class="tl" x="0" y="156">agy</text><rect class="bar c1" x="90" y="120" width="6.2" height="26" rx="3"/><text class="tk" x="106.2" y="139">53,000 measured</text><text class="tk" x="94" y="173">0 estimated</text><text class="tl" x="0" y="240">codex</text><text class="tk" x="94" y="223">0 measured</text><text class="tk" x="94" y="257">0 estimated</text><rect class="nr" x="936" y="222" width="18" height="18" rx="2"/><rect class="nr" x="912" y="222" width="18" height="18" rx="2"/><rect class="nr" x="888" y="222" width="18" height="18" rx="2"/><rect class="nr" x="864" y="222" width="18" height="18" rx="2"/><rect class="nr" x="840" y="222" width="18" height="18" rx="2"/><rect class="nr" x="816" y="222" width="18" height="18" rx="2"/><rect class="nr" x="792" y="222" width="18" height="18" rx="2"/><rect class="nr" x="768" y="222" width="18" height="18" rx="2"/><text class="tl" x="0" y="324">opus</text><text class="tk" x="94" y="307">0 measured</text><rect class="bar est" x="90" y="322" width="18.4" height="26" rx="3"/><text class="tk" x="118.4" y="341">157,000 estimated</text></svg>
+<figcaption>Tokens per engine across the 55 telemetry rows. Measured and estimated tokens are kept apart; rows with no figure are counted, never added in. Haiku and the planning chat's own tokens are not in this file.<!-- src: reports/factory/build-telemetry.csv --></figcaption>
 </figure>
 <h3>Agent time, tokens and spend against my hours</h3>
 <table>
 <thead><tr><th>Measure</th><th>Value and basis</th></tr></thead>
 <tbody>
 <!-- TELEMETRY START -->
-<tr><td>Agent wall time</td><td>1,274.2 minutes across 12 build rows (about 21.2 hours). It runs from Started to the final report and includes waiting; it is not engine time.<!-- src: docs/ai-usage.md --></td></tr>
-<tr><td>Tokens, measured</td><td class="num">3,608,000 across 47 rows (13 work orders)<!-- src: reports/factory/build-telemetry.csv --></td></tr>
-<tr><td>Tokens, estimated</td><td class="num">294,000<!-- src: reports/factory/build-telemetry.csv --></td></tr>
-<tr><td>Rows with tokens not reported</td><td class="num">14<!-- src: reports/factory/build-telemetry.csv --></td></tr>
-<tr><td>Live model spend</td><td>USD 1.27 estimated (#2 USD 0.27; #7 USD 1.0); not reported on four rows<!-- src: reports/factory/build-telemetry.csv --></td></tr>
-<tr><td>Planning-session subagents (not in the CSV)</td><td>2,140,560 measured over 20 runs (Sonnet 1,778,758; Haiku 361,802). The harness does not report the orchestrator's own tokens.<!-- src: docs/ai-usage.md --></td></tr>
+<tr><td>Agent wall time</td><td>2,180.4 minutes across 13 build rows (about 36.3 hours). It runs from Started to the final report and includes waiting; it is not engine time, and work orders ran in parallel.<!-- src: docs/ai-usage.md --></td></tr>
+<tr><td>Tokens, measured</td><td class="num">4,321,000 across 55 rows (13 work orders)</td><!-- src: reports/factory/build-telemetry.csv --></tr>
+<tr><td>Tokens, estimated</td><td class="num">2,244,000</td><!-- src: reports/factory/build-telemetry.csv --></tr>
+<tr><td>Rows with tokens not reported</td><td class="num">14</td><!-- src: reports/factory/build-telemetry.csv --></tr>
+<tr><td>Live model spend</td><td>USD 0.51 measured (#7 0.14, #13 0.3688); USD 1.44 estimated (#2, #7, #13); not reported for #4, #11 and #12<!-- src: docs/ai-usage.md --></td></tr>
+<tr><td>First check, build rows</td><td>Sonnet 7 of 12 passed (58%), Codex 1 of 1; 5 REWORK verdicts in total<!-- src: reports/factory/build-telemetry.csv --></td></tr>
+<tr><td>Build-session subagents (not in the CSV)</td><td>3,468,573 measured over 29 runs through about 15:30 UTC (Sonnet 2,857,635; Haiku 610,938). The harness does not report the orchestrator's own tokens.<!-- src: docs/ai-usage.md --></td></tr>
 <!-- TELEMETRY END -->
 <tr><td>Plan</td><td>About 22 agent-hours<!-- src: docs/ai-usage.md --></td></tr>
 <tr><td>My own time</td><td>About 2 hours by 04/11/2026 02:30 (my estimate), within the 4-hour ask<!-- src: docs/ai-usage.md --></td></tr>
@@ -1274,6 +1284,7 @@ figure img{width:100%;height:auto;display:block;border:1px solid var(--rule);bor
 <tr><td>04/11/2026 00:44</td><td>Build starts a day late; pre-flight finds no key, so live steps wait<!-- src: docs/ai-usage.md --></td></tr>
 <tr><td>04/11/2026 03:32 to 03:45</td><td>Halving model: not plausible within 18 months (79% on mid inputs)<!-- src: docs/ai-usage.md --></td></tr>
 <tr><td>04/11/2026 04:33 to 12:09</td><td>PRs #45 to #50 merged: Phoenix, synthetic data, eval suites, Phoenix evidence, telemetry<!-- src: docs/ai-usage.md --></td></tr>
+<tr><td>04/11/2026 12:22 to 14:54</td><td>#13 review fixes (PRs #51, #52), the capped #7 re-runs (PR #55) and the #13 verification (PR #58) merged<!-- src: docs/ai-usage.md --></td></tr>
 </tbody>
 </table>
 <h3>Human gates on this build</h3>
