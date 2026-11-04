@@ -44,6 +44,7 @@ def run(ctx):
     system = prompt.replace("{{buckets}}", taxonomy).replace("{{types}}", ", ".join(t.value for t in SignalType))
     state = {"down": gw.stage_cfg("triage").get("backend") != "clef"}  # a profile without a decision backend uses the fallback model
     lock = threading.Lock()
+    misses = [0]
 
     def primary(sn):
         with lock:
@@ -86,7 +87,9 @@ def run(ctx):
         try:
             got = primary(sn) or fallback(sn)
         except ReplayMiss:
-            return None  # shortcut: replay with no recorded answer leaves the snippet untriaged-and-unrowed, upgrade once the demo cache is recorded
+            with lock:
+                misses[0] += 1
+            got = None  # replay with no recorded answer: untriaged row, counted as a cache miss
         ms = round((time.perf_counter() - t0) * 1000, 2)
         if got is None:  # shortcut: no per-snippet retry beyond the gateway's, a later run retries via the cache miss
             return {"snippet_id": sn["snippet_id"], "run_id": ctx.run_id, "backend": "none", "decision": "untriaged", "latency_ms": ms}
@@ -95,14 +98,14 @@ def run(ctx):
                 "is_signal_p": o["is_signal_p"], "bucket": o["bucket"], "bucket_conf": o["bucket_conf"], "severity": o["severity"],
                 "signal_type": o["signal_type"], "decision": gate(o["is_signal_p"], o["bucket_conf"], cfg["backends"][backend])}
 
-    rows = [r for r in gw.map(triage_one, snippets) if r]
-    missed = len(snippets) - len(rows)
+    rows = gw.map(triage_one, snippets)
+    missed = gw.triage_cache_misses = misses[0]
     weights = audit_sample(rows, cfg_strata(ctx))
     for r in rows:
         ctx.store.insert("triage", Triage(**r, audit_weight=weights.get(r["snippet_id"])), replace=True)
     counts = {d: sum(r["decision"] == d for r in rows) for d in ("keep", "drop", "low_confidence", "untriaged")}
-    assert sum(counts.values()) == len(rows), f"triage reconciliation failed: {counts} vs {len(rows)} snippets"
-    print(f"triage: {len(rows)} snippets = " + " + ".join(f"{v} {k}" for k, v in counts.items()) + f"; audit queue {len(weights)}" + (f"; {missed} not in the replay cache" if missed else ""))
+    assert sum(counts.values()) == len(snippets), f"triage reconciliation failed: {counts} vs {len(snippets)} snippets"
+    print(f"triage: {len(snippets)} snippets = " + " + ".join(f"{v} {k}" for k, v in counts.items()) + f"; audit queue {len(weights)}" + (f"; {missed} not in the replay cache" if missed else ""))
     if rows and counts["untriaged"] / len(rows) > 0.01:
         print(f"triage: ALERT {counts['untriaged']} untriaged is above 1% of the run")
     return counts

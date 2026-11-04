@@ -104,12 +104,28 @@ def test_budget_exceeded_is_not_swallowed(tmp_store, fake_gateway):
 
 
 def test_reconciliation_and_a_decision_per_band(tmp_store, fake_gateway, capsys):
-    p = {"keep": 0.9, "drop": 0.02, "mid": 0.3}
-    ctx, _ = setup(tmp_store, fake_gateway, {"triage": lambda b: answers(p[b["state"]])}, {"s1": "keep", "s2": "drop", "s3": "mid", "s4": "keep"})
+    p = {"keep": 0.9, "drop": 0.02, "mid": 0.3, "keep too": 0.9}  # distinct texts: equal texts share one cache file that a parallel read can see half-written
+    ctx, _ = setup(tmp_store, fake_gateway, {"triage": lambda b: answers(p[b["state"]])}, {"s1": "keep", "s2": "drop", "s3": "mid", "s4": "keep too"})
     counts = triage.run(ctx)
     assert counts == {"keep": 2, "drop": 1, "low_confidence": 1, "untriaged": 0}
     assert "4 snippets = 2 keep + 1 drop + 1 low_confidence + 0 untriaged" in capsys.readouterr().out
     assert len(rows(tmp_store)) == 4
+
+
+def test_replay_cache_miss_is_an_untriaged_row_and_reconciles_to_snippets_in(tmp_store, fake_gateway, capsys):
+    for sid in ("s1", "s2", "s3"):
+        tmp_store.insert("snippet", Snippet(snippet_id=sid, raw_id="raw", text=sid))
+    warm = fake_gateway({"triage": lambda b: answers(0.9)})  # records s1 and s2 only
+    for sid in ("s1", "s2"):
+        warm.decide(sid, target_type="snippet", target_id=sid)
+    gw = fake_gateway({}, profile="replay")
+    cfg = {n: config.load(n) for n in config.CONFIG_FILES}
+    ctx = RunContext(tmp_store, gw, "r1", date(2026, 11, 3), Path("."), 42, "all", "replay", Path("."), cfg, None, "triage")
+    counts = triage.run(ctx)
+    assert counts == {"keep": 2, "drop": 0, "low_confidence": 0, "untriaged": 1} and sum(counts.values()) == 3
+    r = rows(tmp_store)["s3"]
+    assert (r["backend"], r["decision"], r["call_id"]) == ("none", "untriaged", None) and gw.triage_cache_misses == 1
+    assert "3 snippets = 2 keep + 0 drop + 0 low_confidence + 1 untriaged" in capsys.readouterr().out
 
 
 def test_noise_audit_is_stratified_weighted_and_deterministic(tmp_store, fake_gateway):

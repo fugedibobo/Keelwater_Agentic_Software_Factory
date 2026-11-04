@@ -65,3 +65,10 @@ def test_rerun_skips_snippets_that_already_have_insights(tmp_store, fake_gateway
     extract.run(ctx_for(tmp_store, gw))
     extract.run(ctx_for(tmp_store, gw))
     assert len(gw.calls) == 1 and len(tmp_store.select("insight")) == 1
+
+
+def test_replay_skips_untriaged_snippets_instead_of_raising_a_replay_miss(tmp_store, fake_gateway):
+    seed_snippet(tmp_store, "k1", "we cannot find the export button anywhere", decision="untriaged")
+    gw = fake_gateway({}, profile="replay")
+    extract.run(ctx_for(tmp_store, gw))
+    assert tmp_store.select("insight") == []
