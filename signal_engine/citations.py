@@ -85,8 +85,8 @@ def check(body, members, facts, names):
     allowed_money = [facts["arr_total_gbp"], *[a["arr_gbp"] for a in facts["accounts"] if a["arr_gbp"] is not None]]
     expected = count_expected(facts)
     facts_n = {Decimal(str(x)) for x in [*allowed_money, *[n for v in expected.values() for n in v]]}
-    facts_n |= {Decimal(facts["as_of"][:4])} if facts.get("as_of") else set()  # the as-of year
     dates = {facts.get("as_of"), *[(a.get("renewal_date") or "")[:10] for a in facts["accounts"]]} - {None, ""}
+    facts_n |= {Decimal(d[:4]) for d in dates}  # fact-sheet years
     for section, bullet, sent in units(body):
         ids = cited_ids(sent)
         plain = QUOTE.sub("", sent)
@@ -99,11 +99,16 @@ def check(body, members, facts, names):
             n = WORDS.get(m.group(1).lower()) or int(m.group(1))
             if n not in expected[m.group(2).lower()]:
                 fail("numbers", f"'{m.group(0)}' does not match the fact sheet ({sorted(expected[m.group(2).lower()])})")
-        rest = COUNT.sub(" ", MONEY.sub(" ", ISO.sub(lambda m: " " if m.group(0) in dates else m.group(0), CITE.sub(" ", plain))))
+        mine = {str(members[i].get("date") or "")[:10] for i in ids if i in members}  # dates of the cited insights and in their text
+        for i in ids:
+            mine |= set(ISO.findall(members.get(i, {}).get("quote") or ""))
+        ok_dates = (dates | mine) - {""}
+        sent_n = facts_n | {Decimal(d[:4]) for d in ok_dates}
+        rest = COUNT.sub(" ", MONEY.sub(" ", ISO.sub(lambda m: " " if m.group(0) in ok_dates else m.group(0), CITE.sub(" ", plain))))
         for m in NUMBER.finditer(WINDOW.sub(" ", rest)):  # rule 3, every other number must equal a fact-sheet value
             tok = m.group(0)
             v = Decimal({**WORDS, "zero": 0}[tok.lower()]) if tok.lower() in {**WORDS, "zero": 0} else None if not tok[0].isdigit() else Decimal(tok.replace(",", ""))
-            if v is None or v not in facts_n:
+            if v is None or v not in sent_n:
                 fail("numbers", f"'{tok}' matches no fact-sheet value: {sent[:60]}")
         have = {norm(members[i]["quote"]) for i in ids if i in members}
         for m in QUOTE.finditer(sent):  # rule 4

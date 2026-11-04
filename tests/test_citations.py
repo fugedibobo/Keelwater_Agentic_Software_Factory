@@ -59,6 +59,20 @@ def test_numbers_outside_supported_facts_fail(old, new):
     assert "numbers" in rules(GOOD.replace(old, new, 1))
 
 
+@pytest.mark.parametrize("new", [
+    "Renewals fall due by 2026-12-05 [i:a]",                    # fact-sheet date
+    "The newest report is dated 2026-10-28 [i:a]",              # date of a cited insight
+    "Reports run from September to October 2026 [i:a]",         # year of a cited insight
+    "Combined ARR is GBP 2450000.0 [i:a]",                      # sum of the account ARR values, GBP form
+    "Combined ARR is 2,450,000 GBP [i:a]",                      # same, with separators
+])
+def test_verifiable_derived_numbers_pass(new):
+    facts = {**FACTS, "as_of": "2026-11-03", "accounts": [{**FACTS["accounts"][0], "renewal_date": "2026-12-05"}, *FACTS["accounts"][1:]]}
+    members = {**MEMBERS, "a": {**MEMBERS["a"], "date": "2026-10-28"}}
+    body = GOOD.replace("Claims handlers lose time when uploads fail [i:a]", new, 1)
+    assert check(body, members, facts, NAMES) == []
+
+
 def test_unverified_quote_fails_rule_1():
     m = {**MEMBERS, "a": {**MEMBERS["a"], "verified": False}}
     assert "cited_ids" in rules(GOOD, m)
