@@ -39,7 +39,13 @@ class FakeClient:
             return Response({'description': 'A routine description of the work.'})
         assert prompt in self.records
         rec = self.records[prompt]
-        return Response({**rec, 'turns': [{**t, 'synonym_used': None} for t in rec['turns']]})
+        base, slots = [], {}
+        for t in rec['turns']:
+            if t['mention_ids']:
+                slots[t['mention_ids'][0]] = {'text': t['text'], 'after_turn': len(base) - 1}
+            else:
+                base.append({k: t[k] for k in ('speaker', 'text', 'noise_category')})
+        return Response({'turns': base, 'mentions': slots})
 
 
 def test_generation_and_forced_replay_are_byte_identical(tmp_path, monkeypatch):

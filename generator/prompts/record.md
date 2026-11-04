@@ -11,7 +11,7 @@ Write one realistic {source} record for Keelwater, a UK claims-handling software
 {noise_brief}
 </noise>
 <rules>
-Customers speak like claims staff. Do not use headings or bullets in speech. Use only the names in the record brief; never name a real company, product or person. Mention no feature outside the supplied glossary. Express the supplied facts in the speaker's own words. Tag each turn with its mention id, noise category or null. Every tagged customer turn must contain that mention's `synonym` exactly as written, and set synonym_used to it. Never write any phrase listed in never_write_verbatim, including the supplied facts: paraphrase them.
+Customers speak like claims staff. Do not use headings or bullets in speech. Use only the names in the record brief; never name a real company, product or person. Mention no feature outside the supplied glossary. Express the supplied facts in the speaker's own words. Tag each turn with its noise category or null. Do not put the planted mentions in `turns`: write each one, in the customer's own words and at least twelve words long, under `mentions[<mention id>].text`, containing that mention's `synonym` exactly as written (an agreement mention is a short reply that still contains it), and set after_turn to the index of the turn it should follow. The `turns` conversation is the rest of the record. Name only the people in only_people_who_may_be_named. Never write any phrase listed in never_write_verbatim, including the supplied facts: paraphrase them.
 </rules>
 <output>
 Return JSON matching the supplied source schema.

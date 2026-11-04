@@ -233,15 +233,42 @@ def test_cache_is_atomic_and_corrupt_file_is_a_miss(tmp_path):
     assert len(ask(0)['a']) == 200000
 
 
-def test_record_schema_carries_band_and_enums():
+def test_record_schema_carries_band_slots_and_enums():
     from generator.planner import plan
     from generator.writer import record_schema
     r = next(r for r in plan(42)['records'] if r.get('turns_range') == [40, 60] and r['mentions'])
-    t = record_schema(r, 42)['properties']['turns']
-    assert (t['minItems'], t['maxItems']) == (40, 60)
-    p = t['items']['properties']
-    assert p['mention_ids']['items']['enum'] == [m['id'] for m in r['mentions']]
-    assert None in p['noise_category']['enum'] and 'how_to' in p['noise_category']['enum']
+    sc = record_schema(r, 42)
+    n = len(r['mentions'])
+    t = sc['properties']['turns']
+    assert (t['minItems'], t['maxItems']) == (40 - n, 60 - n)
+    assert 'mention_ids' not in t['items']['properties']
+    assert None in t['items']['properties']['noise_category']['enum'] and 'how_to' in t['items']['properties']['noise_category']['enum']
+    m = sc['properties']['mentions']
+    assert m['required'] == [x['id'] for x in r['mentions']] and set(m['properties']) == set(m['required']) and m['additionalProperties'] is False
+
+
+def test_merge_mentions_tags_each_mention_once_deterministically():
+    from generator.planner import plan
+    from generator.writer import merge_mentions
+    r = next(r for r in plan(42)['records'] if len(r['mentions']) >= 2 and not any(m.get('agreement') for m in r['mentions']))
+    base = [{'speaker': 'customer' if i % 2 else 'internal', 'text': f't{i}', 'noise_category': None} for i in range(10)]
+    raw = {'turns': base, 'mentions': {m['id']: {'text': f"mention {m['id']}", 'after_turn': i * 3 - 5} for i, m in enumerate(r['mentions'])}}
+    out = merge_mentions(r, raw)
+    assert out == merge_mentions(r, raw)
+    tagged = [t['mention_ids'] for t in out['turns'] if t['mention_ids']]
+    assert sorted(x for ids in tagged for x in ids) == sorted(m['id'] for m in r['mentions']) and all(len(i) == 1 for i in tagged)
+    assert len(out['turns']) == 10 + len(r['mentions']) and all(t['speaker'] == 'customer' for t in out['turns'] if t['mention_ids'])
+
+
+def test_merge_mentions_places_an_agreement_after_an_internal_turn():
+    from generator.planner import plan
+    from generator.writer import merge_mentions
+    r = next(r for r in plan(42)['records'] if any(m.get('agreement') for m in r['mentions']))
+    base = [{'speaker': 'customer', 'text': 'a', 'noise_category': None}, {'speaker': 'internal', 'text': 'b', 'noise_category': None}, {'speaker': 'customer', 'text': 'c', 'noise_category': None}]
+    raw = {'turns': base, 'mentions': {m['id']: {'text': 'yes', 'after_turn': 0} for m in r['mentions']}}
+    out = merge_mentions(r, raw)['turns']
+    i = next(i for i, t in enumerate(out) if t['mention_ids'])
+    assert out[i - 1]['speaker'] == 'internal'
 
 
 def test_gateway_rejects_response_outside_the_schema(tmp_path):
@@ -251,7 +278,7 @@ def test_gateway_rejects_response_outside_the_schema(tmp_path):
     from generator.writer import record_schema
     from signal_engine.gateway import Gateway, InvalidResponse
     r = next(r for r in plan(42)['records'] if r.get('turns_range') and r['source'] != 'fullstory')
-    bad = json.dumps({'turns': [{'speaker': 'customer', 'text': 'x', 'mention_ids': [], 'noise_category': None}]})
+    bad = json.dumps({'turns': [{'speaker': 'customer', 'text': 'x', 'noise_category': None}], 'mentions': {}})
 
     class C:
         class chat:
@@ -280,7 +307,7 @@ def test_synonym_is_one_deterministic_term_and_prompt_forbids_facts():
     briefs = mention_briefs(42, r)
     assert briefs == mention_briefs(42, r)
     chosen = [m['synonym'] for m in briefs if 'synonym' in m]
-    assert chosen and record_schema(r, 42)['properties']['turns']['items']['properties']['synonym_used']['enum'] == [*chosen, None]
+    assert chosen
     prompt = make_prompt(42, r)
     theme = next(t for t in load(42)['themes']['themes'] if t['id'] == r['mentions'][0]['theme'])
     assert 'never_write_verbatim' in prompt and theme['facts'][0] in prompt and 'exactly as written' in prompt
@@ -288,5 +315,5 @@ def test_synonym_is_one_deterministic_term_and_prompt_forbids_facts():
 
 def test_common_capitalised_word_passes_but_invented_name_fails():
     from generator.verify import unknown_names
-    assert unknown_names('We only get the English letters here', 42) == []
+    assert unknown_names('We only get the English letters in Wales and Northern Ireland here', 42) == []
     assert unknown_names('please ask Brenda Quillfeather about it', 42)

@@ -10,34 +10,55 @@ from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from signal_engine import config
 from signal_engine.gateway import InvalidResponse
-from .brief import make_prompt, mention_briefs
+from .brief import make_prompt
 from .specs import ROOT, load
 from .verify import leaked_terms, repeated_record_ids, unknown_names, verify_mention_text
 
 MODEL = config.load('models')['profiles']['demo']['stages']['generate']['model']
-TURN_SCHEMA = {
-    'type': 'object', 'additionalProperties': False, 'required': ['turns'],
-    'properties': {'turns': {'type': 'array', 'items': {
-        'type': 'object', 'additionalProperties': False,
-        'required': ['speaker', 'text', 'mention_ids', 'noise_category', 'synonym_used'],
-        'properties': {'speaker': {'type': 'string', 'enum': ['customer', 'internal', 'bot']},
-                       'text': {'type': 'string'}, 'mention_ids': {'type': 'array', 'items': {'type': 'string'}},
-                       'noise_category': {'type': ['string', 'null']}, 'synonym_used': {'type': ['string', 'null']}}
-    }}}
+TURN_ITEM = {
+    'type': 'object', 'additionalProperties': False, 'required': ['speaker', 'text', 'noise_category'],
+    'properties': {'speaker': {'type': 'string', 'enum': ['customer', 'internal', 'bot']}, 'text': {'type': 'string'},
+                   'noise_category': {'type': ['string', 'null']}}
 }
 
 
 def record_schema(record, seed):
-    """Per-record response schema: turn-count band, allowed mention ids and noise categories become hard bounds."""
-    schema = copy.deepcopy(TURN_SCHEMA)
-    turns = schema['properties']['turns']
+    """Per-record response schema. `turns` holds the conversation without the planted mentions (band minus the
+    mention count, noise enum); `mentions` has exactly this record's mention ids, each one customer text plus a
+    placement hint. Code inserts and tags them (merge_mentions), so one tag per mention holds by construction."""
+    n = len(record['mentions'])
+    item = copy.deepcopy(TURN_ITEM)
+    item['properties']['noise_category'] = {'enum': [*load(seed)['noise']['categories'], None]}
+    turns = {'type': 'array', 'items': item}
     if record.get('turns_range'):
-        turns['minItems'], turns['maxItems'] = record['turns_range']
-    props = turns['items']['properties']
-    props['mention_ids']['items'] = {'type': 'string', 'enum': [m['id'] for m in record['mentions']]}
-    props['synonym_used'] = {'enum': [*(m['synonym'] for m in mention_briefs(seed, record) if 'synonym' in m), None]}
-    props['noise_category'] = {'enum': [*load(seed)['noise']['categories'], None]}
-    return schema
+        turns['minItems'], turns['maxItems'] = (max(0, x - n) for x in record['turns_range'])
+    slot = {'type': 'object', 'additionalProperties': False, 'required': ['text', 'after_turn'],
+            'properties': {'text': {'type': 'string'}, 'after_turn': {'type': 'integer'}}}
+    ids = [m['id'] for m in record['mentions']]
+    return {'type': 'object', 'additionalProperties': False, 'required': ['turns', 'mentions'],
+            'properties': {'turns': turns, 'mentions': {'type': 'object', 'additionalProperties': False, 'required': ids,
+                                                         'properties': {i: copy.deepcopy(slot) for i in ids}}}}
+
+
+def merge_mentions(record, raw):
+    """Insert each mention slot as a tagged customer turn after its hinted turn (clamped; an agreement snaps to the
+    next internal turn). Deterministic: sorted by position then mention order."""
+    base = [{**t, 'mention_ids': []} for t in raw.get('turns', [])]
+    inserts = []
+    for order, m in enumerate(record['mentions']):
+        slot = raw['mentions'][m['id']]
+        pos = min(max(slot['after_turn'], 0), max(len(base) - 1, 0))
+        if m.get('agreement'):
+            internal = [i for i, t in enumerate(base) if t['speaker'] == 'internal']
+            pos = next((i for i in internal if i >= pos), internal[-1] if internal else pos)
+        inserts.append((pos, order, {'speaker': 'customer', 'text': slot['text'], 'mention_ids': [m['id']], 'noise_category': None}))
+    turns = []
+    queue = sorted(inserts, key=lambda x: x[:2])
+    for i, t in enumerate(base):
+        turns.append(t)
+        turns.extend(x[2] for x in queue if x[0] == i)
+    turns.extend(x[2] for x in queue if not base)
+    return {'turns': turns}
 
 
 DESCRIPTION_SCHEMA = {'type': 'object', 'additionalProperties': False, 'required': ['description'],
@@ -137,8 +158,9 @@ def gateway_request(gateway, record, seed, attempt):
     prompt = request['prompt']
     if attempt:
         prompt += f'\nRegeneration {attempt}: rewrite the record, satisfy every rule, and return the full JSON again.\n'
-    return gateway.chat('generate', [{'role': 'user', 'content': prompt}], target_type='generator_record',
-                        target_id=record['id'], prompt_version='record@0.1.0', schema=record_schema(record, seed))
+    raw = gateway.chat('generate', [{'role': 'user', 'content': prompt}], target_type='generator_record',
+                        target_id=record['id'], prompt_version='record@0.2.0', schema=record_schema(record, seed))
+    return merge_mentions(record, raw)
 
 
 def write_reference(gateway, brief, seed, on_rejection=None):
