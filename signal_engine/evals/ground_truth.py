@@ -427,9 +427,8 @@ def score(store, gt, as_of, ranking_cfg=None, floors=None, bools=(), top=6):
     gates = {}
     for k, (_, floor, op) in (floors or {}).items():
         v = m.get(k)
-        if v is not None:
-            floor = m["themes_total"] if floor == "all" else floor
-            gates[k] = v >= floor if op == ">=" else v <= floor
+        floor = m["themes_total"] if floor == "all" else floor
+        gates[k] = v is not None and (v >= floor if op == ">=" else v <= floor)  # a metric with nothing to measure cannot pass
     for k in bools:
         if m.get(k) is not None:
             gates[k] = bool(m[k])
