@@ -96,7 +96,7 @@ class Gateway:
         self.cfg = resolve_profile(self.models, profile)
         self.cache_only = bool(self.cfg.get("cache_only"))
         self._keys, self._client, self._http, self._sleep = keys, client, http, sleep
-        self.spent, self.used_keys, self.swaps = 0.0, set(), {}
+        self.spent, self.reserved, self.used_keys, self.swaps = 0.0, 0.0, set(), {}
         self._lock = threading.Lock()
         self._next_slot = {}  # stage -> earliest monotonic time of its next request (rpm pacing)
         if profile in ("aws", "self-hosted"):  # env overrides included: egress is allow-listed, never open
@@ -224,9 +224,7 @@ class Gateway:
         for fn in list(_LISTENERS):
             fn(row, parsed)
         log.info("call stage=%s target=%s/%s cached=%s ms=%s", stage, target_type, target_id, cached, row["latency_ms"])
-        with self._lock:
-            self.spent += cost
-        if self.spent > self.max_usd:
+        if self.spent > self.max_usd:  # live spend was settled per attempt in _billed
             raise BudgetExceeded(f"spend USD {self.spent:.4f} passed --max-usd {self.max_usd}")
         return raw
 
@@ -256,7 +254,7 @@ class Gateway:
     def _live_valid(self, stage, kind, body, call_id):
         attempts = self.stage_cfg(stage)["retries"] + 1
         for i in range(attempts):
-            raw = self._live(stage, kind, body, call_id)
+            raw = self._billed(stage, kind, body, call_id)
             if kind != "chat":
                 return raw
             try:
@@ -266,11 +264,29 @@ class Gateway:
                     jsonschema.validate(parsed, sch)  # a provider that ignores the schema is retried, not trusted
                 return raw
             except (TypeError, ValueError, jsonschema.ValidationError):
-                with self._lock:  # a bad response is still billed
-                    self.spent += self._cost(stage, raw.get("usage", {}))
                 if i < attempts - 1:
                     self._sleep(min(0.5 * 2 ** i, 8))
         raise InvalidResponse(f"{stage} call returned null, empty or unparseable content after {attempts} attempts (last finish_reason={raw.get('finish_reason')})")
+
+    def _billed(self, stage, kind, body, call_id):
+        """One billed attempt (first try, retry, fallback or probe): refuse when the budget is spent, reserve an estimate so
+        concurrent calls cannot overshoot, then settle the real cost, valid response or not."""
+        p = self.stage_cfg(stage).get("price", {"in": 0, "out": 0})
+        est = (len(json.dumps(body)) / 4 * p["in"] + (body.get("max_tokens") or 0) * p["out"]) / 1e6
+        with self._lock:
+            held = self.spent + self.reserved
+            if held >= self.max_usd or held + est > self.max_usd:
+                raise BudgetExceeded(f"spend USD {self.spent:.4f} (reserved {self.reserved:.4f}) leaves no room under --max-usd {self.max_usd}")
+            self.reserved += est
+        cost = 0.0
+        try:
+            raw = self._live(stage, kind, body, call_id)
+            cost = self._cost(stage, raw.get("usage", {}))
+            return raw
+        finally:
+            with self._lock:
+                self.reserved -= est
+                self.spent += cost
 
     # ---- live transport ------------------------------------------------------------------------------------
     def _live(self, stage, kind, body, call_id):
@@ -336,7 +352,7 @@ class Gateway:
         """One real call with the stage's real parameters and max_tokens 32; returns latency in ms."""
         body = self.probe_request(stage, model)
         t0 = time.perf_counter()
-        self._live(stage, "embed" if stage == "embed" else "decide" if "questions" in body else "chat", body, "probe")
+        self._billed(stage, "embed" if stage == "embed" else "decide" if "questions" in body else "chat", body, "probe")
         return round((time.perf_counter() - t0) * 1000)
 
     def key_usage(self):
@@ -374,6 +390,8 @@ def run_probe(gw, stages, out=print):
                 if served == "fallback":
                     gw.swaps[stage] = model
                 break
+            except BudgetExceeded:
+                raise
             except GatewayError as e:
                 log.info("probe %s %s failed: %s", stage, served, e)
                 rows.append((stage, model, served, "fail", "-"))

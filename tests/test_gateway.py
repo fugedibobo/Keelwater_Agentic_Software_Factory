@@ -338,3 +338,52 @@ def test_reasoning_option_reaches_generate_requests_only(tmp_path):
     gw = demo(tmp_path, models=models)
     assert gw.chat_request("generate", gwm.PROBE_MESSAGES, schema={"type": "object"})["reasoning"] == {"enabled": False}
     assert "reasoning" not in gw.chat_request("extract", gwm.PROBE_MESSAGES)
+
+
+def _bad_client(cost=0.4):
+    return FakeClient(lambda kw: {"choices": [{"message": {"content": ""}}], "usage": {"prompt_tokens": 1, "completion_tokens": 1, "cost": cost}})
+
+
+def test_invalid_billed_responses_stop_at_the_budget_not_after_all_retries(tmp_path):
+    client = _bad_client(0.4)  # 4 attempts would bill 1.60 against max 1.0
+    gw = demo(tmp_path, client, max_usd=1.0)
+    with pytest.raises(BudgetExceeded):
+        ask(gw)
+    assert len(client.calls) == 3 and gw.spent == pytest.approx(1.2)
+
+
+def test_probe_is_accounted_and_refused_once_the_budget_is_spent(tmp_path):
+    client = FakeClient(lambda kw: {"choices": [{"message": {"content": "{}"}}], "usage": {"prompt_tokens": 1, "completion_tokens": 1, "cost": 0.6}})
+    gw = demo(tmp_path, client, max_usd=1.0)
+    gw.probe_one("cluster_label")
+    gw.probe_one("cluster_label")
+    assert gw.spent == pytest.approx(1.2)
+    with pytest.raises(BudgetExceeded):
+        gw.probe_one("cluster_label")
+    assert len(client.calls) == 2
+
+
+def test_concurrent_calls_reserve_budget_before_the_call(tmp_path):
+    from concurrent.futures import ThreadPoolExecutor
+    import threading
+    import time
+    client = FakeClient()
+    gw = demo(tmp_path, client, max_usd=0.5)
+    gw.cfg["stages"]["cluster_label"]["price"] = {"in": 0, "out": 1_000_000}  # estimate = max_tokens USD, far above the 0.5 cap
+    gw.cfg["stages"]["cluster_label"]["max_tokens"] = 0.3  # one reservation fits (0.3), two do not
+    gate, started = threading.Event(), []
+    orig = client.handler
+
+    def slow(kw):
+        started.append(1)
+        gate.wait(2)
+        return orig(kw)
+    client.handler = slow
+    with ThreadPoolExecutor(2) as pool:
+        futs = [pool.submit(ask, gw, t) for t in ("a", "b")]
+        while not started:
+            time.sleep(0.01)
+        time.sleep(0.3)  # the second call has tried (and been refused) while the first is still in flight
+        gate.set()
+    errs = [f.exception() for f in futs]
+    assert sum(isinstance(e, BudgetExceeded) for e in errs) == 1 and len(client.calls) == 1
