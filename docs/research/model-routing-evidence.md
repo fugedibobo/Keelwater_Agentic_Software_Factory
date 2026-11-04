@@ -105,4 +105,4 @@ Harness cautions:
 - Not found: SWE-bench Verified for any current model; SWE-bench Pro V2 for Opus 5.5, GPT-6.1 Terra, DeepSeek V4.1 Flash and Qwen; Terminal-Bench scores on one version for all models; tokens per task by model and effort (except GPT-5.5 and the Sol table).
 - Not found: pass@k data for any listed model; published review-time cost per failed AI PR; DeepSeek and Qwen GPU requirements from a primary source; GLM-5.3 Terminal-Bench 4.0 score.
 - Qwen 4 is unreleased, so no challenger data exists for it; Qwen3.8-2.4T is the nearest.
-- Many figures are vendor-reported or from aggregators read through a summarising tool; Terra, Luna and Sol are named inconsistently across sources (5.6 vs 6.1), so confirm model ids before pinning.
+- Many figures are vendor-reported or from aggregators read through a summarising tool; Terra, Luna and Sol are named inconsistently across sources (5.6 vs 6.1), so confirm model IDs before pinning.
