@@ -28,7 +28,6 @@ def test_help_lists_exactly_the_section_11_subcommands():
 def test_eval_and_labels_are_built_and_take_their_own_flags():
     r = keelwater("eval", "--help")
     assert r.returncode == 0 and "--suite" in r.stdout and "--qualify" in r.stdout
-    assert keelwater("labels", "export", "--phoenix").stdout.strip() == "Phoenix datasets: designed, not built in v1"
 
 
 def test_unknown_subcommand_is_an_error():

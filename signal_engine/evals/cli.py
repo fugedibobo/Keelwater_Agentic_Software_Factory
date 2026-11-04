@@ -11,7 +11,7 @@ def parser():
     p.add_argument("--suite", choices=[*SUITES, "all"], default="all")
     p.add_argument("--qualify", action="store_true", help="judges: score held_out once for the current judge version and store its state")
     p.add_argument("--report-dir", default="reports")
-    p.add_argument("--phoenix", action="store_true", help="designed, not built in v1")
+    p.add_argument("--phoenix", action="store_true", help="log each suite report as a Phoenix experiment")
     p.add_argument("--profile", choices=["replay", "demo"], default="replay", help="demo calls live models for uncached items and records them")
     p.add_argument("--db", help="score this existing store instead of replaying (ground-truth and judges; --qualify defaults to .local/keelwater.sqlite)")
     p.add_argument("--as-of", default="03/11/2026")
@@ -24,16 +24,17 @@ def parser():
 
 def main(argv):
     a = parser().parse_args(argv)
-    if a.phoenix:
-        print("Phoenix tracing and experiments: designed, not built in v1")
     from . import ground_truth, holdout, judges_suite, stability
     mods = {"ground-truth": ground_truth, "holdout": holdout, "stability": stability, "judges": judges_suite}
     ok = True
     for name in (SUITES if a.suite == "all" else (a.suite,)):
         t0 = time.perf_counter()
         print(f"== eval --suite {name}")
-        passed, lines, _ = mods[name].run_suite(a)
+        passed, lines, path = mods[name].run_suite(a)
         print("\n".join(lines))
         print(f"   {name}: {'PASS' if passed else 'FAIL'} in {time.perf_counter() - t0:.0f}s")
+        if a.phoenix and path:
+            from .. import telemetry
+            telemetry.log_experiment(path)
         ok = ok and passed
     return 0 if ok else 1

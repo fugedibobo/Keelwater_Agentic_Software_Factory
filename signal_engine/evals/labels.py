@@ -249,7 +249,10 @@ def main(argv):
         from . import seeds
         return seeds.main(a)
     if a.cmd == "export" and a.phoenix:
-        print("Phoenix datasets: designed, not built in v1")
+        from .. import telemetry
+        from . import ground_truth
+        store = Store(a.db).init() if Path(a.db).is_file() else None
+        telemetry.export_datasets(store, seed_dir=SEED_DIR, truth=ground_truth.load_gt(ground_truth.GT_PATH))
         return 0
     if a.cmd == "import":
         if not Path(a.path).exists():

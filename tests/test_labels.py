@@ -119,5 +119,8 @@ def test_export_per_judge_and_phoenix(tmp_store, tmp_path, capsys, monkeypatch):
     assert paths == {"faithfulness.jsonl": 0, "signal.jsonl": 2, "duplicate.jsonl": 0}
     rows = [json.loads(ln) for ln in (out / "signal.jsonl").read_text(encoding="utf-8").splitlines()]
     assert {r["dataset"] for r in rows} == {"seed", "store"}
+    from signal_engine import telemetry
+    calls = []
+    monkeypatch.setattr(telemetry, "export_datasets", lambda store, **kw: calls.append(kw))
     assert labels.main(["export", "--phoenix"]) == 0
-    assert "Phoenix datasets: designed, not built in v1" in capsys.readouterr().out
+    assert calls and {t["id"] for t in calls[0]["truth"]["themes"]}

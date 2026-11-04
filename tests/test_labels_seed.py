@@ -16,7 +16,8 @@ def brief_writer(body):
     ids = re.findall(r'"id": "([0-9a-f]{16})"', body["messages"][0]["content"])
     cites = " ".join(f"[i:{i}]" for i in ids)
     return {"body_md": f"# Brief\n## Problem\nHandlers report the same problem {cites}.\n## Who is affected\n- Several accounts report it {cites}\n"
-                       f"## Evidence\n- Handlers describe the problem [i:{ids[0]}]\n"}
+                       f"## Evidence\n- Handlers describe the problem [i:{ids[0]}]\n",
+            "citations": ids}
 
 
 def defect_writer(body):
