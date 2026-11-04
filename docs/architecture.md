@@ -174,9 +174,9 @@ The factory answers with accepted or rejected plus a reason code (`ambiguous_cri
 
 One client (the `openai` Python SDK) with a configurable base URL serves every stage (ADR-002). Profiles live in `config/models.yaml`; `replay` serves recorded responses from `fixtures/llm_cache/` (free, offline, deterministic) and is the default.
 
-| Stage | `demo` (OpenRouter; Jev for triage) | `aws` (Bedrock, eu-west-2) | `self-hosted` (vLLM in the VPC) | Why this tier |
+| Stage | `demo` (OpenRouter; Clef for triage) | `aws` (Bedrock, eu-west-2) | `self-hosted` (vLLM in the VPC) | Why this tier |
 |---|---|---|---|---|
-| Triage | Jev `jev-latest` (TypeSafe API); demo only, never sees production data | `openai.gpt-oss-20b-1:0`, thresholds fitted on labels | Clef-flash, or a ModernBERT/SetFit classifier trained on PM labels | sub-second typed decisions |
+| Triage | Clef `cloudflare/clef` (27B, open weights) through OpenRouter's Decisions API | `openai.gpt-oss-20b-1:0`, thresholds fitted on labels | Clef (same weights as the demo), or a ModernBERT/SetFit classifier trained on PM labels | sub-second typed decisions |
 | Triage fallback | `openai/gpt-oss-120b` | `openai.gpt-oss-120b-1:0` | gpt-oss-120b | one fallback, same schema |
 | Extract | `openai/gpt-oss-120b` | `openai.gpt-oss-120b-1:0` | gpt-oss-120b | high volume, structured |
 | Embeddings | `qwen/qwen3-embedding-8b` | Qwen3-Embedding-8B or -0.6B, nightly batch job | same | same weights in demo and production |
@@ -189,8 +189,8 @@ Model facts (docs/research/model-options-and-prices.md, checked 02/11/2026):
 - **Demo ids.** `openai/gpt-oss-120b` and `qwen/qwen3-embedding-8b` are FOUND on OpenRouter. The qwen3-next, deepseek-v3.2 and glm-5 OpenRouter ids are INFERRED. `keelwater probe` checks each id with its real parameters; on a miss it falls back to the 02/11 research id (`qwen/qwen3.6-35b-a3b`, `deepseek/deepseek-v4-pro-0813`, `z-ai/glm-5.3`) and records the swap in the run manifest.
 - **Residency.** `openai.gpt-oss-120b-1:0`, `qwen.qwen3-next-80b-a3b` and `deepseek.v3.2` are in-region in London (FOUND). `openai.gpt-oss-20b-1:0` in London and `zai.glm-5` in-region are INFERRED (gpt-oss-20b is listed on Bedrock; GLM 5 has a London price). `zai.glm-5.3` runs only through a `global.` profile (FOUND), so it is not in the aws profile. The aws profile defaults to the open weights above. Claude via the Bedrock EU inference profile (`eu.anthropic.claude-sonnet-5-5`) is an optional alternative for the brief or judge stage; that profile routes requests across EU regions (eu-central-1, eu-north-1, eu-south-1/2, eu-west-1/2/3), not only London (FOUND), so choosing it accepts EU-wide rather than UK residency.
 - **Audit endpoint.** Invocation logging covers `bedrock-runtime`, not `bedrock-mantle` (FOUND). The gateway uses the runtime OpenAI-compatible path where it serves a model, else the Converse API on `bedrock-runtime`, never mantle for this traffic. It passes `call_id` as `requestMetadata` so invocation logs join `model_call`. Which path serves each id is verified at deployment (INFERRED until then).
-- **OpenRouter settings.** Every request sets `provider.data_collection = "deny"` and `require_parameters = true`. Only `OPENROUTER_API_KEY` is required; without a TypeSafe key the demo triage falls back and the probe prints "skipped".
-- **Egress.** The aws and self-hosted profiles allow only VPC endpoints and in-VPC hosts; TypeSafe and OpenRouter are not on the allow-list. A test fails if any aws-profile or self-hosted base URL is outside `config/vpc_endpoints.yaml`.
+- **OpenRouter settings.** Every request sets `provider.data_collection = "deny"` and `require_parameters = true`. Only `OPENROUTER_API_KEY` is required; demo triage calls Clef through OpenRouter's Decisions API (fields `model`, `state`, `questions`, `provider`; question types `noul`, `choice`, `score`, `box`). Demo and production can run the same open weights, and no closed hosted model sits in the triage path.
+- **Egress.** The aws and self-hosted profiles allow only VPC endpoints and in-VPC hosts; OpenRouter is not on the allow-list. A test fails if any aws-profile or self-hosted base URL is outside `config/vpc_endpoints.yaml`.
 
 Routing protects PM attention and latency as much as money: the decision model stops noise at triage, the cheap model handles volume, and only the top 10 opportunities reach the strong model. The same pattern applies to sessions: deterministic idle-stripping first, then only interaction windows reach a model. Calls run concurrently (a pool of 8 in the demo, 50 or more in production).
 
@@ -280,7 +280,7 @@ Opportunity status machine: `new -> proposed -> accepted | merged | rejected | p
 |---|---|
 | Scheduling | EventBridge Scheduler triggers a Step Functions state machine nightly; one ECS Fargate task per stage; retries per state |
 | Raw landing | S3 bucket per source with SSE-KMS and object lock in governance mode with bounded retention (400 days), so an authorised role can still honour a UK GDPR erasure request; connectors run in private subnets |
-| Egress | allow-list to the SaaS connector APIs only; no TypeSafe, no OpenRouter; tested from `config/models.yaml` (section 5) |
+| Egress | allow-list to the SaaS connector APIs only; no OpenRouter; tested from `config/models.yaml` (section 5) |
 | Store | RDS Postgres with pgvector; Metabase reads a reporting schema, not production tables |
 | Models | Bedrock through the `bedrock-runtime` VPC interface endpoint, invocation logging on to KMS-encrypted S3 with the same retention, `call_id` in `requestMetadata`; triage in the VPC from day one; vLLM on EC2 or SageMaker as nightly batch jobs for embeddings and self-hosted models |
 | Telemetry | Phoenix on Fargate in private subnets (official CloudFormation template; load balancer locked to the VPC); KMS-encrypted storage with set retention; default credentials replaced at first start from Secrets Manager |
@@ -293,7 +293,7 @@ Opportunity status machine: `new -> proposed -> accepted | merged | rejected | p
 | Decision | We gain | We give up | Revisit when |
 |---|---|---|---|
 | Workflow of typed steps over an autonomous agent | predictable cost, testable stages, clean audit | some flexibility on odd inputs | a stage needs open-ended tool use (e.g. the PM question-answering agent) |
-| Decision model for triage | sub-second, fractions of a cent per item | in the demo, a hosted closed-weight dependency (Jev) that never sees production data | production starts on Bedrock gpt-oss in the VPC and moves to a classifier once enough labels exist |
+| Decision model for triage | sub-second, fractions of a cent per item | in the demo, a hosted call to open weights (Clef) that never sees production data | production starts on Bedrock gpt-oss in the VPC and moves to a classifier once enough labels exist |
 | Formula ranking | explainable, arguable, stable | misses nuance an LLM might catch | PM override patterns show a consistent bias |
 | Synthetic data with a held-out seed | licence-clean, planted ground truth, a check against tuning to the answer | realism has limits | the first real export arrives |
 | SQLite in the demo | runs anywhere, no Docker | no concurrency | first multi-user deployment |
@@ -315,7 +315,7 @@ One entry point, `keelwater`; each subcommand passes its arguments to its module
 | Subcommand | Flags | Purpose |
 |---|---|---|
 | `generate` | `--seed 42\|43` (42 writes `data/`, 43 writes the held-out set to `data/holdout/`), `--dry-run`, `--force`, `--max-usd <n>` | Build synthetic exports and ground truth from `generator/spec/`; `--dry-run` prints the plan and a cost estimate with no model calls |
-| `probe` | `--profile demo\|aws\|self-hosted`, `--stages <list>`, `--key-usage` | One call per stage with its real parameters and `max_tokens` 32; a missing Jev key prints "skipped" and exits 0; `--key-usage` prints the OpenRouter key's usage and limit only, never the key |
+| `probe` | `--profile demo\|aws\|self-hosted`, `--stages <list>`, `--key-usage` | One call per stage with its real parameters and `max_tokens` 32; `--key-usage` prints the OpenRouter key's usage and limit only, never the key |
 | `run` | `--profile replay\|demo\|aws\|self-hosted` (default replay), `--seed 42\|43`, `--as-of DD/MM/YYYY`, `--batch all\|sep\|oct`, `--data <dir>` (default `data/raw`, or `data/holdout/raw` with `--seed 43`), `--stages <list>` (a subset of the pipeline stages, for fixture runs), `--db <path>`, `--cache-dir <dir>`, `--report-dir <dir>`, `--max-usd <n>`, `--phoenix` | Run the pipeline into a fresh store (`--batch oct` appends to the `sep` store); prints the output hash and MATCH or DIFF against the recorded run |
 | `eval` | `--suite ground-truth\|judges\|holdout\|stability\|all`, `--qualify`, `--report-dir <dir>`, `--phoenix` | Score the store against ground truth, judges against labels, seed 43, or the two-batch replay; exits 0 when every floor holds; `--qualify` runs the single held-out scoring for a new judge version |
 | `labels` | `seed [--n 60]`, `import <file\|dir>`, `export [--judge <name>] [--phoenix]` | Build the synthetic seed sets, load label files into the store (run does this at start), export labelled datasets |

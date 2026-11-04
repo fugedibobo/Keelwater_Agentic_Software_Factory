@@ -122,7 +122,7 @@ One OpenAI-compatible gateway serves every model stage, triage included. The dem
 
 | Job | Tier | `demo` profile (OpenRouter) | `aws` profile (inside the VPC; open weights by default) |
 |---|---|---|---|
-| Triage | Decision model | Jev (TypeSafe), demo only; fallback gpt-oss-120b | gpt-oss-20b or 120b on Bedrock; later a self-hosted Clef-flash or a classifier trained on PM labels |
+| Triage | Decision model | Clef (`cloudflare/clef`, 27B, open weights) through OpenRouter's Decisions API; fallback gpt-oss-120b | gpt-oss-20b or 120b on Bedrock; later a self-hosted Clef (the same weights as the demo) or a classifier trained on PM labels |
 | Extract | Cheap | gpt-oss-120b | gpt-oss-120b on Bedrock (eu-west-2) |
 | Cluster labels | Cheap | Qwen3 Next 80B A3B | Same weights on Bedrock |
 | Embeddings | Open weights | Qwen3 Embedding 8B | Same weights, or Qwen3 Embedding 0.6B as a nightly batch job |
@@ -148,11 +148,11 @@ uv run keelwater board serve                 # local Signal Board with working a
 uv run keelwater render static               # rebuilds site/index.html
 ```
 
-Live run (under 15 minutes): copy `.env.example` to `.env`, add `OPENROUTER_API_KEY`, then run `uv run keelwater run --profile demo`. `TYPESAFE_API_KEY` is optional; without it, triage falls back to gpt-oss-120b.
+Live run (under 15 minutes): copy `.env.example` to `.env`, add `OPENROUTER_API_KEY`, then run `uv run keelwater run --profile demo`.
 
 ## Production path
 
-Everything that touches customer data runs inside Keelwater's own AWS VPC, with no extra vendor handling it, and every step is auditable. Production triage runs in the VPC from day one. Jev is demo-only and never sees production data, and any shadow or canary comparison is between two in-VPC backends. The `aws` profile's egress allow-list excludes TypeSafe and OpenRouter, and a test fails if any `aws` host is outside the VPC endpoint list. SQLite becomes Postgres behind one repository layer.
+Everything that touches customer data runs inside Keelwater's own AWS VPC, with no extra vendor handling it, and every step is auditable. Production triage runs in the VPC from day one. The demo's Clef weights are open and can be self-hosted on one GPU, so demo and production can run the same triage model, and no closed hosted model sits in the triage path. Any shadow or canary comparison is between two in-VPC backends. The `aws` profile's egress allow-list excludes OpenRouter, and a test fails if any `aws` host is outside the VPC endpoint list. SQLite becomes Postgres behind one repository layer.
 
 | Concern | Production choice |
 |---|---|

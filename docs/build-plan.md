@@ -210,7 +210,7 @@ The product's own gates (a PM accepting an opportunity, approving an intent docu
 
 ## 9. Spend plan
 
-All model calls go through OpenRouter on one key with a hard USD 10 limit, or to Jev. Each live step starts with `uv run keelwater probe` and runs with `--max-usd`; the gateway aborts a run that passes its cap.
+All model calls go through OpenRouter on one key with a hard USD 10 limit. Each live step starts with `uv run keelwater probe` and runs with `--max-usd`; the gateway aborts a run that passes its cap.
 
 | Issue | Live step | Cap (USD) |
 |---|---|---|
@@ -270,7 +270,7 @@ Never cut: replay mode, quote verification, the ground-truth, held-out and stabi
 | The live run starts late | #9 or a stage issue still open at 15:30 | Critical-path dispatch order; cut items 2 and 3 first; #7's suites are built and tested offline before the live run. |
 | A seed 42 floor fails | #7's ground-truth suite shows FAIL | A 60-minute tuning box on seed 42 only, at most two re-runs, thresholds and prompt text only. Then the honest result with needs-decision; nobody re-runs an unchanged configuration hoping for a luckier draw. |
 | Seed 43 or the stability replay fails | holdout or stability FAIL | One fix, checked on seed 42 only, then one re-run of seed 43; otherwise the honest result is reported. Seed 43 is never used for tuning. |
-| Jev sign-up closed or slow | #14 says "no Jev key"; probe prints "skipped"; HTTP 429 | Only the OpenRouter key is required; triage runs on `openai/gpt-oss-120b` and the docs say so. Backoff on 429 and 529. |
+| `cloudflare/clef` unavailable or slow on OpenRouter | probe fails for the triage stage; HTTP 429 | Triage runs on `openai/gpt-oss-120b` and the run says so once. Backoff on 429 and 529. |
 | OpenRouter ids drift (several demo ids are INFERRED) | probe shows a primary miss | Each stage has a fallback id from the 02/11 research; the swap is recorded in the pull request and the run manifest. Replay is unaffected. |
 | No credit behind the key | HTTP 402 on the first probe | #14 step 1 checks for at least USD 10 of credit; a key limit adds none. |
 | Windows path and encoding traps | SQLite or .venv errors in OneDrive; MAX_PATH errors; hashes differ across machines; a crash printing "≥" or "£" | Repo at `C:\dev\keelwater` outside OneDrive; `core.longpaths`; `.gitattributes` with `eol=lf` in the first commit; UTF-8 stdout and `encoding="utf-8"` everywhere. |
