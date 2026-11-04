@@ -166,7 +166,7 @@ T1        35      2.85       59.95     159.88
 T2        15      5.71        0.00      85.65
 T3         5     14.28        0.00      71.38
 All Opus 5.5 : 1142.00 USD per day
-Routed       : 368.30 USD per day
+Routed       : 368.29 USD per day
 Saving       : 67.8%
 ```
 
