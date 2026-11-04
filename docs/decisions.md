@@ -27,7 +27,7 @@ Index: 001 typed workflow, 002 model gateway, 003 triage decision model, 004 ran
 
 **Context.** The tooling landscape may change within 3 to 6 months, customer data must stay in the VPC in production, and Keelwater wants to avoid vendor lock-in and move to self-hosted open-weight models.
 
-**Decision.** Every model call, triage included, goes through one gateway wrapper around the `openai` SDK with a configurable base URL; a decision-model adapter maps each triage backend to the same record. Profiles in `config/models.yaml` choose endpoint and model per stage: `replay` (recorded responses, no network, the default), `demo` (OpenRouter, Jev for triage), `aws` (Bedrock eu-west-2 through the `bedrock-runtime` VPC endpoint), `self-hosted` (vLLM in the VPC). The demo uses the open weights Bedrock also serves wherever OpenRouter has them, so moving to aws is a configuration change plus one re-qualification run of the eval suites.
+**Decision.** Every model call, triage included, goes through one gateway wrapper around the `openai` SDK with a configurable base URL; a decision-model adapter maps each triage backend to the same record. Profiles in `config/models.yaml` choose endpoint and model per stage: `replay` (recorded responses, no network, the default), `demo` (OpenRouter, Clef for triage), `aws` (Bedrock eu-west-2 through the `bedrock-runtime` VPC endpoint), `self-hosted` (vLLM in the VPC). The demo uses the open weights Bedrock also serves wherever OpenRouter has them, so moving to aws is a configuration change plus one re-qualification run of the eval suites.
 
 **Options considered.**
 1. OpenAI-compatible interface plus profiles (chosen): moving environment is configuration; thin and swappable.
@@ -40,11 +40,13 @@ Index: 001 typed workflow, 002 model gateway, 003 triage decision model, 004 ran
 
 ---
 
-## ADR-003: Decision model for triage; Jev in the demo only, in-VPC triage in production from day one
+## ADR-003: Decision model for triage; Clef in the demo and the self-hosted profile, in-VPC triage in production from day one
 
-**Context.** Most incoming snippets are noise. A frontier model on every item is wasteful, slow at volume and buries PMs. Jev (TypeSafe) is a small fast typed-decision model, but it is a hosted, closed-weight US service and cannot run inside Keelwater's VPC.
+*Revised 04/11/2026: Jev replaced by Clef so demo and production triage can share open weights.*
 
-**Decision.** Triage asks one decision model four typed questions at once (product signal, bucket, severity, signal type), through the gateway. The demo uses Jev, which never sees production data. The aws profile runs Bedrock `openai.gpt-oss-20b-1:0` in eu-west-2 from day one, with thresholds fitted on labels (`openai.gpt-oss-120b-1:0` as the one fallback); later a self-hosted Clef-flash or a ModernBERT/SetFit classifier trained on PM labels. Any shadow or canary compares two in-VPC backends. Middle-band items proceed as `low_confidence` and outages as `untriaged`; nothing is silently dropped. A fixed weekly sample of 40 drops is audited.
+**Context.** Most incoming snippets are noise. A frontier model on every item is wasteful, slow at volume and buries PMs. Cloudflare Clef (27B, open weights) is a decision model that can be self-hosted on one GPU, and OpenRouter serves it through its Decisions API, so the demo and production can run the same weights.
+
+**Decision.** Triage asks one decision model four typed questions at once (product signal, bucket, severity, signal type), through the gateway. The demo uses Clef (`cloudflare/clef`) through OpenRouter's Decisions API, with `provider.data_collection = "deny"`; it never sees production data. The aws profile runs Bedrock `openai.gpt-oss-20b-1:0` in eu-west-2 from day one, with thresholds fitted on labels (`openai.gpt-oss-120b-1:0` as the one fallback); the self-hosted profile runs Clef, the same weights as the demo, in the VPC, and a ModernBERT/SetFit classifier trained on PM labels is the later option. Any shadow or canary compares two in-VPC backends. Middle-band items proceed as `low_confidence` and outages as `untriaged`; nothing is silently dropped. A fixed weekly sample of 40 drops is audited.
 
 **Options considered.**
 1. Decision model with confidence gates and one fallback (chosen): sub-second and fractions of a cent per item.
@@ -52,7 +54,7 @@ Index: 001 typed workflow, 002 model gateway, 003 triage decision model, 004 ran
 3. Cheap general LLM for every item: simple, but 10 to 100 times the cost and slower.
 4. Keyword or rule filters: cheap, but misses paraphrase and cannot give a bucket.
 
-**Consequences.** The demo has a hosted dependency for one stage and the docs say so. The aws egress allow-list excludes TypeSafe and OpenRouter, and a test fails if any aws-profile host is outside the VPC endpoints list. Labels collected in the board become the training set for the later classifier.
+**Consequences.** The demo calls OpenRouter for one stage and the docs say so; the weights are open, and no closed hosted model sits in the triage path. The aws egress allow-list excludes OpenRouter, and a test fails if any aws-profile host is outside the VPC endpoints list. Labels collected in the board become the training set for the later classifier.
 
 **Revisit when.** About 1,000 labelled triage decisions exist, the noise-audit miss rate exceeds its alert level, or the data-engineering hire changes where classifiers are hosted.
 
@@ -182,9 +184,9 @@ Index: 001 typed workflow, 002 model gateway, 003 triage decision model, 004 ran
 
 ## ADR-011: The PDLC layer owns intake and outtake; the platform team owns build
 
-**Context.** A platform team is building the engineering factory. Their remit excludes product and design, they think in tickets and small changes, and their coding agents may run outside the VPC. Reviewers' concern is where work hands off from step to step.
+**Context.** A platform team is building the engineering factory, a delegation meta-harness that orchestrates people and sub-harnesses (see architecture section 1). Their remit excludes product and design, they think in tickets and small changes, and their coding agents may run outside the VPC. Reviewers' concern is where work hands off from step to step.
 
-**Decision.** The PDLC layer (product operations) owns sensing, deciding, defining, enabling and learning. The platform team owns build and the release pipeline. The contract is two artefacts: an intent document, which holds quotes and account names and stays in the VPC, and a factory job that validates against `docs/contracts/factory_job.schema.json` v1. The job carries evidence references (insight ids, run manifest hash), a de-identified problem statement, users affected by tier, testable acceptance criteria, an outcome metric with baseline and query, constraints, non-goals, data classification, trace ids, supersede/cancel, an idempotency key and the gate approvals with actor and time. The factory may reject a job with a reason. Platform asks: a stable job schema, status callbacks into the opportunity state machine, and test and guardrail results attached to each job. Product operations owns: intent quality, the labelled evals, and the human gates.
+**Decision.** The PDLC layer (product operations) owns sensing, deciding, defining, enabling and learning. The platform team owns build and the release pipeline. The contract is two artefacts: an intent document, which holds quotes and account names and stays in the VPC, and a factory job that validates against `docs/contracts/factory_job.schema.json` v1. The job carries evidence references (insight ids, run manifest hash), a de-identified problem statement, users affected by tier, testable acceptance criteria, an outcome metric with baseline and query, constraints, non-goals, data classification, trace ids, supersede/cancel, an idempotency key and the gate approvals with actor and time. The factory may reject a job with a reason. Platform asks: a stable job schema, status callbacks into the opportunity state machine, and test and guardrail results attached to each job. Product operations owns: intent quality, the labelled evals, the human gates, the shared agent skill library and a v0 metric dictionary (about 10 lifecycle metrics, first 60 days; the rest later with data engineering).
 
 **Options considered.**
 1. Two layers with a schema contract (chosen): clear ownership, testable interface.

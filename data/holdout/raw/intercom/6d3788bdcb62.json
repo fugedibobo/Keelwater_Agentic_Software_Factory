@@ -1,0 +1,136 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Nellin Nethervale",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m Nellin from Holloway Reach — we’ve got a recurring issue with third-party payee account verification causing delays.",
+        "created_at": 1789141620,
+        "id": "6d3788bdcb62-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: Please ensure all payment-related escalations are reviewed by finance before response.",
+        "created_at": 1789141628,
+        "id": "6d3788bdcb62-1",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Nellin. I’ll look into how we can streamline the payee account verification process for you.",
+        "created_at": 1789141633,
+        "id": "6d3788bdcb62-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Nellin Nethervale",
+          "type": "user"
+        },
+        "body": "Appreciate that. We’re seeing delays because payee account verification isn’t done before payment dispatch.",
+        "created_at": 1789141640,
+        "id": "6d3788bdcb62-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Nellin Nethervale",
+          "type": "user"
+        },
+        "body": "We’re running into delays because the payee account verification step isn’t happening before the payment is sent out, which causes rework and client frustration.",
+        "created_at": 1789141646,
+        "id": "6d3788bdcb62-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Nellin Nethervale",
+          "type": "user"
+        },
+        "body": "Could we schedule a quick call next Tuesday to walk through the reserves reporting workflow?",
+        "created_at": 1789141656,
+        "id": "6d3788bdcb62-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood. I’ll flag this for our integrations team to assess whether we can add a verification step before payment initiation.",
+        "created_at": 1789141662,
+        "id": "6d3788bdcb62-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Nellin Nethervale",
+          "type": "user"
+        },
+        "body": "Perfect, thanks. Let me know if you need access to any policyholders or supplier docs.",
+        "created_at": 1789141670,
+        "id": "6d3788bdcb62-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "I’ll follow up by end of day with next steps — and yes, I may need to pull some supplier documents to map the current workflow.",
+        "created_at": 1789141676,
+        "id": "6d3788bdcb62-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 9,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1789141620,
+  "id": "6d3788bdcb62",
+  "source": {
+    "author": {
+      "email": "contact@a14.example",
+      "name": "Nellin Nethervale",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "reserves_payments"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

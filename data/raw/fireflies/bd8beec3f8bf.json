@@ -1,0 +1,146 @@
+{
+  "date": 1788267000000,
+  "duration": 1.3533333333333333,
+  "host_email": "deryn.pell@keelwater.example",
+  "id": "bd8beec3f8bf",
+  "meeting_attendees": [
+    {
+      "displayName": "Deryn Pell",
+      "email": "deryn.pell@keelwater.example",
+      "name": "Deryn Pell"
+    },
+    {
+      "displayName": "Dovren Keldmere",
+      "email": "contact@a21.example",
+      "name": "Dovren Keldmere"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 9.6,
+      "index": 0,
+      "raw_text": "Hi Deryn, just checking in on whether we can pull full audit logs for admin review — it’s becoming urgent for our compliance team.",
+      "speaker_id": "customer",
+      "speaker_name": "Dovren Keldmere",
+      "start_time": 0.0,
+      "text": "Hi Deryn, just checking in on whether we can pull full audit logs for admin review — it’s becoming urgent for our compliance team."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 18.0,
+      "index": 1,
+      "raw_text": "We really need the audit-log export for admins to meet our internal compliance deadlines — it’s not just a nice-to-have anymore.",
+      "speaker_id": "customer",
+      "speaker_name": "Dovren Keldmere",
+      "start_time": 9.6,
+      "text": "We really need the audit-log export for admins to meet our internal compliance deadlines — it’s not just a nice-to-have anymore."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 26.4,
+      "index": 2,
+      "raw_text": "Thanks for flagging that, Dovren. I’ll escalate this to our product team and get back to you by end of day.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 18.0,
+      "text": "Thanks for flagging that, Dovren. I’ll escalate this to our product team and get back to you by end of day."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 34.8,
+      "index": 3,
+      "raw_text": "Also, we need a sandbox environment to test fraud detection rules before rolling them out live — can that be prioritized?",
+      "speaker_id": "customer",
+      "speaker_name": "Dovren Keldmere",
+      "start_time": 26.4,
+      "text": "Also, we need a sandbox environment to test fraud detection rules before rolling them out live — can that be prioritized?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 43.2,
+      "index": 4,
+      "raw_text": "Can we get a sandbox for testing fraud rules soon? We’re risking false positives in production without a safe testing environment.",
+      "speaker_id": "customer",
+      "speaker_name": "Dovren Keldmere",
+      "start_time": 34.8,
+      "text": "Can we get a sandbox for testing fraud rules soon? We’re risking false positives in production without a safe testing environment."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 52.0,
+      "index": 5,
+      "raw_text": "Understood — I’ve logged this as a high-priority request and will coordinate with engineering to see what we can deliver next sprint.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 43.2,
+      "text": "Understood — I’ve logged this as a high-priority request and will coordinate with engineering to see what we can deliver next sprint."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 61.6,
+      "index": 6,
+      "raw_text": "One more thing — are we still on track for claim progress messages via SMS and email by Q1 2027? Our policyholders are asking.",
+      "speaker_id": "customer",
+      "speaker_name": "Dovren Keldmere",
+      "start_time": 52.0,
+      "text": "One more thing — are we still on track for claim progress messages via SMS and email by Q1 2027? Our policyholders are asking."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 70.8,
+      "index": 7,
+      "raw_text": "Are we still on schedule for claim progress messages to go live by Q1 2027? Our policyholders are expecting updates at key milestones.",
+      "speaker_id": "customer",
+      "speaker_name": "Dovren Keldmere",
+      "start_time": 61.6,
+      "text": "Are we still on schedule for claim progress messages to go live by Q1 2027? Our policyholders are expecting updates at key milestones."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 81.2,
+      "index": 8,
+      "raw_text": "Yes, that feature is still targeted for Q1 2027. We’re actively building the milestone notification system and will share a preview once it’s ready for testing.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 70.8,
+      "text": "Yes, that feature is still targeted for Q1 2027. We’re actively building the milestone notification system and will share a preview once it’s ready for testing."
+    }
+  ]
+}

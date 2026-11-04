@@ -1,0 +1,146 @@
+{
+  "date": 1789396440000,
+  "duration": 1.2466666666666666,
+  "host_email": "deryn.pell@keelwater.example",
+  "id": "be4ca994a23c",
+  "meeting_attendees": [
+    {
+      "displayName": "Deryn Pell",
+      "email": "deryn.pell@keelwater.example",
+      "name": "Deryn Pell"
+    },
+    {
+      "displayName": "Celdra Cairnwick",
+      "email": "contact@a03.example",
+      "name": "Celdra Cairnwick"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 8.8,
+      "index": 0,
+      "raw_text": "Hi Deryn, I’m reaching out because we’ve had a couple of payments bounce recently — it’s causing delays in our supplier settlements.",
+      "speaker_id": "customer",
+      "speaker_name": "Celdra Cairnwick",
+      "start_time": 0.0,
+      "text": "Hi Deryn, I’m reaching out because we’ve had a couple of payments bounce recently — it’s causing delays in our supplier settlements."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 14.4,
+      "index": 1,
+      "raw_text": "Could we schedule a quick call next Tuesday to review the upcoming reserve adjustments?",
+      "speaker_id": "customer",
+      "speaker_name": "Celdra Cairnwick",
+      "start_time": 8.8,
+      "text": "Could we schedule a quick call next Tuesday to review the upcoming reserve adjustments?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 22.0,
+      "index": 2,
+      "raw_text": "Thanks for flagging that, Celdra. I’ll look into the payment logs and see if we can trace the cause.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 14.4,
+      "text": "Thanks for flagging that, Celdra. I’ll look into the payment logs and see if we can trace the cause."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 30.8,
+      "index": 3,
+      "raw_text": "Also, could you update our billing contact on the next invoice? It’s a small admin tweak but important for our finance team.",
+      "speaker_id": "customer",
+      "speaker_name": "Celdra Cairnwick",
+      "start_time": 22.0,
+      "text": "Also, could you update our billing contact on the next invoice? It’s a small admin tweak but important for our finance team."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 44.0,
+      "index": 4,
+      "raw_text": "Could you update our billing contact on the next invoice? It’s a small admin tweak but important for our finance team — essentially a purchase order correction to align with our internal records.",
+      "speaker_id": "customer",
+      "speaker_name": "Celdra Cairnwick",
+      "start_time": 30.8,
+      "text": "Could you update our billing contact on the next invoice? It’s a small admin tweak but important for our finance team — essentially a purchase order correction to align with our internal records."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 50.4,
+      "index": 5,
+      "raw_text": "Noted — I’ll process that change right away. Just need your updated contact details to confirm.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 44.0,
+      "text": "Noted — I’ll process that change right away. Just need your updated contact details to confirm."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 58.0,
+      "index": 6,
+      "raw_text": "We’ve also noticed that payee account verification isn’t happening before funds are released — it’s causing unnecessary re-issuance delays.",
+      "speaker_id": "customer",
+      "speaker_name": "Celdra Cairnwick",
+      "start_time": 50.4,
+      "text": "We’ve also noticed that payee account verification isn’t happening before funds are released — it’s causing unnecessary re-issuance delays."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 67.6,
+      "index": 7,
+      "raw_text": "We’ve also noticed that payee account verification isn’t happening before funds are released — it’s causing unnecessary re-issuance delays and affecting our supplier timelines.",
+      "speaker_id": "customer",
+      "speaker_name": "Celdra Cairnwick",
+      "start_time": 58.0,
+      "text": "We’ve also noticed that payee account verification isn’t happening before funds are released — it’s causing unnecessary re-issuance delays and affecting our supplier timelines."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 74.8,
+      "index": 8,
+      "raw_text": "I understand — we’re currently working on improving that workflow to prevent bounced payments and reduce re-issuance delays.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 67.6,
+      "text": "I understand — we’re currently working on improving that workflow to prevent bounced payments and reduce re-issuance delays."
+    }
+  ]
+}

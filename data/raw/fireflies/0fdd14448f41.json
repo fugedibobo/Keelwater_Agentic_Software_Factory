@@ -1,0 +1,118 @@
+{
+  "date": 1790606460000,
+  "duration": 1.26,
+  "host_email": "carys.fenwick@keelwater.example",
+  "id": "0fdd14448f41",
+  "meeting_attendees": [
+    {
+      "displayName": "Carys Fenwick",
+      "email": "carys.fenwick@keelwater.example",
+      "name": "Carys Fenwick"
+    },
+    {
+      "displayName": "Havren Harthwick",
+      "email": "contact@a08.example",
+      "name": "Havren Harthwick"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 13.6,
+      "index": 0,
+      "raw_text": "Hi Carys, just wanted to flag that when a policyholder reports the same incident both by phone and through the web portal, the system doesn’t alert us — it just creates two separate claims.",
+      "speaker_id": "customer",
+      "speaker_name": "Havren Harthwick",
+      "start_time": 0.0,
+      "text": "Hi Carys, just wanted to flag that when a policyholder reports the same incident both by phone and through the web portal, the system doesn’t alert us — it just creates two separate claims."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 24.8,
+      "index": 1,
+      "raw_text": "Thanks for raising this, Havren. I’ve seen the same issue — users click the ‘Link to existing claim’ button but it’s disabled and nothing happens, which is confusing.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 13.6,
+      "text": "Thanks for raising this, Havren. I’ve seen the same issue — users click the ‘Link to existing claim’ button but it’s disabled and nothing happens, which is confusing."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 32.4,
+      "index": 2,
+      "raw_text": "Exactly — and that’s why we end up with duplicate loss report entries. It’s messy for reserves and reporting.",
+      "speaker_id": "customer",
+      "speaker_name": "Havren Harthwick",
+      "start_time": 24.8,
+      "text": "Exactly — and that’s why we end up with duplicate loss report entries. It’s messy for reserves and reporting."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 49.2,
+      "index": 3,
+      "raw_text": "When a policyholder reports the same incident both by phone and through the web portal, the system doesn’t alert us — it just creates two separate claims, which is a classic duplicate loss report scenario and causes confusion in reserves and reporting.",
+      "speaker_id": "customer",
+      "speaker_name": "Havren Harthwick",
+      "start_time": 32.4,
+      "text": "When a policyholder reports the same incident both by phone and through the web portal, the system doesn’t alert us — it just creates two separate claims, which is a classic duplicate loss report scenario and causes confusion in reserves and reporting."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 60.8,
+      "index": 4,
+      "raw_text": "I’ll log this as a priority for the team. We’ll look at improving the intake warnings and maybe adding a validation step to prevent the duplicate loss report issue.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 49.2,
+      "text": "I’ll log this as a priority for the team. We’ll look at improving the intake warnings and maybe adding a validation step to prevent the duplicate loss report issue."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 66.0,
+      "index": 5,
+      "raw_text": "Appreciate that. Let me know if you need more examples from our side.",
+      "speaker_id": "customer",
+      "speaker_name": "Havren Harthwick",
+      "start_time": 60.8,
+      "text": "Appreciate that. Let me know if you need more examples from our side."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 75.6,
+      "index": 6,
+      "raw_text": "Will do — thanks again for flagging it. We’ll keep you posted on any updates to avoid the duplicate loss report problem going forward.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 66.0,
+      "text": "Will do — thanks again for flagging it. We’ll keep you posted on any updates to avoid the duplicate loss report problem going forward."
+    }
+  ]
+}

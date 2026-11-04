@@ -1,0 +1,184 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Kessra Keldmere",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m Kessra from Ravensgill. We’ve got a few workflow hiccups I’d like to flag.",
+        "created_at": 1793174880,
+        "id": "90b9184a1801-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: Customer reported duplicate claim creation and approval bottlenecks; log for product triage.",
+        "created_at": 1793174886,
+        "id": "90b9184a1801-1",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Morning Kessra — thanks for reaching out. I’ll take notes and make sure we address each point.",
+        "created_at": 1793174892,
+        "id": "90b9184a1801-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Kessra Keldmere",
+          "type": "user"
+        },
+        "body": "First, our motor team wants more automatic claim allocation based on postcode and workload, but commercial prefers manual control for complex cases.",
+        "created_at": 1793174898,
+        "id": "90b9184a1801-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Kessra Keldmere",
+          "type": "user"
+        },
+        "body": "Our motor team wants more automatic claim allocation based on postcode and workload, but commercial prefers manual control for complex cases — we need per-team configuration.",
+        "created_at": 1793174907,
+        "id": "90b9184a1801-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Kessra Keldmere",
+          "type": "user"
+        },
+        "body": "Can we schedule a 15-minute call next Tuesday to walk through these issues?",
+        "created_at": 1793174918,
+        "id": "90b9184a1801-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Kessra Keldmere",
+          "type": "user"
+        },
+        "body": "Second, we’re getting the same claim twice when a policyholder reports via phone and then the portal — no alert pops up at intake.",
+        "created_at": 1793174923,
+        "id": "90b9184a1801-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Kessra Keldmere",
+          "type": "user"
+        },
+        "body": "We’re getting the same claim twice when a policyholder reports via phone and then the portal — no alert pops up at intake, and it’s causing duplicate records.",
+        "created_at": 1793174932,
+        "id": "90b9184a1801-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Kessra Keldmere",
+          "type": "user"
+        },
+        "body": "Third, when a handler needs to adjust a reserve beyond their limit, it goes into an approval waiting list — but if the approver’s out, nothing moves.",
+        "created_at": 1793174944,
+        "id": "90b9184a1801-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Kessra Keldmere",
+          "type": "user"
+        },
+        "body": "When a handler needs to adjust a reserve beyond their limit, it goes into an approval waiting list — but if the approver’s out, nothing moves until they return.",
+        "created_at": 1793174954,
+        "id": "90b9184a1801-9",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Got it — we’ll look into team-specific routing rules, the duplicate intake issue, and how to handle approver absence.",
+        "created_at": 1793174966,
+        "id": "90b9184a1801-10",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Kessra Keldmere",
+          "type": "user"
+        },
+        "body": "Thanks. Also, can we schedule a 15-minute call next Tuesday to walk through these issues?",
+        "created_at": 1793174974,
+        "id": "90b9184a1801-11",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "I’ll send you a calendar invite for Tuesday at 10 AM. In the meantime, I’ll escalate these to our product team.",
+        "created_at": 1793174980,
+        "id": "90b9184a1801-12",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 13,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1793174880,
+  "id": "90b9184a1801",
+  "source": {
+    "author": {
+      "email": "contact@a11.example",
+      "name": "Kessra Keldmere",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "customer_comms"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

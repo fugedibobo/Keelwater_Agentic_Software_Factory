@@ -1,0 +1,127 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "assumed_resolution"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Kessra Keldmere",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m having trouble accessing our claims dashboard — I think I might need to reset my password to get back in and update some supplier payments.",
+        "created_at": 1789313640,
+        "id": "55498796cb98-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Kessra. I’ll trigger a password reset for your account A11 right away. You’ll receive an email with instructions to set a new one.",
+        "created_at": 1789313651,
+        "id": "55498796cb98-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Kessra Keldmere",
+          "type": "user"
+        },
+        "body": "I need to reset my password for the Keelwater portal — I’ve forgotten it and can’t log in to review claims or update reserves.",
+        "created_at": 1789313662,
+        "id": "55498796cb98-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Kessra Keldmere",
+          "type": "user"
+        },
+        "body": "Perfect, I’ll check my inbox. Also, can you confirm if the new reporting module is live? We’re trying to pull policyholder data for Q3 reserves.",
+        "created_at": 1789313671,
+        "id": "55498796cb98-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Yes, the reporting module is active — you can access policyholder summaries and reserve forecasts under the ‘Reporting’ tab. Let me know if you need help setting up roles or tasks.",
+        "created_at": 1789313681,
+        "id": "55498796cb98-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Kessra Keldmere",
+          "type": "user"
+        },
+        "body": "That’s great — I’ll start pulling those reports. Thanks for the quick help, Bryn. Much appreciated.",
+        "created_at": 1789313694,
+        "id": "55498796cb98-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your request has been fully processed and closed in our system. No further action is needed from you at this time.",
+        "created_at": 1789313700,
+        "id": "55498796cb98-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your request has been fully processed and closed in our system. No further action is needed from you at this time.",
+        "created_at": 1789313708,
+        "id": "55498796cb98-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1789313640,
+  "id": "55498796cb98",
+  "source": {
+    "author": {
+      "email": "contact@a11.example",
+      "name": "Kessra Keldmere",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "reserves_payments"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

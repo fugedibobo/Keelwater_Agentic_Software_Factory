@@ -1,0 +1,127 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "assumed_resolution"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Quenna Rillmere",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m Quenna from Penhallow Specialty Risks — we’re having trouble accessing our reserves dashboard after the update last week.",
+        "created_at": 1789465860,
+        "id": "bbecd870fab9-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Quenna. Let’s get that sorted — can you confirm whether you’ve tried resetting your password? Sometimes that clears login issues.",
+        "created_at": 1789465868,
+        "id": "bbecd870fab9-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Quenna Rillmere",
+          "type": "user"
+        },
+        "body": "I need to reset my password for the claims portal — it’s not letting me in despite multiple attempts.",
+        "created_at": 1789465878,
+        "id": "bbecd870fab9-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Quenna Rillmere",
+          "type": "user"
+        },
+        "body": "Yes, I reset it yesterday and still can’t view the reserves or generate supplier payments reports. It’s blocking our weekly reporting.",
+        "created_at": 1789465885,
+        "id": "bbecd870fab9-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood. I’ll check your role permissions and ensure the integrations with your policyholders’ systems are active — that often affects document access.",
+        "created_at": 1789465894,
+        "id": "bbecd870fab9-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your request has been logged and will be reviewed by our support team within 24 hours.",
+        "created_at": 1789465902,
+        "id": "bbecd870fab9-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your case is now assigned to Bryn Telford. You’ll receive an update by end of day.",
+        "created_at": 1789465909,
+        "id": "bbecd870fab9-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Quenna Rillmere",
+          "type": "user"
+        },
+        "body": "Appreciate the quick help — we rely on those tasks being visible to avoid delays with supplier payments.",
+        "created_at": 1789465915,
+        "id": "bbecd870fab9-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1789465860,
+  "id": "bbecd870fab9",
+  "source": {
+    "author": {
+      "email": "contact@a17.example",
+      "name": "Quenna Rillmere",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "documents_evidence"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

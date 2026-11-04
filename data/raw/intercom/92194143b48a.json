@@ -1,0 +1,112 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Mavren Cairnwick",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m Mavren from Merrow Vale Motor — we’re having trouble pulling the latest payments report for our policyholders, and it’s holding up our month-end close.",
+        "created_at": 1792491300,
+        "id": "92194143b48a-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Mavren Cairnwick",
+          "type": "user"
+        },
+        "body": "We’re looking to schedule a review of our claims reserves next Tuesday at 11am if that works for your team.",
+        "created_at": 1792491310,
+        "id": "92194143b48a-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Mavren. I’ll check the integrations for your account to see if there’s a sync issue with the reporting module. Could you confirm which policyholder group you’re trying to pull data for?",
+        "created_at": 1792491318,
+        "id": "92194143b48a-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Mavren Cairnwick",
+          "type": "user"
+        },
+        "body": "It’s the commercial fleet group — the one with the updated roles assigned last week. I’ve double-checked the permissions and they look correct.",
+        "created_at": 1792491332,
+        "id": "92194143b48a-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Got it. I’ll run a diagnostic on the roles and integrations for that group. If it’s a permissions lag, we can force a refresh. I’ll email you an update by end of day.",
+        "created_at": 1792491342,
+        "id": "92194143b48a-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Mavren Cairnwick",
+          "type": "user"
+        },
+        "body": "Appreciate the quick response — and yes, please let me know if you need any documents from our end to help troubleshoot.",
+        "created_at": 1792491355,
+        "id": "92194143b48a-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "You’re welcome — we’ll get this sorted before your reporting deadline. I’ll also flag this with our supplier team to ensure no backend delays.",
+        "created_at": 1792491364,
+        "id": "92194143b48a-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 7,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1792491300,
+  "id": "92194143b48a",
+  "source": {
+    "author": {
+      "email": "contact@a30.example",
+      "name": "Mavren Cairnwick",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "supplier_network"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

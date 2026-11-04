@@ -1,0 +1,1128 @@
+{
+  "calls": [
+    {
+      "content": {
+        "trackers": [
+          {
+            "count": 1,
+            "name": "documents"
+          },
+          {
+            "count": 4,
+            "name": "claims"
+          }
+        ]
+      },
+      "context": [
+        {
+          "objects": [
+            {
+              "fields": [],
+              "objectId": "18452001034",
+              "objectType": "company",
+              "timing": "TimeOfCall"
+            }
+          ],
+          "system": "HubSpot"
+        }
+      ],
+      "metaData": {
+        "duration": 104,
+        "id": "020db697aa33",
+        "started": "2026-10-27T11:37:00Z"
+      },
+      "parties": [
+        {
+          "affiliation": "Internal",
+          "emailAddress": "alwen.dovell@keelwater.example",
+          "name": "Alwen Dovell",
+          "speakerId": "staff"
+        },
+        {
+          "affiliation": "External",
+          "emailAddress": "contact@p4.example",
+          "name": "Quenna Glenmere",
+          "speakerId": "customer"
+        }
+      ]
+    },
+    {
+      "content": {
+        "trackers": [
+          {
+            "count": 1,
+            "name": "documents"
+          },
+          {
+            "count": 8,
+            "name": "claims"
+          }
+        ]
+      },
+      "context": [
+        {
+          "objects": [
+            {
+              "fields": [],
+              "objectId": "18452001002",
+              "objectType": "company",
+              "timing": "TimeOfCall"
+            }
+          ],
+          "system": "HubSpot"
+        }
+      ],
+      "metaData": {
+        "duration": 295,
+        "id": "08d64879455e",
+        "started": "2026-10-26T11:03:00Z"
+      },
+      "parties": [
+        {
+          "affiliation": "Internal",
+          "emailAddress": "alwen.dovell@keelwater.example",
+          "name": "Alwen Dovell",
+          "speakerId": "staff"
+        },
+        {
+          "affiliation": "External",
+          "emailAddress": "contact@a02.example",
+          "name": "Brelis Bramvale",
+          "speakerId": "customer"
+        }
+      ]
+    },
+    {
+      "content": {
+        "trackers": [
+          {
+            "count": 2,
+            "name": "documents"
+          },
+          {
+            "count": 4,
+            "name": "claims"
+          }
+        ]
+      },
+      "context": [
+        {
+          "objects": [
+            {
+              "fields": [],
+              "objectId": "18452001033",
+              "objectType": "company",
+              "timing": "TimeOfCall"
+            }
+          ],
+          "system": "HubSpot"
+        }
+      ],
+      "metaData": {
+        "duration": 110,
+        "id": "2002a04c494f",
+        "started": "2026-10-16T12:52:00Z"
+      },
+      "parties": [
+        {
+          "affiliation": "Internal",
+          "emailAddress": "alwen.dovell@keelwater.example",
+          "name": "Alwen Dovell",
+          "speakerId": "staff"
+        },
+        {
+          "affiliation": "External",
+          "emailAddress": "contact@p3.example",
+          "name": "Pellin Fellward",
+          "speakerId": "customer"
+        }
+      ]
+    },
+    {
+      "content": {
+        "trackers": [
+          {
+            "count": 2,
+            "name": "claims"
+          }
+        ]
+      },
+      "context": [
+        {
+          "objects": [
+            {
+              "fields": [],
+              "objectId": "18452001004",
+              "objectType": "company",
+              "timing": "TimeOfCall"
+            }
+          ],
+          "system": "HubSpot"
+        }
+      ],
+      "metaData": {
+        "duration": 194,
+        "id": "3426a57b64e7",
+        "started": "2026-10-18T12:10:00Z"
+      },
+      "parties": [
+        {
+          "affiliation": "Internal",
+          "emailAddress": "alwen.dovell@keelwater.example",
+          "name": "Alwen Dovell",
+          "speakerId": "staff"
+        },
+        {
+          "affiliation": "External",
+          "emailAddress": "contact@a04.example",
+          "name": "Dovren Dovemere",
+          "speakerId": "customer"
+        }
+      ]
+    },
+    {
+      "content": {
+        "trackers": [
+          {
+            "count": 2,
+            "name": "claims"
+          },
+          {
+            "count": 4,
+            "name": "pricing"
+          }
+        ]
+      },
+      "context": [
+        {
+          "objects": [
+            {
+              "fields": [],
+              "objectId": "18452001020",
+              "objectType": "company",
+              "timing": "TimeOfCall"
+            }
+          ],
+          "system": "HubSpot"
+        }
+      ],
+      "metaData": {
+        "duration": 102,
+        "id": "37691a83fbf1",
+        "started": "2026-10-06T09:03:00Z"
+      },
+      "parties": [
+        {
+          "affiliation": "Internal",
+          "emailAddress": "alwen.dovell@keelwater.example",
+          "name": "Alwen Dovell",
+          "speakerId": "staff"
+        },
+        {
+          "affiliation": "External",
+          "emailAddress": "contact@a20.example",
+          "name": "Celdra Jarrowfell",
+          "speakerId": "customer"
+        }
+      ]
+    },
+    {
+      "content": {
+        "trackers": [
+          {
+            "count": 4,
+            "name": "documents"
+          },
+          {
+            "count": 4,
+            "name": "claims"
+          }
+        ]
+      },
+      "context": [
+        {
+          "objects": [
+            {
+              "fields": [],
+              "objectId": "18452001005",
+              "objectType": "company",
+              "timing": "TimeOfCall"
+            }
+          ],
+          "system": "HubSpot"
+        }
+      ],
+      "metaData": {
+        "duration": 249,
+        "id": "4fcf90c172a4",
+        "started": "2026-10-28T16:59:00Z"
+      },
+      "parties": [
+        {
+          "affiliation": "Internal",
+          "emailAddress": "alwen.dovell@keelwater.example",
+          "name": "Alwen Dovell",
+          "speakerId": "staff"
+        },
+        {
+          "affiliation": "External",
+          "emailAddress": "contact@a05.example",
+          "name": "Elwenna Elmtree",
+          "speakerId": "customer"
+        }
+      ]
+    },
+    {
+      "content": {
+        "trackers": [
+          {
+            "count": 1,
+            "name": "documents"
+          },
+          {
+            "count": 5,
+            "name": "claims"
+          }
+        ]
+      },
+      "context": [
+        {
+          "objects": [
+            {
+              "fields": [],
+              "objectId": "18452001033",
+              "objectType": "company",
+              "timing": "TimeOfCall"
+            }
+          ],
+          "system": "HubSpot"
+        }
+      ],
+      "metaData": {
+        "duration": 141,
+        "id": "567b9c9a845a",
+        "started": "2026-10-06T16:28:00Z"
+      },
+      "parties": [
+        {
+          "affiliation": "Internal",
+          "emailAddress": "alwen.dovell@keelwater.example",
+          "name": "Alwen Dovell",
+          "speakerId": "staff"
+        },
+        {
+          "affiliation": "External",
+          "emailAddress": "contact@p3.example",
+          "name": "Pellin Fellward",
+          "speakerId": "customer"
+        }
+      ]
+    },
+    {
+      "content": {
+        "trackers": [
+          {
+            "count": 2,
+            "name": "claims"
+          }
+        ]
+      },
+      "context": [
+        {
+          "objects": [
+            {
+              "fields": [],
+              "objectId": "18452001023",
+              "objectType": "company",
+              "timing": "TimeOfCall"
+            }
+          ],
+          "system": "HubSpot"
+        }
+      ],
+      "metaData": {
+        "duration": 95,
+        "id": "568f376ba158",
+        "started": "2026-10-22T16:09:00Z"
+      },
+      "parties": [
+        {
+          "affiliation": "Internal",
+          "emailAddress": "alwen.dovell@keelwater.example",
+          "name": "Alwen Dovell",
+          "speakerId": "staff"
+        },
+        {
+          "affiliation": "External",
+          "emailAddress": "contact@a23.example",
+          "name": "Farrin Mosswick",
+          "speakerId": "customer"
+        }
+      ]
+    },
+    {
+      "content": {
+        "trackers": [
+          {
+            "count": 2,
+            "name": "documents"
+          },
+          {
+            "count": 4,
+            "name": "claims"
+          }
+        ]
+      },
+      "context": [
+        {
+          "objects": [
+            {
+              "fields": [],
+              "objectId": "18452001016",
+              "objectType": "company",
+              "timing": "TimeOfCall"
+            }
+          ],
+          "system": "HubSpot"
+        }
+      ],
+      "metaData": {
+        "duration": 111,
+        "id": "64ccb80e1c87",
+        "started": "2026-10-31T11:43:00Z"
+      },
+      "parties": [
+        {
+          "affiliation": "Internal",
+          "emailAddress": "alwen.dovell@keelwater.example",
+          "name": "Alwen Dovell",
+          "speakerId": "staff"
+        },
+        {
+          "affiliation": "External",
+          "emailAddress": "contact@a16.example",
+          "name": "Pellin Pennfell",
+          "speakerId": "customer"
+        }
+      ]
+    },
+    {
+      "content": {
+        "trackers": [
+          {
+            "count": 2,
+            "name": "claims"
+          }
+        ]
+      },
+      "context": [
+        {
+          "objects": [
+            {
+              "fields": [],
+              "objectId": "18452001026",
+              "objectType": "company",
+              "timing": "TimeOfCall"
+            }
+          ],
+          "system": "HubSpot"
+        }
+      ],
+      "metaData": {
+        "duration": 180,
+        "id": "6c8a98cb45bc",
+        "started": "2026-10-14T16:28:00Z"
+      },
+      "parties": [
+        {
+          "affiliation": "Internal",
+          "emailAddress": "alwen.dovell@keelwater.example",
+          "name": "Alwen Dovell",
+          "speakerId": "staff"
+        },
+        {
+          "affiliation": "External",
+          "emailAddress": "contact@a26.example",
+          "name": "Ilyra Pennfell",
+          "speakerId": "customer"
+        }
+      ]
+    },
+    {
+      "content": {
+        "trackers": [
+          {
+            "count": 2,
+            "name": "claims"
+          },
+          {
+            "count": 5,
+            "name": "pricing"
+          }
+        ]
+      },
+      "context": [
+        {
+          "objects": [
+            {
+              "fields": [],
+              "objectId": "18452001015",
+              "objectType": "company",
+              "timing": "TimeOfCall"
+            }
+          ],
+          "system": "HubSpot"
+        }
+      ],
+      "metaData": {
+        "duration": 110,
+        "id": "732bf539ca42",
+        "started": "2026-10-28T16:51:00Z"
+      },
+      "parties": [
+        {
+          "affiliation": "Internal",
+          "emailAddress": "alwen.dovell@keelwater.example",
+          "name": "Alwen Dovell",
+          "speakerId": "staff"
+        },
+        {
+          "affiliation": "External",
+          "emailAddress": "contact@a15.example",
+          "name": "Orwen Orrenfield",
+          "speakerId": "customer"
+        }
+      ]
+    },
+    {
+      "content": {
+        "trackers": [
+          {
+            "count": 3,
+            "name": "claims"
+          }
+        ]
+      },
+      "context": [
+        {
+          "objects": [
+            {
+              "fields": [],
+              "objectId": "18452001014",
+              "objectType": "company",
+              "timing": "TimeOfCall"
+            }
+          ],
+          "system": "HubSpot"
+        }
+      ],
+      "metaData": {
+        "duration": 96,
+        "id": "83a4ce2ad236",
+        "started": "2026-10-17T16:58:00Z"
+      },
+      "parties": [
+        {
+          "affiliation": "Internal",
+          "emailAddress": "alwen.dovell@keelwater.example",
+          "name": "Alwen Dovell",
+          "speakerId": "staff"
+        },
+        {
+          "affiliation": "External",
+          "emailAddress": "contact@a14.example",
+          "name": "Nellin Nethervale",
+          "speakerId": "customer"
+        }
+      ]
+    },
+    {
+      "content": {
+        "trackers": [
+          {
+            "count": 6,
+            "name": "claims"
+          }
+        ]
+      },
+      "context": [
+        {
+          "objects": [
+            {
+              "fields": [],
+              "objectId": "18452001008",
+              "objectType": "company",
+              "timing": "TimeOfCall"
+            }
+          ],
+          "system": "HubSpot"
+        }
+      ],
+      "metaData": {
+        "duration": 190,
+        "id": "95ee4f061f1e",
+        "started": "2026-10-26T09:40:00Z"
+      },
+      "parties": [
+        {
+          "affiliation": "Internal",
+          "emailAddress": "alwen.dovell@keelwater.example",
+          "name": "Alwen Dovell",
+          "speakerId": "staff"
+        },
+        {
+          "affiliation": "External",
+          "emailAddress": "contact@a08.example",
+          "name": "Havren Harthwick",
+          "speakerId": "customer"
+        }
+      ]
+    },
+    {
+      "content": {
+        "trackers": [
+          {
+            "count": 3,
+            "name": "documents"
+          },
+          {
+            "count": 4,
+            "name": "claims"
+          }
+        ]
+      },
+      "context": [
+        {
+          "objects": [
+            {
+              "fields": [],
+              "objectId": "18452001003",
+              "objectType": "company",
+              "timing": "TimeOfCall"
+            }
+          ],
+          "system": "HubSpot"
+        }
+      ],
+      "metaData": {
+        "duration": 121,
+        "id": "9f71a8b058e6",
+        "started": "2026-10-17T13:44:00Z"
+      },
+      "parties": [
+        {
+          "affiliation": "Internal",
+          "emailAddress": "alwen.dovell@keelwater.example",
+          "name": "Alwen Dovell",
+          "speakerId": "staff"
+        },
+        {
+          "affiliation": "External",
+          "emailAddress": "contact@a03.example",
+          "name": "Celdra Cairnwick",
+          "speakerId": "customer"
+        }
+      ]
+    },
+    {
+      "content": {
+        "trackers": [
+          {
+            "count": 3,
+            "name": "documents"
+          },
+          {
+            "count": 4,
+            "name": "claims"
+          }
+        ]
+      },
+      "context": [
+        {
+          "objects": [
+            {
+              "fields": [],
+              "objectId": "18452001031",
+              "objectType": "company",
+              "timing": "TimeOfCall"
+            }
+          ],
+          "system": "HubSpot"
+        }
+      ],
+      "metaData": {
+        "duration": 118,
+        "id": "a3cec9c5709c",
+        "started": "2026-09-22T12:46:00Z"
+      },
+      "parties": [
+        {
+          "affiliation": "Internal",
+          "emailAddress": "alwen.dovell@keelwater.example",
+          "name": "Alwen Dovell",
+          "speakerId": "staff"
+        },
+        {
+          "affiliation": "External",
+          "emailAddress": "contact@p1.example",
+          "name": "Nellin Dovemere",
+          "speakerId": "customer"
+        }
+      ]
+    },
+    {
+      "content": {
+        "trackers": [
+          {
+            "count": 4,
+            "name": "documents"
+          },
+          {
+            "count": 4,
+            "name": "claims"
+          }
+        ]
+      },
+      "context": [
+        {
+          "objects": [
+            {
+              "fields": [],
+              "objectId": "18452001033",
+              "objectType": "company",
+              "timing": "TimeOfCall"
+            }
+          ],
+          "system": "HubSpot"
+        }
+      ],
+      "metaData": {
+        "duration": 128,
+        "id": "b0ff7e30c331",
+        "started": "2026-10-18T10:32:00Z"
+      },
+      "parties": [
+        {
+          "affiliation": "Internal",
+          "emailAddress": "alwen.dovell@keelwater.example",
+          "name": "Alwen Dovell",
+          "speakerId": "staff"
+        },
+        {
+          "affiliation": "External",
+          "emailAddress": "contact@p3.example",
+          "name": "Pellin Fellward",
+          "speakerId": "customer"
+        },
+        {
+          "affiliation": "External",
+          "emailAddress": "contact@crestline-brokers.example",
+          "name": "Nerris Bracken",
+          "speakerId": "broker"
+        }
+      ]
+    },
+    {
+      "content": {
+        "trackers": [
+          {
+            "count": 9,
+            "name": "claims"
+          }
+        ]
+      },
+      "context": [
+        {
+          "objects": [
+            {
+              "fields": [],
+              "objectId": "18452001001",
+              "objectType": "company",
+              "timing": "TimeOfCall"
+            }
+          ],
+          "system": "HubSpot"
+        }
+      ],
+      "metaData": {
+        "duration": 178,
+        "id": "b3272c89d7de",
+        "started": "2026-10-22T08:16:00Z"
+      },
+      "parties": [
+        {
+          "affiliation": "Internal",
+          "emailAddress": "alwen.dovell@keelwater.example",
+          "name": "Alwen Dovell",
+          "speakerId": "staff"
+        },
+        {
+          "affiliation": "External",
+          "emailAddress": "contact@a01.example",
+          "name": "Avenna Ashfell",
+          "speakerId": "customer"
+        }
+      ]
+    },
+    {
+      "content": {
+        "trackers": [
+          {
+            "count": 3,
+            "name": "documents"
+          },
+          {
+            "count": 6,
+            "name": "claims"
+          }
+        ]
+      },
+      "context": [
+        {
+          "objects": [
+            {
+              "fields": [],
+              "objectId": "18452001032",
+              "objectType": "company",
+              "timing": "TimeOfCall"
+            }
+          ],
+          "system": "HubSpot"
+        }
+      ],
+      "metaData": {
+        "duration": 165,
+        "id": "bab17432ef1c",
+        "started": "2026-09-15T08:35:00Z"
+      },
+      "parties": [
+        {
+          "affiliation": "Internal",
+          "emailAddress": "alwen.dovell@keelwater.example",
+          "name": "Alwen Dovell",
+          "speakerId": "staff"
+        },
+        {
+          "affiliation": "External",
+          "emailAddress": "contact@p2.example",
+          "name": "Orwen Elmtree",
+          "speakerId": "customer"
+        }
+      ]
+    },
+    {
+      "content": {
+        "trackers": [
+          {
+            "count": 5,
+            "name": "claims"
+          }
+        ]
+      },
+      "context": [
+        {
+          "objects": [
+            {
+              "fields": [],
+              "objectId": "18452001001",
+              "objectType": "company",
+              "timing": "TimeOfCall"
+            }
+          ],
+          "system": "HubSpot"
+        }
+      ],
+      "metaData": {
+        "duration": 237,
+        "id": "be71c3ace00a",
+        "started": "2026-10-18T12:21:00Z"
+      },
+      "parties": [
+        {
+          "affiliation": "Internal",
+          "emailAddress": "alwen.dovell@keelwater.example",
+          "name": "Alwen Dovell",
+          "speakerId": "staff"
+        },
+        {
+          "affiliation": "External",
+          "emailAddress": "contact@a01.example",
+          "name": "Avenna Ashfell",
+          "speakerId": "customer"
+        }
+      ]
+    },
+    {
+      "content": {
+        "trackers": [
+          {
+            "count": 1,
+            "name": "documents"
+          },
+          {
+            "count": 2,
+            "name": "claims"
+          }
+        ]
+      },
+      "context": [
+        {
+          "objects": [
+            {
+              "fields": [],
+              "objectId": "18452001010",
+              "objectType": "company",
+              "timing": "TimeOfCall"
+            }
+          ],
+          "system": "HubSpot"
+        }
+      ],
+      "metaData": {
+        "duration": 98,
+        "id": "c1f22db22327",
+        "started": "2026-09-06T10:49:00Z"
+      },
+      "parties": [
+        {
+          "affiliation": "Internal",
+          "emailAddress": "alwen.dovell@keelwater.example",
+          "name": "Alwen Dovell",
+          "speakerId": "staff"
+        },
+        {
+          "affiliation": "External",
+          "emailAddress": "contact@a10.example",
+          "name": "Jorrin Jarrowfell",
+          "speakerId": "customer"
+        }
+      ]
+    },
+    {
+      "content": {
+        "trackers": [
+          {
+            "count": 2,
+            "name": "documents"
+          },
+          {
+            "count": 1,
+            "name": "claims"
+          }
+        ]
+      },
+      "context": [
+        {
+          "objects": [
+            {
+              "fields": [],
+              "objectId": "18452001019",
+              "objectType": "company",
+              "timing": "TimeOfCall"
+            }
+          ],
+          "system": "HubSpot"
+        }
+      ],
+      "metaData": {
+        "duration": 122,
+        "id": "c413d476c95c",
+        "started": "2026-09-17T15:33:00Z"
+      },
+      "parties": [
+        {
+          "affiliation": "Internal",
+          "emailAddress": "alwen.dovell@keelwater.example",
+          "name": "Alwen Dovell",
+          "speakerId": "staff"
+        },
+        {
+          "affiliation": "External",
+          "emailAddress": "contact@a19.example",
+          "name": "Brelis Isleford",
+          "speakerId": "customer"
+        }
+      ]
+    },
+    {
+      "content": {
+        "trackers": [
+          {
+            "count": 2,
+            "name": "claims"
+          }
+        ]
+      },
+      "context": [
+        {
+          "objects": [
+            {
+              "fields": [],
+              "objectId": "18452001013",
+              "objectType": "company",
+              "timing": "TimeOfCall"
+            }
+          ],
+          "system": "HubSpot"
+        }
+      ],
+      "metaData": {
+        "duration": 246,
+        "id": "ce36f906098e",
+        "started": "2026-10-19T10:29:00Z"
+      },
+      "parties": [
+        {
+          "affiliation": "Internal",
+          "emailAddress": "alwen.dovell@keelwater.example",
+          "name": "Alwen Dovell",
+          "speakerId": "staff"
+        },
+        {
+          "affiliation": "External",
+          "emailAddress": "contact@a13.example",
+          "name": "Mavren Mosswick",
+          "speakerId": "customer"
+        }
+      ]
+    },
+    {
+      "content": {
+        "trackers": [
+          {
+            "count": 1,
+            "name": "documents"
+          },
+          {
+            "count": 2,
+            "name": "claims"
+          }
+        ]
+      },
+      "context": [
+        {
+          "objects": [
+            {
+              "fields": [],
+              "objectId": "18452001012",
+              "objectType": "company",
+              "timing": "TimeOfCall"
+            }
+          ],
+          "system": "HubSpot"
+        }
+      ],
+      "metaData": {
+        "duration": 220,
+        "id": "cec322adb05b",
+        "started": "2026-10-15T11:14:00Z"
+      },
+      "parties": [
+        {
+          "affiliation": "Internal",
+          "emailAddress": "alwen.dovell@keelwater.example",
+          "name": "Alwen Dovell",
+          "speakerId": "staff"
+        },
+        {
+          "affiliation": "External",
+          "emailAddress": "contact@a12.example",
+          "name": "Lirven Larchvale",
+          "speakerId": "customer"
+        }
+      ]
+    },
+    {
+      "content": {
+        "trackers": [
+          {
+            "count": 1,
+            "name": "documents"
+          },
+          {
+            "count": 1,
+            "name": "claims"
+          }
+        ]
+      },
+      "context": [
+        {
+          "objects": [
+            {
+              "fields": [],
+              "objectId": "18452001032",
+              "objectType": "company",
+              "timing": "TimeOfCall"
+            }
+          ],
+          "system": "HubSpot"
+        }
+      ],
+      "metaData": {
+        "duration": 121,
+        "id": "fb5b4152e862",
+        "started": "2026-10-25T11:45:00Z"
+      },
+      "parties": [
+        {
+          "affiliation": "Internal",
+          "emailAddress": "alwen.dovell@keelwater.example",
+          "name": "Alwen Dovell",
+          "speakerId": "staff"
+        },
+        {
+          "affiliation": "External",
+          "emailAddress": "contact@p2.example",
+          "name": "Orwen Elmtree",
+          "speakerId": "customer"
+        }
+      ]
+    },
+    {
+      "content": {
+        "trackers": [
+          {
+            "count": 3,
+            "name": "documents"
+          },
+          {
+            "count": 7,
+            "name": "claims"
+          }
+        ]
+      },
+      "context": [
+        {
+          "objects": [
+            {
+              "fields": [],
+              "objectId": "18452001003",
+              "objectType": "company",
+              "timing": "TimeOfCall"
+            }
+          ],
+          "system": "HubSpot"
+        }
+      ],
+      "metaData": {
+        "duration": 97,
+        "id": "fc7e53597de5",
+        "started": "2026-10-06T15:02:00Z"
+      },
+      "parties": [
+        {
+          "affiliation": "Internal",
+          "emailAddress": "alwen.dovell@keelwater.example",
+          "name": "Alwen Dovell",
+          "speakerId": "staff"
+        },
+        {
+          "affiliation": "External",
+          "emailAddress": "contact@a03.example",
+          "name": "Celdra Cairnwick",
+          "speakerId": "customer"
+        }
+      ]
+    }
+  ]
+}

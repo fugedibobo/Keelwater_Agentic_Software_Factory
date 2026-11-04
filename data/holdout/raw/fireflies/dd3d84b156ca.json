@@ -1,0 +1,132 @@
+{
+  "date": 1793289540000,
+  "duration": 1.5266666666666666,
+  "host_email": "carys.fenwick@keelwater.example",
+  "id": "dd3d84b156ca",
+  "meeting_attendees": [
+    {
+      "displayName": "Carys Fenwick",
+      "email": "carys.fenwick@keelwater.example",
+      "name": "Carys Fenwick"
+    },
+    {
+      "displayName": "Lirven Larchvale",
+      "email": "contact@a12.example",
+      "name": "Lirven Larchvale"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 11.6,
+      "index": 0,
+      "raw_text": "Hi Carys, I’m setting up our new claims team and it’s taking forever to assign permissions. Each person needs a custom setup and I keep worrying I’ll miss something.",
+      "speaker_id": "customer",
+      "speaker_name": "Lirven Larchvale",
+      "start_time": 0.0,
+      "text": "Hi Carys, I’m setting up our new claims team and it’s taking forever to assign permissions. Each person needs a custom setup and I keep worrying I’ll miss something."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 19.2,
+      "index": 1,
+      "raw_text": "Could we schedule a follow-up next Tuesday? I’ll be out Wednesday and Thursday, so Tuesday works best for me.",
+      "speaker_id": "customer",
+      "speaker_name": "Lirven Larchvale",
+      "start_time": 11.6,
+      "text": "Could we schedule a follow-up next Tuesday? I’ll be out Wednesday and Thursday, so Tuesday works best for me."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 30.8,
+      "index": 2,
+      "raw_text": "I hear you — it’s not ideal that we can’t clone roles. You’re right, it’s a manual process and easy to slip up, which then blocks access for handlers.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 19.2,
+      "text": "I hear you — it’s not ideal that we can’t clone roles. You’re right, it’s a manual process and easy to slip up, which then blocks access for handlers."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 40.0,
+      "index": 3,
+      "raw_text": "Exactly. I just spent 45 minutes ticking boxes for one person. If I could copy an existing role, it’d save hours every week.",
+      "speaker_id": "customer",
+      "speaker_name": "Lirven Larchvale",
+      "start_time": 30.8,
+      "text": "Exactly. I just spent 45 minutes ticking boxes for one person. If I could copy an existing role, it’d save hours every week."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 58.0,
+      "index": 4,
+      "raw_text": "It’s frustrating that I can’t just duplicate an existing role — I have to manually select permissions for each new user, and if I make a mistake, it locks them out of their tasks. This permission setup duplication is eating up way too much time.",
+      "speaker_id": "customer",
+      "speaker_name": "Lirven Larchvale",
+      "start_time": 40.0,
+      "text": "It’s frustrating that I can’t just duplicate an existing role — I have to manually select permissions for each new user, and if I make a mistake, it locks them out of their tasks. This permission setup duplication is eating up way too much time."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 70.4,
+      "index": 5,
+      "raw_text": "We’re tracking this as a known pain point. For now, I can walk you through a checklist to reduce errors — or we can schedule a live session if you’d like.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 58.0,
+      "text": "We’re tracking this as a known pain point. For now, I can walk you through a checklist to reduce errors — or we can schedule a live session if you’d like."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 78.8,
+      "index": 6,
+      "raw_text": "That’d be great. Let’s lock in a time — I’m swamped this week but next Tuesday after 2pm works for me.",
+      "speaker_id": "customer",
+      "speaker_name": "Lirven Larchvale",
+      "start_time": 70.4,
+      "text": "That’d be great. Let’s lock in a time — I’m swamped this week but next Tuesday after 2pm works for me."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 91.6,
+      "index": 7,
+      "raw_text": "Noted — I’ll send you a calendar invite for Tuesday at 2:30pm. In the meantime, here’s a permission template you can use as a guide to avoid the permission setup duplication pitfalls.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 78.8,
+      "text": "Noted — I’ll send you a calendar invite for Tuesday at 2:30pm. In the meantime, here’s a permission template you can use as a guide to avoid the permission setup duplication pitfalls."
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "assumed_resolution"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Mavren Mosswick",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m having trouble uploading the policyholder documents for claim A13 — they keep failing validation.",
+        "created_at": 1791475920,
+        "id": "b150f49093b9-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for flagging that, Mavren. Could you check if the files are under 10MB and in PDF format? That’s usually the culprit.",
+        "created_at": 1791475926,
+        "id": "b150f49093b9-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Mavren Mosswick",
+          "type": "user"
+        },
+        "body": "I need to reset my password for the claims portal — can you guide me through it?",
+        "created_at": 1791475935,
+        "id": "b150f49093b9-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Mavren Mosswick",
+          "type": "user"
+        },
+        "body": "Got it — I’ll compress them and retry. Also, can we book time to review the supplier payments?",
+        "created_at": 1791475942,
+        "id": "b150f49093b9-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Mavren Mosswick",
+          "type": "user"
+        },
+        "body": "Could we schedule a follow-up call next Tuesday to go over the reserve calculations?",
+        "created_at": 1791475949,
+        "id": "b150f49093b9-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Absolutely — I’ll send you a calendar invite for Tuesday at 10am. Let me know if that works.",
+        "created_at": 1791475955,
+        "id": "b150f49093b9-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Thanks for reaching out — your case has been resolved and you’ll receive a confirmation email shortly.",
+        "created_at": 1791475962,
+        "id": "b150f49093b9-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Mavren Mosswick",
+          "type": "user"
+        },
+        "body": "Perfect, thanks. One last thing — I think my login credentials expired. Can you help me reset them?",
+        "created_at": 1791475969,
+        "id": "b150f49093b9-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Sure thing — I’ll trigger a password reset email to contact@a13.example. You’ll get it within two minutes.",
+        "created_at": 1791475976,
+        "id": "b150f49093b9-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Mavren Mosswick",
+          "type": "user"
+        },
+        "body": "Appreciate the quick help — you’ve saved me from a headache today.",
+        "created_at": 1791475983,
+        "id": "b150f49093b9-9",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "You’re welcome! Your case is now marked as resolved. Feel free to reopen if anything else comes up.",
+        "created_at": 1791475988,
+        "id": "b150f49093b9-10",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 11,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1791475920,
+  "id": "b150f49093b9",
+  "source": {
+    "author": {
+      "email": "contact@a13.example",
+      "name": "Mavren Mosswick",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "admin_permissions"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

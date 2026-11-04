@@ -1,0 +1,230 @@
+{
+  "date": 1789382580000,
+  "duration": 1.7866666666666666,
+  "host_email": "deryn.pell@keelwater.example",
+  "id": "6d8776abe7cd",
+  "meeting_attendees": [
+    {
+      "displayName": "Deryn Pell",
+      "email": "deryn.pell@keelwater.example",
+      "name": "Deryn Pell"
+    },
+    {
+      "displayName": "Nellin Dovemere",
+      "email": "contact@p1.example",
+      "name": "Nellin Dovemere"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 5.6,
+      "index": 0,
+      "raw_text": "Morning Deryn, just wanted to flag a couple of things slowing us down lately.",
+      "speaker_id": "customer",
+      "speaker_name": "Nellin Dovemere",
+      "start_time": 0.0,
+      "text": "Morning Deryn, just wanted to flag a couple of things slowing us down lately."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 12.8,
+      "index": 1,
+      "raw_text": "Could we schedule a quick sync next Tuesday? I’ll need to clear my calendar for the claims review.",
+      "speaker_id": "customer",
+      "speaker_name": "Nellin Dovemere",
+      "start_time": 5.6,
+      "text": "Could we schedule a quick sync next Tuesday? I’ll need to clear my calendar for the claims review."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 18.4,
+      "index": 2,
+      "raw_text": "Hi Nellin, thanks for reaching out — happy to help. What’s on your mind?",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 12.8,
+      "text": "Hi Nellin, thanks for reaching out — happy to help. What’s on your mind?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 26.4,
+      "index": 3,
+      "raw_text": "First, we’re spending too much time calling garages because we can’t see live repair updates — it’s a daily grind.",
+      "speaker_id": "customer",
+      "speaker_name": "Nellin Dovemere",
+      "start_time": 18.4,
+      "text": "First, we’re spending too much time calling garages because we can’t see live repair updates — it’s a daily grind."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 38.4,
+      "index": 4,
+      "raw_text": "We’re spending too much time calling garages because we can’t see live repair updates — it’s a daily grind, and the repair updates missing is really hurting our workflow efficiency.",
+      "speaker_id": "customer",
+      "speaker_name": "Nellin Dovemere",
+      "start_time": 26.4,
+      "text": "We’re spending too much time calling garages because we can’t see live repair updates — it’s a daily grind, and the repair updates missing is really hurting our workflow efficiency."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 44.4,
+      "index": 5,
+      "raw_text": "That’s a known pain point — we’re tracking it as ‘repair updates missing’ for prioritisation.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 38.4,
+      "text": "That’s a known pain point — we’re tracking it as ‘repair updates missing’ for prioritisation."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 51.6,
+      "index": 6,
+      "raw_text": "Exactly — and it’s not just annoying, it’s eating into time we could spend on policyholders or tasks.",
+      "speaker_id": "customer",
+      "speaker_name": "Nellin Dovemere",
+      "start_time": 44.4,
+      "text": "Exactly — and it’s not just annoying, it’s eating into time we could spend on policyholders or tasks."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 58.4,
+      "index": 7,
+      "raw_text": "Understood. We’ll log this under ‘garage progress visibility’ to make sure it’s visible to the product team.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 51.6,
+      "text": "Understood. We’ll log this under ‘garage progress visibility’ to make sure it’s visible to the product team."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 68.4,
+      "index": 8,
+      "raw_text": "The lack of real-time visibility into garage progress is forcing us to chase manually — garage progress visibility is a blocker we need solved ASAP.",
+      "speaker_id": "customer",
+      "speaker_name": "Nellin Dovemere",
+      "start_time": 58.4,
+      "text": "The lack of real-time visibility into garage progress is forcing us to chase manually — garage progress visibility is a blocker we need solved ASAP."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 76.0,
+      "index": 9,
+      "raw_text": "Also, when someone’s out and a reserve goes over limit, it just sits there — no backup, no movement.",
+      "speaker_id": "customer",
+      "speaker_name": "Nellin Dovemere",
+      "start_time": 68.4,
+      "text": "Also, when someone’s out and a reserve goes over limit, it just sits there — no backup, no movement."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 82.8,
+      "index": 10,
+      "raw_text": "That’s a critical gap — we’re tagging that as ‘approval waiting list’ to escalate to workflow design.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 76.0,
+      "text": "That’s a critical gap — we’re tagging that as ‘approval waiting list’ to escalate to workflow design."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 94.0,
+      "index": 11,
+      "raw_text": "When a reserve exceeds authority and the approver’s out with no delegate, it just piles up — that approval waiting list causes unnecessary delays and frustrates our team.",
+      "speaker_id": "customer",
+      "speaker_name": "Nellin Dovemere",
+      "start_time": 82.8,
+      "text": "When a reserve exceeds authority and the approver’s out with no delegate, it just piles up — that approval waiting list causes unnecessary delays and frustrates our team."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 100.0,
+      "index": 12,
+      "raw_text": "Right — and it’s not just delays, it’s claims stalling until someone returns. Not ideal.",
+      "speaker_id": "customer",
+      "speaker_name": "Nellin Dovemere",
+      "start_time": 94.0,
+      "text": "Right — and it’s not just delays, it’s claims stalling until someone returns. Not ideal."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 104.4,
+      "index": 13,
+      "raw_text": "Agreed. We’ll include this in the next sprint review. Anything else?",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 100.0,
+      "text": "Agreed. We’ll include this in the next sprint review. Anything else?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 107.2,
+      "index": 14,
+      "raw_text": "Not for now — thanks for listening.",
+      "speaker_id": "customer",
+      "speaker_name": "Nellin Dovemere",
+      "start_time": 104.4,
+      "text": "Not for now — thanks for listening."
+    }
+  ]
+}

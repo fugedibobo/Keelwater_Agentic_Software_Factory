@@ -186,7 +186,7 @@ No few-shot examples in v1, so labels never change a prompt behind its version. 
 
 ### 5.3 Judge model
 
-Demo `z-ai/glm-5` (probe fallback `z-ai/glm-5.3`), aws `zai.glm-5`. The brief writer is DeepSeek V3.2, the extractor gpt-oss-120b and the data generator Mistral, so no judge grades its own family's text. About 33 calls a run, about USD 0.20 (INFERRED from the GLM 5 London price).
+Demo `z-ai/glm-5` (probe fallback `z-ai/glm-5.3`), aws `zai.glm-5`. The brief writer is DeepSeek V3.2, the extractor gpt-oss-120b and the data generator Qwen3 VL 235B Instruct, so no judge grades its own family's text. About 33 calls a run, about USD 0.20 (INFERRED from the GLM 5 London price).
 
 ### 5.4 From board actions to labels
 
@@ -252,7 +252,7 @@ No Keelwater PMs, so no judge in the demo can be trusted.
 Seed sets, all built by construction from ground truth (none is hand-labelled), split by theme so no theme is in two splits:
 - **signal:** 30 passes from bundles of 3-8 signal-theme insights; 30 fails from noise themes and noise-only snippets.
 - **duplicate:** 30 fails pair shipped and roadmap themes with their items; 30 passes include the hard negatives.
-- **faithfulness:** 30 passes by construction: briefs from the real brief prompt over seeded bundles of planted opportunities that clear every deterministic check, marked `synthetic_seed` and not read or labelled by the author; 30 fails each apply one controlled defect (unsupported claim, changed number, misattributed quote, flipped stance, inflated scope, removed contrary evidence), applied by the Mistral generator with the span recorded. Constructed defects are cleaner than real ones.
+- **faithfulness:** 30 passes by construction: briefs from the real brief prompt over seeded bundles of planted opportunities that clear every deterministic check, marked `synthetic_seed` and not read or labelled by the author; 30 fails each apply one controlled defect (unsupported claim, changed number, misattributed quote, flipped stance, inflated scope, removed contrary evidence), applied by the Qwen generator with the span recorded. Constructed defects are cleaner than real ones.
 
 Synthetic or not: §4 metrics and the noise-audit rate are synthetic; `synthetic_seed` agreement is synthetic; `live_reviewer` agreement is real clicks on synthetic data (tiny n, with intervals); "calibrating: n of 50" shows 0 in the demo; acceptance rate is real clicks, nothing pre-seeded; cost, latency and tokens are real `model_call` rows from the recorded live run.
 
@@ -277,7 +277,7 @@ Rubrics are revisited monthly against fail critiques, because grading shifts wha
 - **Versioning:** prompts in `prompts/<stage>/<name>.md` with a front-matter `version`; `prompt_version = <name>@<semver>+<first 8 hex of sha256>`; a live run refuses a changed hash without a bump. Model ids pinned in `config/models.yaml`; config changes are audit events.
 - **Suites:** a change runs `eval --suite all` (seed 42, seed 43, stability, judges on dev), re-running from the first changed stage with earlier stages cached. Reports go to `reports/eval/<suite>-<run_id>.json` and are compared with `reports/eval/baseline/`, which moves only with a merged passing change.
 - **Gates:** boolean gates (recovery, top-6 set, probe, tagging, attribution, citations, noise suppression, stability) allow no drop; noise-drop rate and purity at least baseline - 0.02 and the floor; signal recall at most one more mention missed; judge dev agreement at least baseline - 0.02; +25% cost or +50% latency needs a written reason.
-- **Designed, not built in v1:** Phoenix datasets and experiments showing baseline and candidate side by side (v1 only mirrors spans with `--phoenix`); and a triage backend swap between two in-VPC backends (Bedrock gpt-oss-20b now, Clef-flash or a ModernBERT/SetFit classifier later): offline comparison on 500 or more labelled snippets, thresholds re-fitted to equal signal recall, two weeks in shadow, one week as a 10% canary with the audit raised on that slice, cut-over and rollback by configuration. Gate: recall at least the incumbent's, noise-drop within 5 points, bucket accuracy within 3, p95 latency under 1.5 s. Jev is demo-only and never in this path.
+- **Designed, not built in v1:** Phoenix datasets and experiments showing baseline and candidate side by side (v1 only mirrors spans with `--phoenix`); and a triage backend swap between two in-VPC backends (Bedrock gpt-oss-20b now, self-hosted Clef or a ModernBERT/SetFit classifier later): offline comparison on 500 or more labelled snippets, thresholds re-fitted to equal signal recall, two weeks in shadow, one week as a 10% canary with the audit raised on that slice, cut-over and rollback by configuration. Gate: recall at least the incumbent's, noise-drop within 5 points, bucket accuracy within 3, p95 latency under 1.5 s. The demo runs Clef through OpenRouter, which is not in this path.
 
 ---
 

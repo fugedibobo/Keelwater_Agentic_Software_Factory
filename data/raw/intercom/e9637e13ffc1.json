@@ -1,0 +1,175 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "routed_to_team"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Brelis Bramvale",
+          "type": "user"
+        },
+        "body": "Hi Bryn, we’ve been having some issues with how claims are assigned in our motor team — it’s not matching our workload or postcode zones.",
+        "created_at": 1792593180,
+        "id": "e9637e13ffc1-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: Customer A02 (Wexmoor Motor) flagged routing and UI change concerns. Escalated to product and UX.",
+        "created_at": 1792593190,
+        "id": "e9637e13ffc1-1",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for letting me know, Brelis. I’ll check if your team’s routing rules can be adjusted to better fit your workflow.",
+        "created_at": 1792593196,
+        "id": "e9637e13ffc1-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Brelis Bramvale",
+          "type": "user"
+        },
+        "body": "Also, the last update moved the ‘reserves’ button — we had to retrain half the team because of that.",
+        "created_at": 1792593205,
+        "id": "e9637e13ffc1-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Brelis Bramvale",
+          "type": "user"
+        },
+        "body": "The interface changes last month moved key controls without warning — we had to retrain staff because of those unexpected interface changes.",
+        "created_at": 1792593212,
+        "id": "e9637e13ffc1-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Brelis Bramvale",
+          "type": "user"
+        },
+        "body": "Could we schedule a quick call next Tuesday to walk through the latest updates?",
+        "created_at": 1792593221,
+        "id": "e9637e13ffc1-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "I’m sorry to hear that. We’re working on giving advance notice for interface changes — I’ll make sure you get a preview next time.",
+        "created_at": 1792593227,
+        "id": "e9637e13ffc1-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "I’ve logged your feedback and will flag it to the product team for review.",
+        "created_at": 1792593236,
+        "id": "e9637e13ffc1-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Brelis Bramvale",
+          "type": "user"
+        },
+        "body": "That’d help a lot. And just to confirm — can we turn off auto-routing for our commercial claims? They’re too complex.",
+        "created_at": 1792593242,
+        "id": "e9637e13ffc1-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Noted — we’ll escalate this to the UX team to address the unexpected interface changes and routing configuration needs.",
+        "created_at": 1792593250,
+        "id": "e9637e13ffc1-9",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Yes, absolutely — we can configure that per team. I’ll set up a custom rule for your commercial claims to use manual claim routing.",
+        "created_at": 1792593258,
+        "id": "e9637e13ffc1-10",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Brelis Bramvale",
+          "type": "user"
+        },
+        "body": "Our commercial claims are too complex for auto-routing — we need manual claim routing for those, while motor claims can stay automated by postcode and workload.",
+        "created_at": 1792593268,
+        "id": "e9637e13ffc1-11",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 12,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1792593180,
+  "id": "e9637e13ffc1",
+  "source": {
+    "author": {
+      "email": "contact@a02.example",
+      "name": "Brelis Bramvale",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "triage_assignment"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

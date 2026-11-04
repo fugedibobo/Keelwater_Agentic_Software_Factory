@@ -1,0 +1,223 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "routed_to_team"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Glenmere",
+          "type": "user"
+        },
+        "body": "Morning Bryn, it’s Gellin from Saltmarsh. We’re seeing some issues with how claims get assigned and docs get filed — can we talk it through?",
+        "created_at": 1793091720,
+        "id": "abb64c9fff63-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "I’m here to help with your Keelwater claims system query. Could you clarify which feature you’re having trouble with?",
+        "created_at": 1793091730,
+        "id": "abb64c9fff63-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Thanks for reaching out, Gellin. I’ll connect you with Bryn right away. Please hold for 30 seconds.",
+        "created_at": 1793091737,
+        "id": "abb64c9fff63-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Hi Gellin, Bryn here. I’ve pulled up your account. What’s the main pain point you’re facing?",
+        "created_at": 1793091744,
+        "id": "abb64c9fff63-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Glenmere",
+          "type": "user"
+        },
+        "body": "Our motor team wants claims routed automatically based on postcode and workload, but our specialty handlers need manual control for complex cases — it’s a team-level thing.",
+        "created_at": 1793091750,
+        "id": "abb64c9fff63-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Glenmere",
+          "type": "user"
+        },
+        "body": "Our motor team wants claims routed automatically based on postcode and workload, but our specialty handlers need manual control for complex cases — it’s a team-level thing. We need manual claim routing options configurable per team.",
+        "created_at": 1793091761,
+        "id": "abb64c9fff63-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Bryn, please note that Saltmarsh Specialty’s team needs per-team routing controls — motor teams want automation, but complex commercial claims require manual handling. This is a high-priority config request.",
+        "created_at": 1793091776,
+        "id": "abb64c9fff63-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Got it. You’re asking for different routing behaviours per team — that’s a valid config need. I’ll log this as a feature request for our product team.",
+        "created_at": 1793091787,
+        "id": "abb64c9fff63-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: Gellin Glenmere’s account (A07) flagged misfiled evidence and routing conflicts. Escalate to product config team for team-level toggle design.",
+        "created_at": 1793091798,
+        "id": "abb64c9fff63-8",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Glenmere",
+          "type": "user"
+        },
+        "body": "Also, garage estimates keep landing in correspondence — we have to manually recategorise them, and sometimes evidence gets missed because of it.",
+        "created_at": 1793091806,
+        "id": "abb64c9fff63-9",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Glenmere",
+          "type": "user"
+        },
+        "body": "Garage estimates keep landing in correspondence — we have to manually recategorise them, and sometimes evidence gets missed because of it. The incorrect file type assignment is causing real delays and oversight risks.",
+        "created_at": 1793091815,
+        "id": "abb64c9fff63-10",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "That’s a critical workflow issue. I’ll flag this as a classification bug — we’ll investigate why the system misfiles those documents and how to fix the auto-tagging.",
+        "created_at": 1793091828,
+        "id": "abb64c9fff63-11",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Glenmere",
+          "type": "user"
+        },
+        "body": "Thanks Bryn. We really need this sorted — handlers are wasting time fixing incorrect file type assignments, and it’s impacting claim accuracy.",
+        "created_at": 1793091839,
+        "id": "abb64c9fff63-12",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Glenmere",
+          "type": "user"
+        },
+        "body": "Handlers are spending too much time fixing the incorrect file type assignments — we need a better way to classify garage estimates so we don’t miss critical evidence during claims processing.",
+        "created_at": 1793091848,
+        "id": "abb64c9fff63-13",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood. I’ll escalate this to our engineering team today. You’ll get an update by end of week. Anything else I can help with?",
+        "created_at": 1793091860,
+        "id": "abb64c9fff63-14",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Glenmere",
+          "type": "user"
+        },
+        "body": "No, that’s all for now. Appreciate the quick response.",
+        "created_at": 1793091870,
+        "id": "abb64c9fff63-15",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 16,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1793091720,
+  "id": "abb64c9fff63",
+  "source": {
+    "author": {
+      "email": "contact@a07.example",
+      "name": "Gellin Glenmere",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "triage_assignment"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

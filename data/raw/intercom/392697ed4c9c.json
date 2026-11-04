@@ -1,0 +1,199 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "routed_to_team"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Celdra Cairnwick",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m having trouble with the dashboard totals not matching the CSV we export for finance.",
+        "created_at": 1793101980,
+        "id": "392697ed4c9c-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for flagging this, Celdra. Let me check if this is related to your login or a system issue.",
+        "created_at": 1793101986,
+        "id": "392697ed4c9c-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Celdra Cairnwick",
+          "type": "user"
+        },
+        "body": "Can we schedule a call for next Tuesday? I’ll be available after 2pm.",
+        "created_at": 1793101994,
+        "id": "392697ed4c9c-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Celdra Cairnwick",
+          "type": "user"
+        },
+        "body": "It’s not my login — I’ve checked the VPN and email, and it’s still happening. Feels like a customer network failure.",
+        "created_at": 1793101999,
+        "id": "392697ed4c9c-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Celdra Cairnwick",
+          "type": "user"
+        },
+        "body": "I’ve ruled out our own systems — it’s definitely a customer network failure, not Keelwater being down, though the error message makes it sound like a bug.",
+        "created_at": 1793102008,
+        "id": "392697ed4c9c-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: customer is on legacy SSO; route to network support if login issues recur.",
+        "created_at": 1793102018,
+        "id": "392697ed4c9c-5",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood. I’ll escalate this to our backend team to verify the export figures mismatch isn’t due to time zone handling.",
+        "created_at": 1793102024,
+        "id": "392697ed4c9c-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "I’ve escalated your case to our specialist team for further review.",
+        "created_at": 1793102032,
+        "id": "392697ed4c9c-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Celdra Cairnwick",
+          "type": "user"
+        },
+        "body": "Also, our commercial claims team needs manual claim routing — auto-assignment breaks our complex cases.",
+        "created_at": 1793102037,
+        "id": "392697ed4c9c-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Celdra Cairnwick",
+          "type": "user"
+        },
+        "body": "Finance keeps questioning the numbers because the dashboard totals don’t match the export figures mismatch — I’ve re-exported three times and it’s consistent with UTC cutoff, not UK time.",
+        "created_at": 1793102043,
+        "id": "392697ed4c9c-9",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Confirmed: the dashboard and export discrepancy stems from UTC cutoff, not a product bug. Finance should use UK local time for reconciliation.",
+        "created_at": 1793102054,
+        "id": "392697ed4c9c-10",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Got it. We can configure routing rules per team. I’ll set up a separate workflow for your commercial unit.",
+        "created_at": 1793102063,
+        "id": "392697ed4c9c-11",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Celdra Cairnwick",
+          "type": "user"
+        },
+        "body": "Our commercial and specialty claims handlers find auto-routing unhelpful — we need manual claim routing to manage complex files properly, especially with multiple suppliers and policyholders involved.",
+        "created_at": 1793102071,
+        "id": "392697ed4c9c-12",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Celdra Cairnwick",
+          "type": "user"
+        },
+        "body": "Perfect. And just to confirm — next Tuesday at 3pm works for me.",
+        "created_at": 1793102082,
+        "id": "392697ed4c9c-13",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 14,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1793101980,
+  "id": "392697ed4c9c",
+  "source": {
+    "author": {
+      "email": "contact@a03.example",
+      "name": "Celdra Cairnwick",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "general"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

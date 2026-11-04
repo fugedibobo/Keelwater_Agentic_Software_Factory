@@ -1,0 +1,48 @@
+{
+ "request": {
+  "model": "qwen/qwen3-vl-235b-a22b-instruct",
+  "messages": [
+   {
+    "role": "user",
+    "content": "Write one short realistic description for this fictional claims software item. Use no company, person or product name except Keelwater. Return JSON.\n{\"key\": \"page:1\", \"name\": \"Reserve history audit export\", \"source\": \"notion\", \"status\": \"Planned\", \"target\": null}\nVersion 0\n"
+   }
+  ],
+  "temperature": 0.8,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "generate",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "description"
+     ],
+     "properties": {
+      "description": {
+       "type": "string"
+      }
+     }
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "allow",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"description\": \"Export a detailed audit trail of all reserve adjustments for a claim, including timestamps, user actions, and reason codes, formatted for compliance review in Keelwater.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 77,
+   "tokens_out": 40,
+   "cost_usd": 8.865e-05
+  }
+ }
+}

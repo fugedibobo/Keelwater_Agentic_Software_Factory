@@ -1,0 +1,132 @@
+{
+  "date": 1790333400000,
+  "duration": 1.3066666666666666,
+  "host_email": "deryn.pell@keelwater.example",
+  "id": "8a174c510e11",
+  "meeting_attendees": [
+    {
+      "displayName": "Deryn Pell",
+      "email": "deryn.pell@keelwater.example",
+      "name": "Deryn Pell"
+    },
+    {
+      "displayName": "Gellin Glenmere",
+      "email": "contact@a07.example",
+      "name": "Gellin Glenmere"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 10.0,
+      "index": 0,
+      "raw_text": "Hi Deryn, I’m Gellin from Saltmarsh Specialty — we’ve got a few claims held up because the approver’s out and no one’s covering their queue.",
+      "speaker_id": "customer",
+      "speaker_name": "Gellin Glenmere",
+      "start_time": 0.0,
+      "text": "Hi Deryn, I’m Gellin from Saltmarsh Specialty — we’ve got a few claims held up because the approver’s out and no one’s covering their queue."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 16.8,
+      "index": 1,
+      "raw_text": "Thanks for flagging that, Gellin. I’ll check if there’s a delegate set up for that approver’s queue.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 10.0,
+      "text": "Thanks for flagging that, Gellin. I’ll check if there’s a delegate set up for that approver’s queue."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 24.8,
+      "index": 2,
+      "raw_text": "No delegate at all — and it’s causing delays on reserve updates that need sign-off before we can process payments.",
+      "speaker_id": "customer",
+      "speaker_name": "Gellin Glenmere",
+      "start_time": 16.8,
+      "text": "No delegate at all — and it’s causing delays on reserve updates that need sign-off before we can process payments."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 37.2,
+      "index": 3,
+      "raw_text": "I see — so when a reserve change exceeds the handler’s authority, it lands in one approver’s queue with no fallback, and claims stall until they return. That’s a known bottleneck.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 24.8,
+      "text": "I see — so when a reserve change exceeds the handler’s authority, it lands in one approver’s queue with no fallback, and claims stall until they return. That’s a known bottleneck."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 45.6,
+      "index": 4,
+      "raw_text": "Exactly — it’s creating a backlog on the approval waiting list, and policyholders are starting to ask why payments are delayed.",
+      "speaker_id": "customer",
+      "speaker_name": "Gellin Glenmere",
+      "start_time": 37.2,
+      "text": "Exactly — it’s creating a backlog on the approval waiting list, and policyholders are starting to ask why payments are delayed."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 60.0,
+      "index": 5,
+      "raw_text": "We’re seeing claims held up because when a reserve change exceeds authority, it sits in one approver’s queue with no delegate, and that creates a backlog on the approval waiting list — policyholders are noticing delays.",
+      "speaker_id": "customer",
+      "speaker_name": "Gellin Glenmere",
+      "start_time": 45.6,
+      "text": "We’re seeing claims held up because when a reserve change exceeds authority, it sits in one approver’s queue with no delegate, and that creates a backlog on the approval waiting list — policyholders are noticing delays."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 67.2,
+      "index": 6,
+      "raw_text": "Understood. We’ll look at adding delegation rules to prevent the reserve authorisation delay from halting claims during absences.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 60.0,
+      "text": "Understood. We’ll look at adding delegation rules to prevent the reserve authorisation delay from halting claims during absences."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 78.4,
+      "index": 7,
+      "raw_text": "The issue is that reserve updates beyond handler limits are stuck waiting for sign-off with no backup approver, causing a reserve authorisation delay that halts payments and reporting.",
+      "speaker_id": "customer",
+      "speaker_name": "Gellin Glenmere",
+      "start_time": 67.2,
+      "text": "The issue is that reserve updates beyond handler limits are stuck waiting for sign-off with no backup approver, causing a reserve authorisation delay that halts payments and reporting."
+    }
+  ]
+}

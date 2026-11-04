@@ -1,0 +1,132 @@
+{
+  "date": 1788868620000,
+  "duration": 1.2266666666666666,
+  "host_email": "carys.fenwick@keelwater.example",
+  "id": "e3910151f328",
+  "meeting_attendees": [
+    {
+      "displayName": "Carys Fenwick",
+      "email": "carys.fenwick@keelwater.example",
+      "name": "Carys Fenwick"
+    },
+    {
+      "displayName": "Pellin Pennfell",
+      "email": "contact@a16.example",
+      "name": "Pellin Pennfell"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 8.4,
+      "index": 0,
+      "raw_text": "Hi Carys, we’re getting set up with Keelwater and have a few questions about how claims documents are handled during onboarding.",
+      "speaker_id": "customer",
+      "speaker_name": "Pellin Pennfell",
+      "start_time": 0.0,
+      "text": "Hi Carys, we’re getting set up with Keelwater and have a few questions about how claims documents are handled during onboarding."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 16.8,
+      "index": 1,
+      "raw_text": "Could we please schedule the next onboarding session for next Tuesday at 10 AM? That would suit our team’s availability best.",
+      "speaker_id": "customer",
+      "speaker_name": "Pellin Pennfell",
+      "start_time": 8.4,
+      "text": "Could we please schedule the next onboarding session for next Tuesday at 10 AM? That would suit our team’s availability best."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 25.6,
+      "index": 2,
+      "raw_text": "Hello Pellin, happy to help — we’ll walk you through the document upload process and any roles or integrations you need configured.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 16.8,
+      "text": "Hello Pellin, happy to help — we’ll walk you through the document upload process and any roles or integrations you need configured."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 36.0,
+      "index": 3,
+      "raw_text": "That’s great — we’ve got a lot of policyholder files to attach to claims, so we’re hoping there’s a way to handle multiple file upload efficiently.",
+      "speaker_id": "customer",
+      "speaker_name": "Pellin Pennfell",
+      "start_time": 25.6,
+      "text": "That’s great — we’ve got a lot of policyholder files to attach to claims, so we’re hoping there’s a way to handle multiple file upload efficiently."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 49.6,
+      "index": 4,
+      "raw_text": "We’ve got a number of claims files to attach and really need the multiple file upload capability to save time — it’s a bit of a bottleneck doing them one by one right now.",
+      "speaker_id": "customer",
+      "speaker_name": "Pellin Pennfell",
+      "start_time": 36.0,
+      "text": "We’ve got a number of claims files to attach and really need the multiple file upload capability to save time — it’s a bit of a bottleneck doing them one by one right now."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 58.0,
+      "index": 5,
+      "raw_text": "Currently, you’ll need to upload each document individually, but we’re rolling out a bulk upload feature soon to streamline that workflow.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 49.6,
+      "text": "Currently, you’ll need to upload each document individually, but we’re rolling out a bulk upload feature soon to streamline that workflow."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 65.2,
+      "index": 6,
+      "raw_text": "Understood — we’ll manage with single uploads for now and look forward to the multiple file upload improvement.",
+      "speaker_id": "customer",
+      "speaker_name": "Pellin Pennfell",
+      "start_time": 58.0,
+      "text": "Understood — we’ll manage with single uploads for now and look forward to the multiple file upload improvement."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 73.6,
+      "index": 7,
+      "raw_text": "We’ll notify you as soon as the multiple file upload feature is live — it’s scheduled for release in early October.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 65.2,
+      "text": "We’ll notify you as soon as the multiple file upload feature is live — it’s scheduled for release in early October."
+    }
+  ]
+}

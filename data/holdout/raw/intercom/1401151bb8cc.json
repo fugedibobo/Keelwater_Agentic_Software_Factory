@@ -1,0 +1,127 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "assumed_resolution"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Nellin Nethervale",
+          "type": "user"
+        },
+        "body": "Good morning, Bryn. I’m trying to finalise a claim for a policyholder and need to confirm the supplier’s payment details are locked in before I release the funds.",
+        "created_at": 1790409720,
+        "id": "1401151bb8cc-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Hi Nellin, I can help with that. Let’s verify the payee account first — you’ll need to navigate to the supplier tab under the claims module and match the bank sort code and account number with the uploaded documents.",
+        "created_at": 1790409731,
+        "id": "1401151bb8cc-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Nellin Nethervale",
+          "type": "user"
+        },
+        "body": "Can you walk me through the steps for payee account verification? I need to ensure the supplier’s banking details are correctly flagged before issuing the payment.",
+        "created_at": 1790409746,
+        "id": "1401151bb8cc-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Nellin Nethervale",
+          "type": "user"
+        },
+        "body": "Got it — I’ve matched the documents and confirmed the reserves align with the payment amount. Everything’s ready to go now.",
+        "created_at": 1790409757,
+        "id": "1401151bb8cc-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Perfect. I’ve noted the update in your task log and triggered the reporting summary for your team’s weekly review.",
+        "created_at": 1790409765,
+        "id": "1401151bb8cc-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your request has been processed and the system reflects the updated reserves and payments as of this morning.",
+        "created_at": 1790409773,
+        "id": "1401151bb8cc-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your request has been processed and the system reflects the updated reserves and payments as of this morning.",
+        "created_at": 1790409780,
+        "id": "1401151bb8cc-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Nellin Nethervale",
+          "type": "user"
+        },
+        "body": "Thanks for the quick turnaround — this really helps us keep the claims pipeline moving smoothly.",
+        "created_at": 1790409787,
+        "id": "1401151bb8cc-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1790409720,
+  "id": "1401151bb8cc",
+  "source": {
+    "author": {
+      "email": "contact@a14.example",
+      "name": "Nellin Nethervale",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "general"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

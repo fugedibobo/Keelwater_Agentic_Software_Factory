@@ -1,0 +1,148 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Mavren Mosswick",
+          "type": "user"
+        },
+        "body": "Hi Bryn, it’s Mavren from Linnet House. Hope you’re having a productive week so far.",
+        "created_at": 1791723360,
+        "id": "f6b210e8cf18-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: Customer reported workflow friction around document classification and UI stability; no bot escalation required.",
+        "created_at": 1791723366,
+        "id": "f6b210e8cf18-1",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Hello Mavren, good to hear from you. How can I assist today?",
+        "created_at": 1791723372,
+        "id": "f6b210e8cf18-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Mavren Mosswick",
+          "type": "user"
+        },
+        "body": "We’re still wrestling with the wrong document category issue — garage estimates keep landing in Correspondence, and our handlers have to manually move them, which risks missing critical evidence.",
+        "created_at": 1791723377,
+        "id": "f6b210e8cf18-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Mavren Mosswick",
+          "type": "user"
+        },
+        "body": "We’re still wrestling with the wrong document category issue — garage estimates keep landing in Correspondence, and our handlers have to manually move them, which risks missing critical evidence.",
+        "created_at": 1791723388,
+        "id": "f6b210e8cf18-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "That’s a known pain point — I’ve logged it under m1. We’re reviewing the auto-classification logic to reduce manual re-filing and avoid overlooked evidence.",
+        "created_at": 1791723400,
+        "id": "f6b210e8cf18-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Mavren Mosswick",
+          "type": "user"
+        },
+        "body": "And the unexpected interface changes — last week the Claims Tasks panel vanished without warning, and we had to retrain our team mid-week. We’d really appreciate advance notice and grouped updates.",
+        "created_at": 1791723410,
+        "id": "f6b210e8cf18-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Mavren Mosswick",
+          "type": "user"
+        },
+        "body": "And the unexpected interface changes — last week the Claims Tasks panel vanished without warning, and we had to retrain our team mid-week. We’d really appreciate advance notice and grouped updates.",
+        "created_at": 1791723422,
+        "id": "f6b210e8cf18-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood — I’ve flagged that as m2. We’re working on a release calendar and preview environment so teams aren’t caught off guard by unexpected interface changes.",
+        "created_at": 1791723434,
+        "id": "f6b210e8cf18-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Mavren Mosswick",
+          "type": "user"
+        },
+        "body": "Thanks, Bryn. That’ll help us plan better and reduce errors.",
+        "created_at": 1791723445,
+        "id": "f6b210e8cf18-9",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 10,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1791723360,
+  "id": "f6b210e8cf18",
+  "source": {
+    "author": {
+      "email": "contact@a13.example",
+      "name": "Mavren Mosswick",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "release_change"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

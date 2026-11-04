@@ -1,0 +1,216 @@
+{
+  "date": 1789386780000,
+  "duration": 2.06,
+  "host_email": "deryn.pell@keelwater.example",
+  "id": "469b450697a5",
+  "meeting_attendees": [
+    {
+      "displayName": "Deryn Pell",
+      "email": "deryn.pell@keelwater.example",
+      "name": "Deryn Pell"
+    },
+    {
+      "displayName": "Jorrin Jarrowfell",
+      "email": "contact@a10.example",
+      "name": "Jorrin Jarrowfell"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 9.2,
+      "index": 0,
+      "raw_text": "Hi Deryn, thanks for picking this up. We’ve got a few things to run through today, mainly around renewals and some reporting oddities.",
+      "speaker_id": "customer",
+      "speaker_name": "Jorrin Jarrowfell",
+      "start_time": 0.0,
+      "text": "Hi Deryn, thanks for picking this up. We’ve got a few things to run through today, mainly around renewals and some reporting oddities."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 15.6,
+      "index": 1,
+      "raw_text": "Happy to help, Jorrin. Let’s start with what’s top of mind for you — anything urgent?",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 9.2,
+      "text": "Happy to help, Jorrin. Let’s start with what’s top of mind for you — anything urgent?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 26.0,
+      "index": 2,
+      "raw_text": "Yes — we’re getting pushback from our finance team because the report totals differ between the dashboard and the exported file. It’s causing some trust issues.",
+      "speaker_id": "customer",
+      "speaker_name": "Jorrin Jarrowfell",
+      "start_time": 15.6,
+      "text": "Yes — we’re getting pushback from our finance team because the report totals differ between the dashboard and the exported file. It’s causing some trust issues."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 36.4,
+      "index": 3,
+      "raw_text": "Yes — we’re getting pushback from our finance team because the report totals differ between the dashboard and the exported file. It’s causing some trust issues.",
+      "speaker_id": "customer",
+      "speaker_name": "Jorrin Jarrowfell",
+      "start_time": 26.0,
+      "text": "Yes — we’re getting pushback from our finance team because the report totals differ between the dashboard and the exported file. It’s causing some trust issues."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 44.0,
+      "index": 4,
+      "raw_text": "Got it. That’s definitely something we can look into. Can you tell me which reports are showing the mismatch?",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 36.4,
+      "text": "Got it. That’s definitely something we can look into. Can you tell me which reports are showing the mismatch?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 54.4,
+      "index": 5,
+      "raw_text": "It’s the MI dashboard versus the CSV export. The numbers don’t line up, and finance is questioning which one to trust. We need this clarified soon.",
+      "speaker_id": "customer",
+      "speaker_name": "Jorrin Jarrowfell",
+      "start_time": 44.0,
+      "text": "It’s the MI dashboard versus the CSV export. The numbers don’t line up, and finance is questioning which one to trust. We need this clarified soon."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 63.2,
+      "index": 6,
+      "raw_text": "Understood. We’ll investigate the time zone handling behind those exports — it’s possible the data is being sliced at different cut-off points.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 54.4,
+      "text": "Understood. We’ll investigate the time zone handling behind those exports — it’s possible the data is being sliced at different cut-off points."
+    },
+    {
+      "ai_filters": {
+        "pricing": true,
+        "question": false,
+        "task": false
+      },
+      "end_time": 73.2,
+      "index": 7,
+      "raw_text": "Also, we’ve had a few renewal price concern discussions with high-value accounts. They’re not happy with the new figures, and it’s becoming a recurring theme.",
+      "speaker_id": "customer",
+      "speaker_name": "Jorrin Jarrowfell",
+      "start_time": 63.2,
+      "text": "Also, we’ve had a few renewal price concern discussions with high-value accounts. They’re not happy with the new figures, and it’s becoming a recurring theme."
+    },
+    {
+      "ai_filters": {
+        "pricing": true,
+        "question": false,
+        "task": false
+      },
+      "end_time": 82.8,
+      "index": 8,
+      "raw_text": "We’ve had a few renewal price concern discussions with high-value accounts. They’re not happy with the new figures, and it’s becoming a recurring theme.",
+      "speaker_id": "customer",
+      "speaker_name": "Jorrin Jarrowfell",
+      "start_time": 73.2,
+      "text": "We’ve had a few renewal price concern discussions with high-value accounts. They’re not happy with the new figures, and it’s becoming a recurring theme."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 92.4,
+      "index": 9,
+      "raw_text": "That’s a commercial conversation, not a system issue — but I’ll flag it with our renewal team so they can prepare for those discussions.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 82.8,
+      "text": "That’s a commercial conversation, not a system issue — but I’ll flag it with our renewal team so they can prepare for those discussions."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 102.4,
+      "index": 10,
+      "raw_text": "Right — and to be clear, this isn’t about the software. It’s a contract cost complaint, and we need to manage expectations with those clients.",
+      "speaker_id": "customer",
+      "speaker_name": "Jorrin Jarrowfell",
+      "start_time": 92.4,
+      "text": "Right — and to be clear, this isn’t about the software. It’s a contract cost complaint, and we need to manage expectations with those clients."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 112.4,
+      "index": 11,
+      "raw_text": "Right — and to be clear, this isn’t about the software. It’s a contract cost complaint, and we need to manage expectations with those clients.",
+      "speaker_id": "customer",
+      "speaker_name": "Jorrin Jarrowfell",
+      "start_time": 102.4,
+      "text": "Right — and to be clear, this isn’t about the software. It’s a contract cost complaint, and we need to manage expectations with those clients."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 120.4,
+      "index": 12,
+      "raw_text": "Agreed — I’ll make sure our account leads are aware. Anything else you’d like to cover before we wrap up?",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 112.4,
+      "text": "Agreed — I’ll make sure our account leads are aware. Anything else you’d like to cover before we wrap up?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 123.6,
+      "index": 13,
+      "raw_text": "No, that’s everything for now. Thanks again, Deryn.",
+      "speaker_id": "customer",
+      "speaker_name": "Jorrin Jarrowfell",
+      "start_time": 120.4,
+      "text": "No, that’s everything for now. Thanks again, Deryn."
+    }
+  ]
+}

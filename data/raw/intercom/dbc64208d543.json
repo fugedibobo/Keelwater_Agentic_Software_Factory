@@ -1,0 +1,136 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Jorrin Jarrowfell",
+          "type": "user"
+        },
+        "body": "Hi Bryn, we’re having some trouble navigating the claims module after the last update — things aren’t where we left them.",
+        "created_at": 1792163640,
+        "id": "dbc64208d543-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for flagging that, Jorrin. I’ll check what changed and see if we can restore your view or offer a workaround.",
+        "created_at": 1792163648,
+        "id": "dbc64208d543-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Jorrin Jarrowfell",
+          "type": "user"
+        },
+        "body": "It’s not just the layout — it’s the unexpected interface changes that threw off our team’s workflow and caused delays in processing reserves.",
+        "created_at": 1792163656,
+        "id": "dbc64208d543-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Jorrin Jarrowfell",
+          "type": "user"
+        },
+        "body": "The unexpected interface changes have forced us to retrain staff mid-cycle, which is causing errors in our claims and payments processing — we really need advance notice and bundled releases next time.",
+        "created_at": 1792163666,
+        "id": "dbc64208d543-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: Customer reported workflow disruption due to recent UI adjustments; flag for product team review and comms planning.",
+        "created_at": 1792163678,
+        "id": "dbc64208d543-4",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "I completely understand — retraining mid-cycle is disruptive. Let me see if we can get you a preview of upcoming changes or bundle them into fewer releases.",
+        "created_at": 1792163686,
+        "id": "dbc64208d543-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Jorrin Jarrowfell",
+          "type": "user"
+        },
+        "body": "Could we schedule a quick call next Tuesday to walk through the new claims dashboard layout?",
+        "created_at": 1792163697,
+        "id": "dbc64208d543-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Jorrin Jarrowfell",
+          "type": "user"
+        },
+        "body": "That’d be helpful. We need predictability so our staff don’t have to keep relearning where things are.",
+        "created_at": 1792163703,
+        "id": "dbc64208d543-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Noted — I’ll escalate this to our product team to ensure future releases include advance notice and grouped updates, not unexpected interface changes.",
+        "created_at": 1792163710,
+        "id": "dbc64208d543-8",
+        "part_type": "note",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 9,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1792163640,
+  "id": "dbc64208d543",
+  "source": {
+    "author": {
+      "email": "contact@a10.example",
+      "name": "Jorrin Jarrowfell",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "release_change"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

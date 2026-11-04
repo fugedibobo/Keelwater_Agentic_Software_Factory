@@ -1,0 +1,124 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Pennfell",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m Ilyra from Duncastle Auto — we’re having trouble pulling the latest reserves report for our policyholders. It’s showing outdated figures even after we re-synced the integrations.",
+        "created_at": 1788441900,
+        "id": "dfccf0216f32-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Ilyra. Let me check your account’s reporting module and see if there’s a sync lag or a role-based permission issue blocking the updated reserves data.",
+        "created_at": 1788441911,
+        "id": "dfccf0216f32-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Pennfell",
+          "type": "user"
+        },
+        "body": "Appreciate the quick response. We’ve double-checked the roles and tasks assigned — everything looks correct, but the numbers still don’t match what we submitted last week.",
+        "created_at": 1788441923,
+        "id": "dfccf0216f32-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood. I’ll run a manual refresh on your reporting pipeline and verify the supplier data feed. Could you confirm if any new claims or payments were processed since the last successful sync?",
+        "created_at": 1788441933,
+        "id": "dfccf0216f32-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Pennfell",
+          "type": "user"
+        },
+        "body": "Yes — we logged three new claims and two supplier payments yesterday. The documents for those are all uploaded and tagged correctly in the system.",
+        "created_at": 1788441946,
+        "id": "dfccf0216f32-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Got it. I’ll force a rebuild of the reserves calculation based on those new entries and send you a test report by 3 PM. Let me know if you’d like to schedule a screen share to walk through the adjustments.",
+        "created_at": 1788441956,
+        "id": "dfccf0216f32-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Pennfell",
+          "type": "user"
+        },
+        "body": "That would be helpful — maybe tomorrow morning? We’re preparing for an audit and need everything locked down by Friday.",
+        "created_at": 1788441972,
+        "id": "dfccf0216f32-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "I’ll block 10 AM tomorrow for you. I’ll also email a summary of the changes made to the reserves and confirm the updated reporting is visible in your dashboard before we meet.",
+        "created_at": 1788441980,
+        "id": "dfccf0216f32-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1788441900,
+  "id": "dfccf0216f32",
+  "source": {
+    "author": {
+      "email": "contact@a26.example",
+      "name": "Ilyra Pennfell",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "general"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

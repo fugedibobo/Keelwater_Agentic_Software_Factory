@@ -1,0 +1,136 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Isleford",
+          "type": "user"
+        },
+        "body": "Morning Bryn, Ilyra here from Brackwater. We’re still wrestling with how claim progress messages go out — it’s all manual right now and we’re behind on updates.",
+        "created_at": 1792311300,
+        "id": "e20bef2e9498-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Isleford",
+          "type": "user"
+        },
+        "body": "We’re still wrestling with how claim progress messages go out — it’s all manual right now and we’re behind on updates, so we’re relying on manual workarounds until automation lands.",
+        "created_at": 1792311310,
+        "id": "e20bef2e9498-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: Customer reported recurring misclassification of garage estimates; log under document taxonomy review for Q4 backlog.",
+        "created_at": 1792311322,
+        "id": "e20bef2e9498-2",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for flagging that, Ilyra. I’ll log it under our milestone comms roadmap — we’re aiming to automate those claim progress messages by early next year.",
+        "created_at": 1792311329,
+        "id": "e20bef2e9498-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Isleford",
+          "type": "user"
+        },
+        "body": "Also, every time we upload a garage estimate, it lands in correspondence — it’s a wrong document category and handlers keep missing key evidence because of it.",
+        "created_at": 1792311340,
+        "id": "e20bef2e9498-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Isleford",
+          "type": "user"
+        },
+        "body": "Every time we upload a garage estimate, it lands in correspondence — it’s a wrong document category and handlers keep missing key evidence because of it, which delays claims resolution.",
+        "created_at": 1792311350,
+        "id": "e20bef2e9498-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "That’s a critical issue — I’ve added it to our document classification backlog. We’ll prioritize fixing that wrong document category before the next sprint review.",
+        "created_at": 1792311362,
+        "id": "e20bef2e9498-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Isleford",
+          "type": "user"
+        },
+        "body": "Appreciate the quick response. Let me know if you need test files from our side.",
+        "created_at": 1792311372,
+        "id": "e20bef2e9498-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Will do — thanks for the offer, Ilyra. I’ll circle back once we’ve got a fix in staging.",
+        "created_at": 1792311378,
+        "id": "e20bef2e9498-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 9,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1792311300,
+  "id": "e20bef2e9498",
+  "source": {
+    "author": {
+      "email": "contact@a09.example",
+      "name": "Ilyra Isleford",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "reporting_mi"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

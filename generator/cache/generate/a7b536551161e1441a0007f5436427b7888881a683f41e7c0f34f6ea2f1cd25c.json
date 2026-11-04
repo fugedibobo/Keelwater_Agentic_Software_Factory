@@ -1,0 +1,136 @@
+{
+ "request": {
+  "model": "qwen/qwen3-vl-235b-a22b-instruct",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nWrite one realistic fireflies record for Keelwater, a UK claims-handling software company.\n</role>\n<record>\n{\"customer\": {\"account\": \"A20\", \"company\": \"Elderfold Home\", \"email\": \"contact@a20.example\", \"name\": \"Celdra Jarrowfell\"}, \"date\": \"2026-09-22T12:57:00Z\", \"fin_mode\": null, \"glossary\": [\"claims\", \"documents\", \"reserves\", \"payments\", \"suppliers\", \"reporting\", \"roles\", \"integrations\", \"tasks\", \"letters\", \"policyholders\"], \"never_write_verbatim\": [\"Upload many documents to a claim at once\", \"feature shipped on 6 October\", \"later feedback is after release\", \"many documents can be added together\"], \"only_people_who_may_be_named\": [\"Elderfold Home\", \"Celdra Jarrowfell\", \"Carys Fenwick\"], \"route\": \"onboarding\", \"source\": \"fireflies\", \"staff\": {\"email\": \"carys.fenwick@keelwater.example\", \"name\": \"Carys Fenwick\", \"team\": \"onboarding\"}, \"turns_range\": null}\n</record>\n<mentions>\n[{\"id\": \"m1\", \"request\": \"mapping sign-on groups to roles\", \"severity\": 1}, {\"fact\": \"many documents can be added together\", \"form\": \"feature ask\", \"id\": \"m2\", \"post_ship\": false, \"problem\": \"Upload many documents to a claim at once. Shipped 06/10/2026 (Shortcut story 4127); the two later mentions must appear as post-ship feedback.\", \"severity\": 2, \"stance\": null, \"synonym\": \"multiple file upload\"}]\n</mentions>\n<noise>\n{\"admin_note\": false, \"allowed_categories\": [\"pleasantry\", \"scheduling\", \"pricing\", \"internal\", \"password_reset\", \"how_to\", \"praise\", \"closer\"], \"distractor_how_to_phrase\": null, \"instructions\": \"Tag every noise turn with its category. Put the distractor phrase, if given, in a how-to turn with no mention id. An admin note must be an internal turn tagged internal. A Fin-resolved or escalated conversation needs a bot turn; an escalated one also needs an internal reply. About 35 percent of customer turns are pleasantries. Every tagged customer mention, including a short agreement, must contain its supplied synonym.\", \"required_categories\": []}\n</noise>\n<rules>\nCustomers speak like claims staff. Do not use headings or bullets in speech. Use only the names in the record brief; never name a real company, product or person. Mention no feature outside the supplied glossary. Express the supplied facts in the speaker's own words. Tag each turn with its noise category or null. Do not put the planted mentions in `turns`: write each one, in the customer's own words and at least twelve words long, under `mentions[<mention id>].text`, containing that mention's `synonym` exactly as written (a mention whose form is a short agreement is different: write the internal speaker's turn stating the problem, at least twelve words and containing the synonym exactly as written, under `internal_text`, and the customer's reply of under eight words under `agreement_text`), and set after_turn to the index of the turn it should follow. The `turns` conversation is the rest of the record. Do not put the turns listed under `extras` in `turns`: write each one once under `extras[<key>].text` (at least twenty characters, containing the exact phrase where one is given), and set after_turn to the index of the turn it should follow. Name only the people in only_people_who_may_be_named. When fin_mode is resolved or escalated, at least one turn must have speaker bot; when it is escalated, at least one turn must have speaker internal; when it is human, no turn has speaker bot. Never write any phrase listed in never_write_verbatim, including the supplied facts: paraphrase them.\n</rules>\n<output>\nReturn JSON matching the supplied source schema.\n{\"extras\": {}, \"mentions\": {\"m1\": {\"after_turn\": \"index of the turns entry it follows\", \"text\": \"the customer turn carrying this mention\"}, \"m2\": {\"after_turn\": \"index of the turns entry it follows\", \"text\": \"the customer turn carrying this mention\"}}, \"turns\": [{\"noise_category\": \"string or null\", \"speaker\": \"customer|internal|bot\", \"text\": \"string\"}]}\n</output>\n"
+   }
+  ],
+  "temperature": 0.8,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "generate",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "turns",
+      "mentions",
+      "extras"
+     ],
+     "properties": {
+      "extras": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [],
+       "properties": {}
+      },
+      "turns": {
+       "type": "array",
+       "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+         "speaker",
+         "text",
+         "noise_category"
+        ],
+        "properties": {
+         "speaker": {
+          "type": "string",
+          "enum": [
+           "customer",
+           "internal",
+           "bot"
+          ]
+         },
+         "text": {
+          "type": "string"
+         },
+         "noise_category": {
+          "enum": [
+           "pleasantry",
+           "scheduling",
+           "pricing",
+           "internal",
+           "password_reset",
+           "how_to",
+           "praise",
+           "closer",
+           null
+          ]
+         }
+        }
+       },
+       "minItems": 6
+      },
+      "mentions": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [
+        "m1",
+        "m2"
+       ],
+       "properties": {
+        "m1": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 45
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        },
+        "m2": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 45
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "allow",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"extras\": {},\n  \"turns\": [\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Hi Carys, thanks for walking us through the onboarding — it’s been really helpful so far.\",\n      \"noise_category\": \"pleasantry\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"You’re welcome, Celdra — happy to help. Let me know if anything feels unclear as we go.\",\n      \"noise_category\": \"pleasantry\"\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"One thing I noticed — when assigning staff to different claim roles, we can’t seem to map our existing sign-on groups to those roles directly. Is that on the roadmap?\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"That’s a valid point — we’re tracking that as a feature request for future updates. I’ll make sure it’s logged with our product team.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Also, when we’re uploading evidence for a claim, it’s tedious to add each file one at a time. We’d really benefit from being able to upload multiple files together.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"I understand — that’s a common request. In fact, we just shipped support for multiple file upload last week. You should now be able to add many documents at once from the claim’s documents tab.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Oh, that’s great — I’ll try it out right away. Thanks for the heads-up.\",\n      \"noise_category\": \"pleasantry\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Glad to hear it. Let me know how it goes — we’re always open to feedback after features ship.\",\n      \"noise_category\": null\n    }\n  ],\n  \"mentions\": {\n    \"m1\": {\n      \"text\": \"When we set up user permissions, we need to link our existing sign-on groups to specific roles in Keelwater — right now that mapping isn’t available, and it’s causing extra manual work for our team.\",\n      \"after_turn\": 2\n    },\n    \"m2\": {\n      \"text\": \"We handle a lot of claims with large volumes of supporting files, and uploading them one by one is slowing us down — we really need the ability to use multiple file upload to batch-add documents to a claim.\",\n      \"after_turn\": 4\n    }\n  }\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1011,
+   "tokens_out": 572,
+   "cost_usd": 0.00129559
+  }
+ }
+}

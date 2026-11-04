@@ -1,0 +1,124 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Dovren Keldmere",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m Dovren from Brantwick Commercial. We’re having trouble pulling the latest reserves report for our policyholders — it’s showing outdated figures even after we refreshed the tasks list.",
+        "created_at": 1790089260,
+        "id": "a76360a99be0-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Dovren. Let’s check if the integrations with your suppliers are syncing correctly — sometimes that delays the reserves update.",
+        "created_at": 1790089272,
+        "id": "a76360a99be0-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Dovren Keldmere",
+          "type": "user"
+        },
+        "body": "That’s possible — we did update our supplier list last week. Could that have broken the reporting flow?",
+        "created_at": 1790089281,
+        "id": "a76360a99be0-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "It’s a common cause. I’ll manually trigger a sync on our end and verify the roles assigned to your reporting module. You should see updated reserves within 15 minutes.",
+        "created_at": 1790089288,
+        "id": "a76360a99be0-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Dovren Keldmere",
+          "type": "user"
+        },
+        "body": "Appreciate that, Bryn. Just to confirm — will the letters to policyholders also reflect the corrected reserves after this sync?",
+        "created_at": 1790089300,
+        "id": "a76360a99be0-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Yes, the letters will pull the latest reserves once the sync completes. I’ll also flag this for our team to add a warning if integrations are out of sync in future.",
+        "created_at": 1790089308,
+        "id": "a76360a99be0-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Dovren Keldmere",
+          "type": "user"
+        },
+        "body": "Perfect. Thanks for sorting this so quickly — your support team really knows their claims workflow.",
+        "created_at": 1790089320,
+        "id": "a76360a99be0-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Glad we could help, Dovren. Let us know if you need help with payments or documents next time — we’re here to streamline your claims handling.",
+        "created_at": 1790089326,
+        "id": "a76360a99be0-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1790089260,
+  "id": "a76360a99be0",
+  "source": {
+    "author": {
+      "email": "contact@a21.example",
+      "name": "Dovren Keldmere",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "reserves_payments"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

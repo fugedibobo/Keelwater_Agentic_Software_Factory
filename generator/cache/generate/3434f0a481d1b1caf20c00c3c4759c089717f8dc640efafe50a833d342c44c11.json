@@ -1,0 +1,48 @@
+{
+ "request": {
+  "model": "qwen/qwen3-vl-235b-a22b-instruct",
+  "messages": [
+   {
+    "role": "user",
+    "content": "Write one short realistic description for this fictional claims software item. Use no company, person or product name except Keelwater. Return JSON.\n{\"key\": \"story:4135\", \"name\": \"Claim information display\", \"source\": \"shortcut\", \"status\": \"in_progress\"}\nVersion 0\n"
+   }
+  ],
+  "temperature": 0.8,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "generate",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "description"
+     ],
+     "properties": {
+      "description": {
+       "type": "string"
+      }
+     }
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "allow",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"description\": \"Keelwater's claim information display provides a clear, real-time overview of active claims, including status, assigned adjuster, and key dates, helping users stay informed without switching screens.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 72,
+   "tokens_out": 45,
+   "cost_usd": 9.71e-05
+  }
+ }
+}

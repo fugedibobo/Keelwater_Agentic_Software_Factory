@@ -1,0 +1,63 @@
+# Inputs for scripts/halving_model.py. All values are for the invented company Keelwater.
+# Every input carries label FOUND or INFERRED and a source; evidence and caveats are in
+# docs/research/delivery-speed-evidence.md (S-numbers refer to its source list).
+# Scenarios low / mid / high pick the matching column of EVERY input. low = least benefit.
+# Fractional change in stage time: negative = faster, positive = slower.
+# A stage's time in month m = share * (1 + ai_effect * ramp[m]) * (1 + process_effect * phase[m]).
+
+# Stage shares of idea-to-adoption elapsed time. Mid sums to 1.00; low and high are per-stage bounds.
+stage_shares:
+  discovery_decision: {low: 0.15, mid: 0.27, high: 0.35, label: INFERRED, source: "S2 plus a 6-month cycle assumption (S18, not re-verified)"}
+  specification:      {low: 0.08, mid: 0.13, high: 0.18, label: INFERRED, source: "no published share; remainder before build"}
+  build:              {low: 0.16, mid: 0.20, high: 0.23, label: INFERRED, source: "S1 coding and testing together 25-35%"}
+  review:             {low: 0.03, mid: 0.07, high: 0.12, label: INFERRED, source: "S3 3.56-day baseline submission to merge; S16 idle share"}
+  test:               {low: 0.09, mid: 0.10, high: 0.12, label: INFERRED, source: "S1 remainder of the 25-35%"}
+  release:            {low: 0.05, mid: 0.10, high: 0.15, label: INFERRED, source: "no measured share; Part 1 monthly bundle adds up to four weeks"}
+  adoption:           {low: 0.07, mid: 0.13, high: 0.20, label: INFERRED, source: "unknown; no time-to-adopt benchmark found"}
+
+# AI effect on stage time at full adoption of the tools (the ramp below scales it).
+ai_effect:
+  discovery_decision: {low: 0.00,  mid: -0.10, high: -0.30, label: INFERRED, source: "S18 secondary only; decision latency is organisational (S2)"}
+  specification:      {low: 0.00,  mid: -0.15, high: -0.35, label: INFERRED, source: "S18 secondary only; drafting is fast, sign-off is not"}
+  build:              {low: -0.04, mid: -0.20, high: -0.40, label: INFERRED, source: "FOUND ranges in S7, S9, S8, S1; mid and high reasoned from them"}
+  review:             {low: 0.56,  mid: 0.15,  high: -0.30, label: INFERRED, source: "low FOUND in S3 (time to approval +56.1%); high from S11 and S16; mid reasoned"}
+  test:               {low: 0.15,  mid: 0.00,  high: -0.15, label: INFERRED, source: "no measurement; S5 and S12 point to rework"}
+  release:            {low: 0.05,  mid: 0.00,  high: -0.15, label: INFERRED, source: "no measurement; S1 says manual release steps choke the gains"}
+  adoption:           {low: 0.00,  mid: 0.00,  high: -0.10, label: INFERRED, source: "no evidence either way"}
+
+# Share of work done AI-assisted by month, months 1..18.
+adoption_ramp:
+  label: INFERRED
+  source: "S9 trained plateau about 60%; S3 untrained 35-38% at 12-16 months"
+  low:  [0.03, 0.05, 0.08, 0.11, 0.14, 0.17, 0.20, 0.23, 0.26, 0.29, 0.31, 0.33, 0.34, 0.36, 0.37, 0.38, 0.38, 0.38]
+  mid:  [0.08, 0.16, 0.25, 0.33, 0.40, 0.46, 0.51, 0.55, 0.58, 0.60, 0.60, 0.60, 0.60, 0.60, 0.60, 0.60, 0.60, 0.60]
+  high: [0.30, 0.50, 0.60, 0.64, 0.67, 0.69, 0.70, 0.71, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72, 0.72]
+
+# Which stages each lead time counts. Adoption is modelled and shown separately as
+# time_to_adoption; it is part of neither lead-time target.
+lead_time_definitions:
+  label: INFERRED
+  source: "Part 1 sections 2 and 6 (idea-to-production-behind-flag and idea-to-customer tracked separately); stage membership is my reading"
+  idea_to_production_behind_flag: [discovery_decision, specification, build, review, test]
+  idea_to_customer: [discovery_decision, specification, build, review, test, release]
+  time_to_adoption: [adoption]
+
+# Process levers from the Part 1 plan, not AI: a decision SLA and evidence-backed briefs (decision
+# latency, specification), review capacity and queue limits (review wait), flags and early-access
+# cohorts (release cadence). Fractional change in stage time at full phase-in.
+process_changes:
+  effect:
+    discovery_decision: {low: -0.05, mid: -0.25, high: -0.50, label: INFERRED, source: "Part 1 decision log and cited briefs; S2 says 70% of large firms need 1-2 months for key decisions, so a 2-4 week SLA is the ceiling of the high case"}
+    specification:      {low: 0.00,  mid: -0.10, high: -0.25, label: INFERRED, source: "Part 1 intent-doc template with evidence attached; less back-and-forth, no published measure"}
+    build:              {low: 0.00,  mid: 0.00,  high: 0.00,  label: INFERRED, source: "no Part 1 process lever acts on build"}
+    review:             {low: -0.10, mid: -0.30, high: -0.60, label: INFERRED, source: "Part 1 section 6: fund review capacity, smaller PRs; S16 says half of PRs sit idle over 50% of their life"}
+    test:               {low: 0.00,  mid: 0.00,  high: 0.00,  label: INFERRED, source: "no Part 1 process lever acts on test"}
+    release:            {low: -0.10, mid: -0.35, high: -0.70, label: INFERRED, source: "Part 1 section 2: flags and opt-in early-access cohorts bypass the monthly bundle, which adds up to four weeks"}
+    adoption:           {low: 0.00,  mid: 0.00,  high: 0.00,  label: INFERRED, source: "outside both lead-time targets; no Part 1 lever modelled"}
+  # Process effect is zero before start_month, then phases in linearly over months_to_full.
+  phase_in:
+    label: INFERRED
+    source: "Part 1 section 4: day-60 pilot of decision log and bundles, day-90 intake for three to five squads; low assumes a slower organisational rollout"
+    low:  {start_month: 4, months_to_full: 9}
+    mid:  {start_month: 2, months_to_full: 6}
+    high: {start_month: 2, months_to_full: 4}

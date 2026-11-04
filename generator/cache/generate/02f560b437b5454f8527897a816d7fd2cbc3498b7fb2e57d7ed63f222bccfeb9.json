@@ -1,0 +1,119 @@
+{
+ "request": {
+  "model": "qwen/qwen3-vl-235b-a22b-instruct",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nWrite one realistic gong record for Keelwater, a UK claims-handling software company.\n</role>\n<record>\n{\"customer\": {\"account\": \"A03\", \"company\": \"Marrowgate Commercial\", \"email\": \"contact@a03.example\", \"name\": \"Celdra Cairnwick\"}, \"date\": \"2026-10-06T15:02:00Z\", \"fin_mode\": null, \"glossary\": [\"claims\", \"documents\", \"reserves\", \"payments\", \"suppliers\", \"reporting\", \"roles\", \"integrations\", \"tasks\", \"letters\", \"policyholders\"], \"never_write_verbatim\": [], \"only_people_who_may_be_named\": [\"Marrowgate Commercial\", \"Celdra Cairnwick\", \"Alwen Dovell\"], \"route\": \"sales\", \"source\": \"gong\", \"staff\": {\"email\": \"alwen.dovell@keelwater.example\", \"name\": \"Alwen Dovell\", \"team\": \"sales\"}, \"turns_range\": [15, 30]}\n</record>\n<mentions>\n[]\n</mentions>\n<noise>\n{\"admin_note\": false, \"allowed_categories\": [\"pleasantry\", \"scheduling\", \"pricing\", \"internal\", \"password_reset\", \"how_to\", \"praise\", \"closer\"], \"distractor_how_to_phrase\": null, \"instructions\": \"Tag every noise turn with its category. Put the distractor phrase, if given, in a how-to turn with no mention id. An admin note must be an internal turn tagged internal. A Fin-resolved or escalated conversation needs a bot turn; an escalated one also needs an internal reply. About 35 percent of customer turns are pleasantries. Every tagged customer mention, including a short agreement, must contain its supplied synonym.\", \"required_categories\": [\"scheduling\"]}\n</noise>\n<rules>\nCustomers speak like claims staff. Do not use headings or bullets in speech. Use only the names in the record brief; never name a real company, product or person. Mention no feature outside the supplied glossary. Express the supplied facts in the speaker's own words. Tag each turn with its noise category or null. Do not put the planted mentions in `turns`: write each one, in the customer's own words and at least twelve words long, under `mentions[<mention id>].text`, containing that mention's `synonym` exactly as written (a mention whose form is a short agreement is different: write the internal speaker's turn stating the problem, at least twelve words and containing the synonym exactly as written, under `internal_text`, and the customer's reply of under eight words under `agreement_text`), and set after_turn to the index of the turn it should follow. The `turns` conversation is the rest of the record. Do not put the turns listed under `extras` in `turns`: write each one once under `extras[<key>].text` (at least twenty characters, containing the exact phrase where one is given), and set after_turn to the index of the turn it should follow. Name only the people in only_people_who_may_be_named. When fin_mode is resolved or escalated, at least one turn must have speaker bot; when it is escalated, at least one turn must have speaker internal; when it is human, no turn has speaker bot. Never write any phrase listed in never_write_verbatim, including the supplied facts: paraphrase them.\n</rules>\n<output>\nReturn JSON matching the supplied source schema.\n{\"extras\": {\"noise_scheduling\": \"a customer turn, noise_category 'scheduling'\"}, \"mentions\": {}, \"turns\": [{\"noise_category\": \"string or null\", \"speaker\": \"customer|internal|bot\", \"text\": \"string\"}]}\n</output>\n\nRegeneration 1: rewrite the record, satisfy every rule, and return the full JSON again.\nYour previous attempt was rejected: fc7e53597de5: unknown name Zoom\n'Zoom' is not an allowed name; use only: \"Marrowgate Commercial\", \"Celdra Cairnwick\", \"Alwen Dovell\".\n"
+   }
+  ],
+  "temperature": 0.8,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "generate",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "turns",
+      "mentions",
+      "extras"
+     ],
+     "properties": {
+      "extras": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [
+        "noise_scheduling"
+       ],
+       "properties": {
+        "noise_scheduling": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 20
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        }
+       }
+      },
+      "turns": {
+       "type": "array",
+       "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+         "speaker",
+         "text",
+         "noise_category"
+        ],
+        "properties": {
+         "speaker": {
+          "type": "string",
+          "enum": [
+           "customer",
+           "internal",
+           "bot"
+          ]
+         },
+         "text": {
+          "type": "string"
+         },
+         "noise_category": {
+          "enum": [
+           "pleasantry",
+           "scheduling",
+           "pricing",
+           "internal",
+           "password_reset",
+           "how_to",
+           "praise",
+           "closer",
+           null
+          ]
+         }
+        }
+       },
+       "minItems": 14,
+       "maxItems": 29
+      },
+      "mentions": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [],
+       "properties": {}
+      }
+     }
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "allow",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"extras\": {\n    \"noise_scheduling\": {\n      \"text\": \"We should lock in a time next week to walk through the claims setup, maybe Tuesday afternoon?\",\n      \"after_turn\": 0\n    }\n  },\n  \"turns\": [\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Hi Alwen, thanks for getting back to me. I’ve been reviewing the claims workflow and need to clarify how reserves tie into supplier payments.\",\n      \"noise_category\": \"pleasantry\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Happy to help, Celdra. Let’s schedule a walkthrough — I’ll send over a calendar invite for Tuesday if that works for you.\",\n      \"noise_category\": \"scheduling\"\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Tuesday works. Also, can we talk about how reporting integrates with our existing policyholder records?\",\n      \"noise_category\": \"how_to\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Absolutely. The system pulls policyholder data directly into claims tasks and letters, so no manual re-entry is needed.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"That’s good to hear. I also want to make sure roles are assigned correctly so only authorized staff can adjust reserves.\",\n      \"noise_category\": \"how_to\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Understood. We can configure role permissions to restrict reserve edits to senior claims handlers only.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Perfect. One last thing — are there any known issues with document uploads during high-volume claim periods?\",\n      \"noise_category\": \"how_to\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"No, the platform scales reliably. Documents queue and process without delay, even during peak times.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Great. I’ll circle back after Tuesday’s session if anything else comes up.\",\n      \"noise_category\": \"pleasantry\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Sounds like a plan. I’ll send that invite shortly and include the agenda for our discussion.\",\n      \"noise_category\": \"closer\"\n    }\n  ,\n  {\n    \"speaker\": \"customer\",\n    \"text\": \"Thanks again, Alwen. Looking forward to it.\",\n    \"noise_category\": \"pleasantry\"\n  }\n  ,\n  {\n    \"speaker\": \"internal\",\n    \"text\": \"You’re welcome, Celdra. I’ll make sure we cover all your points on claims, documents, and reporting thoroughly.\",\n    \"noise_category\": null\n  }\n  ,\n  {\n    \"speaker\": \"customer\",\n    \"text\": \"Appreciate the thoroughness. Our team relies on this being seamless.\",\n    \"noise_category\": \"praise\"\n  }\n  ,\n  {\n    \"speaker\": \"internal\",\n    \"text\": \"That’s exactly what we aim for — smooth, reliable handling across all claims, reserves, and supplier workflows.\",\n    \"noise_category\": null\n  }\n  ],\n  \"mentions\": {}\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 895,
+   "tokens_out": 705,
+   "cost_usd": 0.00151865
+  }
+ }
+}

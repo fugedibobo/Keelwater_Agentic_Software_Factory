@@ -1,0 +1,160 @@
+{
+  "date": 1789650180000,
+  "duration": 1.36,
+  "host_email": "deryn.pell@keelwater.example",
+  "id": "67fa93b87a95",
+  "meeting_attendees": [
+    {
+      "displayName": "Deryn Pell",
+      "email": "deryn.pell@keelwater.example",
+      "name": "Deryn Pell"
+    },
+    {
+      "displayName": "Havren Harthwick",
+      "email": "contact@a08.example",
+      "name": "Havren Harthwick"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 6.8,
+      "index": 0,
+      "raw_text": "Hi Deryn, we’re having trouble getting into Keelwater this morning — our team says it’s down again.",
+      "speaker_id": "customer",
+      "speaker_name": "Havren Harthwick",
+      "start_time": 0.0,
+      "text": "Hi Deryn, we’re having trouble getting into Keelwater this morning — our team says it’s down again."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 16.8,
+      "index": 1,
+      "raw_text": "Our team keeps saying Keelwater is down, but it turns out it’s our own sign-on service failing — customer network failure is the real issue.",
+      "speaker_id": "customer",
+      "speaker_name": "Havren Harthwick",
+      "start_time": 6.8,
+      "text": "Our team keeps saying Keelwater is down, but it turns out it’s our own sign-on service failing — customer network failure is the real issue."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 26.4,
+      "index": 2,
+      "raw_text": "We thought the platform was offline, but it’s actually our VPN or email system causing the login issue — customer network failure strikes again.",
+      "speaker_id": "customer",
+      "speaker_name": "Havren Harthwick",
+      "start_time": 16.8,
+      "text": "We thought the platform was offline, but it’s actually our VPN or email system causing the login issue — customer network failure strikes again."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 34.4,
+      "index": 3,
+      "raw_text": "Hi Havren, thanks for reaching out. Let’s check whether this is related to your sign-on provider or network setup first.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 26.4,
+      "text": "Hi Havren, thanks for reaching out. Let’s check whether this is related to your sign-on provider or network setup first."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 44.4,
+      "index": 4,
+      "raw_text": "We’ve had three handlers stuck for two days because their reserve changes are waiting for an approver who’s on leave — no delegate set up.",
+      "speaker_id": "customer",
+      "speaker_name": "Havren Harthwick",
+      "start_time": 34.4,
+      "text": "We’ve had three handlers stuck for two days because their reserve changes are waiting for an approver who’s on leave — no delegate set up."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 54.4,
+      "index": 5,
+      "raw_text": "Claims are stalled because reserve changes beyond handler authority are stuck in an approver’s queue with no backup — approval waiting list is blocking everything.",
+      "speaker_id": "customer",
+      "speaker_name": "Havren Harthwick",
+      "start_time": 44.4,
+      "text": "Claims are stalled because reserve changes beyond handler authority are stuck in an approver’s queue with no backup — approval waiting list is blocking everything."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 60.8,
+      "index": 6,
+      "raw_text": "Could we schedule a brief call next Tuesday to walk through the reserve approval delegation setup?",
+      "speaker_id": "customer",
+      "speaker_name": "Havren Harthwick",
+      "start_time": 54.4,
+      "text": "Could we schedule a brief call next Tuesday to walk through the reserve approval delegation setup?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 69.2,
+      "index": 7,
+      "raw_text": "I’ll flag this for our workflow team — we can help you configure delegation rules so claims don’t stall during absences.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 60.8,
+      "text": "I’ll flag this for our workflow team — we can help you configure delegation rules so claims don’t stall during absences."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 75.2,
+      "index": 8,
+      "raw_text": "Appreciate that — we need to avoid any more delays in payments or supplier settlements.",
+      "speaker_id": "customer",
+      "speaker_name": "Havren Harthwick",
+      "start_time": 69.2,
+      "text": "Appreciate that — we need to avoid any more delays in payments or supplier settlements."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 81.6,
+      "index": 9,
+      "raw_text": "Understood. I’ll send you a step-by-step guide for setting up approver delegates by end of day.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 75.2,
+      "text": "Understood. I’ll send you a step-by-step guide for setting up approver delegates by end of day."
+    }
+  ]
+}

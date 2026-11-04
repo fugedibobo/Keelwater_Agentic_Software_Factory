@@ -1,0 +1,127 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "assumed_resolution"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Nethervale",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m having trouble logging into Keelwater to upload the policyholder documents for our latest claim.",
+        "created_at": 1790344680,
+        "id": "9e9757a1e8e0-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Nethervale",
+          "type": "user"
+        },
+        "body": "I need to reset my password because I can’t access the claims dashboard to upload documents.",
+        "created_at": 1790344686,
+        "id": "9e9757a1e8e0-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "I’ll reset your password right away and send a temporary link to contact@a24.example — you’ll be back in the system within minutes.",
+        "created_at": 1790344693,
+        "id": "9e9757a1e8e0-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Nethervale",
+          "type": "user"
+        },
+        "body": "Thank you — that’s a relief. I’ve got supplier invoices and reserve updates waiting to be processed.",
+        "created_at": 1790344702,
+        "id": "9e9757a1e8e0-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "You’re welcome. Once you’re in, make sure to check the tasks tab — I’ve flagged the reporting deadlines for your team.",
+        "created_at": 1790344708,
+        "id": "9e9757a1e8e0-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your case has been successfully resolved and all related tasks are now closed in the system.",
+        "created_at": 1790344717,
+        "id": "9e9757a1e8e0-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your case has been successfully resolved and all related tasks are now closed in the system.",
+        "created_at": 1790344723,
+        "id": "9e9757a1e8e0-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Nethervale",
+          "type": "user"
+        },
+        "body": "Appreciate the quick help — the integrations with our payment gateway are working smoothly now.",
+        "created_at": 1790344730,
+        "id": "9e9757a1e8e0-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1790344680,
+  "id": "9e9757a1e8e0",
+  "source": {
+    "author": {
+      "email": "contact@a24.example",
+      "name": "Gellin Nethervale",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "release_change"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

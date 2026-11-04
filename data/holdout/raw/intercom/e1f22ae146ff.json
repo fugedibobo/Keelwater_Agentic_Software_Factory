@@ -1,0 +1,124 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Jorrin Rillmere",
+          "type": "user"
+        },
+        "body": "Good morning Bryn, I’m Jorrin from Fellbrook Fine Art & Specie — we’re trying to streamline our claims handling and need help filtering tasks by due date.",
+        "created_at": 1788341460,
+        "id": "e1f22ae146ff-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Jorrin Rillmere",
+          "type": "user"
+        },
+        "body": "I’m trying to filter tasks by due date because we’ve got multiple claims coming up and I need to prioritize them before the next reporting cycle.",
+        "created_at": 1788341470,
+        "id": "e1f22ae146ff-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Hi Jorrin, thanks for reaching out. I can walk you through how to filter tasks by due date — it’s under the tasks tab in your dashboard.",
+        "created_at": 1788341481,
+        "id": "e1f22ae146ff-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Jorrin Rillmere",
+          "type": "user"
+        },
+        "body": "Could we set up a call next Tuesday morning? I’ll need to coordinate with our finance team to review the reserves before then.",
+        "created_at": 1788341492,
+        "id": "e1f22ae146ff-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Jorrin Rillmere",
+          "type": "user"
+        },
+        "body": "That’s a relief — I’ve been manually sorting them and it’s eating up hours. Let’s schedule a time to go over it together.",
+        "created_at": 1788341501,
+        "id": "e1f22ae146ff-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Perfect — I’ll send over a calendar invite for Tuesday at 10am. In the meantime, check your permissions under roles to ensure you can access the tasks filter.",
+        "created_at": 1788341510,
+        "id": "e1f22ae146ff-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Jorrin Rillmere",
+          "type": "user"
+        },
+        "body": "Understood. I’ll verify my roles and look for your invite. Appreciate the quick help.",
+        "created_at": 1788341521,
+        "id": "e1f22ae146ff-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "You’re welcome — happy to help. Let me know if anything else comes up around documents, suppliers, or reporting while you’re reviewing.",
+        "created_at": 1788341527,
+        "id": "e1f22ae146ff-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1788341460,
+  "id": "e1f22ae146ff",
+  "source": {
+    "author": {
+      "email": "contact@a27.example",
+      "name": "Jorrin Rillmere",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "customer_comms"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

@@ -1,0 +1,100 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Glenmere",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m trying to reconcile the reserves for our latest batch of claims but the system isn’t pulling through the supplier payments correctly — any idea what might be causing that?",
+        "created_at": 1790515020,
+        "id": "034c0b4fcf5d-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Gellin. Let me check the integrations on your account — sometimes a sync delay can cause mismatched payment data. Could you confirm which policyholders’ claims are affected?",
+        "created_at": 1790515032,
+        "id": "034c0b4fcf5d-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Glenmere",
+          "type": "user"
+        },
+        "body": "It’s mostly the commercial property claims under policyholder ID C8821 — the ones we submitted last Tuesday. The payments show as pending but reserves aren’t updating.",
+        "created_at": 1790515045,
+        "id": "034c0b4fcf5d-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Got it. I’ll run a manual sync for those claims and review the roles assigned to your team’s payment approvers. Should be resolved within the hour — I’ll send you a confirmation email.",
+        "created_at": 1790515055,
+        "id": "034c0b4fcf5d-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Glenmere",
+          "type": "user"
+        },
+        "body": "Appreciate the quick help — you’ve saved us a headache before the monthly reporting deadline.",
+        "created_at": 1790515068,
+        "id": "034c0b4fcf5d-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Happy to help, Gellin. Let us know if anything else comes up — we’re here to keep your claims workflow smooth.",
+        "created_at": 1790515074,
+        "id": "034c0b4fcf5d-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 6,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1790515020,
+  "id": "034c0b4fcf5d",
+  "source": {
+    "author": {
+      "email": "contact@a07.example",
+      "name": "Gellin Glenmere",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "reporting_mi"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

@@ -7,14 +7,14 @@
 </purpose>
 
 <roles>
-- Orchestrator of record: one Claude Code session, model opus, effort high, in the main checkout C:\dev\keelwater. It dispatches the milestone's work orders, pushes branches, opens PRs, comments, merges, and alone asks the repo owner.
+- Orchestrator of record: one Claude Code session, model opus, effort high, in the main checkout C:\Users\Andras Bobo Fugedi\Documents\Claude\Projects\Keelwater_Agentic_Software_Factory\Keelwater_Agentic_Software_Factory. It dispatches the milestone's work orders, pushes branches, opens PRs, comments, merges, and alone asks the repo owner.
 - Workers: codex, newest terra model, effort high, through the codex plugin; one per issue, in worktree .worktrees/issue-<N> on branch issue-<N>-<slug>; at most 3 at once. Workers build and test offline (FakeGateway, replay), commit and report. They never run live steps, push, comment or merge.
 - Sonnet subagents (effort high), started by the orchestrator: check each PR and return at most 10 lines; run live steps (probe, smokes, live runs, tuning); do work that needs Claude skills (impeccable, playwright-cli).
 - If the codex 5-hour window has under 30% left, a sonnet subagent builds instead; the report says so.
 - L2: one Claude Code session, model sonnet, effort high, in .worktrees/L2, for #12 then #11 (Archify and visual fitting). It opens its own PRs and never merges.
 - Reviewer: codex, newest sol model, effort medium, once, on the finished milestone in #13.
 - One level of delegation: workers and subagents never start further agents.
-- The orchestrator hands over to a fresh session after #7 merges (handover comment on #13). Any session warns at about 75% context and hands over by 85%. Never /compact.
+- Claude Code build sessions compact normally (auto-compaction on); they never stop to hand over because of context size. Push and post a checkpoint comment on the current issue at each finished Done-means box, so a restarted session can resume. The 75%/85% warn-and-hand-over rule applies only to the author's Cowork planning chats.
 </roles>
 
 <workflow>
@@ -48,18 +48,18 @@ To ask: post one needs-decision comment, then carry on with other work. Never wa
 </gates>
 
 <security_floor>
-- Keys live only in C:\dev\keelwater\.env (git-ignored): OPENROUTER_API_KEY (required), TYPESAFE_API_KEY (optional). The loader finds it from any worktree; a separate clone has none.
+- Keys live only in the main checkout's .env (git-ignored): OPENROUTER_API_KEY. The loader finds it from any worktree; a separate clone has none.
 - Never print, log, commit, cache or send key values to any model, codex included. Model caches hold request and response bodies only.
 - Never open .env or the publish deny-list ($HOME\keelwater-denylist.txt); .claude/settings.json denies both. Only scripts/scan_public.py reads them.
 - All data is synthetic and every domain ends in .example. Never add real company or person names; the generator checks names against the spec files.
 - OpenRouter requests set provider.data_collection to "deny" and require_parameters to true.
-- Pipeline stages use the open-weight models in config/models.yaml, plus Jev, a closed-weight decision model used in the demo profile only. The aws and self-hosted profiles never call TypeSafe or OpenRouter. No paid API calls to Claude or OpenAI hosted models.
+- Pipeline stages use the open-weight models in config/models.yaml; demo triage uses Clef (cloudflare/clef) through OpenRouter's Decisions API. The aws and self-hosted profiles never call OpenRouter. No paid API calls to Claude or OpenAI hosted models.
 - Nothing is published until scripts/scan_public.py reports 0 hits.
 </security_floor>
 
 <engineering>
 - Python 3.12 with uv, SQLite, FastAPI with Jinja, pytest. No Docker, no CI, no front-end build.
-- Windows 10, repo at C:\dev\keelwater (outside OneDrive), git core.longpaths true, LF line endings (.gitattributes). Use pathlib; open files and run subprocesses with encoding="utf-8"; the CLI forces UTF-8 stdout; give humans PowerShell-safe commands.
+- Windows 10, repo at C:\Users\Andras Bobo Fugedi\Documents\Claude\Projects\Keelwater_Agentic_Software_Factory\Keelwater_Agentic_Software_Factory (outside OneDrive), git core.longpaths true, LF line endings (.gitattributes). Use pathlib; open files and run subprocesses with encoding="utf-8"; the CLI forces UTF-8 stdout; give humans PowerShell-safe commands.
 - uv run keelwater run defaults to replay and must always work with no keys and no network.
 - Before any live step run uv run keelwater probe (each stage's real parameters, max_tokens 32). If a primary id is not served, use the stage's fallback in config/models.yaml and record the swap in the PR; anything else is needs-decision.
 - Respect the issue's USD cap (--max-usd); the gateway aborts a run that passes it.

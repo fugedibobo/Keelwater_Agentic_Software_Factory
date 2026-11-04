@@ -1,0 +1,148 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Quenna Rillmere",
+          "type": "user"
+        },
+        "body": "Hi Bryn, we’re getting reports from our team that Keelwater isn’t accessible — I think it’s happening when they try to log in through our corporate portal.",
+        "created_at": 1792852500,
+        "id": "491ba81bf5bc-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: Customer reported access issues; confirm their SSO provider is operational before escalating.",
+        "created_at": 1792852510,
+        "id": "491ba81bf5bc-1",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Quenna. I’ll check our systems right away — could you confirm whether your team is using SSO or direct credentials?",
+        "created_at": 1792852516,
+        "id": "491ba81bf5bc-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Quenna Rillmere",
+          "type": "user"
+        },
+        "body": "Our team’s been unable to access Keelwater this morning — it looks like a customer login outage, but we haven’t touched our SSO setup, and it’s impacting multiple staff.",
+        "created_at": 1792852526,
+        "id": "491ba81bf5bc-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Quenna Rillmere",
+          "type": "user"
+        },
+        "body": "They’re all on SSO through our internal IdP — we haven’t changed anything on our end, but it’s been happening since this morning.",
+        "created_at": 1792852537,
+        "id": "491ba81bf5bc-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Quenna Rillmere",
+          "type": "user"
+        },
+        "body": "Could we schedule a 15-minute call tomorrow afternoon to walk through the login setup?",
+        "created_at": 1792852546,
+        "id": "491ba81bf5bc-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood. Let me verify the connection logs on our side — I’ll also need to confirm if this is tied to a broader customer login outage affecting other firms using similar providers.",
+        "created_at": 1792852552,
+        "id": "491ba81bf5bc-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Quenna Rillmere",
+          "type": "user"
+        },
+        "body": "That would be helpful — we’ve had three people report the same customer login outage today, and it’s holding up claims processing.",
+        "created_at": 1792852565,
+        "id": "491ba81bf5bc-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Quenna Rillmere",
+          "type": "user"
+        },
+        "body": "We’ve had three people report the same customer login outage today, and it’s holding up claims processing — I’d appreciate any insight from your end.",
+        "created_at": 1792852574,
+        "id": "491ba81bf5bc-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "I’ve escalated this to our identity team — they’ll review your SSO configuration and reach out if they need additional details from Penhallow Specialty Risks.",
+        "created_at": 1792852584,
+        "id": "491ba81bf5bc-9",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 10,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1792852500,
+  "id": "491ba81bf5bc",
+  "source": {
+    "author": {
+      "email": "contact@a17.example",
+      "name": "Quenna Rillmere",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "reserves_payments"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

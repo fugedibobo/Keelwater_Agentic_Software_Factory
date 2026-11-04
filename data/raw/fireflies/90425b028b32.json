@@ -1,0 +1,174 @@
+{
+  "date": 1789811820000,
+  "duration": 1.5933333333333333,
+  "host_email": "carys.fenwick@keelwater.example",
+  "id": "90425b028b32",
+  "meeting_attendees": [
+    {
+      "displayName": "Carys Fenwick",
+      "email": "carys.fenwick@keelwater.example",
+      "name": "Carys Fenwick"
+    },
+    {
+      "displayName": "Lirven Larchvale",
+      "email": "contact@a12.example",
+      "name": "Lirven Larchvale"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 8.4,
+      "index": 0,
+      "raw_text": "Hi Carys, thanks for setting up our access. We’ve got a few questions about how claims get assigned to our teams.",
+      "speaker_id": "customer",
+      "speaker_name": "Lirven Larchvale",
+      "start_time": 0.0,
+      "text": "Hi Carys, thanks for setting up our access. We’ve got a few questions about how claims get assigned to our teams."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 13.6,
+      "index": 1,
+      "raw_text": "You’re welcome, Lirven. Happy to help. What’s on your mind regarding claim routing?",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 8.4,
+      "text": "You’re welcome, Lirven. Happy to help. What’s on your mind regarding claim routing?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 24.8,
+      "index": 2,
+      "raw_text": "Our motor team handles high-volume cases and wants automatic assignment based on postcode and workload. But our commercial team deals with complex claims and prefers manual claim routing.",
+      "speaker_id": "customer",
+      "speaker_name": "Lirven Larchvale",
+      "start_time": 13.6,
+      "text": "Our motor team handles high-volume cases and wants automatic assignment based on postcode and workload. But our commercial team deals with complex claims and prefers manual claim routing."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 34.8,
+      "index": 3,
+      "raw_text": "Our motor team handles hundreds of claims weekly and needs automated routing by postcode and workload — manual claim routing slows them down too much.",
+      "speaker_id": "customer",
+      "speaker_name": "Lirven Larchvale",
+      "start_time": 24.8,
+      "text": "Our motor team handles hundreds of claims weekly and needs automated routing by postcode and workload — manual claim routing slows them down too much."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 44.4,
+      "index": 4,
+      "raw_text": "That’s a common setup. We can configure claim routing differently per team — so motor gets automation, commercial stays manual. Does that sound right?",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 34.8,
+      "text": "That’s a common setup. We can configure claim routing differently per team — so motor gets automation, commercial stays manual. Does that sound right?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 50.8,
+      "index": 5,
+      "raw_text": "Exactly. We don’t want to force one approach across all teams. Per-team configuration would solve it.",
+      "speaker_id": "customer",
+      "speaker_name": "Lirven Larchvale",
+      "start_time": 44.4,
+      "text": "Exactly. We don’t want to force one approach across all teams. Per-team configuration would solve it."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 60.0,
+      "index": 6,
+      "raw_text": "We really need per-team configuration because our commercial team handles complex claims and prefers manual claim routing — one-size-fits-all doesn’t work for us.",
+      "speaker_id": "customer",
+      "speaker_name": "Lirven Larchvale",
+      "start_time": 50.8,
+      "text": "We really need per-team configuration because our commercial team handles complex claims and prefers manual claim routing — one-size-fits-all doesn’t work for us."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 66.8,
+      "index": 7,
+      "raw_text": "Got it. I’ll set up separate routing rules for each team based on your needs. Anything else?",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 60.0,
+      "text": "Got it. I’ll set up separate routing rules for each team based on your needs. Anything else?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 76.8,
+      "index": 8,
+      "raw_text": "One more thing — we had a login issue last week. It turned out to be our VPN, not Keelwater. Just wanted to clarify that.",
+      "speaker_id": "customer",
+      "speaker_name": "Lirven Larchvale",
+      "start_time": 66.8,
+      "text": "One more thing — we had a login issue last week. It turned out to be our VPN, not Keelwater. Just wanted to clarify that."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 88.0,
+      "index": 9,
+      "raw_text": "Last week’s ‘Keelwater is down’ report was actually caused by our own VPN — not a product issue, just a customer login outage we need to track better.",
+      "speaker_id": "customer",
+      "speaker_name": "Lirven Larchvale",
+      "start_time": 76.8,
+      "text": "Last week’s ‘Keelwater is down’ report was actually caused by our own VPN — not a product issue, just a customer login outage we need to track better."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 95.6,
+      "index": 10,
+      "raw_text": "Thanks for letting us know. We’ll make sure to flag similar cases as customer login outage to avoid confusion.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 88.0,
+      "text": "Thanks for letting us know. We’ll make sure to flag similar cases as customer login outage to avoid confusion."
+    }
+  ]
+}

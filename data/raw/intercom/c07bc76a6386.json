@@ -1,0 +1,151 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "routed_to_team"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Havren Harthwick",
+          "type": "user"
+        },
+        "body": "Morning Bryn, just wanted to flag that our handlers are spending half their day calling garages because we can’t see live repair progress in the system.",
+        "created_at": 1792743300,
+        "id": "c07bc76a6386-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: Escalated by Bryn Telford. Customer flagged repair updates missing as a daily blocker. Follow up by EOD tomorrow.",
+        "created_at": 1792743310,
+        "id": "c07bc76a6386-1",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for letting us know, Havren. That’s definitely not how the workflow should be — can you describe how this impacts your daily tasks?",
+        "created_at": 1792743318,
+        "id": "c07bc76a6386-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Havren Harthwick",
+          "type": "user"
+        },
+        "body": "It’s a real drag — every time we need to update a policyholder or adjust reserves, we have to interrupt our workflow to phone suppliers because repair updates missing means no visibility.",
+        "created_at": 1792743328,
+        "id": "c07bc76a6386-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Havren Harthwick",
+          "type": "user"
+        },
+        "body": "It’s a real drag — every time we need to update a policyholder or adjust reserves, we have to interrupt our workflow to phone suppliers because repair updates missing means no visibility.",
+        "created_at": 1792743340,
+        "id": "c07bc76a6386-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Thank you for reaching out. I’m flagging this as escalated for our support lead to review and respond within 24 hours.",
+        "created_at": 1792743353,
+        "id": "c07bc76a6386-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your case has been escalated. A support lead will contact you within 24 hours with next steps.",
+        "created_at": 1792743362,
+        "id": "c07bc76a6386-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Noted — Pendleford’s team is manually tracking garage progress due to repair updates missing. We’ll prioritise this for the next sprint.",
+        "created_at": 1792743368,
+        "id": "c07bc76a6386-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "We’ve logged this as high priority. Our dev team will look at integrating live supplier status feeds to eliminate the need for manual calls due to repair updates missing.",
+        "created_at": 1792743377,
+        "id": "c07bc76a6386-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Havren Harthwick",
+          "type": "user"
+        },
+        "body": "Appreciate the quick action.",
+        "created_at": 1792743388,
+        "id": "c07bc76a6386-9",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 10,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1792743300,
+  "id": "c07bc76a6386",
+  "source": {
+    "author": {
+      "email": "contact@a08.example",
+      "name": "Havren Harthwick",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "supplier_network"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

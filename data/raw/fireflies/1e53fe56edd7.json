@@ -1,0 +1,132 @@
+{
+  "date": 1790157900000,
+  "duration": 1.0866666666666667,
+  "host_email": "carys.fenwick@keelwater.example",
+  "id": "1e53fe56edd7",
+  "meeting_attendees": [
+    {
+      "displayName": "Carys Fenwick",
+      "email": "carys.fenwick@keelwater.example",
+      "name": "Carys Fenwick"
+    },
+    {
+      "displayName": "Gellin Glenmere",
+      "email": "contact@a07.example",
+      "name": "Gellin Glenmere"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 7.6,
+      "index": 0,
+      "raw_text": "Hi Carys, we’re setting up our team workflows and need clarity on how claim allocation works across different lines.",
+      "speaker_id": "customer",
+      "speaker_name": "Gellin Glenmere",
+      "start_time": 0.0,
+      "text": "Hi Carys, we’re setting up our team workflows and need clarity on how claim allocation works across different lines."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 16.4,
+      "index": 1,
+      "raw_text": "Thanks for reaching out, Gellin. We can tailor routing rules per team — motor, commercial, specialty — based on your operational needs.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 7.6,
+      "text": "Thanks for reaching out, Gellin. We can tailor routing rules per team — motor, commercial, specialty — based on your operational needs."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 23.6,
+      "index": 2,
+      "raw_text": "Could we schedule the next walkthrough for Thursday at 3pm? That suits our claims team’s shift pattern best.",
+      "speaker_id": "customer",
+      "speaker_name": "Gellin Glenmere",
+      "start_time": 16.4,
+      "text": "Could we schedule the next walkthrough for Thursday at 3pm? That suits our claims team’s shift pattern best."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 30.8,
+      "index": 3,
+      "raw_text": "That’s helpful. Our motor claims team really prefers automatic claim allocation to balance workload and match skills efficiently.",
+      "speaker_id": "customer",
+      "speaker_name": "Gellin Glenmere",
+      "start_time": 23.6,
+      "text": "That’s helpful. Our motor claims team really prefers automatic claim allocation to balance workload and match skills efficiently."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 40.4,
+      "index": 4,
+      "raw_text": "Our motor claims team really prefers automatic claim allocation to balance workload and match skills efficiently — it’s critical for scaling without adding headcount.",
+      "speaker_id": "customer",
+      "speaker_name": "Gellin Glenmere",
+      "start_time": 30.8,
+      "text": "Our motor claims team really prefers automatic claim allocation to balance workload and match skills efficiently — it’s critical for scaling without adding headcount."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 48.8,
+      "index": 5,
+      "raw_text": "Understood. For motor, we’ll enable automatic assignment by postcode, skill, and current workload. For complex specialty claims, we’ll leave it manual.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 40.4,
+      "text": "Understood. For motor, we’ll enable automatic assignment by postcode, skill, and current workload. For complex specialty claims, we’ll leave it manual."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 56.4,
+      "index": 6,
+      "raw_text": "Perfect. We’ll test this in staging next week. Let me know if you need access credentials or test policies.",
+      "speaker_id": "customer",
+      "speaker_name": "Gellin Glenmere",
+      "start_time": 48.8,
+      "text": "Perfect. We’ll test this in staging next week. Let me know if you need access credentials or test policies."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 65.2,
+      "index": 7,
+      "raw_text": "I’ll send those over by end of day. Also, would you like to book a follow-up to review the configuration before go-live?",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 56.4,
+      "text": "I’ll send those over by end of day. Also, would you like to book a follow-up to review the configuration before go-live?"
+    }
+  ]
+}

@@ -7,6 +7,9 @@ dependencies = [
   "python-dotenv", "fastapi", "uvicorn", "jinja2", "numpy", "scipy",
 ]
 
+[project.optional-dependencies]
+phoenix = ["arize-phoenix==21.0.0", "arize-phoenix-otel==0.17.2"]
+
 [dependency-groups]
 dev = ["pytest"]
 

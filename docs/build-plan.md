@@ -57,6 +57,7 @@ One level of delegation only: workers and subagents never start further agents. 
 | 11 | Archify diagrams A, B and C | L2 | #18 | 1.0 | 11:30 |
 | 12 | Two-pager PDF from Part 1 | L2 | #18 | 0.75 | 10:00 |
 | 13 | End-to-end verification, adversarial review and README | fresh L1 orchestrator | #7, #8, #9 (#10) | 2.5 | Wed 11:30 |
+| 28 | Delegation ruleset, model evidence and build telemetry (Part A docs PR from the planning chat; Part B CSV and measured section) | Part A planning chat; Part B L2 | Part A none; Part B #9 and every other build work order | 0.75 (Part B) | after #13 (Part B) |
 
 "Merged by" includes the Sonnet check and the orchestrator's squash merge. L1 totals 20.25 h of work across three worker slots; L2 1.75 h.
 
@@ -210,7 +211,7 @@ The product's own gates (a PM accepting an opportunity, approving an intent docu
 
 ## 9. Spend plan
 
-All model calls go through OpenRouter on one key with a hard USD 10 limit, or to Jev. Each live step starts with `uv run keelwater probe` and runs with `--max-usd`; the gateway aborts a run that passes its cap.
+All model calls go through OpenRouter on one key with a hard USD 10 limit. Each live step starts with `uv run keelwater probe` and runs with `--max-usd`; the gateway aborts a run that passes its cap.
 
 | Issue | Live step | Cap (USD) |
 |---|---|---|
@@ -270,7 +271,7 @@ Never cut: replay mode, quote verification, the ground-truth, held-out and stabi
 | The live run starts late | #9 or a stage issue still open at 15:30 | Critical-path dispatch order; cut items 2 and 3 first; #7's suites are built and tested offline before the live run. |
 | A seed 42 floor fails | #7's ground-truth suite shows FAIL | A 60-minute tuning box on seed 42 only, at most two re-runs, thresholds and prompt text only. Then the honest result with needs-decision; nobody re-runs an unchanged configuration hoping for a luckier draw. |
 | Seed 43 or the stability replay fails | holdout or stability FAIL | One fix, checked on seed 42 only, then one re-run of seed 43; otherwise the honest result is reported. Seed 43 is never used for tuning. |
-| Jev sign-up closed or slow | #14 says "no Jev key"; probe prints "skipped"; HTTP 429 | Only the OpenRouter key is required; triage runs on `openai/gpt-oss-120b` and the docs say so. Backoff on 429 and 529. |
+| `cloudflare/clef` unavailable or slow on OpenRouter | probe fails for the triage stage; HTTP 429 | Triage runs on `openai/gpt-oss-120b` and the run says so once. Backoff on 429 and 529. |
 | OpenRouter ids drift (several demo ids are INFERRED) | probe shows a primary miss | Each stage has a fallback id from the 02/11 research; the swap is recorded in the pull request and the run manifest. Replay is unaffected. |
 | No credit behind the key | HTTP 402 on the first probe | #14 step 1 checks for at least USD 10 of credit; a key limit adds none. |
 | Windows path and encoding traps | SQLite or .venv errors in OneDrive; MAX_PATH errors; hashes differ across machines; a crash printing "≥" or "£" | Repo at `C:\dev\keelwater` outside OneDrive; `core.longpaths`; `.gitattributes` with `eol=lf` in the first commit; UTF-8 stdout and `encoding="utf-8"` everywhere. |
@@ -319,3 +320,12 @@ Conventions:
 - Decisions taken without the author (vetoable): production triage runs inside the VPC from day one, Jev is demo-only; demo models are open weights that Bedrock also serves where possible; three judges built (coherence designed only), certified on a Wilson lower bound of at least 0.75 with at least 50 real PM labels per class, so no judge is trusted in the demo; held-out seed 43 and a two-batch stability replay against overfitting; factory job carries evidence references and a de-identified problem, never quotes; OpenRouter key limit USD 10; one orchestrator dispatching codex workers so the author pastes two blocks; work orders use Markdown headings (the work-order template) while AGENTS.md uses tagged sections.
 - Risks: model ids drift weekly (the probe catches it); Jev signup or limits (one fallback, Jev optional); Phoenix install on Windows (optional, cut first); Archify layout repair rounds; the live run cannot start before about 15:30 on Tuesday.
 - Lessons: a published brief and review findings should be passed to subagents as files, not retyped; push early, because the session limit stopped two subagents mid-task; every cross-document number (judge count, thresholds, spend caps, CLI names) needs one canonical home, here docs/architecture.md, or parallel writers drift.
+
+## Planning chat 2 handover (04/11/2026 03:00)
+
+- **State:** the build started on 04/11/2026 at 00:44 (one day late). The L1 handover is on #13 (02:22). Merged so far: #1, #3, #4, #5, #6, #8, #9 and #11 (diagram B cut, accepted by the author). The #12 two-pager fixes moved into #38. #2 is blocked on data generation. The author ruled on #2 that generation uses a free OpenRouter model, falls back to DeepSeek V4.1 Flash or Qwen, and never uses Mistral or the judges' family (comment on #2).
+- **Author decisions in this chat (vetoable only by the author):** demo triage is Clef (`cloudflare/clef`) through OpenRouter's Decisions API, with no TypeSafe key (#4, PR #25, PR #31). Phoenix is mandatory, with traces, labelled datasets and eval experiments (#10). Cheaper engines build non-crown-jewel work (agy, Terra, Sonnet, Haiku), and Opus orchestrates only. A delegation ruleset with published benchmark evidence, plus Clef as router and telemetry triager (#28, PR #29). A gap review against the six Part 1 questions led to four new work orders: #37 halving model and board tracker, #38 Part 1 revision (two pages), #39 How I used AI, and #40 the presentation deck (6-8 slides, TLDR first). Author time is about 2 hours by 02:30 on 04/11, within the 4-hour ask.
+- **Open PRs from this chat:** #25 (docs: Clef), #29 (delegation ruleset), #31 (AGENTS.md: Clef and checkout path, approved by the author). Merge them in that order after a Sonnet check PASS.
+- **Pending author decision:** AGENTS.md line 17 says "Never /compact", which makes build sessions hand over instead of compacting. The proposed change lets build sessions auto-compact after posting a checkpoint comment; planning chats still hand over.
+- **Next:** the L3 session runs #37, then #38, and #39 in parallel. #40 runs after #37, #38, #39 and #28 Part B. L1 continues #2, #7, #10 and #13. Submission is Thursday 05/11/2026, morning.
+- **Lessons:** a Claude Code handover line pasted into the planning chat is meant for a build session, so check before acting on it; retyped files drift, so compare hashes before trusting a copy; keep the brief outside git (it was saved inside the checkout and excluded locally through .git/info/exclude).

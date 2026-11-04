@@ -1,0 +1,139 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "assumed_resolution"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Pennfell",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m having trouble assigning roles to new team members on our claims dashboard.",
+        "created_at": 1791279900,
+        "id": "9120e30341d5-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "You can assign roles by going to the team settings tab and selecting the user, then choosing their access level from the dropdown.",
+        "created_at": 1791279906,
+        "id": "9120e30341d5-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Pennfell",
+          "type": "user"
+        },
+        "body": "Can you walk me through how to attach documents to a claim? I keep missing a step.",
+        "created_at": 1791279915,
+        "id": "9120e30341d5-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Pennfell",
+          "type": "user"
+        },
+        "body": "That worked — thanks. Also, can we set up a recurring meeting to review supplier payments?",
+        "created_at": 1791279922,
+        "id": "9120e30341d5-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Pennfell",
+          "type": "user"
+        },
+        "body": "I’d like to schedule a weekly sync for reviewing reserves and payments with my team.",
+        "created_at": 1791279928,
+        "id": "9120e30341d5-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "I’ll set that up for you — every Tuesday at 10 AM, with a report summary sent ahead of time.",
+        "created_at": 1791279934,
+        "id": "9120e30341d5-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your case has been marked as resolved in our system. Let us know if you need further assistance.",
+        "created_at": 1791279942,
+        "id": "9120e30341d5-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your case has been marked as resolved in our system. Let us know if you need further assistance.",
+        "created_at": 1791279949,
+        "id": "9120e30341d5-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Pennfell",
+          "type": "user"
+        },
+        "body": "Appreciate the help — your support team always makes complex tasks feel simple.",
+        "created_at": 1791279956,
+        "id": "9120e30341d5-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 9,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1791279900,
+  "id": "9120e30341d5",
+  "source": {
+    "author": {
+      "email": "contact@a26.example",
+      "name": "Ilyra Pennfell",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "admin_permissions"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

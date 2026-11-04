@@ -1,0 +1,124 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Celdra Jarrowfell",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m reaching out because we need to update the purchase order reference on your latest invoice — it’s causing confusion with our finance team.",
+        "created_at": 1791277740,
+        "id": "6c29c6709be7-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Celdra Jarrowfell",
+          "type": "user"
+        },
+        "body": "I’m writing to request an update to the purchase order number on your invoice — this is causing reconciliation issues, and I need the invoice contact change reflected accurately in our records.",
+        "created_at": 1791277750,
+        "id": "6c29c6709be7-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for letting me know, Celdra. I’ll need to flag this as an administrative request since invoice details can’t be edited after issuance.",
+        "created_at": 1791277763,
+        "id": "6c29c6709be7-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Celdra Jarrowfell",
+          "type": "user"
+        },
+        "body": "Understood — I just want to make sure the billing contact and PO number match what’s in our system. Can we get that sorted?",
+        "created_at": 1791277772,
+        "id": "6c29c6709be7-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Celdra Jarrowfell",
+          "type": "user"
+        },
+        "body": "Could we please schedule a follow-up call for next Tuesday at 11am? I’ll make sure Celdra is available.",
+        "created_at": 1791277782,
+        "id": "6c29c6709be7-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "I’ll log this as a formal administrative request and loop in our billing team. They’ll respond within 24 hours with next steps.",
+        "created_at": 1791277789,
+        "id": "6c29c6709be7-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Celdra Jarrowfell",
+          "type": "user"
+        },
+        "body": "Appreciate the quick action. Let me know if you need anything from our end.",
+        "created_at": 1791277798,
+        "id": "6c29c6709be7-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "You’re welcome — I’ll keep you posted. Also, if you’d like to discuss how to avoid this in future, we can set up a brief training on invoice handling workflows.",
+        "created_at": 1791277803,
+        "id": "6c29c6709be7-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1791277740,
+  "id": "6c29c6709be7",
+  "source": {
+    "author": {
+      "email": "contact@a20.example",
+      "name": "Celdra Jarrowfell",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "admin_permissions"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}
