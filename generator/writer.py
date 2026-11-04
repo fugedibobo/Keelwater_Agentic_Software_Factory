@@ -22,6 +22,13 @@ TURN_ITEM = {
 }
 
 
+def bounded(slot, mention):
+    """A short agreement is at most 44 characters (under eight words); any other mention at least 45."""
+    slot = copy.deepcopy(slot)
+    slot['properties']['text'].update({'maxLength': 44} if mention.get('agreement') else {'minLength': 45})
+    return slot
+
+
 def record_schema(record, seed):
     """Per-record response schema. `turns` holds the conversation without the planted mentions (band minus the
     mention count, noise enum); `mentions` has exactly this record's mention ids, each one customer text plus a
@@ -37,7 +44,7 @@ def record_schema(record, seed):
     ids = [m['id'] for m in record['mentions']]
     return {'type': 'object', 'additionalProperties': False, 'required': ['turns', 'mentions'],
             'properties': {'turns': turns, 'mentions': {'type': 'object', 'additionalProperties': False, 'required': ids,
-                                                         'properties': {i: copy.deepcopy(slot) for i in ids}}}}
+                                                         'properties': {m['id']: bounded(slot, m) for m in record['mentions']}}}}
 
 
 def merge_mentions(record, raw):

@@ -317,3 +317,18 @@ def test_common_capitalised_word_passes_but_invented_name_fails():
     from generator.verify import unknown_names
     assert unknown_names('We only get the English letters in Wales and Northern Ireland here', 42) == []
     assert unknown_names('please ask Brenda Quillfeather about it', 42)
+
+
+def test_mention_slot_length_bounds_follow_the_agreement_flag():
+    from generator.planner import plan
+    from generator.writer import record_schema
+    seen = set()
+    for r in plan(42)['records']:
+        if r['source'] == 'fullstory':
+            continue
+        props = record_schema(r, 42)['properties']['mentions']['properties']
+        for m in r['mentions']:
+            t = props[m['id']]['properties']['text']
+            assert ('maxLength' in t) == bool(m.get('agreement')) and ('minLength' in t) != bool(m.get('agreement'))
+            seen.add(bool(m.get('agreement')))
+    assert seen == {True, False}
