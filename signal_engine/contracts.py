@@ -350,7 +350,7 @@ TABLES = {
 
 # Rows the output hash covers (N1); columns that vary between runs are dropped before hashing.
 OUTPUT_TABLES = ("insight", "opportunity", "opportunity_insight", "score", "brief", "judgement", "handoff")
-OUTPUT_HASH_EXCLUDE = {"run_id", "brief_id", "latency_ms", "cost_usd", "cached", "started_at", "created_at", "at", "state_changed_at"}
+OUTPUT_HASH_EXCLUDE = {"run_id", "brief_id", "judgement_id", "latency_ms", "cost_usd", "cached", "started_at", "created_at", "at", "state_changed_at"}
 
 
 # ---- stage outputs (what a model returns; the gateway validates into these) ---------------------------------
