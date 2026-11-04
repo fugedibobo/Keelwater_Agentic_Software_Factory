@@ -1,0 +1,146 @@
+{
+  "date": 1790671560000,
+  "duration": 1.3533333333333333,
+  "host_email": "deryn.pell@keelwater.example",
+  "id": "ea08dd984015",
+  "meeting_attendees": [
+    {
+      "displayName": "Deryn Pell",
+      "email": "deryn.pell@keelwater.example",
+      "name": "Deryn Pell"
+    },
+    {
+      "displayName": "Quenna Rillmere",
+      "email": "contact@a17.example",
+      "name": "Quenna Rillmere"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 11.2,
+      "index": 0,
+      "raw_text": "Good morning, Deryn. I’ve been reviewing our active tasks and noticed quite a few that haven’t moved in months—could we get those bulk-closed to clean up the dashboard?",
+      "speaker_id": "customer",
+      "speaker_name": "Quenna Rillmere",
+      "start_time": 0.0,
+      "text": "Good morning, Deryn. I’ve been reviewing our active tasks and noticed quite a few that haven’t moved in months—could we get those bulk-closed to clean up the dashboard?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 24.8,
+      "index": 1,
+      "raw_text": "I’ve been reviewing our active tasks and noticed quite a few that haven’t moved in months—could we get those bulk-closed to clean up the dashboard? It’s a priority for our reporting and reserves tracking.",
+      "speaker_id": "customer",
+      "speaker_name": "Quenna Rillmere",
+      "start_time": 11.2,
+      "text": "I’ve been reviewing our active tasks and noticed quite a few that haven’t moved in months—could we get those bulk-closed to clean up the dashboard? It’s a priority for our reporting and reserves tracking."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 33.2,
+      "index": 2,
+      "raw_text": "Thanks for flagging that, Quenna. I’ll look into bulk-closing those stale tasks for you—should help reduce clutter and improve reporting accuracy.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 24.8,
+      "text": "Thanks for flagging that, Quenna. I’ll look into bulk-closing those stale tasks for you—should help reduce clutter and improve reporting accuracy."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 41.6,
+      "index": 3,
+      "raw_text": "Also, we’re updating our finance team’s contacts—could you adjust the billing contact on our next invoice? It’s just an administrative request.",
+      "speaker_id": "customer",
+      "speaker_name": "Quenna Rillmere",
+      "start_time": 33.2,
+      "text": "Also, we’re updating our finance team’s contacts—could you adjust the billing contact on our next invoice? It’s just an administrative request."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 51.6,
+      "index": 4,
+      "raw_text": "We’re updating our finance team’s contacts—could you adjust the billing contact on our next invoice? It’s just an administrative request, not a purchase order correction.",
+      "speaker_id": "customer",
+      "speaker_name": "Quenna Rillmere",
+      "start_time": 41.6,
+      "text": "We’re updating our finance team’s contacts—could you adjust the billing contact on our next invoice? It’s just an administrative request, not a purchase order correction."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 61.2,
+      "index": 5,
+      "raw_text": "I understand you’re looking to update the billing contact—just to clarify, that’s an administrative request and doesn’t involve changing the purchase order itself, correct?",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 51.6,
+      "text": "I understand you’re looking to update the billing contact—just to clarify, that’s an administrative request and doesn’t involve changing the purchase order itself, correct?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 66.0,
+      "index": 6,
+      "raw_text": "Yes, exactly—that’s the purchase order correction we need, not the PO number.",
+      "speaker_id": "customer",
+      "speaker_name": "Quenna Rillmere",
+      "start_time": 61.2,
+      "text": "Yes, exactly—that’s the purchase order correction we need, not the PO number."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 73.6,
+      "index": 7,
+      "raw_text": "Got it. I’ll process the billing contact update as an administrative request—no changes to the purchase order number needed.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 66.0,
+      "text": "Got it. I’ll process the billing contact update as an administrative request—no changes to the purchase order number needed."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 81.2,
+      "index": 8,
+      "raw_text": "Appreciate the quick turnaround. Let me know if you need any policyholder or supplier docs to verify the change.",
+      "speaker_id": "customer",
+      "speaker_name": "Quenna Rillmere",
+      "start_time": 73.6,
+      "text": "Appreciate the quick turnaround. Let me know if you need any policyholder or supplier docs to verify the change."
+    }
+  ]
+}

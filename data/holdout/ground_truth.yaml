@@ -1,0 +1,3130 @@
+{
+  "accounts": {
+    "A01": {
+      "hubspot_id": "18452001001",
+      "name": "Hollinbrook Home Insurance"
+    },
+    "A02": {
+      "hubspot_id": "18452001002",
+      "name": "Wexmoor Motor"
+    },
+    "A03": {
+      "hubspot_id": "18452001003",
+      "name": "Marrowgate Commercial"
+    },
+    "A04": {
+      "hubspot_id": "18452001004",
+      "name": "Callowfield Auto Assurance"
+    },
+    "A05": {
+      "hubspot_id": "18452001005",
+      "name": "Thistlecombe Mutual"
+    },
+    "A06": {
+      "hubspot_id": "18452001006",
+      "name": "Quillon Business Insurance"
+    },
+    "A07": {
+      "hubspot_id": "18452001007",
+      "name": "Saltmarsh Specialty"
+    },
+    "A08": {
+      "hubspot_id": "18452001008",
+      "name": "Pendleford Motor Mutual"
+    },
+    "A09": {
+      "hubspot_id": "18452001009",
+      "name": "Brackwater Homecover"
+    },
+    "A10": {
+      "hubspot_id": "18452001010",
+      "name": "Stannary Commercial"
+    },
+    "A11": {
+      "hubspot_id": "18452001011",
+      "name": "Ravensgill Insurance"
+    },
+    "A12": {
+      "hubspot_id": "18452001012",
+      "name": "Tidewell Marine & Cargo"
+    },
+    "A13": {
+      "hubspot_id": "18452001013",
+      "name": "Linnet House Insurance"
+    },
+    "A14": {
+      "hubspot_id": "18452001014",
+      "name": "Holloway Reach Underwriting"
+    },
+    "A15": {
+      "hubspot_id": "18452001015",
+      "name": "Tarnholt Drive Cover"
+    },
+    "A16": {
+      "hubspot_id": "18452001016",
+      "name": "Ashcombe Property Mutual"
+    },
+    "A17": {
+      "hubspot_id": "18452001017",
+      "name": "Penhallow Specialty Risks"
+    },
+    "A18": {
+      "hubspot_id": "18452001018",
+      "name": "Cindermill Trade Cover"
+    },
+    "A19": {
+      "hubspot_id": "18452001019",
+      "name": "Selsby Motor"
+    },
+    "A20": {
+      "hubspot_id": "18452001020",
+      "name": "Elderfold Home"
+    },
+    "A21": {
+      "hubspot_id": "18452001021",
+      "name": "Brantwick Commercial"
+    },
+    "A22": {
+      "hubspot_id": "18452001022",
+      "name": "Ormsgill Cyber"
+    },
+    "A23": {
+      "hubspot_id": "18452001023",
+      "name": "Orrinbury Fleet Insurance"
+    },
+    "A24": {
+      "hubspot_id": "18452001024",
+      "name": "Kilnsey Household"
+    },
+    "A25": {
+      "hubspot_id": "18452001025",
+      "name": "Greystock Liability"
+    },
+    "A26": {
+      "hubspot_id": "18452001026",
+      "name": "Duncastle Auto"
+    },
+    "A27": {
+      "hubspot_id": "18452001027",
+      "name": "Fellbrook Fine Art & Specie"
+    },
+    "A28": {
+      "hubspot_id": "18452001028",
+      "name": "Farrowdene Home"
+    },
+    "A29": {
+      "hubspot_id": "18452001029",
+      "name": "Calderwick Commercial"
+    },
+    "A30": {
+      "hubspot_id": "18452001030",
+      "name": "Merrow Vale Motor"
+    },
+    "P1": {
+      "hubspot_id": "18452001031",
+      "name": "Harrowfield Fleet Mutual"
+    },
+    "P2": {
+      "hubspot_id": "18452001032",
+      "name": "Brindlecombe Home"
+    },
+    "P3": {
+      "hubspot_id": "18452001033",
+      "name": "Sallowmere Motor"
+    },
+    "P4": {
+      "hubspot_id": "18452001034",
+      "name": "Quarrendon Commercial"
+    }
+  },
+  "as_of": "2026-11-03",
+  "fullstory_false_positives": [
+    {
+      "event_ids": [
+        "00dd0c6bcbff40d1"
+      ],
+      "kind": "habitual_double_click",
+      "session_id": "52377742b2ee"
+    },
+    {
+      "event_ids": [
+        "e5e6d75fc84f8b64"
+      ],
+      "kind": "habitual_double_click",
+      "session_id": "ab9c159e2ca7"
+    },
+    {
+      "event_ids": [
+        "8ecdcd4f80c2561b"
+      ],
+      "kind": "habitual_double_click",
+      "session_id": "1abb05561c16"
+    },
+    {
+      "event_ids": [
+        "13ef7831c4353230"
+      ],
+      "kind": "habitual_double_click",
+      "session_id": "574e06ef916e"
+    },
+    {
+      "event_ids": [
+        "2af6d6c9ee87d6c3"
+      ],
+      "kind": "habitual_double_click",
+      "session_id": "71b8c1da0950"
+    },
+    {
+      "event_ids": [
+        "eda336e96c11c8a9"
+      ],
+      "kind": "habitual_double_click",
+      "session_id": "3b947e9c249f"
+    }
+  ],
+  "generated": {
+    "generator_version": "0.1.0",
+    "model": "qwen/qwen3-vl-235b-a22b-instruct",
+    "raw_sha256": "c38347a52daee587894126dd19fbe387bb959795a22c8eeac257e9b1fe8ed66d",
+    "seed": 43
+  },
+  "join_traps": [],
+  "noise": [
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 0
+      },
+      "source": "gong",
+      "source_id": "29e0c938a93b"
+    },
+    {
+      "at_ms": 28000,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 28000
+      },
+      "source": "gong",
+      "source_id": "29e0c938a93b"
+    },
+    {
+      "at_ms": 44000,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 44000
+      },
+      "source": "gong",
+      "source_id": "29e0c938a93b"
+    },
+    {
+      "at_ms": 50000,
+      "category": "scheduling",
+      "locator": {
+        "sentence_start_ms": 50000
+      },
+      "source": "gong",
+      "source_id": "29e0c938a93b"
+    },
+    {
+      "at_ms": 58800,
+      "category": "pricing",
+      "locator": {
+        "sentence_start_ms": 58800
+      },
+      "source": "gong",
+      "source_id": "29e0c938a93b"
+    },
+    {
+      "at_ms": 66800,
+      "category": "pricing",
+      "locator": {
+        "sentence_start_ms": 66800
+      },
+      "source": "gong",
+      "source_id": "29e0c938a93b"
+    },
+    {
+      "at_ms": 81600,
+      "category": "praise",
+      "locator": {
+        "sentence_start_ms": 81600
+      },
+      "source": "gong",
+      "source_id": "29e0c938a93b"
+    },
+    {
+      "at_ms": 100000,
+      "category": "how_to",
+      "locator": {
+        "sentence_start_ms": 100000
+      },
+      "source": "gong",
+      "source_id": "29e0c938a93b"
+    },
+    {
+      "at_ms": 106400,
+      "category": "praise",
+      "locator": {
+        "sentence_start_ms": 106400
+      },
+      "source": "gong",
+      "source_id": "29e0c938a93b"
+    },
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 0
+      },
+      "source": "gong",
+      "source_id": "7d17259e900c"
+    },
+    {
+      "at_ms": 18800,
+      "category": "how_to",
+      "locator": {
+        "sentence_start_ms": 18800
+      },
+      "source": "gong",
+      "source_id": "7d17259e900c"
+    },
+    {
+      "at_ms": 50000,
+      "category": "scheduling",
+      "locator": {
+        "sentence_start_ms": 50000
+      },
+      "source": "gong",
+      "source_id": "7d17259e900c"
+    },
+    {
+      "at_ms": 67200,
+      "category": "pricing",
+      "locator": {
+        "sentence_start_ms": 67200
+      },
+      "source": "gong",
+      "source_id": "7d17259e900c"
+    },
+    {
+      "at_ms": 73200,
+      "category": "pricing",
+      "locator": {
+        "sentence_start_ms": 73200
+      },
+      "source": "gong",
+      "source_id": "7d17259e900c"
+    },
+    {
+      "at_ms": 87600,
+      "category": "how_to",
+      "locator": {
+        "sentence_start_ms": 87600
+      },
+      "source": "gong",
+      "source_id": "7d17259e900c"
+    },
+    {
+      "at_ms": 101600,
+      "category": "praise",
+      "locator": {
+        "sentence_start_ms": 101600
+      },
+      "source": "gong",
+      "source_id": "7d17259e900c"
+    },
+    {
+      "at_ms": 106800,
+      "category": "praise",
+      "locator": {
+        "sentence_start_ms": 106800
+      },
+      "source": "gong",
+      "source_id": "7d17259e900c"
+    },
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 0
+      },
+      "source": "gong",
+      "source_id": "0f38de03971b"
+    },
+    {
+      "at_ms": 48800,
+      "category": "scheduling",
+      "locator": {
+        "sentence_start_ms": 48800
+      },
+      "source": "gong",
+      "source_id": "0f38de03971b"
+    },
+    {
+      "at_ms": 57200,
+      "category": "scheduling",
+      "locator": {
+        "sentence_start_ms": 57200
+      },
+      "source": "gong",
+      "source_id": "0f38de03971b"
+    },
+    {
+      "at_ms": 66000,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 66000
+      },
+      "source": "gong",
+      "source_id": "0f38de03971b"
+    },
+    {
+      "at_ms": 81200,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 81200
+      },
+      "source": "gong",
+      "source_id": "0f38de03971b"
+    },
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 0
+      },
+      "source": "gong",
+      "source_id": "754f471549ab"
+    },
+    {
+      "at_ms": 98400,
+      "category": "internal",
+      "locator": {
+        "sentence_start_ms": 98400
+      },
+      "source": "gong",
+      "source_id": "754f471549ab"
+    },
+    {
+      "at_ms": 105600,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 105600
+      },
+      "source": "gong",
+      "source_id": "754f471549ab"
+    },
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 0
+      },
+      "source": "gong",
+      "source_id": "e8a268aad822"
+    },
+    {
+      "at_ms": 6800,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 6800
+      },
+      "source": "gong",
+      "source_id": "e8a268aad822"
+    },
+    {
+      "at_ms": 55600,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 55600
+      },
+      "source": "gong",
+      "source_id": "e8a268aad822"
+    },
+    {
+      "at_ms": 80800,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 80800
+      },
+      "source": "gong",
+      "source_id": "e8a268aad822"
+    },
+    {
+      "at_ms": 85600,
+      "category": "scheduling",
+      "locator": {
+        "sentence_start_ms": 85600
+      },
+      "source": "gong",
+      "source_id": "e8a268aad822"
+    },
+    {
+      "at_ms": 91200,
+      "category": "scheduling",
+      "locator": {
+        "sentence_start_ms": 91200
+      },
+      "source": "gong",
+      "source_id": "e8a268aad822"
+    },
+    {
+      "at_ms": 95200,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 95200
+      },
+      "source": "gong",
+      "source_id": "e8a268aad822"
+    },
+    {
+      "at_ms": 100800,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 100800
+      },
+      "source": "gong",
+      "source_id": "e8a268aad822"
+    },
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 0
+      },
+      "source": "gong",
+      "source_id": "dceb7056d1d2"
+    },
+    {
+      "at_ms": 10000,
+      "category": "scheduling",
+      "locator": {
+        "sentence_start_ms": 10000
+      },
+      "source": "gong",
+      "source_id": "dceb7056d1d2"
+    },
+    {
+      "at_ms": 90800,
+      "category": "scheduling",
+      "locator": {
+        "sentence_start_ms": 90800
+      },
+      "source": "gong",
+      "source_id": "dceb7056d1d2"
+    },
+    {
+      "at_ms": 97600,
+      "category": "scheduling",
+      "locator": {
+        "sentence_start_ms": 97600
+      },
+      "source": "gong",
+      "source_id": "dceb7056d1d2"
+    },
+    {
+      "at_ms": 108400,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 108400
+      },
+      "source": "gong",
+      "source_id": "dceb7056d1d2"
+    },
+    {
+      "at_ms": 114000,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 114000
+      },
+      "source": "gong",
+      "source_id": "dceb7056d1d2"
+    },
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 0
+      },
+      "source": "gong",
+      "source_id": "47fa11cf6aa7"
+    },
+    {
+      "at_ms": 30000,
+      "category": "how_to",
+      "locator": {
+        "sentence_start_ms": 30000
+      },
+      "source": "gong",
+      "source_id": "47fa11cf6aa7"
+    },
+    {
+      "at_ms": 44000,
+      "category": "how_to",
+      "locator": {
+        "sentence_start_ms": 44000
+      },
+      "source": "gong",
+      "source_id": "47fa11cf6aa7"
+    },
+    {
+      "at_ms": 58000,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 58000
+      },
+      "source": "gong",
+      "source_id": "47fa11cf6aa7"
+    },
+    {
+      "at_ms": 70000,
+      "category": "scheduling",
+      "locator": {
+        "sentence_start_ms": 70000
+      },
+      "source": "gong",
+      "source_id": "47fa11cf6aa7"
+    },
+    {
+      "at_ms": 83600,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 83600
+      },
+      "source": "gong",
+      "source_id": "47fa11cf6aa7"
+    },
+    {
+      "at_ms": 94800,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 94800
+      },
+      "source": "gong",
+      "source_id": "47fa11cf6aa7"
+    },
+    {
+      "at_ms": 108400,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 108400
+      },
+      "source": "gong",
+      "source_id": "47fa11cf6aa7"
+    },
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 0
+      },
+      "source": "gong",
+      "source_id": "c61076215d75"
+    },
+    {
+      "at_ms": 10400,
+      "category": "scheduling",
+      "locator": {
+        "sentence_start_ms": 10400
+      },
+      "source": "gong",
+      "source_id": "c61076215d75"
+    },
+    {
+      "at_ms": 49200,
+      "category": "scheduling",
+      "locator": {
+        "sentence_start_ms": 49200
+      },
+      "source": "gong",
+      "source_id": "c61076215d75"
+    },
+    {
+      "at_ms": 56400,
+      "category": "scheduling",
+      "locator": {
+        "sentence_start_ms": 56400
+      },
+      "source": "gong",
+      "source_id": "c61076215d75"
+    },
+    {
+      "at_ms": 73600,
+      "category": "praise",
+      "locator": {
+        "sentence_start_ms": 73600
+      },
+      "source": "gong",
+      "source_id": "c61076215d75"
+    },
+    {
+      "at_ms": 92400,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 92400
+      },
+      "source": "gong",
+      "source_id": "c61076215d75"
+    },
+    {
+      "at_ms": 98000,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 98000
+      },
+      "source": "gong",
+      "source_id": "c61076215d75"
+    },
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 0
+      },
+      "source": "gong",
+      "source_id": "b1bb4265e14b"
+    },
+    {
+      "at_ms": 10000,
+      "category": "how_to",
+      "locator": {
+        "sentence_start_ms": 10000
+      },
+      "source": "gong",
+      "source_id": "b1bb4265e14b"
+    },
+    {
+      "at_ms": 18400,
+      "category": "how_to",
+      "locator": {
+        "sentence_start_ms": 18400
+      },
+      "source": "gong",
+      "source_id": "b1bb4265e14b"
+    },
+    {
+      "at_ms": 26400,
+      "category": "how_to",
+      "locator": {
+        "sentence_start_ms": 26400
+      },
+      "source": "gong",
+      "source_id": "b1bb4265e14b"
+    },
+    {
+      "at_ms": 35200,
+      "category": "how_to",
+      "locator": {
+        "sentence_start_ms": 35200
+      },
+      "source": "gong",
+      "source_id": "b1bb4265e14b"
+    },
+    {
+      "at_ms": 42000,
+      "category": "how_to",
+      "locator": {
+        "sentence_start_ms": 42000
+      },
+      "source": "gong",
+      "source_id": "b1bb4265e14b"
+    },
+    {
+      "at_ms": 50000,
+      "category": "scheduling",
+      "locator": {
+        "sentence_start_ms": 50000
+      },
+      "source": "gong",
+      "source_id": "b1bb4265e14b"
+    },
+    {
+      "at_ms": 55600,
+      "category": "scheduling",
+      "locator": {
+        "sentence_start_ms": 55600
+      },
+      "source": "gong",
+      "source_id": "b1bb4265e14b"
+    },
+    {
+      "at_ms": 64000,
+      "category": "praise",
+      "locator": {
+        "sentence_start_ms": 64000
+      },
+      "source": "gong",
+      "source_id": "b1bb4265e14b"
+    },
+    {
+      "at_ms": 69200,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 69200
+      },
+      "source": "gong",
+      "source_id": "b1bb4265e14b"
+    },
+    {
+      "at_ms": 75200,
+      "category": "scheduling",
+      "locator": {
+        "sentence_start_ms": 75200
+      },
+      "source": "gong",
+      "source_id": "b1bb4265e14b"
+    },
+    {
+      "at_ms": 82400,
+      "category": "scheduling",
+      "locator": {
+        "sentence_start_ms": 82400
+      },
+      "source": "gong",
+      "source_id": "b1bb4265e14b"
+    },
+    {
+      "at_ms": 90000,
+      "category": "how_to",
+      "locator": {
+        "sentence_start_ms": 90000
+      },
+      "source": "gong",
+      "source_id": "b1bb4265e14b"
+    },
+    {
+      "at_ms": 95600,
+      "category": "how_to",
+      "locator": {
+        "sentence_start_ms": 95600
+      },
+      "source": "gong",
+      "source_id": "b1bb4265e14b"
+    },
+    {
+      "at_ms": 103200,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 103200
+      },
+      "source": "gong",
+      "source_id": "b1bb4265e14b"
+    },
+    {
+      "at_ms": 109200,
+      "category": "how_to",
+      "locator": {
+        "sentence_start_ms": 109200
+      },
+      "source": "gong",
+      "source_id": "b1bb4265e14b"
+    },
+    {
+      "at_ms": 118000,
+      "category": "praise",
+      "locator": {
+        "sentence_start_ms": 118000
+      },
+      "source": "gong",
+      "source_id": "b1bb4265e14b"
+    },
+    {
+      "at_ms": 124000,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 124000
+      },
+      "source": "gong",
+      "source_id": "b1bb4265e14b"
+    },
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 0
+      },
+      "source": "gong",
+      "source_id": "54e55966846e"
+    },
+    {
+      "at_ms": 13200,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 13200
+      },
+      "source": "gong",
+      "source_id": "54e55966846e"
+    },
+    {
+      "at_ms": 25600,
+      "category": "how_to",
+      "locator": {
+        "sentence_start_ms": 25600
+      },
+      "source": "gong",
+      "source_id": "54e55966846e"
+    },
+    {
+      "at_ms": 35200,
+      "category": "how_to",
+      "locator": {
+        "sentence_start_ms": 35200
+      },
+      "source": "gong",
+      "source_id": "54e55966846e"
+    },
+    {
+      "at_ms": 48800,
+      "category": "how_to",
+      "locator": {
+        "sentence_start_ms": 48800
+      },
+      "source": "gong",
+      "source_id": "54e55966846e"
+    },
+    {
+      "at_ms": 58800,
+      "category": "scheduling",
+      "locator": {
+        "sentence_start_ms": 58800
+      },
+      "source": "gong",
+      "source_id": "54e55966846e"
+    },
+    {
+      "at_ms": 69200,
+      "category": "how_to",
+      "locator": {
+        "sentence_start_ms": 69200
+      },
+      "source": "gong",
+      "source_id": "54e55966846e"
+    },
+    {
+      "at_ms": 76800,
+      "category": "how_to",
+      "locator": {
+        "sentence_start_ms": 76800
+      },
+      "source": "gong",
+      "source_id": "54e55966846e"
+    },
+    {
+      "at_ms": 88400,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 88400
+      },
+      "source": "gong",
+      "source_id": "54e55966846e"
+    },
+    {
+      "at_ms": 95600,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 95600
+      },
+      "source": "gong",
+      "source_id": "54e55966846e"
+    },
+    {
+      "at_ms": 104000,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 104000
+      },
+      "source": "gong",
+      "source_id": "54e55966846e"
+    },
+    {
+      "at_ms": 112000,
+      "category": "scheduling",
+      "locator": {
+        "sentence_start_ms": 112000
+      },
+      "source": "gong",
+      "source_id": "54e55966846e"
+    },
+    {
+      "at_ms": 121200,
+      "category": "how_to",
+      "locator": {
+        "sentence_start_ms": 121200
+      },
+      "source": "gong",
+      "source_id": "54e55966846e"
+    },
+    {
+      "at_ms": 130000,
+      "category": "how_to",
+      "locator": {
+        "sentence_start_ms": 130000
+      },
+      "source": "gong",
+      "source_id": "54e55966846e"
+    },
+    {
+      "at_ms": 142800,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 142800
+      },
+      "source": "gong",
+      "source_id": "54e55966846e"
+    },
+    {
+      "at_ms": 149600,
+      "category": "praise",
+      "locator": {
+        "sentence_start_ms": 149600
+      },
+      "source": "gong",
+      "source_id": "54e55966846e"
+    },
+    {
+      "at_ms": 160400,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_start_ms": 160400
+      },
+      "source": "gong",
+      "source_id": "54e55966846e"
+    },
+    {
+      "at_ms": 167200,
+      "category": "closer",
+      "locator": {
+        "sentence_start_ms": 167200
+      },
+      "source": "gong",
+      "source_id": "54e55966846e"
+    },
+    {
+      "at_ms": 0,
+      "category": "how_to",
+      "locator": {
+        "part_id": "51410ac1d7ea-0"
+      },
+      "source": "intercom",
+      "source_id": "51410ac1d7ea"
+    },
+    {
+      "at_ms": 30400,
+      "category": "praise",
+      "locator": {
+        "part_id": "51410ac1d7ea-3"
+      },
+      "source": "intercom",
+      "source_id": "51410ac1d7ea"
+    },
+    {
+      "at_ms": 38000,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "51410ac1d7ea-4"
+      },
+      "source": "intercom",
+      "source_id": "51410ac1d7ea"
+    },
+    {
+      "at_ms": 46400,
+      "category": "internal",
+      "locator": {
+        "part_id": "51410ac1d7ea-5"
+      },
+      "source": "intercom",
+      "source_id": "51410ac1d7ea"
+    },
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "c0c203ccbf20-0"
+      },
+      "source": "intercom",
+      "source_id": "c0c203ccbf20"
+    },
+    {
+      "at_ms": 15200,
+      "category": "scheduling",
+      "locator": {
+        "part_id": "c0c203ccbf20-2"
+      },
+      "source": "intercom",
+      "source_id": "c0c203ccbf20"
+    },
+    {
+      "at_ms": 65200,
+      "category": "scheduling",
+      "locator": {
+        "part_id": "c0c203ccbf20-8"
+      },
+      "source": "intercom",
+      "source_id": "c0c203ccbf20"
+    },
+    {
+      "at_ms": 73200,
+      "category": "internal",
+      "locator": {
+        "part_id": "c0c203ccbf20-9"
+      },
+      "source": "intercom",
+      "source_id": "c0c203ccbf20"
+    },
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "4f0c3f4613e9-0"
+      },
+      "source": "intercom",
+      "source_id": "4f0c3f4613e9"
+    },
+    {
+      "at_ms": 13200,
+      "category": "scheduling",
+      "locator": {
+        "part_id": "4f0c3f4613e9-2"
+      },
+      "source": "intercom",
+      "source_id": "4f0c3f4613e9"
+    },
+    {
+      "at_ms": 44400,
+      "category": "internal",
+      "locator": {
+        "part_id": "4f0c3f4613e9-5"
+      },
+      "source": "intercom",
+      "source_id": "4f0c3f4613e9"
+    },
+    {
+      "at_ms": 69600,
+      "category": "praise",
+      "locator": {
+        "part_id": "4f0c3f4613e9-8"
+      },
+      "source": "intercom",
+      "source_id": "4f0c3f4613e9"
+    },
+    {
+      "at_ms": 84400,
+      "category": "scheduling",
+      "locator": {
+        "part_id": "4f0c3f4613e9-10"
+      },
+      "source": "intercom",
+      "source_id": "4f0c3f4613e9"
+    },
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "fc23e4ee759c-0"
+      },
+      "source": "intercom",
+      "source_id": "fc23e4ee759c"
+    },
+    {
+      "at_ms": 20000,
+      "category": "scheduling",
+      "locator": {
+        "part_id": "fc23e4ee759c-2"
+      },
+      "source": "intercom",
+      "source_id": "fc23e4ee759c"
+    },
+    {
+      "at_ms": 33600,
+      "category": "internal",
+      "locator": {
+        "part_id": "fc23e4ee759c-4"
+      },
+      "source": "intercom",
+      "source_id": "fc23e4ee759c"
+    },
+    {
+      "at_ms": 40400,
+      "category": "how_to",
+      "locator": {
+        "part_id": "fc23e4ee759c-5"
+      },
+      "source": "intercom",
+      "source_id": "fc23e4ee759c"
+    },
+    {
+      "at_ms": 67600,
+      "category": "closer",
+      "locator": {
+        "part_id": "fc23e4ee759c-9"
+      },
+      "source": "intercom",
+      "source_id": "fc23e4ee759c"
+    },
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "fea0c671a113-0"
+      },
+      "source": "intercom",
+      "source_id": "fea0c671a113"
+    },
+    {
+      "at_ms": 32000,
+      "category": "internal",
+      "locator": {
+        "part_id": "fea0c671a113-3"
+      },
+      "source": "intercom",
+      "source_id": "fea0c671a113"
+    },
+    {
+      "at_ms": 38800,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "fea0c671a113-4"
+      },
+      "source": "intercom",
+      "source_id": "fea0c671a113"
+    },
+    {
+      "at_ms": 66400,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "fea0c671a113-8"
+      },
+      "source": "intercom",
+      "source_id": "fea0c671a113"
+    },
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "834ae02016de-0"
+      },
+      "source": "intercom",
+      "source_id": "834ae02016de"
+    },
+    {
+      "at_ms": 22800,
+      "category": "internal",
+      "locator": {
+        "part_id": "834ae02016de-2"
+      },
+      "source": "intercom",
+      "source_id": "834ae02016de"
+    },
+    {
+      "at_ms": 31200,
+      "category": "how_to",
+      "locator": {
+        "part_id": "834ae02016de-3"
+      },
+      "source": "intercom",
+      "source_id": "834ae02016de"
+    },
+    {
+      "at_ms": 42800,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "834ae02016de-4"
+      },
+      "source": "intercom",
+      "source_id": "834ae02016de"
+    },
+    {
+      "at_ms": 50000,
+      "category": "closer",
+      "locator": {
+        "part_id": "834ae02016de-5"
+      },
+      "source": "intercom",
+      "source_id": "834ae02016de"
+    },
+    {
+      "at_ms": 59600,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "834ae02016de-6"
+      },
+      "source": "intercom",
+      "source_id": "834ae02016de"
+    },
+    {
+      "at_ms": 61600,
+      "category": "scheduling",
+      "locator": {
+        "part_id": "834ae02016de-7"
+      },
+      "source": "intercom",
+      "source_id": "834ae02016de"
+    },
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "2a207d65e62c-0"
+      },
+      "source": "intercom",
+      "source_id": "2a207d65e62c"
+    },
+    {
+      "at_ms": 21600,
+      "category": "internal",
+      "locator": {
+        "part_id": "2a207d65e62c-2"
+      },
+      "source": "intercom",
+      "source_id": "2a207d65e62c"
+    },
+    {
+      "at_ms": 28400,
+      "category": "internal",
+      "locator": {
+        "part_id": "2a207d65e62c-3"
+      },
+      "source": "intercom",
+      "source_id": "2a207d65e62c"
+    },
+    {
+      "at_ms": 38400,
+      "category": "scheduling",
+      "locator": {
+        "part_id": "2a207d65e62c-4"
+      },
+      "source": "intercom",
+      "source_id": "2a207d65e62c"
+    },
+    {
+      "at_ms": 45600,
+      "category": "scheduling",
+      "locator": {
+        "part_id": "2a207d65e62c-5"
+      },
+      "source": "intercom",
+      "source_id": "2a207d65e62c"
+    },
+    {
+      "at_ms": 54800,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "2a207d65e62c-6"
+      },
+      "source": "intercom",
+      "source_id": "2a207d65e62c"
+    },
+    {
+      "at_ms": 61600,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "2a207d65e62c-7"
+      },
+      "source": "intercom",
+      "source_id": "2a207d65e62c"
+    },
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "6d3788bdcb62-0"
+      },
+      "source": "intercom",
+      "source_id": "6d3788bdcb62"
+    },
+    {
+      "at_ms": 8000,
+      "category": "internal",
+      "locator": {
+        "part_id": "6d3788bdcb62-1"
+      },
+      "source": "intercom",
+      "source_id": "6d3788bdcb62"
+    },
+    {
+      "at_ms": 20800,
+      "category": "how_to",
+      "locator": {
+        "part_id": "6d3788bdcb62-3"
+      },
+      "source": "intercom",
+      "source_id": "6d3788bdcb62"
+    },
+    {
+      "at_ms": 36000,
+      "category": "scheduling",
+      "locator": {
+        "part_id": "6d3788bdcb62-5"
+      },
+      "source": "intercom",
+      "source_id": "6d3788bdcb62"
+    },
+    {
+      "at_ms": 50000,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "6d3788bdcb62-7"
+      },
+      "source": "intercom",
+      "source_id": "6d3788bdcb62"
+    },
+    {
+      "at_ms": 56000,
+      "category": "scheduling",
+      "locator": {
+        "part_id": "6d3788bdcb62-8"
+      },
+      "source": "intercom",
+      "source_id": "6d3788bdcb62"
+    },
+    {
+      "at_ms": 0,
+      "category": "how_to",
+      "locator": {
+        "part_id": "f540432d74e0-0"
+      },
+      "source": "intercom",
+      "source_id": "f540432d74e0"
+    },
+    {
+      "at_ms": 25600,
+      "category": "internal",
+      "locator": {
+        "part_id": "f540432d74e0-2"
+      },
+      "source": "intercom",
+      "source_id": "f540432d74e0"
+    },
+    {
+      "at_ms": 46400,
+      "category": "how_to",
+      "locator": {
+        "part_id": "f540432d74e0-4"
+      },
+      "source": "intercom",
+      "source_id": "f540432d74e0"
+    },
+    {
+      "at_ms": 56400,
+      "category": "scheduling",
+      "locator": {
+        "part_id": "f540432d74e0-5"
+      },
+      "source": "intercom",
+      "source_id": "f540432d74e0"
+    },
+    {
+      "at_ms": 72800,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "f540432d74e0-7"
+      },
+      "source": "intercom",
+      "source_id": "f540432d74e0"
+    },
+    {
+      "at_ms": 79600,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "f540432d74e0-8"
+      },
+      "source": "intercom",
+      "source_id": "f540432d74e0"
+    },
+    {
+      "at_ms": 0,
+      "category": "how_to",
+      "locator": {
+        "part_id": "4bfcb55ed038-0"
+      },
+      "source": "intercom",
+      "source_id": "4bfcb55ed038"
+    },
+    {
+      "at_ms": 31600,
+      "category": "internal",
+      "locator": {
+        "part_id": "4bfcb55ed038-2"
+      },
+      "source": "intercom",
+      "source_id": "4bfcb55ed038"
+    },
+    {
+      "at_ms": 38800,
+      "category": "internal",
+      "locator": {
+        "part_id": "4bfcb55ed038-3"
+      },
+      "source": "intercom",
+      "source_id": "4bfcb55ed038"
+    },
+    {
+      "at_ms": 50000,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "4bfcb55ed038-4"
+      },
+      "source": "intercom",
+      "source_id": "4bfcb55ed038"
+    },
+    {
+      "at_ms": 56800,
+      "category": "how_to",
+      "locator": {
+        "part_id": "4bfcb55ed038-5"
+      },
+      "source": "intercom",
+      "source_id": "4bfcb55ed038"
+    },
+    {
+      "at_ms": 65600,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "4bfcb55ed038-6"
+      },
+      "source": "intercom",
+      "source_id": "4bfcb55ed038"
+    },
+    {
+      "at_ms": 67200,
+      "category": "closer",
+      "locator": {
+        "part_id": "4bfcb55ed038-7"
+      },
+      "source": "intercom",
+      "source_id": "4bfcb55ed038"
+    },
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "36ef0eb225a1-0"
+      },
+      "source": "intercom",
+      "source_id": "36ef0eb225a1"
+    },
+    {
+      "at_ms": 34000,
+      "category": "scheduling",
+      "locator": {
+        "part_id": "36ef0eb225a1-3"
+      },
+      "source": "intercom",
+      "source_id": "36ef0eb225a1"
+    },
+    {
+      "at_ms": 42000,
+      "category": "scheduling",
+      "locator": {
+        "part_id": "36ef0eb225a1-4"
+      },
+      "source": "intercom",
+      "source_id": "36ef0eb225a1"
+    },
+    {
+      "at_ms": 48000,
+      "category": "how_to",
+      "locator": {
+        "part_id": "36ef0eb225a1-5"
+      },
+      "source": "intercom",
+      "source_id": "36ef0eb225a1"
+    },
+    {
+      "at_ms": 58800,
+      "category": "praise",
+      "locator": {
+        "part_id": "36ef0eb225a1-6"
+      },
+      "source": "intercom",
+      "source_id": "36ef0eb225a1"
+    },
+    {
+      "at_ms": 62400,
+      "category": "closer",
+      "locator": {
+        "part_id": "36ef0eb225a1-7"
+      },
+      "source": "intercom",
+      "source_id": "36ef0eb225a1"
+    },
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "6c29c6709be7-0"
+      },
+      "source": "intercom",
+      "source_id": "6c29c6709be7"
+    },
+    {
+      "at_ms": 32400,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "6c29c6709be7-3"
+      },
+      "source": "intercom",
+      "source_id": "6c29c6709be7"
+    },
+    {
+      "at_ms": 42000,
+      "category": "scheduling",
+      "locator": {
+        "part_id": "6c29c6709be7-4"
+      },
+      "source": "intercom",
+      "source_id": "6c29c6709be7"
+    },
+    {
+      "at_ms": 49200,
+      "category": "scheduling",
+      "locator": {
+        "part_id": "6c29c6709be7-5"
+      },
+      "source": "intercom",
+      "source_id": "6c29c6709be7"
+    },
+    {
+      "at_ms": 58000,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "6c29c6709be7-6"
+      },
+      "source": "intercom",
+      "source_id": "6c29c6709be7"
+    },
+    {
+      "at_ms": 63600,
+      "category": "closer",
+      "locator": {
+        "part_id": "6c29c6709be7-7"
+      },
+      "source": "intercom",
+      "source_id": "6c29c6709be7"
+    },
+    {
+      "at_ms": 0,
+      "category": "how_to",
+      "locator": {
+        "part_id": "7b3e56554f47-0"
+      },
+      "source": "intercom",
+      "source_id": "7b3e56554f47"
+    },
+    {
+      "at_ms": 27200,
+      "category": "how_to",
+      "locator": {
+        "part_id": "7b3e56554f47-2"
+      },
+      "source": "intercom",
+      "source_id": "7b3e56554f47"
+    },
+    {
+      "at_ms": 38800,
+      "category": "how_to",
+      "locator": {
+        "part_id": "7b3e56554f47-3"
+      },
+      "source": "intercom",
+      "source_id": "7b3e56554f47"
+    },
+    {
+      "at_ms": 44400,
+      "category": "how_to",
+      "locator": {
+        "part_id": "7b3e56554f47-4"
+      },
+      "source": "intercom",
+      "source_id": "7b3e56554f47"
+    },
+    {
+      "at_ms": 55200,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "7b3e56554f47-5"
+      },
+      "source": "intercom",
+      "source_id": "7b3e56554f47"
+    },
+    {
+      "at_ms": 58400,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "7b3e56554f47-6"
+      },
+      "source": "intercom",
+      "source_id": "7b3e56554f47"
+    },
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "e1f22ae146ff-0"
+      },
+      "source": "intercom",
+      "source_id": "e1f22ae146ff"
+    },
+    {
+      "at_ms": 32000,
+      "category": "scheduling",
+      "locator": {
+        "part_id": "e1f22ae146ff-3"
+      },
+      "source": "intercom",
+      "source_id": "e1f22ae146ff"
+    },
+    {
+      "at_ms": 41200,
+      "category": "scheduling",
+      "locator": {
+        "part_id": "e1f22ae146ff-4"
+      },
+      "source": "intercom",
+      "source_id": "e1f22ae146ff"
+    },
+    {
+      "at_ms": 61600,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "e1f22ae146ff-6"
+      },
+      "source": "intercom",
+      "source_id": "e1f22ae146ff"
+    },
+    {
+      "at_ms": 67200,
+      "category": "closer",
+      "locator": {
+        "part_id": "e1f22ae146ff-7"
+      },
+      "source": "intercom",
+      "source_id": "e1f22ae146ff"
+    },
+    {
+      "at_ms": 15600,
+      "category": "password_reset",
+      "locator": {
+        "part_id": "fd7d164bbb03-2"
+      },
+      "source": "intercom",
+      "source_id": "fd7d164bbb03"
+    },
+    {
+      "at_ms": 22800,
+      "category": "scheduling",
+      "locator": {
+        "part_id": "fd7d164bbb03-3"
+      },
+      "source": "intercom",
+      "source_id": "fd7d164bbb03"
+    },
+    {
+      "at_ms": 32800,
+      "category": "scheduling",
+      "locator": {
+        "part_id": "fd7d164bbb03-4"
+      },
+      "source": "intercom",
+      "source_id": "fd7d164bbb03"
+    },
+    {
+      "at_ms": 55200,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "fd7d164bbb03-7"
+      },
+      "source": "intercom",
+      "source_id": "fd7d164bbb03"
+    },
+    {
+      "at_ms": 0,
+      "category": "how_to",
+      "locator": {
+        "part_id": "e449b7b7fdd5-0"
+      },
+      "source": "intercom",
+      "source_id": "e449b7b7fdd5"
+    },
+    {
+      "at_ms": 19200,
+      "category": "password_reset",
+      "locator": {
+        "part_id": "e449b7b7fdd5-2"
+      },
+      "source": "intercom",
+      "source_id": "e449b7b7fdd5"
+    },
+    {
+      "at_ms": 26800,
+      "category": "how_to",
+      "locator": {
+        "part_id": "e449b7b7fdd5-3"
+      },
+      "source": "intercom",
+      "source_id": "e449b7b7fdd5"
+    },
+    {
+      "at_ms": 53600,
+      "category": "praise",
+      "locator": {
+        "part_id": "e449b7b7fdd5-6"
+      },
+      "source": "intercom",
+      "source_id": "e449b7b7fdd5"
+    },
+    {
+      "at_ms": 0,
+      "category": "how_to",
+      "locator": {
+        "part_id": "e4a10b6fd0b9-0"
+      },
+      "source": "intercom",
+      "source_id": "e4a10b6fd0b9"
+    },
+    {
+      "at_ms": 12000,
+      "category": "password_reset",
+      "locator": {
+        "part_id": "e4a10b6fd0b9-2"
+      },
+      "source": "intercom",
+      "source_id": "e4a10b6fd0b9"
+    },
+    {
+      "at_ms": 18000,
+      "category": "how_to",
+      "locator": {
+        "part_id": "e4a10b6fd0b9-3"
+      },
+      "source": "intercom",
+      "source_id": "e4a10b6fd0b9"
+    },
+    {
+      "at_ms": 44000,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "e4a10b6fd0b9-7"
+      },
+      "source": "intercom",
+      "source_id": "e4a10b6fd0b9"
+    },
+    {
+      "at_ms": 0,
+      "category": "how_to",
+      "locator": {
+        "part_id": "b150f49093b9-0"
+      },
+      "source": "intercom",
+      "source_id": "b150f49093b9"
+    },
+    {
+      "at_ms": 6800,
+      "category": "how_to",
+      "locator": {
+        "part_id": "b150f49093b9-1"
+      },
+      "source": "intercom",
+      "source_id": "b150f49093b9"
+    },
+    {
+      "at_ms": 15600,
+      "category": "password_reset",
+      "locator": {
+        "part_id": "b150f49093b9-2"
+      },
+      "source": "intercom",
+      "source_id": "b150f49093b9"
+    },
+    {
+      "at_ms": 22400,
+      "category": "scheduling",
+      "locator": {
+        "part_id": "b150f49093b9-3"
+      },
+      "source": "intercom",
+      "source_id": "b150f49093b9"
+    },
+    {
+      "at_ms": 29600,
+      "category": "scheduling",
+      "locator": {
+        "part_id": "b150f49093b9-4"
+      },
+      "source": "intercom",
+      "source_id": "b150f49093b9"
+    },
+    {
+      "at_ms": 35200,
+      "category": "scheduling",
+      "locator": {
+        "part_id": "b150f49093b9-5"
+      },
+      "source": "intercom",
+      "source_id": "b150f49093b9"
+    },
+    {
+      "at_ms": 49200,
+      "category": "password_reset",
+      "locator": {
+        "part_id": "b150f49093b9-7"
+      },
+      "source": "intercom",
+      "source_id": "b150f49093b9"
+    },
+    {
+      "at_ms": 56400,
+      "category": "password_reset",
+      "locator": {
+        "part_id": "b150f49093b9-8"
+      },
+      "source": "intercom",
+      "source_id": "b150f49093b9"
+    },
+    {
+      "at_ms": 63200,
+      "category": "praise",
+      "locator": {
+        "part_id": "b150f49093b9-9"
+      },
+      "source": "intercom",
+      "source_id": "b150f49093b9"
+    },
+    {
+      "at_ms": 0,
+      "category": "password_reset",
+      "locator": {
+        "part_id": "afdb41590f7e-0"
+      },
+      "source": "intercom",
+      "source_id": "afdb41590f7e"
+    },
+    {
+      "at_ms": 9200,
+      "category": "password_reset",
+      "locator": {
+        "part_id": "afdb41590f7e-1"
+      },
+      "source": "intercom",
+      "source_id": "afdb41590f7e"
+    },
+    {
+      "at_ms": 21600,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "afdb41590f7e-3"
+      },
+      "source": "intercom",
+      "source_id": "afdb41590f7e"
+    },
+    {
+      "at_ms": 44400,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "afdb41590f7e-6"
+      },
+      "source": "intercom",
+      "source_id": "afdb41590f7e"
+    },
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "1401151bb8cc-0"
+      },
+      "source": "intercom",
+      "source_id": "1401151bb8cc"
+    },
+    {
+      "at_ms": 11200,
+      "category": "how_to",
+      "locator": {
+        "part_id": "1401151bb8cc-1"
+      },
+      "source": "intercom",
+      "source_id": "1401151bb8cc"
+    },
+    {
+      "at_ms": 26800,
+      "category": "how_to",
+      "locator": {
+        "part_id": "1401151bb8cc-2"
+      },
+      "source": "intercom",
+      "source_id": "1401151bb8cc"
+    },
+    {
+      "at_ms": 37200,
+      "category": "closer",
+      "locator": {
+        "part_id": "1401151bb8cc-3"
+      },
+      "source": "intercom",
+      "source_id": "1401151bb8cc"
+    },
+    {
+      "at_ms": 45600,
+      "category": "scheduling",
+      "locator": {
+        "part_id": "1401151bb8cc-4"
+      },
+      "source": "intercom",
+      "source_id": "1401151bb8cc"
+    },
+    {
+      "at_ms": 67600,
+      "category": "praise",
+      "locator": {
+        "part_id": "1401151bb8cc-7"
+      },
+      "source": "intercom",
+      "source_id": "1401151bb8cc"
+    },
+    {
+      "at_ms": 0,
+      "category": "how_to",
+      "locator": {
+        "part_id": "a5fe88d3f2a5-0"
+      },
+      "source": "intercom",
+      "source_id": "a5fe88d3f2a5"
+    },
+    {
+      "at_ms": 23200,
+      "category": "how_to",
+      "locator": {
+        "part_id": "a5fe88d3f2a5-2"
+      },
+      "source": "intercom",
+      "source_id": "a5fe88d3f2a5"
+    },
+    {
+      "at_ms": 30400,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "a5fe88d3f2a5-3"
+      },
+      "source": "intercom",
+      "source_id": "a5fe88d3f2a5"
+    },
+    {
+      "at_ms": 61600,
+      "category": "praise",
+      "locator": {
+        "part_id": "a5fe88d3f2a5-7"
+      },
+      "source": "intercom",
+      "source_id": "a5fe88d3f2a5"
+    },
+    {
+      "at_ms": 0,
+      "category": "how_to",
+      "locator": {
+        "part_id": "9120e30341d5-0"
+      },
+      "source": "intercom",
+      "source_id": "9120e30341d5"
+    },
+    {
+      "at_ms": 15200,
+      "category": "how_to",
+      "locator": {
+        "part_id": "9120e30341d5-2"
+      },
+      "source": "intercom",
+      "source_id": "9120e30341d5"
+    },
+    {
+      "at_ms": 22000,
+      "category": "scheduling",
+      "locator": {
+        "part_id": "9120e30341d5-3"
+      },
+      "source": "intercom",
+      "source_id": "9120e30341d5"
+    },
+    {
+      "at_ms": 28400,
+      "category": "scheduling",
+      "locator": {
+        "part_id": "9120e30341d5-4"
+      },
+      "source": "intercom",
+      "source_id": "9120e30341d5"
+    },
+    {
+      "at_ms": 56800,
+      "category": "praise",
+      "locator": {
+        "part_id": "9120e30341d5-8"
+      },
+      "source": "intercom",
+      "source_id": "9120e30341d5"
+    },
+    {
+      "at_ms": 0,
+      "category": "how_to",
+      "locator": {
+        "part_id": "646d358a269e-0"
+      },
+      "source": "intercom",
+      "source_id": "646d358a269e"
+    },
+    {
+      "at_ms": 12000,
+      "category": "how_to",
+      "locator": {
+        "part_id": "646d358a269e-1"
+      },
+      "source": "intercom",
+      "source_id": "646d358a269e"
+    },
+    {
+      "at_ms": 30800,
+      "category": "how_to",
+      "locator": {
+        "part_id": "646d358a269e-3"
+      },
+      "source": "intercom",
+      "source_id": "646d358a269e"
+    },
+    {
+      "at_ms": 61600,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "646d358a269e-7"
+      },
+      "source": "intercom",
+      "source_id": "646d358a269e"
+    },
+    {
+      "at_ms": 0,
+      "category": "how_to",
+      "locator": {
+        "part_id": "ddfb389718e0-0"
+      },
+      "source": "intercom",
+      "source_id": "ddfb389718e0"
+    },
+    {
+      "at_ms": 10000,
+      "category": "how_to",
+      "locator": {
+        "part_id": "ddfb389718e0-1"
+      },
+      "source": "intercom",
+      "source_id": "ddfb389718e0"
+    },
+    {
+      "at_ms": 18800,
+      "category": "how_to",
+      "locator": {
+        "part_id": "ddfb389718e0-2"
+      },
+      "source": "intercom",
+      "source_id": "ddfb389718e0"
+    },
+    {
+      "at_ms": 28000,
+      "category": "scheduling",
+      "locator": {
+        "part_id": "ddfb389718e0-3"
+      },
+      "source": "intercom",
+      "source_id": "ddfb389718e0"
+    },
+    {
+      "at_ms": 39200,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "ddfb389718e0-4"
+      },
+      "source": "intercom",
+      "source_id": "ddfb389718e0"
+    },
+    {
+      "at_ms": 45200,
+      "category": "pleasantry",
+      "locator": {
+        "part_id": "ddfb389718e0-5"
+      },
+      "source": "intercom",
+      "source_id": "ddfb389718e0"
+    },
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_index": 0
+      },
+      "source": "fireflies",
+      "source_id": "dd3d84b156ca"
+    },
+    {
+      "at_ms": 11600,
+      "category": "scheduling",
+      "locator": {
+        "sentence_index": 1
+      },
+      "source": "fireflies",
+      "source_id": "dd3d84b156ca"
+    },
+    {
+      "at_ms": 58000,
+      "category": "scheduling",
+      "locator": {
+        "sentence_index": 5
+      },
+      "source": "fireflies",
+      "source_id": "dd3d84b156ca"
+    },
+    {
+      "at_ms": 70400,
+      "category": "scheduling",
+      "locator": {
+        "sentence_index": 6
+      },
+      "source": "fireflies",
+      "source_id": "dd3d84b156ca"
+    },
+    {
+      "at_ms": 78800,
+      "category": "how_to",
+      "locator": {
+        "sentence_index": 7
+      },
+      "source": "fireflies",
+      "source_id": "dd3d84b156ca"
+    },
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_index": 0
+      },
+      "source": "fireflies",
+      "source_id": "4230ce928255"
+    },
+    {
+      "at_ms": 12000,
+      "category": "how_to",
+      "locator": {
+        "sentence_index": 1
+      },
+      "source": "fireflies",
+      "source_id": "4230ce928255"
+    },
+    {
+      "at_ms": 24000,
+      "category": "how_to",
+      "locator": {
+        "sentence_index": 2
+      },
+      "source": "fireflies",
+      "source_id": "4230ce928255"
+    },
+    {
+      "at_ms": 46400,
+      "category": "how_to",
+      "locator": {
+        "sentence_index": 4
+      },
+      "source": "fireflies",
+      "source_id": "4230ce928255"
+    },
+    {
+      "at_ms": 55600,
+      "category": "how_to",
+      "locator": {
+        "sentence_index": 5
+      },
+      "source": "fireflies",
+      "source_id": "4230ce928255"
+    },
+    {
+      "at_ms": 72000,
+      "category": "how_to",
+      "locator": {
+        "sentence_index": 7
+      },
+      "source": "fireflies",
+      "source_id": "4230ce928255"
+    },
+    {
+      "at_ms": 0,
+      "category": "how_to",
+      "locator": {
+        "sentence_index": 0
+      },
+      "source": "fireflies",
+      "source_id": "7142e5eb4b2c"
+    },
+    {
+      "at_ms": 36800,
+      "category": "internal",
+      "locator": {
+        "sentence_index": 2
+      },
+      "source": "fireflies",
+      "source_id": "7142e5eb4b2c"
+    },
+    {
+      "at_ms": 50000,
+      "category": "how_to",
+      "locator": {
+        "sentence_index": 3
+      },
+      "source": "fireflies",
+      "source_id": "7142e5eb4b2c"
+    },
+    {
+      "at_ms": 57600,
+      "category": "internal",
+      "locator": {
+        "sentence_index": 4
+      },
+      "source": "fireflies",
+      "source_id": "7142e5eb4b2c"
+    },
+    {
+      "at_ms": 67600,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_index": 5
+      },
+      "source": "fireflies",
+      "source_id": "7142e5eb4b2c"
+    },
+    {
+      "at_ms": 73200,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_index": 6
+      },
+      "source": "fireflies",
+      "source_id": "7142e5eb4b2c"
+    },
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_index": 0
+      },
+      "source": "fireflies",
+      "source_id": "d13390f2c06d"
+    },
+    {
+      "at_ms": 11600,
+      "category": "scheduling",
+      "locator": {
+        "sentence_index": 1
+      },
+      "source": "fireflies",
+      "source_id": "d13390f2c06d"
+    },
+    {
+      "at_ms": 44000,
+      "category": "scheduling",
+      "locator": {
+        "sentence_index": 5
+      },
+      "source": "fireflies",
+      "source_id": "d13390f2c06d"
+    },
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_index": 0
+      },
+      "source": "fireflies",
+      "source_id": "be4ca994a23c"
+    },
+    {
+      "at_ms": 8800,
+      "category": "scheduling",
+      "locator": {
+        "sentence_index": 1
+      },
+      "source": "fireflies",
+      "source_id": "be4ca994a23c"
+    },
+    {
+      "at_ms": 22000,
+      "category": "scheduling",
+      "locator": {
+        "sentence_index": 3
+      },
+      "source": "fireflies",
+      "source_id": "be4ca994a23c"
+    },
+    {
+      "at_ms": 50400,
+      "category": "how_to",
+      "locator": {
+        "sentence_index": 6
+      },
+      "source": "fireflies",
+      "source_id": "be4ca994a23c"
+    },
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_index": 0
+      },
+      "source": "fireflies",
+      "source_id": "4301479ec0e2"
+    },
+    {
+      "at_ms": 8800,
+      "category": "internal",
+      "locator": {
+        "sentence_index": 1
+      },
+      "source": "fireflies",
+      "source_id": "4301479ec0e2"
+    },
+    {
+      "at_ms": 32400,
+      "category": "internal",
+      "locator": {
+        "sentence_index": 3
+      },
+      "source": "fireflies",
+      "source_id": "4301479ec0e2"
+    },
+    {
+      "at_ms": 39200,
+      "category": "internal",
+      "locator": {
+        "sentence_index": 4
+      },
+      "source": "fireflies",
+      "source_id": "4301479ec0e2"
+    },
+    {
+      "at_ms": 56800,
+      "category": "internal",
+      "locator": {
+        "sentence_index": 6
+      },
+      "source": "fireflies",
+      "source_id": "4301479ec0e2"
+    },
+    {
+      "at_ms": 62000,
+      "category": "closer",
+      "locator": {
+        "sentence_index": 7
+      },
+      "source": "fireflies",
+      "source_id": "4301479ec0e2"
+    },
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_index": 0
+      },
+      "source": "fireflies",
+      "source_id": "ea08dd984015"
+    },
+    {
+      "at_ms": 24800,
+      "category": "internal",
+      "locator": {
+        "sentence_index": 2
+      },
+      "source": "fireflies",
+      "source_id": "ea08dd984015"
+    },
+    {
+      "at_ms": 33200,
+      "category": "how_to",
+      "locator": {
+        "sentence_index": 3
+      },
+      "source": "fireflies",
+      "source_id": "ea08dd984015"
+    },
+    {
+      "at_ms": 51600,
+      "category": "internal",
+      "locator": {
+        "sentence_index": 5
+      },
+      "source": "fireflies",
+      "source_id": "ea08dd984015"
+    },
+    {
+      "at_ms": 61200,
+      "category": "how_to",
+      "locator": {
+        "sentence_index": 6
+      },
+      "source": "fireflies",
+      "source_id": "ea08dd984015"
+    },
+    {
+      "at_ms": 66000,
+      "category": "internal",
+      "locator": {
+        "sentence_index": 7
+      },
+      "source": "fireflies",
+      "source_id": "ea08dd984015"
+    },
+    {
+      "at_ms": 73600,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_index": 8
+      },
+      "source": "fireflies",
+      "source_id": "ea08dd984015"
+    },
+    {
+      "at_ms": 0,
+      "category": "pleasantry",
+      "locator": {
+        "sentence_index": 0
+      },
+      "source": "fireflies",
+      "source_id": "401cf722a4d1"
+    },
+    {
+      "at_ms": 20400,
+      "category": "scheduling",
+      "locator": {
+        "sentence_index": 2
+      },
+      "source": "fireflies",
+      "source_id": "401cf722a4d1"
+    },
+    {
+      "at_ms": 36000,
+      "category": "how_to",
+      "locator": {
+        "sentence_index": 4
+      },
+      "source": "fireflies",
+      "source_id": "401cf722a4d1"
+    },
+    {
+      "at_ms": 52400,
+      "category": "internal",
+      "locator": {
+        "sentence_index": 6
+      },
+      "source": "fireflies",
+      "source_id": "401cf722a4d1"
+    },
+    {
+      "at_ms": 59600,
+      "category": "praise",
+      "locator": {
+        "sentence_index": 7
+      },
+      "source": "fireflies",
+      "source_id": "401cf722a4d1"
+    }
+  ],
+  "schema_version": 1,
+  "themes": [
+    {
+      "bucket": "reserves_payments",
+      "expected": {
+        "outcome": "ranked",
+        "top6": true
+      },
+      "hard_negatives": [],
+      "id": "ho-payee-bank-details",
+      "kind": "real",
+      "mentions": [
+        {
+          "account": "A21",
+          "at_ms": 34400,
+          "id": "ho-payee-bank-details:0",
+          "locator": {
+            "sentence_start_ms": 34400
+          },
+          "occurred_at": "2026-10-27T15:26:34.400000Z",
+          "post_ship": false,
+          "route": "sales",
+          "source": "gong",
+          "source_id": "e8a268aad822",
+          "stance": null,
+          "theme": "ho-payee-bank-details"
+        },
+        {
+          "account": "A11",
+          "at_ms": 36800,
+          "id": "ho-payee-bank-details:1",
+          "locator": {
+            "sentence_start_ms": 36800
+          },
+          "occurred_at": "2026-10-07T12:42:36.800000Z",
+          "post_ship": false,
+          "route": "sales",
+          "source": "gong",
+          "source_id": "0f38de03971b",
+          "stance": null,
+          "theme": "ho-payee-bank-details"
+        },
+        {
+          "account": "A05",
+          "at_ms": 30400,
+          "id": "ho-payee-bank-details:2",
+          "locator": {
+            "part_id": "4f0c3f4613e9-4"
+          },
+          "occurred_at": "2026-10-14T09:14:30.400000Z",
+          "post_ship": false,
+          "route": "support",
+          "source": "intercom",
+          "source_id": "4f0c3f4613e9",
+          "stance": null,
+          "theme": "ho-payee-bank-details"
+        },
+        {
+          "account": "A14",
+          "at_ms": 26400,
+          "id": "ho-payee-bank-details:3",
+          "locator": {
+            "part_id": "6d3788bdcb62-4"
+          },
+          "occurred_at": "2026-09-11T15:47:26.400000Z",
+          "post_ship": false,
+          "route": "support",
+          "source": "intercom",
+          "source_id": "6d3788bdcb62",
+          "stance": null,
+          "theme": "ho-payee-bank-details"
+        },
+        {
+          "account": "A08",
+          "at_ms": 9600,
+          "id": "ho-payee-bank-details:4",
+          "locator": {
+            "part_id": "834ae02016de-1"
+          },
+          "occurred_at": "2026-09-22T11:47:09.600000Z",
+          "post_ship": false,
+          "route": "support",
+          "source": "intercom",
+          "source_id": "834ae02016de",
+          "stance": null,
+          "theme": "ho-payee-bank-details"
+        },
+        {
+          "account": "A03",
+          "at_ms": 58000,
+          "id": "ho-payee-bank-details:5",
+          "locator": {
+            "sentence_index": 7
+          },
+          "occurred_at": "2026-09-14T14:34:58Z",
+          "post_ship": false,
+          "route": "account_management",
+          "source": "fireflies",
+          "source_id": "be4ca994a23c",
+          "stance": null,
+          "theme": "ho-payee-bank-details"
+        },
+        {
+          "account": "A21",
+          "at_ms": 8800,
+          "id": "ho-payee-bank-details:6",
+          "locator": {
+            "sentence_index": 1
+          },
+          "occurred_at": "2026-09-15T15:02:08.800000Z",
+          "post_ship": false,
+          "route": "account_management",
+          "source": "fireflies",
+          "source_id": "401cf722a4d1",
+          "stance": null,
+          "theme": "ho-payee-bank-details"
+        }
+      ],
+      "product_ref": null,
+      "severity": 3,
+      "stances": [],
+      "title": "Third-party payee bank details cannot be checked before payment, so payments bounce and are re-issued days later"
+    },
+    {
+      "bucket": "admin_permissions",
+      "expected": {
+        "outcome": "ranked",
+        "top6": true
+      },
+      "hard_negatives": [],
+      "id": "ho-role-setup",
+      "kind": "real",
+      "mentions": [
+        {
+          "account": "A06",
+          "at_ms": 9200,
+          "id": "ho-role-setup:0",
+          "locator": {
+            "part_id": "fc23e4ee759c-1"
+          },
+          "occurred_at": "2026-10-21T15:06:09.200000Z",
+          "post_ship": false,
+          "route": "support",
+          "source": "intercom",
+          "source_id": "fc23e4ee759c",
+          "stance": null,
+          "theme": "ho-role-setup"
+        },
+        {
+          "account": "A02",
+          "at_ms": 29600,
+          "id": "ho-role-setup:1",
+          "locator": {
+            "part_id": "c0c203ccbf20-4"
+          },
+          "occurred_at": "2026-10-04T08:01:29.600000Z",
+          "post_ship": false,
+          "route": "support",
+          "source": "intercom",
+          "source_id": "c0c203ccbf20",
+          "stance": null,
+          "theme": "ho-role-setup"
+        },
+        {
+          "account": "A16",
+          "at_ms": 14400,
+          "id": "ho-role-setup:2",
+          "locator": {
+            "part_id": "4bfcb55ed038-1"
+          },
+          "occurred_at": "2026-10-25T14:19:14.400000Z",
+          "post_ship": false,
+          "route": "support",
+          "source": "intercom",
+          "source_id": "4bfcb55ed038",
+          "stance": null,
+          "theme": "ho-role-setup"
+        },
+        {
+          "account": "A12",
+          "at_ms": 40000,
+          "id": "ho-role-setup:3",
+          "locator": {
+            "sentence_index": 4
+          },
+          "occurred_at": "2026-10-29T15:59:40Z",
+          "post_ship": false,
+          "route": "onboarding",
+          "source": "fireflies",
+          "source_id": "dd3d84b156ca",
+          "stance": null,
+          "theme": "ho-role-setup"
+        },
+        {
+          "account": "A19",
+          "at_ms": 31200,
+          "id": "ho-role-setup:4",
+          "locator": {
+            "sentence_index": 3
+          },
+          "occurred_at": "2026-09-22T10:20:31.200000Z",
+          "post_ship": false,
+          "route": "onboarding",
+          "source": "fireflies",
+          "source_id": "4230ce928255",
+          "stance": null,
+          "theme": "ho-role-setup"
+        },
+        {
+          "account": "A24",
+          "at_ms": 18000,
+          "id": "ho-role-setup:5",
+          "locator": {
+            "sentence_index": 1
+          },
+          "occurred_at": "2026-09-16T16:02:18Z",
+          "post_ship": false,
+          "route": "onboarding",
+          "source": "fireflies",
+          "source_id": "7142e5eb4b2c",
+          "stance": null,
+          "theme": "ho-role-setup"
+        },
+        {
+          "account": "A16",
+          "at_ms": 0,
+          "id": "ho-role-setup:6",
+          "locator": {
+            "event_ids": [
+              "7914508daf2de6dc"
+            ]
+          },
+          "occurred_at": "2026-09-09T08:26:00Z",
+          "post_ship": false,
+          "route": "sessions",
+          "source": "fullstory",
+          "source_id": "56efe03393dc",
+          "stance": null,
+          "theme": "ho-role-setup"
+        },
+        {
+          "account": "A09",
+          "at_ms": 0,
+          "id": "ho-role-setup:7",
+          "locator": {
+            "event_ids": [
+              "bbed9beb32f07b58"
+            ]
+          },
+          "occurred_at": "2026-09-25T08:22:00Z",
+          "post_ship": false,
+          "route": "sessions",
+          "source": "fullstory",
+          "source_id": "4bae97657f04",
+          "stance": null,
+          "theme": "ho-role-setup"
+        }
+      ],
+      "product_ref": null,
+      "severity": 2,
+      "stances": [],
+      "title": "Admins cannot copy an existing role, so a new team means ticking dozens of permission boxes per user; mistakes lock handlers out"
+    },
+    {
+      "bucket": "customer_comms",
+      "expected": {
+        "outcome": "ranked",
+        "top6": true
+      },
+      "hard_negatives": [],
+      "id": "ho-letter-joint-names",
+      "kind": "real",
+      "mentions": [
+        {
+          "account": "A13",
+          "at_ms": 32000,
+          "id": "ho-letter-joint-names:0",
+          "locator": {
+            "sentence_start_ms": 32000
+          },
+          "occurred_at": "2026-10-29T10:16:32Z",
+          "post_ship": false,
+          "route": "sales",
+          "source": "gong",
+          "source_id": "754f471549ab",
+          "stance": null,
+          "theme": "ho-letter-joint-names"
+        },
+        {
+          "account": "A04",
+          "at_ms": 26800,
+          "id": "ho-letter-joint-names:1",
+          "locator": {
+            "sentence_start_ms": 26800
+          },
+          "occurred_at": "2026-10-07T14:03:26.800000Z",
+          "post_ship": false,
+          "route": "sales",
+          "source": "gong",
+          "source_id": "7d17259e900c",
+          "stance": null,
+          "theme": "ho-letter-joint-names"
+        },
+        {
+          "account": "A07",
+          "at_ms": 9600,
+          "id": "ho-letter-joint-names:2",
+          "locator": {
+            "part_id": "fea0c671a113-1"
+          },
+          "occurred_at": "2026-10-30T15:16:09.600000Z",
+          "post_ship": false,
+          "route": "support",
+          "source": "intercom",
+          "source_id": "fea0c671a113",
+          "stance": null,
+          "theme": "ho-letter-joint-names"
+        },
+        {
+          "account": "A10",
+          "at_ms": 8800,
+          "id": "ho-letter-joint-names:3",
+          "locator": {
+            "part_id": "2a207d65e62c-1"
+          },
+          "occurred_at": "2026-09-29T15:23:08.800000Z",
+          "post_ship": false,
+          "route": "support",
+          "source": "intercom",
+          "source_id": "2a207d65e62c",
+          "stance": null,
+          "theme": "ho-letter-joint-names"
+        },
+        {
+          "account": "A01",
+          "at_ms": 10400,
+          "id": "ho-letter-joint-names:4",
+          "locator": {
+            "part_id": "51410ac1d7ea-1"
+          },
+          "occurred_at": "2026-09-03T12:32:10.400000Z",
+          "post_ship": false,
+          "route": "support",
+          "source": "intercom",
+          "source_id": "51410ac1d7ea",
+          "stance": null,
+          "theme": "ho-letter-joint-names"
+        },
+        {
+          "account": "A15",
+          "at_ms": 19600,
+          "id": "ho-letter-joint-names:5",
+          "locator": {
+            "sentence_index": 2
+          },
+          "occurred_at": "2026-09-29T13:22:19.600000Z",
+          "post_ship": false,
+          "route": "account_management",
+          "source": "fireflies",
+          "source_id": "4301479ec0e2",
+          "stance": null,
+          "theme": "ho-letter-joint-names"
+        },
+        {
+          "account": "A15",
+          "at_ms": 46800,
+          "id": "ho-letter-joint-names:6",
+          "locator": {
+            "sentence_index": 5
+          },
+          "occurred_at": "2026-09-29T13:22:46.800000Z",
+          "post_ship": false,
+          "route": "account_management",
+          "source": "fireflies",
+          "source_id": "4301479ec0e2",
+          "stance": null,
+          "theme": "ho-letter-joint-names"
+        }
+      ],
+      "product_ref": null,
+      "severity": 3,
+      "stances": [],
+      "title": "With joint policyholders, letters merge only one name or the wrong one, and complaints follow"
+    },
+    {
+      "bucket": null,
+      "expected": {
+        "outcome": "suppressed",
+        "top6": false
+      },
+      "hard_negatives": [],
+      "id": "hz-invoice-admin",
+      "kind": "noise",
+      "mentions": [
+        {
+          "account": "A02",
+          "agreement": true,
+          "at_ms": 26800,
+          "id": "hz-invoice-admin:0",
+          "locator": {
+            "sentence_start_ms": 26800
+          },
+          "occurred_at": "2026-10-30T15:59:26.800000Z",
+          "post_ship": false,
+          "route": "sales",
+          "source": "gong",
+          "source_id": "29e0c938a93b",
+          "stance": null,
+          "theme": "hz-invoice-admin"
+        },
+        {
+          "account": "A20",
+          "at_ms": 10400,
+          "id": "hz-invoice-admin:1",
+          "locator": {
+            "part_id": "6c29c6709be7-1"
+          },
+          "occurred_at": "2026-10-06T09:09:10.400000Z",
+          "post_ship": false,
+          "route": "support",
+          "source": "intercom",
+          "source_id": "6c29c6709be7",
+          "stance": null,
+          "theme": "hz-invoice-admin"
+        },
+        {
+          "account": "A17",
+          "at_ms": 11200,
+          "id": "hz-invoice-admin:2",
+          "locator": {
+            "part_id": "36ef0eb225a1-1"
+          },
+          "occurred_at": "2026-10-11T12:00:11.200000Z",
+          "post_ship": false,
+          "route": "support",
+          "source": "intercom",
+          "source_id": "36ef0eb225a1",
+          "stance": null,
+          "theme": "hz-invoice-admin"
+        },
+        {
+          "account": "A25",
+          "at_ms": 10800,
+          "id": "hz-invoice-admin:3",
+          "locator": {
+            "part_id": "7b3e56554f47-1"
+          },
+          "occurred_at": "2026-09-30T15:57:10.800000Z",
+          "post_ship": false,
+          "route": "support",
+          "source": "intercom",
+          "source_id": "7b3e56554f47",
+          "stance": null,
+          "theme": "hz-invoice-admin"
+        },
+        {
+          "account": "A17",
+          "at_ms": 41600,
+          "id": "hz-invoice-admin:4",
+          "locator": {
+            "sentence_index": 4
+          },
+          "occurred_at": "2026-09-29T08:46:41.600000Z",
+          "post_ship": false,
+          "route": "account_management",
+          "source": "fireflies",
+          "source_id": "ea08dd984015",
+          "stance": null,
+          "theme": "hz-invoice-admin"
+        },
+        {
+          "account": "A03",
+          "at_ms": 30800,
+          "id": "hz-invoice-admin:5",
+          "locator": {
+            "sentence_index": 4
+          },
+          "occurred_at": "2026-09-14T14:34:30.800000Z",
+          "post_ship": false,
+          "route": "account_management",
+          "source": "fireflies",
+          "source_id": "be4ca994a23c",
+          "stance": null,
+          "theme": "hz-invoice-admin"
+        }
+      ],
+      "product_ref": null,
+      "severity": null,
+      "stances": [],
+      "title": "Requests to change purchase-order numbers or billing contacts on Keelwater's own invoices"
+    },
+    {
+      "id": "one-off:0",
+      "kind": "one_off",
+      "mentions": [
+        {
+          "account": "A16",
+          "at_ms": 12800,
+          "id": "one-off:0:0",
+          "locator": {
+            "part_id": "f540432d74e0-1"
+          },
+          "occurred_at": "2026-09-27T08:05:12.800000Z",
+          "post_ship": false,
+          "request": "print a claim summary",
+          "route": "support",
+          "severity": 1,
+          "source": "intercom",
+          "source_id": "f540432d74e0",
+          "stance": null,
+          "theme": "one-off:0"
+        }
+      ],
+      "severity": 1,
+      "title": "print a claim summary"
+    },
+    {
+      "id": "one-off:1",
+      "kind": "one_off",
+      "mentions": [
+        {
+          "account": "A27",
+          "at_ms": 10800,
+          "id": "one-off:1:0",
+          "locator": {
+            "part_id": "e1f22ae146ff-1"
+          },
+          "occurred_at": "2026-09-02T09:31:10.800000Z",
+          "post_ship": false,
+          "request": "filter tasks by due date",
+          "route": "support",
+          "severity": 2,
+          "source": "intercom",
+          "source_id": "e1f22ae146ff",
+          "stance": null,
+          "theme": "one-off:1"
+        }
+      ],
+      "severity": 2,
+      "title": "filter tasks by due date"
+    },
+    {
+      "id": "one-off:2",
+      "kind": "one_off",
+      "mentions": [
+        {
+          "account": "A19",
+          "at_ms": 61600,
+          "id": "one-off:2:0",
+          "locator": {
+            "sentence_index": 6
+          },
+          "occurred_at": "2026-09-22T10:21:01.600000Z",
+          "post_ship": false,
+          "request": "export notes as PDF",
+          "route": "onboarding",
+          "severity": 1,
+          "source": "fireflies",
+          "source_id": "4230ce928255",
+          "stance": null,
+          "theme": "one-off:2"
+        }
+      ],
+      "severity": 1,
+      "title": "export notes as PDF"
+    },
+    {
+      "id": "one-off:3",
+      "kind": "one_off",
+      "mentions": [
+        {
+          "account": "A17",
+          "at_ms": 11200,
+          "id": "one-off:3:0",
+          "locator": {
+            "sentence_index": 1
+          },
+          "occurred_at": "2026-09-29T08:46:11.200000Z",
+          "post_ship": false,
+          "request": "bulk-close stale tasks",
+          "route": "account_management",
+          "severity": 2,
+          "source": "fireflies",
+          "source_id": "ea08dd984015",
+          "stance": null,
+          "theme": "one-off:3"
+        }
+      ],
+      "severity": 2,
+      "title": "bulk-close stale tasks"
+    }
+  ],
+  "window": {
+    "from": "2026-09-01",
+    "to": "2026-10-31"
+  }
+}

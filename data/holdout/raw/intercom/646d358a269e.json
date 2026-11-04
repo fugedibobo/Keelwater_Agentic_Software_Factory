@@ -1,0 +1,127 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "assumed_resolution"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Havren Harthwick",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m trying to get a batch of claims documents uploaded and linked to the right reserves, but I’m not sure where the task queue sits in the interface.",
+        "created_at": 1790163000,
+        "id": "646d358a269e-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Havren Harthwick",
+          "type": "user"
+        },
+        "body": "Can you walk me through how to upload claims documents and assign them to the correct reserves?",
+        "created_at": 1790163012,
+        "id": "646d358a269e-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Havren. You’ll find the task queue under the ‘tasks’ tab — just select the policyholder’s file and assign the document to the reserve using the dropdown.",
+        "created_at": 1790163018,
+        "id": "646d358a269e-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Havren Harthwick",
+          "type": "user"
+        },
+        "body": "Got it — I’ll try that now. Also, can we confirm the payment status is syncing correctly with our suppliers after a reserve update?",
+        "created_at": 1790163030,
+        "id": "646d358a269e-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Yes, payments auto-sync with suppliers once the reserve is confirmed and the reporting module registers the update. Let me know if you see any lag.",
+        "created_at": 1790163040,
+        "id": "646d358a269e-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your query has been resolved and logged under account A08 for Pendleford Motor Mutual.",
+        "created_at": 1790163050,
+        "id": "646d358a269e-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your query has been resolved and logged under account A08 for Pendleford Motor Mutual.",
+        "created_at": 1790163056,
+        "id": "646d358a269e-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Havren Harthwick",
+          "type": "user"
+        },
+        "body": "Appreciate the help, Bryn. Everything’s sorted now and the reporting looks clean.",
+        "created_at": 1790163061,
+        "id": "646d358a269e-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1790163000,
+  "id": "646d358a269e",
+  "source": {
+    "author": {
+      "email": "contact@a08.example",
+      "name": "Havren Harthwick",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "general"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

@@ -1,0 +1,163 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "routed_to_team"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Brelis Bramvale",
+          "type": "user"
+        },
+        "body": "Morning Bryn, I’m setting up our new claims team and the permissions system is causing delays — it’s tedious and error-prone.",
+        "created_at": 1791100860,
+        "id": "c0c203ccbf20-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Brelis. I’ll look into what’s causing the friction with your team’s access setup.",
+        "created_at": 1791100868,
+        "id": "c0c203ccbf20-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Brelis Bramvale",
+          "type": "user"
+        },
+        "body": "Could we schedule a 15-minute call this afternoon to walk through the team setup?",
+        "created_at": 1791100875,
+        "id": "c0c203ccbf20-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Brelis Bramvale",
+          "type": "user"
+        },
+        "body": "The issue is we can’t copy access roles — each new user needs permissions manually assigned, and one mistake blocks them entirely.",
+        "created_at": 1791100880,
+        "id": "c0c203ccbf20-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Brelis Bramvale",
+          "type": "user"
+        },
+        "body": "We’re stuck because we can’t copy access roles — every new handler needs permissions ticked individually, and if we slip up, they’re locked out of their tasks.",
+        "created_at": 1791100889,
+        "id": "c0c203ccbf20-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "I’ve noted your concern and escalated this to our support lead for immediate review.",
+        "created_at": 1791100900,
+        "id": "c0c203ccbf20-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "I understand — that’s not the experience we want. I’ll flag this as urgent and get our team to help streamline it for you.",
+        "created_at": 1791100906,
+        "id": "c0c203ccbf20-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Bryn, please review the permission structure issue raised by Brelis — we need to ensure new teams aren’t locked out by manual role setup.",
+        "created_at": 1791100915,
+        "id": "c0c203ccbf20-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Brelis Bramvale",
+          "type": "user"
+        },
+        "body": "Appreciate it. Let me know when you’ve got an update — we’re under pressure to onboard the team this week.",
+        "created_at": 1791100925,
+        "id": "c0c203ccbf20-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: Escalated due to role duplication limitation impacting user onboarding. Follow up with product team by EOD.",
+        "created_at": 1791100933,
+        "id": "c0c203ccbf20-9",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your case has been escalated. A support lead will contact you within 2 hours with next steps.",
+        "created_at": 1791100940,
+        "id": "c0c203ccbf20-10",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 11,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1791100860,
+  "id": "c0c203ccbf20",
+  "source": {
+    "author": {
+      "email": "contact@a02.example",
+      "name": "Brelis Bramvale",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "admin_permissions"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

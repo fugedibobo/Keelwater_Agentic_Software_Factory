@@ -1,0 +1,1836 @@
+{
+  "callTranscripts": [
+    {
+      "callId": "0f38de03971b",
+      "transcript": [
+        {
+          "sentences": [
+            {
+              "end": 8000,
+              "start": 0,
+              "text": "Hi Alwen, thanks for setting this up — I’m looking forward to seeing how Keelwater handles claims and documents together."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 14400,
+              "start": 8000,
+              "text": "You’re welcome, Kessra. We’ve built strong integrations around tasks and roles to streamline your claims handling."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 21200,
+              "start": 14400,
+              "text": "That’s good to hear. One thing we’ve struggled with is payment detail checking — it’s causing delays."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 28000,
+              "start": 21200,
+              "text": "I understand. Our system allows you to validate supplier and policyholder data before issuing payments, reducing reissues."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 36800,
+              "start": 28000,
+              "text": "That would help. Right now, we can’t verify third-party bank info before paying — so payments bounce and we reissue days later."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 48800,
+              "start": 36800,
+              "text": "We’re currently facing delays because we can’t validate third-party bank details before sending payments — that’s why we’re reissuing them days later, and payment detail checking is the core issue."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 57200,
+              "start": 48800,
+              "text": "We can fix that. Let me schedule a demo to show how our reporting and reserves modules sync with payment workflows."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 66000,
+              "start": 57200,
+              "text": "Let’s set up a follow-up call for next Tuesday at 10 AM to review the payment detail checking workflow with your team."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 72800,
+              "start": 66000,
+              "text": "Perfect — I’ll clear my calendar for next Tuesday. Thanks for addressing the payment detail checking issue."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 81200,
+              "start": 72800,
+              "text": "Absolutely — we’ll make sure your team can validate payee details before any payment leaves the system. No more bounced transactions."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 84800,
+              "start": 81200,
+              "text": "That’s exactly what we need. Looking forward to it."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 92400,
+              "start": 84800,
+              "text": "Great — I’ll send over the invite and some pre-reads on how our integrations reduce manual tasks and letters."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 96800,
+              "start": 92400,
+              "text": "Appreciate it. We’ve got a lot of legacy processes to modernize."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 104000,
+              "start": 96800,
+              "text": "We’ll help you transition smoothly — our roles and reporting tools are designed for claims staff like you."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 108400,
+              "start": 104000,
+              "text": "That’s reassuring. We’ve had too many delays from payment detail checking."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 114800,
+              "start": 108400,
+              "text": "Understood — we’ll make sure your suppliers and policyholders are verified before any payment is processed."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        }
+      ]
+    },
+    {
+      "callId": "29e0c938a93b",
+      "transcript": [
+        {
+          "sentences": [
+            {
+              "end": 10400,
+              "start": 0,
+              "text": "Hi Alwen, I’m calling because we need to adjust the purchase order number on your latest invoice — it’s causing a mismatch in our finance system."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 18800,
+              "start": 10400,
+              "text": "Thanks for reaching out, Brelis. I understand you’re looking to correct the purchase order on our invoice — is that right?"
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 26800,
+              "start": 18800,
+              "text": "I’m hearing you need a purchase order correction on our invoice — that’s an administrative request we can handle quickly."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 28000,
+              "start": 26800,
+              "text": "Yes, that’s correct."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 35200,
+              "start": 28000,
+              "text": "Yes, exactly. The PO we referenced doesn’t match what’s on your billing, and it’s blocking our payment cycle."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 44000,
+              "start": 35200,
+              "text": "I’ll flag this for our billing team. For now, can you confirm the correct purchase order number you’d like us to use?"
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 50000,
+              "start": 44000,
+              "text": "It’s PO-2026-WEX-8874. We’ve already updated our side — just need your invoice to reflect that."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 58800,
+              "start": 50000,
+              "text": "Got it — I’ll have our team issue a corrected invoice by end of day. Anything else I can assist with today?"
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 66800,
+              "start": 58800,
+              "text": "We’re reviewing our annual spend with Keelwater and need clarity on how tiered pricing affects our claims volume this year."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 74800,
+              "start": 66800,
+              "text": "Actually, yes — can you send me a breakdown of how your pricing tiers apply to our monthly claims volume?"
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 81600,
+              "start": 74800,
+              "text": "Absolutely. I’ll email you the tier structure and a sample calculation based on your last quarter’s activity."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 89200,
+              "start": 81600,
+              "text": "That’d be great. Also, your team’s handling of our supplier integrations last quarter saved us hours — truly impressive."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 100000,
+              "start": 89200,
+              "text": "Thank you — we’re glad to hear it’s making a difference. Let me know if you need any help setting up new supplier tasks or reporting views."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 106400,
+              "start": 100000,
+              "text": "We’re planning to expand our policyholder letters automation next month — any tips on best practices?"
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 114000,
+              "start": 106400,
+              "text": "Your team’s handling of our supplier integrations last quarter saved us hours in manual reconciliation — truly impressive work."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 122400,
+              "start": 114000,
+              "text": "Happy to help. I’ll share a checklist for letter templates and role permissions — it’s helped other clients streamline their workflows."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        }
+      ]
+    },
+    {
+      "callId": "47fa11cf6aa7",
+      "transcript": [
+        {
+          "sentences": [
+            {
+              "end": 7600,
+              "start": 0,
+              "text": "Hi Alwen, thanks for connecting — we’re keen to streamline how we handle claims and documents across our team."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 16400,
+              "start": 7600,
+              "text": "You’re welcome, Avenna. I’m glad you’re looking to simplify claims handling — we’ve helped similar insurers manage reserves and payments more efficiently."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 23200,
+              "start": 16400,
+              "text": "That’s exactly what we need — especially with supplier integrations and reporting getting more complex each quarter."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 30000,
+              "start": 23200,
+              "text": "Understood. Our system supports role-based access so only the right people see tasks, letters, and policyholder data."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 36800,
+              "start": 30000,
+              "text": "Perfect — we’ve had issues with permissions before. Can you show how roles are assigned during setup?"
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 44000,
+              "start": 36800,
+              "text": "Absolutely. I’ll walk you through assigning roles during onboarding — it’s fully configurable based on your team structure."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 49600,
+              "start": 44000,
+              "text": "Great. And how do you handle document versioning? We’ve lost track of updates before."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 58000,
+              "start": 49600,
+              "text": "Every document revision is tracked with timestamps and user IDs — you’ll never lose a version or wonder who edited what."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 62400,
+              "start": 58000,
+              "text": "That’s reassuring. We’ve had too many near-misses with outdated claims files."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 70000,
+              "start": 62400,
+              "text": "I hear you — that’s why we built audit trails into every document and task flow from the start."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 76400,
+              "start": 70000,
+              "text": "Makes sense. Let’s schedule a demo next week — can you send over some available slots?"
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 83600,
+              "start": 76400,
+              "text": "I’ll email you three options by end of day — just confirm which works best for your team."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 88800,
+              "start": 83600,
+              "text": "Thanks, Alwen. Looking forward to seeing how this fits with our current workflows."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 94800,
+              "start": 88800,
+              "text": "My pleasure — I’ll make sure the demo mirrors your real-world claims and reporting needs."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 100800,
+              "start": 94800,
+              "text": "Appreciate that — we need something that doesn’t force us to change how we work."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 108400,
+              "start": 100800,
+              "text": "Exactly — we adapt to your processes, not the other way around. I’ll follow up with those times shortly."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 113200,
+              "start": 108400,
+              "text": "Sounds good. Talk soon — and thanks again for your time today."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 120000,
+              "start": 113200,
+              "text": "Anytime, Avenna. I’m here to help Hollinbrook Home Insurance get the most out of their claims handling."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        }
+      ]
+    },
+    {
+      "callId": "54e55966846e",
+      "transcript": [
+        {
+          "sentences": [
+            {
+              "end": 13200,
+              "start": 0,
+              "text": "Hi Alwen, thanks for getting back to us so quickly. We’ve been using your system for a few months now and really appreciate how smoothly the claims and documents flow through the pipeline."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 25600,
+              "start": 13200,
+              "text": "That’s great to hear, Celdra. I’m glad the claims and documents handling is working well for Elderfold Home. Let me know if you’ve got any questions about reserves or supplier integrations."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 35200,
+              "start": 25600,
+              "text": "Actually, we’ve noticed that the reporting module doesn’t always sync the latest tasks with our policyholders’ records. Is there a known fix or workaround?"
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 48800,
+              "start": 35200,
+              "text": "Thanks for flagging that. We’re aware of a timing delay in the reporting and tasks sync — it usually resolves within 24 hours. If it persists, we can trigger a manual refresh for you."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 58800,
+              "start": 48800,
+              "text": "That would help. Also, can we adjust the roles so our junior staff can’t initiate payments without approval? We’ve had a couple of close calls."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 69200,
+              "start": 58800,
+              "text": "Absolutely — we can set up role-based permissions so only designated users can trigger payments. I’ll send you a setup guide and schedule a 15-minute walkthrough."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 76800,
+              "start": 69200,
+              "text": "Perfect. And while we’re at it, can you confirm whether the letters module supports custom templates for policyholder notifications?"
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 88400,
+              "start": 76800,
+              "text": "Yes, the letters module fully supports custom templates — you can upload your own formats or use our editor. I’ll include sample templates in the guide I send over."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 95600,
+              "start": 88400,
+              "text": "That’s a relief. We’ve been trying to automate those letters and hit a wall with the current defaults."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 104000,
+              "start": 95600,
+              "text": "Totally understand — automation saves so much time. I’ll make sure the guide covers the integrations with your existing workflows too."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 112000,
+              "start": 104000,
+              "text": "You’re a lifesaver, Alwen. We’ll review the guide and book that walkthrough for next week if that works for you."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 121200,
+              "start": 112000,
+              "text": "Happy to help, Celdra. I’ll send the calendar invite by end of day. Let me know if anything else comes up before then."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 130000,
+              "start": 121200,
+              "text": "Just one more thing — are there any upcoming updates to the suppliers section? We’re hoping to streamline our vendor payments soon."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 142800,
+              "start": 130000,
+              "text": "We’re rolling out supplier payment automation in Q4 — it’ll let you batch payments and attach supporting documents directly from the claims view. I’ll flag you for the beta if you’re interested."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 149600,
+              "start": 142800,
+              "text": "Definitely interested. We’ve been waiting for that feature to reduce manual work on reserves and supplier reconciliations."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 160400,
+              "start": 149600,
+              "text": "I’ll add you to the beta list and send a preview of the new workflow. Thanks for your patience and feedback — it really helps us prioritize."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 167200,
+              "start": 160400,
+              "text": "Thanks, Alwen. Looking forward to seeing how it all ties together with the reporting and tasks modules."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 173600,
+              "start": 167200,
+              "text": "You’re welcome — I’ll make sure the walkthrough covers how all those pieces connect. Talk soon!"
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        }
+      ]
+    },
+    {
+      "callId": "754f471549ab",
+      "transcript": [
+        {
+          "sentences": [
+            {
+              "end": 8400,
+              "start": 0,
+              "text": "Hi Alwen, thanks for jumping on this call — we’ve been having some trouble with joint policyholder names in outgoing letters."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 15200,
+              "start": 8400,
+              "text": "Thanks for flagging that, Mavren. Can you walk me through what’s happening with the joint policyholder names?"
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 24400,
+              "start": 15200,
+              "text": "Sure — when we generate letters for policies with two named holders, the system only pulls through one name, sometimes the wrong one."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 32000,
+              "start": 24400,
+              "text": "That’s definitely not ideal — we’ve had a few similar reports about joint policyholder names causing confusion and complaints."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 46400,
+              "start": 32000,
+              "text": "We’ve been getting complaints because when letters go out for policies with two named holders, the system only includes one name — and sometimes it’s the wrong one, which really messes up the joint policyholder names."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 54800,
+              "start": 46400,
+              "text": "Exactly — it’s led to some frustrated calls from policyholders and extra work for our team to fix the letters manually."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 64000,
+              "start": 54800,
+              "text": "I’ll log this as a priority for our dev team. In the meantime, is there a workaround you’re using for joint policyholder names?"
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 71200,
+              "start": 64000,
+              "text": "We’re manually editing the letters before sending, but it’s time-consuming and prone to error with joint policyholder names."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 79200,
+              "start": 71200,
+              "text": "Understood. I’ll make sure this gets escalated so we can fix the joint policyholder names issue in the next patch."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 85200,
+              "start": 79200,
+              "text": "Appreciate that — we really need this sorted before the next claims batch goes out."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 92400,
+              "start": 85200,
+              "text": "You’ll get an update by end of day tomorrow. Thanks again for your patience with joint policyholder names."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 98400,
+              "start": 92400,
+              "text": "This issue has been logged and escalated to engineering for resolution regarding joint policyholder names."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 105600,
+              "start": 98400,
+              "text": "Internal note: Escalated to engineering — joint policyholder names in letter templates must be fixed before next release."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 108000,
+              "start": 105600,
+              "text": "Thanks for the quick response, Alwen."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 113600,
+              "start": 108000,
+              "text": "Happy to help — we’ll keep you posted on progress with joint policyholder names."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        }
+      ]
+    },
+    {
+      "callId": "7d17259e900c",
+      "transcript": [
+        {
+          "sentences": [
+            {
+              "end": 9600,
+              "start": 0,
+              "text": "Hi Alwen, thanks for jumping on this. We’ve got a few joint policyholder cases where the letters are coming out with mismatched names—causing complaints."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 18800,
+              "start": 9600,
+              "text": "Thanks for flagging that, Dovren. We’ve seen this before—when two names are involved, the system sometimes defaults to one or swaps them accidentally."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 26800,
+              "start": 18800,
+              "text": "Exactly. And it’s not just a typo—it’s systemic. We’ve had three complaints in the last two weeks because of it."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 38400,
+              "start": 26800,
+              "text": "We’re getting complaints because when there are joint policyholder names, the system merges them incorrectly—sometimes only showing one or the wrong one, and it’s causing real issues with policyholders."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 50000,
+              "start": 38400,
+              "text": "I’ll log this as a priority fix. In the meantime, you can manually override the letter merge field before sending—just click the pencil icon next to the recipient block."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 56000,
+              "start": 50000,
+              "text": "Got it. That’s a workaround, but we’re handling 200+ claims a week—manual edits aren’t scalable."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 67200,
+              "start": 56000,
+              "text": "Understood. I’ll escalate this to our dev team and get you a timeline by Friday. In the meantime, I’ll send you a temporary template with a warning banner."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 73200,
+              "start": 67200,
+              "text": "We’re evaluating whether the tiered pricing model fits our claims volume, especially with seasonal spikes."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 78800,
+              "start": 73200,
+              "text": "Appreciate that. Also, are we locked into the current payment integration? We’re exploring alternatives."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 87600,
+              "start": 78800,
+              "text": "You’re on the flexible plan—any supplier integration can be added without penalty. We’ll need to test it with your finance team first."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 94000,
+              "start": 87600,
+              "text": "Perfect. And just to confirm, the new task assignment roles are rolling out next month, right?"
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 101600,
+              "start": 94000,
+              "text": "Yes, and you’ll get early access as a beta tester. I’ll email you the documentation and training links tomorrow."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 106800,
+              "start": 101600,
+              "text": "That’s great—your team’s responsiveness always stands out. We’ll be sure to share feedback."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 112800,
+              "start": 106800,
+              "text": "Your reporting module saved us hours last month—clean, accurate, and ready for audit without rework."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 120400,
+              "start": 112800,
+              "text": "Thank you, Dovren. We’re here to make your claims process smoother. Let me know if anything else comes up."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        }
+      ]
+    },
+    {
+      "callId": "b1bb4265e14b",
+      "transcript": [
+        {
+          "sentences": [
+            {
+              "end": 10000,
+              "start": 0,
+              "text": "Hi Alwen, thanks for getting back to me — I’ve been reviewing the claims workflow and need to clarify how reserves tie into supplier payments."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 18400,
+              "start": 10000,
+              "text": "You’re welcome, Gellin. I can walk you through how reserves trigger when supplier payments are queued, and how reporting reflects that."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 26400,
+              "start": 18400,
+              "text": "That’d be helpful — also, can we adjust roles so only senior handlers see the integrations tab? It’s causing confusion."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 35200,
+              "start": 26400,
+              "text": "Absolutely — we can configure role-based access to integrations, and I’ll set up a test environment for you to verify the permissions."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 42000,
+              "start": 35200,
+              "text": "Perfect. One last thing — are tasks auto-assigned when letters go out to policyholders? We’re seeing delays."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 50000,
+              "start": 42000,
+              "text": "Tasks are assigned based on letter type and policyholder segment — I’ll check your workflow rules and adjust if needed."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 55600,
+              "start": 50000,
+              "text": "Appreciate it. Let’s schedule a follow-up next week to review the changes before rollout."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 64000,
+              "start": 55600,
+              "text": "I’ll send over a calendar invite for Thursday — does 2pm work? We’ll go through documents, reporting, and any outstanding tasks."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 69200,
+              "start": 64000,
+              "text": "2pm Thursday works — thanks again, Alwen. This’ll really streamline our claims handling."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 75200,
+              "start": 69200,
+              "text": "Glad to hear it — I’ll make sure everything’s documented and tested before we meet."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 82400,
+              "start": 75200,
+              "text": "Just confirming — we’re still on for Thursday at 2pm, right? I’ve got the documents ready to review."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 90000,
+              "start": 82400,
+              "text": "Yes, confirmed — I’ve blocked the time and will share the agenda and sample reports ahead of the call."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 95600,
+              "start": 90000,
+              "text": "Great. Also, can we discuss how policyholders receive automated letters? Some aren’t getting them."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 103200,
+              "start": 95600,
+              "text": "We’ll audit the letter routing rules — sometimes policyholder status or document tags block delivery, and I’ll fix those."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 109200,
+              "start": 103200,
+              "text": "That’s the issue — thanks for catching that. I’ll pull the affected cases for you."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 118000,
+              "start": 109200,
+              "text": "Please do — and if you can include the policy numbers and dates, I’ll trace the logs and resolve it before Thursday."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 124000,
+              "start": 118000,
+              "text": "Will do. Looking forward to the call — this is exactly the support we need."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 131200,
+              "start": 124000,
+              "text": "Happy to help — I’ll make sure you leave Thursday’s session with clear next steps and working workflows."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        }
+      ]
+    },
+    {
+      "callId": "c61076215d75",
+      "transcript": [
+        {
+          "sentences": [
+            {
+              "end": 10400,
+              "start": 0,
+              "text": "Hi Alwen, thanks for getting back to me — I’m really hoping we can get the reserves and payments workflows synced before our next audit cycle."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 17200,
+              "start": 10400,
+              "text": "We’ll need to schedule a follow-up for next Thursday to review the claims documentation with your team."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 24800,
+              "start": 17200,
+              "text": "Absolutely, Elwenna — I’ll make sure the integrations are tested with your policyholders’ data before we move to reporting."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 32800,
+              "start": 24800,
+              "text": "That’s a relief — we’ve had issues with supplier letters not triggering automatically, and it’s causing delays in task assignments."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 40400,
+              "start": 32800,
+              "text": "Understood. I’ll assign a specialist to check your roles configuration and confirm whether the document triggers are mapped correctly."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 49200,
+              "start": 40400,
+              "text": "Perfect — I’ll have my team pull the last three months’ claims logs so you can compare against the system’s reporting output."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 56400,
+              "start": 49200,
+              "text": "That’ll help a lot. Let’s lock in a time next Thursday — does 10 AM work for you?"
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 64000,
+              "start": 56400,
+              "text": "Yes, 10 AM works — I’ll send a calendar invite and include the documents we’ll need to review together."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 73600,
+              "start": 64000,
+              "text": "Great — I’ll make sure the bot runs a pre-check on your reserves and payments before the meeting so we can focus on adjustments."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 78400,
+              "start": 73600,
+              "text": "That’s exactly what we need — thanks for being so thorough, Alwen."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 85600,
+              "start": 78400,
+              "text": "Happy to help — I’ll follow up with a summary email after our call to confirm next steps."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 92400,
+              "start": 85600,
+              "text": "Sounds good — I’ll make sure everyone on my side has read the summary before we reconvene."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 98000,
+              "start": 92400,
+              "text": "You’re welcome — and if anything comes up before Thursday, just ping me directly."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 102400,
+              "start": 98000,
+              "text": "Will do — thanks again for moving so quickly on this."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 108400,
+              "start": 102400,
+              "text": "Always happy to support Thistlecombe Mutual — let’s make sure your claims handling stays seamless."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        }
+      ]
+    },
+    {
+      "callId": "dceb7056d1d2",
+      "transcript": [
+        {
+          "sentences": [
+            {
+              "end": 10000,
+              "start": 0,
+              "text": "Hi Avenna, thanks for jumping on this call — I know your team’s been juggling a lot with claims volume lately. How’s the workflow looking?"
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 20400,
+              "start": 10000,
+              "text": "We’ll need to align the next demo with your claims team’s shift rotations, so let’s lock in a time that works for your Tuesday morning window."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 29200,
+              "start": 20400,
+              "text": "It’s been busy, but we’re managing. I’m especially keen to see how your system handles documents and reserves together without manual juggling."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 39200,
+              "start": 29200,
+              "text": "That’s exactly where we help — automating the link between documents and reserves so your team doesn’t have to cross-check spreadsheets or chase down approvals."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 48400,
+              "start": 39200,
+              "text": "Perfect. We also need clean integrations with our supplier portals — can your system pull in supplier data without breaking our existing reporting?"
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 56000,
+              "start": 48400,
+              "text": "Absolutely. Our integrations layer maps supplier data directly into your reporting dashboards without requiring custom scripts or extra middleware."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 63200,
+              "start": 56000,
+              "text": "That’s reassuring. And what about roles? We’ve got adjusters, supervisors, and external auditors — can permissions be granular?"
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 73600,
+              "start": 63200,
+              "text": "Yes — roles are fully configurable. You can assign view-only, edit, or approve permissions down to specific tasks or policyholders, and audit trails log every change."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 81200,
+              "start": 73600,
+              "text": "Great. One last thing — can we generate letters automatically based on claim status? We’re drowning in manual correspondence."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 90800,
+              "start": 81200,
+              "text": "Definitely. The system triggers templated letters based on claim status, payment milestones, or reserve thresholds — all customizable and sent via your preferred channel."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 97600,
+              "start": 90800,
+              "text": "That’s exactly what we need. Let’s schedule the next step — maybe a sandbox walkthrough next week?"
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 108400,
+              "start": 97600,
+              "text": "I’ll send over a calendar invite for Tuesday morning — we’ll walk through claims, documents, and payments in a live sandbox, and you can bring your team."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 114000,
+              "start": 108400,
+              "text": "Sounds good — looking forward to it. Thanks for walking through this with us."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 124800,
+              "start": 114000,
+              "text": "My pleasure — your team’s got a solid handle on what matters, and we’re here to make those workflows smoother. I’ll follow up with the invite shortly."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 130800,
+              "start": 124800,
+              "text": "Appreciate it — we’re ready to move forward once we see the sandbox in action."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        }
+      ]
+    },
+    {
+      "callId": "e8a268aad822",
+      "transcript": [
+        {
+          "sentences": [
+            {
+              "end": 6800,
+              "start": 0,
+              "text": "Hi Alwen, thanks for jumping on this call — we’ve been struggling with some payment delays lately."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 12800,
+              "start": 6800,
+              "text": "Hi Dovren, I’m glad we’re talking. What’s been the biggest pain point for your team?"
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 19600,
+              "start": 12800,
+              "text": "It’s mostly around third-party payments — we can’t verify bank details ahead of time, which causes bounces."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 28000,
+              "start": 19600,
+              "text": "That’s a known limitation — we’re working on a fix, but in the meantime, we can help you set up workarounds."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 34400,
+              "start": 28000,
+              "text": "We’ve had to reissue payments multiple times — it’s eating into our reserves and slowing reporting."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 47600,
+              "start": 34400,
+              "text": "We’ve had a recurring issue where payment detail checking isn’t possible before sending out funds, which leads to bounced payments and delays in reissuing them — it’s affecting our reserves and supplier relationships."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 55600,
+              "start": 47600,
+              "text": "Understood — I’ll log this as a priority for our product team and send you a workaround guide by EOD."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 60800,
+              "start": 55600,
+              "text": "Appreciate that — we need to reduce those delays before next quarter’s audit."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 68800,
+              "start": 60800,
+              "text": "Absolutely — I’ll also loop in our integrations specialist to see if we can automate verification through your supplier list."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 74400,
+              "start": 68800,
+              "text": "That’d be a huge help — our policyholders are starting to notice the delays."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 80800,
+              "start": 74400,
+              "text": "Got it — I’ll include that in the escalation note to our product lead, Alwen Dovell."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 85600,
+              "start": 80800,
+              "text": "Thanks again — we’re counting on Keelwater to help us streamline this."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 91200,
+              "start": 85600,
+              "text": "You’re welcome — we’ll get this sorted. Let’s schedule a follow-up for next Tuesday?"
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 95200,
+              "start": 91200,
+              "text": "Works for me — I’ll send over my calendar link."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 100800,
+              "start": 95200,
+              "text": "Perfect — I’ll send the workaround doc and meeting invite by 5 PM today."
+            }
+          ],
+          "speakerId": "staff",
+          "topic": ""
+        },
+        {
+          "sentences": [
+            {
+              "end": 103600,
+              "start": 100800,
+              "text": "Sounds good — looking forward to it."
+            }
+          ],
+          "speakerId": "customer",
+          "topic": ""
+        }
+      ]
+    }
+  ]
+}
