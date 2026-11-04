@@ -179,16 +179,26 @@ class Gateway:
     def _call(self, stage, kind, body, target_type, target_id, prompt_version=""):
         t0 = time.perf_counter()
         key, path = self._cache_path(stage, body)
-        cached = False
+        cached, raw = False, None
         if self.profile in ("replay", "demo") and path.is_file():
-            raw, cached = json.loads(path.read_text(encoding="utf-8"))["response"], True
+            try:
+                raw, cached = json.loads(path.read_text(encoding="utf-8"))["response"], True
+            except (ValueError, KeyError):  # half-written or corrupt file is a miss
+                raw = None
+        if raw is not None:
+            pass
         elif self.cache_only:
             raise ReplayMiss(f"replay cache miss: stage={stage} request_hash={key}")
         else:
             raw = self._live_valid(stage, kind, body, call_id_for(stage, sha256(canonical(body)), target_type, target_id))
             if self.profile == "demo":  # aws and self-hosted data never goes to disk
                 path.parent.mkdir(parents=True, exist_ok=True)
-                path.write_text(json.dumps({"request": body, "response": raw}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+                tmp = path.with_name(f"{path.name}.{threading.get_ident()}.tmp")
+                tmp.write_text(json.dumps({"request": body, "response": raw}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+                try:
+                    os.replace(tmp, path)  # atomic: a reader never sees a partial file
+                except PermissionError:  # Windows: target is open by a reader; same key means same content, so keep it
+                    tmp.unlink(missing_ok=True)
         if self.profile in ("replay", "demo"):
             self.used_keys.add(f"{stage}/{key}")
         usage = raw.get("usage", {})

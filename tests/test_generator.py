@@ -216,3 +216,17 @@ def test_write_record_regenerates_on_invalid_response():
     with pytest.raises(RecordValidationError, match='failed after two regenerations'):
         write_record(record, 42, bad)
     assert seen == [0, 1, 2]
+
+
+def test_cache_is_atomic_and_corrupt_file_is_a_miss(tmp_path):
+    from concurrent.futures import ThreadPoolExecutor
+    from tests.conftest import FakeGateway
+    gw = FakeGateway(None, {'generate': {'content': '{"a": "' + 'x' * 200000 + '"}'}}, tmp=tmp_path / 'c')
+    ask = lambda _: gw.chat('generate', [{'role': 'user', 'content': 'same'}], target_type='t', target_id='1')
+    with ThreadPoolExecutor(16) as ex:
+        assert all(len(r['a']) == 200000 for r in ex.map(ask, range(64)))
+    files = list((tmp_path / 'c').rglob('*'))
+    assert not [f for f in files if f.suffix == '.tmp']
+    f = next(f for f in files if f.suffix == '.json')
+    f.write_text('{"request": ', encoding='utf-8')
+    assert len(ask(0)['a']) == 200000
