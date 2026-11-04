@@ -57,6 +57,7 @@ One level of delegation only: workers and subagents never start further agents. 
 | 11 | Archify diagrams A, B and C | L2 | #18 | 1.0 | 11:30 |
 | 12 | Two-pager PDF from Part 1 | L2 | #18 | 0.75 | 10:00 |
 | 13 | End-to-end verification, adversarial review and README | fresh L1 orchestrator | #7, #8, #9 (#10) | 2.5 | Wed 11:30 |
+| 28 | Delegation ruleset, model evidence and build telemetry (Part A docs PR from the planning chat; Part B CSV and measured section) | Part A planning chat; Part B L2 | Part A none; Part B #9 and every other build work order | 0.75 (Part B) | after #13 (Part B) |
 
 "Merged by" includes the Sonnet check and the orchestrator's squash merge. L1 totals 20.25 h of work across three worker slots; L2 1.75 h.
 
