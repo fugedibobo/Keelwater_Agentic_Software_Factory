@@ -34,7 +34,7 @@ def run(ctx):
     system, version = prompts.load_prompt("extract", "extract")
     raws = {r["raw_id"]: r for r in store.select("raw_record")}
     done = {i["snippet_id"] for i in store.select("insight")}
-    triage = {t["snippet_id"]: t for t in store.select("triage", {"run_id": ctx.run_id}) if t["decision"] in EXTRACT}
+    triage = {t["snippet_id"]: t for t in store.select("triage", {"run_id": ctx.run_id}) if t["decision"] in EXTRACT and not (gw.cache_only and t["decision"] == "untriaged")}  # replay: untriaged means a triage cache miss
     todo = [s for s in store.select("snippet", order_by="snippet_id") if s["snippet_id"] in triage and s["snippet_id"] not in done]
 
     def work(snippet):
