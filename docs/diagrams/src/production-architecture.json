@@ -15,7 +15,7 @@
       "sublabel": "sales calls",
       "pos": [
         10,
-        90
+        130
       ],
       "size": [
         140,
@@ -29,7 +29,7 @@
       "sublabel": "tickets",
       "pos": [
         10,
-        170
+        220
       ],
       "size": [
         140,
@@ -43,7 +43,7 @@
       "sublabel": "sessions",
       "pos": [
         10,
-        250
+        310
       ],
       "size": [
         140,
@@ -57,7 +57,7 @@
       "sublabel": "account data",
       "pos": [
         10,
-        330
+        400
       ],
       "size": [
         140,
@@ -70,8 +70,8 @@
       "label": "Step Functions",
       "sublabel": "nightly run",
       "pos": [
-        282,
-        80
+        322,
+        90
       ],
       "size": [
         130,
@@ -84,12 +84,12 @@
       "label": "Connectors",
       "sublabel": "allow-listed pulls",
       "pos": [
-        282,
+        322,
         200
       ],
       "size": [
         130,
-        56
+        160
       ]
     },
     {
@@ -98,8 +98,8 @@
       "label": "S3 raw landing",
       "sublabel": "raw exports",
       "pos": [
-        282,
-        330
+        322,
+        400
       ],
       "size": [
         130,
@@ -112,8 +112,8 @@
       "label": "Triage (gpt-oss)",
       "sublabel": "noise filter",
       "pos": [
-        537,
-        330
+        577,
+        400
       ],
       "size": [
         130,
@@ -126,8 +126,8 @@
       "label": "Bedrock endpoints",
       "sublabel": "open-weight models",
       "pos": [
-        777,
-        200
+        787,
+        240
       ],
       "size": [
         140,
@@ -140,8 +140,8 @@
       "label": "Extract, rank, brief",
       "sublabel": "insight pipeline",
       "pos": [
-        777,
-        330
+        787,
+        400
       ],
       "size": [
         140,
@@ -154,8 +154,8 @@
       "label": "RDS Postgres + pgvector",
       "sublabel": "system of record",
       "pos": [
-        657,
-        470
+        697,
+        540
       ],
       "size": [
         170,
@@ -168,8 +168,8 @@
       "label": "CloudTrail and audit_event",
       "sublabel": "audit trail",
       "pos": [
-        967,
-        470
+        927,
+        540
       ],
       "size": [
         182,
@@ -182,11 +182,11 @@
       "label": "Phoenix",
       "sublabel": "traces",
       "pos": [
-        987,
-        330
+        982,
+        400
       ],
       "size": [
-        110,
+        100,
         56
       ]
     },
@@ -196,8 +196,8 @@
       "label": "Signal Board",
       "sublabel": "PM review",
       "pos": [
-        667,
-        600
+        707,
+        680
       ],
       "size": [
         140,
@@ -210,8 +210,8 @@
       "label": "Notion, Shortcut, Slack",
       "sublabel": "workspace tools",
       "pos": [
-        895,
-        740
+        865,
+        870
       ],
       "size": [
         170,
@@ -235,7 +235,7 @@
         "phoenix",
         "board"
       ],
-      "pad": 38
+      "pad": 60
     },
     {
       "kind": "security-group",

@@ -6,16 +6,12 @@
     "subtitle": "Agents do the work; people pass the gates.",
     "output": "docs/diagrams/agentic-pdlc.html",
     "visual_preset": "blueprint",
-    "quality_profile": "standard"
+    "quality_profile": "showcase"
   },
   "lanes": [
     {
       "id": "pops",
       "label": "Product operations layer"
-    },
-    {
-      "id": "pops2",
-      "label": "Product operations layer (Trio gate)"
     },
     {
       "id": "factory",
@@ -38,86 +34,86 @@
     {
       "id": "sense",
       "lane": "pops",
-      "col": 0,
+      "col": 1,
       "type": "backend",
       "label": "Sense",
-      "width": 132
+      "width": 116
     },
     {
       "id": "decide",
       "lane": "pops",
-      "col": 1,
+      "col": 2,
       "type": "backend",
       "label": "Decide",
-      "width": 132
+      "width": 116
     },
     {
       "id": "g1",
       "lane": "pops",
-      "col": 2,
+      "col": 3,
       "type": "security",
       "label": "Gate 1",
-      "width": 132,
+      "width": 116,
       "sublabel": "PM accepts opportunity"
     },
     {
       "id": "define",
       "lane": "pops",
-      "col": 3,
+      "col": 4,
       "type": "backend",
       "label": "Define",
-      "width": 132
+      "width": 116
     },
     {
       "id": "g2",
-      "lane": "pops2",
-      "col": 3,
+      "lane": "pops",
+      "col": 5,
       "type": "security",
       "label": "Gate 2",
-      "width": 132,
+      "width": 116,
       "sublabel": "Trio approves intent"
     },
     {
       "id": "build",
       "lane": "factory",
-      "col": 3,
+      "col": 5,
       "type": "backend",
       "label": "Build",
-      "width": 132
+      "width": 116
     },
     {
       "id": "g3",
       "lane": "factory",
-      "col": 2,
+      "col": 4,
       "type": "security",
       "label": "Gate 3",
-      "width": 132,
+      "width": 116,
       "sublabel": "human PR review"
     },
     {
       "id": "release",
       "lane": "factory",
-      "col": 1,
+      "col": 3,
       "type": "backend",
       "label": "Release",
-      "width": 132
+      "width": 116
     },
     {
       "id": "g4",
       "lane": "factory",
-      "col": 0,
+      "col": 2,
       "type": "security",
       "label": "Gate 4",
-      "width": 132,
-      "sublabel": "bundle announced, approved"
+      "width": 116,
+      "sublabel": "bundle approved"
     },
     {
       "id": "enable",
       "lane": "pops3",
-      "col": 0,
+      "col": 2,
       "type": "backend",
       "label": "Enable",
-      "width": 132
+      "width": 116
     },
     {
       "id": "g5",
@@ -125,29 +121,29 @@
       "col": 1,
       "type": "security",
       "label": "Gate 5",
-      "width": 132,
+      "width": 116,
       "sublabel": "PM accepts drafts"
     },
     {
       "id": "learn",
       "lane": "pops3",
-      "col": 2,
+      "col": 0,
       "type": "database",
       "label": "Learn",
-      "width": 132
+      "width": 116
     }
   ],
   "edges": [
     {
       "from": "sense",
       "to": "decide",
-      "label": "ranked signals",
+      "label": "signals",
       "variant": "default"
     },
     {
       "from": "decide",
       "to": "g1",
-      "label": "opportunity brief",
+      "label": "brief",
       "variant": "security"
     },
     {
@@ -159,13 +155,13 @@
     {
       "from": "define",
       "to": "g2",
-      "label": "intent doc + mockup",
+      "label": "intent + mockup",
       "variant": "security"
     },
     {
       "from": "g2",
       "to": "build",
-      "label": "factory job",
+      "label": "job",
       "variant": "security"
     },
     {
@@ -177,37 +173,37 @@
     {
       "from": "g3",
       "to": "release",
-      "label": "approved change",
+      "label": "approved PR",
       "variant": "security"
     },
     {
       "from": "release",
       "to": "g4",
-      "label": "flag-controlled bundle",
+      "label": "flagged bundle",
       "variant": "security"
     },
     {
       "from": "g4",
       "to": "enable",
-      "label": "released bundle",
+      "label": "released",
       "variant": "security"
     },
     {
       "from": "enable",
       "to": "g5",
-      "label": "notes, article, notice",
+      "label": "drafts",
       "variant": "security"
     },
     {
       "from": "g5",
       "to": "learn",
-      "label": "accepted and sent",
+      "label": "sent",
       "variant": "security"
     },
     {
       "from": "learn",
       "to": "sense",
-      "label": "outcomes and labels",
+      "label": "outcomes",
       "variant": "dashed",
       "role": "return"
     }
