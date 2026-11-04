@@ -97,7 +97,7 @@ def test_request_controls_and_probe_request(tmp_path):
     gw = demo(tmp_path)
     for stage in STAGE_OUTPUT:
         req = gw.chat_request(stage, gwm.PROBE_MESSAGES)
-        assert req["provider"] == {"data_collection": "deny", "require_parameters": True}
+        assert req["provider"] == {"data_collection": "allow" if stage == "generate" else "deny", "require_parameters": True}
         assert req["response_format"]["type"] == "json_schema"
         probe = gw.probe_request(stage)
         assert probe["max_tokens"] == 32
@@ -302,3 +302,39 @@ def test_prune_keeps_demo_run_and_newest_eval_files(tmp_path):
     assert len(list((cache / "extract").glob("*.json"))) == 5
     gwm.prune(cache, rep)
     assert sorted(p.stem for p in (cache / "extract").glob("*.json")) == ["a1", "c3"]
+
+
+def test_only_generate_allows_data_collection(tmp_path):
+    gw = demo(tmp_path)
+    for stage, c in gw.cfg["stages"].items():
+        if "backend" in c or stage == "embed":
+            continue
+        want = "allow" if stage == "generate" else "deny"
+        assert gw.chat_request(stage, gwm.PROBE_MESSAGES, schema={"type": "object"})["provider"]["data_collection"] == want
+
+
+def test_rpm_pacing_spaces_requests(tmp_path):
+    sleeps = []
+    gw = demo(tmp_path)
+    gw._sleep = sleeps.append
+    c = {"rpm": 20}
+    for _ in range(3):
+        gw._pace("generate", c)
+    assert len(sleeps) == 2 and sleeps[0] == pytest.approx(3, abs=0.1) and sleeps[1] == pytest.approx(6, abs=0.1)
+
+
+def test_invalid_response_keeps_finish_reason(tmp_path):
+    client = FakeClient(lambda kw: {"choices": [{"message": {"content": ""}, "finish_reason": "length"}], "usage": {}})
+    gw = demo(tmp_path, client)
+    with pytest.raises(gwm.InvalidResponse, match="finish_reason=length"):
+        ask(gw)
+
+
+def test_reasoning_option_reaches_generate_requests_only(tmp_path):
+    import copy
+    from signal_engine import config
+    models = copy.deepcopy(config.load("models"))
+    models["profiles"]["demo"]["stages"]["generate"]["reasoning"] = {"enabled": False}
+    gw = demo(tmp_path, models=models)
+    assert gw.chat_request("generate", gwm.PROBE_MESSAGES, schema={"type": "object"})["reasoning"] == {"enabled": False}
+    assert "reasoning" not in gw.chat_request("extract", gwm.PROBE_MESSAGES)

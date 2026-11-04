@@ -1,0 +1,118 @@
+{
+  "date": 1790783880000,
+  "duration": 1.0466666666666666,
+  "host_email": "carys.fenwick@keelwater.example",
+  "id": "d13390f2c06d",
+  "meeting_attendees": [
+    {
+      "displayName": "Carys Fenwick",
+      "email": "carys.fenwick@keelwater.example",
+      "name": "Carys Fenwick"
+    },
+    {
+      "displayName": "Avenna Ashfell",
+      "email": "contact@a01.example",
+      "name": "Avenna Ashfell"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 11.6,
+      "index": 0,
+      "raw_text": "Hi Carys, just checking in — we’re ready to start onboarding with Keelwater and want to make sure our claims team gets set up properly with roles and integrations.",
+      "speaker_id": "customer",
+      "speaker_name": "Avenna Ashfell",
+      "start_time": 0.0,
+      "text": "Hi Carys, just checking in — we’re ready to start onboarding with Keelwater and want to make sure our claims team gets set up properly with roles and integrations."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 18.4,
+      "index": 1,
+      "raw_text": "We’ll need to lock in a time next week for the onboarding walkthrough — maybe Tuesday afternoon?",
+      "speaker_id": "customer",
+      "speaker_name": "Avenna Ashfell",
+      "start_time": 11.6,
+      "text": "We’ll need to lock in a time next week for the onboarding walkthrough — maybe Tuesday afternoon?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 27.2,
+      "index": 2,
+      "raw_text": "Thanks for reaching out, Avenna. I’ll walk you through setting up your team’s access, assigning roles, and connecting your documents and suppliers.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 18.4,
+      "text": "Thanks for reaching out, Avenna. I’ll walk you through setting up your team’s access, assigning roles, and connecting your documents and suppliers."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 35.6,
+      "index": 3,
+      "raw_text": "Perfect — and can we also confirm how reserves and payments will appear in our reporting? That’s critical for our policyholders.",
+      "speaker_id": "customer",
+      "speaker_name": "Avenna Ashfell",
+      "start_time": 27.2,
+      "text": "Perfect — and can we also confirm how reserves and payments will appear in our reporting? That’s critical for our policyholders."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 44.0,
+      "index": 4,
+      "raw_text": "Absolutely. Reserves and payments will sync into your reporting dashboard automatically once we configure your integrations and assign the right tasks.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 35.6,
+      "text": "Absolutely. Reserves and payments will sync into your reporting dashboard automatically once we configure your integrations and assign the right tasks."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 52.8,
+      "index": 5,
+      "raw_text": "Great. And one last thing — can we schedule a walkthrough for next Tuesday? I’ll need to coordinate with my claims team.",
+      "speaker_id": "customer",
+      "speaker_name": "Avenna Ashfell",
+      "start_time": 44.0,
+      "text": "Great. And one last thing — can we schedule a walkthrough for next Tuesday? I’ll need to coordinate with my claims team."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 62.8,
+      "index": 6,
+      "raw_text": "I’ll send over a calendar invite for Tuesday at 2 PM. You’ll get a link to the session and a pre-read covering letters and tasks.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 52.8,
+      "text": "I’ll send over a calendar invite for Tuesday at 2 PM. You’ll get a link to the session and a pre-read covering letters and tasks."
+    }
+  ]
+}

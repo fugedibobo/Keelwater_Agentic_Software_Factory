@@ -1,0 +1,163 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "assumed_resolution"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Jorrin Rillmere",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m Jorrin from Fellbrook Fine Art & Specie — we’re trying to submit a high-value specie claim but hit a snag with document uploads.",
+        "created_at": 1791203040,
+        "id": "23038bcb1e5f-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Jorrin. Let’s get that sorted — first, can you confirm whether you’re able to log in to your account?",
+        "created_at": 1791203050,
+        "id": "23038bcb1e5f-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Jorrin Rillmere",
+          "type": "user"
+        },
+        "body": "I need to reset my password for the Keelwater portal because I can’t access my account to upload claims documents.",
+        "created_at": 1791203059,
+        "id": "23038bcb1e5f-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Jorrin Rillmere",
+          "type": "user"
+        },
+        "body": "Actually, I can’t log in right now — I think I need a password reset to proceed with the claims documents.",
+        "created_at": 1791203067,
+        "id": "23038bcb1e5f-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Jorrin Rillmere",
+          "type": "user"
+        },
+        "body": "Can we schedule a call next Tuesday at 3pm to walk through the reserves reporting dashboard?",
+        "created_at": 1791203076,
+        "id": "23038bcb1e5f-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "I’ll trigger a password reset email to contact@a27.example right away. Once you’re back in, let’s book a time to review your reserves reporting setup.",
+        "created_at": 1791203082,
+        "id": "23038bcb1e5f-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your request has been logged and will be reviewed by our support team within one business day.",
+        "created_at": 1791203092,
+        "id": "23038bcb1e5f-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Jorrin Rillmere",
+          "type": "user"
+        },
+        "body": "That would help — I’d like to go over the suppliers tab and ensure our payment workflows are aligned with policyholders’ expectations.",
+        "created_at": 1791203098,
+        "id": "23038bcb1e5f-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Noted — I’ll assign this to our integrations team to verify your supplier mappings and sync your tasks with reporting triggers.",
+        "created_at": 1791203107,
+        "id": "23038bcb1e5f-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Jorrin Rillmere",
+          "type": "user"
+        },
+        "body": "Perfect — thanks for helping me untangle this. I’ll check my email and reply once I’m back in.",
+        "created_at": 1791203116,
+        "id": "23038bcb1e5f-9",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your case has been resolved. A summary has been emailed to contact@a27.example. You may reopen this ticket if further assistance is needed.",
+        "created_at": 1791203123,
+        "id": "23038bcb1e5f-10",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 11,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1791203040,
+  "id": "23038bcb1e5f",
+  "source": {
+    "author": {
+      "email": "contact@mailbox.example",
+      "name": "Jorrin Rillmere",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "release_change"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

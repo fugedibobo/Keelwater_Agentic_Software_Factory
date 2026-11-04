@@ -1,0 +1,136 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Pellin Pennfell",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m trying to pull a full claim summary for a policyholder and need to print it out for our internal file — can you help me find where that’s configured?",
+        "created_at": 1790496300,
+        "id": "f540432d74e0-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Pellin Pennfell",
+          "type": "user"
+        },
+        "body": "I need to print a claim summary for one of our policyholders — it’s for internal review and must include all payments, reserves, and attached supplier details, as per our audit protocol.",
+        "created_at": 1790496312,
+        "id": "f540432d74e0-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: Customer has requested claim summary printing; confirm if this is for internal audit or policyholder distribution.",
+        "created_at": 1790496325,
+        "id": "f540432d74e0-2",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Hi Pellin, I can definitely help with that. In the claims module, go to the specific claim, then under the documents tab, you’ll see a print-ready summary option — it includes reserves and payments.",
+        "created_at": 1790496332,
+        "id": "f540432d74e0-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Pellin Pennfell",
+          "type": "user"
+        },
+        "body": "Got it — thanks. I’ll check that tab. Do you know if the printed version includes supplier details too, or just policyholder and reserve info?",
+        "created_at": 1790496346,
+        "id": "f540432d74e0-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Pellin Pennfell",
+          "type": "user"
+        },
+        "body": "Could we schedule a quick call later this week to walk through the document generation settings?",
+        "created_at": 1790496356,
+        "id": "f540432d74e0-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Yes, supplier info is included if it’s attached to the claim — you can also toggle which sections appear before printing via the reporting settings.",
+        "created_at": 1790496362,
+        "id": "f540432d74e0-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Pellin Pennfell",
+          "type": "user"
+        },
+        "body": "Perfect. Appreciate the quick help — I’ll test it now and let you know if anything’s missing.",
+        "created_at": 1790496372,
+        "id": "f540432d74e0-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "You’re welcome — happy to assist. Let me know if you need help adjusting roles or integrations for future printouts too.",
+        "created_at": 1790496379,
+        "id": "f540432d74e0-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 9,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1790496300,
+  "id": "f540432d74e0",
+  "source": {
+    "author": {
+      "email": "contact@a16.example",
+      "name": "Pellin Pennfell",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "customer_comms"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

@@ -1,0 +1,48 @@
+{
+ "request": {
+  "model": "qwen/qwen3-vl-235b-a22b-instruct",
+  "messages": [
+   {
+    "role": "user",
+    "content": "Write one short realistic description for this fictional claims software item. Use no company, person or product name except Keelwater. Return JSON.\n{\"key\": \"page:4\", \"name\": \"Supplier directory\", \"source\": \"notion\", \"status\": \"In progress\", \"target\": null}\nVersion 0\n"
+   }
+  ],
+  "temperature": 0.8,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "generate",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "description"
+     ],
+     "properties": {
+      "description": {
+       "type": "string"
+      }
+     }
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "allow",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"description\": \"A searchable directory within Keelwater that lets users find and manage supplier information, including contact details, contract status, and claim history, streamlining collaboration and compliance tracking.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 74,
+   "tokens_out": 42,
+   "cost_usd": 9.182e-05
+  }
+ }
+}

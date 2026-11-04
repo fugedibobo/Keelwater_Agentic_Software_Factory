@@ -1,0 +1,163 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "routed_to_team"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Elwenna Elmtree",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m following up on our last chat — we really need claim progress messages to go out via SMS and email to policyholders automatically.",
+        "created_at": 1790094420,
+        "id": "c822e3840824-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Elwenna Elmtree",
+          "type": "user"
+        },
+        "body": "We’re really pushing for automatic claim progress messages to go out via SMS and email to policyholders at each milestone — it’s a big gap for us right now.",
+        "created_at": 1790094430,
+        "id": "c822e3840824-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Elwenna Elmtree",
+          "type": "user"
+        },
+        "body": "Could we set up a quick call next Tuesday? I’ll be free between 10 and 11 AM if that suits.",
+        "created_at": 1790094442,
+        "id": "c822e3840824-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Elwenna. I’ve got your request logged and will escalate it to our product team for review.",
+        "created_at": 1790094450,
+        "id": "c822e3840824-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: Elwenna from Thistlecombe Mutual is escalating the claim progress messages feature; ensure follow-up by EOD tomorrow.",
+        "created_at": 1790094458,
+        "id": "c822e3840824-4",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Elwenna Elmtree",
+          "type": "user"
+        },
+        "body": "That’s appreciated. We’re under pressure to improve policyholder communication, and claim progress messages are key for us right now.",
+        "created_at": 1790094465,
+        "id": "c822e3840824-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "I’ve noted your request and will flag it for the product team to review in line with our roadmap priorities.",
+        "created_at": 1790094472,
+        "id": "c822e3840824-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood. I’ll make sure the team knows this is a priority for Thistlecombe Mutual and that you’re expecting movement before Q1 2027.",
+        "created_at": 1790094480,
+        "id": "c822e3840824-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Bryn, please log this as an escalated feature request under 'claim progress messages' — target is Q1 2027 per roadmap, but customer is pressing for earlier delivery.",
+        "created_at": 1790094489,
+        "id": "c822e3840824-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Elwenna Elmtree",
+          "type": "user"
+        },
+        "body": "Thanks, Bryn. Just let me know if you need anything from our end to push this forward.",
+        "created_at": 1790094500,
+        "id": "c822e3840824-9",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Will do — I’ll send you a summary by end of day tomorrow and we can schedule a follow-up if needed.",
+        "created_at": 1790094507,
+        "id": "c822e3840824-10",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 11,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1790094420,
+  "id": "c822e3840824",
+  "source": {
+    "author": {
+      "email": "contact@a05.example",
+      "name": "Elwenna Elmtree",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "customer_comms"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

@@ -1,0 +1,151 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "routed_to_team"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Dovren Dovemere",
+          "type": "user"
+        },
+        "body": "Morning Bryn, we’ve got a couple of claims held up because the approver’s out and there’s no backup — the approval waiting list is piling up.",
+        "created_at": 1793175540,
+        "id": "b2f027d0ab08-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Dovren Dovemere",
+          "type": "user"
+        },
+        "body": "We’ve got claims stuck because the reserve change needs approval, and with the approver away and no delegate, the approval waiting list just grows — it’s not sustainable.",
+        "created_at": 1793175550,
+        "id": "b2f027d0ab08-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for flagging this, Dovren. I’ll log it as escalated so our team can look into how to handle the approval waiting list during absences.",
+        "created_at": 1793175561,
+        "id": "b2f027d0ab08-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: Customer reported approval waiting list blocking reserve updates; escalation logged under ticket #KW-2026-1028-A04.",
+        "created_at": 1793175571,
+        "id": "b2f027d0ab08-3",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Dovren Dovemere",
+          "type": "user"
+        },
+        "body": "Appreciate that — it’s been holding up payments and suppliers are starting to ask questions.",
+        "created_at": 1793175577,
+        "id": "b2f027d0ab08-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "I’ve noted your concern and will flag this for our escalation team to review promptly.",
+        "created_at": 1793175583,
+        "id": "b2f027d0ab08-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood. We’ll prioritise this — no one should be stuck waiting on an approval waiting list just because someone’s on leave.",
+        "created_at": 1793175589,
+        "id": "b2f027d0ab08-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Bryn has escalated this to the workflow design team — they’ll assess how to avoid claims stalling when approvers are out.",
+        "created_at": 1793175598,
+        "id": "b2f027d0ab08-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Dovren Dovemere",
+          "type": "user"
+        },
+        "body": "Exactly — it’s not just delays, it’s affecting policyholder trust too.",
+        "created_at": 1793175606,
+        "id": "b2f027d0ab08-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "I’ll make sure the team reviews roles and integrations to prevent this from recurring.",
+        "created_at": 1793175610,
+        "id": "b2f027d0ab08-9",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 10,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1793175540,
+  "id": "b2f027d0ab08",
+  "source": {
+    "author": {
+      "email": "contact@a04.example",
+      "name": "Dovren Dovemere",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "reserves_payments"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

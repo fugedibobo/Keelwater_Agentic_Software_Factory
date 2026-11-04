@@ -1,0 +1,127 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "assumed_resolution"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Mavren Cairnwick",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m Mavren from Merrow Vale Motor — I’m locked out of our claims portal and need to reset my password urgently.",
+        "created_at": 1792936020,
+        "id": "afdb41590f7e-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Mavren Cairnwick",
+          "type": "user"
+        },
+        "body": "I need to reset my password because I can’t access the claims dashboard anymore.",
+        "created_at": 1792936029,
+        "id": "afdb41590f7e-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Mavren. I’ll trigger a password reset link to your registered email right away.",
+        "created_at": 1792936034,
+        "id": "afdb41590f7e-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Mavren Cairnwick",
+          "type": "user"
+        },
+        "body": "That’s a relief — I’ve got a batch of supplier payments to process today and can’t afford delays.",
+        "created_at": 1792936041,
+        "id": "afdb41590f7e-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood — I’ve sent the reset link. You’ll also find a quick guide on managing roles and documents in your welcome pack.",
+        "created_at": 1792936048,
+        "id": "afdb41590f7e-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your request has been logged and will be reviewed by our support team within one business day.",
+        "created_at": 1792936057,
+        "id": "afdb41590f7e-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Mavren Cairnwick",
+          "type": "user"
+        },
+        "body": "Appreciate the fast help — I’ll check my inbox now and get those reserves updated by close of business.",
+        "created_at": 1792936064,
+        "id": "afdb41590f7e-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your request has been logged and will be reviewed by our support team within one business day.",
+        "created_at": 1792936072,
+        "id": "afdb41590f7e-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1792936020,
+  "id": "afdb41590f7e",
+  "source": {
+    "author": {
+      "email": "contact@a30.example",
+      "name": "Mavren Cairnwick",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "general"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

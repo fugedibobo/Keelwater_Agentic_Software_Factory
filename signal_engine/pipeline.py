@@ -37,7 +37,7 @@ HOOKS = {
     "run_start": ["signal_engine.evals.labels:import_human"],   # #7: loads labels/human/*.jsonl
     "after_cluster": ["signal_engine.evals.labels:apply"],      # #7
     "after_tag": ["signal_engine.evals.labels:apply"],          # #7
-    "tracing": ["signal_engine.phoenix_bridge:install"],        # #10: only with --phoenix; registers gateway.add_listener
+    "tracing": ["signal_engine.telemetry:install"],        # #10: only with --phoenix; registers gateway.add_listener
 }
 DEFAULT_AS_OF = "03/11/2026"
 

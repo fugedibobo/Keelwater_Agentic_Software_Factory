@@ -1,0 +1,124 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Farrin Mosswick",
+          "type": "user"
+        },
+        "body": "Hi Bryn, we’ve got a situation where a policyholder reported the same incident both over the phone and through the web portal, and it created two separate claims without any alert.",
+        "created_at": 1793445540,
+        "id": "9181b025dcf5-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: Customer reported a workflow gap where dual-channel intake causes claim duplication. Follow up with product team on warning UI.",
+        "created_at": 1793445552,
+        "id": "9181b025dcf5-1",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for flagging this, Farrin. I’ve noted the issue with duplicate loss report handling during intake — we’ll look into why the system didn’t prompt a merge or warn the user.",
+        "created_at": 1793445560,
+        "id": "9181b025dcf5-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Farrin Mosswick",
+          "type": "user"
+        },
+        "body": "We’re seeing a duplicate loss report scenario where the same incident comes in via phone and portal, creating two claims without any intake warning — we’ve even spotted disabled UI buttons that should allow linking but don’t work.",
+        "created_at": 1793445573,
+        "id": "9181b025dcf5-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Farrin Mosswick",
+          "type": "user"
+        },
+        "body": "Exactly. That’s the problem — no warning, no link option, just two claims.",
+        "created_at": 1793445588,
+        "id": "9181b025dcf5-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood. We’ll escalate this to our product team to review the intake workflow and ensure a duplicate loss report triggers a warning or merge suggestion.",
+        "created_at": 1793445593,
+        "id": "9181b025dcf5-5",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Farrin Mosswick",
+          "type": "user"
+        },
+        "body": "Appreciate it. We need this fixed before the year-end claims surge.",
+        "created_at": 1793445603,
+        "id": "9181b025dcf5-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Absolutely — I’ll personally track this and update you by end of day tomorrow.",
+        "created_at": 1793445608,
+        "id": "9181b025dcf5-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1793445540,
+  "id": "9181b025dcf5",
+  "source": {
+    "author": {
+      "email": "contact@a23.example",
+      "name": "Farrin Mosswick",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "fnol_intake"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

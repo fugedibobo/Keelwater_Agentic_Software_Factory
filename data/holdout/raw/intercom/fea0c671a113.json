@@ -1,0 +1,151 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "routed_to_team"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Glenmere",
+          "type": "user"
+        },
+        "body": "Hi Bryn, we’re getting complaints because our letters to joint policyholders only show one name — it’s causing confusion and we need this fixed.",
+        "created_at": 1793373360,
+        "id": "fea0c671a113-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Glenmere",
+          "type": "user"
+        },
+        "body": "We’re seeing a problem where letters sent to joint policyholders merge only one name — this synonym ‘multiple names on letters’ is critical because clients are complaining and it’s hurting our reputation.",
+        "created_at": 1793373369,
+        "id": "fea0c671a113-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for flagging this, Gellin. I’m noting it as a feature ask around multiple names on letters — we’ll escalate it to the team.",
+        "created_at": 1793373382,
+        "id": "fea0c671a113-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: This case is escalated due to severity 3 impact on client retention and compliance risk.",
+        "created_at": 1793373392,
+        "id": "fea0c671a113-3",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Glenmere",
+          "type": "user"
+        },
+        "body": "Appreciate it — we’re seeing a spike in complaints since last month’s batch, and it’s affecting our SLAs.",
+        "created_at": 1793373398,
+        "id": "fea0c671a113-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "I’ve logged your concern and escalated it to our product team for review.",
+        "created_at": 1793373406,
+        "id": "fea0c671a113-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood. I’ll personally track this with our product leads and keep you updated by end of day tomorrow.",
+        "created_at": 1793373411,
+        "id": "fea0c671a113-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Bryn, please flag this as high priority — joint policyholder name merging is causing client complaints and needs urgent patching.",
+        "created_at": 1793373418,
+        "id": "fea0c671a113-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Glenmere",
+          "type": "user"
+        },
+        "body": "Thanks, Bryn — that helps a lot.",
+        "created_at": 1793373426,
+        "id": "fea0c671a113-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your case has been escalated. You’ll receive a follow-up email within 24 hours with next steps.",
+        "created_at": 1793373429,
+        "id": "fea0c671a113-9",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 10,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1793373360,
+  "id": "fea0c671a113",
+  "source": {
+    "author": {
+      "email": "contact@a07.example",
+      "name": "Gellin Glenmere",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "customer_comms"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

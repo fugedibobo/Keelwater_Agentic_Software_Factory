@@ -2,6 +2,7 @@
 
 import argparse
 import json
+import jsonschema
 import logging
 import os
 import threading
@@ -33,6 +34,10 @@ class ReplayMiss(GatewayError):
 
 class BudgetExceeded(GatewayError):
     pass
+
+
+class InvalidResponse(GatewayError):
+    """Null, empty or unparseable model content: never cached, retried, then raised."""
 
 
 class Unavailable(GatewayError):
@@ -93,6 +98,7 @@ class Gateway:
         self._keys, self._client, self._http, self._sleep = keys, client, http, sleep
         self.spent, self.used_keys, self.swaps = 0.0, set(), {}
         self._lock = threading.Lock()
+        self._next_slot = {}  # stage -> earliest monotonic time of its next request (rpm pacing)
         if profile in ("aws", "self-hosted"):  # env overrides included: egress is allow-listed, never open
             host = urlparse(self.stage_cfg("extract")["base_url"]).hostname
             if host not in (vpc or config.load("vpc_endpoints"))["hosts"]:
@@ -138,15 +144,17 @@ class Gateway:
             sch = schema if isinstance(schema, dict) else strict_schema(schema)
             body["response_format"] = {"type": "json_schema", "json_schema": {"name": stage, "strict": True, "schema": sch}}
         if self._is_openrouter(stage):
-            body["provider"] = dict(PROVIDER)
+            body["provider"] = {**PROVIDER, "data_collection": c.get("data_collection", "deny")}  # per-stage override from models.yaml
             body["usage"] = {"include": True}
+            if c.get("reasoning") is not None:
+                body["reasoning"] = c["reasoning"]
         return body
 
     def embed_request(self, stage, texts, model=None):
         c = self.stage_cfg(stage)
         body = {"model": model or c["model"], "input": list(texts)}
         if self._is_openrouter(stage):
-            body["provider"] = dict(PROVIDER)
+            body["provider"] = {**PROVIDER, "data_collection": c.get("data_collection", "deny")}  # per-stage override from models.yaml
         return body
 
     def decide_request(self, stage, text, model=None):
@@ -161,7 +169,7 @@ class Gateway:
                          "criteria": ["Minor annoyance", "Slows the customer down", "Blocks part of their work", "Blocks the customer entirely"]},
             "signal_type": {"type": "choice", "instructions": "What kind of signal is it?", "criteria": {t.value: t.value.replace("_", " ") for t in SignalType}}}}
         if self._is_openrouter(stage):
-            body["provider"] = dict(PROVIDER)
+            body["provider"] = {**PROVIDER, "data_collection": c.get("data_collection", "deny")}  # per-stage override from models.yaml
         return body
 
     def probe_request(self, stage, model=None):
@@ -180,16 +188,26 @@ class Gateway:
     def _call(self, stage, kind, body, target_type, target_id, prompt_version=""):
         t0 = time.perf_counter()
         key, path = self._cache_path(stage, body)
-        cached = False
+        cached, raw = False, None
         if self.profile in ("replay", "demo") and path.is_file():
-            raw, cached = json.loads(path.read_text(encoding="utf-8"))["response"], True
+            try:
+                raw, cached = json.loads(path.read_text(encoding="utf-8"))["response"], True
+            except (ValueError, KeyError):  # half-written or corrupt file is a miss
+                raw = None
+        if raw is not None:
+            pass
         elif self.cache_only:
             raise ReplayMiss(f"replay cache miss: stage={stage} request_hash={key}")
         else:
-            raw = self._live(stage, kind, body, call_id_for(stage, sha256(canonical(body)), target_type, target_id))
+            raw = self._live_valid(stage, kind, body, call_id_for(stage, sha256(canonical(body)), target_type, target_id))
             if self.profile == "demo":  # aws and self-hosted data never goes to disk
                 path.parent.mkdir(parents=True, exist_ok=True)
-                path.write_text(json.dumps({"request": body, "response": raw}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+                tmp = path.with_name(f"{path.name}.{threading.get_ident()}.tmp")
+                tmp.write_text(json.dumps({"request": body, "response": raw}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+                try:
+                    os.replace(tmp, path)  # atomic: a reader never sees a partial file
+                except PermissionError:  # Windows: target is open by a reader; same key means same content, so keep it
+                    tmp.unlink(missing_ok=True)
         if self.profile in ("replay", "demo"):
             self.used_keys.add(f"{stage}/{key}")
         usage = raw.get("usage", {})
@@ -235,11 +253,31 @@ class Gateway:
         with ThreadPoolExecutor(max_workers=self.models.get("stage_defaults", {}).get("concurrency", 8)) as pool:
             return list(pool.map(fn, items))
 
+    def _live_valid(self, stage, kind, body, call_id):
+        attempts = self.stage_cfg(stage)["retries"] + 1
+        for i in range(attempts):
+            raw = self._live(stage, kind, body, call_id)
+            if kind != "chat":
+                return raw
+            try:
+                parsed = json.loads(raw.get("content") or "")
+                sch = (body.get("response_format") or {}).get("json_schema", {}).get("schema")
+                if sch is not None:
+                    jsonschema.validate(parsed, sch)  # a provider that ignores the schema is retried, not trusted
+                return raw
+            except (TypeError, ValueError, jsonschema.ValidationError):
+                with self._lock:  # a bad response is still billed
+                    self.spent += self._cost(stage, raw.get("usage", {}))
+                if i < attempts - 1:
+                    self._sleep(min(0.5 * 2 ** i, 8))
+        raise InvalidResponse(f"{stage} call returned null, empty or unparseable content after {attempts} attempts (last finish_reason={raw.get('finish_reason')})")
+
     # ---- live transport ------------------------------------------------------------------------------------
     def _live(self, stage, kind, body, call_id):
         c = self.stage_cfg(stage)
         attempts = c["retries"] + 1
         for i in range(attempts):
+            self._pace(stage, c)
             try:
                 if c.get("backend") == "clef":
                     return self._decide(c, body)
@@ -253,12 +291,23 @@ class Gateway:
                     continue
                 raise GatewayError(self.scrub(f"{stage} call failed: {type(e).__name__}: {e}")) from None
 
+    def _pace(self, stage, c):
+        """Spread a stage's requests evenly under its configured requests per minute (free-tier limit)."""
+        if not c.get("rpm"):
+            return
+        with self._lock:
+            now = time.monotonic()
+            slot = max(now, self._next_slot.get(stage, now))
+            self._next_slot[stage] = slot + 60 / c["rpm"]
+        if slot > now:
+            self._sleep(slot - now)
+
     def _openai(self, stage, c, kind, body, call_id):
         client = self._client or self._make_client(c)
-        extra = {k: body[k] for k in ("provider", "usage") if k in body}
+        extra = {k: body[k] for k in ("provider", "usage", "reasoning") if k in body}
         if self.cfg.get("request_metadata"):
             extra["requestMetadata"] = {"call_id": call_id}
-        kwargs = {k: v for k, v in body.items() if k not in ("provider", "usage")}
+        kwargs = {k: v for k, v in body.items() if k not in ("provider", "usage", "reasoning")}
         if kind == "embed":
             r = client.embeddings.create(**kwargs, extra_body=extra, timeout=c["timeout_s"]).model_dump()
             u = r.get("usage") or {}
@@ -266,7 +315,7 @@ class Gateway:
                     "usage": {"tokens_in": u.get("prompt_tokens", 0), "tokens_out": 0, "cost_usd": u.get("cost")}}
         r = client.chat.completions.create(**kwargs, extra_body=extra, timeout=c["timeout_s"]).model_dump()
         u = r.get("usage") or {}
-        return {"content": r["choices"][0]["message"]["content"],
+        return {"content": r["choices"][0]["message"]["content"], "finish_reason": r["choices"][0].get("finish_reason"),
                 "usage": {"tokens_in": u.get("prompt_tokens", 0), "tokens_out": u.get("completion_tokens", 0), "cost_usd": u.get("cost")}}
 
     def _make_client(self, c):

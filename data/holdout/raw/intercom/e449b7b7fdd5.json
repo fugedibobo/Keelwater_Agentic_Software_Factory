@@ -1,0 +1,127 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "assumed_resolution"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Isleford",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m trying to pull the latest reserves report for Brackwater Homecover but the system’s throwing an error when I filter by supplier payments.",
+        "created_at": 1791896040,
+        "id": "e449b7b7fdd5-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "I’ll check the integrations and roles permissions for your account A09 — could you confirm if you’re also having trouble accessing policyholder letters?",
+        "created_at": 1791896050,
+        "id": "e449b7b7fdd5-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Isleford",
+          "type": "user"
+        },
+        "body": "I need to reset my password because I’m locked out of the claims dashboard and can’t access policyholder documents.",
+        "created_at": 1791896059,
+        "id": "e449b7b7fdd5-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Isleford",
+          "type": "user"
+        },
+        "body": "Yes, the letters tab is greyed out too, and I can’t assign new tasks to my team since the roles aren’t syncing properly.",
+        "created_at": 1791896066,
+        "id": "e449b7b7fdd5-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Got it — I’ve fixed the roles sync and re-enabled the letters module. You should now be able to view documents and assign tasks without issue.",
+        "created_at": 1791896076,
+        "id": "e449b7b7fdd5-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your request has been processed and the system reflects the updated reserves and supplier payments as of today.",
+        "created_at": 1791896086,
+        "id": "e449b7b7fdd5-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Isleford",
+          "type": "user"
+        },
+        "body": "That’s sorted now, thanks Bryn. The reporting and payments are all showing correctly after the update.",
+        "created_at": 1791896093,
+        "id": "e449b7b7fdd5-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your request has been processed and the system reflects the updated reserves and supplier payments as of today.",
+        "created_at": 1791896100,
+        "id": "e449b7b7fdd5-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1791896040,
+  "id": "e449b7b7fdd5",
+  "source": {
+    "author": {
+      "email": "contact@a09.example",
+      "name": "Ilyra Isleford",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "reserves_payments"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

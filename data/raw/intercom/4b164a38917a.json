@@ -1,0 +1,124 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Elwenna Larchvale",
+          "type": "user"
+        },
+        "body": "Hi Bryn, we’re getting locked out of Keelwater every time we try to log in — it keeps saying the system is down, but I’m pretty sure it’s not actually your side.",
+        "created_at": 1791563400,
+        "id": "4b164a38917a-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Elwenna Larchvale",
+          "type": "user"
+        },
+        "body": "We keep getting error messages that say Keelwater is down, but I think it’s actually our own customer network failure — maybe the sign-on provider or our corporate VPN is interfering with the login flow.",
+        "created_at": 1791563412,
+        "id": "4b164a38917a-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: customer reported access issues; confirmed it's not a Keelwater outage but likely their sign-on provider or network configuration. Escalated to network liaison for follow-up.",
+        "created_at": 1791563426,
+        "id": "4b164a38917a-2",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Elwenna. I’ll check the status on our end right away — sometimes these ‘down’ messages come from your own sign-on service or network setup, not our product.",
+        "created_at": 1791563437,
+        "id": "4b164a38917a-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Elwenna Larchvale",
+          "type": "user"
+        },
+        "body": "That makes sense — we’ve had issues before with our VPN and the SSO provider. I’ll try bypassing them and get back to you.",
+        "created_at": 1791563449,
+        "id": "4b164a38917a-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Appreciate you troubleshooting that, Elwenna. If it still fails, let me know — we can walk through the supplier integrations or check your roles and tasks permissions together.",
+        "created_at": 1791563459,
+        "id": "4b164a38917a-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Elwenna Larchvale",
+          "type": "user"
+        },
+        "body": "Got it working! Must’ve been the VPN. Thanks for the quick help — you saved me from a whole afternoon of claims reporting delays.",
+        "created_at": 1791563470,
+        "id": "4b164a38917a-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Glad to hear it’s resolved! Let us know if you need help with documents, reserves, or supplier payments next time — we’re here to keep your policyholders’ claims moving smoothly.",
+        "created_at": 1791563480,
+        "id": "4b164a38917a-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1791563400,
+  "id": "4b164a38917a",
+  "source": {
+    "author": {
+      "email": "contact@a22.example",
+      "name": "Elwenna Larchvale",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "documents_evidence"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

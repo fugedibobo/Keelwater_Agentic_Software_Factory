@@ -1,0 +1,118 @@
+{
+  "date": 1789574520000,
+  "duration": 1.4,
+  "host_email": "carys.fenwick@keelwater.example",
+  "id": "7142e5eb4b2c",
+  "meeting_attendees": [
+    {
+      "displayName": "Carys Fenwick",
+      "email": "carys.fenwick@keelwater.example",
+      "name": "Carys Fenwick"
+    },
+    {
+      "displayName": "Gellin Nethervale",
+      "email": "contact@a24.example",
+      "name": "Gellin Nethervale"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 18.0,
+      "index": 0,
+      "raw_text": "Hi Carys, I’m setting up our new claims team and I’m stuck — I can’t just copy the permissions from our existing role, so I’m having to click through every box for each person. It’s exhausting and I’m terrified I’ll lock someone out by accident.",
+      "speaker_id": "customer",
+      "speaker_name": "Gellin Nethervale",
+      "start_time": 0.0,
+      "text": "Hi Carys, I’m setting up our new claims team and I’m stuck — I can’t just copy the permissions from our existing role, so I’m having to click through every box for each person. It’s exhausting and I’m terrified I’ll lock someone out by accident."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 36.8,
+      "index": 1,
+      "raw_text": "I’m stuck because I can’t just copy the permissions from our existing role — I’m having to click through every box for each person, and I’m terrified I’ll lock someone out by accident. We really need to copy access roles, not rebuild them from scratch every time.",
+      "speaker_id": "customer",
+      "speaker_name": "Gellin Nethervale",
+      "start_time": 18.0,
+      "text": "I’m stuck because I can’t just copy the permissions from our existing role — I’m having to click through every box for each person, and I’m terrified I’ll lock someone out by accident. We really need to copy access roles, not rebuild them from scratch every time."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 50.0,
+      "index": 2,
+      "raw_text": "I hear you, Gellin. Right now, we don’t have a way to duplicate roles — each new user needs permissions selected manually. I’ll flag this as a pain point for our product team.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 36.8,
+      "text": "I hear you, Gellin. Right now, we don’t have a way to duplicate roles — each new user needs permissions selected manually. I’ll flag this as a pain point for our product team."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 57.6,
+      "index": 3,
+      "raw_text": "That’s exactly what I’m saying — we need to copy access roles, not rebuild them from scratch every time.",
+      "speaker_id": "customer",
+      "speaker_name": "Gellin Nethervale",
+      "start_time": 50.0,
+      "text": "That’s exactly what I’m saying — we need to copy access roles, not rebuild them from scratch every time."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": true
+      },
+      "end_time": 67.6,
+      "index": 4,
+      "raw_text": "Totally understand — it’s a common frustration. I’ll log this with our engineering team and follow up once we have a timeline for a fix.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 57.6,
+      "text": "Totally understand — it’s a common frustration. I’ll log this with our engineering team and follow up once we have a timeline for a fix."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 73.2,
+      "index": 5,
+      "raw_text": "Thanks, Carys. I’ll hold off on adding more users until you let me know.",
+      "speaker_id": "customer",
+      "speaker_name": "Gellin Nethervale",
+      "start_time": 67.6,
+      "text": "Thanks, Carys. I’ll hold off on adding more users until you let me know."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 84.0,
+      "index": 6,
+      "raw_text": "You’re welcome — I’ll circle back as soon as I have news. In the meantime, let me know if you need help setting up any individual permissions.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 73.2,
+      "text": "You’re welcome — I’ll circle back as soon as I have news. In the meantime, let me know if you need help setting up any individual permissions."
+    }
+  ]
+}

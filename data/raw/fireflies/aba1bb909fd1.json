@@ -1,0 +1,160 @@
+{
+  "date": 1789033260000,
+  "duration": 1.4133333333333333,
+  "host_email": "carys.fenwick@keelwater.example",
+  "id": "aba1bb909fd1",
+  "meeting_attendees": [
+    {
+      "displayName": "Carys Fenwick",
+      "email": "carys.fenwick@keelwater.example",
+      "name": "Carys Fenwick"
+    },
+    {
+      "displayName": "Celdra Cairnwick",
+      "email": "contact@a03.example",
+      "name": "Celdra Cairnwick"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 10.0,
+      "index": 0,
+      "raw_text": "Hi Carys, just wanted to flag a few things we’ve run into since going live — nothing critical, but they’re slowing us down a bit.",
+      "speaker_id": "customer",
+      "speaker_name": "Celdra Cairnwick",
+      "start_time": 0.0,
+      "text": "Hi Carys, just wanted to flag a few things we’ve run into since going live — nothing critical, but they’re slowing us down a bit."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 17.2,
+      "index": 1,
+      "raw_text": "You folks at Keelwater really know how to make onboarding smooth and responsive, even when things get tricky.",
+      "speaker_id": "customer",
+      "speaker_name": "Celdra Cairnwick",
+      "start_time": 10.0,
+      "text": "You folks at Keelwater really know how to make onboarding smooth and responsive, even when things get tricky."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 22.8,
+      "index": 2,
+      "raw_text": "Thanks for reaching out, Celdra. I’m here to help — what’s on your mind?",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 17.2,
+      "text": "Thanks for reaching out, Celdra. I’m here to help — what’s on your mind?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 32.0,
+      "index": 3,
+      "raw_text": "First, our team keeps getting locked out with ‘Keelwater is down’ messages — but it’s actually our customer network failure, not your system.",
+      "speaker_id": "customer",
+      "speaker_name": "Celdra Cairnwick",
+      "start_time": 22.8,
+      "text": "First, our team keeps getting locked out with ‘Keelwater is down’ messages — but it’s actually our customer network failure, not your system."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 41.2,
+      "index": 4,
+      "raw_text": "First, our team keeps getting locked out with ‘Keelwater is down’ messages — but it’s actually our customer network failure, not your system.",
+      "speaker_id": "customer",
+      "speaker_name": "Celdra Cairnwick",
+      "start_time": 32.0,
+      "text": "First, our team keeps getting locked out with ‘Keelwater is down’ messages — but it’s actually our customer network failure, not your system."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 50.0,
+      "index": 5,
+      "raw_text": "Also, when we upload garage estimates, they land under Correspondence — that incorrect file type is causing handlers to manually re-categorise everything.",
+      "speaker_id": "customer",
+      "speaker_name": "Celdra Cairnwick",
+      "start_time": 41.2,
+      "text": "Also, when we upload garage estimates, they land under Correspondence — that incorrect file type is causing handlers to manually re-categorise everything."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 58.8,
+      "index": 6,
+      "raw_text": "Also, when we upload garage estimates, they land under Correspondence — that incorrect file type is causing handlers to manually re-categorise everything.",
+      "speaker_id": "customer",
+      "speaker_name": "Celdra Cairnwick",
+      "start_time": 50.0,
+      "text": "Also, when we upload garage estimates, they land under Correspondence — that incorrect file type is causing handlers to manually re-categorise everything."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 68.0,
+      "index": 7,
+      "raw_text": "And lastly, we noticed the Claims Tasks panel moved without warning — those unexpected interface changes forced us to retrain staff last week.",
+      "speaker_id": "customer",
+      "speaker_name": "Celdra Cairnwick",
+      "start_time": 58.8,
+      "text": "And lastly, we noticed the Claims Tasks panel moved without warning — those unexpected interface changes forced us to retrain staff last week."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 77.2,
+      "index": 8,
+      "raw_text": "And lastly, we noticed the Claims Tasks panel moved without warning — those unexpected interface changes forced us to retrain staff last week.",
+      "speaker_id": "customer",
+      "speaker_name": "Celdra Cairnwick",
+      "start_time": 68.0,
+      "text": "And lastly, we noticed the Claims Tasks panel moved without warning — those unexpected interface changes forced us to retrain staff last week."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 84.8,
+      "index": 9,
+      "raw_text": "Got it — I’ll log all three and loop in the product team. Thanks for the detailed feedback, Celdra.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 77.2,
+      "text": "Got it — I’ll log all three and loop in the product team. Thanks for the detailed feedback, Celdra."
+    }
+  ]
+}

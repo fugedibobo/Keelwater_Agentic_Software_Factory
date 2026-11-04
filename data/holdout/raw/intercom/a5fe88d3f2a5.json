@@ -1,0 +1,127 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "assumed_resolution"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Dovren Keldmere",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m trying to reconcile the latest supplier payment against our claims reserves and I’m not sure if I’m updating the figures correctly.",
+        "created_at": 1791386400,
+        "id": "a5fe88d3f2a5-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Dovren. You’ll want to navigate to the payments tab, confirm the transaction ID matches the supplier invoice, then adjust the reserves in the same record to reflect the settled amount.",
+        "created_at": 1791386409,
+        "id": "a5fe88d3f2a5-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Dovren Keldmere",
+          "type": "user"
+        },
+        "body": "Can you walk me through how to update the reserves section after a supplier payment has been confirmed?",
+        "created_at": 1791386423,
+        "id": "a5fe88d3f2a5-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Dovren Keldmere",
+          "type": "user"
+        },
+        "body": "That makes sense — I’ll go through the steps now and let you know if I hit any snags.",
+        "created_at": 1791386430,
+        "id": "a5fe88d3f2a5-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Sounds good. If you need to generate a report after updating, use the reporting module — it’ll auto-populate with your latest reserve changes.",
+        "created_at": 1791386438,
+        "id": "a5fe88d3f2a5-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your query has been resolved and a summary has been emailed to your registered address for your records.",
+        "created_at": 1791386447,
+        "id": "a5fe88d3f2a5-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your query has been resolved and a summary has been emailed to your registered address for your records.",
+        "created_at": 1791386454,
+        "id": "a5fe88d3f2a5-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Dovren Keldmere",
+          "type": "user"
+        },
+        "body": "Appreciate the quick help — everything’s sorted now.",
+        "created_at": 1791386461,
+        "id": "a5fe88d3f2a5-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1791386400,
+  "id": "a5fe88d3f2a5",
+  "source": {
+    "author": {
+      "email": "contact@a21.example",
+      "name": "Dovren Keldmere",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "reserves_payments"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

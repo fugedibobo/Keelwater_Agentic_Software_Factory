@@ -1,0 +1,48 @@
+{
+ "request": {
+  "model": "qwen/qwen3-vl-235b-a22b-instruct",
+  "messages": [
+   {
+    "role": "user",
+    "content": "Write one short realistic description for this fictional claims software item. Use no company, person or product name except Keelwater. Return JSON.\n{\"key\": \"story:4128\", \"name\": \"Claim search refinements\", \"source\": \"shortcut\", \"status\": \"completed\"}\nVersion 0\n"
+   }
+  ],
+  "temperature": 0.8,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "generate",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "description"
+     ],
+     "properties": {
+      "description": {
+       "type": "string"
+      }
+     }
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "allow",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"description\": \"Keelwater now allows users to filter claims by date range, status, and claim type, making it easier to locate specific claims without scrolling through unrelated entries.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 72,
+   "tokens_out": 40,
+   "cost_usd": 8.76e-05
+  }
+ }
+}

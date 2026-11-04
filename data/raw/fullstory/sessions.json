@@ -1,0 +1,242 @@
+[
+  {
+    "createdTime": "2026-09-03T12:51:00Z",
+    "fsUrl": "https://app.fullstory.example/s/18746333fb9e",
+    "sessionId": "18746333fb9e",
+    "userId": "contact@a01.example"
+  },
+  {
+    "createdTime": "2026-09-23T09:05:00Z",
+    "fsUrl": "https://app.fullstory.example/s/be4b61f0b709",
+    "sessionId": "be4b61f0b709",
+    "userId": "contact@a02.example"
+  },
+  {
+    "createdTime": "2026-09-05T14:45:00Z",
+    "fsUrl": "https://app.fullstory.example/s/28cb776380c8",
+    "sessionId": "28cb776380c8",
+    "userId": "contact@a05.example"
+  },
+  {
+    "createdTime": "2026-09-24T14:20:00Z",
+    "fsUrl": "https://app.fullstory.example/s/07a3616120bf",
+    "sessionId": "07a3616120bf",
+    "userId": "contact@a06.example"
+  },
+  {
+    "createdTime": "2026-09-04T09:00:00Z",
+    "fsUrl": "https://app.fullstory.example/s/ae55504ff9e4",
+    "sessionId": "ae55504ff9e4",
+    "userId": "contact@a11.example"
+  },
+  {
+    "createdTime": "2026-09-15T13:48:00Z",
+    "fsUrl": "https://app.fullstory.example/s/21b3180e346f",
+    "sessionId": "21b3180e346f",
+    "userId": "contact@a16.example"
+  },
+  {
+    "createdTime": "2026-09-04T10:05:00Z",
+    "fsUrl": "https://app.fullstory.example/s/7034b34f31cf",
+    "sessionId": "7034b34f31cf",
+    "userId": "contact@a16.example"
+  },
+  {
+    "createdTime": "2026-09-14T15:35:00Z",
+    "fsUrl": "https://app.fullstory.example/s/28f7cfba86d2",
+    "sessionId": "28f7cfba86d2",
+    "userId": "contact@a18.example"
+  },
+  {
+    "createdTime": "2026-09-04T08:05:00Z",
+    "fsUrl": "https://app.fullstory.example/s/7a9248c6ffc9",
+    "sessionId": "7a9248c6ffc9",
+    "userId": "contact@a19.example"
+  },
+  {
+    "createdTime": "2026-09-18T09:38:00Z",
+    "fsUrl": "https://app.fullstory.example/s/3696e3036e7b",
+    "sessionId": "3696e3036e7b",
+    "userId": "contact@a19.example"
+  },
+  {
+    "createdTime": "2026-09-28T14:00:00Z",
+    "fsUrl": "https://app.fullstory.example/s/53dcbe8bbf07",
+    "sessionId": "53dcbe8bbf07",
+    "userId": "contact@a20.example"
+  },
+  {
+    "createdTime": "2026-09-13T09:46:00Z",
+    "fsUrl": "https://app.fullstory.example/s/8a33b4a139a4",
+    "sessionId": "8a33b4a139a4",
+    "userId": "contact@a10.example"
+  },
+  {
+    "createdTime": "2026-10-22T16:10:00Z",
+    "fsUrl": "https://app.fullstory.example/s/2a052342fdec",
+    "sessionId": "2a052342fdec",
+    "userId": "contact@a29.example"
+  },
+  {
+    "createdTime": "2026-09-06T10:17:00Z",
+    "fsUrl": "https://app.fullstory.example/s/6d51bd8f0a83",
+    "sessionId": "6d51bd8f0a83",
+    "userId": "contact@a22.example"
+  },
+  {
+    "createdTime": "2026-09-16T10:04:00Z",
+    "fsUrl": "https://app.fullstory.example/s/c7f1b7cb4408",
+    "sessionId": "c7f1b7cb4408",
+    "userId": "contact@a10.example"
+  },
+  {
+    "createdTime": "2026-09-09T14:19:00Z",
+    "fsUrl": "https://app.fullstory.example/s/c72e2b8d9f69",
+    "sessionId": "c72e2b8d9f69",
+    "userId": "contact@a06.example"
+  },
+  {
+    "createdTime": "2026-10-15T12:15:00Z",
+    "fsUrl": "https://app.fullstory.example/s/d30a37086649",
+    "sessionId": "d30a37086649",
+    "userId": "contact@a16.example"
+  },
+  {
+    "createdTime": "2026-09-20T11:29:00Z",
+    "fsUrl": "https://app.fullstory.example/s/6ee85cb04b73",
+    "sessionId": "6ee85cb04b73",
+    "userId": "contact@a24.example"
+  },
+  {
+    "createdTime": "2026-10-13T08:25:00Z",
+    "fsUrl": "https://app.fullstory.example/s/91993cb91513",
+    "sessionId": "91993cb91513",
+    "userId": "contact@a04.example"
+  },
+  {
+    "createdTime": "2026-09-26T13:28:00Z",
+    "fsUrl": "https://app.fullstory.example/s/20bec9b24b49",
+    "sessionId": "20bec9b24b49",
+    "userId": "contact@a11.example"
+  },
+  {
+    "createdTime": "2026-09-27T10:19:00Z",
+    "fsUrl": "https://app.fullstory.example/s/c9f31cf9e6f1",
+    "sessionId": "c9f31cf9e6f1",
+    "userId": "contact@a11.example"
+  },
+  {
+    "createdTime": "2026-10-19T13:11:00Z",
+    "fsUrl": "https://app.fullstory.example/s/55ed6894b6f9",
+    "sessionId": "55ed6894b6f9",
+    "userId": "contact@a11.example"
+  },
+  {
+    "createdTime": "2026-09-10T15:36:00Z",
+    "fsUrl": "https://app.fullstory.example/s/7b28fe1a29ac",
+    "sessionId": "7b28fe1a29ac",
+    "userId": "contact@a13.example"
+  },
+  {
+    "createdTime": "2026-10-14T14:17:00Z",
+    "fsUrl": "https://app.fullstory.example/s/b921757d0f58",
+    "sessionId": "b921757d0f58",
+    "userId": "contact@a26.example"
+  },
+  {
+    "createdTime": "2026-09-12T09:59:00Z",
+    "fsUrl": "https://app.fullstory.example/s/c37d1a358a2a",
+    "sessionId": "c37d1a358a2a",
+    "userId": "contact@a27.example"
+  },
+  {
+    "createdTime": "2026-10-22T16:11:00Z",
+    "fsUrl": "https://app.fullstory.example/s/1e281b941913",
+    "sessionId": "1e281b941913",
+    "userId": "contact@a19.example"
+  },
+  {
+    "createdTime": "2026-10-27T15:45:00Z",
+    "fsUrl": "https://app.fullstory.example/s/86e1ff1c1ffd",
+    "sessionId": "86e1ff1c1ffd",
+    "userId": "contact@a22.example"
+  },
+  {
+    "createdTime": "2026-09-26T12:53:00Z",
+    "fsUrl": "https://app.fullstory.example/s/9dc97322ca3b",
+    "sessionId": "9dc97322ca3b",
+    "userId": "contact@a07.example"
+  },
+  {
+    "createdTime": "2026-10-30T14:43:00Z",
+    "fsUrl": "https://app.fullstory.example/s/925a6f4fae52",
+    "sessionId": "925a6f4fae52",
+    "userId": "contact@a23.example"
+  },
+  {
+    "createdTime": "2026-10-24T12:15:00Z",
+    "fsUrl": "https://app.fullstory.example/s/2b03b6fd5675",
+    "sessionId": "2b03b6fd5675",
+    "userId": "contact@a16.example"
+  },
+  {
+    "createdTime": "2026-10-26T14:50:00Z",
+    "fsUrl": "https://app.fullstory.example/s/2a495e477a40",
+    "sessionId": "2a495e477a40",
+    "userId": "contact@a09.example"
+  },
+  {
+    "createdTime": "2026-10-18T15:37:00Z",
+    "fsUrl": "https://app.fullstory.example/s/962c2cf8e156",
+    "sessionId": "962c2cf8e156",
+    "userId": "contact@a13.example"
+  },
+  {
+    "createdTime": "2026-09-18T08:50:00Z",
+    "fsUrl": "https://app.fullstory.example/s/31357f523ce2",
+    "sessionId": "31357f523ce2",
+    "userId": "contact@a13.example"
+  },
+  {
+    "createdTime": "2026-10-07T11:42:00Z",
+    "fsUrl": "https://app.fullstory.example/s/1bb377575158",
+    "sessionId": "1bb377575158",
+    "userId": "contact@a12.example"
+  },
+  {
+    "createdTime": "2026-09-06T08:36:00Z",
+    "fsUrl": "https://app.fullstory.example/s/50cf44b947d9",
+    "sessionId": "50cf44b947d9",
+    "userId": "contact@a22.example"
+  },
+  {
+    "createdTime": "2026-09-25T13:50:00Z",
+    "fsUrl": "https://app.fullstory.example/s/dc4fd350ee76",
+    "sessionId": "dc4fd350ee76",
+    "userId": "contact@a21.example"
+  },
+  {
+    "createdTime": "2026-10-04T09:16:00Z",
+    "fsUrl": "https://app.fullstory.example/s/26f951eba91c",
+    "sessionId": "26f951eba91c",
+    "userId": "contact@a14.example"
+  },
+  {
+    "createdTime": "2026-10-18T13:25:00Z",
+    "fsUrl": "https://app.fullstory.example/s/d1f3e6a5e61f",
+    "sessionId": "d1f3e6a5e61f",
+    "userId": "contact@a08.example"
+  },
+  {
+    "createdTime": "2026-10-15T08:30:00Z",
+    "fsUrl": "https://app.fullstory.example/s/d0484db63333",
+    "sessionId": "d0484db63333",
+    "userId": "contact@a15.example"
+  },
+  {
+    "createdTime": "2026-09-14T09:07:00Z",
+    "fsUrl": "https://app.fullstory.example/s/988ee6efcb26",
+    "sessionId": "988ee6efcb26",
+    "userId": "contact@a04.example"
+  }
+]

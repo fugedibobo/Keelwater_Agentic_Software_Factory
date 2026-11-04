@@ -4,7 +4,7 @@ Status: planned, build day 03/11/2026, revised after review round 1. Author: And
 
 ## 1. What we are building and why
 
-Keelwater's engineers already generate most code with AI, and a platform team is building the engineering factory (coding agents, guardrails, evals). When build effort approaches zero, the constraints move to either side of the build: deciding what to build (left) and getting what was built adopted by regulated customers (right). This repo designs and demos the **product lifecycle layer** that sits around the engineering factory, and builds one working piece of it end to end: the **Signal Engine**, which turns raw customer feedback into ranked, evidence-backed opportunities that a PM can accept in one click.
+Keelwater's engineers already generate most code with AI, and a platform team is building the engineering factory (coding agents, guardrails, evals). The factory is a delegation meta-harness: signal in, it orchestrates people and sub-harnesses (the platform team's coding harness, Codex, a hosted or open-weight model) and passes the human gates; [docs/delegation.md](delegation.md) is its operating rules, and owning the coding harness is not required. When build effort approaches zero, the constraints move to either side of the build: deciding what to build (left) and getting what was built adopted by regulated customers (right). This repo designs and demos the **product lifecycle layer** that sits around the engineering factory, and builds one working piece of it end to end: the **Signal Engine**, which turns raw customer feedback into ranked, evidence-backed opportunities that a PM can accept in one click.
 
 Scope of the demo (Part 2 of the task):
 
@@ -183,7 +183,7 @@ One client (the `openai` Python SDK) with a configurable base URL serves every s
 | Cluster labels | `qwen/qwen3-next-80b-a3b-instruct` | `qwen.qwen3-next-80b-a3b` | same weights | short labels |
 | Brief | `deepseek/deepseek-v3.2` | `deepseek.v3.2` | same weights | only the top 10 reach it |
 | Judges | `z-ai/glm-5` | `zai.glm-5` | same weights | a different family from the brief writer and the extractor |
-| Synthetic data | `mistralai/mistral-large-4-0` | n/a | n/a | a third family, so no judge grades text its own family wrote |
+| Synthetic data | `qwen/qwen3-vl-235b-a22b-instruct` (fallback `deepseek/deepseek-v4.1-flash`, reasoning off) | n/a | n/a | a family no judge belongs to, so no judge grades text its own family wrote; data_collection allowed for this stage only |
 
 Model facts (docs/research/model-options-and-prices.md, checked 02/11/2026):
 - **Demo ids.** `openai/gpt-oss-120b` and `qwen/qwen3-embedding-8b` are FOUND on OpenRouter. The qwen3-next, deepseek-v3.2 and glm-5 OpenRouter ids are INFERRED. `keelwater probe` checks each id with its real parameters; on a miss it falls back to the 02/11 research id (`qwen/qwen3.6-35b-a3b`, `deepseek/deepseek-v4-pro-0813`, `z-ai/glm-5.3`) and records the swap in the run manifest.
@@ -302,7 +302,8 @@ Opportunity status machine: `new -> proposed -> accepted | merged | rejected | p
 ## 10. What is deliberately out of scope for the build
 
 - Live connectors and write-back to Notion, Shortcut, Slack, Intercom.
-- Mockup and prototype generation from intent documents (designers' AI prototyping already covers this).
+- Mockup generation from intent documents (designed in Part 1: generated in Define on the real design-system components, signed off by the designer within the Trio gate; customer quotes and session-recording moments feed designers directly).
+- The shared agent skill library (versioned, evaluated, owned by product ops, squads add their own) and the metric dictionary beyond v0 (product ops owns a v0 of about 10 lifecycle metrics in the first 60 days; the warehouse and the rest come later with data engineering).
 - Enablement video generation and the sales "pull" agent (designed in Part 1).
 - The cluster-coherence judge and Phoenix experiments (designed in docs/evals.md).
 - Multi-tenant access control and SSO.

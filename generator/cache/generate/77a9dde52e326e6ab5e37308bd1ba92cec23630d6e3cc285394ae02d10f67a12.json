@@ -1,0 +1,136 @@
+{
+ "request": {
+  "model": "qwen/qwen3-vl-235b-a22b-instruct",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nWrite one realistic intercom record for Keelwater, a UK claims-handling software company.\n</role>\n<record>\n{\"customer\": {\"account\": \"A21\", \"company\": \"Brantwick Commercial\", \"email\": \"contact@a21.example\", \"name\": \"Dovren Keldmere\"}, \"date\": \"2026-10-07T15:20:00Z\", \"fin_mode\": \"resolved\", \"glossary\": [\"claims\", \"documents\", \"reserves\", \"payments\", \"suppliers\", \"reporting\", \"roles\", \"integrations\", \"tasks\", \"letters\", \"policyholders\"], \"never_write_verbatim\": [], \"only_people_who_may_be_named\": [\"Brantwick Commercial\", \"Dovren Keldmere\", \"Bryn Telford\"], \"route\": \"support\", \"source\": \"intercom\", \"staff\": {\"email\": \"bryn.telford@keelwater.example\", \"name\": \"Bryn Telford\", \"team\": \"support\"}, \"turns_range\": null}\n</record>\n<mentions>\n[]\n</mentions>\n<noise>\n{\"admin_note\": false, \"allowed_categories\": [\"pleasantry\", \"scheduling\", \"pricing\", \"internal\", \"password_reset\", \"how_to\", \"praise\", \"closer\"], \"distractor_how_to_phrase\": null, \"instructions\": \"Tag every noise turn with its category. Put the distractor phrase, if given, in a how-to turn with no mention id. An admin note must be an internal turn tagged internal. A Fin-resolved or escalated conversation needs a bot turn; an escalated one also needs an internal reply. About 35 percent of customer turns are pleasantries. Every tagged customer mention, including a short agreement, must contain its supplied synonym.\", \"required_categories\": [\"how_to\"]}\n</noise>\n<rules>\nCustomers speak like claims staff. Do not use headings or bullets in speech. Use only the names in the record brief; never name a real company, product or person. Mention no feature outside the supplied glossary. Express the supplied facts in the speaker's own words. Tag each turn with its noise category or null. Do not put the planted mentions in `turns`: write each one, in the customer's own words and at least twelve words long, under `mentions[<mention id>].text`, containing that mention's `synonym` exactly as written (a mention whose form is a short agreement is different: write the internal speaker's turn stating the problem, at least twelve words and containing the synonym exactly as written, under `internal_text`, and the customer's reply of under eight words under `agreement_text`), and set after_turn to the index of the turn it should follow. The `turns` conversation is the rest of the record. Do not put the turns listed under `extras` in `turns`: write each one once under `extras[<key>].text` (at least twenty characters, containing the exact phrase where one is given), and set after_turn to the index of the turn it should follow. Name only the people in only_people_who_may_be_named. When fin_mode is resolved or escalated, at least one turn must have speaker bot; when it is escalated, at least one turn must have speaker internal; when it is human, no turn has speaker bot. Never write any phrase listed in never_write_verbatim, including the supplied facts: paraphrase them.\n</rules>\n<output>\nReturn JSON matching the supplied source schema.\n{\"extras\": {\"bot_turn\": \"a bot turn, noise_category None\", \"noise_how_to\": \"a customer turn, noise_category 'how_to'\"}, \"mentions\": {}, \"turns\": [{\"noise_category\": \"string or null\", \"speaker\": \"customer|internal|bot\", \"text\": \"string\"}]}\n</output>\n"
+   }
+  ],
+  "temperature": 0.8,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "generate",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "turns",
+      "mentions",
+      "extras"
+     ],
+     "properties": {
+      "extras": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [
+        "bot_turn",
+        "noise_how_to"
+       ],
+       "properties": {
+        "bot_turn": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 20
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        },
+        "noise_how_to": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 20
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        }
+       }
+      },
+      "turns": {
+       "type": "array",
+       "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+         "speaker",
+         "text",
+         "noise_category"
+        ],
+        "properties": {
+         "speaker": {
+          "type": "string",
+          "enum": [
+           "customer",
+           "internal",
+           "bot"
+          ]
+         },
+         "text": {
+          "type": "string"
+         },
+         "noise_category": {
+          "enum": [
+           "pleasantry",
+           "scheduling",
+           "pricing",
+           "internal",
+           "password_reset",
+           "how_to",
+           "praise",
+           "closer",
+           null
+          ]
+         }
+        }
+       },
+       "minItems": 6
+      },
+      "mentions": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [],
+       "properties": {}
+      }
+     }
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "allow",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"extras\": {\n    \"bot_turn\": {\n      \"text\": \"Your request has been successfully processed and closed in our system.\",\n      \"after_turn\": 3\n    },\n    \"noise_how_to\": {\n      \"text\": \"Can you walk me through how to assign roles to new team members in the claims module?\",\n      \"after_turn\": 1\n    }\n  },\n  \"turns\": [\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Hi Bryn, I’m trying to set up a new user for our claims team and need to assign them specific roles — could you help?\",\n      \"noise_category\": \"how_to\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Sure, Dovren. You’ll find the roles section under the admin panel in the claims module — just select the user and assign permissions based on their function.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Got it — I’ll give that a go and let you know if I hit any snags. Thanks for the quick reply.\",\n      \"noise_category\": \"pleasantry\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"You’re welcome. Don’t hesitate to reach back out if anything’s unclear — we’re here to help.\",\n      \"noise_category\": \"pleasantry\"\n    }\n  ,\n  {\n      \"speaker\": \"bot\",\n      \"text\": \"Your request has been successfully processed and closed in our system.\",\n      \"noise_category\": null\n    }\n  ,\n  {\n      \"speaker\": \"customer\",\n      \"text\": \"Appreciate the follow-up — everything’s sorted on my end now.\",\n      \"noise_category\": \"pleasantry\"\n    }\n  ],\n  \"mentions\": {}\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 830,
+   "tokens_out": 387,
+   "cost_usd": 0.00090608
+  }
+ }
+}

@@ -1,0 +1,160 @@
+{
+  "date": 1789138140000,
+  "duration": 1.3933333333333333,
+  "host_email": "deryn.pell@keelwater.example",
+  "id": "eaef0eaf1f1d",
+  "meeting_attendees": [
+    {
+      "displayName": "Deryn Pell",
+      "email": "deryn.pell@keelwater.example",
+      "name": "Deryn Pell"
+    },
+    {
+      "displayName": "Mavren Mosswick",
+      "email": "contact@a13.example",
+      "name": "Mavren Mosswick"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 8.8,
+      "index": 0,
+      "raw_text": "Hi Deryn, just checking in — we’ve got some handlers still manually moving garage estimates out of correspondence, and it’s causing delays.",
+      "speaker_id": "customer",
+      "speaker_name": "Mavren Mosswick",
+      "start_time": 0.0,
+      "text": "Hi Deryn, just checking in — we’ve got some handlers still manually moving garage estimates out of correspondence, and it’s causing delays."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 14.8,
+      "index": 1,
+      "raw_text": "Could we schedule a follow-up for next Tuesday? I’ll be out Monday but back Wednesday.",
+      "speaker_id": "customer",
+      "speaker_name": "Mavren Mosswick",
+      "start_time": 8.8,
+      "text": "Could we schedule a follow-up for next Tuesday? I’ll be out Monday but back Wednesday."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 22.8,
+      "index": 2,
+      "raw_text": "Thanks for flagging that. We’re aware the auto-classification isn’t catching garage estimates correctly, which is why they end up misfiled.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 14.8,
+      "text": "Thanks for flagging that. We’re aware the auto-classification isn’t catching garage estimates correctly, which is why they end up misfiled."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 29.6,
+      "index": 3,
+      "raw_text": "Exactly — and when evidence gets misfiled, it can slip through the cracks, especially during busy periods.",
+      "speaker_id": "customer",
+      "speaker_name": "Mavren Mosswick",
+      "start_time": 22.8,
+      "text": "Exactly — and when evidence gets misfiled, it can slip through the cracks, especially during busy periods."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 40.4,
+      "index": 4,
+      "raw_text": "Every time a garage estimate gets dumped into correspondence, someone has to manually fix it — and sometimes the wrong document category means evidence gets overlooked entirely.",
+      "speaker_id": "customer",
+      "speaker_name": "Mavren Mosswick",
+      "start_time": 29.6,
+      "text": "Every time a garage estimate gets dumped into correspondence, someone has to manually fix it — and sometimes the wrong document category means evidence gets overlooked entirely."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 50.0,
+      "index": 5,
+      "raw_text": "We’re prioritizing a fix for that in the next sprint. In the meantime, let me know if you need help re-categorizing any specific files.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 40.4,
+      "text": "We’re prioritizing a fix for that in the next sprint. In the meantime, let me know if you need help re-categorizing any specific files."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 56.0,
+      "index": 6,
+      "raw_text": "Appreciate that. Also, any update on when policyholders will start getting those milestone updates automatically?",
+      "speaker_id": "customer",
+      "speaker_name": "Mavren Mosswick",
+      "start_time": 50.0,
+      "text": "Appreciate that. Also, any update on when policyholders will start getting those milestone updates automatically?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 66.4,
+      "index": 7,
+      "raw_text": "That’s still on track for early next year — we’re testing the messaging flow now to ensure SMS and email work reliably at each claim stage.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 56.0,
+      "text": "That’s still on track for early next year — we’re testing the messaging flow now to ensure SMS and email work reliably at each claim stage."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 77.2,
+      "index": 8,
+      "raw_text": "I’m still waiting on those automatic claim progress messages for policyholders — we were told Q1 next year, but it’s dragging and handlers are fielding repeat calls.",
+      "speaker_id": "customer",
+      "speaker_name": "Mavren Mosswick",
+      "start_time": 66.4,
+      "text": "I’m still waiting on those automatic claim progress messages for policyholders — we were told Q1 next year, but it’s dragging and handlers are fielding repeat calls."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 83.6,
+      "index": 9,
+      "raw_text": "Good to hear. Let me know if you need any feedback from our team during testing.",
+      "speaker_id": "customer",
+      "speaker_name": "Mavren Mosswick",
+      "start_time": 77.2,
+      "text": "Good to hear. Let me know if you need any feedback from our team during testing."
+    }
+  ]
+}

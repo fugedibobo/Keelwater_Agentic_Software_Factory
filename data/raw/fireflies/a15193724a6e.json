@@ -1,0 +1,146 @@
+{
+  "date": 1788699660000,
+  "duration": 1.48,
+  "host_email": "deryn.pell@keelwater.example",
+  "id": "a15193724a6e",
+  "meeting_attendees": [
+    {
+      "displayName": "Deryn Pell",
+      "email": "deryn.pell@keelwater.example",
+      "name": "Deryn Pell"
+    },
+    {
+      "displayName": "Avenna Ashfell",
+      "email": "contact@a01.example",
+      "name": "Avenna Ashfell"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 8.8,
+      "index": 0,
+      "raw_text": "Hi Deryn, just checking in — we’ve got a few things we need to sort before renewal, and one’s become pretty urgent.",
+      "speaker_id": "customer",
+      "speaker_name": "Avenna Ashfell",
+      "start_time": 0.0,
+      "text": "Hi Deryn, just checking in — we’ve got a few things we need to sort before renewal, and one’s become pretty urgent."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 16.4,
+      "index": 1,
+      "raw_text": "Hi Avenna, thanks for reaching out. I’m here to help — what’s top of mind for you right now?",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 8.8,
+      "text": "Hi Avenna, thanks for reaching out. I’m here to help — what’s top of mind for you right now?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 27.2,
+      "index": 2,
+      "raw_text": "We’re getting pressure from our policyholders in Wales — they need official correspondence in their own language. Specifically, we need Welsh letter formats for claims and payments.",
+      "speaker_id": "customer",
+      "speaker_name": "Avenna Ashfell",
+      "start_time": 16.4,
+      "text": "We’re getting pressure from our policyholders in Wales — they need official correspondence in their own language. Specifically, we need Welsh letter formats for claims and payments."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 38.0,
+      "index": 3,
+      "raw_text": "We’re getting pressure from our policyholders in Wales — they need official correspondence in their own language. Specifically, we need Welsh letter formats for claims and payments.",
+      "speaker_id": "customer",
+      "speaker_name": "Avenna Ashfell",
+      "start_time": 27.2,
+      "text": "We’re getting pressure from our policyholders in Wales — they need official correspondence in their own language. Specifically, we need Welsh letter formats for claims and payments."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 46.4,
+      "index": 4,
+      "raw_text": "Understood — that’s a valid requirement. I’ll flag this with product and see what we can do before January. Anything else?",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 38.0,
+      "text": "Understood — that’s a valid requirement. I’ll flag this with product and see what we can do before January. Anything else?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 56.8,
+      "index": 5,
+      "raw_text": "Yes — and this one’s been causing headaches. Your last update moved some controls without warning. Our teams had to retrain because of unexpected interface changes.",
+      "speaker_id": "customer",
+      "speaker_name": "Avenna Ashfell",
+      "start_time": 46.4,
+      "text": "Yes — and this one’s been causing headaches. Your last update moved some controls without warning. Our teams had to retrain because of unexpected interface changes."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 66.8,
+      "index": 6,
+      "raw_text": "It’s not just a nice-to-have — our legal team says we can’t renew without letters in Welsh for certain policyholder communications. This is a blocker.",
+      "speaker_id": "customer",
+      "speaker_name": "Avenna Ashfell",
+      "start_time": 56.8,
+      "text": "It’s not just a nice-to-have — our legal team says we can’t renew without letters in Welsh for certain policyholder communications. This is a blocker."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 77.2,
+      "index": 7,
+      "raw_text": "Your last update moved some controls without warning. Our teams had to retrain because of unexpected interface changes — and we’re still seeing errors from it.",
+      "speaker_id": "customer",
+      "speaker_name": "Avenna Ashfell",
+      "start_time": 66.8,
+      "text": "Your last update moved some controls without warning. Our teams had to retrain because of unexpected interface changes — and we’re still seeing errors from it."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 88.8,
+      "index": 8,
+      "raw_text": "I’m sorry to hear that — that’s not the experience we want for you. I’ll escalate this to our UX team and ask for advance notice on future releases.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 77.2,
+      "text": "I’m sorry to hear that — that’s not the experience we want for you. I’ll escalate this to our UX team and ask for advance notice on future releases."
+    }
+  ]
+}

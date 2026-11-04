@@ -186,7 +186,7 @@ No few-shot examples in v1, so labels never change a prompt behind its version. 
 
 ### 5.3 Judge model
 
-Demo `z-ai/glm-5` (probe fallback `z-ai/glm-5.3`), aws `zai.glm-5`. The brief writer is DeepSeek V3.2, the extractor gpt-oss-120b and the data generator Mistral, so no judge grades its own family's text. About 33 calls a run, about USD 0.20 (INFERRED from the GLM 5 London price).
+Demo `z-ai/glm-5` (probe fallback `z-ai/glm-5.3`), aws `zai.glm-5`. The brief writer is DeepSeek V3.2, the extractor gpt-oss-120b and the data generator Qwen3 VL 235B Instruct, so no judge grades its own family's text. About 33 calls a run, about USD 0.20 (INFERRED from the GLM 5 London price).
 
 ### 5.4 From board actions to labels
 
@@ -252,7 +252,7 @@ No Keelwater PMs, so no judge in the demo can be trusted.
 Seed sets, all built by construction from ground truth (none is hand-labelled), split by theme so no theme is in two splits:
 - **signal:** 30 passes from bundles of 3-8 signal-theme insights; 30 fails from noise themes and noise-only snippets.
 - **duplicate:** 30 fails pair shipped and roadmap themes with their items; 30 passes include the hard negatives.
-- **faithfulness:** 30 passes by construction: briefs from the real brief prompt over seeded bundles of planted opportunities that clear every deterministic check, marked `synthetic_seed` and not read or labelled by the author; 30 fails each apply one controlled defect (unsupported claim, changed number, misattributed quote, flipped stance, inflated scope, removed contrary evidence), applied by the Mistral generator with the span recorded. Constructed defects are cleaner than real ones.
+- **faithfulness:** 30 passes by construction: briefs from the real brief prompt over seeded bundles of planted opportunities that clear every deterministic check, marked `synthetic_seed` and not read or labelled by the author; 30 fails each apply one controlled defect (unsupported claim, changed number, misattributed quote, flipped stance, inflated scope, removed contrary evidence), applied by the Qwen generator with the span recorded. Constructed defects are cleaner than real ones.
 
 Synthetic or not: §4 metrics and the noise-audit rate are synthetic; `synthetic_seed` agreement is synthetic; `live_reviewer` agreement is real clicks on synthetic data (tiny n, with intervals); "calibrating: n of 50" shows 0 in the demo; acceptance rate is real clicks, nothing pre-seeded; cost, latency and tokens are real `model_call` rows from the recorded live run.
 

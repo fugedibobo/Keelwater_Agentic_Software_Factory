@@ -1,0 +1,132 @@
+{
+  "date": 1790688120000,
+  "duration": 1.14,
+  "host_email": "deryn.pell@keelwater.example",
+  "id": "4301479ec0e2",
+  "meeting_attendees": [
+    {
+      "displayName": "Deryn Pell",
+      "email": "deryn.pell@keelwater.example",
+      "name": "Deryn Pell"
+    },
+    {
+      "displayName": "Orwen Orrenfield",
+      "email": "contact@a15.example",
+      "name": "Orwen Orrenfield"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 8.8,
+      "index": 0,
+      "raw_text": "Hi Deryn, I’ve got a recurring issue with joint policyholder letters — they’re only pulling through one name, and it’s causing complaints.",
+      "speaker_id": "customer",
+      "speaker_name": "Orwen Orrenfield",
+      "start_time": 0.0,
+      "text": "Hi Deryn, I’ve got a recurring issue with joint policyholder letters — they’re only pulling through one name, and it’s causing complaints."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 19.6,
+      "index": 1,
+      "raw_text": "Thanks for flagging that, Orwen. I’ve seen this before — when letters merge multiple names on letters, it often defaults to just one, which definitely triggers complaints.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 8.8,
+      "text": "Thanks for flagging that, Orwen. I’ve seen this before — when letters merge multiple names on letters, it often defaults to just one, which definitely triggers complaints."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 32.4,
+      "index": 2,
+      "raw_text": "The issue with letters merging multiple names on letters is causing us real problems — clients are complaining because only one name shows up, and sometimes it’s not even the right one.",
+      "speaker_id": "customer",
+      "speaker_name": "Orwen Orrenfield",
+      "start_time": 19.6,
+      "text": "The issue with letters merging multiple names on letters is causing us real problems — clients are complaining because only one name shows up, and sometimes it’s not even the right one."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 39.2,
+      "index": 3,
+      "raw_text": "Exactly — and sometimes it’s the wrong one. It’s not just awkward, it’s damaging our client trust.",
+      "speaker_id": "customer",
+      "speaker_name": "Orwen Orrenfield",
+      "start_time": 32.4,
+      "text": "Exactly — and sometimes it’s the wrong one. It’s not just awkward, it’s damaging our client trust."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 46.8,
+      "index": 4,
+      "raw_text": "Understood. I’ll log this under joint policyholder names as a known workaround until we can patch the merge logic.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 39.2,
+      "text": "Understood. I’ll log this under joint policyholder names as a known workaround until we can patch the merge logic."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 56.8,
+      "index": 5,
+      "raw_text": "We’re getting heat from policyholders because the system isn’t handling joint policyholder names correctly — it’s pulling in just one, and that’s triggering formal complaints.",
+      "speaker_id": "customer",
+      "speaker_name": "Orwen Orrenfield",
+      "start_time": 46.8,
+      "text": "We’re getting heat from policyholders because the system isn’t handling joint policyholder names correctly — it’s pulling in just one, and that’s triggering formal complaints."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 62.0,
+      "index": 6,
+      "raw_text": "I appreciate that. We’ve had three complaints this month alone because of it.",
+      "speaker_id": "customer",
+      "speaker_name": "Orwen Orrenfield",
+      "start_time": 56.8,
+      "text": "I appreciate that. We’ve had three complaints this month alone because of it."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 68.4,
+      "index": 7,
+      "raw_text": "I’ll escalate this to the dev team and keep you updated. Thanks for the heads-up, Orwen.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 62.0,
+      "text": "I’ll escalate this to the dev team and keep you updated. Thanks for the heads-up, Orwen."
+    }
+  ]
+}

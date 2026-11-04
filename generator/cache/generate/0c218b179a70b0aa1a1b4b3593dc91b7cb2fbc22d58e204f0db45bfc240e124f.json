@@ -1,0 +1,135 @@
+{
+ "request": {
+  "model": "qwen/qwen3-vl-235b-a22b-instruct",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nWrite one realistic intercom record for Keelwater, a UK claims-handling software company.\n</role>\n<record>\n{\"customer\": {\"account\": \"A14\", \"company\": \"Holloway Reach Underwriting\", \"email\": \"contact@a14.example\", \"name\": \"Nellin Nethervale\"}, \"date\": \"2026-09-26T08:02:00Z\", \"fin_mode\": \"resolved\", \"glossary\": [\"claims\", \"documents\", \"reserves\", \"payments\", \"suppliers\", \"reporting\", \"roles\", \"integrations\", \"tasks\", \"letters\", \"policyholders\"], \"never_write_verbatim\": [], \"only_people_who_may_be_named\": [\"Holloway Reach Underwriting\", \"Nellin Nethervale\", \"Bryn Telford\"], \"route\": \"support\", \"source\": \"intercom\", \"staff\": {\"email\": \"bryn.telford@keelwater.example\", \"name\": \"Bryn Telford\", \"team\": \"support\"}, \"turns_range\": null}\n</record>\n<mentions>\n[]\n</mentions>\n<noise>\n{\"admin_note\": false, \"allowed_categories\": [\"pleasantry\", \"scheduling\", \"pricing\", \"internal\", \"password_reset\", \"how_to\", \"praise\", \"closer\"], \"distractor_how_to_phrase\": \"payee account verification\", \"instructions\": \"Tag every noise turn with its category. Put the distractor phrase, if given, in a how-to turn with no mention id. An admin note must be an internal turn tagged internal. A Fin-resolved or escalated conversation needs a bot turn; an escalated one also needs an internal reply. About 35 percent of customer turns are pleasantries. Every tagged customer mention, including a short agreement, must contain its supplied synonym.\", \"required_categories\": [\"how_to\"]}\n</noise>\n<rules>\nCustomers speak like claims staff. Do not use headings or bullets in speech. Use only the names in the record brief; never name a real company, product or person. Mention no feature outside the supplied glossary. Express the supplied facts in the speaker's own words. Tag each turn with its noise category or null. Do not put the planted mentions in `turns`: write each one, in the customer's own words and at least twelve words long, under `mentions[<mention id>].text`, containing that mention's `synonym` exactly as written (a mention whose form is a short agreement is different: write the internal speaker's turn stating the problem, at least twelve words and containing the synonym exactly as written, under `internal_text`, and the customer's reply of under eight words under `agreement_text`), and set after_turn to the index of the turn it should follow. The `turns` conversation is the rest of the record. Do not put the turns listed under `extras` in `turns`: write each one once under `extras[<key>].text` (at least twenty characters, containing the exact phrase where one is given), and set after_turn to the index of the turn it should follow. Name only the people in only_people_who_may_be_named. When fin_mode is resolved or escalated, at least one turn must have speaker bot; when it is escalated, at least one turn must have speaker internal; when it is human, no turn has speaker bot. Never write any phrase listed in never_write_verbatim, including the supplied facts: paraphrase them.\n</rules>\n<output>\nReturn JSON matching the supplied source schema.\n{\"extras\": {\"bot_turn\": \"a bot turn, noise_category None\", \"noise_how_to\": \"a customer turn, noise_category 'how_to', containing the exact phrase 'payee account verification'\"}, \"mentions\": {}, \"turns\": [{\"noise_category\": \"string or null\", \"speaker\": \"customer|internal|bot\", \"text\": \"string\"}]}\n</output>\n"
+   }
+  ],
+  "temperature": 0.8,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "generate",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "turns",
+      "mentions",
+      "extras"
+     ],
+     "properties": {
+      "extras": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [
+        "bot_turn",
+        "noise_how_to"
+       ],
+       "properties": {
+        "bot_turn": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 20
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        },
+        "noise_how_to": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 20
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        }
+       }
+      },
+      "turns": {
+       "type": "array",
+       "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+         "speaker",
+         "text",
+         "noise_category"
+        ],
+        "properties": {
+         "speaker": {
+          "type": "string",
+          "enum": [
+           "customer",
+           "internal",
+           "bot"
+          ]
+         },
+         "text": {
+          "type": "string"
+         },
+         "noise_category": {
+          "enum": [
+           "pleasantry",
+           "scheduling",
+           "pricing",
+           "password_reset",
+           "how_to",
+           "praise",
+           "closer",
+           null
+          ]
+         }
+        }
+       },
+       "minItems": 6
+      },
+      "mentions": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [],
+       "properties": {}
+      }
+     }
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "allow",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"extras\": {\n    \"bot_turn\": {\n      \"text\": \"Your request has been processed and the system reflects the updated reserves and payments as of this morning.\",\n      \"after_turn\": 3\n    },\n    \"noise_how_to\": {\n      \"text\": \"Can you walk me through the steps for payee account verification? I need to ensure the supplier’s banking details are correctly flagged before issuing the payment.\",\n      \"after_turn\": 1\n    }\n  },\n  \"turns\": [\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Good morning, Bryn. I’m trying to finalise a claim for a policyholder and need to confirm the supplier’s payment details are locked in before I release the funds.\",\n      \"noise_category\": \"pleasantry\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Hi Nellin, I can help with that. Let’s verify the payee account first — you’ll need to navigate to the supplier tab under the claims module and match the bank sort code and account number with the uploaded documents.\",\n      \"noise_category\": \"how_to\"\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Got it — I’ve matched the documents and confirmed the reserves align with the payment amount. Everything’s ready to go now.\",\n      \"noise_category\": \"closer\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Perfect. I’ve noted the update in your task log and triggered the reporting summary for your team’s weekly review.\",\n      \"noise_category\": \"scheduling\"\n    }\n  ,\n  {\n    \"speaker\": \"bot\",\n    \"text\": \"Your request has been processed and the system reflects the updated reserves and payments as of this morning.\",\n    \"noise_category\": null\n  }\n  ,\n  {\n    \"speaker\": \"customer\",\n    \"text\": \"Thanks for the quick turnaround — this really helps us keep the claims pipeline moving smoothly.\",\n    \"noise_category\": \"praise\"\n  }\n  ],\n  \"mentions\": {}\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 850,
+   "tokens_out": 436,
+   "cost_usd": 0.00100338
+  }
+ }
+}

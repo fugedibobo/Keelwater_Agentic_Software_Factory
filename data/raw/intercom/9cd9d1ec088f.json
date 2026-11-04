@@ -1,0 +1,151 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "routed_to_team"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Brelis Bramvale",
+          "type": "user"
+        },
+        "body": "Hi Bryn, we’re seeing claims stuck because reserve changes need approval but no one’s covering for the approver right now.",
+        "created_at": 1789996020,
+        "id": "9cd9d1ec088f-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Brelis Bramvale",
+          "type": "user"
+        },
+        "body": "We’re experiencing a reserve authorisation delay because when a handler tries to adjust a reserve beyond their limit, it sits waiting for one specific approver who’s out of office and has no delegate assigned, so nothing moves.",
+        "created_at": 1789996028,
+        "id": "9cd9d1ec088f-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for raising this, Brelis. I’m looking into why reserve authorisation delay is causing your claims to stall.",
+        "created_at": 1789996042,
+        "id": "9cd9d1ec088f-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: Confirm approver delegation is configured for Brelis Bramvale’s team to prevent reserve authorisation delay.",
+        "created_at": 1789996050,
+        "id": "9cd9d1ec088f-3",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Brelis Bramvale",
+          "type": "user"
+        },
+        "body": "Yes, it’s specifically when a reserve change exceeds handler limits — the reserve authorisation delay blocks everything until the approver returns.",
+        "created_at": 1789996056,
+        "id": "9cd9d1ec088f-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "I’ve noted your concern and will ensure it’s prioritised for resolution by our support team.",
+        "created_at": 1789996064,
+        "id": "9cd9d1ec088f-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood. I’ll escalate this to ensure your team isn’t blocked by reserve authorisation delay while the approver is out.",
+        "created_at": 1789996070,
+        "id": "9cd9d1ec088f-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Bryn Telford has flagged a reserve authorisation delay affecting Wexmoor Motor’s claims workflow; please review delegation settings for approvers.",
+        "created_at": 1789996078,
+        "id": "9cd9d1ec088f-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your issue has been escalated to our support team for immediate review.",
+        "created_at": 1789996086,
+        "id": "9cd9d1ec088f-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Bryn Telford has flagged a reserve authorisation delay affecting Wexmoor Motor’s claims workflow; please review delegation settings for approvers.",
+        "created_at": 1789996090,
+        "id": "9cd9d1ec088f-9",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 10,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1789996020,
+  "id": "9cd9d1ec088f",
+  "source": {
+    "author": {
+      "email": "contact@a02.example",
+      "name": "Brelis Bramvale",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "reserves_payments"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

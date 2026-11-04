@@ -1,0 +1,139 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "assumed_resolution"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Harthwick",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m trying to figure out why the latest payment batch didn’t reflect in our supplier ledger — any idea?",
+        "created_at": 1788968760,
+        "id": "cd6d9ced8d0a-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Let me check the integration logs for your account — sometimes delays happen when policyholders update their bank details.",
+        "created_at": 1788968768,
+        "id": "cd6d9ced8d0a-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Harthwick",
+          "type": "user"
+        },
+        "body": "Can you walk me through how to attach supporting documents to a claims file in the system?",
+        "created_at": 1788968776,
+        "id": "cd6d9ced8d0a-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Harthwick",
+          "type": "user"
+        },
+        "body": "That’s helpful, thanks. Also, could you confirm if the reporting module pulls data from all active roles?",
+        "created_at": 1788968782,
+        "id": "cd6d9ced8d0a-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Harthwick",
+          "type": "user"
+        },
+        "body": "I need to schedule a recurring task for monthly reserves review — is that possible via the dashboard?",
+        "created_at": 1788968789,
+        "id": "cd6d9ced8d0a-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Yes, it does — as long as those roles are assigned to active users and have access permissions set correctly.",
+        "created_at": 1788968796,
+        "id": "cd6d9ced8d0a-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your query has been resolved and a summary has been emailed to your account contact.",
+        "created_at": 1788968804,
+        "id": "cd6d9ced8d0a-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Harthwick",
+          "type": "user"
+        },
+        "body": "Got it. One last thing — can we automate letters for overdue claims? I’m swamped with manual drafting.",
+        "created_at": 1788968810,
+        "id": "cd6d9ced8d0a-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Absolutely — you can set up templated letters under the tasks tab and assign them to trigger on specific reserve thresholds.",
+        "created_at": 1788968818,
+        "id": "cd6d9ced8d0a-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 9,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1788968760,
+  "id": "cd6d9ced8d0a",
+  "source": {
+    "author": {
+      "email": "contact@a18.example",
+      "name": "Avenna Harthwick",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "fnol_intake"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

@@ -1,0 +1,139 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "assumed_resolution"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Havren Orrenfield",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m having trouble logging into the system — I think I need to reset my password. Can you help?",
+        "created_at": 1790768640,
+        "id": "d66e1a4445aa-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Havren Orrenfield",
+          "type": "user"
+        },
+        "body": "I need to reset my password because I can’t access the claims dashboard this morning.",
+        "created_at": 1790768648,
+        "id": "d66e1a4445aa-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "I’ll reset your password right away and send you a temporary link. Could you confirm your preferred time for a follow-up call?",
+        "created_at": 1790768654,
+        "id": "d66e1a4445aa-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Havren Orrenfield",
+          "type": "user"
+        },
+        "body": "Could we schedule a call next Tuesday to review the supplier payment integrations?",
+        "created_at": 1790768663,
+        "id": "d66e1a4445aa-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Havren Orrenfield",
+          "type": "user"
+        },
+        "body": "Tuesday at 11am works — we need to walk through the supplier payment integrations before the month-end close.",
+        "created_at": 1790768668,
+        "id": "d66e1a4445aa-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Got it — I’ve scheduled the call for Tuesday at 11am and reset your password. Let me know if you need help with any claims documents or reserves reporting before then.",
+        "created_at": 1790768675,
+        "id": "d66e1a4445aa-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your request has been processed and your case is now marked as resolved in our system.",
+        "created_at": 1790768688,
+        "id": "d66e1a4445aa-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your request has been processed and your case is now marked as resolved in our system.",
+        "created_at": 1790768694,
+        "id": "d66e1a4445aa-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Havren Orrenfield",
+          "type": "user"
+        },
+        "body": "Thanks, Bryn — appreciate the quick help. I’ll check the reserves reporting after the reset.",
+        "created_at": 1790768700,
+        "id": "d66e1a4445aa-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 9,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1790768640,
+  "id": "d66e1a4445aa",
+  "source": {
+    "author": {
+      "email": "contact@a25.example",
+      "name": "Havren Orrenfield",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "reserves_payments"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

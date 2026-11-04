@@ -1,0 +1,151 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "routed_to_team"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Isleford",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m trying to get a batch of policyholder documents into a single claim — is there a way to do that without uploading each one separately?",
+        "created_at": 1788428280,
+        "id": "290a87b5de33-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Isleford",
+          "type": "user"
+        },
+        "body": "We’re still waiting on the multiple file upload feature — right now I have to add each document individually, which takes ages when handling large claims with suppliers and policyholders.",
+        "created_at": 1788428291,
+        "id": "290a87b5de33-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Hi Ilyra, I understand you’re looking to add multiple files to a claim at once — we’re currently working on that feature, but there’s a manual workaround I can walk you through.",
+        "created_at": 1788428303,
+        "id": "290a87b5de33-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Isleford",
+          "type": "user"
+        },
+        "body": "That would be helpful — I’m managing several claims with lots of supporting documents, and doing them one by one is slowing things down.",
+        "created_at": 1788428316,
+        "id": "290a87b5de33-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "I’ve noted your request and will escalate this to our support lead for further action.",
+        "created_at": 1788428325,
+        "id": "290a87b5de33-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "I’ll send you a step-by-step guide for the current workaround, and I’ll also flag this as high priority for our next release. You’ll be notified when the multiple file upload is live.",
+        "created_at": 1788428331,
+        "id": "290a87b5de33-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Bryn, please follow up with Ilyra regarding the multiple file upload workaround before the 6 October release. Ensure she’s aware of the temporary process.",
+        "created_at": 1788428344,
+        "id": "290a87b5de33-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Isleford",
+          "type": "user"
+        },
+        "body": "Thanks, Bryn — I appreciate the support while we wait for the update.",
+        "created_at": 1788428354,
+        "id": "290a87b5de33-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: Customer A09 flagged a need for bulk document upload; workaround in place until 06/10/2026. Track via Shortcut 4127.",
+        "created_at": 1788428359,
+        "id": "290a87b5de33-8",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your request has been logged and escalated. You’ll receive an update via email within 24 hours.",
+        "created_at": 1788428367,
+        "id": "290a87b5de33-9",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 10,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1788428280,
+  "id": "290a87b5de33",
+  "source": {
+    "author": {
+      "email": "contact@a09.example",
+      "name": "Ilyra Isleford",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "documents_evidence"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

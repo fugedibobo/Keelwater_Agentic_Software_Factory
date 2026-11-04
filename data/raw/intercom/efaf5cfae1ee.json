@@ -1,0 +1,151 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "routed_to_team"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Farrin Fellward",
+          "type": "user"
+        },
+        "body": "Hi Bryn, we’re seeing some pushback from policyholders on renewal pricing — it’s hitting our top accounts hardest.",
+        "created_at": 1790507700,
+        "id": "efaf5cfae1ee-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Farrin Fellward",
+          "type": "user"
+        },
+        "body": "We’re getting repeated feedback on renewal price concern — especially from our high-ARR clients — and it’s becoming a blocker for retention unless we get clarity soon.",
+        "created_at": 1790507707,
+        "id": "efaf5cfae1ee-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for flagging that, Farrin. I’ll log this as a renewal price concern and escalate it for review.",
+        "created_at": 1790507718,
+        "id": "efaf5cfae1ee-2",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Farrin Fellward",
+          "type": "user"
+        },
+        "body": "Appreciate the quick response. We need clarity before our next client review cycle.",
+        "created_at": 1790507725,
+        "id": "efaf5cfae1ee-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: Customer is escalating renewal pricing concern. Route to commercial team, not product defect queue.",
+        "created_at": 1790507730,
+        "id": "efaf5cfae1ee-4",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your case has been escalated to our specialist support team. You’ll receive an update within 24 hours.",
+        "created_at": 1790507736,
+        "id": "efaf5cfae1ee-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "I’ve escalated this to our specialist team for review, and they’ll reach out within 24 hours.",
+        "created_at": 1790507743,
+        "id": "efaf5cfae1ee-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Confirmed — this is a renewal price concern. We’ll route it to commercial, not product, for resolution.",
+        "created_at": 1790507750,
+        "id": "efaf5cfae1ee-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Noted — this is a pricing concern from a high-ARR account. We’ll flag it for commercial review, not product triage.",
+        "created_at": 1790507756,
+        "id": "efaf5cfae1ee-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Farrin Fellward",
+          "type": "user"
+        },
+        "body": "Understood. Thanks again.",
+        "created_at": 1790507764,
+        "id": "efaf5cfae1ee-9",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 10,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1790507700,
+  "id": "efaf5cfae1ee",
+  "source": {
+    "author": {
+      "email": "contact@a06.example",
+      "name": "Farrin Fellward",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "documents_evidence"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

@@ -132,7 +132,7 @@ One OpenAI-compatible gateway serves every model stage, triage included. The dem
 
 - **Model ids:** the build probes each id and falls back to the ids in the 02/11/2026 research if one is missing on OpenRouter.
 - **Replay profile:** recorded responses, no network, no keys, byte-for-byte reproducible from the run manifest.
-- **Synthetic data** was written by a third family (Mistral Large) so no judge grades its own family's text.
+- **Synthetic data** was written by Qwen3 VL 235B Instruct (`qwen/qwen3-vl-235b-a22b-instruct`), a family no judge belongs to, so no judge grades its own family's text. Mistral Large was dropped: the data is invented, so the cheapest model that passes the generator's checks is enough. DeepSeek V4.1 Flash (reasoning off) is the recorded fallback.
 - **Cost:** tokens come to about USD 0.8 per nightly run at demo volume, 2.6 at 10x and 21 at 100x (estimated from list prices, INFERRED). At scale the real costs are GPU hosting and PM attention, so routing exists to protect attention and latency as much as money. Decision calls run with a concurrency of 50 or more.
 - **Live-run caps:** the OpenRouter key has a hard USD 10 limit for the whole build; the per-step caps inside it total about USD 7.80, with the first live run capped at USD 1.50, and the whole build is expected to cost about USD 3.50. Judges are seeded with 60 items each. OpenRouter requests deny data collection.
 
@@ -180,11 +180,12 @@ Assumptions (flagged throughout the docs):
 Cut, to fit about 4 hours of author time:
 
 - Live connectors and write-back to Notion, Shortcut, Slack and Intercom.
-- Mockup generation from intent documents (designers already prototype with AI on the design system).
+- Mockup generation from intent documents (designed in Part 1: generated in Define on the real design-system components, signed off by the designer within the Trio gate).
+- The shared agent skill library and the metric dictionary beyond v0 (product ops owns a v0 of about 10 lifecycle metrics in the first 60 days; the rest comes later with data engineering).
 - Enablement videos and the sales "ask before a demo" agent (designed in Part 1; they need the factory's demo artefacts).
 - The cluster-coherence judge, bias-corrected rates, test-set rotation and Phoenix experiments (designed in evals.md; the ground-truth regression covers over-merging in the demo).
 - Self-hosted models inside AWS, SSO and multi-user access control.
-- The engineering factory itself, which belongs to the platform team.
+- The engineering factory itself, a delegation meta-harness ([operating rules](docs/delegation.md)); its coding harness belongs to the platform team.
 
 ## Repo map
 

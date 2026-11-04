@@ -1,0 +1,124 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Havren Harthwick",
+          "type": "user"
+        },
+        "body": "Hi Bryn, we’re seeing delays in claims payments because we can’t verify third-party bank details ahead of time. It’s causing reissues and unhappy policyholders.",
+        "created_at": 1790077620,
+        "id": "834ae02016de-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Havren Harthwick",
+          "type": "user"
+        },
+        "body": "We’re seeing delays in claims payments because we can’t verify third-party bank details ahead of time — it’s causing reissues and unhappy policyholders. We really need payee account verification built into the workflow.",
+        "created_at": 1790077629,
+        "id": "834ae02016de-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: Customer has flagged payee account verification as a priority for their claims workflow. Escalate to product team for review.",
+        "created_at": 1790077642,
+        "id": "834ae02016de-2",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for raising this, Havren. I understand how disruptive bounced payments are to your team’s workflow. Let me look into whether we can support payee account verification before dispatch.",
+        "created_at": 1790077651,
+        "id": "834ae02016de-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Havren Harthwick",
+          "type": "user"
+        },
+        "body": "Exactly — we need payee account verification to prevent delays. It’s impacting our reserves and supplier reporting too.",
+        "created_at": 1790077662,
+        "id": "834ae02016de-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "I’ve logged this as a feature request for our product team. We’ll update you once we have a timeline for supporting payee account verification.",
+        "created_at": 1790077670,
+        "id": "834ae02016de-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Havren Harthwick",
+          "type": "user"
+        },
+        "body": "Appreciate it. Keep me posted.",
+        "created_at": 1790077679,
+        "id": "834ae02016de-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "You’re welcome — I’ll make sure Bryn follows up with you directly once we have more to share on payee account verification.",
+        "created_at": 1790077681,
+        "id": "834ae02016de-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1790077620,
+  "id": "834ae02016de",
+  "source": {
+    "author": {
+      "email": "contact@a08.example",
+      "name": "Havren Harthwick",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "reserves_payments"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

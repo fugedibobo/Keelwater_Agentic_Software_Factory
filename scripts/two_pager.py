@@ -34,10 +34,14 @@ def main() -> None:
     body = markdown.markdown(md, extensions=["tables", "footnotes"])
     # Byline "Name, date" follows the h1: style it as a subtitle.
     body = re.sub(r"(</h1>\s*)<p>(Andras Fugedi, [^<]+)</p>", r'\1<p class="by">\2</p>', body, count=1)
+    # #12: Edge prints the footnote marker as a named-destination link that viewers show as "/fn:1"; keep the marker, drop the link.
+    body = re.sub(r'<a class="footnote-ref"[^>]*>(.*?)</a>', r"\1", body)
+    # #12: keep an intro paragraph with the table it introduces (part1.css only keeps h2 with the next block).
+    keep = "<style>p:has(+ table){break-after:avoid}</style>"
     HTML.write_text(
         '<!doctype html><html lang="en-GB"><head><meta charset="utf-8">'
         "<title>Keelwater: product lifecycle diagnosis and 90-day plan</title>"
-        '<link rel="stylesheet" href="part1.css"></head><body>' + body + "</body></html>",
+        '<link rel="stylesheet" href="part1.css">' + keep + "</head><body>" + body + "</body></html>",
         encoding="utf-8",
     )
     profile = tempfile.mkdtemp(prefix="edge-prof-")

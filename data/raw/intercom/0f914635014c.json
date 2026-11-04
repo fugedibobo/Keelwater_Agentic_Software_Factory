@@ -1,0 +1,124 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Nethervale",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m trying to get a batch of claim docs into the system for Kilnsey Household but it’s taking ages one by one. Any way to speed this up?",
+        "created_at": 1790438280,
+        "id": "0f914635014c-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Hi Gellin, I understand the frustration. Right now, each file has to be added individually, but I can help you batch them via a workaround until the official update lands.",
+        "created_at": 1790438292,
+        "id": "0f914635014c-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Nethervale",
+          "type": "user"
+        },
+        "body": "I know the official way to upload files together isn’t live yet, but I’ve got a temporary method that’ll let you add multiple documents without doing them one at a time — it’s not ideal, but it’ll get you through until the feature ships on 6 October.",
+        "created_at": 1790438304,
+        "id": "0f914635014c-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Nethervale",
+          "type": "user"
+        },
+        "body": "That’d be great — I’ve got about twenty files to get in before the reserves report closes. Can we set something up?",
+        "created_at": 1790438322,
+        "id": "0f914635014c-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Nethervale",
+          "type": "user"
+        },
+        "body": "Could we schedule a brief call next Tuesday to walk through the new document upload workflow?",
+        "created_at": 1790438331,
+        "id": "0f914635014c-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Absolutely. I’ll send over a step-by-step guide for the current workaround and book a slot for Tuesday. You’ll be able to upload files together much more efficiently.",
+        "created_at": 1790438338,
+        "id": "0f914635014c-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Nethervale",
+          "type": "user"
+        },
+        "body": "Thanks, Bryn — really appreciate the quick help. Looking forward to the update too.",
+        "created_at": 1790438348,
+        "id": "0f914635014c-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "You’re welcome — and I’ll make sure you’re first in line to test the new upload files together feature once it’s live.",
+        "created_at": 1790438354,
+        "id": "0f914635014c-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1790438280,
+  "id": "0f914635014c",
+  "source": {
+    "author": {
+      "email": "contact@a24.example",
+      "name": "Gellin Nethervale",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "documents_evidence"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

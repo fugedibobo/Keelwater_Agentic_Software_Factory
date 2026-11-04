@@ -1,0 +1,127 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "assumed_resolution"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Brelis Bramvale",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m trying to reconcile the latest payment batch with our suppliers’ invoices but can’t locate the matching documents in the system.",
+        "created_at": 1793353920,
+        "id": "3d47eb28ecbf-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Brelis. Let me check the integrations logs to see if there’s a sync delay affecting your document feed.",
+        "created_at": 1793353929,
+        "id": "3d47eb28ecbf-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Brelis Bramvale",
+          "type": "user"
+        },
+        "body": "Could you walk me through how to assign tasks to specific roles for claims handling?",
+        "created_at": 1793353938,
+        "id": "3d47eb28ecbf-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Brelis Bramvale",
+          "type": "user"
+        },
+        "body": "Appreciate the quick response — I’ve been stuck on this since this morning and it’s holding up the reporting cycle.",
+        "created_at": 1793353944,
+        "id": "3d47eb28ecbf-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "I’ve retriggered the document sync and confirmed the files are now available under the ‘payments’ tab with the correct supplier tags.",
+        "created_at": 1793353952,
+        "id": "3d47eb28ecbf-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your request has been processed and the reserves update is now reflected in your dashboard.",
+        "created_at": 1793353960,
+        "id": "3d47eb28ecbf-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Brelis Bramvale",
+          "type": "user"
+        },
+        "body": "Perfect — that’s exactly what I needed. Thanks again for sorting this out so fast.",
+        "created_at": 1793353966,
+        "id": "3d47eb28ecbf-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your request has been processed and the reserves update is now reflected in your dashboard.",
+        "created_at": 1793353972,
+        "id": "3d47eb28ecbf-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1793353920,
+  "id": "3d47eb28ecbf",
+  "source": {
+    "author": {
+      "email": "contact@a02.example",
+      "name": "Brelis Bramvale",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "release_change"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

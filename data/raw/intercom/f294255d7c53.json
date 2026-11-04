@@ -1,0 +1,100 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Quenna Rillmere",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m Quenna from Penhallow Specialty Risks — we’re having trouble pulling the latest reserves report for a high-value marine claim, and it’s holding up our payment cycle.",
+        "created_at": 1790417160,
+        "id": "f294255d7c53-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Quenna. I’ll check the integrations on your account to see if there’s a sync delay affecting the reserves data. Could you confirm the policyholder ID or claim reference?",
+        "created_at": 1790417171,
+        "id": "f294255d7c53-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Quenna Rillmere",
+          "type": "user"
+        },
+        "body": "The claim reference is A17-MAR-0089. We’ve already reprocessed the documents twice but the reserves still aren’t updating in the reporting tab.",
+        "created_at": 1790417184,
+        "id": "f294255d7c53-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Got it. I’ll run a manual refresh on that claim’s reserves and check for any supplier-side delays. You should see the updated figures within 15 minutes — I’ll follow up with an email if anything’s blocking it.",
+        "created_at": 1790417192,
+        "id": "f294255d7c53-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Quenna Rillmere",
+          "type": "user"
+        },
+        "body": "Appreciate the quick response. We’re under pressure to close this before the end of the quarter, so timely updates really help.",
+        "created_at": 1790417207,
+        "id": "f294255d7c53-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood — I’ll keep you posted. If you need to assign additional tasks or adjust roles for this claim, let me know and I’ll walk you through the permissions.",
+        "created_at": 1790417216,
+        "id": "f294255d7c53-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 6,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1790417160,
+  "id": "f294255d7c53",
+  "source": {
+    "author": {
+      "email": "contact@a17.example",
+      "name": "Quenna Rillmere",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "customer_comms"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

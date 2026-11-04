@@ -53,10 +53,13 @@ profiles:
         price: {in: 0.03, out: 0.15}
         max_tokens: 800
       generate:
-        model: mistralai/mistral-large-4-0
-        price: {in: 0.70, out: 2.10}
+        model: qwen/qwen3-vl-235b-a22b-instruct   # passed the 6-record smoke; deepseek-v4.1-flash did not
+        fallback: deepseek/deepseek-v4.1-flash    # needs reasoning: {enabled: false} on this stage
+        price: {in: 0.21, out: 1.90}
+        data_collection: allow   # exception: some endpoints need prompt logging and generate data is synthetic with no customer content
+        rpm: 18                  # pace requests (free endpoints allow about 20 a minute)
         temperature: 0.8
-        max_tokens: 2000
+        max_tokens: 4000
   replay:
     extends: demo
     cache_only: true

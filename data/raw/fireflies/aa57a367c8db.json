@@ -1,0 +1,160 @@
+{
+  "date": 1790081820000,
+  "duration": 1.72,
+  "host_email": "carys.fenwick@keelwater.example",
+  "id": "aa57a367c8db",
+  "meeting_attendees": [
+    {
+      "displayName": "Carys Fenwick",
+      "email": "carys.fenwick@keelwater.example",
+      "name": "Carys Fenwick"
+    },
+    {
+      "displayName": "Celdra Jarrowfell",
+      "email": "contact@a20.example",
+      "name": "Celdra Jarrowfell"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 6.4,
+      "index": 0,
+      "raw_text": "Hi Carys, thanks for walking us through the onboarding — it’s been really helpful so far.",
+      "speaker_id": "customer",
+      "speaker_name": "Celdra Jarrowfell",
+      "start_time": 0.0,
+      "text": "Hi Carys, thanks for walking us through the onboarding — it’s been really helpful so far."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 13.2,
+      "index": 1,
+      "raw_text": "You’re welcome, Celdra — happy to help. Let me know if anything feels unclear as we go.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 6.4,
+      "text": "You’re welcome, Celdra — happy to help. Let me know if anything feels unclear as we go."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 25.2,
+      "index": 2,
+      "raw_text": "One thing I noticed — when assigning staff to different claim roles, we can’t seem to map our existing sign-on groups to those roles directly. Is that on the roadmap?",
+      "speaker_id": "customer",
+      "speaker_name": "Celdra Jarrowfell",
+      "start_time": 13.2,
+      "text": "One thing I noticed — when assigning staff to different claim roles, we can’t seem to map our existing sign-on groups to those roles directly. Is that on the roadmap?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 39.2,
+      "index": 3,
+      "raw_text": "When we set up user permissions, we need to link our existing sign-on groups to specific roles in Keelwater — right now that mapping isn’t available, and it’s causing extra manual work for our team.",
+      "speaker_id": "customer",
+      "speaker_name": "Celdra Jarrowfell",
+      "start_time": 25.2,
+      "text": "When we set up user permissions, we need to link our existing sign-on groups to specific roles in Keelwater — right now that mapping isn’t available, and it’s causing extra manual work for our team."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 48.8,
+      "index": 4,
+      "raw_text": "That’s a valid point — we’re tracking that as a feature request for future updates. I’ll make sure it’s logged with our product team.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 39.2,
+      "text": "That’s a valid point — we’re tracking that as a feature request for future updates. I’ll make sure it’s logged with our product team."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 60.4,
+      "index": 5,
+      "raw_text": "Also, when we’re uploading evidence for a claim, it’s tedious to add each file one at a time. We’d really benefit from being able to upload multiple files together.",
+      "speaker_id": "customer",
+      "speaker_name": "Celdra Jarrowfell",
+      "start_time": 48.8,
+      "text": "Also, when we’re uploading evidence for a claim, it’s tedious to add each file one at a time. We’d really benefit from being able to upload multiple files together."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 76.0,
+      "index": 6,
+      "raw_text": "We handle a lot of claims with large volumes of supporting files, and uploading them one by one is slowing us down — we really need the ability to use multiple file upload to batch-add documents to a claim.",
+      "speaker_id": "customer",
+      "speaker_name": "Celdra Jarrowfell",
+      "start_time": 60.4,
+      "text": "We handle a lot of claims with large volumes of supporting files, and uploading them one by one is slowing us down — we really need the ability to use multiple file upload to batch-add documents to a claim."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 90.0,
+      "index": 7,
+      "raw_text": "I understand — that’s a common request. In fact, we just shipped support for multiple file upload last week. You should now be able to add many documents at once from the claim’s documents tab.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 76.0,
+      "text": "I understand — that’s a common request. In fact, we just shipped support for multiple file upload last week. You should now be able to add many documents at once from the claim’s documents tab."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 95.6,
+      "index": 8,
+      "raw_text": "Oh, that’s great — I’ll try it out right away. Thanks for the heads-up.",
+      "speaker_id": "customer",
+      "speaker_name": "Celdra Jarrowfell",
+      "start_time": 90.0,
+      "text": "Oh, that’s great — I’ll try it out right away. Thanks for the heads-up."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 103.2,
+      "index": 9,
+      "raw_text": "Glad to hear it. Let me know how it goes — we’re always open to feedback after features ship.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 95.6,
+      "text": "Glad to hear it. Let me know how it goes — we’re always open to feedback after features ship."
+    }
+  ]
+}
