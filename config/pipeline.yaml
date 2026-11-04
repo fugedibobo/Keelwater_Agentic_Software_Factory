@@ -2,7 +2,7 @@
 # Changing one is an audit event.
 triage:
   backends:
-    jev:
+    clef:
       drop_p: 0.10        # p <= drop_p -> drop
       keep_p: 0.50        # p >= keep_p and bucket_conf >= keep_bucket_conf -> keep
       keep_bucket_conf: 0.70

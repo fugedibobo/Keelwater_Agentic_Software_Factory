@@ -183,23 +183,25 @@ def test_aws_profile_sends_call_id_and_hosts_are_allow_listed(tmp_path, monkeypa
         demo(tmp_path, profile="aws", db="g2.sqlite")
 
 
-def test_decide_maps_jev_answers_to_triage_record(tmp_path):
+def test_decide_maps_clef_answers_to_triage_record(tmp_path):
     seen = {}
 
     def handler(request):
-        seen["auth"], seen["body"] = request.headers["Authorization"], json.loads(request.content)
-        return httpx.Response(200, json={"model": "jev-latest", "usage": {"input_tokens": 50}, "answers": {
-            "is_product_signal": {"probability": 0.8}, "bucket": {"choice": "fnol_intake", "confidence": 0.9},
-            "severity": {"score": 3}, "signal_type": {"choice": "bug", "confidence": 0.7}}})
+        seen["url"], seen["auth"], seen["body"] = str(request.url), request.headers["Authorization"], json.loads(request.content)
+        return httpx.Response(200, json={"model": "cloudflare/clef", "usage": {"input_tokens": 50, "cost": 0.00002}, "answers": {
+            "is_product_signal": {"type": "noul", "noul": 0.8}, "bucket": {"type": "choice", "choice": "fnol_intake", "confidence": 0.9},
+            "severity": {"type": "score", "score": 2.2}, "signal_type": {"type": "choice", "choice": "bug", "confidence": 0.7}}})
 
     store = Store.fresh(tmp_path / "j.sqlite")
-    gw = Gateway(store, "demo", tmp_path / "cache", run_id="r", keys={"OPENROUTER_API_KEY": "x", "TYPESAFE_API_KEY": FAKE_KEY},
+    gw = Gateway(store, "demo", tmp_path / "cache", run_id="r", keys={"OPENROUTER_API_KEY": FAKE_KEY},
                  http=httpx.Client(transport=httpx.MockTransport(handler)))
     out = gw.decide("the claim form loses data", target_type="snippet", target_id="s1")
     assert out == {"is_signal_p": 0.8, "bucket": "fnol_intake", "bucket_conf": 0.9, "severity": 3, "signal_type": "bug"}
-    assert seen["auth"] == f"Bearer {FAKE_KEY}" and seen["body"]["model"] == "jev-latest"
+    assert seen["url"] == "https://openrouter.ai/api/alpha/decisions" and seen["auth"] == f"Bearer {FAKE_KEY}"
+    assert seen["body"]["model"] == "cloudflare/clef" and seen["body"]["provider"]["data_collection"] == "deny"
     assert FAKE_KEY not in "".join(p.read_text(encoding="utf-8") for p in (tmp_path / "cache").rglob("*.json"))
-    assert store.select("model_call")[0]["stage"] == "triage"
+    (row,) = store.select("model_call")
+    assert row["stage"] == "triage" and row["cost_usd"] == 0.00002
 
 
 def test_embed_goes_through_the_cache(tmp_path):
@@ -211,7 +213,7 @@ def test_embed_goes_through_the_cache(tmp_path):
 
 
 # ---- probe ----------------------------------------------------------------------------------------------------
-def test_probe_table_fallback_and_missing_jev_key(fake_gateway):
+def test_probe_table_fallback_and_missing_clef_key(fake_gateway):
     def brief(body):
         if body["model"] == "deepseek/deepseek-v3.2":
             raise GatewayError("model not served")
@@ -221,7 +223,7 @@ def test_probe_table_fallback_and_missing_jev_key(fake_gateway):
                        "brief": brief})
     rows, ok = gwm.run_probe(gw, ["triage", "triage_fallback", "brief"], out=lambda s: None)
     assert ok
-    assert rows[0] == ("triage", "jev-latest", "-", "skipped (no key)", "-")
+    assert rows[0] == ("triage", "cloudflare/clef", "-", "skipped (no key)", "-")
     assert [r[:4] for r in rows[1:]] == [("triage_fallback", "openai/gpt-oss-120b", "primary", "ok"),
                                          ("brief", "deepseek/deepseek-v3.2", "primary", "fail"),
                                          ("brief", "deepseek/deepseek-v4-pro-0813", "fallback", "ok")]

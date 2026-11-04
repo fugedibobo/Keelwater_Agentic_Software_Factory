@@ -8,13 +8,12 @@ profiles:
     key_env: OPENROUTER_API_KEY
     stages:
       triage:
-        backend: jev
-        model: jev-latest
-        base_url: https://api.typesafe.ai
-        key_env: TYPESAFE_API_KEY
+        backend: clef            # OpenRouter Decisions API, same OPENROUTER_API_KEY; usage.cost wins over price
+        model: cloudflare/clef
+        base_url: https://openrouter.ai/api
         timeout_s: 1.5
         retries: 2
-        price: {in: 0.042, out: 0.0}
+        price: {in: 0.24, out: 0.0}   # est
       triage_fallback:
         model: openai/gpt-oss-120b
         price: {in: 0.03, out: 0.15}
