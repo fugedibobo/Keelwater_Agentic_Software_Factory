@@ -90,6 +90,8 @@ class Store:
         self.db.close()
 
     def insert(self, table, row, replace=False):
+        if replace and table == "audit_event":
+            raise ValueError("audit_event is append-only: no replace")
         data = row.model_dump(mode="json") if isinstance(row, BaseModel) else dict(row)
         if isinstance(row, BaseModel):
             TABLES[table].model_validate(data)
@@ -185,8 +187,8 @@ def reassign(store, opportunity_id, squad, actor, actor_kind, details=None, at=N
                                   dict(details or {}, from_squad=row[0], to_squad=squad), at=at)
 
 
-def undo(store, audit_event_id, actor, now=None):
-    """Reverse one transition or reassign within 10 seconds by the same actor. Nothing is deleted."""
+def undo(store, audit_event_id, actor, now=None, after=None):
+    """Reverse one transition or reassign within 10 seconds by the same actor. Nothing is deleted. after(ev, details, event_id), if given, runs inside the same transaction."""
     now = now or datetime.now(timezone.utc)
     with store.lock, store.db:
         ev = store.db.execute("SELECT * FROM audit_event WHERE event_id=?", (audit_event_id,)).fetchone()
@@ -208,4 +210,7 @@ def undo(store, audit_event_id, actor, now=None):
         stamp = now.isoformat()
         store.db.execute("INSERT INTO annotation (annotation_id,target_type,target_id,actor,action,undo_of,created_at) "
                          "VALUES (?,?,?,?,?,?,?)", (uuid4().hex, "opportunity", ev["target_id"], actor, "undo", audit_event_id, stamp))
-        return store.append_audit(actor, "person", "undo", "opportunity", ev["target_id"], {"undo_of": audit_event_id}, at=stamp)
+        eid = store.append_audit(actor, "person", "undo", "opportunity", ev["target_id"], {"undo_of": audit_event_id}, at=stamp)
+        if after:
+            after(ev, d, eid)
+        return eid

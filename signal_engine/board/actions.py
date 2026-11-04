@@ -31,14 +31,16 @@ class Missing(LookupError):
 class Board:
     def __init__(self, store, labels_dir, reports_dir=None):
         self.store, self.labels_dir, self.reports_dir = store, Path(labels_dir), reports_dir
+        store.db.execute("CREATE TABLE IF NOT EXISTS outbox (outbox_id TEXT PRIMARY KEY, actor TEXT NOT NULL, line_json TEXT NOT NULL)")  # board-only, not a pipeline table
+        flush(self)  # records left by a crash or a file error
 
 
 def person(actor):
     a = (actor or "").strip()
     if not a or a.lower() == "system":
         raise PermissionError("X-Actor must be a person")
-    if len(a) > 64:
-        raise Invalid("X-Actor too long")
+    if a not in config.people():  # shortcut: a name allow-list stands in for login; real authentication is out of demo scope
+        raise PermissionError("X-Actor is not a configured person")
     return a
 
 
@@ -46,12 +48,34 @@ def split_of(key):
     return "dev" if int(sha256(key), 16) % 100 < 30 else "held_out"  # evals.md 5.5 (sha256 of the opportunity id, mod 100)
 
 
-def _jsonl(b, actor, *lines):
-    # shortcut: append-only file per actor, no locking across processes; fine for one local server.
-    b.labels_dir.mkdir(parents=True, exist_ok=True)
-    with (b.labels_dir / (re.sub(r"[^A-Za-z0-9_.-]", "_", actor) + ".jsonl")).open("a", encoding="utf-8") as f:
-        for line in lines:
-            f.write(json.dumps(line, sort_keys=True, default=str) + "\n")
+def _queue(store, actor, *lines):
+    """Outbox rows for the jsonl record; called inside the action's transaction so the record commits with the action."""
+    store.db.executemany("INSERT INTO outbox (outbox_id, actor, line_json) VALUES (?,?,?)",
+                         [(i := uuid4().hex, actor, json.dumps({"outbox_id": i, **l}, sort_keys=True, default=str)) for l in lines])
+
+
+def _append(path, text):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a", encoding="utf-8") as f:
+        f.write(text)
+
+
+def flush(b):
+    """Write committed outbox rows to the per-actor jsonl, then drop them; idempotent by outbox_id, safe to rerun after a failure.
+
+    shortcut: no locking across processes; fine for one local server.
+    """
+    store = b.store
+    with store.lock:
+        for oid, actor, line in store.db.execute("SELECT outbox_id, actor, line_json FROM outbox ORDER BY rowid").fetchall():
+            path = b.labels_dir / (re.sub(r"[^A-Za-z0-9_.-]", "_", actor) + ".jsonl")
+            if not (path.is_file() and f'"outbox_id": "{oid}"' in path.read_text(encoding="utf-8")):
+                try:
+                    _append(path, line + "\n")
+                except OSError:
+                    return  # stays in the outbox; the next action or restart retries
+            with store.db:
+                store.db.execute("DELETE FROM outbox WHERE outbox_id=?", (oid,))
 
 
 def _set(store, table, key_col, key, values):
@@ -95,8 +119,9 @@ def _write(b, actor, annotation, labels, run):
         for l in labels:
             _ins(store, "label", l)
         eid = run()
-    _jsonl(b, actor, {"kind": "annotation", "audit_event_id": eid, **annotation.model_dump(mode="json")},
-           *({"kind": "label", "audit_event_id": eid, **l.model_dump(mode="json")} for l in labels))
+        _queue(store, actor, {"kind": "annotation", "audit_event_id": eid, **annotation.model_dump(mode="json")},
+               *({"kind": "label", "audit_event_id": eid, **l.model_dump(mode="json")} for l in labels))
+    flush(b)
     return eid
 
 
@@ -218,17 +243,17 @@ def undo(b, event_id, actor, now=None):
         raise Conflict("nothing to undo for that event")
     details = json.loads(ev["details_json"])
     if "restore" not in details:
+        def cleanup(_ev, _d, aid):  # runs inside store.undo's transaction: reversal, cleanup and record commit together
+            if details.get("to_status") == "merged":
+                _set(store, "opportunity", "opportunity_id", ev["target_id"], {"merged_into": None})
+            store.db.executemany("DELETE FROM label WHERE label_id=?", [(i,) for i in details.get("label_ids", [])])
+            _queue(store, actor, {"kind": "undo", "undo_of": event_id, "audit_event_id": aid, "label_ids": details.get("label_ids", [])})
         try:
-            eid = store_undo(store, event_id, actor, now)
+            eid = store_undo(store, event_id, actor, now, after=cleanup)
         except PermissionError:
             raise
         except ValueError as e:
             raise Conflict(str(e)) from e
-        extra = {"merged_into": None} if details.get("to_status") == "merged" else {}
-        with store.lock, store.db:  # shortcut: cleanup after the helper's commit, not in its transaction; fold into store.undo when #1 allows
-            if extra:
-                _set(store, "opportunity", "opportunity_id", ev["target_id"], extra)
-            store.db.executemany("DELETE FROM label WHERE label_id=?", [(i,) for i in details.get("label_ids", [])])
     else:
         r, now = details["restore"], now or datetime.now(timezone.utc)
         if ev["actor"] != actor:
@@ -247,7 +272,8 @@ def undo(b, event_id, actor, now=None):
             _ins(store, "annotation", Annotation(annotation_id=uuid4().hex, target_type=ev["target_type"], target_id=ev["target_id"], actor=actor,
                                                   action="undo", undo_of=event_id, created_at=stamp))
             eid = store.append_audit(actor, "person", "undo", ev["target_type"], ev["target_id"], {"undo_of": event_id}, at=stamp)
-    _jsonl(b, actor, {"kind": "undo", "undo_of": event_id, "audit_event_id": eid, "label_ids": details.get("label_ids", [])})
+            _queue(store, actor, {"kind": "undo", "undo_of": event_id, "audit_event_id": eid, "label_ids": details.get("label_ids", [])})
+    flush(b)
     return {"audit_event_id": eid, "undone": event_id}
 
 
@@ -280,6 +306,7 @@ def add_label(b, actor, body):
         _ins(store, "label", label)
         eid = store.append_audit(actor, "person", "label.add", body.target_type, body.target_id,
                                  {"label_id": label.label_id, "judge": body.judge.value, "verdict": body.verdict.value, "blind": True})
-    _jsonl(b, actor, {"kind": "label", "audit_event_id": eid, **label.model_dump(mode="json")})
+        _queue(store, actor, {"kind": "label", "audit_event_id": eid, **label.model_dump(mode="json")})
+    flush(b)
     revealed = read.judge_critique(store, body.target_type, body.target_id, body.judge.value) if body.target_type == "brief" else None
     return {"audit_event_id": eid, "label_id": label.label_id, "revealed": revealed}

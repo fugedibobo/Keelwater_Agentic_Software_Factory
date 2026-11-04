@@ -50,6 +50,15 @@ def _target_exists(store, target_type, target_id):
     return True if table is None else bool(store.select(table, {col: target_id}))
 
 
+def _rel(path):
+    """Repo-relative identifier for audit rows, never an absolute checkout path."""
+    p = Path(path).resolve()
+    try:
+        return p.relative_to(config.ROOT).as_posix()
+    except ValueError:
+        return p.name
+
+
 def import_path(store, path):
     """Load annotation and label rows from jsonl; rows already present are skipped; missing targets are kept and counted."""
     records, bad, n_files = read_records(path)
@@ -94,7 +103,7 @@ def import_path(store, path):
         counts["undos" if kind == "undo" else "annotations"] += 1
         counts["missing_targets"] += kind == "annotation" and not _target_exists(store, row.target_type, row.target_id)
     if any(counts[k] for k in ("annotations", "labels", "undos")):
-        store.append_audit("system", "system", "labels.import", "labels", str(path), counts)
+        store.append_audit("system", "system", "labels.import", "labels", _rel(path), counts)
     return counts
 
 

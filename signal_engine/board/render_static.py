@@ -17,10 +17,23 @@ ENV.filters["md"] = read.md
 ENV.filters["uk"] = read.uk
 
 
+def _scrub(value):
+    """Drop the local checkout path from exported audit data (rows written before ids became repo-relative)."""
+    if isinstance(value, str):
+        for root in {str(config.ROOT), config.ROOT.as_posix()}:
+            if root in value:
+                value = value.replace(root, "").lstrip("\\/").replace("\\", "/")
+        return value
+    if isinstance(value, dict):
+        return {k: _scrub(v) for k, v in value.items()}
+    return [_scrub(v) for v in value] if isinstance(value, list) else value
+
+
 def context(store, reports_dir, static):
     listing = read.opportunities(store)
     opps = [read.opportunity(store, o["opportunity_id"], listing) for o in listing]
     aud = read.audit_both(store)
+    aud["audit_event"]["rows"] = [_scrub(r) for r in aud["audit_event"]["rows"]]
     prefix = "diagrams/" if static else "/diagrams/"
     return dict(
         static=static, hdr=read.header(store), strip=read.since_last_week(store), opps=opps, tagq=read.tag_queue(store),
