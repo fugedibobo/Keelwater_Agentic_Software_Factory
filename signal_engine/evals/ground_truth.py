@@ -155,7 +155,7 @@ def triage_metrics(a):
         tr = a.triage.get(sid)
         if tr and tr["decision"] != "drop":
             kept += 1
-            if tr["bucket"]:
+            if tr["bucket"] and t.get("bucket"):  # one-off themes carry no planted bucket
                 bucket_n += 1
                 bucket_ok += tr["bucket"] == t["bucket"]
     noise = [sid for sid, s in a.snip.items() if s["label"].startswith("noise") and sid in a.triage]
