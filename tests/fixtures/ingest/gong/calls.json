@@ -1,0 +1,79 @@
+{
+  "calls": [
+    {
+      "metaData": {
+        "id": "g1",
+        "title": "Review",
+        "started": "2026-10-14T09:00:00Z",
+        "duration": 600
+      },
+      "parties": [
+        {
+          "speakerId": "s1",
+          "emailAddress": "sam@keelwater.example",
+          "affiliation": "Internal"
+        },
+        {
+          "speakerId": "s2",
+          "emailAddress": "ben@client.example",
+          "affiliation": "External"
+        },
+        {
+          "speakerId": "s3",
+          "emailAddress": "bo@crestline-brokers.example",
+          "affiliation": "External"
+        }
+      ],
+      "context": [
+        {
+          "system": "HubSpot",
+          "objects": [
+            {
+              "objectType": "Account",
+              "objectId": "101",
+              "fields": [
+                {
+                  "name": "name",
+                  "value": "x"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "metaData": {
+        "id": "g2",
+        "title": "No CRM",
+        "started": "2026-10-15T09:00:00Z",
+        "duration": 300
+      },
+      "parties": [
+        {
+          "speakerId": "s1",
+          "emailAddress": "sam@keelwater.example",
+          "affiliation": "Internal"
+        },
+        {
+          "speakerId": "s2",
+          "emailAddress": "bo@crestline-brokers.example",
+          "affiliation": "External"
+        },
+        {
+          "speakerId": "s3",
+          "emailAddress": "cat@third.example",
+          "affiliation": "External"
+        }
+      ],
+      "context": []
+    },
+    {
+      "metaData": {
+        "id": "g3",
+        "started": "2026-10-16T09:00:00Z"
+      },
+      "parties": []
+    }
+  ]
+}

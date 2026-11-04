@@ -1,0 +1,89 @@
+{
+  "callTranscripts": [
+    {
+      "callId": "g1",
+      "transcript": [
+        {
+          "speakerId": "s1",
+          "sentences": [
+            {
+              "start": 0,
+              "end": 4000,
+              "text": "So the document upload is still giving you trouble?"
+            }
+          ]
+        },
+        {
+          "speakerId": "s2",
+          "sentences": [
+            {
+              "start": 4000,
+              "end": 9000,
+              "text": "Yes, exactly that."
+            },
+            {
+              "start": 9000,
+              "end": 15000,
+              "text": "It loses the file type every time."
+            }
+          ]
+        },
+        {
+          "speakerId": "s1",
+          "sentences": [
+            {
+              "start": 15000,
+              "end": 18000,
+              "text": "Noted."
+            }
+          ]
+        },
+        {
+          "speakerId": "s2",
+          "sentences": [
+            {
+              "start": 18000,
+              "end": 22000,
+              "text": "Thanks."
+            }
+          ]
+        },
+        {
+          "speakerId": "s9",
+          "sentences": [
+            {
+              "start": 22000,
+              "end": 25000,
+              "text": "Who is this?"
+            }
+          ]
+        },
+        {
+          "speakerId": "s2",
+          "sentences": [
+            {
+              "start": 25000,
+              "end": 28000,
+              "text": "Sorry, a stray voice."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "callId": "g2",
+      "transcript": [
+        {
+          "speakerId": "s3",
+          "sentences": [
+            {
+              "start": 0,
+              "end": 3000,
+              "text": "Renewal pricing worries us."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

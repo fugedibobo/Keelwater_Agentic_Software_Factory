@@ -65,8 +65,7 @@ def test_run_with_no_env_and_no_network_writes_store_report_and_hash(tmp_path):
     r = keelwater("run", "--data", "tests/fixtures/raw", "--db", str(db), "--report-dir", str(rep))
     assert r.returncode == 0, r.stderr
     lines = r.stdout.splitlines()
-    built = sum(pipeline.resolve(s) is not None for s in pipeline.STAGES.values())
-    assert sum(l.endswith(": skipped (not built)") for l in lines) == len(pipeline.STAGES) - built
+    assert sum(l.endswith(": skipped (not built)") for l in lines) == sum(pipeline.resolve(v) is None for v in pipeline.STAGES.values())
     assert any(re.fullmatch(r"output hash: [0-9a-f]{64}", l) for l in lines)
     store = Store(db)
     assert {t[0] for t in store.db.execute("SELECT name FROM sqlite_master WHERE type='table'")} == set(c.TABLES)
