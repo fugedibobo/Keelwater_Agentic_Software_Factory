@@ -13,7 +13,7 @@ triage:
   timeout_s: 1.5
   retries: 2
 cluster:
-  distance: 0.42          # tuned on seed 42 only (#5); 0.35 before tuning run 1: 3 themes split across two opportunities
+  distance: 0.38          # tuned on seed 42 only (#5); 0.35 originally, 0.42 in tuning run 1 over-merged and diluted purity
 tagging:
   similarity: 0.60        # tuned on seed 42 only (#5)
 top_n: 10
