@@ -287,7 +287,8 @@ JSON matching the schema for {source}.
 
 ### 8.4 Model, determinism and caching
 
-- **Model.** `mistralai/mistral-large-4-0` (USD 0.70 / 2.10 per million tokens, FOUND in the model research), `provider.data_collection = "deny"`, temperature 0.8. No pipeline stage uses Mistral, so no judge reads text its own family wrote.
+- **Model.** `qwen/qwen3-vl-235b-a22b-instruct` (USD 0.21 / 1.90 per million tokens, from the OpenRouter model list), temperature 0.8. Mistral Large was dropped because the data is invented and should cost almost nothing. Free OpenRouter models failed the 3-record smoke (empty or over-length output, an account policy block, or turn counts out of range); `deepseek/deepseek-v4.1-flash` with reasoning off is the recorded fallback (it failed the smoke on content rules). No pipeline stage uses Qwen VL, so no judge reads text its own family wrote. `provider.data_collection` is `allow` for the generate stage only, because the data is synthetic with no customer content (reason recorded in config/models.yaml); every other stage keeps `deny`.
+- **Structured slots.** The response schema is built per record: the turn band, the noise categories and one slot per planted mention (opaque labels m1, m2, ... in place of ids) and per required element (Fin bot turn, escalation reply, admin note, required noise, how-to distractor). Code inserts and tags those turns, so the "missing X" checks hold by construction; checks that forbid things or judge text (unknown names, forbidden phrases, synonym presence) stay as validators, with the failed rule fed back into each regeneration prompt.
 - **Seed.** The seed drives every code-side choice.
 - **Cache.** Responses are cached by request hash in the committed `generator/cache/`, so a seed reproduces its data byte for byte offline; without the cache only the text changes.
 
@@ -310,7 +311,7 @@ A dataset's `data_hash` is the SHA-256 over its `raw/**` in sorted path order, w
 
 ```yaml
 schema_version: 1
-generated: {seed: 42, generator_version: 0.1.0, model: mistralai/mistral-large-4-0, raw_sha256: "<hash>"}
+generated: {seed: 42, generator_version: 0.1.0, model: qwen/qwen3-vl-235b-a22b-instruct, raw_sha256: "<hash>"}
 as_of: 2026-11-03                  # reference date for recency
 window: {from: 2026-09-01, to: 2026-10-31}
 accounts:                          # key -> canonical HubSpot record

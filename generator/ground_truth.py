@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 from .specs import load
+from .writer import MODEL
 
 
 def raw_hash(files):
@@ -26,4 +27,4 @@ def build(seed, files, mentions, false_positives=(), noise=(), join_traps=()):
         if m['theme'].startswith('one-off:'):
             themes.append({'id': m['theme'], 'kind': 'one_off', 'title': m['request'], 'severity': m['severity'], 'mentions': [m]})
     accounts = {a['key']: {'hubspot_id': str(18452001001 + i), 'name': a['name']} for i, a in enumerate(spec['accounts']['accounts'])}
-    return {'schema_version': 1, 'generated': {'seed': seed, 'generator_version': '0.1.0', 'model': 'mistralai/mistral-large-4-0', 'raw_sha256': raw_hash(files)}, 'as_of': '2026-11-03', 'window': {'from': '2026-09-01', 'to': '2026-10-31'}, 'accounts': accounts, 'themes': themes, 'noise': list(noise), 'fullstory_false_positives': list(false_positives), 'join_traps': list(join_traps)}
+    return {'schema_version': 1, 'generated': {'seed': seed, 'generator_version': '0.1.0', 'model': MODEL, 'raw_sha256': raw_hash(files)}, 'as_of': '2026-11-03', 'window': {'from': '2026-09-01', 'to': '2026-10-31'}, 'accounts': accounts, 'themes': themes, 'noise': list(noise), 'fullstory_false_positives': list(false_positives), 'join_traps': list(join_traps)}

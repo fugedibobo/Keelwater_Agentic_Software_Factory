@@ -1,0 +1,154 @@
+{
+ "request": {
+  "model": "qwen/qwen3-vl-235b-a22b-instruct",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nWrite one realistic fireflies record for Keelwater, a UK claims-handling software company.\n</role>\n<record>\n{\"customer\": {\"account\": \"A01\", \"company\": \"Hollinbrook Home Insurance\", \"email\": \"contact@a01.example\", \"name\": \"Avenna Ashfell\"}, \"date\": \"2026-09-06T13:01:00Z\", \"fin_mode\": null, \"glossary\": [\"claims\", \"documents\", \"reserves\", \"payments\", \"suppliers\", \"reporting\", \"roles\", \"integrations\", \"tasks\", \"letters\", \"policyholders\"], \"never_write_verbatim\": [\"One Strategic account (A01, renewing in January) asks for Welsh-language letter templates through sales, support and its account manager, and calls it a renewal blocker\", \"Unannounced interface changes move or rename controls, forcing retraining and causing errors; customers ask for notice, a preview and fewer, bundled changes\", \"controls move without advance notice\", \"customers want advance previews and grouped releases\", \"one account wants Welsh language letters\", \"teams need to retrain staff\", \"the customer describes this as a renewal blocker\"], \"only_people_who_may_be_named\": [\"Hollinbrook Home Insurance\", \"Avenna Ashfell\", \"Deryn Pell\"], \"route\": \"account_management\", \"source\": \"fireflies\", \"staff\": {\"email\": \"deryn.pell@keelwater.example\", \"name\": \"Deryn Pell\", \"team\": \"account_management\"}, \"turns_range\": null}\n</record>\n<mentions>\n[{\"fact\": \"one account wants Welsh language letters\", \"form\": \"feature ask\", \"id\": \"m1\", \"post_ship\": false, \"problem\": \"One Strategic account (A01, renewing in January) asks for Welsh-language letter templates through sales, support and its account manager, and calls it a renewal blocker. Genuine signal, built as the strongest single-account candidate; it must rank below all six real themes.\", \"severity\": 4, \"stance\": null, \"synonym\": \"Welsh letter formats\"}, {\"fact\": \"one account wants Welsh language letters\", \"form\": \"complaint\", \"id\": \"m2\", \"post_ship\": false, \"problem\": \"One Strategic account (A01, renewing in January) asks for Welsh-language letter templates through sales, support and its account manager, and calls it a renewal blocker. Genuine signal, built as the strongest single-account candidate; it must rank below all six real themes.\", \"severity\": 4, \"stance\": null, \"synonym\": \"letters in Welsh\"}, {\"fact\": \"teams need to retrain staff\", \"form\": \"question\", \"id\": \"m3\", \"post_ship\": false, \"problem\": \"Unannounced interface changes move or rename controls, forcing retraining and causing errors; customers ask for notice, a preview and fewer, bundled changes.\", \"severity\": 4, \"stance\": null, \"synonym\": \"unexpected interface changes\"}]\n</mentions>\n<noise>\n{\"admin_note\": false, \"allowed_categories\": [\"pleasantry\", \"scheduling\", \"pricing\", \"internal\", \"password_reset\", \"how_to\", \"praise\", \"closer\"], \"distractor_how_to_phrase\": null, \"instructions\": \"Tag every noise turn with its category. Put the distractor phrase, if given, in a how-to turn with no mention id. An admin note must be an internal turn tagged internal. A Fin-resolved or escalated conversation needs a bot turn; an escalated one also needs an internal reply. About 35 percent of customer turns are pleasantries. Every tagged customer mention, including a short agreement, must contain its supplied synonym.\", \"required_categories\": []}\n</noise>\n<rules>\nCustomers speak like claims staff. Do not use headings or bullets in speech. Use only the names in the record brief; never name a real company, product or person. Mention no feature outside the supplied glossary. Express the supplied facts in the speaker's own words. Tag each turn with its noise category or null. Do not put the planted mentions in `turns`: write each one, in the customer's own words and at least twelve words long, under `mentions[<mention id>].text`, containing that mention's `synonym` exactly as written (a mention whose form is a short agreement is different: write the internal speaker's turn stating the problem, at least twelve words and containing the synonym exactly as written, under `internal_text`, and the customer's reply of under eight words under `agreement_text`), and set after_turn to the index of the turn it should follow. The `turns` conversation is the rest of the record. Do not put the turns listed under `extras` in `turns`: write each one once under `extras[<key>].text` (at least twenty characters, containing the exact phrase where one is given), and set after_turn to the index of the turn it should follow. Name only the people in only_people_who_may_be_named. When fin_mode is resolved or escalated, at least one turn must have speaker bot; when it is escalated, at least one turn must have speaker internal; when it is human, no turn has speaker bot. Never write any phrase listed in never_write_verbatim, including the supplied facts: paraphrase them.\n</rules>\n<output>\nReturn JSON matching the supplied source schema.\n{\"extras\": {}, \"mentions\": {\"m1\": {\"after_turn\": \"index of the turns entry it follows\", \"text\": \"the customer turn carrying this mention\"}, \"m2\": {\"after_turn\": \"index of the turns entry it follows\", \"text\": \"the customer turn carrying this mention\"}, \"m3\": {\"after_turn\": \"index of the turns entry it follows\", \"text\": \"the customer turn carrying this mention\"}}, \"turns\": [{\"noise_category\": \"string or null\", \"speaker\": \"customer|internal|bot\", \"text\": \"string\"}]}\n</output>\n"
+   }
+  ],
+  "temperature": 0.8,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "generate",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "turns",
+      "mentions",
+      "extras"
+     ],
+     "properties": {
+      "extras": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [],
+       "properties": {}
+      },
+      "turns": {
+       "type": "array",
+       "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+         "speaker",
+         "text",
+         "noise_category"
+        ],
+        "properties": {
+         "speaker": {
+          "type": "string",
+          "enum": [
+           "customer",
+           "internal",
+           "bot"
+          ]
+         },
+         "text": {
+          "type": "string"
+         },
+         "noise_category": {
+          "enum": [
+           "pleasantry",
+           "scheduling",
+           "pricing",
+           "internal",
+           "password_reset",
+           "how_to",
+           "praise",
+           "closer",
+           null
+          ]
+         }
+        }
+       },
+       "minItems": 6
+      },
+      "mentions": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [
+        "m1",
+        "m2",
+        "m3"
+       ],
+       "properties": {
+        "m1": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 45
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        },
+        "m2": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 45
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        },
+        "m3": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 45
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "allow",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"extras\": {},\n  \"turns\": [\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Hi Deryn, thanks for jumping on this. We’ve got a real urgency around some documentation needs.\",\n      \"noise_category\": \"pleasantry\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Happy to help, Avenna. What’s top of mind for you right now?\",\n      \"noise_category\": \"pleasantry\"\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"We need to issue official correspondence in Welsh for certain policyholders — it’s not optional for us anymore.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Understood. That’s a critical requirement. We’ll log this as a priority for the next planning cycle.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Also, your last UI update moved some key controls without warning — our team had to retrain everyone.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"That’s not the experience we want you to have. We’ll make sure future changes include preview access and grouped releases.\",\n      \"noise_category\": null\n    }\n  ],\n  \"mentions\": {\n    \"m1\": {\n      \"text\": \"We’re under pressure to deliver letters in Welsh for our Welsh-speaking policyholders — it’s now a renewal blocker for us, and we’ve asked multiple teams to help.\",\n      \"after_turn\": 2\n    },\n    \"m2\": {\n      \"text\": \"It’s non-negotiable for us to have letters in Welsh — we’ve flagged this as a renewal blocker across sales, support, and account management.\",\n      \"after_turn\": 2\n    },\n    \"m3\": {\n      \"text\": \"Your team made unexpected interface changes that forced us to retrain staff — we need advance notice and grouped updates next time.\",\n      \"after_turn\": 4\n    }\n  }\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1297,
+   "tokens_out": 447,
+   "cost_usd": 0.00111815
+  }
+ }
+}

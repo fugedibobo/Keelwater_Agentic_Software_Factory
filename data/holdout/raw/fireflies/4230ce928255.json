@@ -1,0 +1,132 @@
+{
+  "date": 1790072400000,
+  "duration": 1.3266666666666667,
+  "host_email": "carys.fenwick@keelwater.example",
+  "id": "4230ce928255",
+  "meeting_attendees": [
+    {
+      "displayName": "Carys Fenwick",
+      "email": "carys.fenwick@keelwater.example",
+      "name": "Carys Fenwick"
+    },
+    {
+      "displayName": "Brelis Isleford",
+      "email": "contact@a19.example",
+      "name": "Brelis Isleford"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 12.0,
+      "index": 0,
+      "raw_text": "Hi Carys, we’re setting up our new claims team and I’m already dreading the permissions setup — it’s so easy to miss a box and then someone gets locked out.",
+      "speaker_id": "customer",
+      "speaker_name": "Brelis Isleford",
+      "start_time": 0.0,
+      "text": "Hi Carys, we’re setting up our new claims team and I’m already dreading the permissions setup — it’s so easy to miss a box and then someone gets locked out."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 24.0,
+      "index": 1,
+      "raw_text": "I hear you, Brelis. We’re aware the role setup is manual right now — no way to copy an existing role, so every new user needs every permission ticked individually.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 12.0,
+      "text": "I hear you, Brelis. We’re aware the role setup is manual right now — no way to copy an existing role, so every new user needs every permission ticked individually."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 31.2,
+      "index": 2,
+      "raw_text": "Exactly. And if you slip up, the handler can’t log in until it’s fixed. It’s a real bottleneck.",
+      "speaker_id": "customer",
+      "speaker_name": "Brelis Isleford",
+      "start_time": 24.0,
+      "text": "Exactly. And if you slip up, the handler can’t log in until it’s fixed. It’s a real bottleneck."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 46.4,
+      "index": 3,
+      "raw_text": "The setup process is a pain because you can’t copy access roles — every new team member means manually selecting permissions one by one, and if you make a mistake, the handler gets locked out until it’s corrected.",
+      "speaker_id": "customer",
+      "speaker_name": "Brelis Isleford",
+      "start_time": 31.2,
+      "text": "The setup process is a pain because you can’t copy access roles — every new team member means manually selecting permissions one by one, and if you make a mistake, the handler gets locked out until it’s corrected."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 55.6,
+      "index": 4,
+      "raw_text": "Totally agree. We’re tracking this as a priority to streamline. For now, I’ll walk you through the checklist to avoid locking anyone out.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 46.4,
+      "text": "Totally agree. We’re tracking this as a priority to streamline. For now, I’ll walk you through the checklist to avoid locking anyone out."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 61.6,
+      "index": 5,
+      "raw_text": "Thanks. Also — can we export our case notes as PDFs? It’s for audit purposes.",
+      "speaker_id": "customer",
+      "speaker_name": "Brelis Isleford",
+      "start_time": 55.6,
+      "text": "Thanks. Also — can we export our case notes as PDFs? It’s for audit purposes."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 72.0,
+      "index": 6,
+      "raw_text": "We need to be able to export notes as PDF for compliance and internal review — it’s not just convenience, it’s required for our monthly audits.",
+      "speaker_id": "customer",
+      "speaker_name": "Brelis Isleford",
+      "start_time": 61.6,
+      "text": "We need to be able to export notes as PDF for compliance and internal review — it’s not just convenience, it’s required for our monthly audits."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 79.6,
+      "index": 7,
+      "raw_text": "Not currently, but I’ll log that as a feature request. You can print to PDF via browser for now.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 72.0,
+      "text": "Not currently, but I’ll log that as a feature request. You can print to PDF via browser for now."
+    }
+  ]
+}

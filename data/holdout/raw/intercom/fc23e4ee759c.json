@@ -1,0 +1,163 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "routed_to_team"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Farrin Fellward",
+          "type": "user"
+        },
+        "body": "Hi Bryn, we’re setting up a new claims team and the permission setup duplication is slowing us down — can we get help?",
+        "created_at": 1792595160,
+        "id": "fc23e4ee759c-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Farrin Fellward",
+          "type": "user"
+        },
+        "body": "The permission setup duplication is a real bottleneck — every new user means manually selecting permissions, and one slip can lock someone out of their claims tasks.",
+        "created_at": 1792595169,
+        "id": "fc23e4ee759c-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Farrin Fellward",
+          "type": "user"
+        },
+        "body": "Could we schedule a quick call tomorrow afternoon to walk through the team setup?",
+        "created_at": 1792595180,
+        "id": "fc23e4ee759c-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Farrin. I’ve flagged this as escalated and we’ll get you a resolution as soon as possible.",
+        "created_at": 1792595185,
+        "id": "fc23e4ee759c-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: customer flagged permission setup duplication as blocker for new team onboarding. Escalated to product team.",
+        "created_at": 1792595193,
+        "id": "fc23e4ee759c-4",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Farrin Fellward",
+          "type": "user"
+        },
+        "body": "Appreciate it — we’re blocked until this is sorted. Let me know if you need access logs or role examples.",
+        "created_at": 1792595200,
+        "id": "fc23e4ee759c-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your request has been escalated to our support lead for further review.",
+        "created_at": 1792595208,
+        "id": "fc23e4ee759c-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood. We’ll review your current roles and see how we can streamline the permission setup duplication process for you.",
+        "created_at": 1792595213,
+        "id": "fc23e4ee759c-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Noted — we’ll investigate the permission setup duplication issue and update the customer by end of day.",
+        "created_at": 1792595220,
+        "id": "fc23e4ee759c-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Farrin Fellward",
+          "type": "user"
+        },
+        "body": "Thanks — just let me know when you’ve got a fix or workaround.",
+        "created_at": 1792595227,
+        "id": "fc23e4ee759c-9",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your case has been escalated. A support lead will contact you within 24 hours.",
+        "created_at": 1792595232,
+        "id": "fc23e4ee759c-10",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 11,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1792595160,
+  "id": "fc23e4ee759c",
+  "source": {
+    "author": {
+      "email": "contact@a06.example",
+      "name": "Farrin Fellward",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "admin_permissions"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

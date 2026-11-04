@@ -1,0 +1,163 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "routed_to_team"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Elwenna Elmtree",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m Elwenna from Thistlecombe Mutual — we’ve hit a snag with supplier payments again.",
+        "created_at": 1791969240,
+        "id": "4f0c3f4613e9-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Morning Elwenna — sorry to hear that. Could you walk me through what’s happening on your end?",
+        "created_at": 1791969246,
+        "id": "4f0c3f4613e9-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Elwenna Elmtree",
+          "type": "user"
+        },
+        "body": "Could we schedule a 15-minute call tomorrow morning to walk through the reporting module?",
+        "created_at": 1791969253,
+        "id": "4f0c3f4613e9-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Elwenna Elmtree",
+          "type": "user"
+        },
+        "body": "Sure — every time we issue payments to third-party suppliers, we can’t validate their bank details ahead of time, which means payments bounce and we’re stuck reissuing days later.",
+        "created_at": 1791969258,
+        "id": "4f0c3f4613e9-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Elwenna Elmtree",
+          "type": "user"
+        },
+        "body": "We’re struggling because we can’t verify third-party payee bank details before sending payments — it forces us to reissue failed payments days later, which delays claims resolution for policyholders. Payee account verification would really help.",
+        "created_at": 1791969270,
+        "id": "4f0c3f4613e9-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: Elwenna Elmtree from Thistlecombe Mutual raised payee account verification as blocker for claims payments. Escalated per SLA.",
+        "created_at": 1791969284,
+        "id": "4f0c3f4613e9-5",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "That’s frustrating. I’ll flag this as a feature request — we don’t currently support pre-payment payee account verification, but I’ll escalate it to the product team.",
+        "created_at": 1791969292,
+        "id": "4f0c3f4613e9-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "I’ve escalated your request to our product team for review and will update you by end of day.",
+        "created_at": 1791969302,
+        "id": "4f0c3f4613e9-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Elwenna Elmtree",
+          "type": "user"
+        },
+        "body": "Thanks, that’d help a lot. We’re under pressure to reduce delays in claims processing.",
+        "created_at": 1791969309,
+        "id": "4f0c3f4613e9-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Noted — we’ll flag this as a priority for the next sprint planning. Bryn, please confirm if any workaround exists for Thistlecombe Mutual.",
+        "created_at": 1791969315,
+        "id": "4f0c3f4613e9-9",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Elwenna Elmtree",
+          "type": "user"
+        },
+        "body": "Also, can we set up a quick demo next week? I’d like to show the team how tasks and letters are handled in your system.",
+        "created_at": 1791969324,
+        "id": "4f0c3f4613e9-10",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 11,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1791969240,
+  "id": "4f0c3f4613e9",
+  "source": {
+    "author": {
+      "email": "contact@a05.example",
+      "name": "Elwenna Elmtree",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "customer_comms"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

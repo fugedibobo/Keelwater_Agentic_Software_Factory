@@ -1,0 +1,124 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Elwenna Larchvale",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m Elwenna from Ormsgill Cyber — we’re getting blocked trying to log into Keelwater again this morning. It’s showing ‘down’ but I think it’s on our end.",
+        "created_at": 1789381140,
+        "id": "c914d4f37226-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Elwenna Larchvale",
+          "type": "user"
+        },
+        "body": "We’ve had a few false alarms lately where Keelwater appears down, but it’s actually our own customer network failure — maybe the sign-on provider or our VPN acting up again.",
+        "created_at": 1789381151,
+        "id": "c914d4f37226-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: Customer's sign-on issues are rooted in their own infrastructure, not Keelwater's platform. Please avoid attributing downtime to product failure.",
+        "created_at": 1789381163,
+        "id": "c914d4f37226-2",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Elwenna. I’ve checked our systems and everything’s running normally. The issue you’re seeing is likely due to your customer network failure — maybe a VPN or SSO provider hiccup?",
+        "created_at": 1789381172,
+        "id": "c914d4f37226-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Elwenna Larchvale",
+          "type": "user"
+        },
+        "body": "That’s what I suspected — our IT team is looking into the customer network failure now. Sorry for the false alarm.",
+        "created_at": 1789381185,
+        "id": "c914d4f37226-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "No problem at all — appreciate you flagging it. Let me know if you need help checking your integrations or roles while you sort it out.",
+        "created_at": 1789381193,
+        "id": "c914d4f37226-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Elwenna Larchvale",
+          "type": "user"
+        },
+        "body": "Will do — thanks for the quick reply. We’ll circle back if the documents or payments tabs give us grief after the fix.",
+        "created_at": 1789381204,
+        "id": "c914d4f37226-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "You’re welcome — and feel free to reach out anytime. We’re here to help with tasks, suppliers, or even policyholders if anything else comes up.",
+        "created_at": 1789381213,
+        "id": "c914d4f37226-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1789381140,
+  "id": "c914d4f37226",
+  "source": {
+    "author": {
+      "email": "contact@a22.example",
+      "name": "Elwenna Larchvale",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "supplier_network"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

@@ -1,0 +1,48 @@
+{
+ "request": {
+  "model": "qwen/qwen3-vl-235b-a22b-instruct",
+  "messages": [
+   {
+    "role": "user",
+    "content": "Write one short realistic description for this fictional claims software item. Use no company, person or product name except Keelwater. Return JSON.\n{\"key\": \"page:9\", \"name\": \"Summer release notes\", \"source\": \"notion\", \"status\": \"Done\", \"target\": null}\nVersion 1\n"
+   }
+  ],
+  "temperature": 0.8,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "generate",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "description"
+     ],
+     "properties": {
+      "description": {
+       "type": "string"
+      }
+     }
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "allow",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"description\": \"Keelwater's Summer release introduces streamlined claim submission with auto-filled fields, real-time status tracking, and mobile-friendly forms—designed to reduce processing time by up to 40% for users managing high-volume claims.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 74,
+   "tokens_out": 53,
+   "cost_usd": 0.0001092
+  }
+ }
+}

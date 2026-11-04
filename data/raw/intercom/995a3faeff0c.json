@@ -1,0 +1,124 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Nethervale",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m trying to set up some saved filters on the claims list to help my team track high-priority cases, but I can’t seem to lock them in properly.",
+        "created_at": 1792592760,
+        "id": "995a3faeff0c-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Nethervale",
+          "type": "user"
+        },
+        "body": "I’m trying to set up some saved filters on the claims list to help my team track high-priority cases, but I can’t seem to lock them in properly.",
+        "created_at": 1792592772,
+        "id": "995a3faeff0c-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Nethervale",
+          "type": "user"
+        },
+        "body": "Could we set up a quick call next Tuesday to walk through the saved filters on the claims list?",
+        "created_at": 1792592783,
+        "id": "995a3faeff0c-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Gellin. I’ll take a look at your account settings right away — saved filters should persist unless there’s a permissions conflict or a browser cache issue.",
+        "created_at": 1792592790,
+        "id": "995a3faeff0c-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Nethervale",
+          "type": "user"
+        },
+        "body": "That’d be great — I’ve cleared my cache already and tried on two devices, but the filters vanish after I log out.",
+        "created_at": 1792592802,
+        "id": "995a3faeff0c-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood. I’m checking your roles and integrations now — it’s possible the filter persistence is tied to a team-level setting we need to adjust.",
+        "created_at": 1792592811,
+        "id": "995a3faeff0c-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Nethervale",
+          "type": "user"
+        },
+        "body": "Appreciate the help. We’ve got a reporting deadline next week, so getting this sorted quickly would really ease the pressure.",
+        "created_at": 1792592821,
+        "id": "995a3faeff0c-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Absolutely — I’ll escalate this to our configuration team and send you a confirmation email once the fix is live. Should be within 24 hours.",
+        "created_at": 1792592829,
+        "id": "995a3faeff0c-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1792592760,
+  "id": "995a3faeff0c",
+  "source": {
+    "author": {
+      "email": "contact@a24.example",
+      "name": "Gellin Nethervale",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "general"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

@@ -1,0 +1,118 @@
+{
+  "date": 1791296640000,
+  "duration": 1.0266666666666666,
+  "host_email": "carys.fenwick@keelwater.example",
+  "id": "6a542f2c7b0f",
+  "meeting_attendees": [
+    {
+      "displayName": "Carys Fenwick",
+      "email": "carys.fenwick@keelwater.example",
+      "name": "Carys Fenwick"
+    },
+    {
+      "displayName": "Celdra Cairnwick",
+      "email": "contact@a03.example",
+      "name": "Celdra Cairnwick"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 13.6,
+      "index": 0,
+      "raw_text": "Hi Carys, just wanted to flag that when we upload garage estimates, they’re landing in the wrong document category—like under Correspondence—and we’re having to manually move them, which risks things slipping through the cracks.",
+      "speaker_id": "customer",
+      "speaker_name": "Celdra Cairnwick",
+      "start_time": 0.0,
+      "text": "Hi Carys, just wanted to flag that when we upload garage estimates, they’re landing in the wrong document category—like under Correspondence—and we’re having to manually move them, which risks things slipping through the cracks."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 26.4,
+      "index": 1,
+      "raw_text": "When we upload garage estimates, they’re being auto-sorted into the wrong document category, which forces us to manually reassign them — and sometimes that leads to important evidence being missed during review.",
+      "speaker_id": "customer",
+      "speaker_name": "Celdra Cairnwick",
+      "start_time": 13.6,
+      "text": "When we upload garage estimates, they’re being auto-sorted into the wrong document category, which forces us to manually reassign them — and sometimes that leads to important evidence being missed during review."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 40.4,
+      "index": 2,
+      "raw_text": "Thanks for flagging that, Celdra. I’ve noted the issue with documents being auto-sorted into the wrong document category, and I’ll escalate this to the product team so we can look at improving the classification logic.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 26.4,
+      "text": "Thanks for flagging that, Celdra. I’ve noted the issue with documents being auto-sorted into the wrong document category, and I’ll escalate this to the product team so we can look at improving the classification logic."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 45.6,
+      "index": 3,
+      "raw_text": "Appreciate it. It’s a small thing but causes delays in handling claims properly.",
+      "speaker_id": "customer",
+      "speaker_name": "Celdra Cairnwick",
+      "start_time": 40.4,
+      "text": "Appreciate it. It’s a small thing but causes delays in handling claims properly."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 53.6,
+      "index": 4,
+      "raw_text": "Understood — we’ll treat this as a priority. I’ll keep you updated on any progress or workarounds in the meantime.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 45.6,
+      "text": "Understood — we’ll treat this as a priority. I’ll keep you updated on any progress or workarounds in the meantime."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 56.8,
+      "index": 5,
+      "raw_text": "Thanks again, Carys. Looking forward to the fix.",
+      "speaker_id": "customer",
+      "speaker_name": "Celdra Cairnwick",
+      "start_time": 53.6,
+      "text": "Thanks again, Carys. Looking forward to the fix."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 61.6,
+      "index": 6,
+      "raw_text": "You’re welcome — I’ll make sure this gets the attention it deserves.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 56.8,
+      "text": "You’re welcome — I’ll make sure this gets the attention it deserves."
+    }
+  ]
+}

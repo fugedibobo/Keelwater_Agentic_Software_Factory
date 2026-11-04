@@ -1,0 +1,48 @@
+{
+ "request": {
+  "model": "qwen/qwen3-vl-235b-a22b-instruct",
+  "messages": [
+   {
+    "role": "user",
+    "content": "Write one short realistic description for this fictional claims software item. Use no company, person or product name except Keelwater. Return JSON.\n{\"key\": \"story:4133\", \"name\": \"Document classifier confidence threshold\", \"source\": \"shortcut\", \"status\": \"not_started\"}\nVersion 0\n"
+   }
+  ],
+  "temperature": 0.8,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "generate",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "description"
+     ],
+     "properties": {
+      "description": {
+       "type": "string"
+      }
+     }
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "allow",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"description\": \"Keelwater's document classifier confidence threshold setting allows users to define the minimum confidence level required for automatic categorization of claims documents, ensuring only high-certainty classifications are applied without manual review.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 73,
+   "tokens_out": 46,
+   "cost_usd": 9.921e-05
+  }
+ }
+}

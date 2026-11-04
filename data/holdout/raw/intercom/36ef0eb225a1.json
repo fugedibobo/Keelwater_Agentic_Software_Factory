@@ -1,0 +1,124 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Quenna Rillmere",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m reaching out because we need to update the purchase order reference on our most recent invoice — it’s causing reconciliation issues with our finance team.",
+        "created_at": 1791720000,
+        "id": "36ef0eb225a1-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Quenna Rillmere",
+          "type": "user"
+        },
+        "body": "We need to adjust the purchase order reference on the invoice you sent — it’s causing reconciliation problems with our finance team, and we’re hoping you can help with the purchase order correction.",
+        "created_at": 1791720011,
+        "id": "36ef0eb225a1-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for flagging this, Quenna. I’ll need to route this to our finance operations team — they handle invoice-level corrections like purchase order adjustments.",
+        "created_at": 1791720024,
+        "id": "36ef0eb225a1-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Quenna Rillmere",
+          "type": "user"
+        },
+        "body": "Understood — just let me know if you need any documentation from our end to support the purchase order correction.",
+        "created_at": 1791720034,
+        "id": "36ef0eb225a1-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Quenna Rillmere",
+          "type": "user"
+        },
+        "body": "Could we schedule a brief call next Tuesday afternoon to walk through the reserve adjustments?",
+        "created_at": 1791720042,
+        "id": "36ef0eb225a1-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "I’ll follow up by end of day with next steps. In the meantime, feel free to share any supporting docs via the portal under the tasks tab.",
+        "created_at": 1791720048,
+        "id": "36ef0eb225a1-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Quenna Rillmere",
+          "type": "user"
+        },
+        "body": "Will do — thanks for the quick help, Bryn.",
+        "created_at": 1791720058,
+        "id": "36ef0eb225a1-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "You’re welcome — I’ll make sure this gets handled promptly. Let me know if anything else comes up around claims or supplier payments.",
+        "created_at": 1791720062,
+        "id": "36ef0eb225a1-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1791720000,
+  "id": "36ef0eb225a1",
+  "source": {
+    "author": {
+      "email": "contact@a17.example",
+      "name": "Quenna Rillmere",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "reserves_payments"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

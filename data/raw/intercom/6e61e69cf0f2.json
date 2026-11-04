@@ -1,0 +1,100 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Ashfell",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m Avenna from Hollinbrook Home Insurance — we’re having trouble pulling updated reserves for our high-value claims this morning.",
+        "created_at": 1788251580,
+        "id": "6e61e69cf0f2-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Hi Avenna, thanks for reaching out. I’ll check the system logs for your account and see if there’s a sync issue affecting reserves reporting.",
+        "created_at": 1788251588,
+        "id": "6e61e69cf0f2-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Ashfell",
+          "type": "user"
+        },
+        "body": "That’d be great — we need those reserves figures locked in before we process any further payments to suppliers this week.",
+        "created_at": 1788251598,
+        "id": "6e61e69cf0f2-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood. I’m looking into it now — I’ll send you a status update within the hour and confirm if we need to adjust any tasks or roles in your workflow.",
+        "created_at": 1788251606,
+        "id": "6e61e69cf0f2-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Ashfell",
+          "type": "user"
+        },
+        "body": "Perfect, and if you can flag any pending letters or documents that might be blocked too, that’d help us plan ahead.",
+        "created_at": 1788251618,
+        "id": "6e61e69cf0f2-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Will do — I’ll include a full list of impacted documents and any related integrations that may need reauthorization. Thanks for your patience, Avenna.",
+        "created_at": 1788251626,
+        "id": "6e61e69cf0f2-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 6,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1788251580,
+  "id": "6e61e69cf0f2",
+  "source": {
+    "author": {
+      "email": "contact@a01.example",
+      "name": "Avenna Ashfell",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "supplier_network"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

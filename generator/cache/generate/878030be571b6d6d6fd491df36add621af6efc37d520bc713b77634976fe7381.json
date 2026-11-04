@@ -1,0 +1,48 @@
+{
+ "request": {
+  "model": "qwen/qwen3-vl-235b-a22b-instruct",
+  "messages": [
+   {
+    "role": "user",
+    "content": "Write one short realistic description for this fictional claims software item. Use no company, person or product name except Keelwater. Return JSON.\n{\"key\": \"story:4134\", \"name\": \"Task list improvements\", \"source\": \"shortcut\", \"status\": \"in_progress\"}\nVersion 0\n"
+   }
+  ],
+  "temperature": 0.8,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "generate",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "description"
+     ],
+     "properties": {
+      "description": {
+       "type": "string"
+      }
+     }
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "allow",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"description\": \"Keelwater is enhancing its task list interface to improve user efficiency, allowing for better prioritization, drag-and-drop reordering, and real-time status updates—all designed to streamline claims processing workflows.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 72,
+   "tokens_out": 47,
+   "cost_usd": 0.0001009
+  }
+ }
+}

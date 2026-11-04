@@ -1,0 +1,137 @@
+{
+ "request": {
+  "model": "qwen/qwen3-vl-235b-a22b-instruct",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nWrite one realistic gong record for Keelwater, a UK claims-handling software company.\n</role>\n<record>\n{\"customer\": {\"account\": \"A15\", \"company\": \"Tarnholt Drive Cover\", \"email\": \"contact@a15.example\", \"name\": \"Orwen Orrenfield\"}, \"date\": \"2026-10-28T16:51:00Z\", \"fin_mode\": null, \"glossary\": [\"claims\", \"documents\", \"reserves\", \"payments\", \"suppliers\", \"reporting\", \"roles\", \"integrations\", \"tasks\", \"letters\", \"policyholders\"], \"never_write_verbatim\": [\"Renewal price complaints, concentrated in high-ARR accounts, so it would rank highly if triage let it through\", \"commercial negotiation is not a product defect\", \"customer questions contract renewal pricing\"], \"only_people_who_may_be_named\": [\"Tarnholt Drive Cover\", \"Orwen Orrenfield\", \"Alwen Dovell\"], \"route\": \"sales\", \"source\": \"gong\", \"staff\": {\"email\": \"alwen.dovell@keelwater.example\", \"name\": \"Alwen Dovell\", \"team\": \"sales\"}, \"turns_range\": [15, 30]}\n</record>\n<mentions>\n[{\"fact\": \"customer questions contract renewal pricing\", \"form\": \"complaint\", \"id\": \"m1\", \"post_ship\": false, \"problem\": \"Renewal price complaints, concentrated in high-ARR accounts, so it would rank highly if triage let it through.\", \"severity\": null, \"stance\": null, \"synonym\": \"renewal price concern\"}, {\"fact\": \"commercial negotiation is not a product defect\", \"form\": \"question\", \"id\": \"m2\", \"post_ship\": false, \"problem\": \"Renewal price complaints, concentrated in high-ARR accounts, so it would rank highly if triage let it through.\", \"severity\": null, \"stance\": null, \"synonym\": \"renewal price concern\"}]\n</mentions>\n<noise>\n{\"admin_note\": false, \"allowed_categories\": [\"pleasantry\", \"scheduling\", \"pricing\", \"internal\", \"password_reset\", \"how_to\", \"praise\", \"closer\"], \"distractor_how_to_phrase\": null, \"instructions\": \"Tag every noise turn with its category. Put the distractor phrase, if given, in a how-to turn with no mention id. An admin note must be an internal turn tagged internal. A Fin-resolved or escalated conversation needs a bot turn; an escalated one also needs an internal reply. About 35 percent of customer turns are pleasantries. Every tagged customer mention, including a short agreement, must contain its supplied synonym.\", \"required_categories\": []}\n</noise>\n<rules>\nCustomers speak like claims staff. Do not use headings or bullets in speech. Use only the names in the record brief; never name a real company, product or person. Mention no feature outside the supplied glossary. Express the supplied facts in the speaker's own words. Tag each turn with its noise category or null. Do not put the planted mentions in `turns`: write each one, in the customer's own words and at least twelve words long, under `mentions[<mention id>].text`, containing that mention's `synonym` exactly as written (a mention whose form is a short agreement is different: write the internal speaker's turn stating the problem, at least twelve words and containing the synonym exactly as written, under `internal_text`, and the customer's reply of under eight words under `agreement_text`), and set after_turn to the index of the turn it should follow. The `turns` conversation is the rest of the record. Do not put the turns listed under `extras` in `turns`: write each one once under `extras[<key>].text` (at least twenty characters, containing the exact phrase where one is given), and set after_turn to the index of the turn it should follow. Name only the people in only_people_who_may_be_named. When fin_mode is resolved or escalated, at least one turn must have speaker bot; when it is escalated, at least one turn must have speaker internal; when it is human, no turn has speaker bot. Never write any phrase listed in never_write_verbatim, including the supplied facts: paraphrase them.\n</rules>\n<output>\nReturn JSON matching the supplied source schema.\n{\"extras\": {}, \"mentions\": {\"m1\": {\"after_turn\": \"index of the turns entry it follows\", \"text\": \"the customer turn carrying this mention\"}, \"m2\": {\"after_turn\": \"index of the turns entry it follows\", \"text\": \"the customer turn carrying this mention\"}}, \"turns\": [{\"noise_category\": \"string or null\", \"speaker\": \"customer|internal|bot\", \"text\": \"string\"}]}\n</output>\n"
+   }
+  ],
+  "temperature": 0.8,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "generate",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "turns",
+      "mentions",
+      "extras"
+     ],
+     "properties": {
+      "extras": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [],
+       "properties": {}
+      },
+      "turns": {
+       "type": "array",
+       "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+         "speaker",
+         "text",
+         "noise_category"
+        ],
+        "properties": {
+         "speaker": {
+          "type": "string",
+          "enum": [
+           "customer",
+           "internal",
+           "bot"
+          ]
+         },
+         "text": {
+          "type": "string"
+         },
+         "noise_category": {
+          "enum": [
+           "pleasantry",
+           "scheduling",
+           "pricing",
+           "internal",
+           "password_reset",
+           "how_to",
+           "praise",
+           "closer",
+           null
+          ]
+         }
+        }
+       },
+       "minItems": 13,
+       "maxItems": 28
+      },
+      "mentions": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [
+        "m1",
+        "m2"
+       ],
+       "properties": {
+        "m1": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 45
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        },
+        "m2": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 45
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "allow",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"extras\": {},\n  \"turns\": [\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Hi Alwen, thanks for jumping on this. We’re reviewing our upcoming renewal and need clarity on the pricing structure.\",\n      \"noise_category\": \"pleasantry\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Happy to help, Orwen. Let’s walk through the figures and see where we can align expectations.\",\n      \"noise_category\": \"pleasantry\"\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"We’ve noticed the proposed renewal price is higher than last year’s — can you explain how that’s calculated?\",\n      \"noise_category\": \"pricing\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"That’s a fair question. The adjustment reflects updated risk modeling and claims trends across similar high-ARR accounts.\",\n      \"noise_category\": \"pricing\"\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"I understand it’s not a bug in the software, but we need to justify this to our finance team.\",\n      \"noise_category\": \"pricing\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Absolutely — we can provide a detailed breakdown of reserves, supplier costs, and policyholder reporting to support your review.\",\n      \"noise_category\": \"how_to\"\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"That would be helpful. Also, can we get a summary of recent tasks and letters tied to our account?\",\n      \"noise_category\": \"how_to\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"I’ll pull those for you now — including any integrations or role-based access updates you may need to verify.\",\n      \"noise_category\": \"how_to\"\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Thanks, Alwen. We’ll review and get back to you by end of day.\",\n      \"noise_category\": \"closer\"\n    }\n  ,\n  {\n    \"speaker\": \"internal\",\n    \"text\": \"Sounds good — I’ll keep an eye out for your reply and flag any urgent items for the team.\",\n    \"noise_category\": \"closer\"\n  }\n  ,\n  {\n    \"speaker\": \"customer\",\n    \"text\": \"Appreciate the support. We’re committed to working through this renewal price concern together.\",\n    \"noise_category\": \"pleasantry\"\n  }\n  ,\n  {\n    \"speaker\": \"internal\",\n    \"text\": \"Likewise — we’re here to make sure your claims handling stays smooth, even through commercial negotiation.\",\n    \"noise_category\": \"pleasantry\"\n  }\n  ,\n  {\n    \"speaker\": \"customer\",\n    \"text\": \"Exactly — it’s not about the product defect, it’s about aligning on value for the next term.\",\n    \"noise_category\": \"pricing\"\n  }\n  ],\n  \"mentions\": {\n    \"m1\": {\n      \"text\": \"We’ve been reviewing our renewal and the price increase feels steep — this is a renewal price concern we need to resolve before signing off.\",\n      \"after_turn\": 2\n    },\n    \"m2\": {\n      \"text\": \"I want to be clear — this isn’t about a bug or glitch in the system; it’s a renewal price concern we’re trying to negotiate fairly.\",\n      \"after_turn\": 4\n    }\n  }\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1064,
+   "tokens_out": 734,
+   "cost_usd": 0.00161452
+  }
+ }
+}

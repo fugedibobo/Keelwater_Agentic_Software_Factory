@@ -1,0 +1,187 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "routed_to_team"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Ashfell",
+          "type": "user"
+        },
+        "body": "Hi Bryn, thanks for picking this up — I know you’re swamped. Just wanted to flag something urgent on our end.",
+        "created_at": 1792143780,
+        "id": "0451c962b56d-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Ashfell",
+          "type": "user"
+        },
+        "body": "Could we schedule a quick call next Tuesday to walk through the reporting settings?",
+        "created_at": 1792143788,
+        "id": "0451c962b56d-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Ashfell",
+          "type": "user"
+        },
+        "body": "Your team’s responsiveness on the reserves update last week was really appreciated.",
+        "created_at": 1792143794,
+        "id": "0451c962b56d-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Hi Avenna — thanks for reaching out. I’ve got your case flagged as high priority. What’s the main blocker?",
+        "created_at": 1792143798,
+        "id": "0451c962b56d-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: A01’s Welsh letter request must be tagged as strategic renewal blocker. Assign to product team by EOD.",
+        "created_at": 1792143806,
+        "id": "0451c962b56d-4",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Ashfell",
+          "type": "user"
+        },
+        "body": "We need letters in Welsh for policyholders — it’s not just a nice-to-have, it’s tied to our renewal terms with Keelwater.",
+        "created_at": 1792143814,
+        "id": "0451c962b56d-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Ashfell",
+          "type": "user"
+        },
+        "body": "We need letters in Welsh for policyholders — it’s not just a nice-to-have, it’s tied to our renewal terms with Keelwater.",
+        "created_at": 1792143822,
+        "id": "0451c962b56d-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "I’ve escalated your request to our support lead for urgent review.",
+        "created_at": 1792143830,
+        "id": "0451c962b56d-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood — I’ll escalate this immediately. Can you confirm if any other reporting or payments features are currently affected?",
+        "created_at": 1792143835,
+        "id": "0451c962b56d-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Noted — Welsh-language letter templates are now flagged as a renewal blocker for A01. We’ll prioritise this ahead of January renewal.",
+        "created_at": 1792143842,
+        "id": "0451c962b56d-9",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Ashfell",
+          "type": "user"
+        },
+        "body": "Also, our finance team’s noticed the report totals differ — they’re comparing dashboard numbers with exported files and getting confused.",
+        "created_at": 1792143851,
+        "id": "0451c962b56d-10",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Ashfell",
+          "type": "user"
+        },
+        "body": "Also, our finance team’s noticed the report totals differ — they’re comparing dashboard numbers with exported files and getting confused.",
+        "created_at": 1792143859,
+        "id": "0451c962b56d-11",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your escalation has been logged. A support lead will contact you within 24 hours.",
+        "created_at": 1792143867,
+        "id": "0451c962b56d-12",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 13,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1792143780,
+  "id": "0451c962b56d",
+  "source": {
+    "author": {
+      "email": "contact@a01.example",
+      "name": "Avenna Ashfell",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "customer_comms"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

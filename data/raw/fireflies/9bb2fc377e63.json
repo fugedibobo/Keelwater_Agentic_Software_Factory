@@ -1,0 +1,188 @@
+{
+  "date": 1789814880000,
+  "duration": 1.68,
+  "host_email": "deryn.pell@keelwater.example",
+  "id": "9bb2fc377e63",
+  "meeting_attendees": [
+    {
+      "displayName": "Deryn Pell",
+      "email": "deryn.pell@keelwater.example",
+      "name": "Deryn Pell"
+    },
+    {
+      "displayName": "Brelis Bramvale",
+      "email": "contact@a02.example",
+      "name": "Brelis Bramvale"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 8.8,
+      "index": 0,
+      "raw_text": "Hi Deryn, thanks for picking up — we’ve got a few things to run through, mostly around renewal pricing and repair tracking.",
+      "speaker_id": "customer",
+      "speaker_name": "Brelis Bramvale",
+      "start_time": 0.0,
+      "text": "Hi Deryn, thanks for picking up — we’ve got a few things to run through, mostly around renewal pricing and repair tracking."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 14.4,
+      "index": 1,
+      "raw_text": "Happy to help, Brelis. Let’s start with what’s top of mind for you today.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 8.8,
+      "text": "Happy to help, Brelis. Let’s start with what’s top of mind for you today."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 23.2,
+      "index": 2,
+      "raw_text": "We’re getting pushback from our high-value clients about the upcoming contract cost complaint — they’re asking why it’s gone up so much.",
+      "speaker_id": "customer",
+      "speaker_name": "Brelis Bramvale",
+      "start_time": 14.4,
+      "text": "We’re getting pushback from our high-value clients about the upcoming contract cost complaint — they’re asking why it’s gone up so much."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 33.2,
+      "index": 3,
+      "raw_text": "The contract cost complaint is coming from our top-tier clients — they’re not happy with the renewal pricing and we’re getting pressure to justify it.",
+      "speaker_id": "customer",
+      "speaker_name": "Brelis Bramvale",
+      "start_time": 23.2,
+      "text": "The contract cost complaint is coming from our top-tier clients — they’re not happy with the renewal pricing and we’re getting pressure to justify it."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 40.8,
+      "index": 4,
+      "raw_text": "I understand that concern — pricing adjustments are often tied to risk profiles and claims history, not product issues.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 33.2,
+      "text": "I understand that concern — pricing adjustments are often tied to risk profiles and claims history, not product issues."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 49.2,
+      "index": 5,
+      "raw_text": "Right, but it’s still a contract cost complaint we need to explain to them, and it’s causing friction with key accounts.",
+      "speaker_id": "customer",
+      "speaker_name": "Brelis Bramvale",
+      "start_time": 40.8,
+      "text": "Right, but it’s still a contract cost complaint we need to explain to them, and it’s causing friction with key accounts."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 58.8,
+      "index": 6,
+      "raw_text": "We’re fielding questions from policyholders about the contract cost complaint — they’re comparing last year’s rate and want to know why it’s higher now.",
+      "speaker_id": "customer",
+      "speaker_name": "Brelis Bramvale",
+      "start_time": 49.2,
+      "text": "We’re fielding questions from policyholders about the contract cost complaint — they’re comparing last year’s rate and want to know why it’s higher now."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 66.4,
+      "index": 7,
+      "raw_text": "Noted — I’ll flag this for our commercial team to review how we communicate renewal rationale to high-ARR clients.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 58.8,
+      "text": "Noted — I’ll flag this for our commercial team to review how we communicate renewal rationale to high-ARR clients."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 74.4,
+      "index": 8,
+      "raw_text": "Also, we’re still stuck calling garages manually because the system doesn’t show live repair updates — it’s a daily headache.",
+      "speaker_id": "customer",
+      "speaker_name": "Brelis Bramvale",
+      "start_time": 66.4,
+      "text": "Also, we’re still stuck calling garages manually because the system doesn’t show live repair updates — it’s a daily headache."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 84.8,
+      "index": 9,
+      "raw_text": "The repair updates missing is a daily blocker — we have to call every garage to get status, which interrupts our handling workflow and delays settlements.",
+      "speaker_id": "customer",
+      "speaker_name": "Brelis Bramvale",
+      "start_time": 74.4,
+      "text": "The repair updates missing is a daily blocker — we have to call every garage to get status, which interrupts our handling workflow and delays settlements."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 93.2,
+      "index": 10,
+      "raw_text": "That’s a known gap — we’re exploring integrations that might bring real-time repair status into the platform, but no ETA yet.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 84.8,
+      "text": "That’s a known gap — we’re exploring integrations that might bring real-time repair status into the platform, but no ETA yet."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 100.8,
+      "index": 11,
+      "raw_text": "Understood. For now, we’ll keep chasing them by phone — just wish it wasn’t part of our daily workflow.",
+      "speaker_id": "customer",
+      "speaker_name": "Brelis Bramvale",
+      "start_time": 93.2,
+      "text": "Understood. For now, we’ll keep chasing them by phone — just wish it wasn’t part of our daily workflow."
+    }
+  ]
+}

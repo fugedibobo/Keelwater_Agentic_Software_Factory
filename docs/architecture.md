@@ -183,7 +183,7 @@ One client (the `openai` Python SDK) with a configurable base URL serves every s
 | Cluster labels | `qwen/qwen3-next-80b-a3b-instruct` | `qwen.qwen3-next-80b-a3b` | same weights | short labels |
 | Brief | `deepseek/deepseek-v3.2` | `deepseek.v3.2` | same weights | only the top 10 reach it |
 | Judges | `z-ai/glm-5` | `zai.glm-5` | same weights | a different family from the brief writer and the extractor |
-| Synthetic data | `mistralai/mistral-large-4-0` | n/a | n/a | a third family, so no judge grades text its own family wrote |
+| Synthetic data | `qwen/qwen3-vl-235b-a22b-instruct` (fallback `deepseek/deepseek-v4.1-flash`, reasoning off) | n/a | n/a | a family no judge belongs to, so no judge grades text its own family wrote; data_collection allowed for this stage only |
 
 Model facts (docs/research/model-options-and-prices.md, checked 02/11/2026):
 - **Demo ids.** `openai/gpt-oss-120b` and `qwen/qwen3-embedding-8b` are FOUND on OpenRouter. The qwen3-next, deepseek-v3.2 and glm-5 OpenRouter ids are INFERRED. `keelwater probe` checks each id with its real parameters; on a miss it falls back to the 02/11 research id (`qwen/qwen3.6-35b-a3b`, `deepseek/deepseek-v4-pro-0813`, `z-ai/glm-5.3`) and records the swap in the run manifest.

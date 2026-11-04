@@ -1,0 +1,136 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Lirven Larchvale",
+          "type": "user"
+        },
+        "body": "Hi Bryn, we’re seeing a mismatch between what’s shown on the MI dashboard and the figures we get when exporting CSVs — it’s causing some confusion in finance.",
+        "created_at": 1791725760,
+        "id": "46155bcdbc17-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: Finance team has flagged discrepancies in exported reporting figures versus dashboard view; requires time-zone alignment review.",
+        "created_at": 1791725771,
+        "id": "46155bcdbc17-1",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for flagging this, Lirven. I’ll check the export logic and confirm whether the cut-off timing might be affecting the totals. Can you confirm which reports you’re exporting?",
+        "created_at": 1791725778,
+        "id": "46155bcdbc17-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Lirven Larchvale",
+          "type": "user"
+        },
+        "body": "Can we schedule a 15-minute call next Tuesday to walk through the reporting setup? I’m free after 3pm UK time.",
+        "created_at": 1791725789,
+        "id": "46155bcdbc17-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Lirven Larchvale",
+          "type": "user"
+        },
+        "body": "It’s the monthly claims reserves and payments report. Finance is questioning which figure is correct because the export doesn’t match the dashboard.",
+        "created_at": 1791725797,
+        "id": "46155bcdbc17-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Lirven Larchvale",
+          "type": "user"
+        },
+        "body": "Finance is questioning which figure is correct because the export doesn’t match the dashboard — the export figures mismatch is causing delays in our month-end close.",
+        "created_at": 1791725806,
+        "id": "46155bcdbc17-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood. I’ll investigate the timing logic behind the export and ensure it aligns with your local reporting window. I’ll also share a test export with you for validation.",
+        "created_at": 1791725816,
+        "id": "46155bcdbc17-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Lirven Larchvale",
+          "type": "user"
+        },
+        "body": "That would help — we need to reconcile this before month-end. Appreciate the quick follow-up.",
+        "created_at": 1791725828,
+        "id": "46155bcdbc17-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "You’re welcome. I’ll send a draft export by EOD tomorrow and we can schedule a quick review if needed.",
+        "created_at": 1791725834,
+        "id": "46155bcdbc17-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 9,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1791725760,
+  "id": "46155bcdbc17",
+  "source": {
+    "author": {
+      "email": "contact@a12.example",
+      "name": "Lirven Larchvale",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "general"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

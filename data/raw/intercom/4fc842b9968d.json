@@ -1,0 +1,136 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Orwen Orrenfield",
+          "type": "user"
+        },
+        "body": "Hi Bryn, we’ve noticed that when a policyholder reports a loss both by phone and through the web portal, the system doesn’t flag it as a potential duplicate. We end up with two separate claims for the same event, which complicates reserves and payments.",
+        "created_at": 1792944840,
+        "id": "4fc842b9968d-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: Bryn to review Tarnholt’s intake flow for duplicate claim detection; FullStory shows disabled button interaction.",
+        "created_at": 1792944857,
+        "id": "4fc842b9968d-1",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for flagging that, Orwen. I’ve checked your account and can confirm we’re seeing the same pattern. Our intake doesn’t currently warn when a matching claim already exists — we’ll look into adding that safeguard.",
+        "created_at": 1792944864,
+        "id": "4fc842b9968d-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Orwen Orrenfield",
+          "type": "user"
+        },
+        "body": "We’re seeing cases where the same claim twice appears because the system doesn’t alert staff when a matching incident already exists in intake — we’ve had to manually link them after the fact, which delays payments and reporting.",
+        "created_at": 1792944878,
+        "id": "4fc842b9968d-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Orwen Orrenfield",
+          "type": "user"
+        },
+        "body": "Can we schedule a quick call next Tuesday to walk through the reserve update process?",
+        "created_at": 1792944893,
+        "id": "4fc842b9968d-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Orwen Orrenfield",
+          "type": "user"
+        },
+        "body": "That would help a lot. Right now, we’re manually cross-checking every new claim to avoid the same claim twice, which eats up time we could spend on supplier coordination or reporting.",
+        "created_at": 1792944899,
+        "id": "4fc842b9968d-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood. I’ll escalate this to our product team and get back to you with a timeline. In the meantime, let me know if you’d like to schedule a walkthrough of the current tasks or letter templates to ease the manual load.",
+        "created_at": 1792944912,
+        "id": "4fc842b9968d-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Orwen Orrenfield",
+          "type": "user"
+        },
+        "body": "Appreciate it. Let’s set that up for Tuesday if possible.",
+        "created_at": 1792944928,
+        "id": "4fc842b9968d-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Will do — I’ll send a calendar invite by end of day. Thanks again for the detailed feedback, Orwen. It’s exactly the kind of input that helps us improve.",
+        "created_at": 1792944932,
+        "id": "4fc842b9968d-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 9,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1792944840,
+  "id": "4fc842b9968d",
+  "source": {
+    "author": {
+      "email": "contact@a15.example",
+      "name": "Orwen Orrenfield",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "fnol_intake"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

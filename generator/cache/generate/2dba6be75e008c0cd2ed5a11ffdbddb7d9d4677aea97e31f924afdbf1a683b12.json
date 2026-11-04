@@ -1,0 +1,228 @@
+{
+ "request": {
+  "model": "qwen/qwen3-vl-235b-a22b-instruct",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nWrite one realistic intercom record for Keelwater, a UK claims-handling software company.\n</role>\n<record>\n{\"customer\": {\"account\": \"A03\", \"company\": \"Marrowgate Commercial\", \"email\": \"contact@a03.example\", \"name\": \"Celdra Cairnwick\"}, \"date\": \"2026-10-27T11:53:00Z\", \"fin_mode\": \"escalated\", \"glossary\": [\"claims\", \"documents\", \"reserves\", \"payments\", \"suppliers\", \"reporting\", \"roles\", \"integrations\", \"tasks\", \"letters\", \"policyholders\"], \"never_write_verbatim\": [\"\\\"Keelwater is down\\\" reports caused by the customer's own sign-on provider, VPN or email; it reads like a bug report\", \"Large motor accounts want more automatic assignment (by postcode, skill, workload); commercial and specialty accounts want it off for complex claims\", \"MI dashboard totals disagree with the CSV export (UTC versus UK local cut-off), so finance distrusts the figures\", \"complex commercial teams want manual routing\", \"configuration should vary by team\", \"customer sign-on service fails\", \"dashboard totals differ from downloaded figures\", \"finance questions which figure is correct\", \"motor teams want automated routing\", \"the cutoff uses UTC rather than UK time\", \"the product itself is not the cause\"], \"only_people_who_may_be_named\": [\"Marrowgate Commercial\", \"Celdra Cairnwick\", \"Bryn Telford\"], \"route\": \"support\", \"source\": \"intercom\", \"staff\": {\"email\": \"bryn.telford@keelwater.example\", \"name\": \"Bryn Telford\", \"team\": \"support\"}, \"turns_range\": null}\n</record>\n<mentions>\n[{\"fact\": \"configuration should vary by team\", \"form\": \"complaint\", \"id\": \"m1\", \"post_ship\": false, \"problem\": \"Large motor accounts want more automatic assignment (by postcode, skill, workload); commercial and specialty accounts want it off for complex claims. The honest answer is per-team configuration.\", \"severity\": 2, \"stance\": \"less_automation\", \"synonym\": \"manual claim routing\"}, {\"fact\": \"the product itself is not the cause\", \"form\": \"feature ask\", \"id\": \"m2\", \"post_ship\": false, \"problem\": \"\\\"Keelwater is down\\\" reports caused by the customer's own sign-on provider, VPN or email; it reads like a bug report.\", \"severity\": null, \"stance\": null, \"synonym\": \"customer network failure\"}, {\"fact\": \"the cutoff uses UTC rather than UK time\", \"form\": \"question\", \"id\": \"m3\", \"post_ship\": false, \"problem\": \"MI dashboard totals disagree with the CSV export (UTC versus UK local cut-off), so finance distrusts the figures. FullStory: error clicks on \\\"Export CSV\\\", then repeated exports.\", \"severity\": 2, \"stance\": null, \"synonym\": \"export figures mismatch\"}]\n</mentions>\n<noise>\n{\"admin_note\": true, \"allowed_categories\": [\"pleasantry\", \"scheduling\", \"pricing\", \"internal\", \"password_reset\", \"how_to\", \"praise\", \"closer\"], \"distractor_how_to_phrase\": null, \"instructions\": \"Tag every noise turn with its category. Put the distractor phrase, if given, in a how-to turn with no mention id. An admin note must be an internal turn tagged internal. A Fin-resolved or escalated conversation needs a bot turn; an escalated one also needs an internal reply. About 35 percent of customer turns are pleasantries. Every tagged customer mention, including a short agreement, must contain its supplied synonym.\", \"required_categories\": [\"scheduling\"]}\n</noise>\n<rules>\nCustomers speak like claims staff. Do not use headings or bullets in speech. Use only the names in the record brief; never name a real company, product or person. Mention no feature outside the supplied glossary. Express the supplied facts in the speaker's own words. Tag each turn with its noise category or null. Do not put the planted mentions in `turns`: write each one, in the customer's own words and at least twelve words long, under `mentions[<mention id>].text`, containing that mention's `synonym` exactly as written (a mention whose form is a short agreement is different: write the internal speaker's turn stating the problem, at least twelve words and containing the synonym exactly as written, under `internal_text`, and the customer's reply of under eight words under `agreement_text`), and set after_turn to the index of the turn it should follow. The `turns` conversation is the rest of the record. Do not put the turns listed under `extras` in `turns`: write each one once under `extras[<key>].text` (at least twenty characters, containing the exact phrase where one is given), and set after_turn to the index of the turn it should follow. Name only the people in only_people_who_may_be_named. When fin_mode is resolved or escalated, at least one turn must have speaker bot; when it is escalated, at least one turn must have speaker internal; when it is human, no turn has speaker bot. Never write any phrase listed in never_write_verbatim, including the supplied facts: paraphrase them.\n</rules>\n<output>\nReturn JSON matching the supplied source schema.\n{\"extras\": {\"admin_note\": \"a internal turn, noise_category 'internal'\", \"bot_turn\": \"a bot turn, noise_category None\", \"internal_reply\": \"a internal turn, noise_category None\", \"noise_scheduling\": \"a customer turn, noise_category 'scheduling'\"}, \"mentions\": {\"m1\": {\"after_turn\": \"index of the turns entry it follows\", \"text\": \"the customer turn carrying this mention\"}, \"m2\": {\"after_turn\": \"index of the turns entry it follows\", \"text\": \"the customer turn carrying this mention\"}, \"m3\": {\"after_turn\": \"index of the turns entry it follows\", \"text\": \"the customer turn carrying this mention\"}}, \"turns\": [{\"noise_category\": \"string or null\", \"speaker\": \"customer|internal|bot\", \"text\": \"string\"}]}\n</output>\n"
+   }
+  ],
+  "temperature": 0.8,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "generate",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "turns",
+      "mentions",
+      "extras"
+     ],
+     "properties": {
+      "extras": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [
+        "bot_turn",
+        "internal_reply",
+        "admin_note",
+        "noise_scheduling"
+       ],
+       "properties": {
+        "bot_turn": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 20
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        },
+        "internal_reply": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 20
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        },
+        "admin_note": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 20
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        },
+        "noise_scheduling": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 20
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        }
+       }
+      },
+      "turns": {
+       "type": "array",
+       "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+         "speaker",
+         "text",
+         "noise_category"
+        ],
+        "properties": {
+         "speaker": {
+          "type": "string",
+          "enum": [
+           "customer",
+           "internal",
+           "bot"
+          ]
+         },
+         "text": {
+          "type": "string"
+         },
+         "noise_category": {
+          "enum": [
+           "pleasantry",
+           "scheduling",
+           "pricing",
+           "internal",
+           "password_reset",
+           "how_to",
+           "praise",
+           "closer",
+           null
+          ]
+         }
+        }
+       },
+       "minItems": 6
+      },
+      "mentions": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [
+        "m1",
+        "m2",
+        "m3"
+       ],
+       "properties": {
+        "m1": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 45
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        },
+        "m2": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 45
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        },
+        "m3": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 45
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "allow",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"extras\": {\n    \"bot_turn\": {\n      \"text\": \"I’ve escalated this to our support lead for review and will update you within 24 hours.\",\n      \"after_turn\": 3\n    },\n    \"internal_reply\": {\n      \"text\": \"Noted — we’ll adjust the team-level routing config per Marrowgate’s commercial team preference for manual claim routing.\",\n      \"after_turn\": 4\n    },\n    \"admin_note\": {\n      \"text\": \"Internal: Flagged for config team to review per-team routing toggle ahead of Q4 release.\",\n      \"after_turn\": 5\n    },\n    \"noise_scheduling\": {\n      \"text\": \"Can we schedule a call for Thursday? I’ll be free after 2pm.\",\n      \"after_turn\": 2\n    }\n  },\n  \"turns\": [\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Hi Bryn, I’m Celdra from Marrowgate Commercial. We’ve got a few issues with claim routing and reporting that need urgent attention.\",\n      \"noise_category\": \"pleasantry\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Thanks for reaching out, Celdra. I’ll help you get this sorted. What’s the first item on your list?\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Our motor team keeps asking why claims aren’t auto-assigned — but our commercial team insists on manual claim routing for complex cases.\",\n      \"noise_category\": \"scheduling\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Understood. We can configure routing per team — I’ll set that up for your commercial group to override auto-assignment.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Also, finance keeps questioning the dashboard totals — they don’t match the CSV exports, which is causing delays.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"That’s likely due to time zone differences in the export cutoff. We can clarify which figure is authoritative for your reporting.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"And sometimes our team gets locked out — but it’s not Keelwater, it’s our own login system or VPN acting up.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Got it. I’ll document that as a known issue with third-party auth — no system bug on our end.\",\n      \"noise_category\": null\n    }\n  ],\n  \"mentions\": {\n    \"m1\": {\n      \"text\": \"We’ve had repeated requests from our motor division to automate claim assignment by postcode and workload, but our commercial team needs manual claim routing for nuanced cases — it’s not one-size-fits-all.\",\n      \"after_turn\": 2\n    },\n    \"m2\": {\n      \"text\": \"Our staff sometimes think Keelwater is down, but it’s always their own sign-on provider or email gateway causing the issue — it looks like a bug but isn’t.\",\n      \"after_turn\": 6\n    },\n    \"m3\": {\n      \"text\": \"Finance is frustrated because the MI dashboard totals don’t align with the CSV export figures — the export uses UTC while our cutoff is UK local, so manual claim routing isn’t the only mismatch.\",\n      \"after_turn\": 4\n    }\n  }\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1353,
+   "tokens_out": 758,
+   "cost_usd": 0.00172081
+  }
+ }
+}

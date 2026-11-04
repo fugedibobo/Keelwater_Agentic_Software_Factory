@@ -1,0 +1,163 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "routed_to_team"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Ashfell",
+          "type": "user"
+        },
+        "body": "Hi Bryn, we’ve got a repeat issue where letters sent to joint policyholders are only showing one name — it’s causing confusion and complaints from customers.",
+        "created_at": 1788438720,
+        "id": "51410ac1d7ea-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Ashfell",
+          "type": "user"
+        },
+        "body": "We’re getting complaints because the system isn’t merging both names correctly — it’s only showing one joint policyholder names, and customers are understandably upset.",
+        "created_at": 1788438730,
+        "id": "51410ac1d7ea-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for flagging this, Avenna. I’ll log this as a priority and get the team to look into the letter generation logic for joint policyholder names.",
+        "created_at": 1788438740,
+        "id": "51410ac1d7ea-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Ashfell",
+          "type": "user"
+        },
+        "body": "Thanks for the quick response — your team’s always on top of these edge cases, even when they’re tricky.",
+        "created_at": 1788438750,
+        "id": "51410ac1d7ea-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Ashfell",
+          "type": "user"
+        },
+        "body": "Appreciate you taking this seriously — we’ve had three complaints this month just because the joint policyholder names weren’t merged correctly.",
+        "created_at": 1788438758,
+        "id": "51410ac1d7ea-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: This is now a P1 escalation. Ensure all letter templates are audited for joint policyholder names handling before next release.",
+        "created_at": 1788438766,
+        "id": "51410ac1d7ea-5",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood. I’m escalating this internally so we can patch the template logic and prevent further issues with joint policyholder names.",
+        "created_at": 1788438775,
+        "id": "51410ac1d7ea-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "I’ve flagged this for urgent review by our engineering team to ensure joint policyholder names are handled correctly in all letter templates.",
+        "created_at": 1788438783,
+        "id": "51410ac1d7ea-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "This issue has been escalated to engineering. You’ll receive a status update within 48 hours.",
+        "created_at": 1788438792,
+        "id": "51410ac1d7ea-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Bryn, please escalate this to the product team immediately — we’re seeing repeated issues with joint policyholder names in correspondence, and it’s triggering customer complaints.",
+        "created_at": 1788438798,
+        "id": "51410ac1d7ea-9",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Bryn, please ensure the documentation for joint policyholder names in letter templates is updated before this fix goes live.",
+        "created_at": 1788438808,
+        "id": "51410ac1d7ea-10",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 11,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1788438720,
+  "id": "51410ac1d7ea",
+  "source": {
+    "author": {
+      "email": "contact@a01.example",
+      "name": "Avenna Ashfell",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "customer_comms"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

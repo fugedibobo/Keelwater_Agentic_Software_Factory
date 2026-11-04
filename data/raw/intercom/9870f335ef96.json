@@ -1,0 +1,100 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Glenmere",
+          "type": "user"
+        },
+        "body": "Good morning, Bryn — I’m trying to reconcile the latest reserves update with the payments we’ve processed for policyholders this week, and the numbers aren’t lining up. Could you help me trace where the mismatch might be?",
+        "created_at": 1789202340,
+        "id": "9870f335ef96-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Hi Gellin, I’ll pull up your account and cross-check the reserves against recent payment logs. Can you confirm which policyholder group you’re reviewing?",
+        "created_at": 1789202354,
+        "id": "9870f335ef96-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Glenmere",
+          "type": "user"
+        },
+        "body": "It’s the coastal commercial claims under policy group C-7, specifically those with supplier invoices logged in the last 48 hours.",
+        "created_at": 1789202364,
+        "id": "9870f335ef96-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Got it — I’m reviewing those now. It looks like one supplier invoice was duplicated during integration sync. I’ll correct the reserve allocation and send you a revised report by end of day.",
+        "created_at": 1789202372,
+        "id": "9870f335ef96-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Glenmere",
+          "type": "user"
+        },
+        "body": "Thanks, Bryn — that’s a relief. I’ll hold off on the monthly reporting until I get your update.",
+        "created_at": 1789202385,
+        "id": "9870f335ef96-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "You’re welcome — I’ll also flag this in your task queue so you’re notified as soon as the corrected figures are ready. Let me know if you need any letters or documents regenerated too.",
+        "created_at": 1789202392,
+        "id": "9870f335ef96-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 6,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1789202340,
+  "id": "9870f335ef96",
+  "source": {
+    "author": {
+      "email": "contact@a07.example",
+      "name": "Gellin Glenmere",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "triage_assignment"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

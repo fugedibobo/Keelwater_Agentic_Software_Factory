@@ -1,0 +1,139 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "assumed_resolution"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Isleford",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m trying to figure out why my latest batch of claims documents didn’t auto-assign to the right supplier tasks.",
+        "created_at": 1789035120,
+        "id": "0dd00871c2c3-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Ilyra. Let me check your permissions and role mapping to see if that’s blocking the task assignment.",
+        "created_at": 1789035128,
+        "id": "0dd00871c2c3-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Isleford",
+          "type": "user"
+        },
+        "body": "How do I upload policyholder documents into the system without triggering a reserve alert?",
+        "created_at": 1789035136,
+        "id": "0dd00871c2c3-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Isleford",
+          "type": "user"
+        },
+        "body": "That’d be great — also, is there a way to lock reporting periods so payments don’t get double-counted?",
+        "created_at": 1789035142,
+        "id": "0dd00871c2c3-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Isleford",
+          "type": "user"
+        },
+        "body": "Can we schedule a weekly sync for claims reporting every Tuesday at 3pm? That would help our team plan better.",
+        "created_at": 1789035149,
+        "id": "0dd00871c2c3-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Yes, you can set reporting locks via the integrations tab — I’ll send you a step-by-step guide.",
+        "created_at": 1789035157,
+        "id": "0dd00871c2c3-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your query has been successfully resolved and closed in our system. Let us know if you need anything else.",
+        "created_at": 1789035164,
+        "id": "0dd00871c2c3-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Isleford",
+          "type": "user"
+        },
+        "body": "Appreciate the help — your team always makes complex stuff feel manageable.",
+        "created_at": 1789035172,
+        "id": "0dd00871c2c3-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Glad to hear it — we’re here to make claims handling smoother for Brackwater Homecover.",
+        "created_at": 1789035176,
+        "id": "0dd00871c2c3-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 9,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1789035120,
+  "id": "0dd00871c2c3",
+  "source": {
+    "author": {
+      "email": "contact@a09.example",
+      "name": "Ilyra Isleford",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "supplier_network"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

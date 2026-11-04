@@ -1,0 +1,112 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Havren Orrenfield",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m trying to get our purchase order number updated on your latest invoice — it’s currently wrong and needs to reflect our internal tracking correctly.",
+        "created_at": 1790783820,
+        "id": "7b3e56554f47-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Havren Orrenfield",
+          "type": "user"
+        },
+        "body": "I’m trying to get our purchase order number updated on your latest invoice — it’s currently wrong and needs to reflect our internal tracking correctly, and I know this is a purchase order correction request that falls outside your team’s scope.",
+        "created_at": 1790783830,
+        "id": "7b3e56554f47-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Havren. I understand you’re looking to correct the purchase order on our invoice — this is an administrative request we can’t process directly through support.",
+        "created_at": 1790783847,
+        "id": "7b3e56554f47-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Havren Orrenfield",
+          "type": "user"
+        },
+        "body": "Understood. Can you point me to the right team or form to submit this?",
+        "created_at": 1790783858,
+        "id": "7b3e56554f47-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "I’ll send you a direct link to our finance portal where you can submit billing contact or purchase order corrections — it’s handled separately from claims support.",
+        "created_at": 1790783864,
+        "id": "7b3e56554f47-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Havren Orrenfield",
+          "type": "user"
+        },
+        "body": "Appreciate that. I’ll take care of it there.",
+        "created_at": 1790783875,
+        "id": "7b3e56554f47-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "You’re welcome, Havren. Let me know if you hit any snags — I’m happy to help guide you through the form.",
+        "created_at": 1790783878,
+        "id": "7b3e56554f47-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 7,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1790783820,
+  "id": "7b3e56554f47",
+  "source": {
+    "author": {
+      "email": "contact@a25.example",
+      "name": "Havren Orrenfield",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "reserves_payments"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

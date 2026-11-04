@@ -1,0 +1,124 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Jorrin Jarrowfell",
+          "type": "user"
+        },
+        "body": "Hi Bryn, we’re getting complaints again because letters to joint policyholders only show one name — it’s causing real friction with clients.",
+        "created_at": 1790695380,
+        "id": "2a207d65e62c-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Jorrin Jarrowfell",
+          "type": "user"
+        },
+        "body": "We’re seeing repeated issues where letters sent to joint policyholders only display one name — this leads to complaints and we need the joint policyholder names to appear correctly in all communications.",
+        "created_at": 1790695388,
+        "id": "2a207d65e62c-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: Customer reported naming inconsistency in joint policyholder letters; needs escalation to engineering for template fix.",
+        "created_at": 1790695401,
+        "id": "2a207d65e62c-2",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for flagging this, Jorrin. I’m logging it as a priority — the joint policyholder names issue is known and we’re working on a fix.",
+        "created_at": 1790695408,
+        "id": "2a207d65e62c-3",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Jorrin Jarrowfell",
+          "type": "user"
+        },
+        "body": "Understood. Just need to know when we can expect the joint policyholder names to appear correctly in correspondence.",
+        "created_at": 1790695418,
+        "id": "2a207d65e62c-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "We’re targeting a patch by next Tuesday. I’ll personally follow up with you then to confirm the joint policyholder names are rendering correctly.",
+        "created_at": 1790695425,
+        "id": "2a207d65e62c-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Jorrin Jarrowfell",
+          "type": "user"
+        },
+        "body": "Appreciate the quick response. Let me know if you need test cases for the joint policyholder names.",
+        "created_at": 1790695434,
+        "id": "2a207d65e62c-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "We’ll reach out if we need sample data — your help with joint policyholder names is already very valuable.",
+        "created_at": 1790695441,
+        "id": "2a207d65e62c-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1790695380,
+  "id": "2a207d65e62c",
+  "source": {
+    "author": {
+      "email": "contact@a10.example",
+      "name": "Jorrin Jarrowfell",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "customer_comms"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

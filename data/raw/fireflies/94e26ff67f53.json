@@ -1,0 +1,202 @@
+{
+  "date": 1790759940000,
+  "duration": 1.5666666666666667,
+  "host_email": "deryn.pell@keelwater.example",
+  "id": "94e26ff67f53",
+  "meeting_attendees": [
+    {
+      "displayName": "Deryn Pell",
+      "email": "deryn.pell@keelwater.example",
+      "name": "Deryn Pell"
+    },
+    {
+      "displayName": "Dovren Dovemere",
+      "email": "contact@a04.example",
+      "name": "Dovren Dovemere"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 7.6,
+      "index": 0,
+      "raw_text": "Good morning, Deryn. I’m calling about our team’s daily frustrations with the system’s lack of live updates from garages.",
+      "speaker_id": "customer",
+      "speaker_name": "Dovren Dovemere",
+      "start_time": 0.0,
+      "text": "Good morning, Deryn. I’m calling about our team’s daily frustrations with the system’s lack of live updates from garages."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 14.8,
+      "index": 1,
+      "raw_text": "Morning, Dovren. I’ve noted that before — it sounds like you’re spending too much time on manual follow-ups.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 7.6,
+      "text": "Morning, Dovren. I’ve noted that before — it sounds like you’re spending too much time on manual follow-ups."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 22.0,
+      "index": 2,
+      "raw_text": "Exactly. We’re constantly phoning suppliers because there’s no live repair status, which is a daily blocker for us.",
+      "speaker_id": "customer",
+      "speaker_name": "Dovren Dovemere",
+      "start_time": 14.8,
+      "text": "Exactly. We’re constantly phoning suppliers because there’s no live repair status, which is a daily blocker for us."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 32.4,
+      "index": 3,
+      "raw_text": "We’re constantly phoning suppliers because there’s no live repair status, which is a daily blocker for us — garage progress visibility is critical to our workflow.",
+      "speaker_id": "customer",
+      "speaker_name": "Dovren Dovemere",
+      "start_time": 22.0,
+      "text": "We’re constantly phoning suppliers because there’s no live repair status, which is a daily blocker for us — garage progress visibility is critical to our workflow."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 38.8,
+      "index": 4,
+      "raw_text": "That’s not ideal. We’re hearing similar feedback from other accounts. I’ll flag this as a priority.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 32.4,
+      "text": "That’s not ideal. We’re hearing similar feedback from other accounts. I’ll flag this as a priority."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 46.0,
+      "index": 5,
+      "raw_text": "Also, your interface changes lately — controls moving without warning — it’s forcing us to retrain staff constantly.",
+      "speaker_id": "customer",
+      "speaker_name": "Dovren Dovemere",
+      "start_time": 38.8,
+      "text": "Also, your interface changes lately — controls moving without warning — it’s forcing us to retrain staff constantly."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 51.6,
+      "index": 6,
+      "raw_text": "I understand the disruption. Our release process is under review. Would advance previews help?",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 46.0,
+      "text": "I understand the disruption. Our release process is under review. Would advance previews help?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 61.6,
+      "index": 7,
+      "raw_text": "Your interface changes lately — controls moving without warning — it’s forcing us to retrain staff constantly, and unannounced screen changes are disrupting our operations.",
+      "speaker_id": "customer",
+      "speaker_name": "Dovren Dovemere",
+      "start_time": 51.6,
+      "text": "Your interface changes lately — controls moving without warning — it’s forcing us to retrain staff constantly, and unannounced screen changes are disrupting our operations."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 68.0,
+      "index": 8,
+      "raw_text": "Absolutely. We’d prefer fewer, bundled changes with previews — unannounced screen changes are hurting our efficiency.",
+      "speaker_id": "customer",
+      "speaker_name": "Dovren Dovemere",
+      "start_time": 61.6,
+      "text": "Absolutely. We’d prefer fewer, bundled changes with previews — unannounced screen changes are hurting our efficiency."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 77.2,
+      "index": 9,
+      "raw_text": "We’d prefer fewer, bundled changes with previews — unannounced screen changes are hurting our efficiency and we need advance notice to adapt properly.",
+      "speaker_id": "customer",
+      "speaker_name": "Dovren Dovemere",
+      "start_time": 68.0,
+      "text": "We’d prefer fewer, bundled changes with previews — unannounced screen changes are hurting our efficiency and we need advance notice to adapt properly."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 81.2,
+      "index": 10,
+      "raw_text": "Noted. I’ll make sure product leadership sees this. Anything else?",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 77.2,
+      "text": "Noted. I’ll make sure product leadership sees this. Anything else?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 88.0,
+      "index": 11,
+      "raw_text": "Just that we’re losing time daily on this — it’s not sustainable without better visibility and planning.",
+      "speaker_id": "customer",
+      "speaker_name": "Dovren Dovemere",
+      "start_time": 81.2,
+      "text": "Just that we’re losing time daily on this — it’s not sustainable without better visibility and planning."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 94.0,
+      "index": 12,
+      "raw_text": "Thanks for your candor, Dovren. I’ll escalate this to our UX and release teams today.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 88.0,
+      "text": "Thanks for your candor, Dovren. I’ll escalate this to our UX and release teams today."
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Nethervale",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m Gellin from Kilnsey Household — we’re trying to reconcile some recent claims payments against our reserves, and the system’s not showing the supplier invoices correctly.",
+        "created_at": 1789732860,
+        "id": "a0925273107e-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Gellin. Let me pull up your account A24 and check the integrations between your supplier data and payment records — this might be a sync issue.",
+        "created_at": 1789732871,
+        "id": "a0925273107e-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Nethervale",
+          "type": "user"
+        },
+        "body": "That’d be great — we’ve got a reporting deadline next Tuesday and need to confirm all policyholders’ claims are reflected accurately before then.",
+        "created_at": 1789732883,
+        "id": "a0925273107e-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood. I’ll run a diagnostic on your roles and tasks to ensure no permissions are blocking the supplier documents from appearing. I’ll send you a status update by end of day.",
+        "created_at": 1789732892,
+        "id": "a0925273107e-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Nethervale",
+          "type": "user"
+        },
+        "body": "Appreciate the quick response — your team’s always been reliable when we hit snags with the letters or reporting modules.",
+        "created_at": 1789732904,
+        "id": "a0925273107e-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Glad to hear it — we’ll make sure your claims and reserves align before your deadline. I’ll flag this for priority handling.",
+        "created_at": 1789732912,
+        "id": "a0925273107e-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 6,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1789732860,
+  "id": "a0925273107e",
+  "source": {
+    "author": {
+      "email": "contact@a24.example",
+      "name": "Gellin Nethervale",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "customer_comms"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

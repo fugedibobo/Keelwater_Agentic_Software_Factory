@@ -1,0 +1,100 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Elwenna Elmtree",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m Elwenna from Thistlecombe Mutual — we’re trying to pull a full report on outstanding claims and reserves but the system’s not showing updated supplier payments.",
+        "created_at": 1791280800,
+        "id": "0d9e676ef205-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Elwenna. I’ll check your permissions and the integration status with your payment gateway to see why those updates aren’t syncing.",
+        "created_at": 1791280811,
+        "id": "0d9e676ef205-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Elwenna Elmtree",
+          "type": "user"
+        },
+        "body": "That’d be great — we’ve got policyholders waiting on letters, and tasks are piling up because the reporting module’s stuck.",
+        "created_at": 1791280820,
+        "id": "0d9e676ef205-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood. I’m flagging this as high priority. I’ll also verify your roles and document access to make sure nothing’s blocking the view you need.",
+        "created_at": 1791280828,
+        "id": "0d9e676ef205-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Elwenna Elmtree",
+          "type": "user"
+        },
+        "body": "Appreciate the quick response — just let me know if you need any login details or supplier IDs to troubleshoot.",
+        "created_at": 1791280838,
+        "id": "0d9e676ef205-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "I’ll be in touch within the hour with an update. If it’s not resolved by then, I’ll escalate to our integration team for deeper diagnostics.",
+        "created_at": 1791280846,
+        "id": "0d9e676ef205-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 6,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1791280800,
+  "id": "0d9e676ef205",
+  "source": {
+    "author": {
+      "email": "contact@a05.example",
+      "name": "Elwenna Elmtree",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "release_change"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

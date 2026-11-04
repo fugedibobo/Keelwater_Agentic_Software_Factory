@@ -1,0 +1,124 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Brelis Isleford",
+          "type": "user"
+        },
+        "body": "Hi Bryn, just checking in — we’re still manually calling garages because the system doesn’t show live repair updates, which eats up half our morning.",
+        "created_at": 1788356460,
+        "id": "3d710783c2b9-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Brelis Isleford",
+          "type": "user"
+        },
+        "body": "We’re still having to call garages ourselves every day because the repair updates missing from the system — it’s becoming a real time-sink for our handlers.",
+        "created_at": 1788356470,
+        "id": "3d710783c2b9-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: Bryn to follow up with Selsby Motor on their repair status workflow next week.",
+        "created_at": 1788356480,
+        "id": "3d710783c2b9-2",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for flagging that, Brelis. I’ll log this as a known gap — the lack of live repair updates is definitely slowing things down for you.",
+        "created_at": 1788356486,
+        "id": "3d710783c2b9-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Brelis Isleford",
+          "type": "user"
+        },
+        "body": "Appreciate it. We’ve got three claims stuck waiting on garage replies again today.",
+        "created_at": 1788356497,
+        "id": "3d710783c2b9-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood. I’ll escalate this internally so we can prioritise a fix or workaround for your team’s daily workflow.",
+        "created_at": 1788356502,
+        "id": "3d710783c2b9-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Brelis Isleford",
+          "type": "user"
+        },
+        "body": "Thanks, Bryn — we’ll keep chasing manually for now.",
+        "created_at": 1788356509,
+        "id": "3d710783c2b9-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "You’re welcome. I’ll circle back by Friday with any updates on the repair updates gap.",
+        "created_at": 1788356513,
+        "id": "3d710783c2b9-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1788356460,
+  "id": "3d710783c2b9",
+  "source": {
+    "author": {
+      "email": "contact@a19.example",
+      "name": "Brelis Isleford",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "supplier_network"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

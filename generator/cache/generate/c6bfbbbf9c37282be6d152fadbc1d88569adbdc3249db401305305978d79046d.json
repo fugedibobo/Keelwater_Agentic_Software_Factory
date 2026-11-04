@@ -1,0 +1,48 @@
+{
+ "request": {
+  "model": "qwen/qwen3-vl-235b-a22b-instruct",
+  "messages": [
+   {
+    "role": "user",
+    "content": "Write one short realistic description for this fictional claims software item. Use no company, person or product name except Keelwater. Return JSON.\n{\"key\": \"story:4130\", \"name\": \"Payment history improvements\", \"source\": \"shortcut\", \"status\": \"completed\"}\nVersion 0\n"
+   }
+  ],
+  "temperature": 0.8,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "generate",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "description"
+     ],
+     "properties": {
+      "description": {
+       "type": "string"
+      }
+     }
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "allow",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"description\": \"Keelwater now provides a clearer, more detailed payment history view, helping users track transactions, refunds, and adjustments with improved timestamps and categorization for faster reconciliation.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 71,
+   "tokens_out": 41,
+   "cost_usd": 8.929e-05
+  }
+ }
+}

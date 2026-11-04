@@ -5,23 +5,131 @@ or read credentials, and it does not record pipeline model_call rows.
 """
 from __future__ import annotations
 
+import copy
+import re
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
-from .brief import make_prompt
+from signal_engine import config
+from signal_engine.gateway import InvalidResponse
+from .brief import labels, make_prompt, mention_briefs
 from .specs import ROOT, load
-from .verify import leaked_terms, repeated_record_ids, unknown_names, verify_mention_text
+from .verify import leaked_terms, note_text, repeated_record_ids, unknown_names, verify_mention_text
 
-MODEL = 'mistralai/mistral-large-4-0'
-TURN_SCHEMA = {
-    'type': 'object', 'additionalProperties': False, 'required': ['turns'],
-    'properties': {'turns': {'type': 'array', 'items': {
-        'type': 'object', 'additionalProperties': False,
-        'required': ['speaker', 'text', 'mention_ids', 'noise_category'],
-        'properties': {'speaker': {'type': 'string', 'enum': ['customer', 'internal', 'bot']},
-                       'text': {'type': 'string'}, 'mention_ids': {'type': 'array', 'items': {'type': 'string'}},
-                       'noise_category': {'type': ['string', 'null']}}
-    }}}
+MODEL = config.load('models')['profiles']['demo']['stages']['generate']['model']
+TURN_ITEM = {
+    'type': 'object', 'additionalProperties': False, 'required': ['speaker', 'text', 'noise_category'],
+    'properties': {'speaker': {'type': 'string', 'enum': ['customer', 'internal', 'bot']}, 'text': {'type': 'string'},
+                   'noise_category': {'type': ['string', 'null']}}
 }
+
+
+def bounded(slot, mention, synonym=None):
+    """A plain mention is a customer text of at least 45 characters. A short agreement is an internal turn of at least
+    45 characters that states the problem (carries the pinned phrase) plus a customer agreement of at most 44."""
+    slot = copy.deepcopy(slot)
+    props = slot['properties']
+    if mention.get('agreement'):
+        del props['text']
+        props['internal_text'] = {'type': 'string', 'minLength': 45}
+        props['agreement_text'] = {'type': 'string', 'maxLength': 44}
+        slot['required'] = ['internal_text', 'agreement_text', 'after_turn']
+    else:
+        props['text']['minLength'] = 45
+    return slot
+
+
+def extra_slots(record):
+    """Required-element rules turned into slots: (key, speaker, noise_category, required phrase). Code inserts each one,
+    so the validator's "missing X" rules (Fin bot turn, escalation reply, admin note, required noise categories,
+    how-to distractor) hold by construction."""
+    slots = []
+    if record.get('fin_mode') in ('resolved', 'escalated'):
+        slots.append(('bot_turn', 'bot', None, None))
+    if record.get('fin_mode') == 'escalated':
+        slots.append(('internal_reply', 'internal', None, None))
+    if record.get('admin_note'):
+        slots.append(('admin_note', 'internal', 'internal', None))
+    cats = list(record.get('required_noise', []))
+    if record.get('distractor') and 'how_to' not in cats:
+        cats.append('how_to')
+    for c in cats:
+        if c == 'internal' and record.get('admin_note'):
+            continue
+        slots.append((f'noise_{c}', 'internal' if c == 'internal' else 'customer', c, record.get('distractor') if c == 'how_to' else None))
+    return slots
+
+
+def record_schema(record, seed):
+    """Per-record response schema. `turns` holds the conversation without the planted mentions (band minus the
+    mention count, noise enum); `mentions` has exactly this record's mention ids, each one customer text plus a
+    placement hint. Code inserts and tags them (merge_mentions), so one tag per mention holds by construction."""
+    extras = extra_slots(record)
+    n = sum(2 if m.get('agreement') else 1 for m in record['mentions']) + len(extras)  # an agreement adds an internal turn too
+    syn = {b['id']: b['synonym'] for b in mention_briefs(seed, record) if 'synonym' in b}
+    item = copy.deepcopy(TURN_ITEM)
+    cats = load(seed)['noise']['categories']
+    if seed != 42 and record['source'] == 'intercom' and not record.get('admin_note'):
+        cats = [c for c in cats if c != 'internal']  # forbidden here; narrowed for seed 43 only because seed 42's committed cache is keyed by the old schema
+    item['properties']['noise_category'] = {'enum': [*cats, None]}
+    turns = {'type': 'array', 'items': item}
+    if record.get('turns_range'):
+        turns['minItems'], turns['maxItems'] = (max(0, x - n) for x in record['turns_range'])
+    else:
+        turns['minItems'] = 6  # an unbanded record (e.g. Intercom) otherwise comes back with an empty conversation
+    slot = {'type': 'object', 'additionalProperties': False, 'required': ['text', 'after_turn'],
+            'properties': {'text': {'type': 'string'}, 'after_turn': {'type': 'integer'}}}
+    tag = labels(record)
+    ids = list(tag.values())
+    extra_slot = {'type': 'object', 'additionalProperties': False, 'required': ['text', 'after_turn'],
+                  'properties': {'text': {'type': 'string', 'minLength': 20}, 'after_turn': {'type': 'integer'}}}
+    return {'type': 'object', 'additionalProperties': False, 'required': ['turns', 'mentions', 'extras'],
+            'properties': {'extras': {'type': 'object', 'additionalProperties': False, 'required': [e[0] for e in extras],
+                                      'properties': {e[0]: copy.deepcopy(extra_slot) for e in extras}},
+                           'turns': turns, 'mentions': {'type': 'object', 'additionalProperties': False, 'required': ids,
+                                                         'properties': {tag[m['id']]: bounded(slot, m, syn.get(tag[m['id']])) for m in record['mentions']}}}}
+
+
+def merge_mentions(record, raw, seed=None):
+    """Insert each mention slot after its hinted turn (clamped), deterministic by position then mention order. A plain
+    mention becomes one tagged customer turn. A short-agreement mention becomes an internal turn stating the problem
+    (it must carry the pinned phrase) followed by the tagged customer agreement."""
+    base = [{**t, 'mention_ids': []} for t in raw.get('turns', [])]
+    pinned = {b['id']: b['synonym'] for b in mention_briefs(seed, record) if 'synonym' in b} if seed is not None else {}
+    inserts, tag = [], labels(record)
+    for order, m in enumerate(record['mentions']):
+        slot = raw['mentions'][tag[m['id']]]
+        carrier = slot['internal_text'] if m.get('agreement') else slot['text']
+        term = pinned.get(tag[m['id']])
+        if term and term.casefold() not in carrier.casefold():  # code-side guard: the pinned synonym only, no splicing
+            raise RecordValidationError(f"{record['id']}: mention {m['id']} lacks the required phrase '{term}'")
+        pos = min(max(slot['after_turn'], 0), max(len(base) - 1, 0))
+        if m.get('agreement'):
+            group = [{'speaker': 'internal', 'text': slot['internal_text'], 'mention_ids': [], 'noise_category': None},
+                     {'speaker': 'customer', 'text': slot['agreement_text'], 'mention_ids': [m['id']], 'noise_category': None}]
+        else:
+            group = [{'speaker': 'customer', 'text': slot['text'], 'mention_ids': [m['id']], 'noise_category': None}]
+        inserts.append((pos, order, group))
+    for order, (key, speaker, noise, phrase) in enumerate(extra_slots(record), start=len(record['mentions'])):
+        slot = raw.get('extras', {}).get(key)
+        if slot is None:
+            continue
+        if phrase and phrase.casefold() not in slot['text'].casefold():
+            raise RecordValidationError(f"{record['id']}: the {key} turn lacks the required phrase '{phrase}'")
+        pos = min(max(slot['after_turn'], 0), max(len(base) - 1, 0))
+        inserts.append((pos, order, [{'speaker': speaker, 'text': slot['text'], 'mention_ids': [], 'noise_category': noise}]))
+    turns = []
+    queue = sorted(inserts, key=lambda x: x[:2])
+    for i, t in enumerate(base):
+        turns.append(t)
+        for x in queue:
+            if x[0] == i:
+                turns.extend(x[2])
+    if not base:
+        for x in queue:
+            turns.extend(x[2])
+    return {'turns': turns}
+
+
 DESCRIPTION_SCHEMA = {'type': 'object', 'additionalProperties': False, 'required': ['description'],
                       'properties': {'description': {'type': 'string'}}}
 
@@ -105,12 +213,46 @@ def write_record(record, seed, make_request, start_attempt=0, on_rejection=None)
                         errors.append(f"{record['id']}: forbidden raw phrase {terms[0]}")
             if errors:
                 raise RecordValidationError('; '.join(errors))
+            for turn in response['turns']:
+                note_text(turn['text'])
             return response
-        except RecordValidationError as exc:
+        except (RecordValidationError, InvalidResponse) as exc:
             last = exc
+            FEEDBACK[record['id']] = str(exc)
             if on_rejection:
                 on_rejection(record['id'], attempt, str(exc))
     raise RecordValidationError(f"{record['id']}: failed after two regenerations: {last}")
+
+
+RULE_HINTS = {
+    'Fin conversation has no bot turn': "Include at least one turn whose speaker is 'bot' (the Fin assistant).",
+    'escalated conversation has no internal reply': "Include at least one turn whose speaker is 'internal'.",
+    'human-only conversation has a bot turn': "Use no turn whose speaker is 'bot'.",
+    'missing admin note': "Include an 'internal' turn whose noise_category is 'internal'.",
+    'missing required noise category': 'Include a turn for every required noise category in the noise brief.',
+}
+FEEDBACK = {}  # record id -> last rejection text, set by write_record and read by gateway_request
+
+
+def feedback_text(record, seed, error):
+    """State the failed rule, the offending text and the allowed values so a regeneration can fix it."""
+    if not error:
+        return ''
+    for m in record['mentions']:  # never echo a mention id or theme id back to the model
+        error = error.replace(m['id'], labels(record)[m['id']]).replace(m['theme'], 'the theme')
+    lines = [f'Your previous attempt was rejected: {error}']
+    for b in mention_briefs(seed, record):
+        if 'synonym' in b:
+            lines.append(f"Mention {b['id']} must contain the exact phrase '{b['synonym']}'.")
+    lines += [hint for rule, hint in RULE_HINTS.items() if rule in error]
+    never = re.search(r'forbidden raw phrase (.+)', error)
+    if never:
+        lines.append(f"Do not write the phrase '{never.group(1)}'; paraphrase it.")
+    name = re.search(r'unknown name (.+?)(?:;|$)', error)
+    if name:
+        people = re.search(r'only_people_who_may_be_named": \[(.*?)\]', make_prompt(seed, record))
+        lines.append(f"'{name.group(1)}' is not an allowed name; use only: {people.group(1) if people else 'the names in the record brief'}.")
+    return '\n'.join(lines) + '\n'
 
 
 def gateway_request(gateway, record, seed, attempt):
@@ -118,9 +260,10 @@ def gateway_request(gateway, record, seed, attempt):
     request = request_parameters(record, seed, attempt)
     prompt = request['prompt']
     if attempt:
-        prompt += f'\nRegeneration {attempt}: rewrite the record, satisfy every rule, and return the full JSON again.\n'
-    return gateway.chat('generate', [{'role': 'user', 'content': prompt}], target_type='generator_record',
-                        target_id=record['id'], prompt_version='record@0.1.0', schema=TURN_SCHEMA)
+        prompt += f'\nRegeneration {attempt}: rewrite the record, satisfy every rule, and return the full JSON again.\n' + feedback_text(record, seed, FEEDBACK.get(record['id']))
+    raw = gateway.chat('generate', [{'role': 'user', 'content': prompt}], target_type='generator_record',
+                        target_id=record['id'], prompt_version='record@0.2.0', schema=record_schema(record, seed))
+    return merge_mentions(record, raw, seed)
 
 
 def write_reference(gateway, brief, seed, on_rejection=None):
@@ -131,9 +274,14 @@ def write_reference(gateway, brief, seed, on_rejection=None):
         prompt = ('Write one short realistic description for this fictional claims software item. '
                   'Use no company, person or product name except Keelwater. Return JSON.\n' +
                   json.dumps(brief, ensure_ascii=False, sort_keys=True) + f'\nVersion {attempt}\n')
-        response = gateway.chat('generate', [{'role': 'user', 'content': prompt}],
-                                target_type='generator_reference', target_id=brief['key'],
-                                prompt_version='reference@0.1.0', schema=DESCRIPTION_SCHEMA)
+        try:
+            response = gateway.chat('generate', [{'role': 'user', 'content': prompt}],
+                                    target_type='generator_reference', target_id=brief['key'],
+                                    prompt_version='reference@0.1.0', schema=DESCRIPTION_SCHEMA)
+        except InvalidResponse as exc:
+            last = str(exc)
+            if on_rejection: on_rejection(brief['key'], attempt, last)
+            continue
         text = response.get('description') if isinstance(response, dict) else None
         if not isinstance(text, str) or not text.strip():
             last = 'missing description'

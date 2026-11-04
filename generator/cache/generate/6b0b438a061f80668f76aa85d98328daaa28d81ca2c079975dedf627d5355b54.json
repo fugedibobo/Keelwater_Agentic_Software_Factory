@@ -1,0 +1,48 @@
+{
+ "request": {
+  "model": "qwen/qwen3-vl-235b-a22b-instruct",
+  "messages": [
+   {
+    "role": "user",
+    "content": "Write one short realistic description for this fictional claims software item. Use no company, person or product name except Keelwater. Return JSON.\n{\"key\": \"page:6\", \"name\": \"Reporting navigation\", \"source\": \"notion\", \"status\": \"Planned\", \"target\": null}\nVersion 0\n"
+   }
+  ],
+  "temperature": 0.8,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "generate",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "description"
+     ],
+     "properties": {
+      "description": {
+       "type": "string"
+      }
+     }
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "allow",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"description\": \"Users can navigate through reporting sections in Keelwater with a streamlined menu, allowing quick access to claims summaries, analytics, and export options without leaving the current context.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 74,
+   "tokens_out": 41,
+   "cost_usd": 8.992e-05
+  }
+ }
+}

@@ -1,0 +1,136 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Pellin Pennfell",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m reaching out because we’ve got a few policyholders asking when they’ll get updates during their claim process. Is there a way to automate those messages?",
+        "created_at": 1791892980,
+        "id": "7040fef13155-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for flagging this, Pellin. We’re currently building out the capability for automatic customer milestone messaging — it’s in progress and targeted for early next year.",
+        "created_at": 1791892991,
+        "id": "7040fef13155-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Pellin Pennfell",
+          "type": "user"
+        },
+        "body": "We’re working on enabling customer milestone messaging so policyholders get timely updates at claim milestones — it’s still in development but we’re aiming to deliver it early next year.",
+        "created_at": 1791893001,
+        "id": "7040fef13155-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: Confirm with engineering that milestone notifications are still on track for Q1 2027 before replying to Pellin.",
+        "created_at": 1791893013,
+        "id": "7040fef13155-3",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Pellin Pennfell",
+          "type": "user"
+        },
+        "body": "That’s good to hear. I’d like to schedule a follow-up to see how it’s coming along — maybe next week?",
+        "created_at": 1791893020,
+        "id": "7040fef13155-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Pellin Pennfell",
+          "type": "user"
+        },
+        "body": "Could we schedule a quick call next Tuesday? I’ll be free between 10 and 11 AM if that works for you.",
+        "created_at": 1791893028,
+        "id": "7040fef13155-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Absolutely — I’ll send over a calendar invite for Tuesday at 10:30 AM if that suits. We can walk through what’s in development and any prep you might need to do on your end.",
+        "created_at": 1791893037,
+        "id": "7040fef13155-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Pellin Pennfell",
+          "type": "user"
+        },
+        "body": "Perfect — thanks Bryn. Looking forward to it.",
+        "created_at": 1791893050,
+        "id": "7040fef13155-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Just to confirm — you’re interested in the customer milestone messaging feature, which will let you send automated updates to policyholders at key claim stages. We’ll cover how it integrates with your current workflows.",
+        "created_at": 1791893054,
+        "id": "7040fef13155-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 9,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1791892980,
+  "id": "7040fef13155",
+  "source": {
+    "author": {
+      "email": "contact@a16.example",
+      "name": "Pellin Pennfell",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "reporting_mi"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

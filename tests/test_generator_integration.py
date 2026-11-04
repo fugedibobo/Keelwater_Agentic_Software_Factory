@@ -11,6 +11,7 @@ from generator.emitter import emit
 from generator.ground_truth import raw_hash
 from generator.planner import plan
 from generator.runner import run
+from generator.writer import extra_slots
 from signal_engine.gateway import Gateway
 
 from test_generator_contracts import fake_inputs
@@ -29,8 +30,8 @@ class Response:
 
 
 class FakeClient:
-    def __init__(self, records):
-        self.records = records
+    def __init__(self, records, planned=None):
+        self.records, self.planned = records, planned or {}
         self.chat = SimpleNamespace(completions=SimpleNamespace(create=self.create))
 
     def create(self, **kwargs):
@@ -38,7 +39,23 @@ class FakeClient:
         if prompt.startswith('Write one short realistic description'):
             return Response({'description': 'A routine description of the work.'})
         assert prompt in self.records
-        return Response(self.records[prompt])
+        rec = self.records[prompt]
+        base, slots = [], {}
+        for t in rec['turns']:
+            if t['mention_ids'] and len(t['text'].split()) < 8:  # short agreement: the preceding internal turn carries the problem
+                slots[f'm{len(slots) + 1}'] = {'internal_text': base.pop()['text'], 'agreement_text': t['text'], 'after_turn': len(base) - 1}
+            elif t['mention_ids']:
+                slots[f'm{len(slots) + 1}'] = {'text': t['text'], 'after_turn': len(base) - 1}
+            else:
+                base.append({k: t[k] for k in ('speaker', 'text', 'noise_category')})
+        extras = {}
+        for key, speaker, noise, phrase in extra_slots(self.planned[prompt]):  # pull the slot turns out of the conversation
+            i = next((i for i, t in enumerate(base) if t['speaker'] == speaker and t['noise_category'] == noise and (not phrase or phrase.casefold() in t['text'].casefold())), None)
+            text = base.pop(i)['text'] if i is not None else ('Here is a question about ' + phrase + ' for the team today.' if phrase else 'We can review this request with the team today.')
+            extras[key] = {'text': text, 'after_turn': (i or 0) - 1}
+        while len(base) < 6 and not self.planned[prompt].get('turns_range'):  # the schema floor for unbanded records
+            base.append({'speaker': 'customer', 'text': 'Here is a routine message about the service today.', 'noise_category': None})
+        return Response({'turns': base, 'mentions': slots, 'extras': extras})
 
 
 def test_generation_and_forced_replay_are_byte_identical(tmp_path, monkeypatch):
@@ -48,7 +65,7 @@ def test_generation_and_forced_replay_are_byte_identical(tmp_path, monkeypatch):
     root = Path(tmp_path)
     schemas = Path(__file__).resolve().parent.parent / 'contracts' / 'sources'
     shutil.copytree(schemas, root / 'contracts' / 'sources')
-    records = {}
+    records, planned = {}, {}
     for seed in (42, 43):
         inputs, _ = fake_inputs(seed)
         for record in plan(seed)['records']:
@@ -57,8 +74,9 @@ def test_generation_and_forced_replay_are_byte_identical(tmp_path, monkeypatch):
                 if prompt in records:
                     assert records[prompt] == inputs[record['id']]
                 records[prompt] = inputs[record['id']]
+                planned[prompt] = record
     cache = root / 'generator' / 'cache'
-    fake = Gateway(store=None, profile='demo', cache_dir=cache, keys={}, client=FakeClient(records), max_usd=.9)
+    fake = Gateway(store=None, profile='demo', cache_dir=cache, keys={}, client=FakeClient(records, planned), sleep=lambda s: None, max_usd=.9)
     result42 = run(42, root=root, gateway=fake, out=lambda _: None)
     assert result42['calls'] == 129 and result42['regenerations'] == 0
     before42 = tree_bytes(root / 'data' / 'raw')
@@ -74,7 +92,7 @@ def test_generation_and_forced_replay_are_byte_identical(tmp_path, monkeypatch):
     assert sum(any(p['part_type'] == 'note' for p in c['conversation_parts']['conversation_parts']) for c in conversations) == 25
     with pytest.raises(FileExistsError):
         run(42, root=root, gateway=fake, out=lambda _: None)
-    fake43 = Gateway(store=None, profile='demo', cache_dir=cache, keys={}, client=FakeClient(records), max_usd=.3)
+    fake43 = Gateway(store=None, profile='demo', cache_dir=cache, keys={}, client=FakeClient(records, planned), sleep=lambda s: None, max_usd=.3)
     result43 = run(43, root=root, gateway=fake43, out=lambda _: None)
     assert result43['calls'] == 42 and result43['regenerations'] == 0
     before43 = tree_bytes(root / 'data' / 'holdout' / 'raw')

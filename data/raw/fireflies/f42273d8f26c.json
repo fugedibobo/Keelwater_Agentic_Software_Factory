@@ -1,0 +1,188 @@
+{
+  "date": 1789817760000,
+  "duration": 1.7866666666666666,
+  "host_email": "deryn.pell@keelwater.example",
+  "id": "f42273d8f26c",
+  "meeting_attendees": [
+    {
+      "displayName": "Deryn Pell",
+      "email": "deryn.pell@keelwater.example",
+      "name": "Deryn Pell"
+    },
+    {
+      "displayName": "Elwenna Elmtree",
+      "email": "contact@a05.example",
+      "name": "Elwenna Elmtree"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 9.2,
+      "index": 0,
+      "raw_text": "Hi Deryn, just wanted to flag a few things we’ve been bumping into lately — nothing urgent, but worth noting for your roadmap.",
+      "speaker_id": "customer",
+      "speaker_name": "Elwenna Elmtree",
+      "start_time": 0.0,
+      "text": "Hi Deryn, just wanted to flag a few things we’ve been bumping into lately — nothing urgent, but worth noting for your roadmap."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 16.0,
+      "index": 1,
+      "raw_text": "Could we schedule a quick catch-up next Tuesday? I’ve got a slot at 10:30 if that suits.",
+      "speaker_id": "customer",
+      "speaker_name": "Elwenna Elmtree",
+      "start_time": 9.2,
+      "text": "Could we schedule a quick catch-up next Tuesday? I’ve got a slot at 10:30 if that suits."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 23.2,
+      "index": 2,
+      "raw_text": "Thanks for reaching out, Elwenna. I’ll log these and loop in the right folks. Anything you’d like prioritised?",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 16.0,
+      "text": "Thanks for reaching out, Elwenna. I’ll log these and loop in the right folks. Anything you’d like prioritised?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 32.0,
+      "index": 3,
+      "raw_text": "We’re still waiting on those claim progress messages to go live — the team’s keen to get policyholders auto-notified at key stages.",
+      "speaker_id": "customer",
+      "speaker_name": "Elwenna Elmtree",
+      "start_time": 23.2,
+      "text": "We’re still waiting on those claim progress messages to go live — the team’s keen to get policyholders auto-notified at key stages."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 40.8,
+      "index": 4,
+      "raw_text": "We’re still waiting on those claim progress messages to go live — the team’s keen to get policyholders auto-notified at key stages.",
+      "speaker_id": "customer",
+      "speaker_name": "Elwenna Elmtree",
+      "start_time": 32.0,
+      "text": "We’re still waiting on those claim progress messages to go live — the team’s keen to get policyholders auto-notified at key stages."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 49.2,
+      "index": 5,
+      "raw_text": "Got it — we’re tracking that for Q1 next year, and I’ll double-check the Notion page to make sure nothing’s slipped.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 40.8,
+      "text": "Got it — we’re tracking that for Q1 next year, and I’ll double-check the Notion page to make sure nothing’s slipped."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 59.2,
+      "index": 6,
+      "raw_text": "Also, the document upload system keeps assigning the wrong category — say, putting repair quotes under correspondence — which leads to incorrect file type issues.",
+      "speaker_id": "customer",
+      "speaker_name": "Elwenna Elmtree",
+      "start_time": 49.2,
+      "text": "Also, the document upload system keeps assigning the wrong category — say, putting repair quotes under correspondence — which leads to incorrect file type issues."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 69.2,
+      "index": 7,
+      "raw_text": "Also, the document upload system keeps assigning the wrong category — say, putting repair quotes under correspondence — which leads to incorrect file type issues.",
+      "speaker_id": "customer",
+      "speaker_name": "Elwenna Elmtree",
+      "start_time": 59.2,
+      "text": "Also, the document upload system keeps assigning the wrong category — say, putting repair quotes under correspondence — which leads to incorrect file type issues."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 80.8,
+      "index": 8,
+      "raw_text": "That’s a known pain point. Handlers are having to manually fix it, and we’ve seen some evidence slip through because of it. I’ll flag it for the dev team.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 69.2,
+      "text": "That’s a known pain point. Handlers are having to manually fix it, and we’ve seen some evidence slip through because of it. I’ll flag it for the dev team."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 89.6,
+      "index": 9,
+      "raw_text": "Lastly, our finance team’s pulling their hair out — the dashboard totals don’t match the CSV exports, causing export figures mismatch headaches.",
+      "speaker_id": "customer",
+      "speaker_name": "Elwenna Elmtree",
+      "start_time": 80.8,
+      "text": "Lastly, our finance team’s pulling their hair out — the dashboard totals don’t match the CSV exports, causing export figures mismatch headaches."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 98.4,
+      "index": 10,
+      "raw_text": "Lastly, our finance team’s pulling their hair out — the dashboard totals don’t match the CSV exports, causing export figures mismatch headaches.",
+      "speaker_id": "customer",
+      "speaker_name": "Elwenna Elmtree",
+      "start_time": 89.6,
+      "text": "Lastly, our finance team’s pulling their hair out — the dashboard totals don’t match the CSV exports, causing export figures mismatch headaches."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 107.2,
+      "index": 11,
+      "raw_text": "Understood. That’s likely a timezone cutoff issue — we’ll reconcile the UTC vs local time handling to restore trust in the numbers.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 98.4,
+      "text": "Understood. That’s likely a timezone cutoff issue — we’ll reconcile the UTC vs local time handling to restore trust in the numbers."
+    }
+  ]
+}

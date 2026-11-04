@@ -1,0 +1,99 @@
+{
+ "request": {
+  "model": "qwen/qwen3-vl-235b-a22b-instruct",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nWrite one realistic gong record for Keelwater, a UK claims-handling software company.\n</role>\n<record>\n{\"customer\": {\"account\": \"P3\", \"company\": \"Sallowmere Motor\", \"email\": \"contact@p3.example\", \"name\": \"Pellin Fellward\"}, \"date\": \"2026-10-18T10:32:00Z\", \"fin_mode\": null, \"glossary\": [\"claims\", \"documents\", \"reserves\", \"payments\", \"suppliers\", \"reporting\", \"roles\", \"integrations\", \"tasks\", \"letters\", \"policyholders\"], \"never_write_verbatim\": [], \"only_people_who_may_be_named\": [\"Sallowmere Motor\", \"Pellin Fellward\", \"Alwen Dovell\"], \"route\": \"sales\", \"source\": \"gong\", \"staff\": {\"email\": \"alwen.dovell@keelwater.example\", \"name\": \"Alwen Dovell\", \"team\": \"sales\"}, \"turns_range\": [15, 30]}\n</record>\n<mentions>\n[]\n</mentions>\n<noise>\n{\"admin_note\": false, \"allowed_categories\": [\"pleasantry\", \"scheduling\", \"pricing\", \"internal\", \"password_reset\", \"how_to\", \"praise\", \"closer\"], \"distractor_how_to_phrase\": null, \"instructions\": \"Tag every noise turn with its category. Put the distractor phrase, if given, in a how-to turn with no mention id. An admin note must be an internal turn tagged internal. A Fin-resolved or escalated conversation needs a bot turn; an escalated one also needs an internal reply. About 35 percent of customer turns are pleasantries. Every tagged customer mention, including a short agreement, must contain its supplied synonym.\", \"required_categories\": []}\n</noise>\n<rules>\nCustomers speak like claims staff. Do not use headings or bullets in speech. Use only the names in the record brief; never name a real company, product or person. Mention no feature outside the supplied glossary. Express the supplied facts in the speaker's own words. Tag each turn with its noise category or null. Do not put the planted mentions in `turns`: write each one, in the customer's own words and at least twelve words long, under `mentions[<mention id>].text`, containing that mention's `synonym` exactly as written (a mention whose form is a short agreement is different: write the internal speaker's turn stating the problem, at least twelve words and containing the synonym exactly as written, under `internal_text`, and the customer's reply of under eight words under `agreement_text`), and set after_turn to the index of the turn it should follow. The `turns` conversation is the rest of the record. Do not put the turns listed under `extras` in `turns`: write each one once under `extras[<key>].text` (at least twenty characters, containing the exact phrase where one is given), and set after_turn to the index of the turn it should follow. Name only the people in only_people_who_may_be_named. When fin_mode is resolved or escalated, at least one turn must have speaker bot; when it is escalated, at least one turn must have speaker internal; when it is human, no turn has speaker bot. Never write any phrase listed in never_write_verbatim, including the supplied facts: paraphrase them.\n</rules>\n<output>\nReturn JSON matching the supplied source schema.\n{\"extras\": {}, \"mentions\": {}, \"turns\": [{\"noise_category\": \"string or null\", \"speaker\": \"customer|internal|bot\", \"text\": \"string\"}]}\n</output>\n"
+   }
+  ],
+  "temperature": 0.8,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "generate",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "turns",
+      "mentions",
+      "extras"
+     ],
+     "properties": {
+      "extras": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [],
+       "properties": {}
+      },
+      "turns": {
+       "type": "array",
+       "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+         "speaker",
+         "text",
+         "noise_category"
+        ],
+        "properties": {
+         "speaker": {
+          "type": "string",
+          "enum": [
+           "customer",
+           "internal",
+           "bot"
+          ]
+         },
+         "text": {
+          "type": "string"
+         },
+         "noise_category": {
+          "enum": [
+           "pleasantry",
+           "scheduling",
+           "pricing",
+           "internal",
+           "password_reset",
+           "how_to",
+           "praise",
+           "closer",
+           null
+          ]
+         }
+        }
+       },
+       "minItems": 15,
+       "maxItems": 30
+      },
+      "mentions": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [],
+       "properties": {}
+      }
+     }
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "allow",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"extras\": {},\n  \"turns\": [\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Good morning, Alwen. We’ve been managing claims and documents manually for years, and it’s becoming unsustainable.\",\n      \"noise_category\": \"pleasantry\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Thanks for reaching out, Pellin. I understand how time-consuming handling reserves and payments can be without automation.\",\n      \"noise_category\": \"pleasantry\"\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Exactly — we’re drowning in supplier invoices and policyholder letters, and our reporting is all over the place.\",\n      \"noise_category\": \"pleasantry\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"That’s exactly what Keelwater helps with — streamlining tasks, roles, and integrations so your team can focus on what matters.\",\n      \"noise_category\": \"how_to\"\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"We need to assign clear roles and automate document routing — our current system doesn’t let us track tasks properly.\",\n      \"noise_category\": \"how_to\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"We can set up role-based permissions and task triggers so nothing slips through the cracks — even across supplier and policyholder workflows.\",\n      \"noise_category\": \"how_to\"\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"That sounds promising. Can we see how reserves and payments sync with our existing accounting tools?\",\n      \"noise_category\": \"how_to\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Absolutely — our integrations layer supports real-time sync with major finance platforms, including reserve updates and payment status flags.\",\n      \"noise_category\": \"how_to\"\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Perfect. I’d like to schedule a demo next week — can we cover reporting dashboards and letter templates too?\",\n      \"noise_category\": \"scheduling\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Of course — I’ll send over a few time slots and include a walkthrough of reporting modules and automated letter generation.\",\n      \"noise_category\": \"scheduling\"\n    }\n  ,\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Thanks, Alwen. Looking forward to seeing how Keelwater can simplify our claims and documents workflow.\",\n      \"noise_category\": \"praise\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"My pleasure, Pellin. We’re here to make sure your team spends less time on admin and more on resolving claims efficiently.\",\n      \"noise_category\": \"praise\"\n    }\n  ,\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"One last thing — can we trial the roles and tasks features before committing?\",\n      \"noise_category\": \"pricing\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Yes — we offer a 30-day sandbox environment where you can test roles, tasks, integrations, and document workflows with no obligation.\",\n      \"noise_category\": \"pricing\"\n    }\n  ,\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"That’s ideal. Let’s lock in the demo for Tuesday next week at 11 AM.\",\n      \"noise_category\": \"scheduling\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Got it — I’ll send the calendar invite and pre-demo prep materials by end of day.\",\n      \"noise_category\": \"scheduling\"\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Appreciate it. Looking forward to seeing how Keelwater handles our claims and supplier reporting needs.\",\n      \"noise_category\": \"praise\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Likewise — we’ll tailor the demo to your specific pain points around reserves, payments, and policyholder communications.\",\n      \"noise_category\": \"closer\"\n    }\n  ],\n  \"mentions\": {}\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 800,
+   "tokens_out": 881,
+   "cost_usd": 0.0018331
+  }
+ }
+}

@@ -1,0 +1,137 @@
+{
+  "date": 1792669440000,
+  "duration": 1.2733333333333334,
+  "host_email": "carys.fenwick@keelwater.example",
+  "id": "1d5ef903ca41",
+  "meeting_attendees": [
+    {
+      "displayName": "Carys Fenwick",
+      "email": "carys.fenwick@keelwater.example",
+      "name": "Carys Fenwick"
+    },
+    {
+      "displayName": "Avenna Ashfell",
+      "email": "contact@a01.example",
+      "name": "Avenna Ashfell"
+    },
+    {
+      "displayName": "Brelis Bramvale",
+      "email": "contact@a02.example",
+      "name": "Brelis Bramvale"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 11.6,
+      "index": 0,
+      "raw_text": "Hi Carys, we’re just starting to set up our team on Keelwater and wanted to check if there’s a way to preview upcoming interface updates before they go live.",
+      "speaker_id": "customer",
+      "speaker_name": "Avenna Ashfell",
+      "start_time": 0.0,
+      "text": "Hi Carys, we’re just starting to set up our team on Keelwater and wanted to check if there’s a way to preview upcoming interface updates before they go live."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 16.4,
+      "index": 1,
+      "raw_text": "Your onboarding team has been incredibly helpful and responsive throughout this process.",
+      "speaker_id": "customer",
+      "speaker_name": "Avenna Ashfell",
+      "start_time": 11.6,
+      "text": "Your onboarding team has been incredibly helpful and responsive throughout this process."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 28.4,
+      "index": 2,
+      "raw_text": "Hi Avenna, we’re glad you asked — we do have a release notes portal, but we’re aware some changes have landed without clear advance notice, which we’re working to improve.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 16.4,
+      "text": "Hi Avenna, we’re glad you asked — we do have a release notes portal, but we’re aware some changes have landed without clear advance notice, which we’re working to improve."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 40.8,
+      "index": 3,
+      "raw_text": "We had unannounced screen changes last time and it caused confusion and delays because staff had to relearn where everything was — we really need advance notice and previews going forward.",
+      "speaker_id": "customer",
+      "speaker_name": "Avenna Ashfell",
+      "start_time": 28.4,
+      "text": "We had unannounced screen changes last time and it caused confusion and delays because staff had to relearn where everything was — we really need advance notice and previews going forward."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 50.8,
+      "index": 4,
+      "raw_text": "That’s good to hear — last time we had unannounced screen changes, it caused confusion and delays because staff had to relearn where everything was.",
+      "speaker_id": "customer",
+      "speaker_name": "Avenna Ashfell",
+      "start_time": 40.8,
+      "text": "That’s good to hear — last time we had unannounced screen changes, it caused confusion and delays because staff had to relearn where everything was."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 59.6,
+      "index": 5,
+      "raw_text": "I completely understand — we’re moving toward bundling updates and giving customers a preview window so your team can adapt without disruption.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 50.8,
+      "text": "I completely understand — we’re moving toward bundling updates and giving customers a preview window so your team can adapt without disruption."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 67.2,
+      "index": 6,
+      "raw_text": "That would really help — we’re also onboarding Wexmoor Motor at the same time, so consistency matters a lot.",
+      "speaker_id": "customer",
+      "speaker_name": "Avenna Ashfell",
+      "start_time": 59.6,
+      "text": "That would really help — we’re also onboarding Wexmoor Motor at the same time, so consistency matters a lot."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 76.4,
+      "index": 7,
+      "raw_text": "Noted — I’ll loop in Brelis Bramvale’s team to ensure both accounts get aligned communication and preview access ahead of any major changes.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 67.2,
+      "text": "Noted — I’ll loop in Brelis Bramvale’s team to ensure both accounts get aligned communication and preview access ahead of any major changes."
+    }
+  ]
+}

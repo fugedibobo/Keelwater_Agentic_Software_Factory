@@ -1,0 +1,139 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "assumed_resolution"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Glenmere",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m having trouble attaching the right files to the claim — it keeps rejecting them even though I’m sure they’re the correct format.",
+        "created_at": 1789135320,
+        "id": "0800320f52c1-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Gellin. Let’s get that sorted — could you confirm which document type you’re trying to upload and which policyholder it relates to?",
+        "created_at": 1789135330,
+        "id": "0800320f52c1-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Glenmere",
+          "type": "user"
+        },
+        "body": "I’m trying to upload a claim document but the system says I’ve selected the wrong document category — can you help?",
+        "created_at": 1789135340,
+        "id": "0800320f52c1-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Glenmere",
+          "type": "user"
+        },
+        "body": "It’s for the policyholder under policy number A07-902, and I’m uploading the supplier invoice and supporting letters.",
+        "created_at": 1789135348,
+        "id": "0800320f52c1-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Glenmere",
+          "type": "user"
+        },
+        "body": "Could we schedule a quick call next Tuesday to go over the supplier integrations and reporting workflows?",
+        "created_at": 1789135355,
+        "id": "0800320f52c1-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Got it — I’ll adjust the document category permissions for your role and send over a quick guide on how to assign tasks and letters correctly.",
+        "created_at": 1789135362,
+        "id": "0800320f52c1-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your request has been successfully processed and the system has updated your reserves and payments accordingly.",
+        "created_at": 1789135372,
+        "id": "0800320f52c1-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your request has been successfully processed and the system has updated your reserves and payments accordingly.",
+        "created_at": 1789135379,
+        "id": "0800320f52c1-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Gellin Glenmere",
+          "type": "user"
+        },
+        "body": "That’s perfect — thank you, Bryn. I’ll check the updated permissions and let you know if anything else comes up.",
+        "created_at": 1789135385,
+        "id": "0800320f52c1-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 9,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1789135320,
+  "id": "0800320f52c1",
+  "source": {
+    "author": {
+      "email": "contact@a07.example",
+      "name": "Gellin Glenmere",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "fnol_intake"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}
