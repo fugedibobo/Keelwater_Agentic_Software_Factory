@@ -41,7 +41,9 @@ class FakeClient:
         rec = self.records[prompt]
         base, slots = [], {}
         for t in rec['turns']:
-            if t['mention_ids']:
+            if t['mention_ids'] and len(t['text'].split()) < 8:  # short agreement: the preceding internal turn carries the problem
+                slots[t['mention_ids'][0]] = {'internal_text': base.pop()['text'], 'agreement_text': t['text'], 'after_turn': len(base) - 1}
+            elif t['mention_ids']:
                 slots[t['mention_ids'][0]] = {'text': t['text'], 'after_turn': len(base) - 1}
             else:
                 base.append({k: t[k] for k in ('speaker', 'text', 'noise_category')})

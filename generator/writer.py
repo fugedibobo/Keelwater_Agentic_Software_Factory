@@ -24,9 +24,17 @@ TURN_ITEM = {
 
 
 def bounded(slot, mention, synonym=None):
-    """A short agreement is at most 44 characters (under eight words); any other mention at least 45."""
+    """A plain mention is a customer text of at least 45 characters. A short agreement is an internal turn of at least
+    45 characters that states the problem (carries the pinned phrase) plus a customer agreement of at most 44."""
     slot = copy.deepcopy(slot)
-    slot['properties']['text'].update({'maxLength': 44} if mention.get('agreement') else {'minLength': 45})
+    props = slot['properties']
+    if mention.get('agreement'):
+        del props['text']
+        props['internal_text'] = {'type': 'string', 'minLength': 45}
+        props['agreement_text'] = {'type': 'string', 'maxLength': 44}
+        slot['required'] = ['internal_text', 'agreement_text', 'after_turn']
+    else:
+        props['text']['minLength'] = 45
     return slot
 
 
@@ -34,7 +42,7 @@ def record_schema(record, seed):
     """Per-record response schema. `turns` holds the conversation without the planted mentions (band minus the
     mention count, noise enum); `mentions` has exactly this record's mention ids, each one customer text plus a
     placement hint. Code inserts and tags them (merge_mentions), so one tag per mention holds by construction."""
-    n = len(record['mentions'])
+    n = sum(2 if m.get('agreement') else 1 for m in record['mentions'])  # an agreement adds an internal turn too
     syn = {b['id']: b['synonym'] for b in mention_briefs(seed, record) if 'synonym' in b}
     item = copy.deepcopy(TURN_ITEM)
     item['properties']['noise_category'] = {'enum': [*load(seed)['noise']['categories'], None]}
@@ -50,29 +58,35 @@ def record_schema(record, seed):
 
 
 def merge_mentions(record, raw, seed=None):
-    """Insert each mention slot as a tagged customer turn after its hinted turn (clamped; an agreement snaps to the
-    next internal turn). Deterministic: sorted by position then mention order."""
+    """Insert each mention slot after its hinted turn (clamped), deterministic by position then mention order. A plain
+    mention becomes one tagged customer turn. A short-agreement mention becomes an internal turn stating the problem
+    (it must carry the pinned phrase) followed by the tagged customer agreement."""
     base = [{**t, 'mention_ids': []} for t in raw.get('turns', [])]
     pinned = {b['id']: b['synonym'] for b in mention_briefs(seed, record) if 'synonym' in b} if seed is not None else {}
-    for mid, term in pinned.items():  # code-side guard: the pinned synonym only, no splicing
-        if term.casefold() not in raw['mentions'][mid]['text'].casefold():
-            raise RecordValidationError(f"{record['id']}: mention {mid} lacks the required phrase '{term}'")
-    inserts, used = [], set()
+    inserts = []
     for order, m in enumerate(record['mentions']):
         slot = raw['mentions'][m['id']]
+        carrier = slot['internal_text'] if m.get('agreement') else slot['text']
+        term = pinned.get(m['id'])
+        if term and term.casefold() not in carrier.casefold():  # code-side guard: the pinned synonym only, no splicing
+            raise RecordValidationError(f"{record['id']}: mention {m['id']} lacks the required phrase '{term}'")
         pos = min(max(slot['after_turn'], 0), max(len(base) - 1, 0))
         if m.get('agreement'):
-            internal = [i for i, t in enumerate(base) if t['speaker'] == 'internal']
-            free = [i for i in internal if i not in used] or internal  # each agreement gets its own internal summary turn
-            pos = min(free, key=lambda i: (abs(i - pos), i)) if free else pos
-            used.add(pos)
-        inserts.append((pos, 0 if m.get('agreement') else 1, order, {'speaker': 'customer', 'text': slot['text'], 'mention_ids': [m['id']], 'noise_category': None}))
+            group = [{'speaker': 'internal', 'text': slot['internal_text'], 'mention_ids': [], 'noise_category': None},
+                     {'speaker': 'customer', 'text': slot['agreement_text'], 'mention_ids': [m['id']], 'noise_category': None}]
+        else:
+            group = [{'speaker': 'customer', 'text': slot['text'], 'mention_ids': [m['id']], 'noise_category': None}]
+        inserts.append((pos, order, group))
     turns = []
-    queue = sorted(inserts, key=lambda x: x[:3])
+    queue = sorted(inserts, key=lambda x: x[:2])
     for i, t in enumerate(base):
         turns.append(t)
-        turns.extend(x[3] for x in queue if x[0] == i)
-    turns.extend(x[3] for x in queue if not base)
+        for x in queue:
+            if x[0] == i:
+                turns.extend(x[2])
+    if not base:
+        for x in queue:
+            turns.extend(x[2])
     return {'turns': turns}
 
 

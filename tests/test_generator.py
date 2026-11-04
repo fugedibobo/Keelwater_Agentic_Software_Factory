@@ -238,7 +238,7 @@ def test_record_schema_carries_band_slots_and_enums():
     from generator.writer import record_schema
     r = next(r for r in plan(42)['records'] if r.get('turns_range') == [40, 60] and r['mentions'])
     sc = record_schema(r, 42)
-    n = len(r['mentions'])
+    n = sum(2 if m.get('agreement') else 1 for m in r['mentions'])
     t = sc['properties']['turns']
     assert (t['minItems'], t['maxItems']) == (40 - n, 60 - n)
     assert 'mention_ids' not in t['items']['properties']
@@ -260,16 +260,16 @@ def test_merge_mentions_tags_each_mention_once_deterministically():
     assert len(out['turns']) == 10 + len(r['mentions']) and all(t['speaker'] == 'customer' for t in out['turns'] if t['mention_ids'])
 
 
-def test_merge_mentions_places_an_agreement_after_an_internal_turn():
+def test_agreement_mention_becomes_an_internal_turn_then_a_tagged_agreement():
     from generator.planner import plan
     from generator.writer import merge_mentions
     r = next(r for r in plan(42)['records'] if any(m.get('agreement') for m in r['mentions']))
-    base = [{'speaker': 'customer', 'text': 'a', 'noise_category': None}, {'speaker': 'internal', 'text': 'b', 'noise_category': None}, {'speaker': 'customer', 'text': 'c', 'noise_category': None}]
-    raw = {'turns': base, 'mentions': {m['id']: {'text': 'yes', 'after_turn': 0} for m in r['mentions']}}
+    base = [{'speaker': 'customer', 'text': 'a', 'noise_category': None}, {'speaker': 'bot', 'text': 'b', 'noise_category': None}]
+    raw = {'turns': base, 'mentions': {m['id']: {'internal_text': f"INT {m['id']}", 'agreement_text': 'yes', 'after_turn': 0} for m in r['mentions']}}
     out = merge_mentions(r, raw)['turns']
-    i = next(i for i, t in enumerate(out) if t['mention_ids'])
-    assert out[i - 1]['speaker'] == 'internal'
-
+    idx = [i for i, t in enumerate(out) if t['mention_ids']]
+    assert len(idx) == len(r['mentions']) and all(out[i - 1]['speaker'] == 'internal' and out[i]['speaker'] == 'customer' for i in idx)
+    assert len(out) == 2 + 2 * len(r['mentions'])
 
 def test_gateway_rejects_response_outside_the_schema(tmp_path):
     import json
@@ -319,7 +319,7 @@ def test_common_capitalised_word_passes_but_invented_name_fails():
     assert unknown_names('please ask Brenda Quillfeather about it', 42)
 
 
-def test_mention_slot_length_bounds_follow_the_agreement_flag():
+def test_mention_slot_shape_follows_the_agreement_flag():
     from generator.planner import plan
     from generator.writer import record_schema
     seen = set()
@@ -328,21 +328,31 @@ def test_mention_slot_length_bounds_follow_the_agreement_flag():
             continue
         props = record_schema(r, 42)['properties']['mentions']['properties']
         for m in r['mentions']:
-            t = props[m['id']]['properties']['text']
-            assert ('maxLength' in t) == bool(m.get('agreement')) and ('minLength' in t) != bool(m.get('agreement'))
+            sl = props[m['id']]
+            if m.get('agreement'):
+                assert 'text' not in sl['properties'] and sl['properties']['internal_text']['minLength'] == 45 and sl['properties']['agreement_text']['maxLength'] == 44
+                assert set(sl['required']) == {'internal_text', 'agreement_text', 'after_turn'}
+            else:
+                assert sl['properties']['text']['minLength'] == 45
             seen.add(bool(m.get('agreement')))
     assert seen == {True, False}
 
 
-def test_several_agreements_each_follow_their_own_internal_turn():
+def test_several_agreements_each_get_their_own_internal_turn_and_pinned_phrase_is_checked_there():
+    import pytest
+    from generator.brief import mention_briefs
     from generator.planner import plan
-    from generator.writer import merge_mentions
+    from generator.writer import RecordValidationError, merge_mentions
     r = next(r for r in plan(42)['records'] if sum(1 for m in r['mentions'] if m.get('agreement')) >= 2)
-    base = [{'speaker': 'internal' if i % 2 == 0 else 'customer', 'text': f't{i}', 'noise_category': None} for i in range(12)]
-    out = merge_mentions(r, {'turns': base, 'mentions': {m['id']: {'text': 'yes', 'after_turn': 3} for m in r['mentions']}})['turns']
+    pin = {b['id']: b.get('synonym', '') for b in mention_briefs(42, r)}
+    base = [{'speaker': 'customer', 'text': f't{i}', 'noise_category': None} for i in range(6)]
+    good = {'turns': base, 'mentions': {m['id']: {'internal_text': f"we hear {pin[m['id']]} a lot", 'agreement_text': 'yes', 'after_turn': 3} for m in r['mentions']}}
+    out = merge_mentions(r, good, 42)['turns']
     idx = [i for i, t in enumerate(out) if t['mention_ids']]
     assert len(idx) == len(r['mentions']) and all(out[i - 1]['speaker'] == 'internal' for i in idx)
-
+    bad = {'turns': base, 'mentions': {m['id']: {'internal_text': 'nothing relevant at all', 'agreement_text': 'the phrase ' + pin[m['id']], 'after_turn': 3} for m in r['mentions']}}
+    with pytest.raises(RecordValidationError, match='lacks the required phrase'):
+        merge_mentions(r, bad, 42)
 
 def test_regeneration_prompt_carries_the_failed_rule_and_pinned_phrase():
     from generator.brief import mention_briefs
@@ -360,7 +370,7 @@ def test_missing_pinned_synonym_is_a_failure_in_code():
     from generator.brief import mention_briefs
     from generator.planner import plan
     from generator.writer import RecordValidationError, merge_mentions
-    r = next(r for r in plan(42)['records'] if r['source'] != 'fullstory' and any('synonym' in b for b in mention_briefs(42, r)))
+    r = next(r for r in plan(42)['records'] if r['source'] != 'fullstory' and any('synonym' in b for b in mention_briefs(42, r)) and not any(m.get('agreement') for m in r['mentions']))
     raw = {'turns': [], 'mentions': {m['id']: {'text': 'nothing relevant here', 'after_turn': 0} for m in r['mentions']}}
     with pytest.raises(RecordValidationError, match='lacks the required phrase'):
         merge_mentions(r, raw, 42)

@@ -93,7 +93,7 @@ def verify_mention_text(seed: int, records_and_responses) -> list[str]:
                     else:
                         errors.append(f"{record['id']}: short mention without internal context")
                 theme = themes.get(mention['theme'])
-                if theme and not any(term.casefold() in text.casefold() for term in theme['synonyms']):
+                if theme and not any(term.casefold() in (context + ' ' + text).casefold() for term in theme['synonyms']):  # a short agreement carries the phrase in its internal context turn
                     errors.append(f"{record['id']}: mention {mention_id} lacks a synonym")
                 words = re.findall(r"[\w']+", text.casefold())
                 for span in {tuple(words[n:n + 6]) for n in range(len(words) - 5)}:
