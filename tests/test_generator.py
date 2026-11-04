@@ -223,13 +223,15 @@ def test_cache_is_atomic_and_corrupt_file_is_a_miss(tmp_path):
     from concurrent.futures import ThreadPoolExecutor
     from tests.conftest import FakeGateway
     gw = FakeGateway(None, {'generate': {'content': '{"a": "' + 'x' * 200000 + '"}'}}, tmp=tmp_path / 'c')
-    ask = lambda _: gw.chat('generate', [{'role': 'user', 'content': 'same'}], target_type='t', target_id='1', schema={'type': 'object'})
-    with ThreadPoolExecutor(16) as ex:
+    ask = lambda n: gw.chat('generate', [{'role': 'user', 'content': f'same{n}'}], target_type='t', target_id='1', schema={'type': 'object'})
+    with ThreadPoolExecutor(16) as ex:  # distinct keys: Windows os.replace on a file another thread is reading raises PermissionError
         assert all(len(r['a']) == 200000 for r in ex.map(ask, range(64)))
+        assert all(len(r['a']) == 200000 for r in ex.map(ask, range(64)))  # now warm: concurrent reads only
     files = list((tmp_path / 'c').rglob('*'))
     assert not [f for f in files if f.suffix == '.tmp']
-    f = next(f for f in files if f.suffix == '.json')
-    f.write_text('{"request": ', encoding='utf-8')
+    for f in files:
+        if f.suffix == '.json':
+            f.write_text('{"request": ', encoding='utf-8')
     assert len(ask(0)['a']) == 200000
 
 

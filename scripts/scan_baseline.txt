@@ -1,0 +1,3 @@
+# sha256 of known synthetic test strings already in pushed history (tests/test_scan_public.py)
+5e0a0b313a20fa344751f15cc3cdbc491ae2a788fe82242d3cfaf769f7d68ab1
+7764bf6d2f0d31033a5be907d4a2b4e1ce2e2140abe9b30ff5fb212f01ef1483
