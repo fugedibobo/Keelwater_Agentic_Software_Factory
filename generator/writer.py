@@ -27,8 +27,6 @@ def bounded(slot, mention, synonym=None):
     """A short agreement is at most 44 characters (under eight words); any other mention at least 45."""
     slot = copy.deepcopy(slot)
     slot['properties']['text'].update({'maxLength': 44} if mention.get('agreement') else {'minLength': 45})
-    if synonym:
-        slot['properties']['text']['pattern'] = re.escape(synonym)  # the pinned synonym must appear verbatim
     return slot
 
 

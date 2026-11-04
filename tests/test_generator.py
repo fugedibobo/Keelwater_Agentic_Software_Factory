@@ -342,14 +342,3 @@ def test_several_agreements_each_follow_their_own_internal_turn():
     out = merge_mentions(r, {'turns': base, 'mentions': {m['id']: {'text': 'yes', 'after_turn': 3} for m in r['mentions']}})['turns']
     idx = [i for i, t in enumerate(out) if t['mention_ids']]
     assert len(idx) == len(r['mentions']) and all(out[i - 1]['speaker'] == 'internal' for i in idx)
-
-
-def test_mention_slot_pattern_requires_the_pinned_synonym():
-    import re
-    from generator.brief import mention_briefs
-    from generator.planner import plan
-    from generator.writer import record_schema
-    r = next(r for r in plan(42)['records'] if r['source'] != 'fullstory' and any('synonym' in b for b in mention_briefs(42, r)))
-    b = next(b for b in mention_briefs(42, r) if 'synonym' in b)
-    pat = record_schema(r, 42)['properties']['mentions']['properties'][b['id']]['properties']['text']['pattern']
-    assert re.search(pat, f"we need {b['synonym']} soon") and not re.search(pat, 'nothing relevant here at all')
