@@ -11,6 +11,7 @@ Env file: KEELWATER_ENV, else .env in the main checkout (parent of git's common 
 
 import argparse
 import codecs
+import hashlib
 import json
 import os
 import re
@@ -42,6 +43,22 @@ KEY_PATTERNS = [re.compile(p) for p in (
     r"(?i)\b[a-z_]*(?:api_?key|secret|token)[a-z_]*\s*[:=]\s*(?:['\"][A-Za-z0-9_\-]{24,}|(?=[A-Za-z0-9_\-]*\d)[A-Za-z0-9_\-]{24,})",
 )]
 
+# Known synthetic test strings (sha256 of the matched text), e.g. the fake keys in tests/test_scan_public.py
+# that are already in pushed history. Only exact matches are skipped; anything new is still a hit.
+BASELINE = {
+    line.split()[0] for line in (Path(__file__).with_name("scan_baseline.txt").read_text(encoding="utf-8").splitlines()
+                                 if Path(__file__).with_name("scan_baseline.txt").is_file() else [])
+    if line.strip() and not line.startswith("#")
+}
+
+
+def key_like(line):
+    for p in KEY_PATTERNS:
+        for m in p.finditer(line):
+            if hashlib.sha256(m.group(0).encode("utf-8")).hexdigest() not in BASELINE:
+                return True
+    return False
+
 
 class Scanner:
     def __init__(self, names, env_values):
@@ -53,7 +70,7 @@ class Scanner:
     def kinds(self, line):
         f = fold(line)
         out = [f"deny-list entry {n}" for n, rx in enumerate(self.res, 1) if rx.search(f)]
-        if any(p.search(line) for p in KEY_PATTERNS):
+        if key_like(line):
             out.append("key-like string")
         out += [f".env value {n}" for n, v in enumerate(self.env_values, 1) if v in line]
         return out

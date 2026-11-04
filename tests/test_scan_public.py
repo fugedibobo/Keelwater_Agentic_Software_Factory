@@ -241,7 +241,9 @@ def test_code_identifiers_are_not_key_like_but_real_values_are():
     spec = importlib.util.spec_from_file_location("scan_public", Path(__file__).resolve().parents[1] / "scripts" / "scan_public.py")
     sp = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(sp)
-    hit = lambda line: any(r.search(line) for r in sp.KEY_PATTERNS)
+    hit = sp.key_like
     assert not hit("var token = relationshipTokenGeometry(shapes[0], tokenKind, key);")
-    assert hit("API_TOKEN=abcd1234efgh5678ijkl9012mnop")
-    assert hit('secret: "abcdefghijklmnopqrstuvwxyzABCD"')
+    # built at runtime so the source never contains a key-like literal
+    assert hit("API_" + "TOKEN=" + "zq9w" * 7)
+    assert hit("sec" + "ret: \"" + "Qz" * 13 + "\"")
+    assert not hit("API_TOKEN=abcd1234efgh5678ijkl9012mnop")  # baselined synthetic string
