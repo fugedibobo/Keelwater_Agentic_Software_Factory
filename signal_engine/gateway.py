@@ -145,6 +145,8 @@ class Gateway:
         if self._is_openrouter(stage):
             body["provider"] = {**PROVIDER, "data_collection": c.get("data_collection", "deny")}  # per-stage override from models.yaml
             body["usage"] = {"include": True}
+            if c.get("reasoning") is not None:
+                body["reasoning"] = c["reasoning"]
         return body
 
     def embed_request(self, stage, texts, model=None):
@@ -298,10 +300,10 @@ class Gateway:
 
     def _openai(self, stage, c, kind, body, call_id):
         client = self._client or self._make_client(c)
-        extra = {k: body[k] for k in ("provider", "usage") if k in body}
+        extra = {k: body[k] for k in ("provider", "usage", "reasoning") if k in body}
         if self.cfg.get("request_metadata"):
             extra["requestMetadata"] = {"call_id": call_id}
-        kwargs = {k: v for k, v in body.items() if k not in ("provider", "usage")}
+        kwargs = {k: v for k, v in body.items() if k not in ("provider", "usage", "reasoning")}
         if kind == "embed":
             r = client.embeddings.create(**kwargs, extra_body=extra, timeout=c["timeout_s"]).model_dump()
             u = r.get("usage") or {}

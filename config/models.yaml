@@ -53,13 +53,14 @@ profiles:
         price: {in: 0.03, out: 0.15}
         max_tokens: 800
       generate:
-        model: nvidia/nemotron-3.5-super-vl:free
-        fallback: deepseek/deepseek-v4.1-flash
-        price: {in: 0, out: 0}
-        data_collection: allow   # exception: free endpoints need prompt logging and generate data is synthetic with no customer content
-        rpm: 18                  # free tier allows about 20 requests a minute
+        model: deepseek/deepseek-v4.1-flash
+        fallback: qwen/qwen3-next-80b-a3b-instruct
+        price: {in: 0.045, out: 0.50}
+        reasoning: {enabled: false}   # generate only: a thinking model spends the whole token budget and returns empty content
+        data_collection: allow   # exception: some endpoints need prompt logging and generate data is synthetic with no customer content
+        rpm: 18                  # pace requests (free endpoints allow about 20 a minute)
         temperature: 0.8
-        max_tokens: 2000
+        max_tokens: 4000
   replay:
     extends: demo
     cache_only: true

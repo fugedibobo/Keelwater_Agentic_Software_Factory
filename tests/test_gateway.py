@@ -329,3 +329,9 @@ def test_invalid_response_keeps_finish_reason(tmp_path):
     gw = demo(tmp_path, client)
     with pytest.raises(gwm.InvalidResponse, match="finish_reason=length"):
         ask(gw)
+
+
+def test_reasoning_option_reaches_generate_requests_only(tmp_path):
+    gw = demo(tmp_path)
+    assert gw.chat_request("generate", gwm.PROBE_MESSAGES, schema={"type": "object"})["reasoning"] == {"enabled": False}
+    assert "reasoning" not in gw.chat_request("extract", gwm.PROBE_MESSAGES)
