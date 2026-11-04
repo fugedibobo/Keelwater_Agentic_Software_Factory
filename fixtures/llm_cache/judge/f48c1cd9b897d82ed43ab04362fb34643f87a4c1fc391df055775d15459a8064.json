@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"Thanks — that’s all we’re asking for. Keeps things running without disruption.\",\n \"quotes\": [\n  {\n   \"date\": \"2026-10-19T10:29:00Z\",\n   \"quote\": \"Thanks — that’s all we’re asking for. Keeps things running without disruption.\",\n   \"route\": \"sales\"\n  },\n  {\n   \"date\": \"2026-10-15T11:14:00Z\",\n   \"quote\": \"Will do — thanks for the support.\",\n   \"route\": \"sales\"\n  },\n  {\n   \"date\": \"2026-10-18T12:10:00Z\",\n   \"quote\": \"Happy to be part of it.\",\n   \"route\": \"sales\"\n  },\n  {\n   \"date\": \"2026-09-22T12:46:00Z\",\n   \"quote\": \"I appreciate that. We’re evaluating integrations next quarter — does your platform support API hooks for our legacy document system?\",\n   \"route\": \"sales\"\n  },\n  {\n   \"date\": \"2026-09-15T08:35:00Z\",\n   \"quote\": \"We’ll need to lock in the demo slot for next Tuesday at 10am if that still works for your team, otherwise we’ll shift to Thursday. Morning Alwen, yes — we’re especially keen to see how your system manages supplier payments and integrates with our existing reporting tools.\",\n   \"route\": \"sales\"\n  },\n  {\n   \"date\": \"2026-10-13T12:03:00+00:00\",\n   \"quote\": \"Perfect — thanks Bryn. Looking forward to it.\",\n   \"route\": \"support\"\n  }\n ],\n \"title\": \"Thanks — that’s all we’re asking for. Keeps things running without disruption.\"\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The title and problem statement are a customer's thank-you note ('Thanks — that's all we're asking for. Keeps things running without disruption.'), which is praise, not a product problem. The quotes are sales/support logistics chatter (demo scheduling, thanks, an API capability question during evaluation) with no described defect, workaround, or actionable product issue. No squad could act on this.\", \"verdict\": \"fail\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 607,
+   "tokens_out": 92,
+   "cost_usd": 0.0012546
+  }
+ }
+}

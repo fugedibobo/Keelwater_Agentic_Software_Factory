@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\nCustomers face reconciliation and payment delays because invoices contain wrong purchase order numbers. This mismatch disrupts finance workflows and blocks timely payments.\\n\\n## Who is affected\\n- Four accounts have reported this issue [i:08446157bc83c428][i:6d04624fe10d4f44][i:99ed668a91f6c801][i:beb81f30363d1f4d][i:f7561e6a446002ad].\\n- The issue has been raised through two routes: support and sales [i:08446157bc83c428][i:6d04624fe10d4f44][i:f7561e6a446002ad].\\n\\n## Evidence\\n- Greystock Liability (ARR GBP 92000.0) requested an update because the purchase order number on the invoice is currently wrong and needs to reflect their internal tracking correctly [i:08446157bc83c428].\\n- Penhallow Specialty Risks (ARR GBP 230000.0) stated the wrong purchase order reference is causing reconciliation issues with their finance team [i:6d04624fe10d4f44][i:beb81f30363d1f4d].\\n- Elderfold Home (ARR GBP 170000.0) reported the issue is causing reconciliation problems and needs the invoice contact change reflected accurately [i:99ed668a91f6c801].\\n- Wexmoor Motor (ARR GBP 1950000.0) stated the mismatch is blocking their payment cycle [i:f7561e6a446002ad].\\n- The problem has been mentioned five times across four accounts [i:08446157bc83c428][i:6d04624fe10d4f44][i:99ed668a91f6c801][i:beb81f30363d1f4d][i:f7561e6a446002ad].\\n- Four of the five mentions came through the support route, and one came through sales [i:08446157bc83c428][i:6d04624fe10d4f44][i:99ed668a91f6c801][i:beb81f30363d1f4d][i:f7561e6a446002ad].\\n- The total ARR of the reporting accounts is GBP 2442000.0 [i:08446157bc83c428][i:6d04624fe10d4f44][i:99ed668a91f6c801][i:beb81f30363d1f4d][i:f7561e6a446002ad].\\n\\n## Why now\\n- Two renewals have occurred in the last 90 days [i:08446157bc83c428][i:6d04624fe10d4f44][i:99ed668a91f6c801][i:beb81f30363d1f4d][i:f7561e6a446002ad].\\n- The most recent report was from Wexmoor Motor on 2026-10-30 [i:f7561e6a446002ad].\\n- The issue has been reported consistently from late September to late October 2026, indicating it is an ongoing, active pain point for customers [i:08446157bc83c428][i:99ed668a91f6c801][i:6d04624fe10d4f44][i:beb81f30363d1f4d][i:f7561e6a446002ad].\\n\",\n \"cited_insights\": [\n  {\n   \"id\": \"08446157bc83c428\",\n   \"quote\": \"I’m trying to get our purchase order number updated on your latest invoice — it’s currently wrong and needs to reflect our internal tracking correctly.\",\n   \"account\": \"Greystock Liability\",\n   \"route\": \"support\",\n   \"date\": \"2026-09-30T15:57:00+00:00\"\n  },\n  {\n   \"id\": \"6d04624fe10d4f44\",\n   \"quote\": \"we need to update the purchase order reference on our most recent invoice — it’s causing reconciliation issues with our finance team.\",\n   \"account\": \"Penhallow Specialty Risks\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-11T12:00:00+00:00\"\n  },\n  {\n   \"id\": \"99ed668a91f6c801\",\n   \"quote\": \"I’m writing to request an update to the purchase order number on your invoice — this is causing reconciliation issues, and I need the invoice contact change reflected accurately in our records.\",\n   \"account\": \"Elderfold Home\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-06T09:09:00+00:00\"\n  },\n  {\n   \"id\": \"beb81f30363d1f4d\",\n   \"quote\": \"We need to adjust the purchase order reference on the invoice you sent — it’s causing reconciliation problems with our finance team, and we’re hoping you can help with the purchase order correction.\",\n   \"account\": \"Penhallow Specialty Risks\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-11T12:00:00+00:00\"\n  },\n  {\n   \"id\": \"f7561e6a446002ad\",\n   \"quote\": \"The PO we referenced doesn’t match what’s on your billing, and it’s blocking our payment cycle.\",\n   \"account\": \"Wexmoor Motor\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-30T15:59:00Z\"\n  }\n ],\n \"fact_sheet\": {\n  \"as_of\": \"2026-11-03\",\n  \"accounts_n\": 4,\n  \"mentions_n\": 5,\n  \"routes_n\": 2,\n  \"mentions_by_route\": {\n   \"support\": 4,\n   \"sales\": 1\n  },\n  \"arr_total_gbp\": 2442000.0,\n  \"renewals_90d_n\": 2,\n  \"accounts\": [\n   {\n    \"name\": \"Greystock Liability\",\n    \"arr_gbp\": 92000.0,\n    \"renewal_date\": \"2027-01-25\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Penhallow Specialty Risks\",\n    \"arr_gbp\": 230000.0,\n    \"renewal_date\": \"2027-06-18\",\n    \"mentions\": 2\n   },\n   {\n    \"name\": \"Elderfold Home\",\n    \"arr_gbp\": 170000.0,\n    \"renewal_date\": \"2026-12-21\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Wexmoor Motor\",\n    \"arr_gbp\": 1950000.0,\n    \"renewal_date\": \"2027-06-30\",\n    \"mentions\": 1\n   }\n  ]\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked each account's claim against the cited insights: Greystock, Penhallow, Elderfold, and Wexmoor quotes all support the stated problems, with no paraphrase placed in quotation marks. Numbers match the fact sheet: 4 accounts, 5 mentions, 4 support/1 sales routes, and ARR figures (92,000 + 230,000 + 170,000 + 1,950,000 = 2,442,000 GBP). The dates span 2026-09-30 to 2026-10-30, consistent with the 'late September to late October' claim, and Wexmoor Motor on 2026-10-30 is correctly the most recent. The renewals-in-90-days claim (2) matches the fact sheet's renewals_90d_n field. I found no uncited, overstated, or contrary claims.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1860,
+   "tokens_out": 398,
+   "cost_usd": 0.00283088
+  }
+ }
+}

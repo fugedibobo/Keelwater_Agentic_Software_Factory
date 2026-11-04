@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"Dashboard totals differ from exported figures, causing finance to doubt the numbers.\",\n \"quotes\": [\n  {\n   \"date\": \"2026-10-27T11:53:00+00:00\",\n   \"quote\": \"Finance keeps questioning the numbers because the dashboard totals don’t match the export figures mismatch — I’ve re-exported three times and it’s consistent with UTC cutoff, not UK time.\",\n   \"route\": \"support\"\n  },\n  {\n   \"date\": \"2026-10-11T13:36:00+00:00\",\n   \"quote\": \"Finance is questioning which figure is correct because the export doesn’t match the dashboard — the export figures mismatch is causing delays in our month-end close.\",\n   \"route\": \"support\"\n  },\n  {\n   \"date\": \"2026-09-19T11:36:00+00:00\",\n   \"quote\": \"Lastly, our finance team’s pulling their hair out — the dashboard totals don’t match the CSV exports, causing export figures mismatch headaches.\",\n   \"route\": \"account_management\"\n  },\n  {\n   \"date\": \"2026-09-14T11:53:00+00:00\",\n   \"quote\": \"Yes — we’re getting pushback from our finance team because the report totals differ between the dashboard and the exported file. It’s causing some trust ...\",\n   \"route\": \"account_management\"\n  },\n  {\n   \"date\": \"2026-10-15T11:14:00Z\",\n   \"quote\": \"our finance team’s been flagging that the export figures mismatch with dashboard totals — it’s causing real delays because they can’t trust which numbers to use for month-end reporting\",\n   \"route\": \"sales\"\n  },\n  {\n   \"date\": \"2026-10-16T09:43:00+00:00\",\n   \"quote\": \"Also, our finance team’s noticed the report totals differ — they’re comparing dashboard numbers with exported files and getting confused.\",\n   \"route\": \"support\"\n  },\n  {\n   \"date\": \"2026-10-15T10:17:00+00:00\",\n   \"quote\": \"Finance keeps comparing the MI dashboard totals with the CSV export and finds them off—this export figures mismatch is causing distrust in the numbers they use for monthly reporting.\",\n   \"route\": \"support\"\n  },\n  {\n   \"date\": \"2026-09-04T10:05:00Z\",\n   \"quote\": \"Reports: click \\\"Export CSV\\\", error exception... Claims: click \\\"Save\\\"\",\n   \"route\": \"sessions\"\n  }\n ],\n \"title\": \"Dashboard totals differ from exported figures, causing finance to doubt the numbers.\"\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked the claim that dashboard totals differ from exported CSV figures. Multiple quotes across support, account management, and sales routes consistently report the same product discrepancy, with one quote suggesting a timezone (UTC vs UK time) cutoff inconsistency in the product's reporting logic. This is an internal data-consistency issue a squad could investigate and fix; it is not pricing, customer IT, or praise, and no help article would resolve a genuine mismatch in the product's own numbers.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 797,
+   "tokens_out": 109,
+   "cost_usd": 0.000942162
+  }
+ }
+}

@@ -1,0 +1,69 @@
+{
+ "request": {
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You extract one product insight from a single customer snippet about the Keelwater claims platform.\n\nReturn JSON with exactly these fields:\n- problem: the customer problem in one plain sentence, in your own words.\n- quote: the customer words that best show the problem, copied VERBATIM from the SNIPPET block, 5 to 60 words. Never take words from the CONTEXT block. You may join up to three fragments with \"...\" if they appear in that order.\n- workflow: the task the customer was doing, a few words.\n- desired_outcome: what the customer wants instead, one short phrase.\n\nThe CONTEXT block is what an internal Keelwater person said just before; it is context, do not quote it.\n"
+   },
+   {
+    "role": "user",
+    "content": "SNIPPET (quote only from here):\nAppreciate it. It’s a small thing but causes delays in handling claims properly.\n\nCONTEXT (internal, do not quote):\nThanks for flagging that, Celdra. I’ve noted the issue with documents being auto-sorted into the wrong document category, and I’ll escalate this to the product team so we can look at improving the classification logic."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 600,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "extract",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "problem": {
+       "title": "Problem",
+       "type": "string"
+      },
+      "quote": {
+       "title": "Quote",
+       "type": "string"
+      },
+      "workflow": {
+       "title": "Workflow",
+       "type": "string"
+      },
+      "desired_outcome": {
+       "title": "Desired Outcome",
+       "type": "string"
+      }
+     },
+     "required": [
+      "problem",
+      "quote",
+      "workflow",
+      "desired_outcome"
+     ],
+     "title": "ExtractOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"problem\": \"Claims documents are automatically placed in the wrong category, causing handling delays.\",\n  \"quote\": \"It’s a small thing but causes delays in handling claims properly.\",\n  \"workflow\": \"Processing incoming claim documents\",\n  \"desired_outcome\": \"Accurate automatic document classification\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 325,
+   "tokens_out": 69,
+   "cost_usd": 1.32e-05
+  }
+ }
+}

@@ -3,17 +3,17 @@
 triage:
   backends:
     clef:
-      drop_p: 0.10        # p <= drop_p -> drop
+      drop_p: 0.25        # p <= drop_p -> drop (0.10 before tuning run 1: noise-drop 0.54)
       keep_p: 0.50        # p >= keep_p and bucket_conf >= keep_bucket_conf -> keep
       keep_bucket_conf: 0.70
     fallback:
-      drop_p: 0.10
+      drop_p: 0.25
       keep_p: 0.50
       keep_bucket_conf: 0.70
   timeout_s: 1.5
   retries: 2
 cluster:
-  distance: 0.35          # cosine distance threshold, tuned on seed 42 only (#5)
+  distance: 0.38          # tuned on seed 42 only (#5); 0.35 originally, 0.42 in tuning run 1 over-merged and diluted purity
 tagging:
   similarity: 0.60        # tuned on seed 42 only (#5)
 top_n: 10

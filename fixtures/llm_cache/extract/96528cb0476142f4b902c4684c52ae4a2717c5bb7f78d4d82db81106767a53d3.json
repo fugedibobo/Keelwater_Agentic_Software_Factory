@@ -1,0 +1,69 @@
+{
+ "request": {
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You extract one product insight from a single customer snippet about the Keelwater claims platform.\n\nReturn JSON with exactly these fields:\n- problem: the customer problem in one plain sentence, in your own words.\n- quote: the customer words that best show the problem, copied VERBATIM from the SNIPPET block, 5 to 60 words. Never take words from the CONTEXT block. You may join up to three fragments with \"...\" if they appear in that order.\n- workflow: the task the customer was doing, a few words.\n- desired_outcome: what the customer wants instead, one short phrase.\n\nThe CONTEXT block is what an internal Keelwater person said just before; it is context, do not quote it.\n"
+   },
+   {
+    "role": "user",
+    "content": "SNIPPET (quote only from here):\nHi Alwen, thanks for jumping on this. We’re drowning in repair updates missing again this week — it’s eating into our daily tasks. We’re stuck calling garages every day because repair updates missing — it’s a constant drag on our team’s productivity and delays claim resolution. Could we schedule a follow-up next Tuesday? I’ll be out Monday but back then to review the reserve adjustments.\n\nCONTEXT (internal, do not quote):\n(none)"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 600,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "extract",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "problem": {
+       "title": "Problem",
+       "type": "string"
+      },
+      "quote": {
+       "title": "Quote",
+       "type": "string"
+      },
+      "workflow": {
+       "title": "Workflow",
+       "type": "string"
+      },
+      "desired_outcome": {
+       "title": "Desired Outcome",
+       "type": "string"
+      }
+     },
+     "required": [
+      "problem",
+      "quote",
+      "workflow",
+      "desired_outcome"
+     ],
+     "title": "ExtractOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"problem\": \"Repair updates are frequently missing, forcing the team to manually chase garages and slowing claim resolution.\",\n  \"quote\": \"We’re drowning in repair updates missing again this week — it’s eating into our daily tasks. We’re stuck calling garages every day because repair updates missing — it’s a constant drag on our team’s productivity and delays claim resolution.\",\n  \"workflow\": \"Calling garages for missing repair updates\",\n  \"desired_outcome\": \"receive automatic, timely repair updates\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 312,
+   "tokens_out": 384,
+   "cost_usd": 7.6824e-05
+  }
+ }
+}

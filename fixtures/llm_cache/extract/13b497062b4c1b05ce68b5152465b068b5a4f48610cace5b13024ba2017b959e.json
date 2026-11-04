@@ -1,0 +1,69 @@
+{
+ "request": {
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You extract one product insight from a single customer snippet about the Keelwater claims platform.\n\nReturn JSON with exactly these fields:\n- problem: the customer problem in one plain sentence, in your own words.\n- quote: the customer words that best show the problem, copied VERBATIM from the SNIPPET block, 5 to 60 words. Never take words from the CONTEXT block. You may join up to three fragments with \"...\" if they appear in that order.\n- workflow: the task the customer was doing, a few words.\n- desired_outcome: what the customer wants instead, one short phrase.\n\nThe CONTEXT block is what an internal Keelwater person said just before; it is context, do not quote it.\n"
+   },
+   {
+    "role": "user",
+    "content": "SNIPPET (quote only from here):\nCan you walk me through the steps for payee account verification? I need to ensure the supplier’s banking details are correctly flagged before issuing the payment.\n\nCONTEXT (internal, do not quote):\nHi Nellin, I can help with that. Let’s verify the payee account first — you’ll need to navigate to the supplier tab under the claims module and match the bank sort code and account number with the uploaded documents."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 600,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "extract",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "problem": {
+       "title": "Problem",
+       "type": "string"
+      },
+      "quote": {
+       "title": "Quote",
+       "type": "string"
+      },
+      "workflow": {
+       "title": "Workflow",
+       "type": "string"
+      },
+      "desired_outcome": {
+       "title": "Desired Outcome",
+       "type": "string"
+      }
+     },
+     "required": [
+      "problem",
+      "quote",
+      "workflow",
+      "desired_outcome"
+     ],
+     "title": "ExtractOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"problem\": \"The user doesn't know how to verify a payee's banking details before making a payment.\",\n  \"quote\": \"Can you walk me through the steps for payee account verification? I need to ensure the supplier’s banking details are correctly flagged before issuing the payment.\",\n  \"workflow\": \"Verifying supplier banking details\",\n  \"desired_outcome\": \"Clear step‑by‑step verification process\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 319,
+   "tokens_out": 290,
+   "cost_usd": 5.235e-05
+  }
+ }
+}

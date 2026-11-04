@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\nThe Keelwater platform forces a single, universal claim routing approach. However, multiple commercial and specialty claims teams require a different, manual process to manage complex cases effectively, while other teams, such as motor claims, rely on and prefer automatic routing for efficiency and scalability. This one-size-fits-all system creates internal friction and forces workarounds [i:3ccee6c1b85c3e12] [i:49e903683f464d34].\\n\\n## Who is affected\\n- **Commercial and specialty claims teams** who find automatic routing unhelpful and need manual control to manage complex files properly, especially with multiple suppliers and policyholders involved [i:49e903683f464d34].\\n- **Motor claims teams** who prefer automatic claim allocation based on factors like postcode and workload to balance capacity and scale efficiently without adding headcount [i:63e7d0c8fea46281] [i:9bcfbf187a659dd5].\\n- **Accounts managing multiple lines of business**, who report needing per-team configuration to satisfy both motor teams pushing for automation and commercial teams needing manual routing [i:c8869934e9e77aad] [i:ec07f5c294ac850c].\\n\\n## Evidence\\n- This issue has been raised by 5 accounts across 6 total mentions [i:3ccee6c1b85c3e12] [i:49e903683f464d34] [i:63e7d0c8fea46281] [i:9bcfbf187a659dd5] [i:c8869934e9e77aad] [i:ec07f5c294ac850c].\\n- Feedback has come via 2 distinct routes: 4 mentions during onboarding and 2 mentions via support [i:3ccee6c1b85c3e12] [i:49e903683f464d34].\\n- The affected accounts represent a total ARR of 4480000.0 GBP [i:3ccee6c1b85c3e12] [i:49e903683f464d34] [i:63e7d0c8fea46281] [i:9bcfbf187a659dd5] [i:c8869934e9e77aad] [i:ec07f5c294ac850c].\\n- Tidewell Marine & Cargo explicitly states that a one-size-fits-all approach does not work for them and that per-team configuration would solve the problem [i:3ccee6c1b85c3e12].\\n- Marrowgate Commercial reports that their commercial and specialty claims handlers find auto-routing unhelpful and need manual routing for complex files [i:49e903683f464d34].\\n- However, insights from the same and other accounts also show that motor teams strongly prefer automatic routing, with Saltmarsh Specialty stating it is critical for scaling without adding headcount [i:9bcfbf187a659dd5].\\n\\n## Why now\\n- The issue is actively impacting customer onboarding and ongoing support, with the most recent mention recorded on 2026-10-28 [i:c8869934e9e77aad].\\n- One of the affected accounts, Marrowgate Commercial, has a renewal date of 2026-12-12 [i:49e903683f464d34].\\n- In the last 90 days, 1 renewal has occurred [i:3ccee6c1b85c3e12] [i:49e903683f464d34] [i:63e7d0c8fea46281] [i:9bcfbf187a659dd5] [i:c8869934e9e77aad] [i:ec07f5c294ac850c].\\n- The collective ARR of 4480000.0 GBP from the 5 vocal accounts is at stake, with renewal dates spanning from 2026-12-12 to 2027-07-31 [i:3ccee6c1b85c3e12] [i:49e903683f464d34] [i:63e7d0c8fea46281] [i:9bcfbf187a659dd5] [i:c8869934e9e77aad] [i:ec07f5c294ac850c].\",\n \"cited_insights\": [\n  {\n   \"account\": \"Tidewell Marine & Cargo\",\n   \"date\": \"2026-09-19T09:57:00+00:00\",\n   \"id\": \"3ccee6c1b85c3e12\",\n   \"quote\": \"We don’t want to force one approach across all teams... Per-team configuration would solve it... prefers manual claim routing — one-size-fits-all doesn’t work for us.\",\n   \"route\": \"onboarding\"\n  },\n  {\n   \"account\": \"Marrowgate Commercial\",\n   \"date\": \"2026-10-27T11:53:00+00:00\",\n   \"id\": \"49e903683f464d34\",\n   \"quote\": \"Our commercial and specialty claims handlers find auto-routing unhelpful — we need manual claim routing to manage complex files properly, especially with multiple suppliers and policyholders involved.\",\n   \"route\": \"support\"\n  },\n  {\n   \"account\": \"Tidewell Marine & Cargo\",\n   \"date\": \"2026-09-19T09:57:00+00:00\",\n   \"id\": \"63e7d0c8fea46281\",\n   \"quote\": \"Our motor team handles high-volume cases and wants automatic assignment based on postcode and workload... manual claim routing slows them down too much.\",\n   \"route\": \"onboarding\"\n  },\n  {\n   \"account\": \"Saltmarsh Specialty\",\n   \"date\": \"2026-09-23T10:05:00+00:00\",\n   \"id\": \"9bcfbf187a659dd5\",\n   \"quote\": \"Our motor claims team really prefers automatic claim allocation to balance workload and match skills efficiently — it’s critical for scaling without adding headcount.\",\n   \"route\": \"onboarding\"\n  },\n  {\n   \"account\": \"Ravensgill Insurance\",\n   \"date\": \"2026-10-28T08:08:00+00:00\",\n   \"id\": \"c8869934e9e77aad\",\n   \"quote\": \"Our motor team wants more automatic claim allocation based on postcode and workload, but commercial prefers manual control for complex cases — we need per-team configuration.\",\n   \"route\": \"support\"\n  },\n  {\n   \"account\": \"Callowfield Auto Assurance\",\n   \"date\": \"2026-09-18T15:03:00+00:00\",\n   \"id\": \"ec07f5c294ac850c\",\n   \"quote\": \"Our motor teams are pushing for automated claim routing by postcode and workload, but our commercial teams need manual claim routing for complex cases — we really need configuration that varies by team to keep everyone happy.\",\n   \"route\": \"onboarding\"\n  }\n ],\n \"fact_sheet\": {\n  \"accounts\": [\n   {\n    \"arr_gbp\": 420000.0,\n    \"mentions\": 2,\n    \"name\": \"Tidewell Marine & Cargo\",\n    \"renewal_date\": \"2027-07-31\"\n   },\n   {\n    \"arr_gbp\": 1600000.0,\n    \"mentions\": 1,\n    \"name\": \"Marrowgate Commercial\",\n    \"renewal_date\": \"2026-12-12\"\n   },\n   {\n    \"arr_gbp\": 740000.0,\n    \"mentions\": 1,\n    \"name\": \"Saltmarsh Specialty\",\n    \"renewal_date\": \"2027-05-15\"\n   },\n   {\n    \"arr_gbp\": 470000.0,\n    \"mentions\": 1,\n    \"name\": \"Ravensgill Insurance\",\n    \"renewal_date\": \"2027-04-30\"\n   },\n   {\n    \"arr_gbp\": 1250000.0,\n    \"mentions\": 1,\n    \"name\": \"Callowfield Auto Assurance\",\n    \"renewal_date\": \"2027-03-31\"\n   }\n  ],\n  \"accounts_n\": 5,\n  \"arr_total_gbp\": 4480000.0,\n  \"as_of\": \"2026-11-03\",\n  \"mentions_by_route\": {\n   \"onboarding\": 4,\n   \"support\": 2\n  },\n  \"mentions_n\": 6,\n  \"renewals_90d_n\": 1,\n  \"routes_n\": 2\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I verified the headline stats (5 accounts, 6 mentions, ARR of 4,480,000 GBP, routes 4 onboarding/2 support, 1 renewal in 90 days) against the fact sheet and all are exact matches. The quotes attributed to Tidewell Marine & Cargo (one-size-fits-all doesn't work, per-team configuration), Marrowgate Commercial (manual routing for complex files), and Saltmarsh Specialty (automatic allocation critical for scaling without headcount) are all supported by the cited insights and are paraphrased rather than falsely quoted. The motor-team contrary evidence is explicitly included, and renewal dates (2026-12-12 to 2027-07-31) and the most recent mention date (2026-10-28, Ravensgill) check out. No claim is overstated or uncited.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 2203,
+   "tokens_out": 294,
+   "cost_usd": 0.0043778
+  }
+ }
+}

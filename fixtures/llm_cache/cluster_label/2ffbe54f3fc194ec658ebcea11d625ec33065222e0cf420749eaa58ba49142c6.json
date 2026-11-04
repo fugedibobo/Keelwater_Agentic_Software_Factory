@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: Document uploads may fail during high-volume claim periods.\n  quote: are there any known issues with document uploads during high-volume claim periods?\n- problem: The system fails or crashes when processing large batch uploads.\n  quote: That’s helpful, but we’ve had a few cases where the system choked on large batches — maybe a bug or limit?\n- problem: The customer cannot go live because the system cannot upload files together.\n  quote: Great — we’ll be ready to go live once the upload files together issue is resolved.\n- problem: Bulk uploads time out when processing large batches of documents.\n  quote: We’ve been trying to use the bulk ... but it’s still not handling upload files together reliably — we ... get timeouts on batches over 50 documents."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Bulk document uploads fail under load\",\n  \"problem_statement\": \"Users trying to upload large batches of documents experience timeouts or system crashes, preventing timely claim processing. This delays operations and undermines confidence in the platform during peak periods.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 274,
+   "tokens_out": 53,
+   "cost_usd": 8.57e-05
+  }
+ }
+}

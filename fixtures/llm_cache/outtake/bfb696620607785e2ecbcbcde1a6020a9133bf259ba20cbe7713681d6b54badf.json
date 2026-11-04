@@ -1,0 +1,50 @@
+{
+ "request": {
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou draft customer-facing text for Keelwater, which makes claims-handling software. A person reviews every draft before anything is sent.\n</role>\n<story>\n{\n \"id\": 4130,\n \"name\": \"Payment history improvements\",\n \"description\": \"Keelwater now provides a clearer, more detailed payment history view, helping users track transactions, refunds, and adjustments with improved timestamps and categorization for faster reconciliation.\"\n}\n</story>\n<problem>\nNot stated.\n</problem>\n<rules>\n- Write a release note: a title and two to four short bullets saying what is new and who it helps.\n- The change ships in an announced release bundle on a published cadence and is controlled by a feature flag. Never say it is live now, never give a date that is not in the story, and say customers get it when the bundle is announced and the flag is switched on.\n- Use only the story and the problem above. Do not name any customer, quote anyone, or promise anything the story does not say.\n</rules>\n<output>\nJSON only: {\"body_md\": the draft as Markdown}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 800,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "outtake",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "body_md": {
+       "title": "Body Md",
+       "type": "string"
+      }
+     },
+     "required": [
+      "body_md"
+     ],
+     "title": "OuttakeOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"body_md\": \"## Payment History Improvements\\n\\n- A clearer, more detailed payment history view shows every transaction, refund, and adjustment with improved timestamps.\\n- Enhanced categorization lets claims and finance users track activity and reconcile accounts more quickly.\\n- The feature ships in the next announced release bundle and is controlled by a feature flag; customers receive it when the bundle is announced and the flag is switched on.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 300,
+   "tokens_out": 351,
+   "cost_usd": 0.00029037
+  }
+ }
+}

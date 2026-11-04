@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\nThe Link to existing claim button is broken, stopping users from linking a claim. This prevents staff from alerting the system when a matching incident already exists, leading to duplicate claims that must be manually linked, which delays payments and reporting [i:8ec45cfe56e665e5].\\n\\n## Who is affected\\n- Three accounts are affected, representing a total ARR of 950000.0 GBP [i:85a6dd27b3ce1a1e][i:89daa1820fc543ca][i:95caadb2b08c2b23].\\n- Selsby Motor (ARR 190000.0 GBP) has reported the issue twice via session recordings [i:85a6dd27b3ce1a1e][i:89daa1820fc543ca].\\n- Tarnholt Drive Cover has reported related workflow problems via a support ticket [i:8ec45cfe56e665e5].\\n- Ravensgill Insurance has also reported the issue via a session recording [i:95caadb2b08c2b23].\\n\\n## Evidence\\n- There are 4 total mentions of this problem from 3 accounts [i:85a6dd27b3ce1a1e][i:89daa1820fc543ca][i:8ec45cfe56e665e5][i:95caadb2b08c2b23].\\n- The issue has been reported via 2 routes: 3 mentions from sessions and 1 mention from support [i:85a6dd27b3ce1a1e][i:89daa1820fc543ca][i:8ec45cfe56e665e5][i:95caadb2b08c2b23].\\n- Session recordings show users clicking the Link to existing claim button and the action being dead [i:85a6dd27b3ce1a1e][i:89daa1820fc543ca][i:95caadb2b08c2b23].\\n- A support report states that the system doesn’t alert staff when a matching incident already exists in intake, resulting in duplicate claims that must be manually linked after the fact, which delays payments and reporting [i:8ec45cfe56e665e5].\\n- There has been 1 renewal in the last 90 days [i:85a6dd27b3ce1a1e][i:89daa1820fc543ca].\\n\\n## Why now\\n- The first reports from Selsby Motor and Ravensgill Insurance occurred on 2026-09-04 [i:85a6dd27b3ce1a1e][i:95caadb2b08c2b23].\\n- Selsby Motor reported the issue again on 2026-09-18 [i:89daa1820fc543ca].\\n- The most recent report was on 2026-10-25, indicating the problem is ongoing and causing operational delays [i:8ec45cfe56e665e5].\",\n \"cited_insights\": [\n  {\n   \"account\": \"Selsby Motor\",\n   \"date\": \"2026-09-04T08:05:00Z\",\n   \"id\": \"85a6dd27b3ce1a1e\",\n   \"quote\": \"Claims: click \\\"Link to existing claim\\\", dead x1 ... Claims: click \\\"Next\\\"\",\n   \"route\": \"sessions\"\n  },\n  {\n   \"account\": \"Selsby Motor\",\n   \"date\": \"2026-09-18T09:38:00Z\",\n   \"id\": \"89daa1820fc543ca\",\n   \"quote\": \"Claims: click \\\"Link to existing claim\\\", dead x1\",\n   \"route\": \"sessions\"\n  },\n  {\n   \"account\": \"Tarnholt Drive Cover\",\n   \"date\": \"2026-10-25T16:14:00+00:00\",\n   \"id\": \"8ec45cfe56e665e5\",\n   \"quote\": \"We’re seeing cases where the same claim twice appears because the system doesn’t alert staff when a matching incident already exists in intake — we’ve had to manually link them after the fact, which delays payments and reporting.\",\n   \"route\": \"support\"\n  },\n  {\n   \"account\": \"Ravensgill Insurance\",\n   \"date\": \"2026-09-04T09:00:00Z\",\n   \"id\": \"95caadb2b08c2b23\",\n   \"quote\": \"click \\\"Link to existing claim\\\", dead x1\",\n   \"route\": \"sessions\"\n  }\n ],\n \"fact_sheet\": {\n  \"accounts\": [\n   {\n    \"arr_gbp\": 190000.0,\n    \"mentions\": 2,\n    \"name\": \"Selsby Motor\",\n    \"renewal_date\": \"2027-09-27\"\n   },\n   {\n    \"arr_gbp\": 290000.0,\n    \"mentions\": 1,\n    \"name\": \"Tarnholt Drive Cover\",\n    \"renewal_date\": \"2027-01-09\"\n   },\n   {\n    \"arr_gbp\": 470000.0,\n    \"mentions\": 1,\n    \"name\": \"Ravensgill Insurance\",\n    \"renewal_date\": \"2027-04-30\"\n   }\n  ],\n  \"accounts_n\": 3,\n  \"arr_total_gbp\": 950000.0,\n  \"as_of\": \"2026-11-03\",\n  \"mentions_by_route\": {\n   \"sessions\": 3,\n   \"support\": 1\n  },\n  \"mentions_n\": 4,\n  \"renewals_90d_n\": 1,\n  \"routes_n\": 2\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked the affected-scope and evidence claims against the fact sheet and cited insights: 3 accounts, 950000.0 GBP total ARR, 4 mentions across 3 sessions and 1 support route, and 1 renewal in the last 90 days all match exactly. Account-level details (Selsby Motor ARR 190000.0 GBP with two session reports on 2026-09-04 and 2026-09-18, Ravensgill session on 2026-09-04, Tarnholt Drive Cover support ticket on 2026-10-25) match the cited insights. The Tarnholt quote is paraphrased accurately and not placed in quotation marks, the problem description is supported by both the session quotes (dead button) and the support insight (duplicate claims, manual linking, delayed payments and reporting), and no contrary evidence was ignored. All claims are properly cited and consistent with the fact sheet.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1522,
+   "tokens_out": 322,
+   "cost_usd": 0.000723135
+  }
+ }
+}

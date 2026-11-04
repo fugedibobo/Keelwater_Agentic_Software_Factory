@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\nClaims handlers at insurance companies using Keelwater software must manually call each garage supplier to check repair progress. This process interrupts their core claims-handling workflow, breaks up their day, and delays settlements.\\n\\n## Who is affected\\n- Claims handlers and operations staff at insurance companies who need to update policyholders and adjust reserves [i:4dba64b603f91f1c].\\n- Account management and sales teams who report this as a daily blocker and a daily headache [i:4701ef117659ae29][i:6b7b835bb254a71f].\\n- Support teams who are interrupted from their workflow because repair updates are missing [i:4dba64b603f91f1c].\\n\\n## Evidence\\nThe problem has been raised by 4 accounts across 6 mentions, via 3 routes: sales, account management, and support [i:198bcb654e2dc252][i:4701ef117659ae29][i:4dba64b603f91f1c].\\n\\n- Wexmoor Motor (ARR £1,950,000.0) states that manually calling every supplier breaks up their day and distracts from core claims work [i:198bcb654e2dc252]. They also report it as a daily blocker that interrupts their handling workflow [i:6b7b835bb254a71f].\\n- Callowfield Auto Assurance (ARR £1,250,000.0) says they are constantly phoning suppliers because there’s no live repair status, which is a daily blocker [i:4701ef117659ae29].\\n- Pendleford Motor Mutual (ARR £690,000.0) reports that missing repair updates force them to interrupt their workflow [i:4dba64b603f91f1c] and that they are on the phone daily with garages [i:75fd8957b8a7521e].\\n- Harrowfield Fleet Mutual states that the lack of real-time visibility forces them to chase manually and is a blocker that needs solving [i:9014828c3010d505].\\n\\nThe total ARR from accounts mentioning this problem is £3,890,000.0 [i:198bcb654e2dc252][i:4701ef117659ae29][i:4dba64b603f91f1c]. There have been 0 renewals in the last 90 days [i:198bcb654e2dc252][i:4701ef117659ae29][i:4dba64b603f91f1c].\\n\\n## Why now\\nThe feedback has been consistently reported over recent months, with the latest mention on 2026-10-26 [i:198bcb654e2dc252]. Accounts with upcoming renewals, such as Wexmoor Motor (renewal 2027-06-30) and Callowfield Auto Assurance (renewal 2027-03-31), have both raised the issue [i:198bcb654e2dc252][i:4701ef117659ae29]. The problem is cited across all customer-facing routes (sales, account management, support), showing it is a cross-functional priority [i:198bcb654e2dc252][i:4701ef117659ae29][i:4dba64b603f91f1c].\",\n \"cited_insights\": [\n  {\n   \"account\": \"Wexmoor Motor\",\n   \"date\": \"2026-10-26T11:03:00Z\",\n   \"id\": \"198bcb654e2dc252\",\n   \"quote\": \"We’re still wrestling with how to track garage progress visibility without calling every supplier manually — it really breaks up our day and distracts from core claims work.\",\n   \"route\": \"sales\"\n  },\n  {\n   \"account\": \"Callowfield Auto Assurance\",\n   \"date\": \"2026-09-30T09:19:00+00:00\",\n   \"id\": \"4701ef117659ae29\",\n   \"quote\": \"We’re constantly phoning suppliers because there’s no live repair status, which is a daily blocker for us.\",\n   \"route\": \"account_management\"\n  },\n  {\n   \"account\": \"Pendleford Motor Mutual\",\n   \"date\": \"2026-10-23T08:15:00+00:00\",\n   \"id\": \"4dba64b603f91f1c\",\n   \"quote\": \"It’s a real drag — every time we need to update a policyholder or adjust reserves, we have to interrupt our workflow ... because repair updates missing means no visibility.\",\n   \"route\": \"support\"\n  },\n  {\n   \"account\": \"Wexmoor Motor\",\n   \"date\": \"2026-09-19T10:48:00+00:00\",\n   \"id\": \"6b7b835bb254a71f\",\n   \"quote\": \"Also, we’re still stuck calling garages manually because the system doesn’t show live repair updates — it’s a daily headache... The repair updates missing is a daily blocker — we have to call every garage to get status, which interrupts our handling workflow and delays settlements.\",\n   \"route\": \"account_management\"\n  },\n  {\n   \"account\": \"Pendleford Motor Mutual\",\n   \"date\": \"2026-10-26T09:40:00Z\",\n   \"id\": \"75fd8957b8a7521e\",\n   \"quote\": \"Also, repair updates missing — we’re on the phone daily with garages because there’s no live status.\",\n   \"route\": \"sales\"\n  },\n  {\n   \"account\": \"Harrowfield Fleet Mutual\",\n   \"date\": \"2026-09-14T10:43:00+00:00\",\n   \"id\": \"9014828c3010d505\",\n   \"quote\": \"The lack of real-time visibility into garage progress is forcing us to chase manually — garage progress visibility is a blocker we need solved ASAP.\",\n   \"route\": \"account_management\"\n  }\n ],\n \"fact_sheet\": {\n  \"accounts\": [\n   {\n    \"arr_gbp\": 1950000.0,\n    \"mentions\": 2,\n    \"name\": \"Wexmoor Motor\",\n    \"renewal_date\": \"2027-06-30\"\n   },\n   {\n    \"arr_gbp\": 1250000.0,\n    \"mentions\": 1,\n    \"name\": \"Callowfield Auto Assurance\",\n    \"renewal_date\": \"2027-03-31\"\n   },\n   {\n    \"arr_gbp\": 690000.0,\n    \"mentions\": 2,\n    \"name\": \"Pendleford Motor Mutual\",\n    \"renewal_date\": \"2027-02-28\"\n   },\n   {\n    \"arr_gbp\": null,\n    \"mentions\": 1,\n    \"name\": \"Harrowfield Fleet Mutual\",\n    \"renewal_date\": null\n   }\n  ],\n  \"accounts_n\": 4,\n  \"arr_total_gbp\": 3890000.0,\n  \"as_of\": \"2026-11-03\",\n  \"mentions_by_route\": {\n   \"account_management\": 3,\n   \"sales\": 2,\n   \"support\": 1\n  },\n  \"mentions_n\": 6,\n  \"renewals_90d_n\": 0,\n  \"routes_n\": 3\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked all account-level claims against the cited insights and fact sheet: the 4 accounts, 6 mentions, 3 routes (sales, account management, support), and per-account ARR figures (£1,950,000; £1,250,000; £690,000) all match. The total ARR of £3,890,000 matches the fact sheet, 0 renewals in the last 90 days matches, and the latest mention date of 2026-10-26 (Wexmoor Motor) plus renewal dates for Wexmoor (2027-06-30) and Callowfield (2027-03-31) are correct. Each paraphrase is supported by its cited quote (e.g., Callowfield's 'daily blocker', Pendleford's 'interrupt our workflow', Harrowfield's 'chase manually... blocker'), with nothing overstated and no paraphrase in quotation marks. No contrary evidence was found.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1904,
+   "tokens_out": 309,
+   "cost_usd": 0.002521532
+  }
+ }
+}

@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\nCustomers are uncertain about how Keelwater's tiered pricing model applies to their specific claims volume, making it difficult for them to plan or adjust their usage. This lack of clarity causes concern that they may be locked into payment terms that are unsuitable for their business patterns, such as seasonal spikes in claims [i:7ed1486c914e257a].\\n\\n## Who is affected\\n- Two accounts have raised this issue via the sales route [i:230317b3a22a024c][i:7ed1486c914e257a].\\n- The affected accounts are Wexmoor Motor, which has an ARR of 1950000.0 GBP [i:230317b3a22a024c], and Callowfield Auto Assurance, which has an ARR of 1250000.0 GBP [i:7ed1486c914e257a].\\n\\n## Evidence\\n- The problem has been mentioned 2 times across 2 accounts [i:230317b3a22a024c][i:7ed1486c914e257a].\\n- All 2 mentions came through the sales route [i:230317b3a22a024c][i:7ed1486c914e257a].\\n- Wexmoor Motor is reviewing its annual spend and has requested a breakdown of how pricing tiers apply to its monthly claims volume [i:230317b3a22a024c].\\n- Callowfield Auto Assurance is evaluating if the tiered pricing model fits its claims volume, especially with seasonal spikes, and is concerned about being locked into the current payment integration [i:7ed1486c914e257a].\\n- The total ARR from these accounts is 3200000.0 GBP [i:230317b3a22a024c][i:7ed1486c914e257a].\\n- There have been 0 renewals in the last 90 days [i:230317b3a22a024c][i:7ed1486c914e257a].\\n\\n## Why now\\n- Wexmoor Motor's renewal date is 2027-06-30, and they are actively reviewing their annual spend [i:230317b3a22a024c].\\n- Callowfield Auto Assurance's renewal date is 2027-03-31, and they are currently evaluating the suitability of the pricing model [i:7ed1486c914e257a].\\n- The most recent mention was on 2026-10-30 [i:230317b3a22a024c], indicating active, current concern.\",\n \"cited_insights\": [\n  {\n   \"id\": \"230317b3a22a024c\",\n   \"quote\": \"We’re reviewing our annual spend with Keelwater and need clarity on how tiered pricing affects our claims volume this year... can you send me a breakdown of how your pricing tiers apply to our monthly claims volume?\",\n   \"account\": \"Wexmoor Motor\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-30T15:59:00Z\"\n  },\n  {\n   \"id\": \"7ed1486c914e257a\",\n   \"quote\": \"We’re evaluating whether the tiered pricing model fits our claims volume, especially with seasonal spikes... are we locked into the current payment integration?\",\n   \"account\": \"Callowfield Auto Assurance\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-07T14:03:00Z\"\n  }\n ],\n \"fact_sheet\": {\n  \"as_of\": \"2026-11-03\",\n  \"accounts_n\": 2,\n  \"mentions_n\": 2,\n  \"routes_n\": 1,\n  \"mentions_by_route\": {\n   \"sales\": 2\n  },\n  \"arr_total_gbp\": 3200000.0,\n  \"renewals_90d_n\": 0,\n  \"accounts\": [\n   {\n    \"name\": \"Wexmoor Motor\",\n    \"arr_gbp\": 1950000.0,\n    \"renewal_date\": \"2027-06-30\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Callowfield Auto Assurance\",\n    \"arr_gbp\": 1250000.0,\n    \"renewal_date\": \"2027-03-31\",\n    \"mentions\": 1\n   }\n  ]\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked the account names, ARR figures (1,950,000 and 1,250,000 GBP, totaling 3,200,000 GBP), mention count (2 across 2 accounts), route (all sales), renewals in 90 days (0), and renewal dates (2027-06-30 and 2027-03-31) against the fact sheet, and all match. The paraphrased evidence claims accurately reflect the cited insight quotes without placing paraphrases in quotation marks, and the most recent mention date of 2026-10-30 matches the Wexmoor Motor insight. No uncited claims, overstated scope, or ignored contrary evidence was found.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1242,
+   "tokens_out": 170,
+   "cost_usd": 0.00098398
+  }
+ }
+}

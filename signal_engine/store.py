@@ -152,7 +152,7 @@ class Store:
         return sha256(canonical(parts))
 
 
-def transition(store, opportunity_id, to_status, actor, actor_kind, details=None):
+def transition(store, opportunity_id, to_status, actor, actor_kind, details=None, at=None):
     """Move an opportunity along the status machine; writes the audit_event in the same transaction."""
     details = details or {}
     with store.lock, store.db:
@@ -169,10 +169,10 @@ def transition(store, opportunity_id, to_status, actor, actor_kind, details=None
             d["evidence_snapshot"] = [r[0] for r in store.db.execute(
                 "SELECT insight_id FROM opportunity_insight WHERE opportunity_id=? ORDER BY insight_id", (opportunity_id,))]
         store.db.execute("UPDATE opportunity SET status=? WHERE opportunity_id=?", (to_status, opportunity_id))
-        return store.append_audit(actor, actor_kind, "opportunity.transition", "opportunity", opportunity_id, d)
+        return store.append_audit(actor, actor_kind, "opportunity.transition", "opportunity", opportunity_id, d, at=at)
 
 
-def reassign(store, opportunity_id, squad, actor, actor_kind, details=None):
+def reassign(store, opportunity_id, squad, actor, actor_kind, details=None, at=None):
     """Reassign changes squad, not status; it is a human gate."""
     if actor_kind != "person":
         raise PermissionError("reassign is a human gate; actor_kind must be person")
@@ -182,7 +182,7 @@ def reassign(store, opportunity_id, squad, actor, actor_kind, details=None):
             raise ValueError(f"unknown opportunity {opportunity_id}")
         store.db.execute("UPDATE opportunity SET squad=? WHERE opportunity_id=?", (squad, opportunity_id))
         return store.append_audit(actor, actor_kind, "opportunity.reassign", "opportunity", opportunity_id,
-                                  dict(details or {}, from_squad=row[0], to_squad=squad))
+                                  dict(details or {}, from_squad=row[0], to_squad=squad), at=at)
 
 
 def undo(store, audit_event_id, actor, now=None):

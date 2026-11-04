@@ -1,0 +1,120 @@
+{
+ "request": {
+  "model": "cloudflare/clef",
+  "state": "First, our team keeps getting locked out with ‘Keelwater is down’ messages — but it’s actually our customer network failure, not your system. First, our team keeps getting locked out with ‘Keelwater is down’ messages — but it’s actually our customer network failure, not your system. Also, when we upload garage estimates, they land under Correspondence — that incorrect file type is causing handlers to manually re-categorise everything. Also, when we upload garage estimates, they land under Correspondence — that incorrect file type is causing handlers to manually re-categorise everything. And lastly, we noticed the Claims Tasks panel moved without warning — those unexpected interface changes forced us to retrain staff last week. And lastly, we noticed the Claims Tasks panel moved without warning — those unexpected interface changes forced us to retrain staff last week.",
+  "questions": {
+   "is_product_signal": {
+    "type": "noul",
+    "instructions": "Is this a problem or request about the Keelwater product that a product squad could act on?",
+    "criteria": {
+     "true": "A customer problem, defect or request about the product.",
+     "false": "Chatter, scheduling, small talk or anything not about the product."
+    }
+   },
+   "bucket": {
+    "type": "choice",
+    "instructions": "Which product area does it belong to?",
+    "criteria": {
+     "fnol_intake": "Starting a new claim and capturing its first details.",
+     "triage_assignment": "Choosing who works a claim, in what order, and when it is sent for specialist review.",
+     "documents_evidence": "Files and other material kept with a claim, and how handlers organise and retrieve them.",
+     "reserves_payments": "Money set aside, paid out or recovered on a claim.",
+     "supplier_network": "Repairers, adjusters and other outside parties a claim depends on.",
+     "customer_comms": "Messages sent from a claim to the people involved, and what those messages say.",
+     "reporting_mi": "Management information and figures drawn from claims data.",
+     "admin_permissions": "Running the Keelwater workspace, such as user accounts, access and settings.",
+     "integrations_api": "Connections between Keelwater and other systems.",
+     "release_change": "How Keelwater's own product updates reach users and how their arrival is handled."
+    }
+   },
+   "severity": {
+    "type": "score",
+    "instructions": "How severe is the impact on the customer?",
+    "criteria": [
+     "Minor annoyance",
+     "Slows the customer down",
+     "Blocks part of their work",
+     "Blocks the customer entirely"
+    ]
+   },
+   "signal_type": {
+    "type": "choice",
+    "instructions": "What kind of signal is it?",
+    "criteria": {
+     "bug": "bug",
+     "feature_gap": "feature gap",
+     "usability_friction": "usability friction",
+     "workflow_blocker": "workflow blocker",
+     "praise": "praise",
+     "churn_risk": "churn risk",
+     "question": "question"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  }
+ },
+ "response": {
+  "answers": {
+   "is_product_signal": {
+    "type": "noul",
+    "noul": 0.9293
+   },
+   "bucket": {
+    "type": "choice",
+    "choice": "documents_evidence",
+    "probabilities": {
+     "fnol_intake": 0.0084,
+     "triage_assignment": 0.0336,
+     "documents_evidence": 0.6794,
+     "reserves_payments": 0.0062,
+     "supplier_network": 0.0233,
+     "customer_comms": 0.0425,
+     "reporting_mi": 0.0092,
+     "admin_permissions": 0.0359,
+     "integrations_api": 0.0503,
+     "release_change": 0.1112
+    },
+    "confidence": 0.4239
+   },
+   "severity": {
+    "type": "score",
+    "score": 1.5439,
+    "legend": {
+     "0": "Minor annoyance",
+     "1": "Slows the customer down",
+     "2": "Blocks part of their work",
+     "3": "Blocks the customer entirely"
+    },
+    "probabilities": {
+     "0": 0.0589,
+     "1": 0.4048,
+     "2": 0.4699,
+     "3": 0.0664
+    },
+    "confidence": 0.19
+   },
+   "signal_type": {
+    "type": "choice",
+    "choice": "bug",
+    "probabilities": {
+     "bug": 0.3055,
+     "feature_gap": 0.044,
+     "usability_friction": 0.2996,
+     "workflow_blocker": 0.2647,
+     "praise": 0.006,
+     "churn_risk": 0.0721,
+     "question": 0.0081
+    },
+    "confidence": 0.1371
+   }
+  },
+  "usage": {
+   "tokens_in": 943,
+   "tokens_out": 0,
+   "cost_usd": 0.00022632
+  }
+ }
+}

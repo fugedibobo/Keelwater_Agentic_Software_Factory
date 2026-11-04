@@ -1,0 +1,69 @@
+{
+ "request": {
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You extract one product insight from a single customer snippet about the Keelwater claims platform.\n\nReturn JSON with exactly these fields:\n- problem: the customer problem in one plain sentence, in your own words.\n- quote: the customer words that best show the problem, copied VERBATIM from the SNIPPET block, 5 to 60 words. Never take words from the CONTEXT block. You may join up to three fragments with \"...\" if they appear in that order.\n- workflow: the task the customer was doing, a few words.\n- desired_outcome: what the customer wants instead, one short phrase.\n\nThe CONTEXT block is what an internal Keelwater person said just before; it is context, do not quote it.\n"
+   },
+   {
+    "role": "user",
+    "content": "SNIPPET (quote only from here):\nWe’ve noticed the proposed renewal price is higher than last year’s — can you explain how that’s calculated? We’ve been reviewing our renewal and the price increase feels steep — this is a renewal price concern we need to resolve before signing off.\n\nCONTEXT (internal, do not quote):\nHappy to help, Orwen. Let’s walk through the figures and see where we can align expectations."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 600,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "extract",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "problem": {
+       "title": "Problem",
+       "type": "string"
+      },
+      "quote": {
+       "title": "Quote",
+       "type": "string"
+      },
+      "workflow": {
+       "title": "Workflow",
+       "type": "string"
+      },
+      "desired_outcome": {
+       "title": "Desired Outcome",
+       "type": "string"
+      }
+     },
+     "required": [
+      "problem",
+      "quote",
+      "workflow",
+      "desired_outcome"
+     ],
+     "title": "ExtractOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"problem\": \"The customer sees the renewal price increase and doesn't understand how it's calculated, causing concern.\",\n  \"quote\": \"We’ve noticed the proposed renewal price is higher than last year’s — can you explain how that’s calculated?... the price increase feels steep — this is a renewal price concern we need to resolve before signing off.\",\n  \"workflow\": \"reviewing renewal pricing\",\n  \"desired_outcome\": \"clear explanation of the price calculation\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 313,
+   "tokens_out": 380,
+   "cost_usd": 7.779e-05
+  }
+ }
+}

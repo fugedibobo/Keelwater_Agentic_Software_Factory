@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"Duplicate claims submitted through different channels are not being identified by the system.\",\n \"quotes\": [\n  {\n   \"date\": \"2026-10-26T09:40:00Z\",\n   \"quote\": \"It’s messy when the same claim twice comes in — one by phone, one online, and the system doesn’t flag it.\",\n   \"route\": \"sales\"\n  },\n  {\n   \"date\": \"2026-09-04T08:05:00Z\",\n   \"quote\": \"Claims: click \\\"Link to existing claim\\\", dead x1 ... Claims: click \\\"Next\\\"\",\n   \"route\": \"sessions\"\n  },\n  {\n   \"date\": \"2026-09-18T09:38:00Z\",\n   \"quote\": \"Claims: click \\\"Link to existing claim\\\", dead x1\",\n   \"route\": \"sessions\"\n  },\n  {\n   \"date\": \"2026-10-25T16:14:00+00:00\",\n   \"quote\": \"We’re seeing cases where the same claim twice appears because the system doesn’t alert staff when a matching incident already exists in intake — we’ve had to manually link them after the fact, which delays payments and reporting.\",\n   \"route\": \"support\"\n  }\n ],\n \"title\": \"Duplicate claims submitted through different channels are not being identified by the\"\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The claim is that duplicate claims from different channels aren't flagged by the system, forcing manual linking and delaying payments. The support quote (2026-10-25) directly describes this product gap and its business impact, and the sales quote corroborates it. Session logs show users repeatedly clicking a 'Link to existing claim' button that appears dead, and the described manual workaround is itself signal per the rules. Nothing indicates an external cause, a help-article answer, or praise.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 510,
+   "tokens_out": 110,
+   "cost_usd": 0.000435008
+  }
+ }
+}

@@ -39,8 +39,8 @@ def rows(store):
     return {r["snippet_id"]: r for r in store.select("triage")}
 
 
-@pytest.mark.parametrize("p,conf,want", [(0.10, 0.9, "drop"), (0.0, 0.0, "drop"), (0.50, 0.70, "keep"), (0.95, 0.9, "keep"),
-                                          (0.50, 0.69, "low_confidence"), (0.11, 0.9, "low_confidence"), (0.49, 0.99, "low_confidence")])
+@pytest.mark.parametrize("p,conf,want", [(0.25, 0.9, "drop"), (0.0, 0.0, "drop"), (0.50, 0.70, "keep"), (0.95, 0.9, "keep"),
+                                          (0.50, 0.69, "low_confidence"), (0.26, 0.9, "low_confidence"), (0.49, 0.99, "low_confidence")])
 @pytest.mark.parametrize("backend", ["clef", "fallback"])
 def test_gating_bands_per_backend(p, conf, want, backend):
     assert triage.gate(p, conf, config.load("pipeline")["triage"]["backends"][backend]) == want

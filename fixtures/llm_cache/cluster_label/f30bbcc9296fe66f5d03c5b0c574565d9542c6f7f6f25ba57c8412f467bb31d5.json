@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The customer lacks visibility into how supplier integrations operate with their existing policyholder data.\n  quote: One last thing—can we also look at how supplier integrations work with our current policyholder data?\n- problem: The customer is unsure whether the platform's supplier integrations work with their third‑party adjusters.\n  quote: Appreciate that. Also, can you confirm if the supplier integrations support our third-party adjusters?\n- problem: The customer needs to know if the platform can integrate with their existing legacy document system.\n  quote: We’re evaluating integrations next quarter — does your platform support API hooks for our legacy document system?\n- problem: The customer is unsure how reporting will integrate with their existing policyholder records.\n  quote: Tuesday works. Also, can we talk about how reporting integrates with our existing policyholder records?"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Unclear Integration Compatibility\",\n  \"problem_statement\": \"Customers cannot confirm whether the platform integrates with their existing systems like policyholder data, third-party adjusters, or legacy document tools. This uncertainty delays adoption and risks misaligned workflows.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 279,
+   "tokens_out": 55,
+   "cost_usd": 8.561e-05
+  }
+ }
+}

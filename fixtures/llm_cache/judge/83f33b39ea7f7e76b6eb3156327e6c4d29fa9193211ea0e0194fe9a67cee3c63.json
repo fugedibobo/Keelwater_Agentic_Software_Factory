@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\nManual claim routing slows down the high-volume motor team. Customers report that a one-size-fits-all approach does not work, as some teams require manual control for complex cases while others need automated routing for speed and efficiency [i:3ccee6c1b85c3e12].\\n\\n## Who is affected\\n- **High-volume motor teams** who find that manual claim routing slows them down too much and want automatic assignment based on postcode and workload for scaling [i:63e7d0c8fea46281].\\n- **Specialty or commercial claims teams** who need manual control for complex cases, as their work is too complex for auto-routing [i:35df28f51fb00a24].\\n- **Multi-team organizations** that require per-team configuration of routing rules to accommodate both automated and manual preferences, as forcing one approach across all teams does not work [i:2b8201db7ce2cec6][i:c8869934e9e77aad].\\n\\n## Evidence\\n- The issue has been mentioned 7 times across 5 accounts [i:2b8201db7ce2cec6][i:35df28f51fb00a24][i:3ccee6c1b85c3e12][i:63e7d0c8fea46281][i:9bcfbf187a659dd5][i:c8869934e9e77aad][i:ec07f5c294ac850c].\\n- Mentions came through 2 distinct routes: 3 via support and 4 via onboarding [i:2b8201db7ce2cec6][i:35df28f51fb00a24][i:3ccee6c1b85c3e12][i:63e7d0c8fea46281][i:9bcfbf187a659dd5][i:c8869934e9e77aad][i:ec07f5c294ac850c].\\n- The total Annual Recurring Revenue (ARR) for these accounts is 4830000.0 GBP [i:2b8201db7ce2cec6][i:35df28f51fb00a24][i:3ccee6c1b85c3e12][i:63e7d0c8fea46281][i:9bcfbf187a659dd5][i:c8869934e9e77aad][i:ec07f5c294ac850c].\\n- **Saltmarsh Specialty** (ARR: 740000.0 GBP) states their motor team wants automatic routing but specialty handlers need manual control, requiring per-team configuration [i:2b8201db7ce2cec6]. They also note their motor claims team prefers automatic allocation for scaling [i:9bcfbf187a659dd5].\\n- **Wexmoor Motor** (ARR: 1950000.0 GBP) reports their commercial claims are too complex for auto-routing and need manual routing, while motor claims can stay automated [i:35df28f51fb00a24].\\n- **Tidewell Marine & Cargo** (ARR: 420000.0 GBP) states a one-size-fits-all approach does not work and prefers per-team configuration [i:3ccee6c1b85c3e12]. They also report their high-volume motor team is slowed down by manual routing and wants automatic assignment [i:63e7d0c8fea46281].\\n- **Ravensgill Insurance** (ARR: 470000.0 GBP) needs per-team configuration as their motor team wants more automatic allocation but commercial prefers manual control [i:c8869934e9e77aad].\\n- **Callowfield Auto Assurance** (ARR: 1250000.0 GBP) reports their motor teams push for automated routing, but commercial teams need manual routing, requiring configuration that varies by team [i:ec07f5c294ac850c].\\n\\n## Why now\\n- There have been 0 renewals in the last 90 days, indicating a period of stable contracts where feature development could influence future renewal decisions [i:2b8201db7ce2cec6][i:35df28f51fb00a24][i:3ccee6c1b85c3e12][i:63e7d0c8fea46281][i:9bcfbf187a659dd5][i:c8869934e9e77aad][i:ec07f5c294ac850c].\\n- Multiple key accounts with upcoming renewals have voiced this need, including **Callowfield Auto Assurance** (renewal 2027-03-31), **Ravensgill Insurance** (renewal 2027-04-30), **Saltmarsh Specialty** (renewal 2027-05-15), **Wexmoor Motor** (renewal 2027-06-30), and **Tidewell Marine & Cargo** (renewal 2027-07-31) [i:2b8201db7ce2cec6][i:35df28f51fb00a24][i:3ccee6c1b85c3e12][i:63e7d0c8fea46281][i:9bcfbf187a659dd5][i:c8869934e9e77aad][i:ec07f5c294ac850c].\\n- The most recent mentions occurred in late October 2026, showing the topic remains current and active in customer conversations [i:2b8201db7ce2cec6][i:c8869934e9e77aad].\\n\\nThis feature will reduce claim resolution time by 40% across all teams, based on internal benchmarking from a pilot implementation.\",\n \"cited_insights\": [\n  {\n   \"account\": \"Saltmarsh Specialty\",\n   \"date\": \"2026-10-27T09:02:00+00:00\",\n   \"id\": \"2b8201db7ce2cec6\",\n   \"quote\": \"Our motor team wants claims routed automatically based on postcode and workload, but our specialty handlers need manual control for complex cases — it’s a team‑level thing. We need manual claim routing options configurable per team.\",\n   \"route\": \"support\"\n  },\n  {\n   \"account\": \"Wexmoor Motor\",\n   \"date\": \"2026-10-21T14:33:00+00:00\",\n   \"id\": \"35df28f51fb00a24\",\n   \"quote\": \"Our commercial claims are too complex for auto-routing — we need manual claim routing for those, while motor claims can stay automated by postcode and workload.\",\n   \"route\": \"support\"\n  },\n  {\n   \"account\": \"Tidewell Marine & Cargo\",\n   \"date\": \"2026-09-19T09:57:00+00:00\",\n   \"id\": \"3ccee6c1b85c3e12\",\n   \"quote\": \"We don’t want to force one approach across all teams... Per-team configuration would solve it... prefers manual claim routing — one-size-fits-all doesn’t work for us.\",\n   \"route\": \"onboarding\"\n  },\n  {\n   \"account\": \"Tidewell Marine & Cargo\",\n   \"date\": \"2026-09-19T09:57:00+00:00\",\n   \"id\": \"63e7d0c8fea46281\",\n   \"quote\": \"Our motor team handles high-volume cases and wants automatic assignment based on postcode and workload... manual claim routing slows them down too much.\",\n   \"route\": \"onboarding\"\n  },\n  {\n   \"account\": \"Saltmarsh Specialty\",\n   \"date\": \"2026-09-23T10:05:00+00:00\",\n   \"id\": \"9bcfbf187a659dd5\",\n   \"quote\": \"Our motor claims team really prefers automatic claim allocation to balance workload and match skills efficiently — it’s critical for scaling without adding headcount.\",\n   \"route\": \"onboarding\"\n  },\n  {\n   \"account\": \"Ravensgill Insurance\",\n   \"date\": \"2026-10-28T08:08:00+00:00\",\n   \"id\": \"c8869934e9e77aad\",\n   \"quote\": \"Our motor team wants more automatic claim allocation based on postcode and workload, but commercial prefers manual control for complex cases — we need per-team configuration.\",\n   \"route\": \"support\"\n  },\n  {\n   \"account\": \"Callowfield Auto Assurance\",\n   \"date\": \"2026-09-18T15:03:00+00:00\",\n   \"id\": \"ec07f5c294ac850c\",\n   \"quote\": \"Our motor teams are pushing for automated claim routing by postcode and workload, but our commercial teams need manual claim routing for complex cases — we really need configuration that varies by team to keep everyone happy.\",\n   \"route\": \"onboarding\"\n  }\n ],\n \"fact_sheet\": {\n  \"accounts\": [\n   {\n    \"arr_gbp\": 740000.0,\n    \"mentions\": 2,\n    \"name\": \"Saltmarsh Specialty\",\n    \"renewal_date\": \"2027-05-15\"\n   },\n   {\n    \"arr_gbp\": 1950000.0,\n    \"mentions\": 1,\n    \"name\": \"Wexmoor Motor\",\n    \"renewal_date\": \"2027-06-30\"\n   },\n   {\n    \"arr_gbp\": 420000.0,\n    \"mentions\": 2,\n    \"name\": \"Tidewell Marine & Cargo\",\n    \"renewal_date\": \"2027-07-31\"\n   },\n   {\n    \"arr_gbp\": 470000.0,\n    \"mentions\": 1,\n    \"name\": \"Ravensgill Insurance\",\n    \"renewal_date\": \"2027-04-30\"\n   },\n   {\n    \"arr_gbp\": 1250000.0,\n    \"mentions\": 1,\n    \"name\": \"Callowfield Auto Assurance\",\n    \"renewal_date\": \"2027-03-31\"\n   }\n  ],\n  \"accounts_n\": 5,\n  \"arr_total_gbp\": 4830000.0,\n  \"as_of\": \"2026-11-03\",\n  \"mentions_by_route\": {\n   \"onboarding\": 4,\n   \"support\": 3\n  },\n  \"mentions_n\": 7,\n  \"renewals_90d_n\": 0,\n  \"routes_n\": 2\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"Most numbers check out against the fact sheet: 7 mentions across 5 accounts, ARR total 4,830,000 GBP, 3 support and 4 onboarding routes, 0 renewals in 90 days, and the per-account ARRs and renewal dates all match. However, the closing claim that 'This feature will reduce claim resolution time by 40% across all teams, based on internal benchmarking from a pilot implementation' is entirely uncited and unsupported by any insight or fact-sheet data.\", \"verdict\": \"fail\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 2605,
+   "tokens_out": 154,
+   "cost_usd": 0.0003962425
+  }
+ }
+}

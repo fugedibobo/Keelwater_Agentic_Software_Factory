@@ -176,7 +176,7 @@ def build_label_datasets(store=None, seed_dir="labels/seed", truth=None):
     """
     sets = {}
     if truth:  # the loaded ground-truth dict: only signal_engine/evals reads the file (tests/test_leaks.py), so the caller passes it in
-        sets["keelwater-ground-truth"] = _examples([t for t in truth.get("themes", []) if isinstance(t, dict)], ("name", "title", "kind"), ("kind",))
+        sets["keelwater-ground-truth"] = _examples([t for t in truth.get("themes", []) if isinstance(t, dict)], ("id", "title", "kind"), ("kind",))
     for f in sorted(Path(seed_dir).glob("*.jsonl")) if Path(seed_dir).is_dir() else []:
         rows = [json.loads(ln) for ln in f.read_text(encoding="utf-8").splitlines() if ln.strip()]
         sets[f"keelwater-judge-seed-{f.stem}"] = _examples(rows, ("evidence", "input"), ("verdict",))

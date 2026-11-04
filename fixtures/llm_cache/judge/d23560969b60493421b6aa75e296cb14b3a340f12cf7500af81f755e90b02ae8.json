@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\nStaff are forced to relearn the system after unexpected interface changes, causing delays, errors in claims and payments, and wasted training time. Without advance notice or previews, operations suffer and accuracy declines.\\n\\n## Who is affected\\n- **Account Management teams** report that unexpected interface changes force constant retraining and cause errors in claims and payments [i:27a70a943d3863cd][i:695ce5df664b4bfc][i:86e3ed2f99935808].\\n- **Support teams** state that unannounced changes disrupt workflow, cause processing delays, and necessitate mid-cycle retraining [i:3a4ae29f32b5253f][i:573ca417ce82f613][i:7dccff3918b6f081].\\n- **Sales teams** cite the need for warning and previews to avoid wasting time on retraining after controls move without warning [i:211006eeabec013f][i:5ed8a4c145f561c2][i:71a03e5a571c2a63].\\n- **Onboarding contacts** highlight that unannounced screen changes cause confusion and delays, emphasizing a need for advance notice [i:1510a29a4fb29690].\\n\\n## Evidence\\n- This issue has been raised by 7 accounts across 4 routes, generating 18 total mentions [i:1510a29a4fb29690][i:211006eeabec013f][i:27a70a943d3863cd].\\n- The 18 mentions are distributed as follows: 1 from onboarding, 4 from sales, 6 from account management, and 7 from support [i:1510a29a4fb29690][i:5ed8a4c145f561c2][i:cf4fe8c6ca8d873d][i:3a4ae29f32b5253f].\\n- Affected accounts include Quillon Business Insurance (ARR GBP 860000.0), which reported having to retrain its claims team twice in three months [i:cf4fe8c6ca8d873d]. Stannary Commercial (ARR GBP 540000.0) stated the changes forced mid-cycle retraining, causing errors [i:3a4ae29f32b5253f]. Linnet House Insurance (ARR GBP 360000.0) reported a payment error occurred after a button moved [i:71a03e5a571c2a63].\\n- Other citing accounts are Wexmoor Motor (ARR GBP 1950000.0), Callowfield Auto Assurance (ARR GBP 1250000.0), Hollinbrook Home Insurance (ARR GBP 2400000.0), and Brindlecombe Home [i:3c7de4adbd5cede1][i:695ce5df664b4bfc][i:86e3ed2f99935808][i:211006eeabec013f].\\n- The total ARR represented by the accounts with specified values is GBP 7360000.0 [i:27a70a943d3863cd][i:3a4ae29f32b5253f][i:3c7de4adbd5cede1].\\n\\n## Why now\\n- In the last 90 days, only 1 renewal has occurred [i:27a70a943d3863cd][i:3a4ae29f32b5253f].\\n- Customer feedback has been consistent and urgent over recent months, with multiple mentions in September and October 2026 [i:27a70a943d3863cd][i:695ce5df664b4bfc][i:86e3ed2f99935808]. Key accounts like Stannary Commercial (renewal 2026-12-05) and Quillon Business Insurance (renewal 2027-01-20) are in their contract cycles and are actively reporting operational disruption [i:3a4ae29f32b5253f][i:cf4fe8c6ca8d873d].\\n- The volume of feedback from high-value accounts, including those with imminent renewals, signals that the issue is impacting core operations and customer satisfaction at a critical time [i:3a4ae29f32b5253f][i:695ce5df664b4bfc][i:86e3ed2f99935808].\",\n \"cited_insights\": [\n  {\n   \"id\": \"1510a29a4fb29690\",\n   \"quote\": \"We had unannounced screen changes last time and it caused confusion and delays because staff had to relearn where everything was — we really need advance notice and previews going forward.\",\n   \"account\": null,\n   \"route\": \"onboarding\",\n   \"date\": \"2026-10-22T11:44:00+00:00\"\n  },\n  {\n   \"id\": \"211006eeabec013f\",\n   \"quote\": \"It’s the unexpected interface changes — we keep having to retrain staff because buttons and menus shift without warning, and that’s costing us time and accuracy.\",\n   \"account\": \"Brindlecombe Home\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-25T11:45:00Z\"\n  },\n  {\n   \"id\": \"27a70a943d3863cd\",\n   \"quote\": \"Unexpected interface changes keep shifting where we click for reserves or payments — our staff are making errors because the controls aren’t where they were last week.\",\n   \"account\": \"Quillon Business Insurance\",\n   \"route\": \"account_management\",\n   \"date\": \"2026-09-22T16:21:00+00:00\"\n  },\n  {\n   \"id\": \"3a4ae29f32b5253f\",\n   \"quote\": \"The unexpected interface changes have forced us to retrain staff mid-cycle, which is causing errors in our claims and payments processing — we really need advance notice and bundled releases next time.\",\n   \"account\": \"Stannary Commercial\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-16T15:14:00+00:00\"\n  },\n  {\n   \"id\": \"3c7de4adbd5cede1\",\n   \"quote\": \"Also, the last update ... moved the ‘reserves’ button — we had to retrain half the team because of that.\",\n   \"account\": \"Wexmoor Motor\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-21T14:33:00+00:00\"\n  },\n  {\n   \"id\": \"573ca417ce82f613\",\n   \"quote\": \"It’s not just the layout — it’s the unexpected interface changes that threw off our team’s workflow and caused delays in processing reserves.\",\n   \"account\": \"Stannary Commercial\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-16T15:14:00+00:00\"\n  },\n  {\n   \"id\": \"5ed8a4c145f561c2\",\n   \"quote\": \"That’d be great — we just need a bit of warning and maybe a preview before changes go live, so we don’t waste time retraining.\",\n   \"account\": \"Linnet House Insurance\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-19T10:29:00Z\"\n  },\n  {\n   \"id\": \"695ce5df664b4bfc\",\n   \"quote\": \"Your interface changes lately — controls moving without warning — it’s forcing us to retrain staff constantly, and unannounced screen changes are disrupting our operations... We’d prefer fewer, bundled changes with previews — unannounced screen changes are hurting our efficiency and we need advance notice to adapt properly.\",\n   \"account\": \"Callowfield Auto Assurance\",\n   \"route\": \"account_management\",\n   \"date\": \"2026-09-30T09:19:00+00:00\"\n  },\n  {\n   \"id\": \"71a03e5a571c2a63\",\n   \"quote\": \"we had to retrain three people just to find the new location, and someone even submitted a payment in error because the button moved... unexpected interface changes moved key controls without warning — it’s causing real errors in claims and payments.\",\n   \"account\": \"Linnet House Insurance\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-19T10:29:00Z\"\n  },\n  {\n   \"id\": \"7dccff3918b6f081\",\n   \"quote\": \"We need predictability so our staff don’t have to keep relearning where things are.\",\n   \"account\": \"Stannary Commercial\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-16T15:14:00+00:00\"\n  },\n  {\n   \"id\": \"86e3ed2f99935808\",\n   \"quote\": \"Your last update moved some controls without warning... Our teams had to retrain because of unexpected interface changes — and we’re still seeing errors from it.\",\n   \"account\": \"Hollinbrook Home Insurance\",\n   \"route\": \"account_management\",\n   \"date\": \"2026-09-06T13:01:00+00:00\"\n  },\n  {\n   \"id\": \"cf4fe8c6ca8d873d\",\n   \"quote\": \"We’ve had to retrain our claims team twice in three months because of unannounced screen changes — it’s disruptive and costly\",\n   \"account\": \"Quillon Business Insurance\",\n   \"route\": \"account_management\",\n   \"date\": \"2026-09-22T16:21:00+00:00\"\n  }\n ],\n \"fact_sheet\": {\n  \"as_of\": \"2026-10-01\",\n  \"accounts_n\": 7,\n  \"mentions_n\": 18,\n  \"routes_n\": 4,\n  \"mentions_by_route\": {\n   \"onboarding\": 1,\n   \"sales\": 4,\n   \"account_management\": 6,\n   \"support\": 7\n  },\n  \"arr_total_gbp\": 7360000.0,\n  \"renewals_90d_n\": 1,\n  \"accounts\": [\n   {\n    \"name\": \"Brindlecombe Home\",\n    \"arr_gbp\": null,\n    \"renewal_date\": null,\n    \"mentions\": 2\n   },\n   {\n    \"name\": \"Quillon Business Insurance\",\n    \"arr_gbp\": 860000.0,\n    \"renewal_date\": \"2027-01-20\",\n    \"mentions\": 3\n   },\n   {\n    \"name\": \"Stannary Commercial\",\n    \"arr_gbp\": 540000.0,\n    \"renewal_date\": \"2026-12-05\",\n    \"mentions\": 3\n   },\n   {\n    \"name\": \"Wexmoor Motor\",\n    \"arr_gbp\": 1950000.0,\n    \"renewal_date\": \"2027-06-30\",\n    \"mentions\": 2\n   },\n   {\n    \"name\": \"Linnet House Insurance\",\n    \"arr_gbp\": 360000.0,\n    \"renewal_date\": \"2027-03-14\",\n    \"mentions\": 4\n   },\n   {\n    \"name\": \"Callowfield Auto Assurance\",\n    \"arr_gbp\": 1250000.0,\n    \"renewal_date\": \"2027-03-31\",\n    \"mentions\": 2\n   },\n   {\n    \"name\": \"Hollinbrook Home Insurance\",\n    \"arr_gbp\": 2400000.0,\n    \"renewal_date\": \"2027-01-15\",\n    \"mentions\": 1\n   }\n  ]\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I verified the counts and figures against the fact sheet: 7 accounts, 18 mentions across 4 routes, and the route distribution (1 onboarding, 4 sales, 6 account management, 7 support) all match exactly. The total ARR of GBP 7,360,000 correctly refers to the six accounts with specified values (Brindlecombe Home's ARR is null), and the individual ARR figures (Quillon 860k, Stannary 540k, Linnet 360k, Wexmoor 1950k, Callowfield 1250k, Hollinbrook 2400k) match. The account-specific claims are supported by the cited quotes: Quillon's 'retrain our claims team twice in three months', Stannary's 'retrain staff mid-cycle... errors in claims and payments', and Linnet House's payment submitted in error after a button moved. Renewal dates (Stannary 2026-12-05, Quillon 2027-01-20), the single renewal in 90 days, and September/October 2026 mention dates are all consistent with the fact sheet and cited insights, and no cited evidence contradicts any brief claim.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 2893,
+   "tokens_out": 472,
+   "cost_usd": 0.00193064
+  }
+ }
+}

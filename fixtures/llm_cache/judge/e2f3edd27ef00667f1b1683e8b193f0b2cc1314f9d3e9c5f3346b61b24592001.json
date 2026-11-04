@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"Garage estimate files are incorrectly categorized as Correspondence, requiring manual re‑categorisation.\",\n \"quotes\": [\n  {\n   \"date\": \"2026-09-10T09:41:00+00:00\",\n   \"quote\": \"Also, when we upload garage estimates, they land under Correspondence — that incorrect file type is causing handlers to manually re-categorise everything.\",\n   \"route\": \"onboarding\"\n  },\n  {\n   \"date\": \"2026-09-14T15:35:00Z\",\n   \"quote\": \"click \\\"Document type\\\", rage x5...click \\\"Save\\\"\",\n   \"route\": \"sessions\"\n  },\n  {\n   \"date\": \"2026-10-06T14:24:00+00:00\",\n   \"quote\": \"when we upload garage estimates, they’re landing in the wrong document category—like under Correspondence—and we’re having to manually move them, which risks things slipping through the cracks.\",\n   \"route\": \"onboarding\"\n  },\n  {\n   \"date\": \"2026-10-18T08:15:00+00:00\",\n   \"quote\": \"Every time we upload a garage estimate, it lands in correspondence — it’s a wrong document category and handlers keep missing key evidence because of it, which delays claims resolution.\",\n   \"route\": \"support\"\n  },\n  {\n   \"date\": \"2026-09-05T14:45:00Z\",\n   \"quote\": \"Documents: click \\\"Document type\\\", rage x5... Documents: click \\\"Open\\\"\",\n   \"route\": \"sessions\"\n  },\n  {\n   \"date\": \"2026-09-03T12:51:00Z\",\n   \"quote\": \"Documents: click \\\"Document type\\\", rage x5\",\n   \"route\": \"sessions\"\n  }\n ],\n \"title\": \"Garage estimate files are incorrectly categorized as Correspondence, requiring manual re‑categorisation.\"\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The claim is that garage estimate uploads are misclassified as Correspondence, forcing manual re-categorisation. Multiple quotes (onboarding 2026-09-10, 2026-10-06, support 2026-10-18) consistently describe the same product behaviour causing handler rework and missed evidence, and session data shows repeated rage clicks on 'Document type'. This is a product defect a squad could act on (classification logic), not pricing, customer IT, or a help-article issue.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 638,
+   "tokens_out": 117,
+   "cost_usd": 0.00047859
+  }
+ }
+}
