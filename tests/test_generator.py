@@ -484,3 +484,13 @@ def test_role_word_passes_when_written_lowercase_elsewhere_and_invented_name_fai
 def test_season_names_pass_the_name_check():
     from generator.verify import unknown_names
     assert unknown_names('the review is due before Summer and again in Winter', 42) == []
+
+
+def test_internal_noise_label_is_absent_where_an_admin_note_is_forbidden():
+    from generator.planner import plan
+    from generator.writer import record_schema
+    r = next(r for r in plan(43)['records'] if r['source'] == 'intercom' and not r.get('admin_note'))
+    enum = record_schema(r, 43)['properties']['turns']['items']['properties']['noise_category']['enum']
+    assert 'internal' not in enum and None in enum
+    w = next(r for r in plan(43)['records'] if r['source'] == 'intercom' and r.get('admin_note'))
+    assert 'internal' in record_schema(w, 43)['properties']['turns']['items']['properties']['noise_category']['enum']

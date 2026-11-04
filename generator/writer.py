@@ -67,7 +67,10 @@ def record_schema(record, seed):
     n = sum(2 if m.get('agreement') else 1 for m in record['mentions']) + len(extras)  # an agreement adds an internal turn too
     syn = {b['id']: b['synonym'] for b in mention_briefs(seed, record) if 'synonym' in b}
     item = copy.deepcopy(TURN_ITEM)
-    item['properties']['noise_category'] = {'enum': [*load(seed)['noise']['categories'], None]}
+    cats = load(seed)['noise']['categories']
+    if seed != 42 and record['source'] == 'intercom' and not record.get('admin_note'):
+        cats = [c for c in cats if c != 'internal']  # forbidden here; narrowed for seed 43 only because seed 42's committed cache is keyed by the old schema
+    item['properties']['noise_category'] = {'enum': [*cats, None]}
     turns = {'type': 'array', 'items': item}
     if record.get('turns_range'):
         turns['minItems'], turns['maxItems'] = (max(0, x - n) for x in record['turns_range'])
