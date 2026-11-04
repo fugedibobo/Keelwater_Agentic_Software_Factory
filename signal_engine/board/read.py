@@ -59,7 +59,8 @@ def md(text):
             continue
         flush()
         if m:
-            out.append(f"<h{len(m.group(1)) + 2}>{escape(m.group(2))}</h{len(m.group(1)) + 2}>")
+            n = min(6, len(m.group(1)) + 4)  # sits under the handoff's own h4
+            out.append(f"<h{n}>{escape(m.group(2))}</h{n}>")
         elif line:
             out.append(f"<p>{escape(line)}</p>")
     flush()

@@ -44,9 +44,9 @@
    <li><q class="quote">{{ e.before }}<mark>{{ e.match }}</mark>{{ e.after }}</q> <a href="{{ raw_href(e.raw_id) }}">{{ e.ref }}</a></li>{% endfor %}</ul>{% endif %}
   <h4>Accounts</h4>
   <table><thead><tr><th scope="col">Account</th><th scope="col">ARR (GBP)</th><th scope="col">Tier</th><th scope="col">Renewal</th><th scope="col">Insights</th></tr></thead><tbody>
-  {% for a in o.accounts %}<tr><td>{{ a.name or a.account_id }}</td><td>{% if a.in_hubspot %}{{ m.num(a.arr_gbp) }}{% else %}not in HubSpot{% endif %}</td><td>{{ a.tier or '-' }}</td><td>{{ a.renewal or '-' }}</td><td>{{ a.insights }}</td></tr>{% else %}<tr><td colspan="5">No resolved accounts.</td></tr>{% endfor %}</tbody></table>
+  {% for a in o.accounts %}<tr><td>{{ a.name or a.account_id }}</td><td>{% if a.in_hubspot %}{{ m.money(a.arr_gbp) }}{% else %}not in HubSpot{% endif %}</td><td>{{ a.tier or '-' }}</td><td>{{ a.renewal or '-' }}</td><td>{{ a.insights }}</td></tr>{% else %}<tr><td colspan="5">No resolved accounts.</td></tr>{% endfor %}</tbody></table>
   {% if o.unresolved %}<p>Unresolved: {{ o.unresolved }} insights with no account (breadth counts 0).</p>{% endif %}
-  {% if o.history %}<h4>Decisions</h4><ul>{% for h in o.history %}<li>{{ h.created_at[:16] }} {{ h.actor }}: {{ h.action }}{% if h.reason_code %} {{ h.reason_code }}{% endif %}{% if h.note %} ({{ h.note }}){% endif %}</li>{% endfor %}</ul>{% endif %}
+  {% if o.history %}<h4>Decisions</h4><ul>{% for h in o.history %}<li>{{ h.created_at|uk }} {{ h.created_at[11:16] }} {{ h.actor }}: {{ h.action }}{% if h.reason_code %} {{ h.reason_code }}{% endif %}{% if h.note %} ({{ h.note }}){% endif %}</li>{% endfor %}</ul>{% endif %}
   <div class="actions" data-id="{{ o.opportunity_id }}" data-title="{{ o.title }}" data-evidence="{{ o.evidence|length }}">
    {% set open_ = o.status == 'proposed' %}
    {{ m.btn('Accept', 'accept', o.opportunity_id, static or not open_) }}

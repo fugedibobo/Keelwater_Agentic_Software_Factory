@@ -45,8 +45,8 @@
     if (!lastEvent) return;
     const r = await post("/api/undo", { audit_event_id: lastEvent });
     clearInterval(timer); lastEvent = null;
-    toast(r.ok ? "Undone." : "Could not undo: " + (r.data.detail || "unknown"));
     if (r.ok) await refresh();
+    toast(r.ok ? "Undone." : "Could not undo: " + (r.data.detail || "unknown"));
   };
 
   document.addEventListener("click", async (e) => {

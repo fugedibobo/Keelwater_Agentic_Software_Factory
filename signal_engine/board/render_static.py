@@ -14,6 +14,7 @@ HERE = Path(__file__).parent
 DIAGRAMS = (("production-architecture.html", "Architecture"), ("agentic-pdlc.html", "Product development lifecycle"))
 ENV = Environment(loader=FileSystemLoader(HERE / "templates"), autoescape=select_autoescape(["html"]))
 ENV.filters["md"] = read.md
+ENV.filters["uk"] = read.uk
 
 
 def context(store, reports_dir, static):

@@ -6,8 +6,8 @@
 
   function showTab() {
     const id = location.hash.slice(1);
-    const tab = $("#" + id + ".tab") || $("#opportunities");
-    if (!tab || (id && !$("#" + id + ".tab"))) return;
+    const hit = id && document.getElementById(id), tab = id ? (hit && hit.classList.contains("tab") ? hit : null) : $("#opportunities");
+    if (!tab) return;  // a hash that is not a tab (for example a raw record) leaves the current tab alone
     $$(".tab").forEach((t) => t.classList.toggle("active", t === tab));
     $$("[role=tab]").forEach((a) => a.setAttribute("aria-selected", a.dataset.tab === tab.id ? "true" : "false"));
   }

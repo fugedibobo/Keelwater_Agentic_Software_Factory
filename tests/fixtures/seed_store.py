@@ -65,7 +65,7 @@ def seed(out_dir):
                                    occurred_at=("2026-10-30" if k == 0 else "2026-09-20") + "T10:00:00+00:00",
                                    payload_json={"note": "synthetic record", "n": n}))
             quote = f"I have to redo forty of these by hand every week number {n}"
-            text = f"Internal prompt line. {quote} and it takes ages."
+            text = f"{quote} and it takes ages."
             sid = content_id("snippet", raw, 0, text)
             ins("snippet", dict(snippet_id=sid, raw_id=raw, text=text, context_text="So what slows you down most?",
                                 start_ms=872000 + n * 1000, end_ms=880000 + n * 1000))

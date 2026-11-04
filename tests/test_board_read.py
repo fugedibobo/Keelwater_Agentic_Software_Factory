@@ -51,7 +51,7 @@ def test_drill_down_quotes_accounts_and_disputed_tags(seeded):
     s, _ = seeded
     o = read.opportunity(s, "o1")
     e = o["evidence"][0]
-    assert e["match"] in e["before"] + e["match"] + e["after"] and e["match"].startswith("I have to redo") and "Internal prompt line" in e["before"]
+    assert e["match"] in e["before"] + e["match"] + e["after"] and e["match"].startswith("I have to redo") and e["before"] == "" and e["after"].startswith(" and it takes")
     assert e["context"] == "So what slows you down most?" and e["ref"]
     assert o["unresolved"] == 1 and o["accounts"] and o["accounts"][0]["in_hubspot"]
     s.db.execute("DELETE FROM account WHERE account_id='acc1'"); s.db.commit()
@@ -68,7 +68,7 @@ def test_handoffs_validity_and_preview(seeded):
     assert by["o4"]["handoff"]["errors"] == [] and not by["o4"]["handoff"]["preview"]
     bad = by["o3"]["handoff"]
     assert bad["errors"] and bad["preview"]  # accepted, not yet intent_drafted
-    assert read.md("# T\n\n- a <b>\n- c")  .startswith("<h3>T</h3><ul><li>a &lt;b&gt;")
+    assert read.md("# T\n\n- a <b>\n- c")  .startswith("<h5>T</h5><ul><li>a &lt;b&gt;")
 
 
 def test_pipeline_evals_and_audit_chain(seeded):

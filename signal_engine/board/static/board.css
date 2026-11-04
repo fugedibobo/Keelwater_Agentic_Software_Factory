@@ -36,7 +36,7 @@ main:not(:has(.tab.active)):not(:has(.tab:target)) #opportunities { display: blo
 .btn:disabled { color: var(--muted); border-style: dashed; cursor: not-allowed; }
 select, input:not([type=checkbox]) { font: inherit; padding: var(--s1); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--fg); max-width: 100%; }
 .opps { list-style: none; margin: var(--s3) 0; padding: 0; display: grid; gap: var(--s2); }
-.opp { background: var(--surface); border: 1px solid var(--line-soft); border-radius: var(--radius); }
+.opp { padding: var(--s1) 0; background: var(--surface); border: 1px solid var(--line-soft); border-radius: var(--radius); }
 .opp > details > summary { display: flex; flex-wrap: wrap; gap: var(--s1) var(--s3); align-items: baseline; padding: var(--s2) var(--s3); cursor: pointer; }
 .opp .title { font-weight: 600; flex: 1 1 18rem; } .rank { font-variant-numeric: tabular-nums; color: var(--muted); }
 .status { font-size: .85rem; padding: 0 var(--s2); border: 1px solid var(--line); border-radius: 999px; }
@@ -64,7 +64,7 @@ iframe { width: 100%; height: 28rem; border: 1px solid var(--line); border-radiu
 .line { fill: none; stroke: var(--accent); stroke-width: 2; } .line.warn { stroke: var(--bad); }
 .toast { position: fixed; bottom: var(--s3); left: var(--s3); max-width: calc(100% - 2 * var(--s3)); background: var(--fg); color: var(--bg); padding: 0 var(--s3); border-radius: var(--radius); }
 .toast:not(:empty) { padding: var(--s2) var(--s3); } .toast .btn { margin-left: var(--s2); }
-dialog { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--fg); max-width: 28rem; }
+dialog { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--fg); max-width: 28rem; padding: var(--s3); }
 dialog::backdrop { background: rgba(0, 0, 0, .5); }
 .keys, footer { color: var(--muted); font-size: .9rem; } .placeholder { padding: var(--s3); border: 1px dashed var(--line); }
 @media (max-width: 40rem) { header, nav, main, footer { padding-left: var(--s3); padding-right: var(--s3); } .opp .title { flex-basis: 100%; } iframe { height: 20rem; } }
