@@ -1,5 +1,6 @@
 """Renders the board page with Jinja: live (served by app.py) or static (one index.html that opens from file://)."""
 
+import re
 import shutil
 from pathlib import Path
 
@@ -17,13 +18,17 @@ ENV.filters["md"] = read.md
 ENV.filters["uk"] = read.uk
 
 
+# Windows drive (C:\ or C:/), UNC (\\server\), or a POSIX system/home root; \\ pairs cover JSON-escaped text.
+_ABS_PATH = re.compile(r"""(?:(?<![\w])[A-Za-z]:[\\/]|\\\\+[^\s\\/"']+[\\/]|(?<![\w.:/-])/(?:home|Users|tmp|var|etc|mnt|opt|root|srv|private)/)[^\s"',;)<>]*""")
+
+
 def _scrub(value):
-    """Drop the local checkout path from exported audit data (rows written before ids became repo-relative)."""
+    """Drop absolute paths from exported audit data: the checkout root becomes repo-relative, any other absolute path a neutral token."""
     if isinstance(value, str):
         for root in {str(config.ROOT), config.ROOT.as_posix()}:
             if root in value:
                 value = value.replace(root, "").lstrip("\\/").replace("\\", "/")
-        return value
+        return _ABS_PATH.sub("<path>", value)
     if isinstance(value, dict):
         return {k: _scrub(v) for k, v in value.items()}
     return [_scrub(v) for v in value] if isinstance(value, list) else value

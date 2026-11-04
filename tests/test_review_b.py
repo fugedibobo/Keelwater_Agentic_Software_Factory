@@ -106,3 +106,17 @@ def test_7_static_export_scrubs_existing_absolute_paths(board, tmp_path):
     html = (out / "index.html").read_text(encoding="utf-8")
     assert str(config.ROOT) not in html and str(config.ROOT).replace("\\", "/") not in html and str(config.ROOT).replace("\\", "\\\\") not in html
     assert "labels/human" in html
+
+
+def test_7_static_export_strips_any_absolute_path(board, tmp_path):
+    c, s, _ = board
+    paths = [r"C:\Users\someone\other-worktree\labels\human", "D:/external/labels/human", r"\\fileserver\share\labels\human",
+             "/home/bob/labels/human", "/Users/bob/labels/human", "/tmp/zz_labels"]
+    for p in paths:
+        s.append_audit("system", "system", "labels.import", "labels", p, {"files": 1, "from": p})
+    s.db.commit()
+    out = tmp_path / "site"
+    board_cli.main(["static", "--db", str(s.path), "--out", str(out)])
+    html = (out / "index.html").read_text(encoding="utf-8")
+    for leak in ("someone", "other-worktree", "external", "fileserver", "/home/bob", "/Users/bob", "zz_labels"):
+        assert leak not in html, leak
