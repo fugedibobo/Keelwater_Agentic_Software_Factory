@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (duplicate) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is the core problem still open, not solved by a shipped story and not covered by a roadmap item? Pass means yes.\nCompare the problem itself, not the product area. A spike that is unstarted or in progress is not shipped.\nFail if a completed story solves the same problem, or a roadmap item already covers it.\nThe evidence is the problem statement and the five most similar stories and roadmap pages, with status and dates.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"Users are locked out of the claims portal because they cannot reset their passwords. This prevents them from accessing critical documents and dashboards needed to serve policyholders.\",\n \"similar\": [\n  {\n   \"source\": \"notion\",\n   \"id\": \"3d6f7b4a-ed9c-52d3-97a0-2d967a79bcf2\",\n   \"similarity\": 0.072,\n   \"record\": \"{\\\"id\\\": \\\"3d6f7b4a-ed9c-52d3-97a0-2d967a79bcf2\\\", \\\"object\\\": \\\"page\\\", \\\"properties\\\": {\\\"Name\\\": {\\\"title\\\": [{\\\"plain_text\\\": \\\"Policyholder milestone notifications\\\", \\\"text\\\": {\\\"content\\\": \\\"Policyholder milestone notifications\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"title\\\"}, \\\"Problem\\\": {\\\"rich_text\\\": [{\\\"plain_text\\\": \\\"Keelwater will automatically notify policyholders when they reach key milestones in their claims process, such as document submission completion, adjuster assignment, or payout approval, helping them stay informed without needing to check status manually.\\\", \\\"text\\\": {\\\"content\\\": \\\"Keelwater will automatically notify policyholders when they reach key milestones in their claims process, such as document submi\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4127\",\n   \"similarity\": 0.062,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-10-06T00:00:00Z\\\", \\\"description\\\": \\\"Users can now upload multiple documents at once to a claim in Keelwater, streamlining the process and reducing manual effort for claims handlers.\\\", \\\"id\\\": 4127, \\\"name\\\": \\\"Bulk upload documents to a claim\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4131\",\n   \"similarity\": 0.058,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-09-15T00:00:00Z\\\", \\\"description\\\": \\\"Keelwater's workspace administration feature allows users to manage permissions, configure settings, and organize teams within their claims environment — all through a centralized, intuitive dashboard.\\\", \\\"id\\\": 4131, \\\"name\\\": \\\"Workspace administration\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4133\",\n   \"similarity\": 0.054,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": false, \\\"completed_at\\\": null, \\\"description\\\": \\\"Keelwater's document classifier confidence threshold setting allows users to define the minimum confidence level required for automatic categorization of claims documents, ensuring only high-certainty classifications are applied without manual review.\\\", \\\"id\\\": 4133, \\\"name\\\": \\\"Document classifier confidence threshold\\\", \\\"started\\\": false, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 1}\"\n  },\n  {\n   \"source\": \"notion\",\n   \"id\": \"4f3af2fd-e874-528b-a6f7-1719625085d3\",\n   \"similarity\": 0.051,\n   \"record\": \"{\\\"id\\\": \\\"4f3af2fd-e874-528b-a6f7-1719625085d3\\\", \\\"object\\\": \\\"page\\\", \\\"properties\\\": {\\\"Name\\\": {\\\"title\\\": [{\\\"plain_text\\\": \\\"Claims timeline\\\", \\\"text\\\": {\\\"content\\\": \\\"Claims timeline\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"title\\\"}, \\\"Problem\\\": {\\\"rich_text\\\": [{\\\"plain_text\\\": \\\"Keelwater's Claims timeline provides a clear, chronological view of each claim's progress, helping users track key events, decisions, and deadlines from submission through resolution.\\\", \\\"text\\\": {\\\"content\\\": \\\"Keelwater's Claims timeline provides a clear, chronological view of each claim's progress, helping users track key events, decisions, and deadlines from submission through resolution.\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"rich_text\\\"}, \\\"Status\\\": {\\\"sta\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked the five most similar stories and roadmap items against the password-reset lockout problem. None address password reset or portal access: the completed stories cover bulk document upload (4127) and workspace administration (4131), and the roadmap items cover milestone notifications, document classifier thresholds, and claims timeline. No shipped story solves this problem and no roadmap item covers it.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1164,
+   "tokens_out": 90,
+   "cost_usd": 0.00131664
+  }
+ }
+}

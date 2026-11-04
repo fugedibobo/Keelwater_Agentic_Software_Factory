@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: Letters to joint policyholders only display one name, leading to confusion.\n  quote: we’re getting complaints because our letters to joint policyholders only show one name — it’s causing confusion\n- problem: The system fails to merge both joint policyholder names, displaying only one name.\n  quote: We’re getting complaints because the system isn’t merging both names correctly — it’s only showing one joint policyholder names, and customers are understandably upset.\n- problem: The system merges joint policyholder names incorrectly, often showing only one or the wrong name.\n  quote: We’re getting complaints because when there are joint policyholder names, the system merges them incorrectly—sometimes only showing one or the wrong one, and it’s causing real issues with policyholders.\n- problem: Joint policyholder names are not being merged correctly, leading to complaints.\n  quote: Appreciate you taking this seriously — we’ve had three complaints this month just because the joint policyholder names weren’t merged correctly.\n- problem: Letters to joint policyholders only display one name, causing complaints.\n  quote: We’re seeing repeated issues where letters sent to joint policyholders only display one name — this leads to complaints and we need the joint policyholder names to appear correctly in all communications.\n- problem: Letters generated for joint policyholder cases have mismatched names.\n  quote: We’ve got a few joint policyholder cases where the letters are coming out with mismatched names—causing complaints.\n- problem: When letters merge multiple names, only one name appears—often the wrong one—leading to client complaints and loss of trust.\n  quote: The issue with letters merging multiple names on letters is causing us real problems — clients are complaining because only one name shows up, and sometimes it’s not even the right one.\n- problem: The system mishandles joint policyholder names in outgoing letters.\n  quote: we’ve been having some trouble with joint policyholder names in outgoing letters"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Joint Policyholder Names Not Displayed Correctly\",\n  \"problem_statement\": \"Letters to joint policyholders show only one name or the wrong name because the system fails to merge both names properly. This confuses recipients and erodes trust in communications.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 501,
+   "tokens_out": 58,
+   "cost_usd": 0.00010889
+  }
+ }
+}

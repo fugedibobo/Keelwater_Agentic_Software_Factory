@@ -1,0 +1,58 @@
+{
+ "request": {
+  "model": "deepseek/deepseek-v3.2",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou write a one-page opportunity brief for a Keelwater product manager. Keelwater makes claims-handling software. You use only the facts and customer insights below.\n</role>\n<opportunity>\n{\n \"title\": \"Inconsistent data and access issues\",\n \"problem_statement\": \"Users see mismatched numbers despite submitting correct data, and role assignments appear accurate but still block proper access. This undermines trust in the platform's accuracy and usability.\"\n}\n</opportunity>\n<fact_sheet>\n{\n \"as_of\": \"2026-10-01\",\n \"accounts_n\": 2,\n \"mentions_n\": 2,\n \"routes_n\": 1,\n \"mentions_by_route\": {\n  \"support\": 2\n },\n \"arr_total_gbp\": 215000.0,\n \"renewals_90d_n\": 0,\n \"accounts\": [\n  {\n   \"name\": \"Duncastle Auto\",\n   \"arr_gbp\": 80000.0,\n   \"renewal_date\": \"2027-08-19\",\n   \"mentions\": 1\n  },\n  {\n   \"name\": \"Ormsgill Cyber\",\n   \"arr_gbp\": 135000.0,\n   \"renewal_date\": null,\n   \"mentions\": 1\n  }\n ]\n}\n</fact_sheet>\n<insights>\n[\n {\n  \"id\": \"fc524069d591a3aa\",\n  \"quote\": \"everything looks correct, but the numbers still don’t match what we submitted last week.\",\n  \"account\": \"Duncastle Auto\",\n  \"route\": \"support\",\n  \"date\": \"2026-09-03T13:25:00+00:00\"\n },\n {\n  \"id\": \"fecead1bb8254bea\",\n  \"quote\": \"I’m under the impression I’m assigned the right role, but maybe something’s misconfigured on our end.\",\n  \"account\": \"Ormsgill Cyber\",\n  \"route\": \"support\",\n  \"date\": \"2026-10-28T08:26:00+00:00\"\n }\n]\n</insights>\n<rules>\n- Cite every insight you rely on as [i:INSIGHT_ID], using the id exactly as given. Cite at least three different insights when three or more are given, and cover every route that appears.\n- Use these sections, in this order, as Markdown headings: \"## Problem\", \"## Who is affected\", \"## Evidence\", \"## Why now\".\n- Every bullet under \"Who is affected\" and \"Evidence\" ends with a citation. Every sentence that contains a number or a date carries a citation.\n- Copy every account count, mention count, route count, renewal count and ARR figure from the fact sheet. Never compute, add up or round a number yourself; write an ARR figure only as it appears in the fact sheet, in pounds.\n- Write counts as digits exactly as the fact sheet gives them (\"5 accounts\", never \"five accounts\"); never write \"one customer\" or \"a single customer\" unless the fact sheet count says 1 for that same thing.\n- Put text in quotation marks only when it is a customer quote copied word for word, character for character, from one insight cited in the same sentence. Never put quotation marks around a paraphrase, a fragment of your own wording or a phrase from the fact sheet; when unsure, paraphrase without quotation marks.\n- Name a customer only when a cited insight in the same sentence belongs to that customer.\n- Do not claim more than the evidence shows: no \"all customers\", no scope wider than the cited accounts, and mention any cited insight that points the other way.\n- Do not recommend a solution.\n</rules>\n<output>\nJSON only: {\"body_md\": the brief as Markdown, \"citations\": the list of insight ids you cited}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 1500,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "brief",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "body_md": {
+       "title": "Body Md",
+       "type": "string"
+      },
+      "citations": {
+       "items": {
+        "type": "string"
+       },
+       "title": "Citations",
+       "type": "array"
+      }
+     },
+     "required": [
+      "body_md",
+      "citations"
+     ],
+     "title": "BriefOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\"body_md\": \"## Problem\\nUsers experience mismatched data outputs despite submitting correct inputs, and encounter access issues even when role assignments appear accurate. This undermines trust in the platform's accuracy and usability.\\n\\n## Who is affected\\n- Two accounts have reported this problem via the support route [i:fc524069d591a3aa][i:fecead1bb8254bea].\\n\\n## Evidence\\n- The problem has been reported 2 times [i:fc524069d591a3aa][i:fecead1bb8254bea].\\n- All 2 mentions came through the support route [i:fc524069d591a3aa][i:fecead1bb8254bea].\\n- One account, Duncastle Auto, reported that everything looks correct, but the numbers still don’t match what we submitted last week [i:fc524069d591a3aa].\\n- Another account, Ormsgill Cyber, reported being under the impression of having the right role, but suggested something might be misconfigured [i:fecead1bb8254bea].\\n- The total Annual Recurring Revenue (ARR) from the affected accounts is £215,000.0 [i:fc524069d591a3aa][i:fecead1bb8254bea].\\n- Duncastle Auto contributes £80,000.0 of ARR and has a renewal date of 2027-08-19 [i:fc524069d591a3aa].\\n- Ormsgill Cyber contributes £135,000.0 of ARR [i:fecead1bb8254bea].\\n- There have been 0 renewals in the last 90 days [i:fc524069d591a3aa][i:fecead1bb8254bea].\\n\\n## Why now\\n- The most recent report was made on 2026-10-28 [i:fecead1bb8254bea].\\n- An earlier report was made on 2026-09-03 [i:fc524069d591a3aa].\\n- The fact sheet data is current as of 2026-10-01, indicating the issue is active and unresolved [i:fc524069d591a3aa][i:fecead1bb8254bea].\", \"citations\": [\"fc524069d591a3aa\", \"fecead1bb8254bea\"]}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 823,
+   "tokens_out": 544,
+   "cost_usd": 0.0004207
+  }
+ }
+}

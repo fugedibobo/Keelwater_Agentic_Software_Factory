@@ -1,0 +1,8 @@
+# ASSUMED: synthetic people allowed to act on the Signal Board (demo allow-list; real authentication is out of demo scope).
+{
+  "people": {
+    "priya.n": "priya.n@keelwater.example",
+    "marcus.o": "marcus.o@keelwater.example",
+    "sana.k": "sana.k@keelwater.example"
+  }
+}

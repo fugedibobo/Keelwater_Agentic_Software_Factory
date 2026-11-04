@@ -166,7 +166,7 @@ T1        35      2.85       59.95     159.88
 T2        15      5.71        0.00      85.65
 T3         5     14.28        0.00      71.38
 All Opus 5.5 : 1142.00 USD per day
-Routed       : 368.29 USD per day
+Routed       : 368.30 USD per day
 Saving       : 67.8%
 ```
 
@@ -174,4 +174,32 @@ Saving       : 67.8%
 
 This repo was built with the same pattern: an Opus orchestrator, Codex Terra and Gemini via agy as builders, and Sonnet subagents checking every pull request. Gemini was used here only to save cost on a non-critical demo. It is not part of the Keelwater proposal.
 
-Per-work-order figures: reports/factory/build-telemetry.csv, filled after the build by #28 Part B.
+Figures per work order and engine task: reports/factory/build-telemetry.csv, filled and refreshed by scripts/telemetry_summary.py (#28 Part B; columns explained in reports/factory/README.md). The block below is generated from that file: do not edit it by hand.
+
+<!-- measured:start -->
+
+9 done, 3 partial, 1 in progress: refreshed on 04/11/2026
+(47 rows across 13 work orders.)
+
+Tokens and live spend per engine. Measured and estimated tokens are kept apart; rows with no figure are counted, never added in.
+
+| Engine | Tokens measured | Tokens estimated | Rows with tokens not reported | Live USD |
+|---|---|---|---|---|
+| opus | 0 | 107,000 | 0 | not reported |
+| sonnet | 3,555,000 | 187,000 | 5 | 1.27 estimated |
+| codex | 0 | 0 | 9 | not reported |
+| agy | 53,000 | 0 | 0 | not reported |
+
+First-check pass rate, reworks and share of building, per engine (build rows only; rows without a PASS or REWORK first check are left out of the rate).
+
+| Engine | First check passed | Pass rate | Reworks | Build rows | Share of build rows |
+|---|---|---|---|---|---|
+| opus | 0 of 0 | n/a | 0 | 0 | 0% |
+| sonnet | 7 of 11 | 64% | 4 | 12 | 92% |
+| codex | 1 of 1 | 100% | 0 | 1 | 8% |
+| agy | 0 of 0 | n/a | 0 | 0 | 0% |
+
+Total reworks (REWORK verdicts on build pull requests): 4.
+Codex and agy built 1 of 12 done or partial work orders (8%); their share of all 13 build rows is 8%.
+
+<!-- measured:end -->

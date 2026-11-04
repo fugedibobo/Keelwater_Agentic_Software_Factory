@@ -1,0 +1,58 @@
+{
+ "request": {
+  "model": "deepseek/deepseek-v3.2",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou write a one-page opportunity brief for a Keelwater product manager. Keelwater makes claims-handling software. You use only the facts and customer insights below.\n</role>\n<opportunity>\n{\n \"title\": \"Missing checkbox locks out handlers\",\n \"problem_statement\": \"Handlers are being locked out when a required checkbox is not selected. This disrupts their workflow and delays claim processing.\"\n}\n</opportunity>\n<fact_sheet>\n{\n \"as_of\": \"2026-11-03\",\n \"accounts_n\": 1,\n \"mentions_n\": 1,\n \"routes_n\": 1,\n \"mentions_by_route\": {\n  \"support\": 1\n },\n \"arr_total_gbp\": 250000.0,\n \"renewals_90d_n\": 1,\n \"accounts\": [\n  {\n   \"name\": \"Ashcombe Property Mutual\",\n   \"arr_gbp\": 250000.0,\n   \"renewal_date\": \"2026-11-30\",\n   \"mentions\": 1\n  }\n ]\n}\n</fact_sheet>\n<insights>\n[\n {\n  \"id\": \"ee29a0a299a1566d\",\n  \"quote\": \"we’ve had two handlers locked out already this week just from missing a checkbox\",\n  \"account\": \"Ashcombe Property Mutual\",\n  \"route\": \"support\",\n  \"date\": \"2026-10-25T14:19:00+00:00\"\n }\n]\n</insights>\n<rules>\n- Cite every insight you rely on as [i:INSIGHT_ID], using the id exactly as given. Cite at least three different insights when three or more are given, and cover every route that appears.\n- Use these sections, in this order, as Markdown headings: \"## Problem\", \"## Who is affected\", \"## Evidence\", \"## Why now\".\n- Every bullet under \"Who is affected\" and \"Evidence\" ends with a citation. Every sentence that contains a number or a date carries a citation.\n- Copy every account count, mention count, route count, renewal count and ARR figure from the fact sheet. Never compute, add up or round a number yourself; write an ARR figure only as it appears in the fact sheet, in pounds.\n- Write counts as digits exactly as the fact sheet gives them (\"5 accounts\", never \"five accounts\"); never write \"one customer\" or \"a single customer\" unless the fact sheet count says 1 for that same thing.\n- Put text in quotation marks only when it is a customer quote copied word for word, character for character, from one insight cited in the same sentence. Never put quotation marks around a paraphrase, a fragment of your own wording or a phrase from the fact sheet; when unsure, paraphrase without quotation marks.\n- Name a customer only when a cited insight in the same sentence belongs to that customer.\n- Do not claim more than the evidence shows: no \"all customers\", no scope wider than the cited accounts, and mention any cited insight that points the other way.\n- Do not recommend a solution.\n</rules>\n<output>\nJSON only: {\"body_md\": the brief as Markdown, \"citations\": the list of insight ids you cited}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 1500,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "brief",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "body_md": {
+       "title": "Body Md",
+       "type": "string"
+      },
+      "citations": {
+       "items": {
+        "type": "string"
+       },
+       "title": "Citations",
+       "type": "array"
+      }
+     },
+     "required": [
+      "body_md",
+      "citations"
+     ],
+     "title": "BriefOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"body_md\": \"## Problem\\nHandlers are being locked out of the claims-handling software when a required checkbox is not selected. This disruption to their workflow delays the processing of claims.\\n\\n## Who is affected\\n- Handlers at Ashcombe Property Mutual are being locked out of the system [i:ee29a0a299a1566d].\\n\\n## Evidence\\n- A customer reported that they have had two handlers locked out already in a single week just from missing a checkbox [i:ee29a0a299a1566d].\\n- This issue was reported via the support route [i:ee29a0a299a1566d].\\n- There is 1 account, Ashcombe Property Mutual, with an ARR of £250,000 [i:ee29a0a299a1566d].\\n- There has been 1 mention of this issue in total [i:ee29a0a299a1566d].\\n- The issue was reported on 2026-10-25 [i:ee29a0a299a1566d].\\n\\n## Why now\\n- The issue is actively disrupting workflows, as evidenced by two lockouts occurring within a single week [i:ee29a0a299a1566d].\\n- Ashcombe Property Mutual, the affected account, has a renewal date of 2026-11-30 [i:ee29a0a299a1566d].\\n- There has been 1 renewal in the last 90 days [i:ee29a0a299a1566d].\",\n  \"citations\": [\"ee29a0a299a1566d\"]\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 684,
+   "tokens_out": 366,
+   "cost_usd": 0.00031692
+  }
+ }
+}

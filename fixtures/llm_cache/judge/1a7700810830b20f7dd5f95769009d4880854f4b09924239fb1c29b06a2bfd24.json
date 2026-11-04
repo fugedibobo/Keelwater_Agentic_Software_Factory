@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\nUsers are locked out of the Keelwater claims portal because they cannot reset their passwords. This prevents them from accessing critical documents and dashboards needed to serve policyholders.\\n\\n## Who is affected\\n- Five accounts have reported this issue via support requests [i:0aa5c1d7d2ff3a49][i:0ad2bc981221b1c4][i:1985bf360623f3e8][i:256d22f87c0754fe][i:479d6ae6d863104a][i:662c75b11af4fd54][i:b5ce42913f135e93].\\n- The affected accounts include Linnet House Insurance, Tidewell Marine & Cargo, Merrow Vale Motor, Brackwater Homecover, and Marrowgate Commercial [i:0aa5c1d7d2ff3a49][i:0ad2bc981221b1c4][i:256d22f87c0754fe][i:479d6ae6d863104a][i:b5ce42913f135e93].\\n\\n## Evidence\\n- There have been 7 mentions of this problem, all routed through support [i:0aa5c1d7d2ff3a49][i:0ad2bc981221b1c4][i:1985bf360623f3e8][i:256d22f87c0754fe][i:479d6ae6d863104a][i:662c75b11af4fd54][i:b5ce42913f135e93].\\n- The total Annual Recurring Revenue (ARR) from the five affected accounts is £3,036,000.0 [i:0aa5c1d7d2ff3a49][i:0ad2bc981221b1c4][i:256d22f87c0754fe][i:479d6ae6d863104a][i:b5ce42913f135e93].\\n- Marrowgate Commercial, with an ARR of £1,600,000.0, has a renewal date of 2026-12-12 [i:b5ce42913f135e93].\\n- Users report being locked out and unable to access policyholder documents or the claims dashboard, stating I need to reset my password for the claims portal — can you guide me through it? [i:0aa5c1d7d2ff3a49], I need to reset my password because I can’t access the documents section for policyholders. [i:0ad2bc981221b1c4], and I’m locked out of our claims portal and need to reset my password urgently. [i:256d22f87c0754fe].\\n\\n## Why now\\n- The issue has been reported consistently from 2026-09-29 to 2026-10-25 [i:0aa5c1d7d2ff3a49][i:0ad2bc981221b1c4][i:1985bf360623f3e8][i:256d22f87c0754fe][i:479d6ae6d863104a][i:662c75b11af4fd54][i:b5ce42913f135e93].\\n- With 1 renewal occurring in the next 90 days, continued access issues could impact renewal risk for accounts representing significant ARR [i:b5ce42913f135e93].\",\n \"cited_insights\": [\n  {\n   \"id\": \"0aa5c1d7d2ff3a49\",\n   \"quote\": \"I need to reset my password for the claims portal — can you guide me through it?\",\n   \"account\": \"Linnet House Insurance\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-08T16:12:00+00:00\"\n  },\n  {\n   \"id\": \"0ad2bc981221b1c4\",\n   \"quote\": \"I need to reset my password because I can’t access the documents section for policyholders.\",\n   \"account\": \"Tidewell Marine & Cargo\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-12T13:43:00+00:00\"\n  },\n  {\n   \"id\": \"1985bf360623f3e8\",\n   \"quote\": \"I think my login credentials expired. Can you help me reset them?\",\n   \"account\": \"Linnet House Insurance\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-08T16:12:00+00:00\"\n  },\n  {\n   \"id\": \"256d22f87c0754fe\",\n   \"quote\": \"I’m locked out of our claims portal and need to reset my password urgently.\",\n   \"account\": \"Merrow Vale Motor\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-25T13:47:00+00:00\"\n  },\n  {\n   \"id\": \"479d6ae6d863104a\",\n   \"quote\": \"I need to reset my password ... I’m locked out of the claims dashboard and can’t access policyholder documents.\",\n   \"account\": \"Brackwater Homecover\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-13T12:54:00+00:00\"\n  },\n  {\n   \"id\": \"662c75b11af4fd54\",\n   \"quote\": \"I need to reset my password because I can’t access the claims dashboard anymore.\",\n   \"account\": \"Merrow Vale Motor\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-25T13:47:00+00:00\"\n  },\n  {\n   \"id\": \"b5ce42913f135e93\",\n   \"quote\": \"I need to reset my password for accessing the claims portal — can you guide me through that?\",\n   \"account\": \"Marrowgate Commercial\",\n   \"route\": \"support\",\n   \"date\": \"2026-09-29T10:48:00+00:00\"\n  }\n ],\n \"fact_sheet\": {\n  \"as_of\": \"2026-11-03\",\n  \"accounts_n\": 5,\n  \"mentions_n\": 7,\n  \"routes_n\": 1,\n  \"mentions_by_route\": {\n   \"support\": 7\n  },\n  \"arr_total_gbp\": 3036000.0,\n  \"renewals_90d_n\": 1,\n  \"accounts\": [\n   {\n    \"name\": \"Linnet House Insurance\",\n    \"arr_gbp\": 360000.0,\n    \"renewal_date\": \"2027-03-14\",\n    \"mentions\": 2\n   },\n   {\n    \"name\": \"Tidewell Marine & Cargo\",\n    \"arr_gbp\": 420000.0,\n    \"renewal_date\": \"2027-07-31\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Merrow Vale Motor\",\n    \"arr_gbp\": 46000.0,\n    \"renewal_date\": \"2027-04-08\",\n    \"mentions\": 2\n   },\n   {\n    \"name\": \"Brackwater Homecover\",\n    \"arr_gbp\": 610000.0,\n    \"renewal_date\": \"2027-10-10\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Marrowgate Commercial\",\n    \"arr_gbp\": 1600000.0,\n    \"renewal_date\": \"2026-12-12\",\n    \"mentions\": 1\n   }\n  ]\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I verified the five named accounts, the 7 mentions all routed via support, the £3,036,000 total ARR, and Marrowgate Commercial's £1,600,000 ARR with 2026-12-12 renewal date against the fact sheet and cited insights — all match exactly. The three quoted user statements appear verbatim in the cited insights, and the reported date range (2026-09-29 to 2026-10-25) matches the insight dates. The single 90-day renewal claim is consistent with the fact sheet's renewals_90d_n of 1, since Marrowgate's 2026-12-12 renewal falls within 90 days of the 2026-11-03 as-of date. No overstatements, misattributions, or omitted contrary evidence found.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1976,
+   "tokens_out": 277,
+   "cost_usd": 0.0005259224
+  }
+ }
+}

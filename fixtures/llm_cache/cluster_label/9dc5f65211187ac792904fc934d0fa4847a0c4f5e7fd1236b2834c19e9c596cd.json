@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: Customers cannot easily track garage progress visibility without manually calling each supplier.\n  quote: We’re still wrestling with how to track garage progress visibility without calling every supplier manually — it really breaks up our day and distracts from core claims work.\n- problem: The system lacks built‑in visibility of garage progress, forcing the team to interrupt work with phone calls.\n  quote: we need garage progress visibility baked into the system so we don’t have to interrupt our daily work with phone calls\n- problem: The platform does not automatically send claim progress messages via SMS and email.\n  quote: we really need claim progress messages to go out via SMS and email to policyholders automatically.\n- problem: Handlers cannot see live repair progress, forcing them to call garages for updates.\n  quote: our handlers are spending half their day calling garages because we can’t see live repair progress in the system.\n- problem: Handlers are manually moving garage estimates out of correspondence, causing delays.\n  quote: we’ve got some ... handlers ... manually ... moving garage ... estimates out of ... correlation ... and it ... causing ... delays\n- problem: The system does not provide live updates from garages, causing daily frustration for the team.\n  quote: our team’s daily frustrations with the system’s lack of live updates from garages\n- problem: The user cannot see when tasks are stuck or when letters are not acknowledged by policyholders.\n  quote: we’re missing visibility when tasks get stuck or letters go unacknowledged by policyholders\n- problem: The claim progress notification feature is not yet live, preventing automatic updates to policyholders.\n  quote: We’re still waiting on those claim progress messages to go live — the team’s keen to get policyholders auto-notified at key stages."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Lack of Live Garage and Claim Progress Visibility\",\n  \"problem_statement\": \"Handlers and teams waste time calling garages and policyholders for updates because the system doesn't show live repair progress or send automatic notifications. This delays claims resolution and distracts from core work.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 488,
+   "tokens_out": 62,
+   "cost_usd": 0.000117
+  }
+ }
+}

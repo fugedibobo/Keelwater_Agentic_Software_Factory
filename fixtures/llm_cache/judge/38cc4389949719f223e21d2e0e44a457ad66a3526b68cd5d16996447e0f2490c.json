@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (duplicate) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is the core problem still open, not solved by a shipped story and not covered by a roadmap item? Pass means yes.\nCompare the problem itself, not the product area. A spike that is unstarted or in progress is not shipped.\nFail if a completed story solves the same problem, or a roadmap item already covers it.\nThe evidence is the problem statement and the five most similar stories and roadmap pages, with status and dates.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"Users struggle with cluttered dashboards due to outdated tasks that cannot be removed in bulk. This wastes time and obscures active work that needs attention.\",\n \"similar\": [\n  {\n   \"source\": \"notion\",\n   \"id\": \"3725e3b1-1ae8-55a3-9286-7db8d9b8fbd5\",\n   \"similarity\": 0.086,\n   \"record\": \"{\\\"id\\\": \\\"3725e3b1-1ae8-55a3-9286-7db8d9b8fbd5\\\", \\\"object\\\": \\\"page\\\", \\\"properties\\\": {\\\"Name\\\": {\\\"title\\\": [{\\\"plain_text\\\": \\\"Task overview\\\", \\\"text\\\": {\\\"content\\\": \\\"Task overview\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"title\\\"}, \\\"Problem\\\": {\\\"rich_text\\\": [{\\\"plain_text\\\": \\\"A centralized dashboard in Keelwater that displays all active, pending, and completed tasks related to claims processing, helping users track progress and prioritize work without switching contexts.\\\", \\\"text\\\": {\\\"content\\\": \\\"A centralized dashboard in Keelwater that displays all active, pending, and completed tasks related to claims processing, helping users track progress and prioritize work without switching contexts.\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"ri\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4135\",\n   \"similarity\": 0.057,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": false, \\\"completed_at\\\": null, \\\"description\\\": \\\"Keelwater's claim information display provides a clear, real-time overview of active claims, including status, assigned adjuster, and key dates, helping users stay informed without switching screens.\\\", \\\"id\\\": 4135, \\\"name\\\": \\\"Claim information display\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 2}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4127\",\n   \"similarity\": 0.043,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-10-06T00:00:00Z\\\", \\\"description\\\": \\\"Users can now upload multiple documents at once to a claim in Keelwater, streamlining the process and reducing manual effort for claims handlers.\\\", \\\"id\\\": 4127, \\\"name\\\": \\\"Bulk upload documents to a claim\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4130\",\n   \"similarity\": 0.038,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-09-15T00:00:00Z\\\", \\\"description\\\": \\\"Keelwater now provides a clearer, more detailed payment history view, helping users track transactions, refunds, and adjustments with improved timestamps and categorization for faster reconciliation.\\\", \\\"id\\\": 4130, \\\"name\\\": \\\"Payment history improvements\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"notion\",\n   \"id\": \"30cf8382-0725-5e19-b883-945ae35bebcd\",\n   \"similarity\": 0.034,\n   \"record\": \"{\\\"id\\\": \\\"30cf8382-0725-5e19-b883-945ae35bebcd\\\", \\\"object\\\": \\\"page\\\", \\\"properties\\\": {\\\"Name\\\": {\\\"title\\\": [{\\\"plain_text\\\": \\\"Supplier directory\\\", \\\"text\\\": {\\\"content\\\": \\\"Supplier directory\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"title\\\"}, \\\"Problem\\\": {\\\"rich_text\\\": [{\\\"plain_text\\\": \\\"A searchable directory within Keelwater that lets users find and manage supplier information, including contact details, contract status, and claim history, streamlining collaboration and compliance tracking.\\\", \\\"text\\\": {\\\"content\\\": \\\"A searchable directory within Keelwater that lets users find and manage supplier information, including contact details, contract status, and claim history, streamlining collaboration and compliance tracking.\\\"},\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The problem is cluttered dashboards from outdated tasks that cannot be removed in bulk. The most similar item, Notion 'Task overview' (similarity 0.086), covers a dashboard displaying active, pending, and completed tasks but says nothing about bulk removal of outdated tasks. Shortcut 4135 ('Claim information display') is in progress and addresses claims overview, not task cleanup, and the other completed stories (bulk document upload, payment history) and the supplier directory page address unrelated problems. No shipped story or roadmap item solves the same core problem.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1149,
+   "tokens_out": 128,
+   "cost_usd": 0.000384768
+  }
+ }
+}

@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The user cannot find the matching supplier invoice documents needed to reconcile a payment batch.\n  quote: Hi Bryn, I’m trying to reconcile the latest payment batch with our suppliers’ invoices but can’t locate the matching documents in the system.\n- problem: The system does not display updated supplier payments in the outstanding claims and reserves report.\n  quote: we’re trying to pull a full report on outstanding claims and reserves but the system’s not showing updated supplier payments.\n- problem: Customer wants to see how reserves and payments sync with their existing accounting tools.\n  quote: Can we see how reserves and payments sync with our existing accounting tools?\n- problem: The platform lacks a real‑time view of how reserves and payments sync with supplier updates.\n  quote: Yes, that’d be helpful — especially if we can see how reserves and payments sync with supplier updates in real time.\n- problem: The system does not display supplier invoices correctly when reconciling claims payments.\n  quote: the system’s not showing the supplier invoices correctly\n- problem: The customer is unclear about how the system handles reserves and supplier payments together.\n  quote: need clarity on how your system manages reserves and supplier payments together\n- problem: The platform lacks a clear way to manage reserves and supplier payments.\n  quote: I think we need a clearer way to manage reserves and supplier payments.\n- problem: The reserves update data does not match the payments data, causing a reconciliation mismatch.\n  quote: the numbers aren’t lining up. Could you help me trace where the mismatch might be?"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Reserves and payments misalign\",\n  \"problem_statement\": \"Users struggle to reconcile claims payments because reserve data doesn't match payment records, making it impossible to verify financial accuracy. This causes delays and errors in supplier reconciliation.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 421,
+   "tokens_out": 53,
+   "cost_usd": 0.0001004
+  }
+ }
+}

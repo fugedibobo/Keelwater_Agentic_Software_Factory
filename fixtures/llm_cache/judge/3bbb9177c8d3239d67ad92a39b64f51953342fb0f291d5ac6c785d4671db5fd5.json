@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\nTeams cannot complete their month-end financial close because they lack a defined timeline for reconciling numbers. This delay in reconciliation holds up financial reporting and undermines confidence in the data.\\n\\n## Who is affected\\n- At least one customer, Tidewell Marine & Cargo, has explicitly requested a timeline to complete their month-end close [i:976ffec775570dc6].\\n\\n## Evidence\\n- This issue has been mentioned 1 time across 1 account [i:976ffec775570dc6].\\n- The mention came via the sales route [i:976ffec775570dc6].\\n- The total Annual Recurring Revenue (ARR) from the account mentioning this issue is £420,000 [i:976ffec775570dc6].\\n- The customer stated, \\\"Understood. Can we get a timeline? Our month-end close depends on reconciling those numbers accurately.\\\" [i:976ffec775570dc6].\\n\\n## Why now\\n- The customer's request for a timeline was made in October 2026 [i:976ffec775570dc6].\\n- The account, Tidewell Marine & Cargo, has a renewal date in 2027 [i:976ffec775570dc6].\\n- There have been 0 renewals in the last 90 days as of 3 November 2026 [i:976ffec775570dc6].\",\n \"cited_insights\": [\n  {\n   \"id\": \"976ffec775570dc6\",\n   \"quote\": \"Understood. Can we get a timeline? Our month-end close depends on reconciling those numbers accurately.\",\n   \"account\": \"Tidewell Marine & Cargo\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-15T11:14:00Z\"\n  }\n ],\n \"fact_sheet\": {\n  \"as_of\": \"2026-11-03\",\n  \"accounts_n\": 1,\n  \"mentions_n\": 1,\n  \"routes_n\": 1,\n  \"mentions_by_route\": {\n   \"sales\": 1\n  },\n  \"arr_total_gbp\": 420000.0,\n  \"renewals_90d_n\": 0,\n  \"accounts\": [\n   {\n    \"name\": \"Tidewell Marine & Cargo\",\n    \"arr_gbp\": 420000.0,\n    \"renewal_date\": \"2027-07-31\",\n    \"mentions\": 1\n   }\n  ]\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked each item against the cited insight and fact sheet: the quoted customer statement matches the insight quote verbatim; the account name (Tidewell Marine & Cargo), route (sales), mention count (1 across 1 account), ARR (£420,000), October 2026 request date, 2027 renewal date (2027-07-31), and 0 renewals in the last 90 days as of 2026-11-03 all align with the cited evidence. The 'at least one customer' phrasing is appropriately conservative and no contrary evidence is omitted.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 804,
+   "tokens_out": 193,
+   "cost_usd": 0.0003263996
+  }
+ }
+}

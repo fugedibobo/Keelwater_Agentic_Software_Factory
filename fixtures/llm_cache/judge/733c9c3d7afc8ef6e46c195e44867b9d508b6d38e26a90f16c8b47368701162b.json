@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (duplicate) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is the core problem still open, not solved by a shipped story and not covered by a roadmap item? Pass means yes.\nCompare the problem itself, not the product area. A spike that is unstarted or in progress is not shipped.\nFail if a completed story solves the same problem, or a roadmap item already covers it.\nThe evidence is the problem statement and the five most similar stories and roadmap pages, with status and dates.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"Users cannot generate or locate a complete printed claim summary that includes all required details like payments, reserves, and supplier information. This matters because missing data compromises audit compliance and internal review processes.\",\n \"similar\": [\n  {\n   \"source\": \"notion\",\n   \"id\": \"30cf8382-0725-5e19-b883-945ae35bebcd\",\n   \"similarity\": 0.111,\n   \"record\": \"{\\\"id\\\": \\\"30cf8382-0725-5e19-b883-945ae35bebcd\\\", \\\"object\\\": \\\"page\\\", \\\"properties\\\": {\\\"Name\\\": {\\\"title\\\": [{\\\"plain_text\\\": \\\"Supplier directory\\\", \\\"text\\\": {\\\"content\\\": \\\"Supplier directory\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"title\\\"}, \\\"Problem\\\": {\\\"rich_text\\\": [{\\\"plain_text\\\": \\\"A searchable directory within Keelwater that lets users find and manage supplier information, including contact details, contract status, and claim history, streamlining collaboration and compliance tracking.\\\", \\\"text\\\": {\\\"content\\\": \\\"A searchable directory within Keelwater that lets users find and manage supplier information, including contact details, contract status, and claim history, streamlining collaboration and compliance tracking.\\\"},\"\n  },\n  {\n   \"source\": \"notion\",\n   \"id\": \"721cd34e-1dc3-5b5f-8068-453592e06a05\",\n   \"similarity\": 0.063,\n   \"record\": \"{\\\"id\\\": \\\"721cd34e-1dc3-5b5f-8068-453592e06a05\\\", \\\"object\\\": \\\"page\\\", \\\"properties\\\": {\\\"Name\\\": {\\\"title\\\": [{\\\"plain_text\\\": \\\"Reserve history audit export\\\", \\\"text\\\": {\\\"content\\\": \\\"Reserve history audit export\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"title\\\"}, \\\"Problem\\\": {\\\"rich_text\\\": [{\\\"plain_text\\\": \\\"Export a detailed audit trail of all reserve adjustments for a claim, including timestamps, user actions, and reason codes, formatted for compliance review in Keelwater.\\\", \\\"text\\\": {\\\"content\\\": \\\"Export a detailed audit trail of all reserve adjustments for a claim, including timestamps, user actions, and reason codes, formatted for compliance review in Keelwater.\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"rich_text\\\"}, \\\"Status\\\": {\\\"statu\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4136\",\n   \"similarity\": 0.053,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": false, \\\"completed_at\\\": null, \\\"description\\\": \\\"Keelwater is updating its supplier address fields to support international formats and improve data validation, ensuring accurate claim processing across global regions.\\\", \\\"id\\\": 4136, \\\"name\\\": \\\"Supplier address fields\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 2}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4128\",\n   \"similarity\": 0.05,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-09-15T00:00:00Z\\\", \\\"description\\\": \\\"Keelwater now allows users to filter claims by date range, status, and claim type, making it easier to locate specific claims without scrolling through unrelated entries.\\\", \\\"id\\\": 4128, \\\"name\\\": \\\"Claim search refinements\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4129\",\n   \"similarity\": 0.049,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-09-15T00:00:00Z\\\", \\\"description\\\": \\\"Keelwater automatically pulls and updates supplier contact details from integrated systems, ensuring claims handlers always have the most current information without manual entry.\\\", \\\"id\\\": 4129, \\\"name\\\": \\\"Supplier contact details\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The problem asks for a complete printed claim summary including payments, reserves, and supplier details for audit compliance. I reviewed the five similar items: the Supplier directory (roadmap), Reserve history audit export (roadmap, status unknown but it covers reserve audit trails, not a printed claim summary), Supplier address fields (in progress, not completed), and the completed Claim search refinements and Supplier contact details stories, which cover claim filtering and supplier contact syncing, not claim summary printing. None of the completed stories or roadmap items addresses generating a comprehensive printed claim summary, and no shipped story solves this problem. The core problem remains open.\",\"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1147,
+   "tokens_out": 139,
+   "cost_usd": 0.001346462
+  }
+ }
+}

@@ -1,0 +1,78 @@
+{
+ "request": {
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You extract one product insight from a single customer snippet about the Keelwater claims platform.\n\nReturn JSON with exactly these fields:\n- states_product_problem: \"yes\" or \"no\". Answer \"yes\" only if the SNIPPET itself states a problem with, or a request about, the Keelwater product that a product squad could act on (something broken, slow, confusing, missing or hard to do in the product). Answer \"no\" for chatter, greetings, thanks, scheduling, small talk, questions about price, contract or process, praise, and anything that names no product problem. Decide from the SNIPPET block only, not from CONTEXT.\n- problem: the customer problem in one plain sentence, in your own words.\n- quote: the customer words that best show the problem, copied VERBATIM from the SNIPPET block, 5 to 60 words. Never take words from the CONTEXT block. You may join up to three fragments with \"...\" if they appear in that order.\n- workflow: the task the customer was doing, a few words.\n- desired_outcome: what the customer wants instead, one short phrase.\n\nThe CONTEXT block is what an internal Keelwater person said just before; it is context, do not quote it.\n\nIf states_product_problem is \"no\", the snippet is dropped and the other fields are not used; fill them briefly.\n"
+   },
+   {
+    "role": "user",
+    "content": "SNIPPET (quote only from here):\nThat’s helpful, but we’ve had a few cases where the system choked on large batches — maybe a bug or limit?\n\nCONTEXT (internal, do not quote):\nUnderstood. The team shipped that capability on 6 October — you can now upload files together in one batch without delays."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 600,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "extract",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "states_product_problem": {
+       "enum": [
+        "yes",
+        "no"
+       ],
+       "title": "States Product Problem",
+       "type": "string"
+      },
+      "problem": {
+       "title": "Problem",
+       "type": "string"
+      },
+      "quote": {
+       "title": "Quote",
+       "type": "string"
+      },
+      "workflow": {
+       "title": "Workflow",
+       "type": "string"
+      },
+      "desired_outcome": {
+       "title": "Desired Outcome",
+       "type": "string"
+      }
+     },
+     "required": [
+      "states_product_problem",
+      "problem",
+      "quote",
+      "workflow",
+      "desired_outcome"
+     ],
+     "title": "ExtractOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"states_product_problem\": \"yes\",\n  \"problem\": \"The platform crashes or slows down when handling large batch uploads.\",\n  \"quote\": \"That’s helpful, but we’ve had a few cases where the system choked on large batches — maybe a bug or limit?\",\n  \"workflow\": \"batch upload of files\",\n  \"desired_outcome\": \"smooth processing of large batches\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 428,
+   "tokens_out": 289,
+   "cost_usd": 5.115e-05
+  }
+ }
+}

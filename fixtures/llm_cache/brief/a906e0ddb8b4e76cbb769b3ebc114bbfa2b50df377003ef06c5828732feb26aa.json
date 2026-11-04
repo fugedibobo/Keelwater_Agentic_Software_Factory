@@ -1,0 +1,58 @@
+{
+ "request": {
+  "model": "deepseek/deepseek-v3.2",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou write a one-page opportunity brief for a Keelwater product manager. Keelwater makes claims-handling software. You use only the facts and customer insights below.\n</role>\n<opportunity>\n{\n \"title\": \"Delayed Reserves Updates\",\n \"problem_statement\": \"Teams need reserves to reflect real-time changes but are forced to rely on manual overrides and delayed integrations. This slows down decision-making and increases errors.\"\n}\n</opportunity>\n<fact_sheet>\n{\n \"as_of\": \"2026-11-03\",\n \"accounts_n\": 3,\n \"mentions_n\": 3,\n \"routes_n\": 1,\n \"mentions_by_route\": {\n  \"sales\": 3\n },\n \"arr_total_gbp\": 80000.0,\n \"renewals_90d_n\": 0,\n \"accounts\": [\n  {\n   \"name\": \"Quarrendon Commercial\",\n   \"arr_gbp\": null,\n   \"renewal_date\": null,\n   \"mentions\": 1\n  },\n  {\n   \"name\": \"Duncastle Auto\",\n   \"arr_gbp\": 80000.0,\n   \"renewal_date\": \"2027-08-19\",\n   \"mentions\": 1\n  },\n  {\n   \"name\": \"Brindlecombe Home\",\n   \"arr_gbp\": null,\n   \"renewal_date\": null,\n   \"mentions\": 1\n  }\n ]\n}\n</fact_sheet>\n<insights>\n[\n {\n  \"id\": \"5388e3c55d08eb93\",\n  \"quote\": \"That’s exactly the kind of control we need...Can we schedule a demo next week to see how it handles real-time reserves updates?\",\n  \"account\": \"Quarrendon Commercial\",\n  \"route\": \"sales\",\n  \"date\": \"2026-10-27T11:37:00Z\"\n },\n {\n  \"id\": \"5d8a32853c6dd995\",\n  \"quote\": \"Just the basics — smoother integrations, real-time updates, and less manual chasing.\",\n  \"account\": \"Duncastle Auto\",\n  \"route\": \"sales\",\n  \"date\": \"2026-10-14T16:28:00Z\"\n },\n {\n  \"id\": \"91bb9d5bd85ff69d\",\n  \"quote\": \"That’s a key point for us — we need to ensure reserves reflect real-time changes without manual overrides.\",\n  \"account\": \"Brindlecombe Home\",\n  \"route\": \"sales\",\n  \"date\": \"2026-09-15T08:35:00Z\"\n }\n]\n</insights>\n<rules>\n- Cite every insight you rely on as [i:INSIGHT_ID], using the id exactly as given. Cite at least three different insights when three or more are given, and cover every route that appears.\n- Use these sections, in this order, as Markdown headings: \"## Problem\", \"## Who is affected\", \"## Evidence\", \"## Why now\".\n- Every bullet under \"Who is affected\" and \"Evidence\" ends with a citation. Every sentence that contains a number or a date carries a citation.\n- Copy every account count, mention count, route count, renewal count and ARR figure from the fact sheet. Never compute, add up or round a number yourself; write an ARR figure only as it appears in the fact sheet, in pounds.\n- Write counts as digits exactly as the fact sheet gives them (\"5 accounts\", never \"five accounts\"); never write \"one customer\" or \"a single customer\" unless the fact sheet count says 1 for that same thing.\n- Put text in quotation marks only when it is a customer quote copied word for word, character for character, from one insight cited in the same sentence. Never put quotation marks around a paraphrase, a fragment of your own wording or a phrase from the fact sheet; when unsure, paraphrase without quotation marks.\n- Name a customer only when a cited insight in the same sentence belongs to that customer.\n- Do not claim more than the evidence shows: no \"all customers\", no scope wider than the cited accounts, and mention any cited insight that points the other way.\n- Do not recommend a solution.\n</rules>\n<output>\nJSON only: {\"body_md\": the brief as Markdown, \"citations\": the list of insight ids you cited}\n</output>\n\n<failed_checks>\nYour previous draft failed these checks. Fix them and write the brief again.\n- numbers: 'One account' does not match the fact sheet ([3])\n- uncited_claims: no citation: 0 of these accounts are up for renewal in the next 90 days.\n- numbers: 'six' matches no fact-sheet value: The issue has been raised consistently over a six-week perio\n- numbers: 'One account' does not match the fact sheet ([3])\n</failed_checks>\n<previous_draft>\n## Problem\nTeams need reserves to reflect real-time changes but are forced to rely on manual overrides and delayed integrations. This slows down decision-making and increases errors.\n\n## Who is affected\n- Sales teams, who have raised this issue in 3 mentions from 3 accounts [i:5388e3c55d08eb93][i:5d8a32853c6dd995][i:91bb9d5bd85ff69d].\n\n## Evidence\n- The problem has been mentioned 3 times by 3 accounts [i:5388e3c55d08eb93][i:5d8a32853c6dd995][i:91bb9d5bd85ff69d].\n- All 3 mentions came via the sales route [i:5388e3c55d08eb93][i:5d8a32853c6dd995][i:91bb9d5bd85ff69d].\n- One account, Quarrendon Commercial, requested a demo to see how a solution handles real-time reserves updates [i:5388e3c55d08eb93].\n- Another account, Duncastle Auto, stated a need for smoother integrations and real-time updates [i:5d8a32853c6dd995].\n- A third account, Brindlecombe Home, highlighted the need to ensure reserves reflect real-time changes without manual overrides [i:91bb9d5bd85ff69d].\n- The total ARR from accounts mentioning this issue is 80000.0 GBP [i:5d8a32853c6dd995].\n- 0 of these accounts are up for renewal in the next 90 days.\n\n## Why now\n- The most recent mention was on 2026-10-27 [i:5388e3c55d08eb93].\n- The issue has been raised consistently over a six-week period, from 2026-09-15 to 2026-10-27 [i:91bb9d5bd85ff69d][i:5d8a32853c6dd995][i:5388e3c55d08eb93].\n- One account with an ARR of 80000.0 GBP has a renewal date set for 2027-08-19 [i:5d8a32853c6dd995].\n</previous_draft>"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 1500,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "brief",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "body_md": {
+       "title": "Body Md",
+       "type": "string"
+      },
+      "citations": {
+       "items": {
+        "type": "string"
+       },
+       "title": "Citations",
+       "type": "array"
+      }
+     },
+     "required": [
+      "body_md",
+      "citations"
+     ],
+     "title": "BriefOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"body_md\": \"## Problem\\nTeams need reserves to reflect real-time changes but are forced to rely on manual overrides and delayed integrations. This slows down decision-making and increases errors.\\n\\n## Who is affected\\n- Sales teams, who have raised this issue in 3 mentions from 3 accounts [i:5388e3c55d08eb93][i:5d8a32853c6dd995][i:91bb9d5bd85ff69d].\\n\\n## Evidence\\n- The problem has been mentioned 3 times by 3 accounts [i:5388e3c55d08eb93][i:5d8a32853c6dd995][i:91bb9d5bd85ff69d].\\n- All 3 mentions came via the sales route [i:5388e3c55d08eb93][i:5d8a32853c6dd995][i:91bb9d5bd85ff69d].\\n- Quarrendon Commercial requested a demo to see how a solution handles real-time reserves updates [i:5388e3c55d08eb93].\\n- Duncastle Auto stated a need for smoother integrations, real-time updates, and less manual chasing [i:5d8a32853c6dd995].\\n- Brindlecombe Home highlighted the need to ensure reserves reflect real-time changes without manual overrides [i:91bb9d5bd85ff69d].\\n- The total ARR from accounts mentioning this issue is 80000.0 GBP [i:5d8a32853c6dd995].\\n- 0 of these accounts are up for renewal in the next 90 days.\\n\\n## Why now\\n- The most recent mention was on 2026-10-27 [i:5388e3c55d08eb93].\\n- The issue has been raised consistently over a period from 2026-09-15 to 2026-10-27 [i:91bb9d5bd85ff69d][i:5d8a32853c6dd995][i:5388e3c55d08eb93].\\n- One account with an ARR of 80000.0 GBP has a renewal date set for 2027-08-19 [i:5d8a32853c6dd995].\",\n  \"citations\": [\"5388e3c55d08eb93\", \"5d8a32853c6dd995\", \"91bb9d5bd85ff69d\"]\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1552,
+   "tokens_out": 562,
+   "cost_usd": 0.00061708
+  }
+ }
+}

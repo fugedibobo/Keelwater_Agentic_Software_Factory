@@ -232,6 +232,7 @@ Cut, to fit about 4 hours of author time:
 - Enablement videos and the sales "ask before a demo" agent (designed in Part 1; they need the factory's demo artefacts).
 - The cluster-coherence judge, bias-corrected rates, test-set rotation and Phoenix experiments (designed in evals.md; the ground-truth regression covers over-merging in the demo).
 - Self-hosted models inside AWS, SSO and multi-user access control.
+- Real authentication: the demo board accepts only the synthetic people listed in `config/people.yaml` (an allow-list, not a login), so a header naming one of them is trusted; production needs SSO.
 - The engineering factory itself, a delegation meta-harness ([operating rules](docs/delegation.md)); its coding harness belongs to the platform team.
 
 ## Repo map

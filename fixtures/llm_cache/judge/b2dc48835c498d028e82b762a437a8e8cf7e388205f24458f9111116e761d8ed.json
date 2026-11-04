@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\nUsers face delays in the platform that risk audit compliance. These delays undermine confidence in timely reporting and operational reliability.\\n\\n## Who is affected\\n- The account Brantwick Commercial is affected, as they have stated a need to reduce delays before an upcoming audit [i:d2d74b9b7c46356f].\\n\\n## Evidence\\n- There is 1 account with this problem [i:d2d74b9b7c46356f].\\n- There has been 1 total mention of this problem [i:d2d74b9b7c46356f].\\n- The problem has been mentioned via 1 route: sales [i:d2d74b9b7c46356f].\\n- The affected account has an ARR of 150000.0 GBP [i:d2d74b9b7c46356f].\\n- A contact from Brantwick Commercial stated, we need to reduce those delays before next quarter’s audit [i:d2d74b9b7c46356f].\\n- There have been 0 renewals in the last 90 days [i:d2d74b9b7c46356f].\\n\\n## Why now\\n- The urgency is driven by an upcoming audit next quarter, as stated by Brantwick Commercial on 2026-10-27 [i:d2d74b9b7c46356f].\\n- The renewal date for the affected account is 2027-05-11 [i:d2d74b9b7c46356f].\",\n \"cited_insights\": [\n  {\n   \"id\": \"d2d74b9b7c46356f\",\n   \"quote\": \"we need to reduce those delays before next quarter’s audit\",\n   \"account\": \"Brantwick Commercial\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-27T15:26:00Z\"\n  }\n ],\n \"fact_sheet\": {\n  \"as_of\": \"2026-11-03\",\n  \"accounts_n\": 1,\n  \"mentions_n\": 1,\n  \"routes_n\": 1,\n  \"mentions_by_route\": {\n   \"sales\": 1\n  },\n  \"arr_total_gbp\": 150000.0,\n  \"renewals_90d_n\": 0,\n  \"accounts\": [\n   {\n    \"name\": \"Brantwick Commercial\",\n    \"arr_gbp\": 150000.0,\n    \"renewal_date\": \"2027-05-11\",\n    \"mentions\": 1\n   }\n  ]\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked every claim in the brief against the cited insight and fact sheet. Account count (1), mention count (1), route (sales, 1 mention), ARR (150000 GBP), renewals in last 90 days (0), renewal date (2027-05-11), and the insight date (2026-10-27) all match the fact sheet and the cited insight. The quote 'we need to reduce those delays before next quarter's audit' matches the cited insight verbatim and is correctly attributed to Brantwick Commercial, with no overstated scope or omitted contrary evidence. The urgency claim about an upcoming audit next quarter is directly supported by the quote.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 810,
+   "tokens_out": 185,
+   "cost_usd": 0.000403887
+  }
+ }
+}

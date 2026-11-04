@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (duplicate) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is the core problem still open, not solved by a shipped story and not covered by a roadmap item? Pass means yes.\nCompare the problem itself, not the product area. A spike that is unstarted or in progress is not shipped.\nFail if a completed story solves the same problem, or a roadmap item already covers it.\nThe evidence is the problem statement and the five most similar stories and roadmap pages, with status and dates.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"Users managing multiple claims cannot prioritize work because the platform lacks due date filtering. This delays timely handling and increases risk of missed deadlines.\",\n \"similar\": [\n  {\n   \"source\": \"notion\",\n   \"id\": \"3725e3b1-1ae8-55a3-9286-7db8d9b8fbd5\",\n   \"similarity\": 0.085,\n   \"record\": \"{\\\"id\\\": \\\"3725e3b1-1ae8-55a3-9286-7db8d9b8fbd5\\\", \\\"object\\\": \\\"page\\\", \\\"properties\\\": {\\\"Name\\\": {\\\"title\\\": [{\\\"plain_text\\\": \\\"Task overview\\\", \\\"text\\\": {\\\"content\\\": \\\"Task overview\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"title\\\"}, \\\"Problem\\\": {\\\"rich_text\\\": [{\\\"plain_text\\\": \\\"A centralized dashboard in Keelwater that displays all active, pending, and completed tasks related to claims processing, helping users track progress and prioritize work without switching contexts.\\\", \\\"text\\\": {\\\"content\\\": \\\"A centralized dashboard in Keelwater that displays all active, pending, and completed tasks related to claims processing, helping users track progress and prioritize work without switching contexts.\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"ri\"\n  },\n  {\n   \"source\": \"notion\",\n   \"id\": \"4f3af2fd-e874-528b-a6f7-1719625085d3\",\n   \"similarity\": 0.07,\n   \"record\": \"{\\\"id\\\": \\\"4f3af2fd-e874-528b-a6f7-1719625085d3\\\", \\\"object\\\": \\\"page\\\", \\\"properties\\\": {\\\"Name\\\": {\\\"title\\\": [{\\\"plain_text\\\": \\\"Claims timeline\\\", \\\"text\\\": {\\\"content\\\": \\\"Claims timeline\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"title\\\"}, \\\"Problem\\\": {\\\"rich_text\\\": [{\\\"plain_text\\\": \\\"Keelwater's Claims timeline provides a clear, chronological view of each claim's progress, helping users track key events, decisions, and deadlines from submission through resolution.\\\", \\\"text\\\": {\\\"content\\\": \\\"Keelwater's Claims timeline provides a clear, chronological view of each claim's progress, helping users track key events, decisions, and deadlines from submission through resolution.\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"rich_text\\\"}, \\\"Status\\\": {\\\"sta\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4127\",\n   \"similarity\": 0.064,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-10-06T00:00:00Z\\\", \\\"description\\\": \\\"Users can now upload multiple documents at once to a claim in Keelwater, streamlining the process and reducing manual effort for claims handlers.\\\", \\\"id\\\": 4127, \\\"name\\\": \\\"Bulk upload documents to a claim\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4128\",\n   \"similarity\": 0.058,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-09-15T00:00:00Z\\\", \\\"description\\\": \\\"Keelwater now allows users to filter claims by date range, status, and claim type, making it easier to locate specific claims without scrolling through unrelated entries.\\\", \\\"id\\\": 4128, \\\"name\\\": \\\"Claim search refinements\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"notion\",\n   \"id\": \"5d34277f-8ec2-5892-b44d-efd7248786a5\",\n   \"similarity\": 0.05,\n   \"record\": \"{\\\"id\\\": \\\"5d34277f-8ec2-5892-b44d-efd7248786a5\\\", \\\"object\\\": \\\"page\\\", \\\"properties\\\": {\\\"Name\\\": {\\\"title\\\": [{\\\"plain_text\\\": \\\"Reporting navigation\\\", \\\"text\\\": {\\\"content\\\": \\\"Reporting navigation\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"title\\\"}, \\\"Problem\\\": {\\\"rich_text\\\": [{\\\"plain_text\\\": \\\"Users can navigate through reporting sections in Keelwater with a streamlined menu, allowing quick access to claims summaries, analytics, and export options without leaving the current context.\\\", \\\"text\\\": {\\\"content\\\": \\\"Users can navigate through reporting sections in Keelwater with a streamlined menu, allowing quick access to claims summaries, analytics, and export options without leaving the current context.\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\":\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked the five most similar items against the core problem of lacking due date filtering to prioritize multiple claims. The closest completed story is 4128 'Claim search refinements' (2026-09-15), which added filtering by date range, status, and claim type — but date range filtering is not the same as due date filtering for deadline prioritization, so it does not solve this specific problem. The roadmap pages (Task overview, Claims timeline) touch tracking and prioritization but neither status nor content indicates a shipped or planned due date filter. No shipped story or roadmap item covers the same problem.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1282,
+   "tokens_out": 262,
+   "cost_usd": 0.0004564118
+  }
+ }
+}

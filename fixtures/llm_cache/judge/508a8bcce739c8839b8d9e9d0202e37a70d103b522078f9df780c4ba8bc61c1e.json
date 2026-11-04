@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\nError messages in the Keelwater platform are misleading customers. When a user experiences a network failure on their own system, the error message presented implies the problem is a bug within the Keelwater software. This causes customers to waste time troubleshooting the wrong part of their system and erodes their trust in the platform's reliability.\\n\\n## Who is affected\\n- The issue has been reported by a customer via the support channel [i:9b83bb79cb72d932].\\n- The affected customer is Marrowgate Commercial, which is a significant account with an Annual Recurring Revenue of £1,600,000 [i:9b83bb79cb72d932].\\n\\n## Evidence\\n- A customer support interaction from Marrowgate Commercial explicitly states that the error message makes it sound like a bug [i:9b83bb79cb72d932].\\n- This issue has been mentioned 1 time in total [i:9b83bb79cb72d932].\\n- The single mention came through the support route [i:9b83bb79cb72d932].\\n- The data is based on 1 account [i:9b83bb79cb72d932].\\n- The total Annual Recurring Revenue represented by the affected accounts is £1,600,000 [i:9b83bb79cb72d932].\\n- There has been 1 renewal event in the last 90 days [i:9b83bb79cb72d932].\\n\\n## Why now\\n- The customer feedback was recorded on 2026-10-27 [i:9b83bb79cb72d932].\\n- The affected account, Marrowgate Commercial, has a renewal date of 2026-12-12 [i:9b83bb79cb72d932].\",\n \"cited_insights\": [\n  {\n   \"id\": \"9b83bb79cb72d932\",\n   \"quote\": \"the error message makes it sound like a bug\",\n   \"account\": \"Marrowgate Commercial\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-27T11:53:00+00:00\"\n  }\n ],\n \"fact_sheet\": {\n  \"as_of\": \"2026-11-03\",\n  \"accounts_n\": 1,\n  \"mentions_n\": 1,\n  \"routes_n\": 1,\n  \"mentions_by_route\": {\n   \"support\": 1\n  },\n  \"arr_total_gbp\": 1600000.0,\n  \"renewals_90d_n\": 1,\n  \"accounts\": [\n   {\n    \"name\": \"Marrowgate Commercial\",\n    \"arr_gbp\": 1600000.0,\n    \"renewal_date\": \"2026-12-12\",\n    \"mentions\": 1\n   }\n  ]\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked the quoted evidence ('the error message makes it sound like a bug') against the cited insight, and it matches exactly. I verified the numbers against the fact sheet: 1 account, 1 mention, 1 route (support), ARR of £1,600,000 for Marrowgate Commercial, 1 renewal in the last 90 days, feedback date 2026-10-27, and renewal date 2026-12-12 — all are accurate. The scope claims ('mentioned 1 time in total', 'based on 1 account') correctly reflect the single cited support mention, and no contrary evidence exists. The characterization of Marrowgate as a 'significant account' is a reasonable inference from its £1.6M ARR and is not overstated.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 865,
+   "tokens_out": 199,
+   "cost_usd": 0.00187794
+  }
+ }
+}

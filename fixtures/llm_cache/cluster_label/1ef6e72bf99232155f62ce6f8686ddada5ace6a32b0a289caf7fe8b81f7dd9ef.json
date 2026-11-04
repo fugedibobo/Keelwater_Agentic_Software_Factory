@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: Roles are not syncing, causing the letters tab to be disabled and preventing task assignment.\n  quote: Yes, the letters tab is greyed out too, and I can’t assign new tasks to my team since the roles aren’t syncing properly.\n- problem: Users cannot duplicate existing roles, forcing them to manually set permissions for each new user.\n  quote: I just spent 45 minutes ticking boxes for one person. If I could copy an existing role, it’d save hours every week. It’s frustrating that I can’t just duplicate an existing role — I have to manually select permissions for each new user, and if I make a mistake, it locks them out of their tasks.\n- problem: Admins cannot copy access roles, forcing manual permission assignment for each new user and causing errors that block access.\n  quote: The issue is we can’t copy access roles — each new user needs permissions manually assigned, and one mistake blocks them entirely.\n- problem: Assigning permissions for a new claims team is slow and feels error‑prone.\n  quote: it’s taking forever to assign permissions. Each person needs a custom setup and I keep worrying I’ll miss something.\n- problem: Users cannot copy permissions from an existing role, forcing them to manually set each permission.\n  quote: I can’t just copy the permissions from our existing role, so I’m ... having to click ... for each person ... terrified I’ll lock ... out by accident.\n- problem: The user cannot find or use the permission settings in the administration section.\n  quote: Administration: click \"Permission\", rage x5\n- problem: The permissions system is tedious and error‑prone, causing delays when setting up a new claims team.\n  quote: the permissions system is causing delays — it’s tedious and error-prone\n- problem: The customer experiences permission issues and needs guidance on assigning roles during setup.\n  quote: Perfect — we’ve had issues with permissions before. Can you show how roles are assigned during setup?"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Inflexible Permission Assignment\",\n  \"problem_statement\": \"Admins and users cannot copy or sync roles, forcing manual permission setup that is slow and error-prone. This delays team onboarding and risks locking users out of critical tasks.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 514,
+   "tokens_out": 56,
+   "cost_usd": 0.00010786
+  }
+ }
+}

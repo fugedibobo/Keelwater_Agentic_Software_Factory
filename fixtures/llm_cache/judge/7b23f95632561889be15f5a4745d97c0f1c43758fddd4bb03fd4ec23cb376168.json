@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\nUsers lose track of document updates because there's no clear version control. This leads to confusion and errors when working with outdated files.\\n\\n## Who is affected\\n- The problem is raised by a customer in a sales conversation [i:9a44b4246ff409e4].\\n\\n## Evidence\\n- A customer, Hollinbrook Home Insurance, explicitly asked about document versioning, stating, \\\"And how do you handle document versioning? We’ve lost track of updates before.\\\" [i:9a44b4246ff409e4].\\n- This issue has been mentioned 1 time [i:9a44b4246ff409e4].\\n- The feedback came from 1 route: sales [i:9a44b4246ff409e4].\\n- The feedback originates from 1 account [i:9a44b4246ff409e4].\\n- The total Annual Recurring Revenue (ARR) from the account providing this feedback is £2400000.0 [i:9a44b4246ff409e4].\\n\\n## Why now\\n- The feedback was provided on 2026-09-15 [i:9a44b4246ff409e4].\\n- The account, Hollinbrook Home Insurance, has a renewal date of 2027-01-15 [i:9a44b4246ff409e4].\\n- There has been 1 renewal in the last 90 days [i:9a44b4246ff409e4].\",\n \"cited_insights\": [\n  {\n   \"id\": \"9a44b4246ff409e4\",\n   \"quote\": \"And how do you handle document versioning? We’ve lost track of updates before.\",\n   \"account\": \"Hollinbrook Home Insurance\",\n   \"route\": \"sales\",\n   \"date\": \"2026-09-15T14:44:00Z\"\n  }\n ],\n \"fact_sheet\": {\n  \"as_of\": \"2026-11-03\",\n  \"accounts_n\": 1,\n  \"mentions_n\": 1,\n  \"routes_n\": 1,\n  \"mentions_by_route\": {\n   \"sales\": 1\n  },\n  \"arr_total_gbp\": 2400000.0,\n  \"renewals_90d_n\": 1,\n  \"accounts\": [\n   {\n    \"name\": \"Hollinbrook Home Insurance\",\n    \"arr_gbp\": 2400000.0,\n    \"renewal_date\": \"2027-01-15\",\n    \"mentions\": 1\n   }\n  ]\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The quoted customer statement matches the cited insight verbatim, and the account name (Hollinbrook Home Insurance), route (sales), date (2026-09-15), and renewal date (2027-01-15) all align with the cited insight and fact sheet. The counts of 1 mention, 1 route, 1 account, 1 renewal in the last 90 days, and £2,400,000 ARR all match the fact sheet exactly. The problem framing ('no clear version control') is a reasonable paraphrase of the customer's question and is not placed in quotation marks. No contrary evidence or overstated scope was found.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 824,
+   "tokens_out": 173,
+   "cost_usd": 0.001137
+  }
+ }
+}
