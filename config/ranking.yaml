@@ -1,0 +1,9 @@
+# score = breadth x severity x value x corroboration x recency x renewal x roadmap (architecture section 4)
+# Every change is an audit event.
+breadth: {log_base: 2}
+value: {floor: 0.5, log_base: 10}
+corroboration: {1: 1.0, 2: 1.3, 3: 1.5}   # distinct routes; 3 means three or more
+recency: {window_days: 30, floor: 0.2}
+renewal: {window_days: 90, weight: 0.25}
+roadmap: {on_roadmap: 0.5, otherwise: 1.0}
+nominal_arr_share: 0.5                      # prospects and unresolved insights: share of median customer ARR
