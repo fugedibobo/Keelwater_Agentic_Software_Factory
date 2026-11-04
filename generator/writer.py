@@ -6,11 +6,12 @@ or read credentials, and it does not record pipeline model_call rows.
 from __future__ import annotations
 
 import copy
+import re
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from signal_engine import config
 from signal_engine.gateway import InvalidResponse
-from .brief import make_prompt
+from .brief import make_prompt, mention_briefs
 from .specs import ROOT, load
 from .verify import leaked_terms, repeated_record_ids, unknown_names, verify_mention_text
 
@@ -22,10 +23,12 @@ TURN_ITEM = {
 }
 
 
-def bounded(slot, mention):
+def bounded(slot, mention, synonym=None):
     """A short agreement is at most 44 characters (under eight words); any other mention at least 45."""
     slot = copy.deepcopy(slot)
     slot['properties']['text'].update({'maxLength': 44} if mention.get('agreement') else {'minLength': 45})
+    if synonym:
+        slot['properties']['text']['pattern'] = re.escape(synonym)  # the pinned synonym must appear verbatim
     return slot
 
 
@@ -34,6 +37,7 @@ def record_schema(record, seed):
     mention count, noise enum); `mentions` has exactly this record's mention ids, each one customer text plus a
     placement hint. Code inserts and tags them (merge_mentions), so one tag per mention holds by construction."""
     n = len(record['mentions'])
+    syn = {b['id']: b['synonym'] for b in mention_briefs(seed, record) if 'synonym' in b}
     item = copy.deepcopy(TURN_ITEM)
     item['properties']['noise_category'] = {'enum': [*load(seed)['noise']['categories'], None]}
     turns = {'type': 'array', 'items': item}
@@ -44,27 +48,29 @@ def record_schema(record, seed):
     ids = [m['id'] for m in record['mentions']]
     return {'type': 'object', 'additionalProperties': False, 'required': ['turns', 'mentions'],
             'properties': {'turns': turns, 'mentions': {'type': 'object', 'additionalProperties': False, 'required': ids,
-                                                         'properties': {m['id']: bounded(slot, m) for m in record['mentions']}}}}
+                                                         'properties': {m['id']: bounded(slot, m, syn.get(m['id'])) for m in record['mentions']}}}}
 
 
 def merge_mentions(record, raw):
     """Insert each mention slot as a tagged customer turn after its hinted turn (clamped; an agreement snaps to the
     next internal turn). Deterministic: sorted by position then mention order."""
     base = [{**t, 'mention_ids': []} for t in raw.get('turns', [])]
-    inserts = []
+    inserts, used = [], set()
     for order, m in enumerate(record['mentions']):
         slot = raw['mentions'][m['id']]
         pos = min(max(slot['after_turn'], 0), max(len(base) - 1, 0))
         if m.get('agreement'):
             internal = [i for i, t in enumerate(base) if t['speaker'] == 'internal']
-            pos = next((i for i in internal if i >= pos), internal[-1] if internal else pos)
-        inserts.append((pos, order, {'speaker': 'customer', 'text': slot['text'], 'mention_ids': [m['id']], 'noise_category': None}))
+            free = [i for i in internal if i not in used] or internal  # each agreement gets its own internal summary turn
+            pos = min(free, key=lambda i: (abs(i - pos), i)) if free else pos
+            used.add(pos)
+        inserts.append((pos, 0 if m.get('agreement') else 1, order, {'speaker': 'customer', 'text': slot['text'], 'mention_ids': [m['id']], 'noise_category': None}))
     turns = []
-    queue = sorted(inserts, key=lambda x: x[:2])
+    queue = sorted(inserts, key=lambda x: x[:3])
     for i, t in enumerate(base):
         turns.append(t)
-        turns.extend(x[2] for x in queue if x[0] == i)
-    turns.extend(x[2] for x in queue if not base)
+        turns.extend(x[3] for x in queue if x[0] == i)
+    turns.extend(x[3] for x in queue if not base)
     return {'turns': turns}
 
 

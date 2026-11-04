@@ -332,3 +332,24 @@ def test_mention_slot_length_bounds_follow_the_agreement_flag():
             assert ('maxLength' in t) == bool(m.get('agreement')) and ('minLength' in t) != bool(m.get('agreement'))
             seen.add(bool(m.get('agreement')))
     assert seen == {True, False}
+
+
+def test_several_agreements_each_follow_their_own_internal_turn():
+    from generator.planner import plan
+    from generator.writer import merge_mentions
+    r = next(r for r in plan(42)['records'] if sum(1 for m in r['mentions'] if m.get('agreement')) >= 2)
+    base = [{'speaker': 'internal' if i % 2 == 0 else 'customer', 'text': f't{i}', 'noise_category': None} for i in range(12)]
+    out = merge_mentions(r, {'turns': base, 'mentions': {m['id']: {'text': 'yes', 'after_turn': 3} for m in r['mentions']}})['turns']
+    idx = [i for i, t in enumerate(out) if t['mention_ids']]
+    assert len(idx) == len(r['mentions']) and all(out[i - 1]['speaker'] == 'internal' for i in idx)
+
+
+def test_mention_slot_pattern_requires_the_pinned_synonym():
+    import re
+    from generator.brief import mention_briefs
+    from generator.planner import plan
+    from generator.writer import record_schema
+    r = next(r for r in plan(42)['records'] if r['source'] != 'fullstory' and any('synonym' in b for b in mention_briefs(42, r)))
+    b = next(b for b in mention_briefs(42, r) if 'synonym' in b)
+    pat = record_schema(r, 42)['properties']['mentions']['properties'][b['id']]['properties']['text']['pattern']
+    assert re.search(pat, f"we need {b['synonym']} soon") and not re.search(pat, 'nothing relevant here at all')
