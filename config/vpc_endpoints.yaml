@@ -1,0 +1,4 @@
+# Hosts the aws and self-hosted profiles may call. TypeSafe and OpenRouter are never listed.
+hosts:
+  - bedrock-runtime.eu-west-2.amazonaws.com
+  - vllm.keelwater.internal

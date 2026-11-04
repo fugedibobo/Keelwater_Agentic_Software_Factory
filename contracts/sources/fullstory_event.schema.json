@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "fullstory_event",
+  "description": "One warehouse event row (one JSON object per line of events.ndjson). Rage, dead and error clicks are click events.",
+  "type": "object",
+  "properties": {
+    "event_id": {
+      "type": "string"
+    },
+    "event_time": {
+      "type": "string"
+    },
+    "session_id": {
+      "type": "string"
+    },
+    "event_type": {
+      "type": "string"
+    },
+    "event_properties": {
+      "type": "object"
+    },
+    "source_properties": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "event_id",
+    "event_time",
+    "session_id",
+    "event_type",
+    "event_properties"
+  ]
+}

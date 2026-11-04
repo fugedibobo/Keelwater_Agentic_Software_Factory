@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "gong_transcripts",
+  "description": "POST /v2/calls/transcript response. Sentence start and end are integer ms from call start.",
+  "type": "object",
+  "properties": {
+    "callTranscripts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "callId": {
+            "type": "string"
+          },
+          "transcript": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "speakerId": {
+                  "type": "string"
+                },
+                "topic": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "sentences": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "start": {
+                        "type": "integer"
+                      },
+                      "end": {
+                        "type": "integer"
+                      },
+                      "text": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "start",
+                      "end",
+                      "text"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "speakerId",
+                "sentences"
+              ]
+            }
+          }
+        },
+        "required": [
+          "callId",
+          "transcript"
+        ]
+      }
+    }
+  },
+  "required": [
+    "callTranscripts"
+  ]
+}

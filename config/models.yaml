@@ -1,0 +1,92 @@
+# Model ids pinned per profile and stage. Price is USD per million tokens (in/out); the response's own
+# usage cost wins when present. Prices marked est are INFERRED (docs/research/model-options-and-prices.md).
+version: 1
+stage_defaults: {temperature: 0, max_tokens: 1024, timeout_s: 60, retries: 3, concurrency: 8}
+profiles:
+  demo:
+    base_url: https://openrouter.ai/api/v1
+    key_env: OPENROUTER_API_KEY
+    stages:
+      triage:
+        backend: jev
+        model: jev-latest
+        base_url: https://api.typesafe.ai
+        key_env: TYPESAFE_API_KEY
+        timeout_s: 1.5
+        retries: 2
+        price: {in: 0.042, out: 0.0}
+      triage_fallback:
+        model: openai/gpt-oss-120b
+        price: {in: 0.03, out: 0.15}
+        max_tokens: 256
+      extract:
+        model: openai/gpt-oss-120b
+        price: {in: 0.03, out: 0.15}
+        max_tokens: 600
+      embed:
+        model: qwen/qwen3-embedding-8b
+        price: {in: 0.01, out: 0.0}
+      cluster_label:
+        model: qwen/qwen3-next-80b-a3b-instruct
+        fallback: qwen/qwen3.6-35b-a3b
+        price: {in: 0.10, out: 0.90}   # est
+        max_tokens: 200
+      brief:
+        model: deepseek/deepseek-v3.2
+        fallback: deepseek/deepseek-v4-pro-0813
+        price: {in: 0.66, out: 1.98}   # est
+        max_tokens: 1500
+        timeout_s: 120
+      judge:
+        model: z-ai/glm-5
+        fallback: z-ai/glm-5.3
+        price: {in: 1.40, out: 4.40}   # est
+        max_tokens: 400
+        timeout_s: 120
+      handoff:
+        model: deepseek/deepseek-v3.2
+        fallback: deepseek/deepseek-v4-pro-0813
+        price: {in: 0.66, out: 1.98}   # est
+        max_tokens: 1500
+        timeout_s: 120
+      outtake:
+        model: openai/gpt-oss-120b
+        price: {in: 0.03, out: 0.15}
+        max_tokens: 800
+      generate:
+        model: mistralai/mistral-large-4-0
+        price: {in: 0.70, out: 2.10}
+        temperature: 0.8
+        max_tokens: 2000
+  replay:
+    extends: demo
+    cache_only: true
+  aws:
+    base_url: https://bedrock-runtime.eu-west-2.amazonaws.com/openai/v1
+    base_url_env: KEELWATER_AWS_BASE_URL
+    key_env: KEELWATER_AWS_KEY
+    request_metadata: true
+    stages:
+      triage: {model: "openai.gpt-oss-20b-1:0"}
+      triage_fallback: {model: "openai.gpt-oss-120b-1:0"}
+      extract: {model: "openai.gpt-oss-120b-1:0"}
+      embed: {model: qwen3-embedding-8b}
+      cluster_label: {model: "qwen.qwen3-next-80b-a3b"}
+      brief: {model: "deepseek.v3.2"}
+      judge: {model: "zai.glm-5"}
+      handoff: {model: "deepseek.v3.2"}
+      outtake: {model: "openai.gpt-oss-120b-1:0"}
+  self-hosted:
+    base_url: http://vllm.keelwater.internal:8000/v1
+    base_url_env: KEELWATER_SELFHOSTED_BASE_URL
+    key_env: KEELWATER_SELFHOSTED_KEY
+    stages:
+      triage: {model: gpt-oss-120b}
+      triage_fallback: {model: gpt-oss-120b}
+      extract: {model: gpt-oss-120b}
+      embed: {model: Qwen3-Embedding-8B}
+      cluster_label: {model: qwen3-next-80b-a3b}
+      brief: {model: deepseek-v3.2}
+      judge: {model: glm-5}
+      handoff: {model: deepseek-v3.2}
+      outtake: {model: gpt-oss-120b}

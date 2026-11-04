@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "fireflies_transcript",
+  "description": "GraphQL transcript(id) result. Sentence times are float seconds; speakers are names, mapped to emails through meeting_attendees.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "date": {
+      "type": "integer"
+    },
+    "duration": {
+      "type": "number"
+    },
+    "host_email": {
+      "type": "string"
+    },
+    "meeting_attendees": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "email": {
+            "type": "string"
+          },
+          "name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "email"
+        ]
+      }
+    },
+    "sentences": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer"
+          },
+          "speaker_name": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "start_time": {
+            "type": "number"
+          },
+          "end_time": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "speaker_name",
+          "text",
+          "start_time",
+          "end_time"
+        ]
+      }
+    }
+  },
+  "required": [
+    "id",
+    "date",
+    "host_email",
+    "sentences"
+  ]
+}

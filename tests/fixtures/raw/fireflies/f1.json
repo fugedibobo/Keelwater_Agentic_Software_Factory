@@ -1,0 +1,23 @@
+{
+  "id": "f1",
+  "title": "Onboarding",
+  "date": 1760430000000,
+  "duration": 30.5,
+  "host_email": "ada@keelwater.example",
+  "meeting_attendees": [
+    {
+      "displayName": "Ben",
+      "email": "ben@client.example",
+      "name": "Ben"
+    }
+  ],
+  "sentences": [
+    {
+      "index": 0,
+      "speaker_name": "Ben",
+      "text": "We keep re-filing documents by hand.",
+      "start_time": 1.5,
+      "end_time": 4.25
+    }
+  ]
+}

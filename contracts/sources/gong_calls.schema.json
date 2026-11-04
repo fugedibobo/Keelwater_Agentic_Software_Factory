@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "gong_calls",
+  "description": "POST /v2/calls/extensive response: calls with parties and CRM context. Times in ISO, duration in seconds.",
+  "type": "object",
+  "properties": {
+    "calls": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "metaData": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "started": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "id",
+              "started",
+              "duration"
+            ]
+          },
+          "parties": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "speakerId": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "emailAddress": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "affiliation": {
+                  "enum": [
+                    "Internal",
+                    "External",
+                    "Unknown"
+                  ]
+                }
+              },
+              "required": [
+                "speakerId",
+                "affiliation"
+              ]
+            }
+          },
+          "context": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "system": {
+                  "type": "string"
+                },
+                "objects": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "objectType": {
+                        "type": "string"
+                      },
+                      "objectId": {
+                        "type": "string"
+                      },
+                      "fields": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "value": {}
+                          },
+                          "required": [
+                            "name"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "objectType",
+                      "objectId"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "system",
+                "objects"
+              ]
+            }
+          }
+        },
+        "required": [
+          "metaData",
+          "parties"
+        ]
+      }
+    }
+  },
+  "required": [
+    "calls"
+  ]
+}

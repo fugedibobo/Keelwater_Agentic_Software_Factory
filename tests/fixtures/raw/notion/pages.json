@@ -1,0 +1,31 @@
+{
+  "results": [
+    {
+      "id": "n1",
+      "properties": {
+        "Name": {
+          "title": [
+            {
+              "plain_text": "Milestone notifications"
+            }
+          ]
+        },
+        "Status": {
+          "status": {
+            "name": "In progress"
+          }
+        },
+        "Target": {
+          "date": null
+        },
+        "Problem": {
+          "rich_text": [
+            {
+              "plain_text": "Policyholders want updates."
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

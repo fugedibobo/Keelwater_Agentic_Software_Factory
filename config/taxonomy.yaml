@@ -1,0 +1,49 @@
+# Triage buckets. Descriptions are generic product-area words only (leak scan in #2 covers this file).
+version: 2
+squads:
+  - intake_claims
+  - handling_payments
+  - suppliers_comms
+  - insight_reporting
+  - platform_access
+buckets:
+  - id: fnol_intake
+    name: First notice of loss and intake
+    squad: intake_claims
+    description: Starting a new claim and capturing its first details.
+  - id: triage_assignment
+    name: Triage, assignment and fraud referral
+    squad: intake_claims
+    description: Choosing who works a claim, in what order, and when it is sent for specialist review.
+  - id: documents_evidence
+    name: Documents and evidence
+    squad: handling_payments
+    description: Files and other material kept with a claim, and how handlers organise and retrieve them.
+  - id: reserves_payments
+    name: Reserves and payments
+    squad: handling_payments
+    description: Money set aside, paid out or recovered on a claim.
+  - id: supplier_network
+    name: Suppliers
+    squad: suppliers_comms
+    description: Repairers, adjusters and other outside parties a claim depends on.
+  - id: customer_comms
+    name: Customer communications
+    squad: suppliers_comms
+    description: Messages sent from a claim to the people involved, and what those messages say.
+  - id: reporting_mi
+    name: Reporting and MI
+    squad: insight_reporting
+    description: Management information and figures drawn from claims data.
+  - id: admin_permissions
+    name: Administration
+    squad: platform_access
+    description: Running the Keelwater workspace, such as user accounts, access and settings.
+  - id: integrations_api
+    name: Integrations and API
+    squad: platform_access
+    description: Connections between Keelwater and other systems.
+  - id: release_change
+    name: Product updates and rollout
+    squad: insight_reporting
+    description: How Keelwater's own product updates reach users and how their arrival is handled.

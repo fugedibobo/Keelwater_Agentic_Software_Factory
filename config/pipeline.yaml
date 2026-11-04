@@ -1,0 +1,24 @@
+# Thresholds are per backend: probabilities from different models are not on one scale.
+# Changing one is an audit event.
+triage:
+  backends:
+    jev:
+      drop_p: 0.10        # p <= drop_p -> drop
+      keep_p: 0.50        # p >= keep_p and bucket_conf >= keep_bucket_conf -> keep
+      keep_bucket_conf: 0.70
+    fallback:
+      drop_p: 0.10
+      keep_p: 0.50
+      keep_bucket_conf: 0.70
+  timeout_s: 1.5
+  retries: 2
+cluster:
+  distance: 0.35          # cosine distance threshold, tuned on seed 42 only (#5)
+tagging:
+  similarity: 0.60        # tuned on seed 42 only (#5)
+top_n: 10
+noise_audit:
+  per_week: 40
+  strata:
+    - {name: near_threshold, p_min: 0.05, p_max: 0.10, n: 25}
+    - {name: far_below, p_min: 0.0, p_max: 0.05, n: 15}

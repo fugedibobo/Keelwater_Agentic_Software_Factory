@@ -1,0 +1,41 @@
+{
+  "calls": [
+    {
+      "metaData": {
+        "id": "g1",
+        "title": "Quarterly review",
+        "started": "2026-10-14T09:00:00Z",
+        "duration": 600
+      },
+      "parties": [
+        {
+          "speakerId": "s1",
+          "emailAddress": "ada@keelwater.example",
+          "affiliation": "Internal"
+        },
+        {
+          "speakerId": "s2",
+          "emailAddress": "ben@client.example",
+          "affiliation": "External"
+        }
+      ],
+      "context": [
+        {
+          "system": "HubSpot",
+          "objects": [
+            {
+              "objectType": "Account",
+              "objectId": "100",
+              "fields": [
+                {
+                  "name": "name",
+                  "value": "Fixture Insurance"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "shortcut_stories",
+  "description": "Shortcut stories. completed_at drives the post-ship cut.",
+  "type": "object",
+  "properties": {
+    "stories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "story_type": {
+            "enum": [
+              "feature",
+              "bug",
+              "chore"
+            ]
+          },
+          "completed": {
+            "type": "boolean"
+          },
+          "completed_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "story_type",
+          "completed"
+        ]
+      }
+    }
+  },
+  "required": [
+    "stories"
+  ]
+}
