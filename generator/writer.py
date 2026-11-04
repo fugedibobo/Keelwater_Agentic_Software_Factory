@@ -49,6 +49,8 @@ def record_schema(record, seed):
     turns = {'type': 'array', 'items': item}
     if record.get('turns_range'):
         turns['minItems'], turns['maxItems'] = (max(0, x - n) for x in record['turns_range'])
+    else:
+        turns['minItems'] = 6  # an unbanded record (e.g. Intercom) otherwise comes back with an empty conversation
     slot = {'type': 'object', 'additionalProperties': False, 'required': ['text', 'after_turn'],
             'properties': {'text': {'type': 'string'}, 'after_turn': {'type': 'integer'}}}
     tag = labels(record)
@@ -183,6 +185,13 @@ def write_record(record, seed, make_request, start_attempt=0, on_rejection=None)
     raise RecordValidationError(f"{record['id']}: failed after two regenerations: {last}")
 
 
+RULE_HINTS = {
+    'Fin conversation has no bot turn': "Include at least one turn whose speaker is 'bot' (the Fin assistant).",
+    'escalated conversation has no internal reply': "Include at least one turn whose speaker is 'internal'.",
+    'human-only conversation has a bot turn': "Use no turn whose speaker is 'bot'.",
+    'missing admin note': "Include an 'internal' turn whose noise_category is 'internal'.",
+    'missing required noise category': 'Include a turn for every required noise category in the noise brief.',
+}
 FEEDBACK = {}  # record id -> last rejection text, set by write_record and read by gateway_request
 
 
@@ -196,6 +205,7 @@ def feedback_text(record, seed, error):
     for b in mention_briefs(seed, record):
         if 'synonym' in b:
             lines.append(f"Mention {b['id']} must contain the exact phrase '{b['synonym']}'.")
+    lines += [hint for rule, hint in RULE_HINTS.items() if rule in error]
     never = re.search(r'forbidden raw phrase (.+)', error)
     if never:
         lines.append(f"Do not write the phrase '{never.group(1)}'; paraphrase it.")

@@ -1,6 +1,6 @@
 # ASSUMED: descriptions, wording and assigned names are synthetic.
 {
-  "common_capitalised": ["English", "French", "Scottish", "Irish", "British", "Christmas", "Easter", "Wales", "Scotland", "England", "Northern", "Ireland", "Manchester", "Birmingham", "Leeds", "Glasgow", "Edinburgh", "Cardiff", "Belfast", "Bristol", "Liverpool", "Sheffield", "Newcastle", "Wolverhampton", "Northern Ireland"],
+  "common_capitalised": ["English", "French", "Scottish", "Irish", "British", "Christmas", "Easter", "Wales", "Scotland", "England", "Northern", "Ireland", "Manchester", "Birmingham", "Leeds", "Glasgow", "Edinburgh", "Cardiff", "Belfast", "Bristol", "Liverpool", "Sheffield", "Newcastle", "Wolverhampton", "Northern Ireland", "Finance", "Escalated", "Operations", "Legal", "Compliance", "Underwriting", "Support", "Sales", "Onboarding", "Management", "Team", "Thanks", "Thank", "Please", "Hello", "Fin"],
   "features": [
     "claims",
     "documents",

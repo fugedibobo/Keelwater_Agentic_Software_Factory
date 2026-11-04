@@ -389,3 +389,22 @@ def test_prompt_and_schema_never_carry_a_mention_id_or_theme_id():
             assert m['id'] not in blob and m['theme'] not in blob
         checked += 1
     assert checked > 50
+
+
+def test_feedback_carries_a_plain_instruction_for_a_structural_rule():
+    from generator.planner import plan
+    from generator.writer import feedback_text
+    r = next(r for r in plan(42)['records'] if r['source'] != 'fullstory')
+    assert "speaker is 'bot'" in feedback_text(r, 42, 'x: Fin conversation has no bot turn')
+
+
+def test_unbanded_record_still_needs_a_real_conversation():
+    from generator.planner import plan
+    from generator.writer import record_schema
+    r = next(r for r in plan(42)['records'] if r['source'] != 'fullstory' and not r.get('turns_range'))
+    assert record_schema(r, 42)['properties']['turns']['minItems'] == 6
+
+
+def test_department_words_pass_the_name_check():
+    from generator.verify import unknown_names
+    assert unknown_names('we raised it with the Finance team and it was Escalated', 42) == []
