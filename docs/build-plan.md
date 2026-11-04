@@ -411,5 +411,5 @@ The reports add up to about USD 1.6. The key's own usage figure (`probe --key-us
 
 - **Canonical run (04/11/2026, about 13:15 to 13:45):** `keelwater run --profile demo --max-usd 0.30` read through the cache for USD 0.00 and reproduced output hash `52236e52...`. `eval --suite all` exited 1 (floors fail, see the README). The static site was re-rendered, the board screenshots refreshed with headless Edge (playwright-cli is not installed), `cache prune` deleted 872 unused cache files, and `keelwater run` printed MATCH in 54 s.
 - **Fresh live proof:** did not finish, see the spend table. It ran 17 min 14 s against a 15-minute target and stopped at the judge stage: the hard budget bound the gateway reserves for concurrent judge calls left no room under a USD 0.364 cap (1.3 times the first run's estimated USD 0.28), although metered spend was only USD 0.1708. The cap was not raised.
-- **Clean clone:** `uv sync` 9 s, `keelwater run` 58 s with MATCH, no `.env` present.
+- **Clean clone** (no `.env` present): `uv sync` 9 s, `keelwater run` 58 s with MATCH, then `eval --suite all` offline in 5 min 15 s: exit 1, seed 42, seed 43 and stability fail, judges pass, and the seed 42 and seed 43 metrics equal the committed reports exactly.
 - **Reviewer passes:** see the engines table. Findings 1, 2, 7 and 4b are documented in the README Limits, as ruled.
