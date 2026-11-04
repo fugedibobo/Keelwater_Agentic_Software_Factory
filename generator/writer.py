@@ -38,11 +38,33 @@ def bounded(slot, mention, synonym=None):
     return slot
 
 
+def extra_slots(record):
+    """Required-element rules turned into slots: (key, speaker, noise_category, required phrase). Code inserts each one,
+    so the validator's "missing X" rules (Fin bot turn, escalation reply, admin note, required noise categories,
+    how-to distractor) hold by construction."""
+    slots = []
+    if record.get('fin_mode') in ('resolved', 'escalated'):
+        slots.append(('bot_turn', 'bot', None, None))
+    if record.get('fin_mode') == 'escalated':
+        slots.append(('internal_reply', 'internal', None, None))
+    if record.get('admin_note'):
+        slots.append(('admin_note', 'internal', 'internal', None))
+    cats = list(record.get('required_noise', []))
+    if record.get('distractor') and 'how_to' not in cats:
+        cats.append('how_to')
+    for c in cats:
+        if c == 'internal' and record.get('admin_note'):
+            continue
+        slots.append((f'noise_{c}', 'internal' if c == 'internal' else 'customer', c, record.get('distractor') if c == 'how_to' else None))
+    return slots
+
+
 def record_schema(record, seed):
     """Per-record response schema. `turns` holds the conversation without the planted mentions (band minus the
     mention count, noise enum); `mentions` has exactly this record's mention ids, each one customer text plus a
     placement hint. Code inserts and tags them (merge_mentions), so one tag per mention holds by construction."""
-    n = sum(2 if m.get('agreement') else 1 for m in record['mentions'])  # an agreement adds an internal turn too
+    extras = extra_slots(record)
+    n = sum(2 if m.get('agreement') else 1 for m in record['mentions']) + len(extras)  # an agreement adds an internal turn too
     syn = {b['id']: b['synonym'] for b in mention_briefs(seed, record) if 'synonym' in b}
     item = copy.deepcopy(TURN_ITEM)
     item['properties']['noise_category'] = {'enum': [*load(seed)['noise']['categories'], None]}
@@ -55,8 +77,12 @@ def record_schema(record, seed):
             'properties': {'text': {'type': 'string'}, 'after_turn': {'type': 'integer'}}}
     tag = labels(record)
     ids = list(tag.values())
-    return {'type': 'object', 'additionalProperties': False, 'required': ['turns', 'mentions'],
-            'properties': {'turns': turns, 'mentions': {'type': 'object', 'additionalProperties': False, 'required': ids,
+    extra_slot = {'type': 'object', 'additionalProperties': False, 'required': ['text', 'after_turn'],
+                  'properties': {'text': {'type': 'string', 'minLength': 20}, 'after_turn': {'type': 'integer'}}}
+    return {'type': 'object', 'additionalProperties': False, 'required': ['turns', 'mentions', 'extras'],
+            'properties': {'extras': {'type': 'object', 'additionalProperties': False, 'required': [e[0] for e in extras],
+                                      'properties': {e[0]: copy.deepcopy(extra_slot) for e in extras}},
+                           'turns': turns, 'mentions': {'type': 'object', 'additionalProperties': False, 'required': ids,
                                                          'properties': {tag[m['id']]: bounded(slot, m, syn.get(tag[m['id']])) for m in record['mentions']}}}}
 
 
@@ -80,6 +106,14 @@ def merge_mentions(record, raw, seed=None):
         else:
             group = [{'speaker': 'customer', 'text': slot['text'], 'mention_ids': [m['id']], 'noise_category': None}]
         inserts.append((pos, order, group))
+    for order, (key, speaker, noise, phrase) in enumerate(extra_slots(record), start=len(record['mentions'])):
+        slot = raw.get('extras', {}).get(key)
+        if slot is None:
+            continue
+        if phrase and phrase.casefold() not in slot['text'].casefold():
+            raise RecordValidationError(f"{record['id']}: the {key} turn lacks the required phrase '{phrase}'")
+        pos = min(max(slot['after_turn'], 0), max(len(base) - 1, 0))
+        inserts.append((pos, order, [{'speaker': speaker, 'text': slot['text'], 'mention_ids': [], 'noise_category': noise}]))
     turns = []
     queue = sorted(inserts, key=lambda x: x[:2])
     for i, t in enumerate(base):

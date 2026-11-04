@@ -238,7 +238,8 @@ def test_record_schema_carries_band_slots_and_enums():
     from generator.writer import record_schema
     r = next(r for r in plan(42)['records'] if r.get('turns_range') == [40, 60] and r['mentions'])
     sc = record_schema(r, 42)
-    n = sum(2 if m.get('agreement') else 1 for m in r['mentions'])
+    from generator.writer import extra_slots
+    n = sum(2 if m.get('agreement') else 1 for m in r['mentions']) + len(extra_slots(r))
     t = sc['properties']['turns']
     assert (t['minItems'], t['maxItems']) == (40 - n, 60 - n)
     assert 'mention_ids' not in t['items']['properties']
@@ -419,3 +420,55 @@ def test_part_of_another_account_name_passes_but_an_invented_company_fails():
 def test_compass_place_names_pass():
     from generator.verify import unknown_names
     assert unknown_names('our offices in North Wales and the West Midlands', 42) == []
+
+
+def test_each_required_element_rule_has_a_slot():
+    from generator.writer import extra_slots
+    cases = {'bot': {'fin_mode': 'resolved'}, 'esc': {'fin_mode': 'escalated'}, 'admin': {'admin_note': True},
+             'noise': {'required_noise': ['praise', 'scheduling']}, 'how': {'required_noise': ['how_to'], 'distractor': 'a phrase'}}
+    keys = {n: [k for k, *_ in extra_slots(c)] for n, c in cases.items()}
+    assert keys['bot'] == ['bot_turn'] and keys['esc'] == ['bot_turn', 'internal_reply'] and keys['admin'] == ['admin_note']
+    assert keys['noise'] == ['noise_praise', 'noise_scheduling'] and keys['how'] == ['noise_how_to']
+    assert extra_slots({'admin_note': True, 'required_noise': ['internal']}) == [('admin_note', 'internal', 'internal', None)]
+    assert extra_slots({'distractor': 'a phrase'})[0] == ('noise_how_to', 'customer', 'how_to', 'a phrase')
+
+
+def test_extra_slots_are_inserted_with_speaker_and_noise_and_phrase_is_guarded():
+    import pytest
+    from generator.writer import RecordValidationError, merge_mentions
+    r = {'id': 'x', 'mentions': [], 'fin_mode': 'escalated', 'admin_note': True, 'required_noise': ['how_to'], 'distractor': 'the export button'}
+    base = [{'speaker': 'customer', 'text': 'hello there', 'noise_category': None}]
+    ok = {k: {'text': 'twenty characters or more here', 'after_turn': 0} for k in ('bot_turn', 'internal_reply', 'admin_note', 'noise_how_to')}
+    ok['noise_how_to']['text'] = 'where is the export button please'
+    out = merge_mentions(r, {'turns': base, 'mentions': {}, 'extras': ok})['turns']
+    assert [(t['speaker'], t['noise_category']) for t in out[1:]] == [('bot', None), ('internal', None), ('internal', 'internal'), ('customer', 'how_to')]
+    ok['noise_how_to']['text'] = 'a question with no phrase at all here'
+    with pytest.raises(RecordValidationError, match='lacks the required phrase'):
+        merge_mentions(r, {'turns': base, 'mentions': {}, 'extras': ok})
+
+
+def test_dry_pass_every_planned_record_satisfies_the_missing_element_rules_by_construction():
+    from generator.brief import labels, mention_briefs
+    from generator.planner import plan
+    from generator.specs import load
+    from generator.writer import RecordValidationError, merge_mentions, record_schema, validate_response
+    checked = 0
+    for seed in (42, 43):
+        for r in plan(seed)['records']:
+            if r['source'] == 'fullstory':
+                continue
+            sc = record_schema(r, seed)
+            pin = {b['id']: b.get('synonym', 'a small request') for b in mention_briefs(seed, r)}
+            lo = sc['properties']['turns']['minItems']
+            base = [{'speaker': 'customer' if i % 2 else 'internal', 'text': f'we discuss item number {i} with the team today', 'noise_category': None} for i in range(max(lo, 6))]
+            mentions = {}
+            for m in r['mentions']:
+                k = labels(r)[m['id']]
+                mentions[k] = ({'internal_text': f'we keep hearing that {pin[k]} is a problem for the team', 'agreement_text': 'yes, that is right', 'after_turn': 2}
+                               if m.get('agreement') else {'text': f'we really need help because {pin[k]} is hurting the whole team every day', 'after_turn': 3})
+            extras = {k: {'text': ('where is ' + ph + ' please') if ph else 'a routine message for the team today', 'after_turn': 1} for k, _, _, ph in __import__('generator.writer', fromlist=['x']).extra_slots(r)}
+            assert set(extras) == set(sc['properties']['extras']['required'])
+            merged = merge_mentions(r, {'turns': base, 'mentions': mentions, 'extras': extras}, seed)
+            validate_response(r, merged, seed)  # no rule at all fires, so no missing-element rule is masked
+            checked += 1
+    assert checked > 140

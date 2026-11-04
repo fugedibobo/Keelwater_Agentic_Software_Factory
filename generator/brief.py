@@ -7,6 +7,11 @@ import random
 from .specs import ROOT, load
 
 
+def extra_slots(record):
+    from .writer import extra_slots as _extra_slots  # defined beside the schema; imported late to avoid a cycle
+    return _extra_slots(record)
+
+
 def labels(record):
     """Opaque per-record labels (m1, m2, ...) sent to the model in place of mention ids, which embed theme ids."""
     return {m['id']: f'm{i + 1}' for i, m in enumerate(record['mentions'])}
@@ -42,6 +47,6 @@ def make_prompt(seed, record):
         record_brief['second_customer'] = {'company': other['name'], **other_contact}
         record_brief['only_people_who_may_be_named'] += [other['name'], other_contact['name']]
     noise = {'allowed_categories': spec['noise']['categories'], 'required_categories': record.get('required_noise', []), 'distractor_how_to_phrase': record.get('distractor'), 'admin_note': record.get('admin_note', False), 'instructions': 'Tag every noise turn with its category. Put the distractor phrase, if given, in a how-to turn with no mention id. An admin note must be an internal turn tagged internal. A Fin-resolved or escalated conversation needs a bot turn; an escalated one also needs an internal reply. About 35 percent of customer turns are pleasantries. Every tagged customer mention, including a short agreement, must contain its supplied synonym.'}
-    output_schema = {'turns': [{'speaker': 'customer|internal|bot', 'text': 'string', 'noise_category': 'string or null'}], 'mentions': {labels(record)[m['id']]: ({'internal_text': 'internal turn stating the problem, with the synonym', 'agreement_text': 'customer reply, under eight words', 'after_turn': 'index of the turns entry it follows'} if m.get('agreement') else {'text': 'the customer turn carrying this mention', 'after_turn': 'index of the turns entry it follows'}) for m in record['mentions']}}
+    output_schema = {'turns': [{'speaker': 'customer|internal|bot', 'text': 'string', 'noise_category': 'string or null'}], 'extras': {k: f"a {sp} turn, noise_category {nz!r}" + (f", containing the exact phrase '{ph}'" if ph else '') for k, sp, nz, ph in extra_slots(record)}, 'mentions': {labels(record)[m['id']]: ({'internal_text': 'internal turn stating the problem, with the synonym', 'agreement_text': 'customer reply, under eight words', 'after_turn': 'index of the turns entry it follows'} if m.get('agreement') else {'text': 'the customer turn carrying this mention', 'after_turn': 'index of the turns entry it follows'}) for m in record['mentions']}}
     template = (ROOT / 'generator' / 'prompts' / 'record.md').read_text(encoding='utf-8-sig')
     return template.format(source=record['source'], record_brief=json.dumps(record_brief, ensure_ascii=False, sort_keys=True), mention_briefs=json.dumps(mentions, ensure_ascii=False, sort_keys=True), noise_brief=json.dumps(noise, sort_keys=True), output_schema=json.dumps(output_schema, sort_keys=True))
