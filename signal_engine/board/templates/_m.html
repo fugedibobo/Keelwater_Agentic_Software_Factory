@@ -1,0 +1,19 @@
+{% macro trend(o) -%}
+{%- if o.trend.new %}new{% elif o.trend.delta > 0 %}up +{{ o.trend.delta }}{% elif o.trend.delta < 0 %}down {{ o.trend.delta }}{% else %}same 0{% endif -%}
+{%- endmacro %}
+{% macro checkline(o) -%}
+<p class="checks"><span class="lbl">Checks:</span>
+{%- if o.checks is none %} no brief yet{% else %}{% for c in o.checks %} <span class="chk {{ 'ok' if c.ok else 'bad' }}">{{ c.name }} {{ 'ok' if c.ok else 'FAILED: ' ~ c.detail }}</span>{% endfor %}{% endif %}</p>
+<p class="judges"><span class="lbl">Judges:</span>{% for j in o.judges %} <span class="jdg">{{ j.judge }} {{ j.verdict }} ({{ j.note }})</span>{% else %} none yet{% endfor %}</p>
+{%- endmacro %}
+{% macro btn(label, act, id, static, cls='') -%}
+<button type="button" class="btn {{ cls }}" data-act="{{ act }}" data-id="{{ id }}"{% if static %} disabled aria-disabled="true" title="Actions are disabled in the static snapshot"{% endif %}>{{ label }}</button>
+{%- endmacro %}
+{% macro money(v) %}{% if v is none %}-{% else %}GBP {{ '{:,.0f}'.format(v) }}{% endif %}{% endmacro %}
+{% macro num(v) %}{% if v is none %}-{% elif v is boolean %}{{ 'yes' if v else 'no' }}{% elif v is number %}{{ v }}{% else %}{{ v }}{% endif %}{% endmacro %}
+{% macro labelbtns(kind, target_type, target_id, judge, static) -%}
+<span class="lblbtns" data-tt="{{ target_type }}" data-tid="{{ target_id }}" data-judge="{{ judge }}">
+{%- if kind == 'noise' %}<button type="button" class="btn" data-act="label" data-verdict="fail"{% if static %} disabled{% endif %}>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass"{% if static %} disabled{% endif %}>missed signal</button>
+{%- else %}<button type="button" class="btn" data-act="label" data-verdict="pass"{% if static %} disabled{% endif %}>pass</button><button type="button" class="btn" data-act="label" data-verdict="fail"{% if static %} disabled{% endif %}>fail</button>{% endif %}
+<span class="revealed" role="status"></span></span>
+{%- endmacro %}

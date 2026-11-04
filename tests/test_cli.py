@@ -28,7 +28,6 @@ def test_help_lists_exactly_the_section_11_subcommands():
 def test_unbuilt_subcommand_prints_issue_and_exits_2():
     r = keelwater("eval", "--suite", "all")
     assert r.returncode == 2 and r.stdout.strip() == "not built yet: see issue #7"
-    assert keelwater("generate", "--seed", "42").stdout.strip() == "not built yet: see issue #2"
 
 
 def test_unknown_subcommand_is_an_error():

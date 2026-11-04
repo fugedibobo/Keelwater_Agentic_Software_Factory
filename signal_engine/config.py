@@ -57,5 +57,5 @@ def load_keys(cwd=None):
     from dotenv import dotenv_values
     path = find_env_file(cwd)
     values = dotenv_values(path, encoding="utf-8-sig") if path and path.is_file() else {}
-    names = ("OPENROUTER_API_KEY", "TYPESAFE_API_KEY", "KEELWATER_AWS_KEY", "KEELWATER_SELFHOSTED_KEY")
+    names = ("OPENROUTER_API_KEY", "KEELWATER_AWS_KEY", "KEELWATER_SELFHOSTED_KEY")
     return {k: v for k, v in {**{k: os.environ.get(k) for k in names}, **values}.items() if v}

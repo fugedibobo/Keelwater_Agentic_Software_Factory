@@ -385,9 +385,20 @@ class JudgeOutput(Row):
     critique: str
 
 
+class AcceptanceCriterion(Row):
+    given: str
+    when: str
+    then: str
+
+
 class HandoffOutput(Row):
     intent_doc_md: str
     problem_statement: str
+    acceptance_criteria: list[AcceptanceCriterion]
+    non_goals: list[str]
+    constraints: list[str]
+    metric_name: str
+    metric_definition: str
 
 
 class OuttakeOutput(Row):
@@ -520,7 +531,7 @@ class OuttakeDecisionBody(Row):
 
 
 ALL_MODELS = [m for m in list(TABLES.values()) + [
-    TriageOutput, ExtractOutput, ClusterLabelOutput, BriefOutput, JudgeOutput, HandoffOutput, OuttakeOutput,
+    TriageOutput, ExtractOutput, ClusterLabelOutput, BriefOutput, JudgeOutput, AcceptanceCriterion, HandoffOutput, OuttakeOutput,
     GenerateOutput, RunManifest, RunReport, SuiteReport, GroundTruthReport, JudgesReport, HoldoutReport,
     StabilityReport, AcceptBody, MergeBody, RejectBody, ParkBody, ReassignBody, EditBody, ConfirmTagBody,
     RemoveTagBody, SplitBody, UndoBody, LabelBody, OuttakeDecisionBody]]

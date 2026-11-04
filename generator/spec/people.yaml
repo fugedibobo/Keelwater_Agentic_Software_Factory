@@ -1,0 +1,203 @@
+# ASSUMED: synthetic staff, contacts and broker.
+{
+  "staff": [
+    {
+      "name": "Alwen Dovell",
+      "email": "alwen.dovell@keelwater.example",
+      "team": "sales"
+    },
+    {
+      "name": "Bryn Telford",
+      "email": "bryn.telford@keelwater.example",
+      "team": "support"
+    },
+    {
+      "name": "Carys Fenwick",
+      "email": "carys.fenwick@keelwater.example",
+      "team": "onboarding"
+    },
+    {
+      "name": "Deryn Pell",
+      "email": "deryn.pell@keelwater.example",
+      "team": "account_management"
+    }
+  ],
+  "customer_contacts": [
+    {
+      "name": "Avenna Ashfell",
+      "account": "A01",
+      "email": "contact@a01.example"
+    },
+    {
+      "name": "Brelis Bramvale",
+      "account": "A02",
+      "email": "contact@a02.example"
+    },
+    {
+      "name": "Celdra Cairnwick",
+      "account": "A03",
+      "email": "contact@a03.example"
+    },
+    {
+      "name": "Dovren Dovemere",
+      "account": "A04",
+      "email": "contact@a04.example"
+    },
+    {
+      "name": "Elwenna Elmtree",
+      "account": "A05",
+      "email": "contact@a05.example"
+    },
+    {
+      "name": "Farrin Fellward",
+      "account": "A06",
+      "email": "contact@a06.example"
+    },
+    {
+      "name": "Gellin Glenmere",
+      "account": "A07",
+      "email": "contact@a07.example"
+    },
+    {
+      "name": "Havren Harthwick",
+      "account": "A08",
+      "email": "contact@a08.example"
+    },
+    {
+      "name": "Ilyra Isleford",
+      "account": "A09",
+      "email": "contact@a09.example"
+    },
+    {
+      "name": "Jorrin Jarrowfell",
+      "account": "A10",
+      "email": "contact@a10.example"
+    },
+    {
+      "name": "Kessra Keldmere",
+      "account": "A11",
+      "email": "contact@a11.example"
+    },
+    {
+      "name": "Lirven Larchvale",
+      "account": "A12",
+      "email": "contact@a12.example"
+    },
+    {
+      "name": "Mavren Mosswick",
+      "account": "A13",
+      "email": "contact@a13.example"
+    },
+    {
+      "name": "Nellin Nethervale",
+      "account": "A14",
+      "email": "contact@a14.example"
+    },
+    {
+      "name": "Orwen Orrenfield",
+      "account": "A15",
+      "email": "contact@a15.example"
+    },
+    {
+      "name": "Pellin Pennfell",
+      "account": "A16",
+      "email": "contact@a16.example"
+    },
+    {
+      "name": "Quenna Rillmere",
+      "account": "A17",
+      "email": "contact@a17.example"
+    },
+    {
+      "name": "Avenna Harthwick",
+      "account": "A18",
+      "email": "contact@a18.example"
+    },
+    {
+      "name": "Brelis Isleford",
+      "account": "A19",
+      "email": "contact@a19.example"
+    },
+    {
+      "name": "Celdra Jarrowfell",
+      "account": "A20",
+      "email": "contact@a20.example"
+    },
+    {
+      "name": "Dovren Keldmere",
+      "account": "A21",
+      "email": "contact@a21.example"
+    },
+    {
+      "name": "Elwenna Larchvale",
+      "account": "A22",
+      "email": "contact@a22.example"
+    },
+    {
+      "name": "Farrin Mosswick",
+      "account": "A23",
+      "email": "contact@a23.example"
+    },
+    {
+      "name": "Gellin Nethervale",
+      "account": "A24",
+      "email": "contact@a24.example"
+    },
+    {
+      "name": "Havren Orrenfield",
+      "account": "A25",
+      "email": "contact@a25.example"
+    },
+    {
+      "name": "Ilyra Pennfell",
+      "account": "A26",
+      "email": "contact@a26.example"
+    },
+    {
+      "name": "Jorrin Rillmere",
+      "account": "A27",
+      "email": "contact@a27.example"
+    },
+    {
+      "name": "Kessra Ashfell",
+      "account": "A28",
+      "email": "contact@a28.example"
+    },
+    {
+      "name": "Lirven Bramvale",
+      "account": "A29",
+      "email": "contact@a29.example"
+    },
+    {
+      "name": "Mavren Cairnwick",
+      "account": "A30",
+      "email": "contact@a30.example"
+    },
+    {
+      "name": "Nellin Dovemere",
+      "account": "P1",
+      "email": "contact@p1.example"
+    },
+    {
+      "name": "Orwen Elmtree",
+      "account": "P2",
+      "email": "contact@p2.example"
+    },
+    {
+      "name": "Pellin Fellward",
+      "account": "P3",
+      "email": "contact@p3.example"
+    },
+    {
+      "name": "Quenna Glenmere",
+      "account": "P4",
+      "email": "contact@p4.example"
+    }
+  ],
+  "brokers": [
+    {
+      "name": "Nerris Bracken",
+      "email": "contact@crestline-brokers.example"
+    }
+  ]
+}
