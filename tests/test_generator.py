@@ -479,3 +479,8 @@ def test_role_word_passes_when_written_lowercase_elsewhere_and_invented_name_fai
     assert unknown_names('We spoke. Customer is high-priority and the customer agrees', 42) == []
     assert unknown_names('The Zorbulon team said the customer agrees', 42) == ['Zorbulon']
     assert unknown_names('We heard from Brackenford Mutual today.', 42)
+
+
+def test_season_names_pass_the_name_check():
+    from generator.verify import unknown_names
+    assert unknown_names('the review is due before Summer and again in Winter', 42) == []
