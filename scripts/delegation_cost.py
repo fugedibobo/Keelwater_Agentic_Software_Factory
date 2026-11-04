@@ -1,4 +1,5 @@
 """Cost scenario for docs/delegation.md, section 9. INFERRED, list-price arithmetic only."""
+import math  # fsum: float sum() gave 368.29 before Python 3.12 and 368.30 after; fsum gives 368.30 on both
 OPUS = 11.42  # FOUND: Opus 5.5 USD per task, AA Coding Agent Index at max effort
 # INFERRED: other engines scaled from Opus 5.5 by list price (in/out) at equal tokens
 RATIO = {"haiku": 0.10 / 4, "terra": 1 / 4, "sonnet": 2 / 4}  # same ratio on input and output
@@ -13,7 +14,7 @@ REWORK = 0.30  # share of T0 and T1 tasks that fail once and escalate one tier
 extra = {"T0": REWORK * N["T0"] * cost["terra"], "T1": REWORK * N["T1"] * cost["sonnet"], "T2": 0.0, "T3": 0.0}
 
 parts = {c: N[c] * unit[c] + extra[c] for c in N}
-routed = sum(parts.values())
+routed = math.fsum(parts.values())
 all_opus = sum(N.values()) * OPUS
 
 print("class  tasks  unit_usd  rework_usd  total_usd")
