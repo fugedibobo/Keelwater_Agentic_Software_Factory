@@ -340,7 +340,7 @@ The build started at 00:44 on Wednesday 04/11/2026, a day later than planned (th
 
 | Issue | Pull request | Merged | Result |
 |---|---|---|---|
-| #12 two-pager PDF | #22 | 01:14 | Done, then reopened; the fixes (footnote link, split heading, link count) went into #38 |
+| #12 two-pager PDF | #22 | 01:14 | Done, then reopened; the fixes (footnote link, split heading, link count) went into PR #44 (closing issue #38) |
 | #11 diagrams | #23 | 01:17 | Partial: A and C shipped, B cut |
 | #1 scaffold, contracts, gateway | #24 | 01:19 | Done (offline); the probe waited for the key |
 | #6 briefs, citations, judges | #26 (rework #32) | 01:32 | Done (offline) |
@@ -355,7 +355,7 @@ The build started at 00:44 on Wednesday 04/11/2026, a day later than planned (th
 | #13 review fixes | #51, #52 | 12:22 | Review findings fixed or documented |
 | #13 verification and README | this branch | after #7's last re-run | see the end of this section |
 
-Other pull requests: #19 plan, #20 AGENTS.md and permissions (after the author's approval in #18), #25 and #31 Clef replaces Jev, #29 delegation ruleset, #42 build sessions compact normally, #43 halving model, #44 Part 1 revision, #47 and #53 "How I used AI", #50 and #54 build telemetry, #56 presentation deck.
+Other pull requests: #19 plan, #20 AGENTS.md and permissions (after the author's approval in #18), #25 and #31 Clef replaces Jev, #29 delegation ruleset, #42 build sessions compact normally, #43 halving model, #44 Part 1 revision, #47 "How I used AI", #53 its telemetry fill from the build CSV, #50 build telemetry, #54 the delegation cost correction, #56 and #57 presentation deck.
 
 The plan's critical path ran #1, #6, #9, #7. In practice #7's live part waited for #2's generated data (merged 05:07) and ran between about 05:12 and 07:40, so the planned Tuesday 15:30 start moved to the early hours of Wednesday. Two author rulings after the first live run (04/11 at 11:30) shaped the rest: one capped extract filter in #7 (a single re-run on each seed, no further loop), and the fixes and limits for the adversarial review in #13.
 
