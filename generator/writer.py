@@ -49,10 +49,14 @@ def record_schema(record, seed):
                                                          'properties': {m['id']: bounded(slot, m, syn.get(m['id'])) for m in record['mentions']}}}}
 
 
-def merge_mentions(record, raw):
+def merge_mentions(record, raw, seed=None):
     """Insert each mention slot as a tagged customer turn after its hinted turn (clamped; an agreement snaps to the
     next internal turn). Deterministic: sorted by position then mention order."""
     base = [{**t, 'mention_ids': []} for t in raw.get('turns', [])]
+    pinned = {b['id']: b['synonym'] for b in mention_briefs(seed, record) if 'synonym' in b} if seed is not None else {}
+    for mid, term in pinned.items():  # code-side guard: the pinned synonym only, no splicing
+        if term.casefold() not in raw['mentions'][mid]['text'].casefold():
+            raise RecordValidationError(f"{record['id']}: mention {mid} lacks the required phrase '{term}'")
     inserts, used = [], set()
     for order, m in enumerate(record['mentions']):
         slot = raw['mentions'][m['id']]
@@ -158,9 +162,31 @@ def write_record(record, seed, make_request, start_attempt=0, on_rejection=None)
             return response
         except (RecordValidationError, InvalidResponse) as exc:
             last = exc
+            FEEDBACK[record['id']] = str(exc)
             if on_rejection:
                 on_rejection(record['id'], attempt, str(exc))
     raise RecordValidationError(f"{record['id']}: failed after two regenerations: {last}")
+
+
+FEEDBACK = {}  # record id -> last rejection text, set by write_record and read by gateway_request
+
+
+def feedback_text(record, seed, error):
+    """State the failed rule, the offending text and the allowed values so a regeneration can fix it."""
+    if not error:
+        return ''
+    lines = [f'Your previous attempt was rejected: {error}']
+    for b in mention_briefs(seed, record):
+        if 'synonym' in b:
+            lines.append(f"Mention {b['id']} must contain the exact phrase '{b['synonym']}'.")
+    never = re.search(r'forbidden raw phrase (.+)', error)
+    if never:
+        lines.append(f"Do not write the phrase '{never.group(1)}'; paraphrase it.")
+    name = re.search(r'unknown name (.+?)(?:;|$)', error)
+    if name:
+        people = re.search(r'only_people_who_may_be_named": \[(.*?)\]', make_prompt(seed, record))
+        lines.append(f"'{name.group(1)}' is not an allowed name; use only: {people.group(1) if people else 'the names in the record brief'}.")
+    return '\n'.join(lines) + '\n'
 
 
 def gateway_request(gateway, record, seed, attempt):
@@ -168,10 +194,10 @@ def gateway_request(gateway, record, seed, attempt):
     request = request_parameters(record, seed, attempt)
     prompt = request['prompt']
     if attempt:
-        prompt += f'\nRegeneration {attempt}: rewrite the record, satisfy every rule, and return the full JSON again.\n'
+        prompt += f'\nRegeneration {attempt}: rewrite the record, satisfy every rule, and return the full JSON again.\n' + feedback_text(record, seed, FEEDBACK.get(record['id']))
     raw = gateway.chat('generate', [{'role': 'user', 'content': prompt}], target_type='generator_record',
                         target_id=record['id'], prompt_version='record@0.2.0', schema=record_schema(record, seed))
-    return merge_mentions(record, raw)
+    return merge_mentions(record, raw, seed)
 
 
 def write_reference(gateway, brief, seed, on_rejection=None):

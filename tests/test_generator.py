@@ -342,3 +342,25 @@ def test_several_agreements_each_follow_their_own_internal_turn():
     out = merge_mentions(r, {'turns': base, 'mentions': {m['id']: {'text': 'yes', 'after_turn': 3} for m in r['mentions']}})['turns']
     idx = [i for i, t in enumerate(out) if t['mention_ids']]
     assert len(idx) == len(r['mentions']) and all(out[i - 1]['speaker'] == 'internal' for i in idx)
+
+
+def test_regeneration_prompt_carries_the_failed_rule_and_pinned_phrase():
+    from generator.brief import mention_briefs
+    from generator.planner import plan
+    from generator.writer import FEEDBACK, feedback_text
+    r = next(r for r in plan(42)['records'] if r['source'] != 'fullstory' and any('synonym' in b for b in mention_briefs(42, r)))
+    b = next(b for b in mention_briefs(42, r) if 'synonym' in b)
+    text = feedback_text(r, 42, f"{r['id']}: unknown name Acme; forbidden raw phrase Some Theme Title")
+    assert 'Acme' in text and "not an allowed name" in text and f"'{b['synonym']}'" in text and "Some Theme Title" in text
+    assert feedback_text(r, 42, None) == ''
+
+
+def test_missing_pinned_synonym_is_a_failure_in_code():
+    import pytest
+    from generator.brief import mention_briefs
+    from generator.planner import plan
+    from generator.writer import RecordValidationError, merge_mentions
+    r = next(r for r in plan(42)['records'] if r['source'] != 'fullstory' and any('synonym' in b for b in mention_briefs(42, r)))
+    raw = {'turns': [], 'mentions': {m['id']: {'text': 'nothing relevant here', 'after_turn': 0} for m in r['mentions']}}
+    with pytest.raises(RecordValidationError, match='lacks the required phrase'):
+        merge_mentions(r, raw, 42)
