@@ -1,0 +1,78 @@
+{
+ "request": {
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You extract one product insight from a single customer snippet about the Keelwater claims platform.\n\nReturn JSON with exactly these fields:\n- states_product_problem: \"yes\" or \"no\". Answer \"yes\" only if the SNIPPET itself states a problem with, or a request about, the Keelwater product that a product squad could act on (something broken, slow, confusing, missing or hard to do in the product). Answer \"no\" for chatter, greetings, thanks, scheduling, small talk, questions about price, contract or process, praise, and anything that names no product problem. Decide from the SNIPPET block only, not from CONTEXT.\n- problem: the customer problem in one plain sentence, in your own words.\n- quote: the customer words that best show the problem, copied VERBATIM from the SNIPPET block, 5 to 60 words. Never take words from the CONTEXT block. You may join up to three fragments with \"...\" if they appear in that order.\n- workflow: the task the customer was doing, a few words.\n- desired_outcome: what the customer wants instead, one short phrase.\n\nThe CONTEXT block is what an internal Keelwater person said just before; it is context, do not quote it.\n\nIf states_product_problem is \"no\", the snippet is dropped and the other fields are not used; fill them briefly.\n"
+   },
+   {
+    "role": "user",
+    "content": "SNIPPET (quote only from here):\nWe’ve had three handlers stuck for two days because their reserve changes are waiting for an approver who’s on leave — no delegate set up. Claims are stalled because reserve changes beyond handler authority are stuck in an approver’s queue with no backup — approval waiting list is blocking everything. Could we schedule a brief call next Tuesday to walk through the reserve approval delegation setup?\n\nCONTEXT (internal, do not quote):\nHi Havren, thanks for reaching out. Let’s check whether this is related to your sign-on provider or network setup first."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 600,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "extract",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "states_product_problem": {
+       "enum": [
+        "yes",
+        "no"
+       ],
+       "title": "States Product Problem",
+       "type": "string"
+      },
+      "problem": {
+       "title": "Problem",
+       "type": "string"
+      },
+      "quote": {
+       "title": "Quote",
+       "type": "string"
+      },
+      "workflow": {
+       "title": "Workflow",
+       "type": "string"
+      },
+      "desired_outcome": {
+       "title": "Desired Outcome",
+       "type": "string"
+      }
+     },
+     "required": [
+      "states_product_problem",
+      "problem",
+      "quote",
+      "workflow",
+      "desired_outcome"
+     ],
+     "title": "ExtractOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"states_product_problem\": \"yes\",\n  \"problem\": \"Handlers cannot complete reserve changes because there is no delegated approver, causing claim processing to stall.\",\n  \"quote\": \"We’ve had three handlers stuck for two days because their reserve changes are waiting for an approver who’s on leave — no delegate set up. Claims are stalled because reserve changes beyond handler authority are stuck in an approver’s queue with no backup — approval waiting list is blocking everything.\",\n  \"workflow\": \"processing reserve changes for claims\",\n  \"desired_outcome\": \"delegated approval fallback\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 477,
+   "tokens_out": 431,
+   "cost_usd": 0.00012
+  }
+ }
+}

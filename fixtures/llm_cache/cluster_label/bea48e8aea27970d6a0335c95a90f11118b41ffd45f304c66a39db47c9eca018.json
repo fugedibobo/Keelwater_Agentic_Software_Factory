@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The user cannot view reserves or generate supplier payments reports after a reset, blocking their weekly reporting.\n  quote: Yes, I reset it yesterday and still can’t view the reserves or generate supplier payments reports. It’s blocking our weekly reporting.\n- problem: The user cannot pull updated reserves for high-value claims.\n  quote: we’re having trouble pulling updated reserves for our high-value claims this morning.\n- problem: The customer is encountering oddities in the reporting feature while working on renewals.\n  quote: We’ve got a few things to run through today, mainly around renewals and some reporting oddities.\n- problem: The user cannot pull the latest reserves report for a high‑value marine claim.\n  quote: we’re having trouble pulling the latest reserves report for a high-value marine claim\n- problem: They cannot reconcile numbers accurately for month‑end close.\n  quote: Our month-end close depends on reconciling those numbers accurately.\n- problem: The platform is causing issues with handling reserves and policyholder updates.\n  quote: It’s affecting how we handle reserves and policyholder updates.\n- problem: The claims module navigation is confusing after the recent update.\n  quote: we’re having some trouble navigating the claims module after the last update — ... things aren’t ... where we left ...\n- problem: Reserves are not updating in the reporting tab despite reprocessing documents.\n  quote: We’ve already reprocessed the documents twice but the reserves still aren’t updating in the reporting tab."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Reserves and reporting failures\",\n  \"problem_statement\": \"Users cannot access or update reserves in reports, blocking critical tasks like weekly reporting, month-end close, and high-value claim tracking. This happens because the system fails to reflect recent changes even after reprocessing, undermining accuracy and workflow efficiency.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 409,
+   "tokens_out": 67,
+   "cost_usd": 0.0001146
+  }
+ }
+}

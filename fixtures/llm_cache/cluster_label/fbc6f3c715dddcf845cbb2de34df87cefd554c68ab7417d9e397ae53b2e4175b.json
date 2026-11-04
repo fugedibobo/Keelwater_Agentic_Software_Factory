@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: Adjusting reserves on policyholder claims currently triggers alerts, which the user wants to avoid.\n  quote: can we adjust the reserves on policyholder claims without triggering alerts?\n- problem: Uploading policyholder documents triggers a reserve alert, blocking the upload.\n  quote: How do I upload policyholder documents into the system without triggering a reserve alert?"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Reserve alerts block routine updates\",\n  \"problem_statement\": \"Users trying to adjust reserves or upload documents are blocked by automatic alerts that interrupt normal workflows. This slows down essential tasks and creates unnecessary friction.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 178,
+   "tokens_out": 49,
+   "cost_usd": 7.17e-05
+  }
+ }
+}
