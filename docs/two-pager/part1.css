@@ -1,0 +1,17 @@
+@page { size: A4; margin: 12mm; }
+html { font-size: 9.5pt; }
+body { font-family: "Segoe UI", Arial, sans-serif; line-height: 1.28; color: #1a1a1a; margin: 0; }
+h1 { font-size: 15pt; margin: 0 0 1mm; color: #0b3d5c; }
+p.by { margin: 0 0 2mm; color: #555; font-weight: 600; }
+h2 { font-size: 10.5pt; margin: 2.5mm 0 1mm; color: #0b3d5c; border-bottom: 0.4pt solid #9ab; break-after: avoid; }
+p { margin: 0 0 1.4mm; }
+ul { margin: 0 0 1.4mm; padding-left: 4.5mm; }
+li { margin: 0; }
+a { color: #0b5cad; }
+table { border-collapse: collapse; width: 100%; margin: 0 0 1.6mm; break-inside: avoid; }
+th, td { border: 0.4pt solid #9ab; padding: 0.6mm 1.4mm; text-align: left; vertical-align: top; }
+th { background: #e6eef4; }
+.footnote { font-size: 8.5pt; margin-top: 1.5mm; }
+.footnote hr { display: none; }
+.footnote ol { margin: 0; padding-left: 4mm; }
+.footnote-backref { display: none; }
