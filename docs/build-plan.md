@@ -329,3 +329,87 @@ Conventions:
 - **Pending author decision:** AGENTS.md line 17 says "Never /compact", which makes build sessions hand over instead of compacting. The proposed change lets build sessions auto-compact after posting a checkpoint comment; planning chats still hand over.
 - **Next:** the L3 session runs #37, then #38, and #39 in parallel. #40 runs after #37, #38, #39 and #28 Part B. L1 continues #2, #7, #10 and #13. Submission is Thursday 05/11/2026, morning.
 - **Lessons:** a Claude Code handover line pasted into the planning chat is meant for a build session, so check before acting on it; retyped files drift, so compare hashes before trusting a copy; keep the brief outside git (it was saved inside the checkout and excluded locally through .git/info/exclude).
+
+## As executed (04/11/2026, written from GitHub at the end of #13)
+
+Times are UTC, which is London time in November. Sources: the final report comment on each issue and the merged pull request list. FOUND means read there; INFERRED means reasoned. Where a report says "about" or "estimated", so does this section.
+
+### What ran when
+
+The build started at 00:44 on Wednesday 04/11/2026, a day later than planned (the plan assumed Tuesday 08:30). Merge times are the squash-merge times of the pull requests.
+
+| Issue | Pull request | Merged | Result |
+|---|---|---|---|
+| #12 two-pager PDF | #22 | 01:14 | Done, then reopened; the fixes (footnote link, split heading, link count) went into #38 |
+| #11 diagrams | #23 | 01:17 | Partial: A and C shipped, B cut |
+| #1 scaffold, contracts, gateway | #24 | 01:19 | Done (offline); the probe waited for the key |
+| #6 briefs, citations, judges | #26 (rework #32) | 01:32 | Done (offline) |
+| #3 ingest | #27 | 01:37 | Done (offline) |
+| #5 extract to rank | #30 | 01:47 | Done (offline) |
+| #2 synthetic data | #33 (offline part), #46 (generated data) | 02:00, 05:07 | Done; seeds 42 and 43 generated for about USD 0.27 |
+| #8 Signal Board | #35 | 02:06 | Done (offline) |
+| #4 triage | #34 | 02:11 | Done (offline), after one REWORK |
+| #9 handoff and outtake | #36 | 02:20 | Done (offline) |
+| #10 Phoenix bridge | #45 (code), #49 (screenshots) | 04:33, 11:48 | Partial: traces, datasets and experiments work; human labels not shown |
+| #7 eval suites, live run, recording | #48, then #55 | 07:56, 13:10 | Done with floors failing; see below |
+| #13 review fixes | #51, #52 | 12:22 | Review findings fixed or documented |
+| #13 verification and README | this branch | after #7's last re-run | see the end of this section |
+
+Other pull requests: #19 plan, #20 AGENTS.md and permissions (after the author's approval in #18), #25 and #31 Clef replaces Jev, #29 delegation ruleset, #42 build sessions compact normally, #43 halving model, #44 Part 1 revision, #47 and #53 "How I used AI", #50 and #54 build telemetry, #56 presentation deck.
+
+The plan's critical path ran #1, #6, #9, #7. In practice #7's live part waited for #2's generated data (merged 05:07) and ran between about 05:12 and 07:40, so the planned Tuesday 15:30 start moved to the early hours of Wednesday. Two author rulings after the first live run (04/11 at 11:30) shaped the rest: one capped extract filter in #7 (a single re-run on each seed, no further loop), and the fixes and limits for the adversarial review in #13.
+
+### Engines actually used
+
+| Engine | Planned | What happened |
+|---|---|---|
+| codex `gpt-6.1-terra` (high) | builder for every non-crown-jewel work order | Built #2's offline generator only. It stopped after one turn or ran out of capacity on #1 (three stops, sandbox limits), #4's rework (usage limit, reset at 03:52), #5, #6, #10 (twice) and the #13 review fixes. Its token use was never reported |
+| Sonnet builders (`sonnet`, high) | fallback below 30% codex window | Built the other 11 of the 12 done or partial work orders, plus the #13 review fixes and the #7 extract filter |
+| agy (Gemini Argon) | builder for #7 and #13 after the routing change | One turn on #7: it could not run commands headless without `--yolo` and wrote nothing (53k tokens, measured by the wrapper). Not used again |
+| Sonnet checkers and live runners | checks and live steps | Every pull request was checked; first-check pass rate 7 of 11, with four REWORKs (#1, #4, #11, #12) |
+| codex `gpt-6.1-sol` (medium) | one review at the end | Three passes on #13, not one: BLOCK at c9a5d88 (seven findings), BLOCK at e476830 and 4e2c648, BLOCK at 0447167 and bbc36a8. On 04/11 at 11:30 the author ruled that the remaining items be documented, with no third fix loop |
+| Opus orchestrator | dispatch and merge | As planned |
+
+Per-engine token totals and pass rates are generated from the build CSV in [delegation.md](delegation.md) ("Measured on this build"); Opus tokens are estimates only.
+
+### Cut list applied
+
+- **Item 7, diagram B** (#11): its 17 exact edge labels do not fit five stages under 1240 px. The Mermaid chart in architecture section 3 stands in.
+- **Items 5 and 6, impeccable passes beyond `detect` and the board extras** (#8): inline details instead of the side panel, no funnel-to-Audit links, no counts or percent toggle, no judge-disagreement drill-down. `detect` found 0 issues.
+- **#10 was not cut** but ended Partial: no PM labels exist, so the board and Phoenix show 0 human annotations.
+- **#15, the optional PM review, did not run.** No judge is certified and `labels/human/` is empty.
+- Everything else in the plan was kept, including replay, quote verification, the three suites, the human gates and the pre-publish scan.
+
+### Spend by issue
+
+Live spend on the OpenRouter key. "Estimated" means the live runner's own estimate, not metered `model_call` cost.
+
+| Issue | Step | USD | Basis |
+|---|---|---|---|
+| #1 | probe | about 0.0006 | estimated, reported under #2 |
+| #2 | generation of seeds 42 and 43, smokes, aborted runs | about 0.27 | estimated (caps 0.90 and 0.30) |
+| #3 to #6, #8, #9, #10 | no live step while building; their smokes ran later under #7 | 0 | reports |
+| #7 | first live run, 2 tuning re-runs, judge seeds and qualification, seed 43, stability | about 1.0 | estimated (PR #48; first run under 0.50 including failed attempts, final run 0.28) |
+| #7 | extract-filter re-runs: seed 42 0.0824, seed 43 0.0584 (+0.0006), stability about 0.07 | about 0.21 | metered (PR #55) |
+| #13 | re-recording after the stricter citation rule | about 0.10 | PR #51 |
+| #13 | canonical read-through run | 0.00 | metered, every call a cache hit |
+| #13 | handoff previews for three opportunities | not metered | six live calls, under the USD 0.30 cap |
+| #13 | fresh live proof | 0.1708 (key usage +0.1587) | metered; run stopped at the judge stage by the budget guard under its USD 0.364 cap |
+
+The reports add up to about USD 1.6. The key's own usage figure (`probe --key-usage`) read USD 4.16 of the USD 10 limit before the fresh live proof. FOUND: the two figures differ by about USD 2.5. The cause is not established; one possibility (INFERRED) is that the gateway meters only calls whose price is configured, the same weakness as the budget-cap limit in the README. The USD 10 key limit bounded the spend throughout.
+
+### Deviations from the plan
+
+- **Start a day late**, and the live part of #7 moved from Tuesday afternoon to the early hours of Wednesday.
+- **Codex did not build.** The plan had codex terra building and Sonnet checking; Sonnet built 11 of 12 work orders. The sol review ran three times, not once, and its fixes were built by Sonnet because codex terra stalled in this setup.
+- **#7 floors fail.** Seed 42 recovers 2 of 6 planted themes, seed 43 recovers 0 of 3, and stability finds 2 forked themes. The plan allowed one tuning loop (60 minutes) and a frozen held-out run; the author added one capped extract filter and stopped there. The results ship as measured, with the diagnosis in the README.
+- **Judges: `glm-5` replaced by `glm-5.3`**, because `glm-5` ignored `json_schema`.
+- **Triage model** changed from Jev to Cloudflare Clef through OpenRouter's Decisions API (author, 04/11). **The synthetic-data model** changed from Mistral to Qwen3 VL 235B after Mistral returned empty output.
+- **Author time** was about 2 hours by 02:30 on 04/11 (the author's estimate), inside the 4 hours asked for.
+
+### The #13 verification itself
+
+- **Canonical run (04/11/2026, about 13:15 to 13:45):** `keelwater run --profile demo --max-usd 0.30` read through the cache for USD 0.00 and reproduced output hash `52236e52...`. `eval --suite all` exited 1 (floors fail, see the README). The static site was re-rendered, the board screenshots refreshed with headless Edge (playwright-cli is not installed), `cache prune` deleted 872 unused cache files, and `keelwater run` printed MATCH in 54 s.
+- **Fresh live proof:** did not finish, see the spend table. It ran 17 min 14 s against a 15-minute target and stopped at the judge stage: the hard budget bound the gateway reserves for concurrent judge calls left no room under a USD 0.364 cap (1.3 times the first run's estimated USD 0.28), although metered spend was only USD 0.1708. The cap was not raised.
+- **Clean clone:** `uv sync` 9 s, `keelwater run` 58 s with MATCH, no `.env` present.
+- **Reviewer passes:** see the engines table. Findings 1, 2, 7 and 4b are documented in the README Limits, as ruled.
