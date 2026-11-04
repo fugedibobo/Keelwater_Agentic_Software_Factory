@@ -58,7 +58,7 @@ def test_generation_and_forced_replay_are_byte_identical(tmp_path, monkeypatch):
                     assert records[prompt] == inputs[record['id']]
                 records[prompt] = inputs[record['id']]
     cache = root / 'generator' / 'cache'
-    fake = Gateway(store=None, profile='demo', cache_dir=cache, keys={}, client=FakeClient(records), max_usd=.9)
+    fake = Gateway(store=None, profile='demo', cache_dir=cache, keys={}, client=FakeClient(records), sleep=lambda s: None, max_usd=.9)
     result42 = run(42, root=root, gateway=fake, out=lambda _: None)
     assert result42['calls'] == 129 and result42['regenerations'] == 0
     before42 = tree_bytes(root / 'data' / 'raw')
@@ -74,7 +74,7 @@ def test_generation_and_forced_replay_are_byte_identical(tmp_path, monkeypatch):
     assert sum(any(p['part_type'] == 'note' for p in c['conversation_parts']['conversation_parts']) for c in conversations) == 25
     with pytest.raises(FileExistsError):
         run(42, root=root, gateway=fake, out=lambda _: None)
-    fake43 = Gateway(store=None, profile='demo', cache_dir=cache, keys={}, client=FakeClient(records), max_usd=.3)
+    fake43 = Gateway(store=None, profile='demo', cache_dir=cache, keys={}, client=FakeClient(records), sleep=lambda s: None, max_usd=.3)
     result43 = run(43, root=root, gateway=fake43, out=lambda _: None)
     assert result43['calls'] == 42 and result43['regenerations'] == 0
     before43 = tree_bytes(root / 'data' / 'holdout' / 'raw')

@@ -7,12 +7,13 @@ from __future__ import annotations
 
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
+from signal_engine import config
 from signal_engine.gateway import InvalidResponse
 from .brief import make_prompt
 from .specs import ROOT, load
 from .verify import leaked_terms, repeated_record_ids, unknown_names, verify_mention_text
 
-MODEL = 'mistralai/mistral-large-4-0'
+MODEL = config.load('models')['profiles']['demo']['stages']['generate']['model']
 TURN_SCHEMA = {
     'type': 'object', 'additionalProperties': False, 'required': ['turns'],
     'properties': {'turns': {'type': 'array', 'items': {

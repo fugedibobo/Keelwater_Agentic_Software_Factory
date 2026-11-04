@@ -7,6 +7,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import pytest
 
+from signal_engine import config
 from generator.cli import main
 from generator.assemble import assemble
 from generator.brief import make_prompt
@@ -86,7 +87,7 @@ def test_record_brief_is_seeded_and_has_exact_mention_ids():
     assert all(m['id'] in prompt for m in r['mentions'])
     request = request_parameters(r, 42, 0)
     assert request['stage'] == 'generate' and request['temperature'] == .8
-    assert request['model'] == 'mistralai/mistral-large-4-0'
+    assert request['model'] == config.load('models')['profiles']['demo']['stages']['generate']['model']
 
 
 def test_writer_retries_and_fails_closed():

@@ -97,6 +97,7 @@ class Gateway:
         self._keys, self._client, self._http, self._sleep = keys, client, http, sleep
         self.spent, self.used_keys, self.swaps = 0.0, set(), {}
         self._lock = threading.Lock()
+        self._next_slot = {}  # stage -> earliest monotonic time of its next request (rpm pacing)
         if profile in ("aws", "self-hosted"):  # env overrides included: egress is allow-listed, never open
             host = urlparse(self.stage_cfg("extract")["base_url"]).hostname
             if host not in (vpc or config.load("vpc_endpoints"))["hosts"]:
@@ -142,7 +143,7 @@ class Gateway:
             sch = schema if isinstance(schema, dict) else strict_schema(schema)
             body["response_format"] = {"type": "json_schema", "json_schema": {"name": stage, "strict": True, "schema": sch}}
         if self._is_openrouter(stage):
-            body["provider"] = dict(PROVIDER)
+            body["provider"] = {**PROVIDER, "data_collection": c.get("data_collection", "deny")}  # per-stage override from models.yaml
             body["usage"] = {"include": True}
         return body
 
@@ -150,7 +151,7 @@ class Gateway:
         c = self.stage_cfg(stage)
         body = {"model": model or c["model"], "input": list(texts)}
         if self._is_openrouter(stage):
-            body["provider"] = dict(PROVIDER)
+            body["provider"] = {**PROVIDER, "data_collection": c.get("data_collection", "deny")}  # per-stage override from models.yaml
         return body
 
     def decide_request(self, stage, text, model=None):
@@ -165,7 +166,7 @@ class Gateway:
                          "criteria": ["Minor annoyance", "Slows the customer down", "Blocks part of their work", "Blocks the customer entirely"]},
             "signal_type": {"type": "choice", "instructions": "What kind of signal is it?", "criteria": {t.value: t.value.replace("_", " ") for t in SignalType}}}}
         if self._is_openrouter(stage):
-            body["provider"] = dict(PROVIDER)
+            body["provider"] = {**PROVIDER, "data_collection": c.get("data_collection", "deny")}  # per-stage override from models.yaml
         return body
 
     def probe_request(self, stage, model=None):
@@ -263,13 +264,14 @@ class Gateway:
                     self.spent += self._cost(stage, raw.get("usage", {}))
                 if i < attempts - 1:
                     self._sleep(min(0.5 * 2 ** i, 8))
-        raise InvalidResponse(f"{stage} call returned null, empty or unparseable content after {attempts} attempts")
+        raise InvalidResponse(f"{stage} call returned null, empty or unparseable content after {attempts} attempts (last finish_reason={raw.get('finish_reason')})")
 
     # ---- live transport ------------------------------------------------------------------------------------
     def _live(self, stage, kind, body, call_id):
         c = self.stage_cfg(stage)
         attempts = c["retries"] + 1
         for i in range(attempts):
+            self._pace(stage, c)
             try:
                 if c.get("backend") == "clef":
                     return self._decide(c, body)
@@ -282,6 +284,17 @@ class Gateway:
                     self._sleep(min(0.5 * 2 ** i, 8))
                     continue
                 raise GatewayError(self.scrub(f"{stage} call failed: {type(e).__name__}: {e}")) from None
+
+    def _pace(self, stage, c):
+        """Spread a stage's requests evenly under its configured requests per minute (free-tier limit)."""
+        if not c.get("rpm"):
+            return
+        with self._lock:
+            now = time.monotonic()
+            slot = max(now, self._next_slot.get(stage, now))
+            self._next_slot[stage] = slot + 60 / c["rpm"]
+        if slot > now:
+            self._sleep(slot - now)
 
     def _openai(self, stage, c, kind, body, call_id):
         client = self._client or self._make_client(c)
@@ -296,7 +309,7 @@ class Gateway:
                     "usage": {"tokens_in": u.get("prompt_tokens", 0), "tokens_out": 0, "cost_usd": u.get("cost")}}
         r = client.chat.completions.create(**kwargs, extra_body=extra, timeout=c["timeout_s"]).model_dump()
         u = r.get("usage") or {}
-        return {"content": r["choices"][0]["message"]["content"],
+        return {"content": r["choices"][0]["message"]["content"], "finish_reason": r["choices"][0].get("finish_reason"),
                 "usage": {"tokens_in": u.get("prompt_tokens", 0), "tokens_out": u.get("completion_tokens", 0), "cost_usd": u.get("cost")}}
 
     def _make_client(self, c):

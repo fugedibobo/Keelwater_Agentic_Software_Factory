@@ -53,8 +53,11 @@ profiles:
         price: {in: 0.03, out: 0.15}
         max_tokens: 800
       generate:
-        model: mistralai/mistral-large-4-0
-        price: {in: 0.70, out: 2.10}
+        model: nvidia/nemotron-3.5-super-vl:free
+        fallback: deepseek/deepseek-v4.1-flash
+        price: {in: 0, out: 0}
+        data_collection: allow   # exception: free endpoints need prompt logging and generate data is synthetic with no customer content
+        rpm: 18                  # free tier allows about 20 requests a minute
         temperature: 0.8
         max_tokens: 2000
   replay:
