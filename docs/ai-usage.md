@@ -1,6 +1,6 @@
 # How I used AI
 
-Author: Andras Fugedi. Living log, started 02/11/2026; state as of 04/11/2026 about 06:40. This is how this repo was built. The presentation's AI slide is drawn from this file. FOUND means read at a source (an issue, a pull request, a file); INFERRED means reasoned. Times are UTC, which is London time in November.
+Author: Andras Fugedi. Living log, started 02/11/2026; state as of 04/11/2026 about 06:30. This is how this repo was built. The presentation's AI slide is drawn from this file. FOUND means read at a source (an issue, a pull request, a file); INFERRED means reasoned. Times are UTC, which is London time in November.
 
 ## How I used AI, in short
 
