@@ -1,21 +1,16 @@
-<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><title>Keelwater: product lifecycle diagnosis and 90-day plan</title><link rel="stylesheet" href="part1.css"></head><body><h1>Keelwater: product lifecycle diagnosis and 90-day plan</h1>
+<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><title>Keelwater: product lifecycle diagnosis and 90-day plan</title><link rel="stylesheet" href="part1.css"><style>p:has(+ table){break-after:avoid}</style></head><body><h1>Keelwater: product lifecycle diagnosis and 90-day plan</h1>
 <p class="by">Andras Fugedi, 03/11/2026</p>
-<p>Assumed (invented or from conversation): Gong, Fireflies, Intercom with Fin, FullStory, HubSpot, Notion, Shortcut, and Metabase on production Postgres; customer data stays in Keelwater's AWS VPC, fully audited; the platform's leading harness cannot run always-on agents; the factory launches next quarter; a head of data engineering is being hired; open-weight models will be self-hosted; PMs can give a labelling half-day.</p>
-<p>As build cost falls, the constraint moves left to deciding what to build and right to release and adoption. Coding and testing are about 25-35% of idea-to-launch time (<a href="https://www.bain.com/insights/from-pilots-to-payoff-generative-ai-in-software-development-technology-report-2025/">Bain</a>, FOUND<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>). Halving needs 50 points, so even zero build time leaves about 20 to find in Decide, Define and release (INFERRED).</p>
+<p>Assumed (invented or from conversation): Gong, Fireflies, Intercom with Fin, FullStory, HubSpot, Notion, Shortcut, and Metabase on production Postgres; customer data stays in Keelwater's AWS VPC, audited; the platform's leading harness cannot run always-on agents; the factory launches next quarter; a head of data engineering is being hired; open-weight models are self-hosted; PMs can give a labelling half-day.</p>
+<p>As build cost falls, the constraint moves left to deciding what to build and right to release and adoption. Coding and testing are about 25-35% of idea-to-launch time (<a href="https://www.bain.com/insights/from-pilots-to-payoff-generative-ai-in-software-development-technology-report-2025/">Bain</a>, FOUND<sup id="fnref:1">1</sup>). Halving needs 50 points, so even zero build time leaves about 20 to find in Decide, Define and release (INFERRED), and section 6 shows my model does not find them within 18 months.</p>
 <h2>1. Where the lifecycle loses time and value</h2>
+<p>AI sped up the steps but not the joins, and the joins run through memory and meetings. The chain (INFERRED): feedback arrives by four routes nobody consolidates, so PMs hear the loudest account; decisions go unwritten, so settled arguments reopen and engineers and agents guess at intent; faster coding fills review queues; daily releases make customers retrain claims handlers.</p>
 <ul>
-<li>Feedback arrives by four routes and nobody consolidates it, so PMs hear the loudest account.</li>
-<li>A third of PM time goes on status, data chasing and "what shipped?" (self-reported).</li>
-<li>Each tool computes its own metrics.</li>
-<li>With no shared spec, engineers and agents guess at intent.</li>
-<li>Decisions go unwritten, so settled arguments reopen.</li>
+<li>A third of PM time goes on status, data chasing and "what shipped?" (self-reported); each tool has its own metrics.</li>
 <li>Across 655 firms, coding agents raised PR volume about 36% and submission-to-approval time 56% (Harvard/Jellyfish working paper, FOUND).</li>
-<li>Daily releases push change cost onto customers, who retrain claims handlers.</li>
 </ul>
-<p>Every handoff runs through someone's memory or a meeting; AI sped up the steps and left the joins alone.</p>
 <p>Evidence missing: value-stream timing per squad, PR review wait, signal share per route, each tool's metrics side by side, retraining cost per release, a two-week PM time diary.</p>
 <h2>2. The lifecycle in an agentic world</h2>
-<p>Agents read, draft and check; named people pass five gates.</p>
+<p>The PDLC (product development lifecycle) runs from customer signal to measured outcome in seven stages. Agents read, draft and check; named people pass five gates.</p>
 <table>
 <thead>
 <tr>
@@ -40,8 +35,8 @@
 </tr>
 <tr>
 <td>Define</td>
-<td>Intent-doc agent, design-system mockup</td>
-<td>Sign-off (Trio)</td>
+<td>Intent-doc agent; mockup generated from it on the real design-system components</td>
+<td>Sign-off (Trio, designer included)</td>
 <td>Intent doc, factory job</td>
 </tr>
 <tr>
@@ -70,9 +65,12 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Handoffs.</strong> Each stage passes a typed artefact with a status. Agents move items only into states their stage owns, only named people pass gates, and every move is logged. The intent doc (problem, evidence, outcome metric, acceptance criteria, non-goals) and its factory job form the platform contract; the job cites evidence by reference, so quotes stay in the VPC.</p>
-<p><strong>Noise and accuracy.</strong> A sub-cent decision model drops chatter; a weekly sample of 40 drops measures what it misses. Code checks every quote, citation and number. Three judges from another model family test faithfulness, signal and duplication; each stays "calibrating" until 50 blind PM labels per class put the 95% lower bound of its true-positive and true-negative rates at 0.75.</p>
-<p><strong>Deploy daily, release in bundles.</strong> Code ships daily behind flags; customers get an announced monthly bundle with a preview, evidence of the controlled change the EU's <a href="https://www.digital-operational-resilience-act.com/Article_9.html">Digital Operational Resilience Act, Art. 9</a> expects (FOUND). Customers then wait up to four weeks, so I track idea-to-production-behind-flag and idea-to-customer separately and offer opt-in early-access cohorts.</p>
+<p><strong>Handoffs.</strong> Each stage passes a typed artefact with a status; agents move items only into states their stage owns, only named people pass gates, and every move is logged. The intent doc and its factory job are the platform contract; the job cites evidence by reference, so quotes stay in the VPC.</p>
+<p><strong>Skills.</strong> Agent skills sit in one shared library: versioned, evaluated, owned by product ops, with squads adding their own. First five: intent-doc writer, release-notes drafter, SQL against the metric dictionary, call summary to insight, change-notice drafter. The human skill: using AI well.</p>
+<p><strong>Designers.</strong> Customer quotes and session-recording moments feed them directly; the designer signs off the generated mockup within the Trio gate.</p>
+<p><strong>The factory.</strong> A delegation meta-harness: signal in, it orchestrates people and sub-harnesses (the platform team's coding harness, Codex, a hosted or open-weight model) and passes the human gates. The <a href="https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/blob/main/docs/delegation.md">delegation ruleset</a> is its operating rules; owning the coding harness is not required.</p>
+<p><strong>Noise and accuracy.</strong> A sub-cent decision model drops chatter; 40 sampled drops a week measure what it misses. Code checks every quote, citation and number. Three judges from another model family (faithfulness, signal, duplication) stay "calibrating" until 50 blind PM labels per class put each one's true-positive and true-negative rates' 95% lower bound at 0.75.</p>
+<p><strong>Deploy daily, release in bundles.</strong> Code ships daily behind flags; customers get an announced monthly bundle with a preview, the controlled change the EU's <a href="https://www.digital-operational-resilience-act.com/Article_9.html">Digital Operational Resilience Act, Art. 9</a> expects (FOUND). Customers wait up to four weeks, so I track idea-to-production-behind-flag and idea-to-customer separately and offer opt-in early access.</p>
 <h2>3. Shared infrastructure</h2>
 <p>Standard is whatever crosses squads, feeds a comparison or must survive an audit.</p>
 <table>
@@ -88,8 +86,8 @@
 <td>Taxonomy extensions, ranking weights</td>
 </tr>
 <tr>
-<td>Intent-doc template, factory job schema, decision log</td>
-<td>Own skills, extra template sections</td>
+<td>Intent-doc template, factory job schema, decision log, skill library</td>
+<td>Own skills added to the library, extra template sections</td>
 </tr>
 <tr>
 <td>Model gateway and routing rules</td>
@@ -104,40 +102,40 @@
 <td>Digest cadence, in-squad visibility</td>
 </tr>
 <tr>
-<td>One metric dictionary</td>
+<td>One metric dictionary: v0 (about 10 lifecycle metrics) in 60 days, the rest later with data engineering</td>
 <td>Squad metrics, defined in it</td>
 </tr>
 </tbody>
 </table>
 <h2>4. The first 90 days</h2>
-<p>Everything runs in the VPC on a scheduled job runner that product ops owns, moving onto the platform harness if it gains scheduling. My ask: one engineer seconded for 90 days and platform support for the intake API; without the engineer, day 90 covers three squads, not five.</p>
-<p><strong>Day 30.</strong> Running: the Signal Engine nightly for a volunteer pilot squad on tickets and sales calls; a Shortcut "what shipped" digest for every squad. Users: the pilot Trio; all PMs for a labelling half-day (about 250 labels). Learned: signal share per route, value-stream baselines. Go: the pilot PM accepts three of the top 10, reviewed in 30 minutes.</p>
-<p><strong>Day 60.</strong> Running: all routes plus sessions (code cuts idle time, a small model picks windows); intent-doc handoff for two squads; the decision log; flags and bundle manifest in the digest; a bundle pilot with three large customers. Users: two Trios, customer success. Learned: acceptance, judge agreement, review churn. Go: acceptance above 30% and no pilot customer leaves bundles.</p>
-<p><strong>Day 90.</strong> Running: intake for three to five squads, by staffing; outtake drafts (release notes, help articles, change notices, follow-up briefs); the intent-doc schema ready for launch. Users: PMs, product marketing, sales. Learned: pilot against control; where the bottleneck moved.</p>
+<p>Everything runs in the VPC on a product-ops job runner, moving to the platform harness if it schedules. My ask: one engineer for 90 days and platform support for the intake API; without the engineer, day 90 covers three squads, not five.</p>
+<p><strong>Day 30.</strong> Running: the Signal Engine nightly for a volunteer pilot squad on tickets and sales calls; a Shortcut "what shipped" digest for every squad. Users: the pilot Trio; all PMs for a labelling half-day. Learned: signal share per route, value-stream baselines. Go: the pilot PM accepts three of the top 10 in 30 minutes.</p>
+<p><strong>Day 60.</strong> Running: all routes plus sessions; intent-doc handoff for two squads; decision log; metric dictionary v0; flags and bundle manifest in the digest; a bundle pilot with three large customers. Users: two Trios, customer success. Learned: acceptance, judge agreement, review churn. Go: acceptance above 30%, no pilot customer leaves bundles.</p>
+<p><strong>Day 90.</strong> Running: intake for three to five squads, by staffing; outtake drafts (release notes, help articles, change notices, follow-up briefs). Users: PMs, product marketing, sales. Learned: pilot against control; where the bottleneck moved.</p>
 <p>Adoption is the harder half:</p>
 <ul>
 <li>The VP Product sponsors it; the pilot squad volunteers.</li>
 <li>I give first: the digest removes status reporting before PMs label.</li>
-<li>Labelling happens in the Monday review (blind label panel, noise sample).</li>
-<li>The board replaces the weekly feedback meeting.</li>
-<li>The factory accepts only signed intent docs.</li>
-<li>Metrics at 30/60/90 days: weekly active PMs, % of decisions with written rationale, % of customer-visible changes flagged.</li>
+<li>Labelling happens in the Monday review, where the board replaces the weekly feedback meeting.</li>
+<li>Metrics: weekly active PMs, % of decisions with written rationale, % of customer-visible changes flagged.</li>
 </ul>
 <h2>5. What I will not touch, and the platform contract</h2>
+<p>I leave alone what another team owns and anything that would blur the pilot.</p>
 <ul>
 <li>The coding-agent harness is the platform team's; a second would split two engineers.</li>
 <li>Engineering owns code-review policy; I supply review-wait data.</li>
-<li>Squad structure: I have no authority, and changing it alongside tooling would hide which worked.</li>
-<li>The design system, which designers already prototype on.</li>
-<li>The metric dictionary waits for the head of data engineering.</li>
+<li>Squad structure: changing it with tooling would hide which worked.</li>
+<li>The design system itself; I only generate mockups on its components.</li>
+<li>The warehouse and metrics beyond v0, which come later with data engineering.</li>
 </ul>
-<p>I ask the platform team for an intake API, a co-owned versioned factory job schema, gateway access with per-team cost tags, OpenTelemetry into self-hosted Phoenix, previews and demo videos, and per-customer flag cohorts. I own the lifecycle agents and job runner, schemas, evals, judges and adoption.</p>
+<p>I ask the platform team for an intake API, a co-owned versioned job schema, gateway access with per-team cost tags, OpenTelemetry into self-hosted Phoenix, previews and demo videos, and per-customer flag cohorts. I own the lifecycle agents, job runner, schemas, evals, judges and adoption.</p>
 <h2>6. What to tell leadership and what to measure</h2>
-<p>Tell the board that coding speed alone cannot halve delivery: in a <a href="https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/how-generative-ai-could-accelerate-software-product-time-to-market">McKinsey study</a> of 40 PMs, a 40% productivity gain moved time to market about 5% (FOUND). In 90 days expect status work down from a third of PM time to under a tenth, feedback-to-decision in days, and every build decision written. Halving is a 12-month question.</p>
-<p>Before adding squads, compare pilot and control squads on both lead times, status hours, acceptance, judge agreement and review wait. My recommendation changes if:</p>
+<p>Tell the board that halving idea-to-customer is not plausible within 18 months. In my <a href="https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/blob/main/docs/halving-model.md">halving model</a> the mid case reaches 79% of today's lead time at month 18 (high 51%, AI alone 95%), decided mainly by the discovery-and-decision and release process effects, which are INFERRED, not measured. Coding speed alone cannot: in a <a href="https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/how-generative-ai-could-accelerate-software-product-time-to-market">McKinsey study</a> of 40 PMs, a 40% productivity gain moved time to market about 5% (FOUND). Achievable: in 90 days, status work down from a third of PM time to under a tenth, feedback-to-decision in days, every build decision written; by month 18, about a fifth off lead time (INFERRED). A monthly board tracker reports lead time toward 50% and throughput toward 2x.</p>
+<p>Before adding squads, compare pilot and control on both lead times, throughput, decision latency, release time, status hours, acceptance, judge agreement and review wait. My recommendation changes if:</p>
 <ul>
+<li>pilot decision time falls by half and release time by 70%: halving is in reach, so I add squads sooner;</li>
 <li>acceptance stays below 30% after calibration: rework taxonomy and ranking with PMs first;</li>
-<li>review dominates lead time: fund review capacity (smaller PRs, agent pre-review) before more intake;</li>
+<li>review dominates lead time: fund review capacity (smaller PRs, agent pre-review) first;</li>
 <li>customers reject bundles: give each customer flag-level control instead.</li>
 </ul>
 <p>Part 2, the working Signal Engine, is in this repo; start at the README.</p>
