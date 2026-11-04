@@ -1,0 +1,54 @@
+{
+  "id": "f1",
+  "title": "Kickoff",
+  "date": 1760430000000,
+  "duration": 30,
+  "host_email": "ada@keelwater.example",
+  "meeting_attendees": [
+    {
+      "email": "ada@keelwater.example",
+      "name": "Ada Lovelace",
+      "displayName": "Ada Lovelace"
+    },
+    {
+      "email": "ben@client.example",
+      "name": "Ben Client",
+      "displayName": "Ben Client"
+    },
+    {
+      "email": "cat@third.example",
+      "name": "Cat Third",
+      "displayName": "Cat Third"
+    }
+  ],
+  "sentences": [
+    {
+      "index": 0,
+      "speaker_name": "Ada Lovelace",
+      "text": "How is onboarding going?",
+      "start_time": 0.0,
+      "end_time": 2.5
+    },
+    {
+      "index": 1,
+      "speaker_name": "Ben Client",
+      "text": "Slow.",
+      "start_time": 2.5,
+      "end_time": 6.25
+    },
+    {
+      "index": 2,
+      "speaker_name": "Ben Client",
+      "text": "The import tool is confusing.",
+      "start_time": 6.25,
+      "end_time": 9.0
+    },
+    {
+      "index": 3,
+      "speaker_name": "Dana Nobody",
+      "text": "I joined late.",
+      "start_time": 9.0,
+      "end_time": 11.0
+    }
+  ]
+}
