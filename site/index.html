@@ -1,0 +1,855 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Signal Board</title>
+<link rel="icon" href="data:,">
+<style>/* Signal Board: one stylesheet, design tokens for light and dark. Status is never colour alone (words carry it). */
+:root {
+  --bg: #fbfaf7; --surface: #ffffff; --fg: #1c1b19; --muted: #55524b; --line: #8a867c; --line-soft: #dedbd2;
+  --accent: #1f5f8b; --accent-fg: #ffffff; --ok: #1d6b3a; --bad: #a3261d; --warn-bg: #fdf0d5; --mark: #fff0a8;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; --mono: ui-monospace, Consolas, monospace;
+  --s1: .25rem; --s2: .5rem; --s3: 1rem; --s4: 1.5rem; --radius: 6px; --measure: 72rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15171a; --surface: #1d2024; --fg: #ecebe7; --muted: #aaa8a0; --line: #7d7b74; --line-soft: #33363b;
+    --accent: #86bfe8; --accent-fg: #10212d; --ok: #6fcf91; --bad: #ff8f86; --warn-bg: #3a3118; --mark: #5b4f12;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 1rem/1.5 var(--font); }
+a { color: var(--accent); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.skip { position: absolute; left: -999px; } .skip:focus { left: var(--s3); top: var(--s2); background: var(--surface); padding: var(--s2); }
+header, nav, main, footer { max-width: var(--measure); margin: 0 auto; padding: var(--s2) var(--s3); }
+h1 { margin: var(--s3) 0 0; font-size: 1.6rem; letter-spacing: -.01em; } h2 { margin-top: var(--s2); font-size: 1.3rem; } h3 { font-size: 1.1rem; } h4, h5 { margin: var(--s3) 0 var(--s1); }
+.runline, .judgeline { margin: 0; color: var(--muted); }
+.banner { margin: var(--s2) 0 0; padding: var(--s2) var(--s3); background: var(--warn-bg); border: 1px solid var(--line); border-radius: var(--radius); font-weight: 600; }
+nav { display: flex; flex-wrap: wrap; gap: var(--s1) var(--s4); border-bottom: 1px solid var(--line-soft); padding-bottom: var(--s2); }
+.tabgroup { display: flex; flex-wrap: wrap; gap: var(--s1) var(--s2); align-items: center; }
+.grp { color: var(--muted); font-size: .9rem; }
+[role=tab] { padding: var(--s1) var(--s2); border: 1px solid var(--line); border-radius: var(--radius); text-decoration: none; color: var(--fg); background: var(--surface); }
+[role=tab][aria-selected=true] { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); font-weight: 600; }
+.tab { display: none; }
+.tab.active, .tab:target { display: block; }
+main:not(:has(.tab.active)):not(:has(.tab:target)) #opportunities { display: block; }
+.rawrec { display: none; } .rawrec:target { display: block; }
+.strip, .filters { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s3); align-items: center; }
+.count, .btn { font: inherit; padding: var(--s1) var(--s2); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--fg); cursor: pointer; }
+.count[aria-pressed=true] { background: var(--accent); color: var(--accent-fg); }
+.btn.primary { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+.btn:disabled { color: var(--muted); border-style: dashed; cursor: not-allowed; }
+select, input:not([type=checkbox]) { font: inherit; padding: var(--s1); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--fg); max-width: 100%; }
+.opps { list-style: none; margin: var(--s3) 0; padding: 0; display: grid; gap: var(--s2); }
+.opp { padding: var(--s1) 0; background: var(--surface); border: 1px solid var(--line-soft); border-radius: var(--radius); }
+.opp > details > summary { display: flex; flex-wrap: wrap; gap: var(--s1) var(--s3); align-items: baseline; padding: var(--s2) var(--s3); cursor: pointer; }
+.opp .title { font-weight: 600; flex: 1 1 18rem; } .rank { font-variant-numeric: tabular-nums; color: var(--muted); }
+.status { font-size: .85rem; padding: 0 var(--s2); border: 1px solid var(--line); border-radius: 999px; }
+.oppline, .drill { padding: 0 var(--s3) var(--s2); } .drill { border-top: 1px solid var(--line-soft); }
+.chips { display: flex; flex-wrap: wrap; gap: var(--s1); margin: var(--s1) 0; }
+.chip { font-size: .85rem; padding: 0 var(--s2); border: 1px solid var(--line); border-radius: 999px; }
+.checks, .judges, .acct { margin: var(--s1) 0; } .lbl { color: var(--muted); }
+.chk, .jdg { margin-right: var(--s3); } .ok { color: var(--ok); font-weight: 600; } .bad { color: var(--bad); font-weight: 600; }
+.chk.bad::before { content: "! "; }
+q.quote { quotes: "\201C" "\201D"; } mark { background: var(--mark); color: inherit; }
+.context { display: block; color: var(--muted); font-size: .9rem; } .tick { color: var(--muted); font-size: .85rem; }
+.evidence li { margin-bottom: var(--s2); }
+.actions { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s3); margin-top: var(--s3); } .act { display: inline-flex; flex-wrap: wrap; gap: var(--s1); align-items: center; }
+.tagq, .labels, .handoff { border: 1px solid var(--line-soft); border-radius: var(--radius); padding: var(--s2) var(--s3); margin: var(--s3) 0; background: var(--surface); }
+.lblitem { border-top: 1px solid var(--line-soft); padding: var(--s2) 0; } .revealed { color: var(--muted); }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: var(--s3); }
+.preview { display: inline-block; padding: 0 var(--s2); border: 2px solid var(--bad); font-weight: 700; color: var(--bad); }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; margin: var(--s2) 0; font-variant-numeric: tabular-nums; }
+caption { text-align: left; font-weight: 600; padding: var(--s1) 0; } th, td { text-align: left; padding: var(--s1) var(--s2); border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+tr.total th, tr.total td { border-top: 2px solid var(--line); }
+pre { background: var(--surface); border: 1px solid var(--line-soft); padding: var(--s2); overflow-x: auto; white-space: pre-wrap; font: .85rem/1.4 var(--mono); }
+iframe { width: 100%; height: 28rem; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+.drift { list-style: none; padding: 0; } .drift li { display: flex; flex-wrap: wrap; gap: var(--s3); align-items: center; }
+.line { fill: none; stroke: var(--accent); stroke-width: 2; } .line.warn { stroke: var(--bad); }
+.toast { position: fixed; bottom: var(--s3); left: var(--s3); max-width: calc(100% - 2 * var(--s3)); background: var(--fg); color: var(--bg); padding: 0 var(--s3); border-radius: var(--radius); }
+.toast:not(:empty) { padding: var(--s2) var(--s3); } .toast .btn { margin-left: var(--s2); }
+dialog { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--fg); max-width: 28rem; padding: var(--s3); }
+dialog::backdrop { background: rgba(0, 0, 0, .5); }
+.keys, footer { color: var(--muted); font-size: .9rem; } .placeholder { padding: var(--s3); border: 1px dashed var(--line); }
+@media (max-width: 40rem) { header, nav, main, footer { padding-left: var(--s3); padding-right: var(--s3); } .opp .title { flex-basis: 100%; } iframe { height: 20rem; } }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body data-mode="static">
+<a class="skip" href="#main">Skip to content</a>
+<header>
+  <h1>Signal Board</h1>
+  <p class="runline">run 03/11/2026 02:00 (replay)</p>
+  <p class="judgeline"><a href="#evals">Judges: 0 of 3 trusted (calibrating)</a></p>
+  <p class="banner" role="note">Static snapshot of run run-20261103, 03/11/2026. Actions are disabled. Run the local server to review.</p>
+</header>
+<nav aria-label="Board tabs">
+  <div class="tabgroup" role="tablist" aria-label="PM workspace"><span class="grp">PM workspace:</span>
+    <a role="tab" id="t-opportunities" href="#opportunities" data-tab="opportunities">1 Opportunities</a>
+    <a role="tab" id="t-handoffs" href="#handoffs" data-tab="handoffs">2 Handoffs</a></div>
+  <div class="tabgroup" role="tablist" aria-label="Ops console"><span class="grp">Ops console:</span>
+    <a role="tab" id="t-pipeline" href="#pipeline" data-tab="pipeline">3 Pipeline</a>
+    <a role="tab" id="t-evals" href="#evals" data-tab="evals">4 Evals</a>
+    <a role="tab" id="t-audit" href="#audit" data-tab="audit">5 Audit</a>
+    <a role="tab" id="t-how" href="#how" data-tab="how">6 How it works</a></div>
+</nav>
+<main id="main">
+
+
+<section id="opportunities" class="tab" role="tabpanel" aria-labelledby="t-opportunities">
+<h2>Opportunities</h2>
+<p class="strip" aria-label="Since last week"><strong>Since last week:</strong>
+  <button type="button" class="count" data-filter="new">1 new</button>
+  <button type="button" class="count" data-filter="up">1 up</button>
+  <button type="button" class="count" data-filter="down">1 down</button>
+  <button type="button" class="count" data-filter="postship">1 post-ship feedback</button>
+  <button type="button" class="count" data-filter="decided">1 decided since the run</button>
+  <span>6 evidence items dated in the last 7 days</span>
+  <button type="button" class="count" data-filter="" hidden id="clear-filter">clear</button></p>
+<p class="filters"><label>Bucket <select id="f-bucket"><option value="">all</option><option>fnol_intake</option><option>triage_assignment</option><option>documents_evidence</option><option>reserves_payments</option><option>supplier_network</option><option>customer_comms</option><option>reporting_mi</option><option>admin_permissions</option><option>integrations_api</option><option>release_change</option></select></label>
+  <label>Status <select id="f-status"><option value="">all</option><option>new</option><option selected>proposed</option><option>accepted</option><option>merged</option><option>rejected</option><option>parked</option><option>intent_drafted</option><option>in_factory</option><option>shipped</option><option>enabled</option><option>measured</option></select></label>
+  <label>Squad <select id="f-squad"><option value="">all</option><option>intake_claims</option><option>handling_payments</option><option>suppliers_comms</option><option>insight_reporting</option><option>platform_access</option></select></label></p>
+
+<div class="tagq"><h3>Tags the duplicate judge disputes</h3><ul>
+<li>Supplier portal login resets: proposed tag <strong>on_roadmap</strong> (story-88). <button type="button" class="btn " data-act="confirm_tag" data-id="o5" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Confirm tag</button> <button type="button" class="btn " data-act="remove_tag" data-id="o5" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Remove tag</button></li></ul></div>
+
+<ol class="opps" id="opplist">
+
+<li class="opp" data-id="o1" data-status="proposed" data-bucket="triage_assignment" data-squad="intake_claims" data-flags="up">
+<details>
+ <summary><span class="rank">#1</span> <span class="title">Bulk reassignment of claims</span>
+  <span class="score">score 7.4</span> <span class="trend">up +2</span>
+  <span class="status status-proposed">proposed</span></summary>
+ <div class="oppline">
+  <p class="chips"><span class="chip" tabindex="0" title="breadth factor of the score">breadth 2.22</span><span class="chip" tabindex="0" title="severity factor of the score">severity 2.96</span><span class="chip" tabindex="0" title="value factor of the score">value 1.48</span><span class="chip" tabindex="0" title="corroboration factor of the score">corroboration 1.11</span><span class="chip" tabindex="0" title="recency factor of the score">recency 0.74</span><span class="chip" tabindex="0" title="x(1 + 0.25 x renewing share of affected ARR)">renewal x1.25</span></p>
+  <p class="checks"><span class="lbl">Checks:</span> <span class="chk ok">quotes ok</span> <span class="chk ok">citations ok</span> <span class="chk ok">numbers ok</span> <span class="chk ok">names ok</span></p>
+<p class="judges"><span class="lbl">Judges:</span> <span class="jdg">faithfulness pass (calibrating: 23 of 50 pass, 8 of 50 fail)</span> <span class="jdg">signal pass (calibrating: 31 of 50 pass, 12 of 50 fail)</span></p>
+  <p class="acct">1 accounts, GBP 690,000 ARR, 1 renew in 90 days</p>
+ </div>
+ <div class="drill">
+  <p>Bulk reassignment of claims: handlers lose time every week.</p>
+  
+  <details class="brief" open><summary>Brief (cited)</summary>
+   <p>Handlers reassign claims one by one [i1].</p></details>
+  <p class="critique"><strong>faithfulness pass:</strong> faithfulness critique for o1</p><p class="critique"><strong>signal pass:</strong> signal critique for o1</p>
+  
+  <h4>Evidence</h4>
+  <ul class="evidence">
+   <li><q class="quote"><mark>I have to redo forty of these by hand every week number 2</mark> and it takes ages.</q> <span class="tick">quote check: exact match</span>
+     <span class="context">context, not a quote: So what slows you down most?</span>
+     <a href="#raw-77f674adaf80226f">Intercom conversation intercom-8802</a></li>
+   <li><q class="quote"><mark>I have to redo forty of these by hand every week number 1</mark> and it takes ages.</q> <span class="tick">quote check: exact match</span>
+     <span class="context">context, not a quote: So what slows you down most?</span>
+     <a href="#raw-0f899231c778fef9">Gong call gong-8801, 14:33</a></li></ul>
+  
+  <h4>Accounts</h4>
+  <table><thead><tr><th scope="col">Account</th><th scope="col">ARR (GBP)</th><th scope="col">Tier</th><th scope="col">Renewal</th><th scope="col">Insights</th></tr></thead><tbody>
+  <tr><td>Pendleford Motor Mutual</td><td>GBP 690,000</td><td>Strategic</td><td>28/11/2026</td><td>1</td></tr></tbody></table>
+  <p>Unresolved: 1 insights with no account (breadth counts 0).</p>
+  
+  <div class="actions" data-id="o1" data-title="Bulk reassignment of claims" data-evidence="2">
+   
+   <button type="button" class="btn " data-act="accept" data-id="o1" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Accept</button>
+   <span class="act"><select data-field="target" aria-label="Merge target"><option value="">Merge into...</option><option value="o3">Payment approval confusion</option><option value="o2">Audit-trail export is slow</option><option value="o4">Document upload loses files</option><option value="o5">Supplier portal login resets</option><option value="o6">Letter templates cannot be reused</option></select><button type="button" class="btn " data-act="merge" data-id="o1" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Merge</button></span>
+   <span class="act"><select data-field="reason" aria-label="Reject reason"><option value="">Reject reason...</option><option>not_product_signal</option><option>already_shipped</option><option>already_on_roadmap</option><option>evidence_wrong</option><option>mixed_problems</option><option>low_value</option><option>other</option></select><input data-field="rnote" placeholder="reference or note" aria-label="Reject note"><button type="button" class="btn " data-act="reject" data-id="o1" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Reject</button></span>
+   <span class="act"><input data-field="pnote" placeholder="park note (optional)" aria-label="Park note"><button type="button" class="btn " data-act="park" data-id="o1" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Park</button></span>
+   <span class="act"><select data-field="squad" aria-label="Send to squad"><option value="">Send to squad...</option><option>intake_claims</option><option>handling_payments</option><option>suppliers_comms</option><option>insight_reporting</option><option>platform_access</option></select><button type="button" class="btn " data-act="reassign" data-id="o1" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Send</button></span>
+   <span class="act"><input data-field="etitle" value="Bulk reassignment of claims" aria-label="Title"><input data-field="eprob" value="Bulk reassignment of claims: handlers lose time every week." aria-label="Problem statement"><label><input type="checkbox" data-field="ewrong"> Was the original wrong?</label><button type="button" class="btn " data-act="edit" data-id="o1" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Edit</button></span>
+   
+  </div>
+ </div>
+</details></li>
+
+<li class="opp" data-id="o3" data-status="accepted" data-bucket="reserves_payments" data-squad="handling_payments" data-flags="decided">
+<details>
+ <summary><span class="rank">#2</span> <span class="title">Payment approval confusion</span>
+  <span class="score">score 5.8</span> <span class="trend">same 0</span>
+  <span class="status status-accepted">accepted</span></summary>
+ <div class="oppline">
+  <p class="chips"><span class="chip" tabindex="0" title="breadth factor of the score">breadth 1.74</span><span class="chip" tabindex="0" title="severity factor of the score">severity 2.32</span><span class="chip" tabindex="0" title="value factor of the score">value 1.16</span><span class="chip" tabindex="0" title="corroboration factor of the score">corroboration 0.87</span><span class="chip" tabindex="0" title="recency factor of the score">recency 0.58</span></p>
+  <p class="checks"><span class="lbl">Checks:</span> <span class="chk ok">quotes ok</span> <span class="chk ok">citations ok</span> <span class="chk ok">numbers ok</span> <span class="chk ok">names ok</span></p>
+<p class="judges"><span class="lbl">Judges:</span> <span class="jdg">faithfulness pass (calibrating: 23 of 50 pass, 8 of 50 fail)</span> <span class="jdg">signal pass (calibrating: 31 of 50 pass, 12 of 50 fail)</span></p>
+  <p class="acct">2 accounts, GBP 810,000 ARR, 2 renew in 90 days</p>
+ </div>
+ <div class="drill">
+  <p>Payment approval confusion: handlers lose time every week.</p>
+  
+  <details class="brief" open><summary>Brief (cited)</summary>
+   <p>Handlers reassign claims one by one [i1].</p></details>
+  <p class="critique"><strong>faithfulness pass:</strong> faithfulness critique for o3</p><p class="critique"><strong>signal pass:</strong> signal critique for o3</p>
+  
+  <h4>Evidence</h4>
+  <ul class="evidence">
+   <li><q class="quote"><mark>I have to redo forty of these by hand every week number 5</mark> and it takes ages.</q> <span class="tick">quote check: exact match</span>
+     <span class="context">context, not a quote: So what slows you down most?</span>
+     <a href="#raw-6cf74863bfef1432">Fireflies transcript fireflies-8805, sentence ?</a></li>
+   <li><q class="quote"><mark>I have to redo forty of these by hand every week number 6</mark> and it takes ages.</q> <span class="tick">quote check: exact match</span>
+     <span class="context">context, not a quote: So what slows you down most?</span>
+     <a href="#raw-4f5bfcdefd7e9385">FullStory session fullstory-8806, window 14:38 to 14:46</a></li></ul>
+  
+  <h4>Accounts</h4>
+  <table><thead><tr><th scope="col">Account</th><th scope="col">ARR (GBP)</th><th scope="col">Tier</th><th scope="col">Renewal</th><th scope="col">Insights</th></tr></thead><tbody>
+  <tr><td>Northgate Home Insurance</td><td>GBP 120,000</td><td>Growth</td><td>01/02/2027</td><td>1</td></tr><tr><td>Pendleford Motor Mutual</td><td>GBP 690,000</td><td>Strategic</td><td>28/11/2026</td><td>1</td></tr></tbody></table>
+  
+  <h4>Decisions</h4><ul><li>03/11/2026 09:12 priya.n: accept</li></ul>
+  <div class="actions" data-id="o3" data-title="Payment approval confusion" data-evidence="2">
+   
+   <button type="button" class="btn " data-act="accept" data-id="o3" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Accept</button>
+   <span class="act"><select data-field="target" aria-label="Merge target"><option value="">Merge into...</option><option value="o1">Bulk reassignment of claims</option><option value="o2">Audit-trail export is slow</option><option value="o4">Document upload loses files</option><option value="o5">Supplier portal login resets</option><option value="o6">Letter templates cannot be reused</option></select><button type="button" class="btn " data-act="merge" data-id="o3" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Merge</button></span>
+   <span class="act"><select data-field="reason" aria-label="Reject reason"><option value="">Reject reason...</option><option>not_product_signal</option><option>already_shipped</option><option>already_on_roadmap</option><option>evidence_wrong</option><option>mixed_problems</option><option>low_value</option><option>other</option></select><input data-field="rnote" placeholder="reference or note" aria-label="Reject note"><button type="button" class="btn " data-act="reject" data-id="o3" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Reject</button></span>
+   <span class="act"><input data-field="pnote" placeholder="park note (optional)" aria-label="Park note"><button type="button" class="btn " data-act="park" data-id="o3" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Park</button></span>
+   <span class="act"><select data-field="squad" aria-label="Send to squad"><option value="">Send to squad...</option><option>intake_claims</option><option>handling_payments</option><option>suppliers_comms</option><option>insight_reporting</option><option>platform_access</option></select><button type="button" class="btn " data-act="reassign" data-id="o3" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Send</button></span>
+   <span class="act"><input data-field="etitle" value="Payment approval confusion" aria-label="Title"><input data-field="eprob" value="Payment approval confusion: handlers lose time every week." aria-label="Problem statement"><label><input type="checkbox" data-field="ewrong"> Was the original wrong?</label><button type="button" class="btn " data-act="edit" data-id="o3" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Edit</button></span>
+   
+  </div>
+ </div>
+</details></li>
+
+<li class="opp" data-id="o2" data-status="proposed" data-bucket="reporting_mi" data-squad="insight_reporting" data-flags="down">
+<details>
+ <summary><span class="rank">#3</span> <span class="title">Audit-trail export is slow</span>
+  <span class="score">score 5.5</span> <span class="trend">down -2</span>
+  <span class="status status-proposed">proposed</span></summary>
+ <div class="oppline">
+  <p class="chips"><span class="chip" tabindex="0" title="breadth factor of the score">breadth 1.65</span><span class="chip" tabindex="0" title="severity factor of the score">severity 2.2</span><span class="chip" tabindex="0" title="value factor of the score">value 1.1</span><span class="chip" tabindex="0" title="corroboration factor of the score">corroboration 0.82</span><span class="chip" tabindex="0" title="recency factor of the score">recency 0.55</span></p>
+  <p class="checks"><span class="lbl">Checks:</span> <span class="chk ok">quotes ok</span> <span class="chk ok">citations ok</span> <span class="chk bad">numbers FAILED: numbers: GBP 2.0m does not match the fact sheet (total 1,100,000)</span> <span class="chk ok">names ok</span></p>
+<p class="judges"><span class="lbl">Judges:</span> <span class="jdg">faithfulness fail (calibrating: 23 of 50 pass, 8 of 50 fail)</span> <span class="jdg">signal pass (calibrating: 31 of 50 pass, 12 of 50 fail)</span></p>
+  <p class="acct">2 accounts, GBP 530,000 ARR, 1 renew in 90 days</p>
+ </div>
+ <div class="drill">
+  <p>Audit-trail export is slow: handlers lose time every week.</p>
+  
+  <details class="brief"><summary>Brief hidden: a deterministic check failed. Open anyway</summary>
+   <p>Handlers reassign claims one by one [i1].</p></details>
+  <p class="critique"><strong>faithfulness fail:</strong> faithfulness critique for o2</p><p class="critique"><strong>signal pass:</strong> signal critique for o2</p>
+  
+  <h4>Evidence</h4>
+  <ul class="evidence">
+   <li><q class="quote"><mark>I have to redo forty of these by hand every week number 3</mark> and it takes ages.</q> <span class="tick">quote check: exact match</span>
+     <span class="context">context, not a quote: So what slows you down most?</span>
+     <a href="#raw-ac257900c7e6127d">Intercom conversation intercom-8803</a></li>
+   <li><q class="quote"><mark>I have to redo forty of these by hand every week number 4</mark> and it takes ages.</q> <span class="tick">quote check: exact match</span>
+     <span class="context">context, not a quote: So what slows you down most?</span>
+     <a href="#raw-d467c410f0ae33e1">Fireflies transcript fireflies-8804, sentence ?</a></li></ul>
+  
+  <h4>Accounts</h4>
+  <table><thead><tr><th scope="col">Account</th><th scope="col">ARR (GBP)</th><th scope="col">Tier</th><th scope="col">Renewal</th><th scope="col">Insights</th></tr></thead><tbody>
+  <tr><td>Harrow Fleet Cover</td><td>GBP 410,000</td><td>Enterprise</td><td>30/06/2027</td><td>1</td></tr><tr><td>Northgate Home Insurance</td><td>GBP 120,000</td><td>Growth</td><td>01/02/2027</td><td>1</td></tr></tbody></table>
+  
+  
+  <div class="actions" data-id="o2" data-title="Audit-trail export is slow" data-evidence="2">
+   
+   <button type="button" class="btn " data-act="accept" data-id="o2" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Accept</button>
+   <span class="act"><select data-field="target" aria-label="Merge target"><option value="">Merge into...</option><option value="o1">Bulk reassignment of claims</option><option value="o3">Payment approval confusion</option><option value="o4">Document upload loses files</option><option value="o5">Supplier portal login resets</option><option value="o6">Letter templates cannot be reused</option></select><button type="button" class="btn " data-act="merge" data-id="o2" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Merge</button></span>
+   <span class="act"><select data-field="reason" aria-label="Reject reason"><option value="">Reject reason...</option><option>not_product_signal</option><option>already_shipped</option><option>already_on_roadmap</option><option>evidence_wrong</option><option>mixed_problems</option><option>low_value</option><option>other</option></select><input data-field="rnote" placeholder="reference or note" aria-label="Reject note"><button type="button" class="btn " data-act="reject" data-id="o2" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Reject</button></span>
+   <span class="act"><input data-field="pnote" placeholder="park note (optional)" aria-label="Park note"><button type="button" class="btn " data-act="park" data-id="o2" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Park</button></span>
+   <span class="act"><select data-field="squad" aria-label="Send to squad"><option value="">Send to squad...</option><option>intake_claims</option><option>handling_payments</option><option>suppliers_comms</option><option>insight_reporting</option><option>platform_access</option></select><button type="button" class="btn " data-act="reassign" data-id="o2" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Send</button></span>
+   <span class="act"><input data-field="etitle" value="Audit-trail export is slow" aria-label="Title"><input data-field="eprob" value="Audit-trail export is slow: handlers lose time every week." aria-label="Problem statement"><label><input type="checkbox" data-field="ewrong"> Was the original wrong?</label><button type="button" class="btn " data-act="edit" data-id="o2" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Edit</button></span>
+   
+  </div>
+ </div>
+</details></li>
+
+<li class="opp" data-id="o4" data-status="shipped" data-bucket="documents_evidence" data-squad="handling_payments" data-flags="postship">
+<details>
+ <summary><span class="rank">#4</span> <span class="title">Document upload loses files</span>
+  <span class="score">score 3.1</span> <span class="trend">same 0</span>
+  <span class="status status-shipped">shipped</span></summary>
+ <div class="oppline">
+  <p class="chips"><span class="chip" tabindex="0" title="breadth factor of the score">breadth 0.93</span><span class="chip" tabindex="0" title="severity factor of the score">severity 1.24</span><span class="chip" tabindex="0" title="value factor of the score">value 0.62</span><span class="chip" tabindex="0" title="corroboration factor of the score">corroboration 0.46</span><span class="chip" tabindex="0" title="recency factor of the score">recency 0.31</span></p>
+  <p class="checks"><span class="lbl">Checks:</span> no brief yet</p>
+<p class="judges"><span class="lbl">Judges:</span> none yet</p>
+  <p class="acct">2 accounts, GBP 1,100,000 ARR, 1 renew in 90 days</p>
+ </div>
+ <div class="drill">
+  <p>Document upload loses files: handlers lose time every week. <span class="chip">tag shipped: confirmed</span></p>
+  
+  <h4>Evidence</h4>
+  <ul class="evidence">
+   <li><q class="quote"><mark>I have to redo forty of these by hand every week number 7</mark> and it takes ages.</q> <span class="tick">quote check: exact match</span>
+     <span class="context">context, not a quote: So what slows you down most?</span>
+     <a href="#raw-4b6338c390a88f03">FullStory session fullstory-8807, window 14:39 to 14:47</a></li></ul>
+  <h4>Post-ship feedback</h4><ul class="evidence">
+   <li><q class="quote"><mark>I have to redo forty of these by hand every week number 8</mark> and it takes ages.</q> <a href="#raw-57533f54d0033910">Gong call gong-8808, 14:40</a></li></ul>
+  <h4>Accounts</h4>
+  <table><thead><tr><th scope="col">Account</th><th scope="col">ARR (GBP)</th><th scope="col">Tier</th><th scope="col">Renewal</th><th scope="col">Insights</th></tr></thead><tbody>
+  <tr><td>Harrow Fleet Cover</td><td>GBP 410,000</td><td>Enterprise</td><td>30/06/2027</td><td>1</td></tr><tr><td>Pendleford Motor Mutual</td><td>GBP 690,000</td><td>Strategic</td><td>28/11/2026</td><td>1</td></tr></tbody></table>
+  
+  
+  <div class="actions" data-id="o4" data-title="Document upload loses files" data-evidence="2">
+   
+   <button type="button" class="btn " data-act="accept" data-id="o4" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Accept</button>
+   <span class="act"><select data-field="target" aria-label="Merge target"><option value="">Merge into...</option><option value="o1">Bulk reassignment of claims</option><option value="o3">Payment approval confusion</option><option value="o2">Audit-trail export is slow</option><option value="o5">Supplier portal login resets</option><option value="o6">Letter templates cannot be reused</option></select><button type="button" class="btn " data-act="merge" data-id="o4" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Merge</button></span>
+   <span class="act"><select data-field="reason" aria-label="Reject reason"><option value="">Reject reason...</option><option>not_product_signal</option><option>already_shipped</option><option>already_on_roadmap</option><option>evidence_wrong</option><option>mixed_problems</option><option>low_value</option><option>other</option></select><input data-field="rnote" placeholder="reference or note" aria-label="Reject note"><button type="button" class="btn " data-act="reject" data-id="o4" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Reject</button></span>
+   <span class="act"><input data-field="pnote" placeholder="park note (optional)" aria-label="Park note"><button type="button" class="btn " data-act="park" data-id="o4" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Park</button></span>
+   <span class="act"><select data-field="squad" aria-label="Send to squad"><option value="">Send to squad...</option><option>intake_claims</option><option>handling_payments</option><option>suppliers_comms</option><option>insight_reporting</option><option>platform_access</option></select><button type="button" class="btn " data-act="reassign" data-id="o4" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Send</button></span>
+   <span class="act"><input data-field="etitle" value="Document upload loses files" aria-label="Title"><input data-field="eprob" value="Document upload loses files: handlers lose time every week." aria-label="Problem statement"><label><input type="checkbox" data-field="ewrong"> Was the original wrong?</label><button type="button" class="btn " data-act="edit" data-id="o4" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Edit</button></span>
+   
+  </div>
+ </div>
+</details></li>
+
+<li class="opp" data-id="o5" data-status="proposed" data-bucket="supplier_network" data-squad="suppliers_comms" data-flags="new">
+<details>
+ <summary><span class="rank">#5</span> <span class="title">Supplier portal login resets</span>
+  <span class="score">score 2.9</span> <span class="trend">new</span>
+  <span class="status status-proposed">proposed</span></summary>
+ <div class="oppline">
+  <p class="chips"><span class="chip" tabindex="0" title="breadth factor of the score">breadth 0.87</span><span class="chip" tabindex="0" title="severity factor of the score">severity 1.16</span><span class="chip" tabindex="0" title="value factor of the score">value 0.58</span><span class="chip" tabindex="0" title="corroboration factor of the score">corroboration 0.43</span><span class="chip" tabindex="0" title="recency factor of the score">recency 0.29</span><span class="chip" tabindex="0" title="x0.5 when on the roadmap">on roadmap x0.5</span></p>
+  <p class="checks"><span class="lbl">Checks:</span> no brief yet</p>
+<p class="judges"><span class="lbl">Judges:</span> <span class="jdg">duplicate fail (calibrating: 19 of 50 pass, 5 of 50 fail)</span></p>
+  <p class="acct">2 accounts, GBP 530,000 ARR, 1 renew in 90 days</p>
+ </div>
+ <div class="drill">
+  <p>Supplier portal login resets: handlers lose time every week. <span class="chip">tag on_roadmap: proposed</span></p>
+  
+  <h4>Evidence</h4>
+  <ul class="evidence">
+   <li><q class="quote"><mark>I have to redo forty of these by hand every week number 10</mark> and it takes ages.</q> <span class="tick">quote check: exact match</span>
+     <span class="context">context, not a quote: So what slows you down most?</span>
+     <a href="#raw-b96c297c746714e7">Intercom conversation intercom-8810</a></li>
+   <li><q class="quote"><mark>I have to redo forty of these by hand every week number 9</mark> and it takes ages.</q> <span class="tick">quote check: exact match</span>
+     <span class="context">context, not a quote: So what slows you down most?</span>
+     <a href="#raw-989ecdb36b66a319">Gong call gong-8809, 14:41</a></li></ul>
+  
+  <h4>Accounts</h4>
+  <table><thead><tr><th scope="col">Account</th><th scope="col">ARR (GBP)</th><th scope="col">Tier</th><th scope="col">Renewal</th><th scope="col">Insights</th></tr></thead><tbody>
+  <tr><td>Northgate Home Insurance</td><td>GBP 120,000</td><td>Growth</td><td>01/02/2027</td><td>1</td></tr><tr><td>Harrow Fleet Cover</td><td>GBP 410,000</td><td>Enterprise</td><td>30/06/2027</td><td>1</td></tr></tbody></table>
+  
+  
+  <div class="actions" data-id="o5" data-title="Supplier portal login resets" data-evidence="2">
+   
+   <button type="button" class="btn " data-act="accept" data-id="o5" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Accept</button>
+   <span class="act"><select data-field="target" aria-label="Merge target"><option value="">Merge into...</option><option value="o1">Bulk reassignment of claims</option><option value="o3">Payment approval confusion</option><option value="o2">Audit-trail export is slow</option><option value="o4">Document upload loses files</option><option value="o6">Letter templates cannot be reused</option></select><button type="button" class="btn " data-act="merge" data-id="o5" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Merge</button></span>
+   <span class="act"><select data-field="reason" aria-label="Reject reason"><option value="">Reject reason...</option><option>not_product_signal</option><option>already_shipped</option><option>already_on_roadmap</option><option>evidence_wrong</option><option>mixed_problems</option><option>low_value</option><option>other</option></select><input data-field="rnote" placeholder="reference or note" aria-label="Reject note"><button type="button" class="btn " data-act="reject" data-id="o5" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Reject</button></span>
+   <span class="act"><input data-field="pnote" placeholder="park note (optional)" aria-label="Park note"><button type="button" class="btn " data-act="park" data-id="o5" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Park</button></span>
+   <span class="act"><select data-field="squad" aria-label="Send to squad"><option value="">Send to squad...</option><option>intake_claims</option><option>handling_payments</option><option>suppliers_comms</option><option>insight_reporting</option><option>platform_access</option></select><button type="button" class="btn " data-act="reassign" data-id="o5" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Send</button></span>
+   <span class="act"><input data-field="etitle" value="Supplier portal login resets" aria-label="Title"><input data-field="eprob" value="Supplier portal login resets: handlers lose time every week." aria-label="Problem statement"><label><input type="checkbox" data-field="ewrong"> Was the original wrong?</label><button type="button" class="btn " data-act="edit" data-id="o5" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Edit</button></span>
+   <button type="button" class="btn " data-act="confirm_tag" data-id="o5" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Confirm tag</button> <button type="button" class="btn " data-act="remove_tag" data-id="o5" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Remove tag</button>
+  </div>
+ </div>
+</details></li>
+
+<li class="opp" data-id="o6" data-status="parked" data-bucket="customer_comms" data-squad="suppliers_comms" data-flags="">
+<details>
+ <summary><span class="rank">#6</span> <span class="title">Letter templates cannot be reused</span>
+  <span class="score">score 2.4</span> <span class="trend">down -1</span>
+  <span class="status status-parked">parked</span></summary>
+ <div class="oppline">
+  <p class="chips"><span class="chip" tabindex="0" title="breadth factor of the score">breadth 0.72</span><span class="chip" tabindex="0" title="severity factor of the score">severity 0.96</span><span class="chip" tabindex="0" title="value factor of the score">value 0.48</span><span class="chip" tabindex="0" title="corroboration factor of the score">corroboration 0.36</span><span class="chip" tabindex="0" title="recency factor of the score">recency 0.24</span></p>
+  <p class="checks"><span class="lbl">Checks:</span> no brief yet</p>
+<p class="judges"><span class="lbl">Judges:</span> none yet</p>
+  <p class="acct">2 accounts, GBP 810,000 ARR, 2 renew in 90 days</p>
+ </div>
+ <div class="drill">
+  <p>Letter templates cannot be reused: handlers lose time every week.</p>
+  
+  <h4>Evidence</h4>
+  <ul class="evidence">
+   <li><q class="quote"><mark>I have to redo forty of these by hand every week number 11</mark> and it takes ages.</q> <span class="tick">quote check: exact match</span>
+     <span class="context">context, not a quote: So what slows you down most?</span>
+     <a href="#raw-7709210596c7a005">Intercom conversation intercom-8811</a></li>
+   <li><q class="quote"><mark>I have to redo forty of these by hand every week number 12</mark> and it takes ages.</q> <span class="tick">quote check: exact match</span>
+     <span class="context">context, not a quote: So what slows you down most?</span>
+     <a href="#raw-39f8b3a1d2ffc0f1">Fireflies transcript fireflies-8812, sentence ?</a></li></ul>
+  
+  <h4>Accounts</h4>
+  <table><thead><tr><th scope="col">Account</th><th scope="col">ARR (GBP)</th><th scope="col">Tier</th><th scope="col">Renewal</th><th scope="col">Insights</th></tr></thead><tbody>
+  <tr><td>Northgate Home Insurance</td><td>GBP 120,000</td><td>Growth</td><td>01/02/2027</td><td>1</td></tr><tr><td>Pendleford Motor Mutual</td><td>GBP 690,000</td><td>Strategic</td><td>28/11/2026</td><td>1</td></tr></tbody></table>
+  
+  
+  <div class="actions" data-id="o6" data-title="Letter templates cannot be reused" data-evidence="2">
+   
+   <button type="button" class="btn " data-act="accept" data-id="o6" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Accept</button>
+   <span class="act"><select data-field="target" aria-label="Merge target"><option value="">Merge into...</option><option value="o1">Bulk reassignment of claims</option><option value="o3">Payment approval confusion</option><option value="o2">Audit-trail export is slow</option><option value="o4">Document upload loses files</option><option value="o5">Supplier portal login resets</option></select><button type="button" class="btn " data-act="merge" data-id="o6" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Merge</button></span>
+   <span class="act"><select data-field="reason" aria-label="Reject reason"><option value="">Reject reason...</option><option>not_product_signal</option><option>already_shipped</option><option>already_on_roadmap</option><option>evidence_wrong</option><option>mixed_problems</option><option>low_value</option><option>other</option></select><input data-field="rnote" placeholder="reference or note" aria-label="Reject note"><button type="button" class="btn " data-act="reject" data-id="o6" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Reject</button></span>
+   <span class="act"><input data-field="pnote" placeholder="park note (optional)" aria-label="Park note"><button type="button" class="btn " data-act="park" data-id="o6" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Park</button></span>
+   <span class="act"><select data-field="squad" aria-label="Send to squad"><option value="">Send to squad...</option><option>intake_claims</option><option>handling_payments</option><option>suppliers_comms</option><option>insight_reporting</option><option>platform_access</option></select><button type="button" class="btn " data-act="reassign" data-id="o6" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Send</button></span>
+   <span class="act"><input data-field="etitle" value="Letter templates cannot be reused" aria-label="Title"><input data-field="eprob" value="Letter templates cannot be reused: handlers lose time every week." aria-label="Problem statement"><label><input type="checkbox" data-field="ewrong"> Was the original wrong?</label><button type="button" class="btn " data-act="edit" data-id="o6" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Edit</button></span>
+   
+  </div>
+ </div>
+</details></li>
+
+</ol>
+
+<details id="labels" class="labels"><summary>This week's labels: 43 left (3 briefs, 40 noise)</summary>
+ <p>Blind: the judge's verdict and critique appear only after you save a label.</p>
+ <div class="lblitem"><h4>Bulk reassignment of claims</h4><p>Handlers reassign claims one by one [i1].</p>
+  <p>faithfulness: <span class="lblbtns" data-tt="brief" data-tid="2b91a5caab3b7ef9" data-judge="faithfulness"><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>pass</button><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>fail</button>
+<span class="revealed" role="status"></span></span></p><p>signal: <span class="lblbtns" data-tt="brief" data-tid="2b91a5caab3b7ef9" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>pass</button><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>fail</button>
+<span class="revealed" role="status"></span></span></p></div><div class="lblitem"><h4>Audit-trail export is slow</h4><p>Handlers reassign claims one by one [i1].</p>
+  <p>faithfulness: <span class="lblbtns" data-tt="brief" data-tid="b60417a3447e25b5" data-judge="faithfulness"><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>pass</button><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>fail</button>
+<span class="revealed" role="status"></span></span></p><p>signal: <span class="lblbtns" data-tt="brief" data-tid="b60417a3447e25b5" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>pass</button><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>fail</button>
+<span class="revealed" role="status"></span></span></p></div><div class="lblitem"><h4>Payment approval confusion</h4><p>Handlers reassign claims one by one [i1].</p>
+  <p>faithfulness: <span class="lblbtns" data-tt="brief" data-tid="7273ac4433613b03" data-judge="faithfulness"><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>pass</button><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>fail</button>
+<span class="revealed" role="status"></span></span></p><p>signal: <span class="lblbtns" data-tt="brief" data-tid="7273ac4433613b03" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>pass</button><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>fail</button>
+<span class="revealed" role="status"></span></span></p></div>
+ <div class="lblitem"><p>Dropped item: Thanks, that is sorted now (20).</p><span class="lblbtns" data-tt="noise_audit" data-tid="01e0729f290755ab" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (11).</p><span class="lblbtns" data-tt="noise_audit" data-tid="05b5b770c1efc37f" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (8).</p><span class="lblbtns" data-tt="noise_audit" data-tid="07912e8b582a03ed" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (7).</p><span class="lblbtns" data-tt="noise_audit" data-tid="159b167a9b4c45e7" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (21).</p><span class="lblbtns" data-tt="noise_audit" data-tid="2905b1c8d9ab2d70" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (5).</p><span class="lblbtns" data-tt="noise_audit" data-tid="32f5d07ef1ecd695" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (4).</p><span class="lblbtns" data-tt="noise_audit" data-tid="334d4499b29aba53" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (9).</p><span class="lblbtns" data-tt="noise_audit" data-tid="43e06b4370555166" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (1).</p><span class="lblbtns" data-tt="noise_audit" data-tid="675bb2282137fbbd" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (15).</p><span class="lblbtns" data-tt="noise_audit" data-tid="70efc3b0a44262d1" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (14).</p><span class="lblbtns" data-tt="noise_audit" data-tid="7a2251874f376251" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (22).</p><span class="lblbtns" data-tt="noise_audit" data-tid="7f492407e005ecda" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (10).</p><span class="lblbtns" data-tt="noise_audit" data-tid="856bfbd831a61ce4" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (18).</p><span class="lblbtns" data-tt="noise_audit" data-tid="a5caabeea61fea54" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (23).</p><span class="lblbtns" data-tt="noise_audit" data-tid="a698de70f6b2b433" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (6).</p><span class="lblbtns" data-tt="noise_audit" data-tid="aaa3a8409a311535" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (2).</p><span class="lblbtns" data-tt="noise_audit" data-tid="b68466c1b9e1a3d4" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (3).</p><span class="lblbtns" data-tt="noise_audit" data-tid="bb143b813c2a4204" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (12).</p><span class="lblbtns" data-tt="noise_audit" data-tid="bca79572248c2bfb" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (13).</p><span class="lblbtns" data-tt="noise_audit" data-tid="be8e9dae61134df5" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (19).</p><span class="lblbtns" data-tt="noise_audit" data-tid="cd38f8bcdd440ebc" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (24).</p><span class="lblbtns" data-tt="noise_audit" data-tid="d769da267a565d20" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (0).</p><span class="lblbtns" data-tt="noise_audit" data-tid="e17548413eecef18" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (16).</p><span class="lblbtns" data-tt="noise_audit" data-tid="e78e2bf9c600a08d" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (17).</p><span class="lblbtns" data-tt="noise_audit" data-tid="f7dade2fa0993670" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (32).</p><span class="lblbtns" data-tt="noise_audit" data-tid="2a368be655bf4496" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (39).</p><span class="lblbtns" data-tt="noise_audit" data-tid="4293f32fa0048a8c" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (36).</p><span class="lblbtns" data-tt="noise_audit" data-tid="4d37e4ada909e857" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (35).</p><span class="lblbtns" data-tt="noise_audit" data-tid="6bfa7451828637e5" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (38).</p><span class="lblbtns" data-tt="noise_audit" data-tid="702074f045cab2dc" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (26).</p><span class="lblbtns" data-tt="noise_audit" data-tid="8854e12b6dd34695" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (25).</p><span class="lblbtns" data-tt="noise_audit" data-tid="8d8498e3fd36e06c" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (28).</p><span class="lblbtns" data-tt="noise_audit" data-tid="c36117bebe09fcb1" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (33).</p><span class="lblbtns" data-tt="noise_audit" data-tid="c4d7d72cf8be5922" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (27).</p><span class="lblbtns" data-tt="noise_audit" data-tid="c8549094c27696f0" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (29).</p><span class="lblbtns" data-tt="noise_audit" data-tid="c9eeb220653ded16" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (30).</p><span class="lblbtns" data-tt="noise_audit" data-tid="ca6495ebc8251ca6" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (34).</p><span class="lblbtns" data-tt="noise_audit" data-tid="dccfb38cc62b2ba3" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (37).</p><span class="lblbtns" data-tt="noise_audit" data-tid="eae5426cad27e0b4" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div><div class="lblitem"><p>Dropped item: Thanks, that is sorted now (31).</p><span class="lblbtns" data-tt="noise_audit" data-tid="f6057f4e0c686030" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></div>
+</details>
+<p class="keys">a accept  m merge  r reject  p park  s squad  e edit  u undo  l labels  ? shortcuts</p>
+</section>
+
+<section id="handoffs" class="tab" role="tabpanel" aria-labelledby="t-handoffs">
+<h2>Handoffs</h2>
+<h3>Accepted opportunities</h3>
+<article class="handoff"><h4>Payment approval confusion <span class="status status-accepted">accepted</span></h4>
+ 
+ <p class="preview">PREVIEW: not accepted by a PM</p>
+ <div class="cols"><div class="md"><h5>Intent document</h5><h5>Intent: payment approval</h5><p>Draft text.</p><button type="button" class="btn" data-copy="md-h3">Copy Markdown</button><pre id="md-h3" hidden># Intent: payment approval
+
+Draft text.</pre></div>
+ <div><h5>Factory job (JSON, v1)</h5><pre id="job-h3">{
+  &#34;schema_version&#34;: 1
+}</pre>
+  <p class="bad">schema: INVALID</p>
+  <ul><li>(job): &#39;job_id&#39; is a required property</li><li>(job): &#39;idempotency_key&#39; is a required property</li><li>(job): &#39;status&#39; is a required property</li><li>(job): &#39;action&#39; is a required property</li><li>(job): &#39;opportunity_id&#39; is a required property</li><li>(job): &#39;created_at&#39; is a required property</li><li>(job): &#39;created_by&#39; is a required property</li><li>(job): &#39;data_classification&#39; is a required property</li><li>(job): &#39;trace&#39; is a required property</li><li>(job): &#39;evidence&#39; is a required property</li></ul><p>An invalid job cannot be marked ready.</p>
+  
+  <button type="button" class="btn" data-copy="job-h3">Copy JSON</button></div></div>
+ </article>
+<article class="handoff"><h4>Document upload loses files <span class="status status-shipped">shipped</span></h4>
+ 
+ 
+ <div class="cols"><div class="md"><h5>Intent document</h5><h5>Intent: document uploads</h5><h6>Problem</h6><p>Files vanish.</p><ul><li>keep files</li><li>show them</li></ul><button type="button" class="btn" data-copy="md-h4">Copy Markdown</button><pre id="md-h4" hidden># Intent: document uploads
+
+## Problem
+
+Files vanish.
+
+- keep files
+- show them</pre></div>
+ <div><h5>Factory job (JSON, v1)</h5><pre id="job-h4">{
+  &#34;acceptance_criteria&#34;: [
+    {
+      &#34;given&#34;: &#34;a handler uploads a file&#34;,
+      &#34;id&#34;: &#34;AC1&#34;,
+      &#34;then&#34;: &#34;the file is listed&#34;,
+      &#34;when&#34;: &#34;the page reloads&#34;
+    }
+  ],
+  &#34;action&#34;: &#34;create&#34;,
+  &#34;constraints&#34;: [
+    &#34;no schema change&#34;
+  ],
+  &#34;created_at&#34;: &#34;2026-11-03T10:00:00Z&#34;,
+  &#34;created_by&#34;: &#34;priya.n&#34;,
+  &#34;data_classification&#34;: &#34;internal&#34;,
+  &#34;evidence&#34;: {
+    &#34;insight_ids&#34;: [
+      &#34;4444444444444444&#34;
+    ],
+    &#34;intent_doc&#34;: {
+      &#34;handoff_id&#34;: &#34;3333333333333333&#34;,
+      &#34;sha256&#34;: &#34;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&#34;
+    },
+    &#34;run_manifest_hash&#34;: &#34;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&#34;
+  },
+  &#34;idempotency_key&#34;: &#34;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&#34;,
+  &#34;job_id&#34;: &#34;1111111111111111&#34;,
+  &#34;non_goals&#34;: [
+    &#34;bulk import&#34;
+  ],
+  &#34;opportunity_id&#34;: &#34;2222222222222222&#34;,
+  &#34;outcome_metric&#34;: {
+    &#34;baseline&#34;: {
+      &#34;as_of&#34;: &#34;2026-11-03&#34;,
+      &#34;unit&#34;: &#34;per week&#34;,
+      &#34;value&#34;: 12
+    },
+    &#34;definition&#34;: &#34;uploads missing after reload&#34;,
+    &#34;name&#34;: &#34;lost uploads&#34;,
+    &#34;query&#34;: {
+      &#34;kind&#34;: &#34;sql&#34;,
+      &#34;ref&#34;: &#34;q1&#34;
+    },
+    &#34;target&#34;: 0
+  },
+  &#34;problem_statement&#34;: &#34;Handlers lose uploaded documents during claim handling every week.&#34;,
+  &#34;schema_version&#34;: 1,
+  &#34;status&#34;: &#34;draft&#34;,
+  &#34;trace&#34;: {
+    &#34;handoff_id&#34;: &#34;3333333333333333&#34;,
+    &#34;opportunity_id&#34;: &#34;2222222222222222&#34;,
+    &#34;run_id&#34;: &#34;run-20261103&#34;
+  },
+  &#34;users_affected&#34;: [
+    {
+      &#34;accounts&#34;: 2,
+      &#34;roles&#34;: [
+        &#34;claims handler&#34;
+      ],
+      &#34;tier&#34;: &#34;Enterprise&#34;
+    }
+  ]
+}</pre>
+  <p class="ok">schema: VALID</p>
+  
+  
+  <button type="button" class="btn" data-copy="job-h4">Copy JSON</button></div></div>
+ </article>
+
+<h3>Outtake drafts</h3>
+<ul><li><strong>release_note</strong> (draft): Draft release_note.
+ <input data-field="onote" placeholder="reason" aria-label="Reason" data-for="out0">
+ <button type="button" class="btn " data-act="outtake_accept" data-id="out0" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Accept</button> <button type="button" class="btn " data-act="outtake_reject" data-id="out0" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Reject</button></li><li><strong>help_article</strong> (draft): Draft help_article.
+ <input data-field="onote" placeholder="reason" aria-label="Reason" data-for="out1">
+ <button type="button" class="btn " data-act="outtake_accept" data-id="out1" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Accept</button> <button type="button" class="btn " data-act="outtake_reject" data-id="out1" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Reject</button></li><li><strong>change_notice</strong> (draft): Draft change_notice.
+ <input data-field="onote" placeholder="reason" aria-label="Reason" data-for="out2">
+ <button type="button" class="btn " data-act="outtake_accept" data-id="out2" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Accept</button> <button type="button" class="btn " data-act="outtake_reject" data-id="out2" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Reject</button></li><li><strong>followup_brief</strong> (draft): Draft followup_brief.
+ <input data-field="onote" placeholder="reason" aria-label="Reason" data-for="out3">
+ <button type="button" class="btn " data-act="outtake_accept" data-id="out3" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Accept</button> <button type="button" class="btn " data-act="outtake_reject" data-id="out3" disabled aria-disabled="true" title="Actions are disabled in the static snapshot">Reject</button></li></ul>
+</section>
+<section id="pipeline" class="tab" role="tabpanel" aria-labelledby="t-pipeline">
+<h2>Pipeline</h2>
+
+<p>Run run-20261103 (replay), data aaaa, config bbbb</p>
+<div class="scroll"><table><caption>Funnel per source (every removal counted)</caption><thead><tr><th scope="col">Source</th><th scope="col">raw</th><th scope="col">snippets</th><th scope="col">kept</th><th scope="col">dropped</th><th scope="col">low confidence</th><th scope="col">untriaged</th><th scope="col">insights</th><th scope="col">opps</th><th scope="col">briefs</th></tr></thead><tbody>
+<tr><th scope="row">fireflies</th><td>3</td><td>3</td><td>3</td><td>0</td><td>0</td><td>0</td><td>3</td><td>3</td><td>2</td></tr><tr><th scope="row">fullstory</th><td>2</td><td>2</td><td>2</td><td>0</td><td>0</td><td>0</td><td>2</td><td>2</td><td>1</td></tr><tr><th scope="row">gong</th><td>3</td><td>3</td><td>3</td><td>0</td><td>0</td><td>0</td><td>3</td><td>3</td><td>1</td></tr><tr><th scope="row">intercom</th><td>44</td><td>44</td><td>4</td><td>40</td><td>0</td><td>0</td><td>4</td><td>4</td><td>2</td></tr>
+<tr class="total"><th scope="row">TOTAL</th><td>52</td><td>52</td><td>12</td><td>40</td><td>0</td><td>0</td><td>12</td><td>6</td><td>3</td></tr></tbody></table></div>
+<div class="scroll"><table><caption>Per stage</caption><thead><tr><th scope="col">Stage</th><th scope="col">model</th><th scope="col">profile</th><th scope="col">calls</th><th scope="col">p50 ms</th><th scope="col">p95 ms</th><th scope="col">tokens in/out</th><th scope="col">cost USD</th><th scope="col">cached</th></tr></thead><tbody>
+<tr><th scope="row">triage</th><td>jev-latest</td><td>replay</td><td>3</td><td>230</td><td>250</td><td>1500/360</td><td>0.03</td><td>100%</td></tr><tr><th scope="row">extract</th><td>gpt-oss</td><td>replay</td><td>3</td><td>665</td><td>685</td><td>1500/360</td><td>0.03</td><td>0%</td></tr><tr><th scope="row">brief</th><td>deepseek</td><td>replay</td><td>3</td><td>2130</td><td>2150</td><td>1500/360</td><td>0.03</td><td>100%</td></tr><tr><th scope="row">judge</th><td>glm</td><td>replay</td><td>3</td><td>1835</td><td>1855</td><td>1500/360</td><td>0.03</td><td>0%</td></tr></tbody></table></div>
+<p>Run spend USD 0.12 of cap 1.50</p>
+<h3>Triage backend split</h3>
+<ul><li>cheap_llm_fallback: 4 (drop 4)</li><li>decision_model: 48 (drop 36, keep 12)</li></ul>
+<p>Fallback share 8%.</p>
+<h3>Run manifest (replay key)</h3><pre id="manifest">{
+  &#34;as_of&#34;: &#34;2026-11-03&#34;,
+  &#34;batch&#34;: &#34;all&#34;,
+  &#34;config_hash&#34;: &#34;bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb&#34;,
+  &#34;data_hash&#34;: &#34;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&#34;,
+  &#34;manifest&#34;: {
+    &#34;as_of&#34;: &#34;2026-11-03&#34;,
+    &#34;batch&#34;: &#34;all&#34;,
+    &#34;config_files&#34;: {
+      &#34;ranking&#34;: &#34;cccccccc&#34;
+    },
+    &#34;config_hash&#34;: &#34;bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb&#34;,
+    &#34;data_hash&#34;: &#34;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&#34;,
+    &#34;max_usd&#34;: 1.5,
+    &#34;model_ids&#34;: {
+      &#34;brief&#34;: &#34;deepseek&#34;
+    },
+    &#34;profile&#34;: &#34;replay&#34;,
+    &#34;prompt_versions&#34;: {
+      &#34;brief&#34;: &#34;v1&#34;
+    },
+    &#34;seed&#34;: 42
+  },
+  &#34;model_ids&#34;: {
+    &#34;brief&#34;: &#34;deepseek&#34;
+  },
+  &#34;profile&#34;: &#34;replay&#34;,
+  &#34;prompt_versions&#34;: {
+    &#34;brief&#34;: &#34;v1&#34;
+  },
+  &#34;run_id&#34;: &#34;run-20261103&#34;,
+  &#34;seed&#34;: 42,
+  &#34;status&#34;: &#34;done&#34;
+}</pre><button type="button" class="btn" data-copy="manifest">Copy manifest</button>
+
+</section>
+
+<section id="evals" class="tab" role="tabpanel" aria-labelledby="t-evals">
+<h2>Evals</h2>
+
+<div class="scroll"><table><caption>Ground truth</caption><thead><tr><th scope="col">Metric</th><th scope="col">seed 42 (main)</th><th scope="col">seed 43 (held out)</th></tr></thead><tbody>
+<tr><th scope="row">theme_recall</th><td>1.0</td><td>1.0</td></tr><tr><th scope="row">top6_exact</th><td>yes</td><td>-</td></tr><tr><th scope="row">loud_narrow_rank</th><td>8</td><td>9</td></tr></tbody></table></div>
+<p>Two-batch replay and stability: <strong class="ok">STABLE</strong> ids_stable yes; themes_forked 0</p>
+
+<div class="scroll"><table><caption>Judges</caption><thead><tr><th scope="col">Judge</th><th scope="col">pass labels</th><th scope="col">fail labels</th><th scope="col">TPR (95% lower)</th><th scope="col">TNR (95% lower)</th><th scope="col">status</th></tr></thead><tbody>
+<tr><th scope="row">faithfulness</th><td>23/50</td><td>8/50</td><td>- (-)</td><td>- (-)</td><td>calibrating: 23 of 50 pass, 8 of 50 fail</td></tr><tr><th scope="row">signal</th><td>31/50</td><td>12/50</td><td>- (-)</td><td>- (-)</td><td>calibrating: 31 of 50 pass, 12 of 50 fail</td></tr><tr><th scope="row">duplicate</th><td>19/50</td><td>5/50</td><td>- (-)</td><td>- (-)</td><td>calibrating: 19 of 50 pass, 5 of 50 fail</td></tr></tbody></table></div>
+<h3>Noise audit</h3>
+<p>40 dropped items sampled; 0 labelled; weighted miss estimate not available until items are labelled.</p>
+<details class="noise"><summary>Sample of 40 items</summary><ul>
+<li>Thanks, that is sorted now (20). (p 0.07, weight 4.0) <span class="lblbtns" data-tt="noise_audit" data-tid="01e0729f290755ab" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (11). (p 0.07, weight 4.0) <span class="lblbtns" data-tt="noise_audit" data-tid="05b5b770c1efc37f" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (8). (p 0.07, weight 4.0) <span class="lblbtns" data-tt="noise_audit" data-tid="07912e8b582a03ed" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (7). (p 0.07, weight 4.0) <span class="lblbtns" data-tt="noise_audit" data-tid="159b167a9b4c45e7" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (21). (p 0.07, weight 4.0) <span class="lblbtns" data-tt="noise_audit" data-tid="2905b1c8d9ab2d70" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (5). (p 0.07, weight 4.0) <span class="lblbtns" data-tt="noise_audit" data-tid="32f5d07ef1ecd695" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (4). (p 0.07, weight 4.0) <span class="lblbtns" data-tt="noise_audit" data-tid="334d4499b29aba53" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (9). (p 0.07, weight 4.0) <span class="lblbtns" data-tt="noise_audit" data-tid="43e06b4370555166" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (1). (p 0.07, weight 4.0) <span class="lblbtns" data-tt="noise_audit" data-tid="675bb2282137fbbd" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (15). (p 0.07, weight 4.0) <span class="lblbtns" data-tt="noise_audit" data-tid="70efc3b0a44262d1" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (14). (p 0.07, weight 4.0) <span class="lblbtns" data-tt="noise_audit" data-tid="7a2251874f376251" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (22). (p 0.07, weight 4.0) <span class="lblbtns" data-tt="noise_audit" data-tid="7f492407e005ecda" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (10). (p 0.07, weight 4.0) <span class="lblbtns" data-tt="noise_audit" data-tid="856bfbd831a61ce4" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (18). (p 0.07, weight 4.0) <span class="lblbtns" data-tt="noise_audit" data-tid="a5caabeea61fea54" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (23). (p 0.07, weight 4.0) <span class="lblbtns" data-tt="noise_audit" data-tid="a698de70f6b2b433" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (6). (p 0.07, weight 4.0) <span class="lblbtns" data-tt="noise_audit" data-tid="aaa3a8409a311535" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (2). (p 0.07, weight 4.0) <span class="lblbtns" data-tt="noise_audit" data-tid="b68466c1b9e1a3d4" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (3). (p 0.07, weight 4.0) <span class="lblbtns" data-tt="noise_audit" data-tid="bb143b813c2a4204" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (12). (p 0.07, weight 4.0) <span class="lblbtns" data-tt="noise_audit" data-tid="bca79572248c2bfb" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (13). (p 0.07, weight 4.0) <span class="lblbtns" data-tt="noise_audit" data-tid="be8e9dae61134df5" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (19). (p 0.07, weight 4.0) <span class="lblbtns" data-tt="noise_audit" data-tid="cd38f8bcdd440ebc" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (24). (p 0.07, weight 4.0) <span class="lblbtns" data-tt="noise_audit" data-tid="d769da267a565d20" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (0). (p 0.07, weight 4.0) <span class="lblbtns" data-tt="noise_audit" data-tid="e17548413eecef18" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (16). (p 0.07, weight 4.0) <span class="lblbtns" data-tt="noise_audit" data-tid="e78e2bf9c600a08d" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (17). (p 0.07, weight 4.0) <span class="lblbtns" data-tt="noise_audit" data-tid="f7dade2fa0993670" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (32). (p 0.02, weight 12.0) <span class="lblbtns" data-tt="noise_audit" data-tid="2a368be655bf4496" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (39). (p 0.02, weight 12.0) <span class="lblbtns" data-tt="noise_audit" data-tid="4293f32fa0048a8c" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (36). (p 0.02, weight 12.0) <span class="lblbtns" data-tt="noise_audit" data-tid="4d37e4ada909e857" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (35). (p 0.02, weight 12.0) <span class="lblbtns" data-tt="noise_audit" data-tid="6bfa7451828637e5" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (38). (p 0.02, weight 12.0) <span class="lblbtns" data-tt="noise_audit" data-tid="702074f045cab2dc" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (26). (p 0.02, weight 12.0) <span class="lblbtns" data-tt="noise_audit" data-tid="8854e12b6dd34695" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (25). (p 0.02, weight 12.0) <span class="lblbtns" data-tt="noise_audit" data-tid="8d8498e3fd36e06c" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (28). (p 0.02, weight 12.0) <span class="lblbtns" data-tt="noise_audit" data-tid="c36117bebe09fcb1" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (33). (p 0.02, weight 12.0) <span class="lblbtns" data-tt="noise_audit" data-tid="c4d7d72cf8be5922" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (27). (p 0.02, weight 12.0) <span class="lblbtns" data-tt="noise_audit" data-tid="c8549094c27696f0" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (29). (p 0.02, weight 12.0) <span class="lblbtns" data-tt="noise_audit" data-tid="c9eeb220653ded16" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (30). (p 0.02, weight 12.0) <span class="lblbtns" data-tt="noise_audit" data-tid="ca6495ebc8251ca6" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (34). (p 0.02, weight 12.0) <span class="lblbtns" data-tt="noise_audit" data-tid="dccfb38cc62b2ba3" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (37). (p 0.02, weight 12.0) <span class="lblbtns" data-tt="noise_audit" data-tid="eae5426cad27e0b4" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li><li>Thanks, that is sorted now (31). (p 0.02, weight 12.0) <span class="lblbtns" data-tt="noise_audit" data-tid="f6057f4e0c686030" data-judge="signal"><button type="button" class="btn" data-act="label" data-verdict="fail" disabled>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass" disabled>missed signal</button>
+<span class="revealed" role="status"></span></span></li></ul></details>
+<h3>Drift</h3>
+<ul class="drift"><li><span>Label-panel agreement:
+ no data yet</span>
+ </li><li><span>Noise-audit miss rate:
+ no data yet</span>
+ </li><li><span>PM acceptance:
+ 100% (floor 20%, must stay above)
+ </span>
+ </li></ul>
+</section>
+<section id="audit" class="tab" role="tabpanel" aria-labelledby="t-audit">
+<h2>Audit</h2>
+<form class="filters" id="audit-filters" onsubmit="return false">
+  <label>Table <select name="table"><option>audit_event</option><option>model_call</option></select></label>
+  <label>Stage <input name="stage" size="8"></label><label>Model <input name="model" size="10"></label><label>Actor <input name="actor" size="10"></label>
+  <label>From <input type="date" name="from"></label><label>To <input type="date" name="to"></label>
+  <label><input type="checkbox" name="cached"> cached only</label>
+  <button type="button" class="btn" id="audit-apply">Filter</button>
+  <span class="phoenix" aria-disabled="true">Phoenix not running</span></form>
+<p class="chain ok" id="chain">Hash chain: verified to event 2</p>
+<p id="audit-count">2 audit_event rows, 12 model_call rows; first 100 of the selected table shown.</p>
+<div class="scroll"><table id="audit-table"><thead id="audit-head"><tr><th scope="col">When</th><th scope="col">Actor</th><th scope="col">Action</th><th scope="col">Target</th><th scope="col">Detail</th></tr></thead>
+<tbody id="audit-body">
+<tr><td>2026-11-03T02:10:00</td><td>system</td><td>run.done</td><td>run#run-20261103</td><td><details><summary>row</summary><pre>{
+ "action": "run.done",
+ "actor": "system",
+ "actor_kind": "system",
+ "at": "2026-11-03T02:10:00+00:00",
+ "details_json": "{\"cost_usd\":0.12}",
+ "event_id": "4a09457538224b80982d1b16cb9e5426",
+ "hash": "0822d26321f6d78717aeb5807440ca5379693a0a974404cdf6da527847fd844e",
+ "prev_hash": "",
+ "target_id": "run-20261103",
+ "target_type": "run"
+}</pre></details></td></tr><tr><td>2026-11-03T09:12:40</td><td>priya.n</td><td>opportunity.transition</td><td>opportunity#o3</td><td><details><summary>row</summary><pre>{
+ "action": "opportunity.transition",
+ "actor": "priya.n",
+ "actor_kind": "person",
+ "at": "2026-11-03T09:12:40+00:00",
+ "details_json": "{\"from_status\":\"proposed\",\"to_status\":\"accepted\"}",
+ "event_id": "d3b3e79a06524f478eb8a0250918ab05",
+ "hash": "d3bf521bf687706d00f261d04f4f03797958d96b5567587f7ac896d125661d2e",
+ "prev_hash": "0822d26321f6d78717aeb5807440ca5379693a0a974404cdf6da527847fd844e",
+ "target_id": "o3",
+ "target_type": "opportunity"
+}</pre></details></td></tr>
+</tbody></table></div>
+</section>
+<section id="how" class="tab" role="tabpanel" aria-labelledby="t-how">
+<h2>How it works</h2>
+<figure><figcaption>Architecture <a href="diagrams/production-architecture.html" target="_blank" rel="noopener">open full size</a></figcaption>
+<iframe src="diagrams/production-architecture.html" title="Architecture" loading="lazy"></iframe></figure><figure><figcaption>Product development lifecycle <a href="diagrams/agentic-pdlc.html" target="_blank" rel="noopener">open full size</a></figcaption>
+<iframe src="diagrams/agentic-pdlc.html" title="Product development lifecycle" loading="lazy"></iframe></figure>
+<ol class="steps">
+<li><strong>Collect.</strong> Every night Keelwater's feedback is collected from calls, tickets and sessions.</li>
+<li><strong>Clean.</strong> What customers said is kept, with the line before it as context that is never quoted, and idle session time is cut.</li>
+<li><strong>Judge relevance.</strong> A small fast model decides what is product signal and what is noise, and a person checks a weekly sample of 40 dropped items.</li>
+<li><strong>Extract and check.</strong> A model pulls out the problem and the customer's exact words, and code checks the words really appear in the source.</li>
+<li><strong>Group and rank.</strong> Similar problems are grouped, matched to the roadmap and ranked with a formula the PM can read.</li>
+<li><strong>Brief and review.</strong> The top ones get a cited brief, three judges from another model family check it, and a PM accepts, merges, rejects, parks or sends it to another squad.</li>
+</ol>
+</section>
+<section class="rawrec" id="raw-77f674adaf80226f"><h2>intercom intercom-8802</h2><p>Synthetic record.</p><pre>{
+ "n": 2,
+ "note": "synthetic record"
+}</pre></section><section class="rawrec" id="raw-0f899231c778fef9"><h2>gong gong-8801</h2><p>Synthetic record.</p><pre>{
+ "n": 1,
+ "note": "synthetic record"
+}</pre></section><section class="rawrec" id="raw-6cf74863bfef1432"><h2>fireflies fireflies-8805</h2><p>Synthetic record.</p><pre>{
+ "n": 5,
+ "note": "synthetic record"
+}</pre></section><section class="rawrec" id="raw-4f5bfcdefd7e9385"><h2>fullstory fullstory-8806</h2><p>Synthetic record.</p><pre>{
+ "n": 6,
+ "note": "synthetic record"
+}</pre></section><section class="rawrec" id="raw-ac257900c7e6127d"><h2>intercom intercom-8803</h2><p>Synthetic record.</p><pre>{
+ "n": 3,
+ "note": "synthetic record"
+}</pre></section><section class="rawrec" id="raw-d467c410f0ae33e1"><h2>fireflies fireflies-8804</h2><p>Synthetic record.</p><pre>{
+ "n": 4,
+ "note": "synthetic record"
+}</pre></section><section class="rawrec" id="raw-57533f54d0033910"><h2>gong gong-8808</h2><p>Synthetic record.</p><pre>{
+ "n": 8,
+ "note": "synthetic record"
+}</pre></section><section class="rawrec" id="raw-4b6338c390a88f03"><h2>fullstory fullstory-8807</h2><p>Synthetic record.</p><pre>{
+ "n": 7,
+ "note": "synthetic record"
+}</pre></section><section class="rawrec" id="raw-b96c297c746714e7"><h2>intercom intercom-8810</h2><p>Synthetic record.</p><pre>{
+ "n": 10,
+ "note": "synthetic record"
+}</pre></section><section class="rawrec" id="raw-989ecdb36b66a319"><h2>gong gong-8809</h2><p>Synthetic record.</p><pre>{
+ "n": 9,
+ "note": "synthetic record"
+}</pre></section><section class="rawrec" id="raw-7709210596c7a005"><h2>intercom intercom-8811</h2><p>Synthetic record.</p><pre>{
+ "n": 11,
+ "note": "synthetic record"
+}</pre></section><section class="rawrec" id="raw-39f8b3a1d2ffc0f1"><h2>fireflies fireflies-8812</h2><p>Synthetic record.</p><pre>{
+ "n": 12,
+ "note": "synthetic record"
+}</pre></section>
+<script type="application/json" id="board-data">{"audit": {"audit_event": [{"action": "run.done", "actor": "system", "actor_kind": "system", "at": "2026-11-03T02:10:00+00:00", "details_json": "{\"cost_usd\":0.12}", "event_id": "4a09457538224b80982d1b16cb9e5426", "hash": "0822d26321f6d78717aeb5807440ca5379693a0a974404cdf6da527847fd844e", "prev_hash": "", "target_id": "run-20261103", "target_type": "run"}, {"action": "opportunity.transition", "actor": "priya.n", "actor_kind": "person", "at": "2026-11-03T09:12:40+00:00", "details_json": "{\"from_status\":\"proposed\",\"to_status\":\"accepted\"}", "event_id": "d3b3e79a06524f478eb8a0250918ab05", "hash": "d3bf521bf687706d00f261d04f4f03797958d96b5567587f7ac896d125661d2e", "prev_hash": "0822d26321f6d78717aeb5807440ca5379693a0a974404cdf6da527847fd844e", "target_id": "o3", "target_type": "opportunity"}], "model_call": [{"cached": 1, "call_id": "call0", "cost_usd": 0.01, "endpoint": null, "input_hash": "1ca4b329", "latency_ms": 210.0, "model": "jev-latest", "output_hash": "990179ec", "profile": "replay", "prompt_version": null, "run_id": "run-20261103", "stage": "triage", "target_id": "o1", "target_type": "opportunity", "tokens_in": 500, "tokens_out": 120}, {"cached": 0, "call_id": "call1", "cost_usd": 0.01, "endpoint": null, "input_hash": "87dac515", "latency_ms": 645.0, "model": "gpt-oss", "output_hash": "67761282", "profile": "replay", "prompt_version": null, "run_id": "run-20261103", "stage": "extract", "target_id": "o1", "target_type": "opportunity", "tokens_in": 500, "tokens_out": 120}, {"cached": 1, "call_id": "call2", "cost_usd": 0.01, "endpoint": null, "input_hash": "24200d1b", "latency_ms": 2110.0, "model": "deepseek", "output_hash": "bb619172", "profile": "replay", "prompt_version": null, "run_id": "run-20261103", "stage": "brief", "target_id": "o1", "target_type": "opportunity", "tokens_in": 500, "tokens_out": 120}, {"cached": 0, "call_id": "call3", "cost_usd": 0.01, "endpoint": null, "input_hash": "d7f77304", "latency_ms": 1815.0, "model": "glm", "output_hash": "d055b5e2", "profile": "replay", "prompt_version": null, "run_id": "run-20261103", "stage": "judge", "target_id": "o1", "target_type": "opportunity", "tokens_in": 500, "tokens_out": 120}, {"cached": 1, "call_id": "call4", "cost_usd": 0.01, "endpoint": null, "input_hash": "d5ac7e03", "latency_ms": 230.0, "model": "jev-latest", "output_hash": "d8bf048b", "profile": "replay", "prompt_version": null, "run_id": "run-20261103", "stage": "triage", "target_id": "o1", "target_type": "opportunity", "tokens_in": 500, "tokens_out": 120}, {"cached": 0, "call_id": "call5", "cost_usd": 0.01, "endpoint": null, "input_hash": "5e1e850e", "latency_ms": 665.0, "model": "gpt-oss", "output_hash": "f76892c4", "profile": "replay", "prompt_version": null, "run_id": "run-20261103", "stage": "extract", "target_id": "o1", "target_type": "opportunity", "tokens_in": 500, "tokens_out": 120}, {"cached": 1, "call_id": "call6", "cost_usd": 0.01, "endpoint": null, "input_hash": "38680ef6", "latency_ms": 2130.0, "model": "deepseek", "output_hash": "0ae6cd1c", "profile": "replay", "prompt_version": null, "run_id": "run-20261103", "stage": "brief", "target_id": "o1", "target_type": "opportunity", "tokens_in": 500, "tokens_out": 120}, {"cached": 0, "call_id": "call7", "cost_usd": 0.01, "endpoint": null, "input_hash": "a8324a91", "latency_ms": 1835.0, "model": "glm", "output_hash": "d1be7467", "profile": "replay", "prompt_version": null, "run_id": "run-20261103", "stage": "judge", "target_id": "o1", "target_type": "opportunity", "tokens_in": 500, "tokens_out": 120}, {"cached": 1, "call_id": "call8", "cost_usd": 0.01, "endpoint": null, "input_hash": "281fcdd7", "latency_ms": 250.0, "model": "jev-latest", "output_hash": "c4da92de", "profile": "replay", "prompt_version": null, "run_id": "run-20261103", "stage": "triage", "target_id": "o1", "target_type": "opportunity", "tokens_in": 500, "tokens_out": 120}, {"cached": 0, "call_id": "call9", "cost_usd": 0.01, "endpoint": null, "input_hash": "e98a9709", "latency_ms": 685.0, "model": "gpt-oss", "output_hash": "c02ddef5", "profile": "replay", "prompt_version": null, "run_id": "run-20261103", "stage": "extract", "target_id": "o1", "target_type": "opportunity", "tokens_in": 500, "tokens_out": 120}, {"cached": 1, "call_id": "call10", "cost_usd": 0.01, "endpoint": null, "input_hash": "23a32639", "latency_ms": 2150.0, "model": "deepseek", "output_hash": "821616e0", "profile": "replay", "prompt_version": null, "run_id": "run-20261103", "stage": "brief", "target_id": "o1", "target_type": "opportunity", "tokens_in": 500, "tokens_out": 120}, {"cached": 0, "call_id": "call11", "cost_usd": 0.01, "endpoint": null, "input_hash": "499d86dd", "latency_ms": 1855.0, "model": "glm", "output_hash": "4e0dab9c", "profile": "replay", "prompt_version": null, "run_id": "run-20261103", "stage": "judge", "target_id": "o1", "target_type": "opportunity", "tokens_in": 500, "tokens_out": 120}]}, "run_id": "run-20261103"}</script>
+
+</main>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<dialog id="confirm" aria-labelledby="confirm-title"><form method="dialog">
+  <h2 id="confirm-title">Accept and draft the intent document?</h2><p id="confirm-text"></p>
+  <button class="btn" value="cancel">Cancel</button> <button class="btn primary" value="ok" id="confirm-ok" autofocus>Confirm</button></form></dialog>
+<dialog id="keys"><form method="dialog"><h2>Keyboard shortcuts</h2>
+  <p>j / k move, Enter open, Esc close, a accept (then Enter to confirm), m merge, r reject, p park, s send to squad, e edit, u undo, l labels, ? this list.</p>
+  <button class="btn">Close</button></form></dialog>
+<footer><p>Synthetic data. Keelwater is fictional.</p></footer>
+<script>/* Signal Board, shared part: tabs, filters, keyboard, copy, audit table. No network calls here (the live script adds them), so the static page runs from file://. */
+(function () {
+  const $ = (s, r) => (r || document).querySelector(s), $$ = (s, r) => [...(r || document).querySelectorAll(s)];
+  const Board = (window.Board = { flag: "", loadAudit: null });
+  const DATA = (() => { try { return JSON.parse($("#board-data").textContent); } catch (e) { return { audit: {} }; } })();
+
+  function showTab() {
+    const id = location.hash.slice(1);
+    const hit = id && document.getElementById(id), tab = id ? (hit && hit.classList.contains("tab") ? hit : null) : $("#opportunities");
+    if (!tab) return;  // a hash that is not a tab (for example a raw record) leaves the current tab alone
+    $$(".tab").forEach((t) => t.classList.toggle("active", t === tab));
+    $$("[role=tab]").forEach((a) => a.setAttribute("aria-selected", a.dataset.tab === tab.id ? "true" : "false"));
+  }
+
+  function applyFilters() {
+    const f = { bucket: $("#f-bucket").value, status: $("#f-status").value, squad: $("#f-squad").value };
+    $$(".opp").forEach((o) => {
+      const show = (!f.bucket || o.dataset.bucket === f.bucket) && (!f.status || o.dataset.status === f.status) && (!f.squad || o.dataset.squad === f.squad) &&
+        (!Board.flag || o.dataset.flags.split(" ").includes(Board.flag));
+      o.hidden = !show;
+    });
+    $$(".count").forEach((c) => c.setAttribute("aria-pressed", String(!!Board.flag && c.dataset.filter === Board.flag)));
+    $("#clear-filter").hidden = !Board.flag;
+  }
+  Board.applyFilters = applyFilters;
+  Board.showTab = showTab;
+
+  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  function renderAudit(table, rows, chain, total) {
+    $("#audit-head").innerHTML = table === "model_call"
+      ? "<tr><th scope=col>Stage</th><th scope=col>Model</th><th scope=col>In / out hash</th><th scope=col>Latency ms</th><th scope=col>Cost USD</th><th scope=col>Detail</th></tr>"
+      : "<tr><th scope=col>When</th><th scope=col>Actor</th><th scope=col>Action</th><th scope=col>Target</th><th scope=col>Detail</th></tr>";
+    $("#audit-body").innerHTML = rows.slice(0, 100).map((r) => "<tr>" + (table === "model_call"
+      ? `<td>${esc(r.stage)}</td><td>${esc(r.model)}</td><td>${esc(r.input_hash)} / ${esc(r.output_hash)}</td><td>${esc(r.latency_ms)}</td><td>${esc(r.cost_usd)}</td>`
+      : `<td>${esc(String(r.at).slice(0, 19))}</td><td>${esc(r.actor)}</td><td>${esc(r.action)}</td><td>${esc(r.target_type)}#${esc(r.target_id)}</td>`) +
+      `<td><details><summary>row</summary><pre>${esc(JSON.stringify(r, null, 1))}</pre></details></td></tr>`).join("");
+    $("#audit-count").textContent = `${total == null ? rows.length : total} ${table} rows match; first 100 shown.`;
+    if (chain) { $("#chain").textContent = "Hash chain: " + chain.text; $("#chain").className = "chain " + (chain.ok ? "ok" : "bad"); }
+  }
+  async function runAudit() {
+    const f = new FormData($("#audit-filters")), table = f.get("table");
+    if (Board.loadAudit) { const r = await Board.loadAudit(new URLSearchParams(f)); return renderAudit(table, r.rows, r.chain, r.total); }
+    const v = (k) => (f.get(k) || "").toLowerCase();
+    const rows = (DATA.audit[table] || []).filter((r) => table === "model_call"
+      ? (!v("stage") || r.stage.toLowerCase() === v("stage")) && (!v("model") || r.model.toLowerCase().includes(v("model"))) && (!f.get("cached") || r.cached)
+      : (!v("actor") || r.actor.toLowerCase().includes(v("actor"))) && (!f.get("from") || r.at.slice(0, 10) >= f.get("from")) && (!f.get("to") || r.at.slice(0, 10) <= f.get("to")));
+    renderAudit(table, rows, null, null);
+  }
+
+  function copy(id) {
+    const el = document.getElementById(id), text = el.textContent;
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
+    const t = document.createElement("textarea"); t.value = text; document.body.appendChild(t); t.select(); document.execCommand("copy"); t.remove();
+  }
+
+  let cur = -1;
+  const rows = () => $$(".opp").filter((o) => !o.hidden);
+  function move(d) {
+    const r = rows(); if (!r.length) return;
+    cur = Math.max(0, Math.min(r.length - 1, cur + d));
+    $("summary", r[cur]).focus();
+  }
+  const here = () => { const a = document.activeElement && document.activeElement.closest(".opp"); return a || rows()[Math.max(cur, 0)]; };
+  function field(sel, open) { const o = here(); if (!o) return; const d = $("details", o); if (open) d.open = true; const el = $(sel, o); if (el) el.focus(); }
+
+  document.addEventListener("keydown", (e) => {
+    const tag = (e.target.tagName || "").toLowerCase();
+    if (e.key === "Escape") { $$(".opp details[open]").forEach((d) => (d.open = false)); return; }
+    if (tag === "input" || tag === "textarea" || tag === "select" || e.ctrlKey || e.metaKey || e.altKey) return;
+    const k = e.key;
+    if (k === "j") move(1); else if (k === "k") move(-1);
+    else if (k === "m") field("[data-field=target]", true);
+    else if (k === "r") field("[data-field=reason]", true);
+    else if (k === "p") field("[data-field=pnote]", true);
+    else if (k === "s") field("[data-field=squad]", true);
+    else if (k === "e") field("[data-field=etitle]", true);
+    else if (k === "a") { const o = here(); if (o) { $("details", o).open = true; const b = $("[data-act=accept]", o); if (b && !b.disabled) b.click(); } }
+    else if (k === "u") { if (Board.undo) Board.undo(); }
+    else if (k === "l") { location.hash = "#opportunities"; const l = $("#labels"); l.open = !l.open; if (l.open) l.scrollIntoView(); }
+    else if (k === "?") $("#keys").showModal();
+    else return;
+    e.preventDefault();
+  });
+  document.addEventListener("click", (e) => {
+    const c = e.target.closest(".count");
+    if (c) { Board.flag = Board.flag === c.dataset.filter ? "" : c.dataset.filter; applyFilters(); }
+    const cp = e.target.closest("[data-copy]");
+    if (cp) copy(cp.dataset.copy);
+    if (e.target.id === "audit-apply") runAudit();
+  });
+  document.addEventListener("change", (e) => { if (e.target.matches("#f-bucket,#f-status,#f-squad")) applyFilters(); });
+  window.addEventListener("hashchange", showTab);
+  showTab();
+  applyFilters();
+})();
+</script>
+</body>
+</html>

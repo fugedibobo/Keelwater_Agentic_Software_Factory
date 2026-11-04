@@ -1,0 +1,21 @@
+{% import "_m.html" as m %}
+<section id="handoffs" class="tab" role="tabpanel" aria-labelledby="t-handoffs">
+<h2>Handoffs</h2>
+<h3>Accepted opportunities</h3>
+{% for h in handoffs %}<article class="handoff"><h4>{{ h.opportunity.title }} <span class="status status-{{ h.opportunity.status }}">{{ h.opportunity.status }}</span></h4>
+ {% if not h.handoff %}<p>queued: drafted on the next run or by <code>keelwater handoff {{ h.opportunity.opportunity_id }}</code></p>
+ {% else %}
+ {% if h.handoff.preview %}<p class="preview">PREVIEW: not accepted by a PM</p>{% endif %}
+ <div class="cols"><div class="md"><h5>Intent document</h5>{{ h.handoff.intent_doc_md|md }}<button type="button" class="btn" data-copy="md-{{ h.handoff.handoff_id }}">Copy Markdown</button><pre id="md-{{ h.handoff.handoff_id }}" hidden>{{ h.handoff.intent_doc_md }}</pre></div>
+ <div><h5>Factory job (JSON, v1)</h5><pre id="job-{{ h.handoff.handoff_id }}">{{ h.handoff.job_text }}</pre>
+  <p class="{{ 'ok' if not h.handoff.errors else 'bad' }}">schema: {{ 'VALID' if not h.handoff.errors else 'INVALID' }}</p>
+  {% if h.handoff.errors %}<ul>{% for e in h.handoff.errors %}<li>{{ e }}</li>{% endfor %}</ul><p>An invalid job cannot be marked ready.</p>{% endif %}
+  {% if h.handoff.status == 'rejected_by_factory' %}<p>Factory rejected: {{ h.handoff.factory_reason }}</p>{% endif %}
+  <button type="button" class="btn" data-copy="job-{{ h.handoff.handoff_id }}">Copy JSON</button></div></div>
+ {% endif %}</article>
+{% else %}<p>No accepted opportunities yet.</p>{% endfor %}
+<h3>Outtake drafts</h3>
+<ul>{% for o in outtakes %}<li><strong>{{ o.kind }}</strong> ({{ o.status }}): {{ o.body_md }}
+ {% set off = static or o.status != 'draft' %}<input data-field="onote" placeholder="reason" aria-label="Reason" data-for="{{ o.outtake_id }}">
+ {{ m.btn('Accept', 'outtake_accept', o.outtake_id, off) }} {{ m.btn('Reject', 'outtake_reject', o.outtake_id, off) }}</li>{% else %}<li>No drafts yet.</li>{% endfor %}</ul>
+</section>

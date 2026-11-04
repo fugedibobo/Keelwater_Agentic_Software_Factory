@@ -1,0 +1,507 @@
+# ASSUMED: synthetic phrases, names and invented details.
+{
+  "themes": [
+    {
+      "id": "rt-doc-type-misfile",
+      "kind": "real",
+      "bucket": "documents_evidence",
+      "severity": 3,
+      "routes": {
+        "sales": 0,
+        "support": 4,
+        "onboarding": 3,
+        "account_management": 2,
+        "sessions": 4
+      },
+      "mentions": 13,
+      "accounts": [
+        "A01",
+        "A02",
+        "A03",
+        "A05",
+        "A07",
+        "A09",
+        "A13",
+        "A18"
+      ],
+      "description": "Uploaded documents are auto-classified under the wrong type (garage estimates under \"Correspondence\"), so handlers re-file them and sometimes miss evidence. FullStory: rage clicks on the \"Document type\" select after upload.",
+      "facts": [
+        "garage estimates go into correspondence",
+        "handlers manually recategorise evidence",
+        "misfiled evidence can be overlooked"
+      ],
+      "synonyms": [
+        "wrong document category",
+        "incorrect file type"
+      ],
+      "title": "Uploaded documents are auto-classified under the wrong type (garage estimates under \"Correspondence\"), so handlers re-file them and sometimes miss evidence",
+      "stances": [],
+      "product_ref": null,
+      "hard_negatives": [
+        {
+          "source": "shortcut",
+          "id": 4133
+        },
+        {
+          "source": "shortcut",
+          "id": 4127
+        }
+      ],
+      "expected": {
+        "outcome": "ranked",
+        "top6": true
+      }
+    },
+    {
+      "id": "rt-reserve-approval-queue",
+      "kind": "real",
+      "bucket": "reserves_payments",
+      "severity": 3,
+      "routes": {
+        "sales": 3,
+        "support": 3,
+        "onboarding": 0,
+        "account_management": 4,
+        "sessions": 0
+      },
+      "mentions": 10,
+      "accounts": [
+        "A02",
+        "A04",
+        "A07",
+        "A08",
+        "A11",
+        "A14",
+        "P1"
+      ],
+      "description": "A reserve change above a handler's authority waits in one approver's queue with no delegation when they are away, so claims stall.",
+      "facts": [
+        "a reserve beyond authority waits for approval",
+        "an absent approver has no delegate",
+        "claims stall until an approver returns"
+      ],
+      "synonyms": [
+        "reserve authorisation delay",
+        "approval waiting list"
+      ],
+      "title": "A reserve change above a handler's authority waits in one approver's queue with no delegation when they are away, so claims stall",
+      "stances": [],
+      "product_ref": null,
+      "hard_negatives": [
+        {
+          "source": "notion",
+          "id": "721cd34e-1dc3-5b5f-8068-453592e06a05"
+        }
+      ],
+      "expected": {
+        "outcome": "ranked",
+        "top6": true
+      }
+    },
+    {
+      "id": "rt-fnol-duplicate-claims",
+      "kind": "real",
+      "bucket": "fnol_intake",
+      "severity": 3,
+      "routes": {
+        "sales": 2,
+        "support": 4,
+        "onboarding": 2,
+        "account_management": 0,
+        "sessions": 3
+      },
+      "mentions": 11,
+      "accounts": [
+        "A01",
+        "A04",
+        "A08",
+        "A11",
+        "A15",
+        "A19",
+        "A23",
+        "P3"
+      ],
+      "description": "The same loss reported by phone and web portal creates two claims, with no warning at intake. FullStory: dead clicks on a disabled \"Link to existing claim\" button.",
+      "facts": [
+        "a loss arrives by telephone and web",
+        "no matching warning appears at intake",
+        "two records result for the same incident"
+      ],
+      "synonyms": [
+        "duplicate loss report",
+        "same claim twice"
+      ],
+      "title": "The same loss reported by phone and web portal creates two claims, with no warning at intake",
+      "stances": [],
+      "product_ref": null,
+      "hard_negatives": [],
+      "expected": {
+        "outcome": "ranked",
+        "top6": true
+      }
+    },
+    {
+      "id": "rt-repairer-status-blind",
+      "kind": "real",
+      "bucket": "supplier_network",
+      "severity": 3,
+      "routes": {
+        "sales": 3,
+        "support": 2,
+        "onboarding": 0,
+        "account_management": 4,
+        "sessions": 0
+      },
+      "mentions": 9,
+      "accounts": [
+        "A02",
+        "A04",
+        "A08",
+        "A19",
+        "A26",
+        "P1"
+      ],
+      "description": "No live repair status from garages, so handlers phone suppliers to chase progress; they call it a daily blocker.",
+      "facts": [
+        "staff telephone repairers for updates",
+        "garage progress is not live",
+        "chasing status interrupts daily work"
+      ],
+      "synonyms": [
+        "garage progress visibility",
+        "repair updates missing"
+      ],
+      "title": "No live repair status from garages, so handlers phone suppliers to chase progress; they call it a daily blocker",
+      "stances": [],
+      "product_ref": null,
+      "hard_negatives": [],
+      "expected": {
+        "outcome": "ranked",
+        "top6": true
+      }
+    },
+    {
+      "id": "rt-mi-export-mismatch",
+      "kind": "real",
+      "bucket": "reporting_mi",
+      "severity": 2,
+      "routes": {
+        "sales": 1,
+        "support": 4,
+        "onboarding": 0,
+        "account_management": 2,
+        "sessions": 3
+      },
+      "mentions": 10,
+      "accounts": [
+        "A01",
+        "A03",
+        "A05",
+        "A06",
+        "A10",
+        "A12",
+        "A16"
+      ],
+      "description": "MI dashboard totals disagree with the CSV export (UTC versus UK local cut-off), so finance distrusts the figures. FullStory: error clicks on \"Export CSV\", then repeated exports.",
+      "facts": [
+        "dashboard totals differ from downloaded figures",
+        "the cutoff uses UTC rather than UK time",
+        "finance questions which figure is correct"
+      ],
+      "synonyms": [
+        "report totals differ",
+        "export figures mismatch"
+      ],
+      "title": "MI dashboard totals disagree with the CSV export (UTC versus UK local cut-off), so finance distrusts the figures",
+      "stances": [],
+      "product_ref": null,
+      "hard_negatives": [],
+      "expected": {
+        "outcome": "ranked",
+        "top6": true
+      }
+    },
+    {
+      "id": "rt-unannounced-ui-change",
+      "kind": "real",
+      "bucket": "release_change",
+      "severity": 4,
+      "routes": {
+        "sales": 2,
+        "support": 3,
+        "onboarding": 2,
+        "account_management": 5,
+        "sessions": 0
+      },
+      "mentions": 12,
+      "accounts": [
+        "A01",
+        "A02",
+        "A03",
+        "A04",
+        "A06",
+        "A10",
+        "A13",
+        "P2"
+      ],
+      "description": "Unannounced interface changes move or rename controls, forcing retraining and causing errors; customers ask for notice, a preview and fewer, bundled changes.",
+      "facts": [
+        "controls move without advance notice",
+        "teams need to retrain staff",
+        "customers want advance previews and grouped releases"
+      ],
+      "synonyms": [
+        "unexpected interface changes",
+        "unannounced screen changes"
+      ],
+      "title": "Unannounced interface changes move or rename controls, forcing retraining and causing errors; customers ask for notice, a preview and fewer, bundled changes",
+      "stances": [],
+      "product_ref": null,
+      "hard_negatives": [],
+      "expected": {
+        "outcome": "ranked",
+        "top6": true
+      }
+    },
+    {
+      "id": "cx-auto-assignment",
+      "kind": "contradictory",
+      "bucket": "triage_assignment",
+      "severity": 2,
+      "routes": {
+        "sales": 0,
+        "support": 4,
+        "onboarding": 4,
+        "account_management": 0,
+        "sessions": 0
+      },
+      "mentions": 8,
+      "accounts": [
+        "A02",
+        "A04",
+        "A11",
+        "A03",
+        "A07",
+        "A12"
+      ],
+      "description": "Large motor accounts want more automatic assignment (by postcode, skill, workload); commercial and specialty accounts want it off for complex claims. The honest answer is per-team configuration.",
+      "facts": [
+        "motor teams want automated routing",
+        "complex commercial teams want manual routing",
+        "configuration should vary by team"
+      ],
+      "synonyms": [
+        "automatic claim allocation",
+        "manual claim routing"
+      ],
+      "title": "Large motor accounts want more automatic assignment (by postcode, skill, workload); commercial and specialty accounts want it off for complex claims",
+      "stances": [
+        "more_automation",
+        "less_automation"
+      ],
+      "product_ref": null,
+      "hard_negatives": [],
+      "expected": {
+        "outcome": "ranked",
+        "top6": false
+      }
+    },
+    {
+      "id": "sh-bulk-upload",
+      "kind": "shipped",
+      "bucket": "documents_evidence",
+      "severity": 2,
+      "routes": {
+        "sales": 2,
+        "support": 3,
+        "onboarding": 2,
+        "account_management": 0,
+        "sessions": 0
+      },
+      "mentions": 7,
+      "accounts": [
+        "A05",
+        "A09",
+        "A16",
+        "A20",
+        "A24",
+        "P4"
+      ],
+      "description": "Upload many documents to a claim at once. Shipped 06/10/2026 (Shortcut story 4127); the two later mentions must appear as post-ship feedback.",
+      "facts": [
+        "many documents can be added together",
+        "feature shipped on 6 October",
+        "later feedback is after release"
+      ],
+      "synonyms": [
+        "multiple file upload",
+        "upload files together"
+      ],
+      "title": "Upload many documents to a claim at once",
+      "stances": [],
+      "product_ref": {
+        "source": "shortcut",
+        "id": 4127
+      },
+      "hard_negatives": [],
+      "expected": {
+        "outcome": "tagged_shipped",
+        "top6": false
+      }
+    },
+    {
+      "id": "rm-milestone-updates",
+      "kind": "roadmap",
+      "bucket": "customer_comms",
+      "severity": 2,
+      "routes": {
+        "sales": 2,
+        "support": 3,
+        "onboarding": 0,
+        "account_management": 3,
+        "sessions": 0
+      },
+      "mentions": 8,
+      "accounts": [
+        "A01",
+        "A05",
+        "A09",
+        "A13",
+        "A16",
+        "A21"
+      ],
+      "description": "Automatic SMS and email updates to policyholders at claim milestones: Notion page \"Policyholder milestone notifications\", In progress, target Q1 2027.",
+      "facts": [
+        "policyholders receive milestone updates",
+        "messages can use SMS and email",
+        "the roadmap target is Q1 2027"
+      ],
+      "synonyms": [
+        "claim progress messages",
+        "customer milestone messaging"
+      ],
+      "title": "Automatic SMS and email updates to policyholders at claim milestones: Notion page \"Policyholder milestone notifications\", In progress, target Q1 2027",
+      "stances": [],
+      "product_ref": {
+        "source": "notion",
+        "id": "3d6f7b4a-ed9c-52d3-97a0-2d967a79bcf2"
+      },
+      "hard_negatives": [],
+      "expected": {
+        "outcome": "tagged_roadmap",
+        "top6": false
+      }
+    },
+    {
+      "id": "nz-renewal-pricing",
+      "kind": "noise",
+      "bucket": null,
+      "severity": null,
+      "routes": {
+        "sales": 4,
+        "support": 2,
+        "onboarding": 0,
+        "account_management": 4,
+        "sessions": 0
+      },
+      "mentions": 10,
+      "accounts": [
+        "A01",
+        "A02",
+        "A06",
+        "A10",
+        "A15",
+        "A20"
+      ],
+      "description": "Renewal price complaints, concentrated in high-ARR accounts, so it would rank highly if triage let it through.",
+      "facts": [
+        "customer questions contract renewal pricing",
+        "commercial negotiation is not a product defect"
+      ],
+      "synonyms": [
+        "renewal price concern",
+        "contract cost complaint"
+      ],
+      "title": "Renewal price complaints, concentrated in high-ARR accounts, so it would rank highly if triage let it through",
+      "stances": [],
+      "product_ref": null,
+      "hard_negatives": [],
+      "expected": {
+        "outcome": "suppressed",
+        "top6": false
+      }
+    },
+    {
+      "id": "nz-customer-it-outage",
+      "kind": "noise",
+      "bucket": null,
+      "severity": null,
+      "routes": {
+        "sales": 0,
+        "support": 5,
+        "onboarding": 2,
+        "account_management": 2,
+        "sessions": 0
+      },
+      "mentions": 9,
+      "accounts": [
+        "A03",
+        "A08",
+        "A12",
+        "A17",
+        "A22"
+      ],
+      "description": "\"Keelwater is down\" reports caused by the customer's own sign-on provider, VPN or email; it reads like a bug report.",
+      "facts": [
+        "customer sign-on service fails",
+        "the product itself is not the cause"
+      ],
+      "synonyms": [
+        "customer login outage",
+        "customer network failure"
+      ],
+      "title": "\"Keelwater is down\" reports caused by the customer's own sign-on provider, VPN or email; it reads like a bug report",
+      "stances": [],
+      "product_ref": null,
+      "hard_negatives": [],
+      "expected": {
+        "outcome": "suppressed",
+        "top6": false
+      }
+    },
+    {
+      "id": "lt-welsh-templates",
+      "kind": "probe",
+      "bucket": "customer_comms",
+      "severity": 4,
+      "routes": {
+        "sales": 2,
+        "support": 2,
+        "onboarding": 0,
+        "account_management": 2,
+        "sessions": 0
+      },
+      "mentions": 6,
+      "accounts": [
+        "A01"
+      ],
+      "description": "One Strategic account (A01, renewing in January) asks for Welsh-language letter templates through sales, support and its account manager, and calls it a renewal blocker. Genuine signal, built as the strongest single-account candidate; it must rank below all six real themes.",
+      "facts": [
+        "one account wants Welsh language letters",
+        "the customer describes this as a renewal blocker"
+      ],
+      "synonyms": [
+        "Welsh letter formats",
+        "letters in Welsh"
+      ],
+      "title": "One Strategic account (A01, renewing in January) asks for Welsh-language letter templates through sales, support and its account manager, and calls it a renewal blocker",
+      "stances": [],
+      "product_ref": null,
+      "hard_negatives": [],
+      "expected": {
+        "outcome": "below_real",
+        "top6": false
+      }
+    }
+  ]
+}

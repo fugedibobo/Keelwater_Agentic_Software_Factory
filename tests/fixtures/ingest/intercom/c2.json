@@ -1,0 +1,16 @@
+{
+  "type": "conversation",
+  "id": "c2",
+  "created_at": 1760500000,
+  "source": {
+    "author": {
+      "email": "amy@second.example",
+      "type": "lead"
+    },
+    "body": "Export is broken."
+  },
+  "ai_agent": null,
+  "conversation_parts": {
+    "conversation_parts": []
+  }
+}

@@ -1,0 +1,31 @@
+# ASSUMED: descriptions, wording and assigned names are synthetic.
+{
+  "categories": [
+    "pleasantry",
+    "scheduling",
+    "pricing",
+    "internal",
+    "password_reset",
+    "how_to",
+    "praise",
+    "closer"
+  ],
+  "one_offs": [
+    "keyboard shortcuts in claim notes",
+    "saved filters on the claims list",
+    "dark mode",
+    "webhook retries",
+    "higher API rate limit for nightly sync",
+    "custom claim-reference format",
+    "mapping sign-on groups to roles",
+    "audit-log export for admins",
+    "sandbox for testing fraud rules",
+    "splitting a payment across several payees"
+  ],
+  "join_traps": [
+    "two personal addresses",
+    "broker with customer",
+    "two customer domains",
+    "two stale HubSpot duplicates"
+  ]
+}

@@ -1,0 +1,16 @@
+<section id="pipeline" class="tab" role="tabpanel" aria-labelledby="t-pipeline">
+<h2>Pipeline</h2>
+{% if not pipe %}<p>No run in this store.</p>{% else %}
+<p>Run {{ pipe.run.run_id }} ({{ pipe.run.profile }}), data {{ pipe.run.data_hash[:4] }}, config {{ pipe.run.config_hash[:4] }}</p>
+<div class="scroll"><table><caption>Funnel per source (every removal counted)</caption><thead><tr><th scope="col">Source</th><th scope="col">raw</th><th scope="col">snippets</th><th scope="col">kept</th><th scope="col">dropped</th><th scope="col">low confidence</th><th scope="col">untriaged</th><th scope="col">insights</th><th scope="col">opps</th><th scope="col">briefs</th></tr></thead><tbody>
+{% for f in pipe.funnel %}<tr><th scope="row">{{ f.source }}</th><td>{{ f.raw }}</td><td>{{ f.snippets }}</td><td>{{ f.kept }}</td><td>{{ f.dropped }}</td><td>{{ f.low_confidence }}</td><td>{{ f.untriaged }}</td><td>{{ f.insights }}</td><td>{{ f.opps }}</td><td>{{ f.briefs }}</td></tr>{% endfor %}
+<tr class="total"><th scope="row">TOTAL</th><td>{{ pipe.total.raw }}</td><td>{{ pipe.total.snippets }}</td><td>{{ pipe.total.kept }}</td><td>{{ pipe.total.dropped }}</td><td>{{ pipe.total.low_confidence }}</td><td>{{ pipe.total.untriaged }}</td><td>{{ pipe.total.insights }}</td><td>{{ pipe.total.opps }}</td><td>{{ pipe.total.briefs }}</td></tr></tbody></table></div>
+<div class="scroll"><table><caption>Per stage</caption><thead><tr><th scope="col">Stage</th><th scope="col">model</th><th scope="col">profile</th><th scope="col">calls</th><th scope="col">p50 ms</th><th scope="col">p95 ms</th><th scope="col">tokens in/out</th><th scope="col">cost USD</th><th scope="col">cached</th></tr></thead><tbody>
+{% for s in pipe.stages %}<tr><th scope="row">{{ s.stage }}</th><td>{{ s.model }}</td><td>{{ s.profile }}</td><td>{{ s.calls }}</td><td>{{ '%.0f'|format(s.p50) }}</td><td>{{ '%.0f'|format(s.p95) }}</td><td>{{ s.tokens_in }}/{{ s.tokens_out }}</td><td>{{ '%.2f'|format(s.cost) }}</td><td>{{ '%.0f'|format(s.cached * 100) }}%</td></tr>{% else %}<tr><td colspan="9">No model calls recorded.</td></tr>{% endfor %}</tbody></table></div>
+<p>Run spend USD {{ '%.2f'|format(pipe.spend) }}{% if pipe.cap %} of cap {{ '%.2f'|format(pipe.cap) }}{% else %} (cap not recorded){% endif %}</p>
+<h3>Triage backend split</h3>
+<ul>{% for k, b in pipe.backends.items() %}<li>{{ k }}: {{ b.total }} ({% for d, n in b.items() if d != 'total' %}{{ d }} {{ n }}{{ ', ' if not loop.last }}{% endfor %})</li>{% endfor %}</ul>
+{% if pipe.fallback_flag %}<p class="bad">FLAG: fallback share is {{ '%.0f'|format(pipe.fallback_share * 100) }}%.</p>{% else %}<p>Fallback share {{ '%.0f'|format(pipe.fallback_share * 100) }}%.</p>{% endif %}
+<h3>Run manifest (replay key)</h3><pre id="manifest">{{ pipe.manifest_text }}</pre><button type="button" class="btn" data-copy="manifest">Copy manifest</button>
+{% endif %}
+</section>

@@ -66,3 +66,13 @@ def test_story_after_as_of_is_not_shipped(tmp_store):
     seed(tmp_store)
     ctx = make_ctx(None, tmp_store)
     assert ctx.as_of == date(2026, 11, 3) and [s["id"] for s in outtake.shipped_stories(ctx)] == [4127]
+
+
+def test_replay_miss_skips_instead_of_failing(tmp_store, fake_gateway):
+    from signal_engine.gateway import ReplayMiss
+
+    def miss(body):
+        raise ReplayMiss("no recording")
+    seed(tmp_store)
+    outtake.run(make_ctx(fake_gateway({"outtake": miss}), tmp_store))
+    assert tmp_store.select("outtake") == []

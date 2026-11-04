@@ -13,7 +13,7 @@ from jsonschema import Draft202012Validator
 from . import citations, config
 from .brief import chat_with_id, fact_sheet, members, render
 from .contracts import Handoff
-from .gateway import Gateway, GatewayError
+from .gateway import Gateway, GatewayError, ReplayMiss
 from .prompts import load_prompt
 from .store import Store, canonical, content_id, sha256, transition
 
@@ -182,8 +182,15 @@ def pending(store):
     return [o for o in store.select("opportunity", {"status": "accepted"}, order_by="opportunity_id") if o["opportunity_id"] not in done]
 
 
+def _draft_or_skip(ctx, opp):
+    try:
+        draft(ctx, opp)
+    except ReplayMiss:  # replay with no recorded answer: the opportunity stays accepted and is retried on a later run
+        print(f"handoff: replay miss for {opp['opportunity_id']}, skipped")
+
+
 def run(ctx):
-    ctx.gateway.map(lambda opp: draft(ctx, opp), pending(ctx.store))
+    ctx.gateway.map(lambda opp: _draft_or_skip(ctx, opp), pending(ctx.store))
 
 
 def main(argv):

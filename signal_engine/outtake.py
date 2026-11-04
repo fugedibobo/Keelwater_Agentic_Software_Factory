@@ -4,6 +4,7 @@ from datetime import date
 
 from .brief import chat_with_id, render
 from .contracts import Outtake
+from .gateway import ReplayMiss
 from .prompts import load_prompt
 from .store import content_id
 
@@ -24,7 +25,11 @@ def shipped_stories(ctx):
 
 def draft_one(ctx, kind, story_ref, target_type, **parts):
     body, pv = load_prompt("outtake", kind)
-    out, call_id = chat_with_id(ctx.gateway, "outtake", render(body, **parts), target_type, story_ref, pv)
+    try:
+        out, call_id = chat_with_id(ctx.gateway, "outtake", render(body, **parts), target_type, story_ref, pv)
+    except ReplayMiss:  # replay with no recorded answer: no draft, a later run retries
+        print(f"outtake: replay miss for {story_ref} {kind}, skipped")
+        return
     ctx.store.insert("outtake", Outtake(outtake_id=content_id("outtake", story_ref, kind), story_ref=story_ref, call_id=call_id,
                                         kind=kind, body_md=out["body_md"], status="draft"))
 

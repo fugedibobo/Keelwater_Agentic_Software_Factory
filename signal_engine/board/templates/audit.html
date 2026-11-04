@@ -1,0 +1,16 @@
+<section id="audit" class="tab" role="tabpanel" aria-labelledby="t-audit">
+<h2>Audit</h2>
+<form class="filters" id="audit-filters" onsubmit="return false">
+  <label>Table <select name="table"><option>audit_event</option><option>model_call</option></select></label>
+  <label>Stage <input name="stage" size="8"></label><label>Model <input name="model" size="10"></label><label>Actor <input name="actor" size="10"></label>
+  <label>From <input type="date" name="from"></label><label>To <input type="date" name="to"></label>
+  <label><input type="checkbox" name="cached"> cached only</label>
+  <button type="button" class="btn" id="audit-apply">Filter</button>
+  <span class="phoenix" aria-disabled="true">Phoenix not running</span></form>
+<p class="chain {{ 'ok' if aud.audit_event.chain.ok else 'bad' }}" id="chain">Hash chain: {{ aud.audit_event.chain.text }}</p>
+<p id="audit-count">{{ aud.audit_event.total }} audit_event rows, {{ aud.model_call.total }} model_call rows; first 100 of the selected table shown.</p>
+<div class="scroll"><table id="audit-table"><thead id="audit-head"><tr><th scope="col">When</th><th scope="col">Actor</th><th scope="col">Action</th><th scope="col">Target</th><th scope="col">Detail</th></tr></thead>
+<tbody id="audit-body">
+{% for r in aud.audit_event.rows %}<tr><td>{{ r.at[:19] }}</td><td>{{ r.actor }}</td><td>{{ r.action }}</td><td>{{ r.target_type }}#{{ r.target_id }}</td><td><details><summary>row</summary><pre>{{ r|tojson(indent=1) }}</pre></details></td></tr>{% endfor %}
+</tbody></table></div>
+</section>

@@ -28,7 +28,6 @@ def test_help_lists_exactly_the_section_11_subcommands():
 def test_unbuilt_subcommand_prints_issue_and_exits_2():
     r = keelwater("eval", "--suite", "all")
     assert r.returncode == 2 and r.stdout.strip() == "not built yet: see issue #7"
-    assert keelwater("generate", "--seed", "42").stdout.strip() == "not built yet: see issue #2"
 
 
 def test_unknown_subcommand_is_an_error():
@@ -65,7 +64,7 @@ def test_run_with_no_env_and_no_network_writes_store_report_and_hash(tmp_path):
     r = keelwater("run", "--data", "tests/fixtures/raw", "--db", str(db), "--report-dir", str(rep))
     assert r.returncode == 0, r.stderr
     lines = r.stdout.splitlines()
-    assert sum(l.endswith(": skipped (not built)") for l in lines) == sum(pipeline.resolve(s) is None for s in pipeline.STAGES.values())
+    assert sum(l.endswith(": skipped (not built)") for l in lines) == sum(pipeline.resolve(v) is None for v in pipeline.STAGES.values())
     assert any(re.fullmatch(r"output hash: [0-9a-f]{64}", l) for l in lines)
     store = Store(db)
     assert {t[0] for t in store.db.execute("SELECT name FROM sqlite_master WHERE type='table'")} == set(c.TABLES)
