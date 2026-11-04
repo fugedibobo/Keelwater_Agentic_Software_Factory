@@ -41,6 +41,7 @@ def fake_stage(tmp_path, monkeypatch):
     (tmp_path / "fake_stage_mod.py").write_text(STAGE_MODULE, encoding="utf-8")
     monkeypatch.syspath_prepend(str(tmp_path))
     monkeypatch.setitem(pipeline.STAGES, "connect", "fake_stage_mod:run")
+    monkeypatch.setitem(pipeline.STAGES, "segment", "no_such_module:run")  # the real segment would read the fake raw rows
     yield
     sys.modules.pop("fake_stage_mod", None)
 
@@ -105,7 +106,7 @@ def test_changed_config_file_is_an_audit_event_with_old_and_new_hash(tmp_path):
     path.write_text(json.dumps(rep), encoding="utf-8")
     pipeline.run_pipeline(args(tmp_path))
     s = Store(tmp_path / "k.sqlite")
-    (ev,) = s.select("audit_event")
+    (ev,) = [e for e in s.select("audit_event") if e["action"] == "config.changed"]
     assert ev["action"] == "config.changed" and ev["target_id"] == "ranking"
     assert ev["details_json"] == {"old": "0" * 64, "new": old} and s.verify_audit_chain()
 

@@ -1,0 +1,58 @@
+{
+  "type": "conversation",
+  "id": "c1",
+  "created_at": 1760430000,
+  "source": {
+    "author": {
+      "email": "pat@mailbox.example",
+      "type": "user"
+    },
+    "body": "<p>Hello, my <b>claims</b> page is empty.</p>"
+  },
+  "ai_agent": {
+    "resolution_state": "routed_to_team"
+  },
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "part_type": "comment",
+        "body": "Here is an article.",
+        "created_at": 1760430030,
+        "author": {
+          "type": "bot",
+          "id": "fin"
+        }
+      },
+      {
+        "part_type": "note",
+        "body": "Internal: check the claim id.",
+        "created_at": 1760430060,
+        "author": {
+          "type": "admin",
+          "id": "p",
+          "email": "sue@keelwater.example"
+        }
+      },
+      {
+        "part_type": "comment",
+        "body": "Can you tell me which claim?",
+        "created_at": 1760430090,
+        "author": {
+          "type": "admin",
+          "id": "p",
+          "email": "sue@keelwater.example"
+        }
+      },
+      {
+        "part_type": "comment",
+        "body": "<div>Any claim, they all vanish.&nbsp;Thanks</div>",
+        "created_at": 1760430150,
+        "author": {
+          "type": "user",
+          "id": "p",
+          "email": "pat@mailbox.example"
+        }
+      }
+    ]
+  }
+}
