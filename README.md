@@ -180,11 +180,12 @@ Assumptions (flagged throughout the docs):
 Cut, to fit about 4 hours of author time:
 
 - Live connectors and write-back to Notion, Shortcut, Slack and Intercom.
-- Mockup generation from intent documents (designers already prototype with AI on the design system).
+- Mockup generation from intent documents (designed in Part 1: generated in Define on the real design-system components, signed off by the designer within the Trio gate).
+- The shared agent skill library and the metric dictionary beyond v0 (product ops owns a v0 of about 10 lifecycle metrics in the first 60 days; the rest comes later with data engineering).
 - Enablement videos and the sales "ask before a demo" agent (designed in Part 1; they need the factory's demo artefacts).
 - The cluster-coherence judge, bias-corrected rates, test-set rotation and Phoenix experiments (designed in evals.md; the ground-truth regression covers over-merging in the demo).
 - Self-hosted models inside AWS, SSO and multi-user access control.
-- The engineering factory itself, which belongs to the platform team.
+- The engineering factory itself, a delegation meta-harness ([operating rules](docs/delegation.md)); its coding harness belongs to the platform team.
 
 ## Repo map
 

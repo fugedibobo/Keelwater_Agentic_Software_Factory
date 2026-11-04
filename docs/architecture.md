@@ -4,7 +4,7 @@ Status: planned, build day 03/11/2026, revised after review round 1. Author: And
 
 ## 1. What we are building and why
 
-Keelwater's engineers already generate most code with AI, and a platform team is building the engineering factory (coding agents, guardrails, evals). When build effort approaches zero, the constraints move to either side of the build: deciding what to build (left) and getting what was built adopted by regulated customers (right). This repo designs and demos the **product lifecycle layer** that sits around the engineering factory, and builds one working piece of it end to end: the **Signal Engine**, which turns raw customer feedback into ranked, evidence-backed opportunities that a PM can accept in one click.
+Keelwater's engineers already generate most code with AI, and a platform team is building the engineering factory (coding agents, guardrails, evals). The factory is a delegation meta-harness: signal in, it orchestrates people and sub-harnesses (the platform team's coding harness, Codex, a hosted or open-weight model) and passes the human gates; [docs/delegation.md](delegation.md) is its operating rules, and owning the coding harness is not required. When build effort approaches zero, the constraints move to either side of the build: deciding what to build (left) and getting what was built adopted by regulated customers (right). This repo designs and demos the **product lifecycle layer** that sits around the engineering factory, and builds one working piece of it end to end: the **Signal Engine**, which turns raw customer feedback into ranked, evidence-backed opportunities that a PM can accept in one click.
 
 Scope of the demo (Part 2 of the task):
 
@@ -302,7 +302,8 @@ Opportunity status machine: `new -> proposed -> accepted | merged | rejected | p
 ## 10. What is deliberately out of scope for the build
 
 - Live connectors and write-back to Notion, Shortcut, Slack, Intercom.
-- Mockup and prototype generation from intent documents (designers' AI prototyping already covers this).
+- Mockup generation from intent documents (designed in Part 1: generated in Define on the real design-system components, signed off by the designer within the Trio gate; customer quotes and session-recording moments feed designers directly).
+- The shared agent skill library (versioned, evaluated, owned by product ops, squads add their own) and the metric dictionary beyond v0 (product ops owns a v0 of about 10 lifecycle metrics in the first 60 days; the warehouse and the rest come later with data engineering).
 - Enablement video generation and the sales "pull" agent (designed in Part 1).
 - The cluster-coherence judge and Phoenix experiments (designed in docs/evals.md).
 - Multi-tenant access control and SSO.
