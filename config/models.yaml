@@ -40,7 +40,7 @@ profiles:
         model: z-ai/glm-5.3   # swap: glm-5 ignores json_schema (returns prose), glm-5.3 obeys it; reasoning is mandatory there
         fallback: z-ai/glm-5
         price: {in: 1.40, out: 4.40}   # est
-        max_tokens: 1500
+        max_tokens: 4000
         timeout_s: 120
       handoff:
         model: deepseek/deepseek-v3.2
