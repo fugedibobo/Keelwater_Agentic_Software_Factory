@@ -85,9 +85,9 @@ def test_run_recreates_the_store_but_oct_appends(tmp_path, fake_stage):
 
 
 def test_stage_subset_and_unknown_stage(tmp_path, capsys):
-    assert pipeline.run_pipeline(args(tmp_path, "--stages", "handoff,outtake")) == 0
+    assert pipeline.run_pipeline(args(tmp_path, "--stages", "review,handoff")) == 0
     out = capsys.readouterr().out
-    assert "handoff: skipped" in out and "outtake: skipped" in out and "connect" not in out
+    assert "review: skipped" in out and "handoff: done" in out and "connect" not in out
     assert pipeline.run_pipeline(args(tmp_path, "--stages", "bogus")) == 2
 
 
