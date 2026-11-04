@@ -6,7 +6,7 @@ import sys
 import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from generator.brief import mention_briefs
+from generator.brief import labels, mention_briefs
 from generator.dataset import assemble_dataset, json_bytes
 from generator.planner import plan
 from generator.references import assemble_reference_files, briefs
@@ -31,7 +31,7 @@ def fake_inputs(seed):
         for mention in record['mentions']:
             number += 1
             theme = themes.get(mention['theme'])
-            term = next((b['synonym'] for b in mention_briefs(seed, record) if b['id'] == mention['id'] and 'synonym' in b), 'a small request')
+            term = next((b['synonym'] for b in mention_briefs(seed, record) if b['id'] == labels(record)[mention['id']] and 'synonym' in b), 'a small request')
             if mention.get('agreement'):
                 turns.append({'speaker': 'internal', 'text': f'Could you confirm that the issue is {term} for the team today?', 'mention_ids': [], 'noise_category': None})
                 text = 'Yes, that is right.'

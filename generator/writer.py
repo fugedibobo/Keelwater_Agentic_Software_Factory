@@ -11,7 +11,7 @@ from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from signal_engine import config
 from signal_engine.gateway import InvalidResponse
-from .brief import make_prompt, mention_briefs
+from .brief import labels, make_prompt, mention_briefs
 from .specs import ROOT, load
 from .verify import leaked_terms, repeated_record_ids, unknown_names, verify_mention_text
 
@@ -51,10 +51,11 @@ def record_schema(record, seed):
         turns['minItems'], turns['maxItems'] = (max(0, x - n) for x in record['turns_range'])
     slot = {'type': 'object', 'additionalProperties': False, 'required': ['text', 'after_turn'],
             'properties': {'text': {'type': 'string'}, 'after_turn': {'type': 'integer'}}}
-    ids = [m['id'] for m in record['mentions']]
+    tag = labels(record)
+    ids = list(tag.values())
     return {'type': 'object', 'additionalProperties': False, 'required': ['turns', 'mentions'],
             'properties': {'turns': turns, 'mentions': {'type': 'object', 'additionalProperties': False, 'required': ids,
-                                                         'properties': {m['id']: bounded(slot, m, syn.get(m['id'])) for m in record['mentions']}}}}
+                                                         'properties': {tag[m['id']]: bounded(slot, m, syn.get(tag[m['id']])) for m in record['mentions']}}}}
 
 
 def merge_mentions(record, raw, seed=None):
@@ -63,11 +64,11 @@ def merge_mentions(record, raw, seed=None):
     (it must carry the pinned phrase) followed by the tagged customer agreement."""
     base = [{**t, 'mention_ids': []} for t in raw.get('turns', [])]
     pinned = {b['id']: b['synonym'] for b in mention_briefs(seed, record) if 'synonym' in b} if seed is not None else {}
-    inserts = []
+    inserts, tag = [], labels(record)
     for order, m in enumerate(record['mentions']):
-        slot = raw['mentions'][m['id']]
+        slot = raw['mentions'][tag[m['id']]]
         carrier = slot['internal_text'] if m.get('agreement') else slot['text']
-        term = pinned.get(m['id'])
+        term = pinned.get(tag[m['id']])
         if term and term.casefold() not in carrier.casefold():  # code-side guard: the pinned synonym only, no splicing
             raise RecordValidationError(f"{record['id']}: mention {m['id']} lacks the required phrase '{term}'")
         pos = min(max(slot['after_turn'], 0), max(len(base) - 1, 0))
@@ -189,6 +190,8 @@ def feedback_text(record, seed, error):
     """State the failed rule, the offending text and the allowed values so a regeneration can fix it."""
     if not error:
         return ''
+    for m in record['mentions']:  # never echo a mention id or theme id back to the model
+        error = error.replace(m['id'], labels(record)[m['id']]).replace(m['theme'], 'the theme')
     lines = [f'Your previous attempt was rejected: {error}']
     for b in mention_briefs(seed, record):
         if 'synonym' in b:

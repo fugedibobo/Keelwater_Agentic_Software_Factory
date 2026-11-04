@@ -10,7 +10,7 @@ import pytest
 from signal_engine import config
 from generator.cli import main
 from generator.assemble import assemble
-from generator.brief import make_prompt
+from generator.brief import labels, make_prompt
 from generator.dataset import assemble_dataset
 from generator.fullstory import build
 from generator.ground_truth import raw_hash
@@ -84,7 +84,7 @@ def test_record_brief_is_seeded_and_has_exact_mention_ids():
     r = next(r for r in plan(42)['records'] if r['mentions'] and r['source'] != 'fullstory')
     prompt = make_prompt(42, r)
     assert prompt == make_prompt(42, r)
-    assert all(m['id'] in prompt for m in r['mentions'])
+    assert all(label in prompt for label in labels(r).values())
     request = request_parameters(r, 42, 0)
     assert request['stage'] == 'generate' and request['temperature'] == .8
     assert request['model'] == config.load('models')['profiles']['demo']['stages']['generate']['model']
@@ -244,7 +244,7 @@ def test_record_schema_carries_band_slots_and_enums():
     assert 'mention_ids' not in t['items']['properties']
     assert None in t['items']['properties']['noise_category']['enum'] and 'how_to' in t['items']['properties']['noise_category']['enum']
     m = sc['properties']['mentions']
-    assert m['required'] == [x['id'] for x in r['mentions']] and set(m['properties']) == set(m['required']) and m['additionalProperties'] is False
+    assert m['required'] == list(labels(r).values()) and set(m['properties']) == set(m['required']) and m['additionalProperties'] is False
 
 
 def test_merge_mentions_tags_each_mention_once_deterministically():
@@ -252,7 +252,7 @@ def test_merge_mentions_tags_each_mention_once_deterministically():
     from generator.writer import merge_mentions
     r = next(r for r in plan(42)['records'] if len(r['mentions']) >= 2 and not any(m.get('agreement') for m in r['mentions']))
     base = [{'speaker': 'customer' if i % 2 else 'internal', 'text': f't{i}', 'noise_category': None} for i in range(10)]
-    raw = {'turns': base, 'mentions': {m['id']: {'text': f"mention {m['id']}", 'after_turn': i * 3 - 5} for i, m in enumerate(r['mentions'])}}
+    raw = {'turns': base, 'mentions': {labels(r)[m['id']]: {'text': f"mention {m['id']}", 'after_turn': i * 3 - 5} for i, m in enumerate(r['mentions'])}}
     out = merge_mentions(r, raw)
     assert out == merge_mentions(r, raw)
     tagged = [t['mention_ids'] for t in out['turns'] if t['mention_ids']]
@@ -265,7 +265,7 @@ def test_agreement_mention_becomes_an_internal_turn_then_a_tagged_agreement():
     from generator.writer import merge_mentions
     r = next(r for r in plan(42)['records'] if any(m.get('agreement') for m in r['mentions']))
     base = [{'speaker': 'customer', 'text': 'a', 'noise_category': None}, {'speaker': 'bot', 'text': 'b', 'noise_category': None}]
-    raw = {'turns': base, 'mentions': {m['id']: {'internal_text': f"INT {m['id']}", 'agreement_text': 'yes', 'after_turn': 0} for m in r['mentions']}}
+    raw = {'turns': base, 'mentions': {labels(r)[m['id']]: {'internal_text': f"INT {m['id']}", 'agreement_text': 'yes', 'after_turn': 0} for m in r['mentions']}}
     out = merge_mentions(r, raw)['turns']
     idx = [i for i, t in enumerate(out) if t['mention_ids']]
     assert len(idx) == len(r['mentions']) and all(out[i - 1]['speaker'] == 'internal' and out[i]['speaker'] == 'customer' for i in idx)
@@ -328,7 +328,7 @@ def test_mention_slot_shape_follows_the_agreement_flag():
             continue
         props = record_schema(r, 42)['properties']['mentions']['properties']
         for m in r['mentions']:
-            sl = props[m['id']]
+            sl = props[labels(r)[m['id']]]
             if m.get('agreement'):
                 assert 'text' not in sl['properties'] and sl['properties']['internal_text']['minLength'] == 45 and sl['properties']['agreement_text']['maxLength'] == 44
                 assert set(sl['required']) == {'internal_text', 'agreement_text', 'after_turn'}
@@ -346,11 +346,11 @@ def test_several_agreements_each_get_their_own_internal_turn_and_pinned_phrase_i
     r = next(r for r in plan(42)['records'] if sum(1 for m in r['mentions'] if m.get('agreement')) >= 2)
     pin = {b['id']: b.get('synonym', '') for b in mention_briefs(42, r)}
     base = [{'speaker': 'customer', 'text': f't{i}', 'noise_category': None} for i in range(6)]
-    good = {'turns': base, 'mentions': {m['id']: {'internal_text': f"we hear {pin[m['id']]} a lot", 'agreement_text': 'yes', 'after_turn': 3} for m in r['mentions']}}
+    good = {'turns': base, 'mentions': {labels(r)[m['id']]: {'internal_text': f"we hear {pin[labels(r)[m['id']]]} a lot", 'agreement_text': 'yes', 'after_turn': 3} for m in r['mentions']}}
     out = merge_mentions(r, good, 42)['turns']
     idx = [i for i, t in enumerate(out) if t['mention_ids']]
     assert len(idx) == len(r['mentions']) and all(out[i - 1]['speaker'] == 'internal' for i in idx)
-    bad = {'turns': base, 'mentions': {m['id']: {'internal_text': 'nothing relevant at all', 'agreement_text': 'the phrase ' + pin[m['id']], 'after_turn': 3} for m in r['mentions']}}
+    bad = {'turns': base, 'mentions': {labels(r)[m['id']]: {'internal_text': 'nothing relevant at all', 'agreement_text': 'the phrase ' + pin[labels(r)[m['id']]], 'after_turn': 3} for m in r['mentions']}}
     with pytest.raises(RecordValidationError, match='lacks the required phrase'):
         merge_mentions(r, bad, 42)
 
@@ -371,6 +371,21 @@ def test_missing_pinned_synonym_is_a_failure_in_code():
     from generator.planner import plan
     from generator.writer import RecordValidationError, merge_mentions
     r = next(r for r in plan(42)['records'] if r['source'] != 'fullstory' and any('synonym' in b for b in mention_briefs(42, r)) and not any(m.get('agreement') for m in r['mentions']))
-    raw = {'turns': [], 'mentions': {m['id']: {'text': 'nothing relevant here', 'after_turn': 0} for m in r['mentions']}}
+    raw = {'turns': [], 'mentions': {labels(r)[m['id']]: {'text': 'nothing relevant here', 'after_turn': 0} for m in r['mentions']}}
     with pytest.raises(RecordValidationError, match='lacks the required phrase'):
         merge_mentions(r, raw, 42)
+
+
+def test_prompt_and_schema_never_carry_a_mention_id_or_theme_id():
+    import json
+    from generator.planner import plan
+    from generator.writer import record_schema
+    checked = 0
+    for r in plan(42)['records']:
+        if r['source'] == 'fullstory' or not r['mentions']:
+            continue
+        blob = make_prompt(42, r) + json.dumps(record_schema(r, 42))
+        for m in r['mentions']:
+            assert m['id'] not in blob and m['theme'] not in blob
+        checked += 1
+    assert checked > 50
