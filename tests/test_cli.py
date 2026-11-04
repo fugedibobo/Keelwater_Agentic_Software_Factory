@@ -25,9 +25,10 @@ def test_help_lists_exactly_the_section_11_subcommands():
     assert listed == SUBCOMMANDS == list(cli.COMMANDS)
 
 
-def test_unbuilt_subcommand_prints_issue_and_exits_2():
-    r = keelwater("eval", "--suite", "all")
-    assert r.returncode == 2 and r.stdout.strip() == "not built yet: see issue #7"
+def test_eval_and_labels_are_built_and_take_their_own_flags():
+    r = keelwater("eval", "--help")
+    assert r.returncode == 0 and "--suite" in r.stdout and "--qualify" in r.stdout
+    assert keelwater("labels", "export", "--phoenix").stdout.strip() == "Phoenix datasets: designed, not built in v1"
 
 
 def test_unknown_subcommand_is_an_error():

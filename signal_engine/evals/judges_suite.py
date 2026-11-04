@@ -58,19 +58,27 @@ def candidates(store, label):
 
 
 def seed_verdicts(gw, seeds):
-    """{(judge, target_id): verdict or None} by running each judge over its stored evidence (cached in replay)."""
-    jobs = [(j, r) for j, rows in seeds.items() for r in rows if j in JUDGES]
+    """{(judge, target_id): verdict or None} by running each judge over its stored evidence (cached in replay).
 
-    def one(job):
-        judge, r = job
-        body, pv = load_prompt("judge", judge)
+    Items with identical evidence share one call, so concurrent threads never race on one cache file.
+    """
+    jobs = {}
+    for j, rows in seeds.items():
+        for r in rows:
+            if j in JUDGES:
+                body, pv = load_prompt("judge", j)
+                jobs.setdefault((j, render(body, evidence=r["evidence"])), (pv, r["target_id"]))
+
+    def one(item):
+        (judge, prompt), (pv, target) = item
         try:
-            out = gw.chat("judge", [{"role": "user", "content": render(body, evidence=r["evidence"])}], target_type="seed",
-                          target_id=r["target_id"], prompt_version=pv, schema=judges.SCHEMA)
-            return (judge, r["target_id"]), out["verdict"]
+            return gw.chat("judge", [{"role": "user", "content": prompt}], target_type="seed", target_id=target, prompt_version=pv,
+                           schema=judges.SCHEMA)["verdict"]
         except GatewayError:
-            return (judge, r["target_id"]), None
-    return dict(gw.map(one, jobs))
+            return None
+    got = dict(zip(jobs, gw.map(one, list(jobs.items()))))
+    return {(j, r["target_id"]): got[(j, render(load_prompt("judge", j)[0], evidence=r["evidence"]))]
+            for j, rows in seeds.items() if j in JUDGES for r in rows}
 
 
 def collect(store, gw, seeds):
@@ -182,7 +190,7 @@ def run_suite(a):
     gates = {"all_items_judged": unjudged == 0, "no_unearned_trust": not any(
         states.get(jv[j]) == "trusted" and not any(i["judge"] == j and i["origin"] == "real_pm" and i["blind"] for i in items) for j in JUDGES)}
     metrics = {f"{r['judge']}.{r['origin']}.{s}_{k}": r[s][k] for r in rows for s in ("dev", "held_out") for k in ("tpr", "tnr", "labels")}
-    rep = JudgesReport(run_id=run_id, passed=all(gates.values()), metrics=metrics, gates=gates, cache_keys=sorted(gw.used_keys),
+    rep = JudgesReport(run_id=run_id, passed=all(gates.values()), metrics=metrics, gates=gates, cache_keys=sorted(set(report.get("manifest", {}).get("cache_keys", [])) | gw.used_keys),
                        detail={"rows": rows, "drift": drift, "unjudged": unjudged, "qualified": a.qualify, "state_changes": changes})
     path = common.write_report(a.report_dir, rep)
     out = [f"run {run_id}  judges {', '.join(jv.values())}", *table(rows)]
