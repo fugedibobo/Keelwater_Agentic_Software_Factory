@@ -2,7 +2,7 @@
 
 By Andras Fugedi
 
-**Status (03/11/2026):** plan and design complete. The build runs on 03/11/2026, verification and this README finish on 04/11/2026, and the repo is frozen on 05/11/2026. Sections marked "after build day" describe code that does not exist yet.
+**Status (04/11/2026):** the Signal Engine is built and merged: ingest, triage, extraction, clustering, ranking, briefs, judges, the Signal Board, handoff drafts. The eval suites and the recorded live run (#7) land separately. Verification and this README finish on 04/11/2026, and the repo is frozen on 05/11/2026. Figures marked as pending are filled from committed reports.
 
 Keelwater is a fictional claims-handling software company whose engineers already write most of their code with AI. This repo plans the layer around its engineering factory: how work is found, decided, specified, released and adopted, with agents doing the work and people passing five gates. The working piece is the **Signal Engine**, a nightly pipeline that turns sales calls, support tickets, onboarding and account-review calls and session analytics into a ranked, evidence-backed list of opportunities that a PM reviews every Monday. Code checks every quote against its source, every model call is logged, and the three AI judges show "calibrating" until enough blind PM labels certify them.
 
@@ -10,12 +10,22 @@ Keelwater is a fictional claims-handling software company whose engineers alread
 
 | Time you have | Read | What you get |
 |---|---|---|
-| 5 minutes | [Two-page diagnosis and 90-day plan](docs/part1-diagnosis-and-plan.md) (PDF to follow) | Where the lifecycle loses time, the agentic lifecycle, 30/60/90 days, adoption, what to tell the board |
-| 2 minutes | [Signal Board snapshot](site/index.html) (after build day) | The page a PM uses each week; opens with a double-click, no install |
+| 5 minutes | [Two-page diagnosis and 90-day plan](docs/keelwater-part1-two-pager.pdf) ([source text](docs/part1-diagnosis-and-plan.md)) | Where the lifecycle loses time, the agentic lifecycle, 30/60/90 days, adoption, what to tell the board |
+| 2 minutes | [Signal Board snapshot](site/index.html) | The page a PM uses each week; opens with a double-click, no install |
 | 15 minutes | [Architecture](docs/architecture.md) and [diagrams](docs/diagrams/) | Pipeline stage by stage, models, data model, CLI, production on AWS |
 | A sceptic's question | [How accuracy is kept](docs/evals.md) | Failure modes, planted ground truth, held-out seed, judge certification, drift, change control |
 | Interest in method | [How this was built with AI](docs/ai-usage.md) | What AI did, where it was trusted or overridden, one error it made and how it was caught |
 | 10 minutes | [Delegation ruleset](docs/delegation.md) | How the factory delegates work across models, the evidence behind it, and how telemetry keeps routing honest |
+
+## Screenshots
+
+The Signal Board on synthetic data (all customers and numbers are invented).
+
+![Opportunities tab: the ranked list with scores and check lines](docs/screenshots/board-opportunities.png)
+
+![Evals tab: ground-truth gates and judge status](docs/screenshots/board-evals.png)
+
+![Handoffs tab: drafted intent documents and factory jobs](docs/screenshots/board-handoffs.png)
 
 ## The problem in five lines
 
@@ -50,6 +60,8 @@ flowchart LR
   G4 -- "announced bundle" --> E
   L -. "outcomes and labels" .-> S
 ```
+
+Diagrams: [A, the lifecycle and gates](docs/diagrams/agentic-pdlc.png) ([interactive](docs/diagrams/agentic-pdlc.html)) and [C, production on AWS](docs/diagrams/production-architecture.png) ([interactive](docs/diagrams/production-architecture.html)). Diagram B, the nightly run data flow, was cut for time; its content is the Mermaid chart in [architecture section 3](docs/architecture.md) and the pipeline chart below.
 
 Who owns what:
 
@@ -136,20 +148,29 @@ One OpenAI-compatible gateway serves every model stage, triage included. The dem
 - **Cost:** tokens come to about USD 0.8 per nightly run at demo volume, 2.6 at 10x and 21 at 100x (estimated from list prices, INFERRED). At scale the real costs are GPU hosting and PM attention, so routing exists to protect attention and latency as much as money. Decision calls run with a concurrency of 50 or more.
 - **Live-run caps:** the OpenRouter key has a hard USD 10 limit for the whole build; the per-step caps inside it total about USD 7.80, with the first live run capped at USD 1.50, and the whole build is expected to cost about USD 3.50. Judges are seeded with 60 items each. OpenRouter requests deny data collection.
 
-## Run it (after build day)
+## Quickstart
 
-Needs Python 3.12 and uv on Windows, macOS or Linux; no Docker. Every subcommand and flag is in the CLI table in [architecture.md](docs/architecture.md).
+Needs Python 3.12 and uv on Windows, macOS or Linux; no Docker. Every subcommand and flag is in the CLI table in [architecture.md](docs/architecture.md section 11), and `tests/test_docs_cli.py` fails if a documented command is not in the CLI.
 
 ```bash
 uv sync
-uv run keelwater run --profile replay        # full pipeline from recorded responses, no keys, no network
-uv run keelwater eval --suite ground-truth   # exits 0 when every gate holds
-uv run keelwater eval --suite judges         # judge rates and "calibrating" status
+uv run keelwater run                         # replay: full pipeline from recorded responses, no keys, no network; prints MATCH or DIFF
+uv run keelwater eval --suite all            # ground truth, held-out seed, stability, judges; exits 0 when every floor holds
 uv run keelwater board serve                 # local Signal Board with working actions
 uv run keelwater render static               # rebuilds site/index.html
 ```
 
+To look without installing anything, double-click `site/index.html`: a static snapshot with actions disabled.
+
 Live run (under 15 minutes): copy `.env.example` to `.env`, add `OPENROUTER_API_KEY`, then run `uv run keelwater run --profile demo`.
+
+## Results
+
+All figures come from the committed reports in `reports/eval/` and are measured on synthetic data (docs/evals.md section 7 says which numbers are synthetic and which are real clicks). They show the pipeline meets its own planted-truth gates; they do not show accuracy on real customers.
+
+<!-- results: filled after #7 -->
+
+Live-run time and cost: <!-- results: filled after #7 -->
 
 ## Production path
 
@@ -166,7 +187,31 @@ Everything that touches customer data runs inside Keelwater's own AWS VPC, with 
 
 ## How this repo was built
 
-An orchestrating AI produced the plan overnight on 02-03/11/2026, sending research subagents to check tools, prices and evidence (sources in `docs/research/`) and review subagents to attack each draft. For the build, one orchestrating session dispatches each GitHub work order to a coding agent in its own git worktree, has a reviewer subagent check every pull request, and squash-merges it after that check passes; a second session makes the diagrams and the PDF. Human gates cover rules and permissions, spending, publishing and anything customer-facing. Author time is about 4 hours, spent on direction, decisions and review. The plan budgets about 22 agent-hours (20.25 on pipeline and board work orders, 1.75 on diagrams and the PDF) plus orchestration; actual figures go in [ai-usage.md](docs/ai-usage.md) after the build. The work orders are in [build-plan.md](docs/build-plan.md).
+An orchestrating AI produced the plan overnight on 02-03/11/2026, sending research subagents to check tools, prices and evidence (sources in `docs/research/`) and review subagents to attack each draft. For the build, one orchestrating session dispatches each GitHub work order to a coding agent in its own git worktree, has a reviewer subagent check every pull request, and squash-merges it after that check passes; a second session makes the diagrams and the PDF. Human gates cover rules and permissions, spending, publishing and anything customer-facing. Author time is about 4 hours, spent on direction, decisions and review. The plan budgets about 22 agent-hours (20.25 on pipeline and board work orders, 1.75 on diagrams and the PDF) plus orchestration; actual figures go in [ai-usage.md](docs/ai-usage.md) after the build. The work orders and the as-executed record are in [build-plan.md](docs/build-plan.md); the longer account is [ai-usage.md](docs/ai-usage.md).
+
+## How I used AI
+
+The author's account will be written in #16. Until then this is a candidate list of real overrides taken only from merged pull request bodies and the final report comments on the work-order issues. Each is **for the author to confirm in #16**; none is an invention, and each links to its source.
+
+| # | What the AI did or proposed | The override | Source |
+|---|---|---|---|
+| C1 | Demo triage ran on Jev through a separate TypeSafe key. | Author replaced it with Cloudflare Clef via OpenRouter's Decisions API (04/11/2026), so demo and production triage can share open weights and no closed hosted model sits in the triage path. | [PR #25](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/pull/25) |
+| C2 | The synthetic-data generator used Mistral. | After empty output and failed rules, the author ruled it out; `qwen/qwen3-vl-235b-a22b-instruct` passed, with data collection allowed for that stage only. | [PR #46](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/pull/46), [#2 report](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/2#issuecomment-6623164926) |
+| C3 | Prompting the generator to follow content rules failed three times. | Design change: the rules moved from prompt text into the per-record output schema and code-inserted slots. | [#2 report](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/2#issuecomment-6623164926) |
+| C4 | The data spec and the leak rules disagreed over planted mentions. | Orchestrator ruling: the data spec wins, so mentions in raw data must contain a theme synonym; the synonym ban applies to prompts and config only. | [PR #33](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/pull/33) |
+| C5 | The generated account list summed to a different ARR than the stated total. | One account's ARR was changed from GBP 45,000 to 46,000 so the listed sum equals GBP 15,440,000. | [PR #33](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/pull/33) |
+| C6 | The triage build passed its own tests. | The independent check returned REWORK: snippets vanished on replay misses, the reconciliation test was tautological, one test was flaky. | [#4 report](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/4#issuecomment-6620686088) |
+| C7 | A brief-writing function read the shared database connection without its lock. | Found as a flake while building a later stage; fixed in a separate rework. | [PR #32](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/pull/32) |
+| C8 | The coding agent stopped three times on the first work order (sandbox limits) and left partial code. | A Sonnet builder finished it; the check then returned REWORK for a missing scratch folder. | [#1 report](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/1#issuecomment-6619922654) |
+| C9 | The rule to hand over instead of compacting applied to every session. | Author instruction: it applies to planning chats only, never to build sessions. | [PR #42](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/pull/42) |
+
+## Limits
+
+- All data is synthetic, so every figure measures the pipeline against planted truth, not real customers. No judge is certified: none has 50 blind PM labels per class.
+- Replay reproduces recorded model responses; a changed prompt or model needs a live run and a new recording.
+- The Split action returns 501 (not built). The cluster-coherence judge is designed, not built.
+- The static site disables actions; Audit filters in static mode cover the first 100 rows only.
+- Connectors are file exports, not live APIs.
 
 ## Assumptions and what was cut
 
@@ -179,6 +224,8 @@ Assumptions (flagged throughout the docs):
 
 Cut, to fit about 4 hours of author time:
 
+- Diagram B, the nightly run data flow: the diagram tool needs about 140 px between stages for 17 exact edge labels, so five stages do not fit under 1240 px ([PR #23](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/pull/23)). The Mermaid chart stands in.
+- Board extras (build-plan cut-list items 5 and 6): design passes beyond the automatic detector, the drill-down side panel (inline details instead), links from the funnel to the Audit tab, the counts or percent toggle and the judge-disagreement drill-down ([PR #35](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/pull/35)).
 - Live connectors and write-back to Notion, Shortcut, Slack and Intercom.
 - Mockup generation from intent documents (designed in Part 1: generated in Define on the real design-system components, signed off by the designer within the Trio gate).
 - The shared agent skill library and the metric dictionary beyond v0 (product ops owns a v0 of about 10 lifecycle metrics in the first 60 days; the rest comes later with data engineering).
@@ -189,13 +236,13 @@ Cut, to fit about 4 hours of author time:
 
 ## Repo map
 
-`*` = after build day
-
 ```text
 keelwater/
   README.md                          this page
+  scripts/                           scan_public.py (pre-publish scan), two-pager and halving-model scripts
+  tests/                             pytest suite, including the docs-command and scan tests
   docs/
-    part1-diagnosis-and-plan.md      two-page diagnosis and 90-day plan (PDF to follow)
+    part1-diagnosis-and-plan.md      two-page diagnosis and 90-day plan (also as PDF)
     architecture.md                  canonical design: pipeline, models, data model, CLI, production
     evals.md                         failure modes, ground truth, judges, drift, change control
     data.md                          synthetic data specification and generator design
@@ -204,16 +251,17 @@ keelwater/
     contracts/                       factory job JSON Schema, draft v1 (the platform contract)
     diagrams.md                      specifications for the three diagrams
     research/                        sourced research notes, 02/11/2026
-    diagrams/                      * architecture, nightly run and lifecycle diagrams (HTML, PNG)
-    build-plan.md                  * build-day plan and work orders
-    ai-usage.md                    * how AI was used, trusted and overridden
-  signal_engine/                   * pipeline stages, typed contracts, evals, Signal Board app
-  prompts/                         * versioned prompts per stage
-  config/                          * model profiles, taxonomy, ranking weights, team map
-  contracts/sources/               * per-source export JSON Schemas (the code validates jobs against docs/contracts/)
-  generator/                       * synthetic data generator, spec and committed model cache
-  data/                            * native-shape raw exports, both seeds and ground truth
-  fixtures/llm_cache/              * recorded model responses for replay
-  reports/eval/                    * committed eval reports
-  site/index.html                  * static Signal Board snapshot
+    diagrams/                        lifecycle (A) and production architecture (C) diagrams, HTML and PNG
+    keelwater-part1-two-pager.pdf    the two-page PDF
+    build-plan.md                    build-day plan, work orders and as-executed record
+    ai-usage.md                      how AI was used, trusted and overridden
+  signal_engine/                     pipeline stages, typed contracts, evals, Signal Board app
+  prompts/                           versioned prompts per stage
+  config/                            model profiles, taxonomy, ranking weights, team map
+  contracts/sources/                 per-source export JSON Schemas (the code validates jobs against docs/contracts/)
+  generator/                         synthetic data generator, spec and committed model cache
+  data/                              native-shape raw exports, both seeds and ground truth
+  fixtures/llm_cache/                recorded model responses for replay
+  reports/eval/                      committed eval reports
+  site/index.html                    static Signal Board snapshot
 ```
