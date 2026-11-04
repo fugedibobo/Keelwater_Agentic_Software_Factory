@@ -13,6 +13,8 @@ QUOTE = re.compile(r'"([^"]+)"|\u201c([^\u201d]+)\u201d')
 BULLET = re.compile(r"^\s*(?:[-*]|\d+\.)\s+")
 MONEY = re.compile(r"\u00a3\s?([\d,]+(?:\.(\d+))?)\s?(bn|m|k)?\b", re.I)
 COUNT = re.compile(r"\b(\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s+(?:[\w-]+\s+)?(account|customer|mention|route|renewal)s?\b", re.I)
+WINDOW = re.compile(r"\b90[- ]days?\b", re.I)  # the renewal horizon of the fact sheet (brief.RENEWAL_DAYS)
+NUMBER = re.compile(r"\d[\d,.]*|%|\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|dozen|hundred|thousand|million)\b", re.I)
 WORDS = dict(zip("one two three four five six seven eight nine ten".split(), range(1, 11)))
 UNIT = {"": 1, "k": 10**3, "m": 10**6, "bn": 10**9}
 RULES = ("cited_ids", "uncited_claims", "numbers", "quotes", "customer_names", "citation_spread")
@@ -93,6 +95,9 @@ def check(body, members, facts, names):
             n = WORDS.get(m.group(1).lower()) or int(m.group(1))
             if n not in expected[m.group(2).lower()]:
                 fail("numbers", f"'{m.group(0)}' does not match the fact sheet ({sorted(expected[m.group(2).lower()])})")
+        rest = COUNT.sub(" ", WINDOW.sub(" ", MONEY.sub(" ", CITE.sub(" ", plain))))
+        for m in NUMBER.finditer(rest):  # rule 3, any other number is a claim no fact type supports
+            fail("numbers", f"'{m.group(0)}' is not a supported fact (account/mention/route/renewal count, ARR or 90 days): {sent[:60]}")
         have = {norm(members[i]["quote"]) for i in ids if i in members}
         for m in QUOTE.finditer(sent):  # rule 4
             if norm(m.group(1) or m.group(2)) not in have:

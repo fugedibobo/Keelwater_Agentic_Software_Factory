@@ -49,6 +49,16 @@ def test_one_failing_example_per_rule(rule, old, new):
     assert rule in rules(GOOD.replace(old, new, 1))
 
 
+@pytest.mark.parametrize("old,new", [
+    ("Claims handlers lose time when uploads fail [i:a]", "Failure rate is 99% [i:a]"),    # cited, but no fact supports a percentage
+    ("Claims handlers lose time when uploads fail [i:a]", "Several handlers lose three hours a day [i:a]"),  # number word outside a count phrase
+    ("Claims handlers lose time when uploads fail [i:a]", "Uploads fail 12 times a day [i:a]"),  # digits outside a count phrase
+])
+def test_numbers_outside_supported_facts_fail(old, new):
+    assert old in GOOD
+    assert "numbers" in rules(GOOD.replace(old, new, 1))
+
+
 def test_unverified_quote_fails_rule_1():
     m = {**MEMBERS, "a": {**MEMBERS["a"], "verified": False}}
     assert "cited_ids" in rules(GOOD, m)
