@@ -1,0 +1,69 @@
+"""One passing brief and one failing example per rule of docs/evals.md 3.4."""
+
+import pytest
+
+from signal_engine.citations import check, money_ok
+
+FACTS = {"accounts_n": 3, "mentions_n": 3, "routes_n": 2, "mentions_by_route": {"sales": 1, "support": 2}, "renewals_90d_n": 1,
+         "arr_total_gbp": 2450000.0,
+         "accounts": [{"name": "Northgate Mutual", "arr_gbp": 1200000.0, "mentions": 1},
+                      {"name": "Harbour Assurance", "arr_gbp": 750000.0, "mentions": 1},
+                      {"name": "Pennine Cover", "arr_gbp": 500000.0, "mentions": 1}]}
+MEMBERS = {"a": {"quote": "the bulk upload keeps timing out", "account_id": "A1", "route": "sales", "verified": True},
+           "b": {"quote": "we re-key every claim by hand", "account_id": "A2", "route": "support", "verified": True},
+           "c": {"quote": "adjusters lose an hour a day", "account_id": "A3", "route": "support", "verified": True}}
+NAMES = {"A1": "Northgate Mutual", "A2": "Harbour Assurance", "A3": "Pennine Cover"}
+GOOD = """# Bulk upload timeouts
+## Problem
+Claims handlers lose time when uploads fail [i:a] [i:b] [i:c].
+## Who is affected
+- 3 accounts report it, worth £2.5m of ARR [i:a] [i:b] [i:c]
+- 3 mentions across 2 routes [i:a]
+## Evidence
+- Northgate Mutual: "the bulk upload keeps timing out" [i:a]
+- Harbour Assurance said "We re-key every claim by hand." [i:b]
+## Why now
+- 1 renewal falls in the next 90 days [i:a]
+"""
+
+
+def rules(body, members=MEMBERS):
+    return {f["rule"] for f in check(body, members, FACTS, NAMES)}
+
+
+def test_good_brief_passes():
+    assert check(GOOD, MEMBERS, FACTS, NAMES) == []
+
+
+@pytest.mark.parametrize("rule,old,new", [
+    ("cited_ids", "[i:c].", "[i:c] [i:zzzz]."),                                   # 1 id not of this opportunity
+    ("uncited_claims", "- 3 mentions across 2 routes [i:a]", "- 3 mentions across 2 routes"),  # 2 number without citation
+    ("uncited_claims", "## Why now", "- An evidence bullet with no citation\n## Why now"),     # 2 bullet without citation
+    ("numbers", "£2.5m", "£2.9m"),                                                # 3 ARR off the total
+    ("numbers", "3 accounts", "4 accounts"),                                      # 3 count off
+    ("quotes", '"the bulk upload keeps timing out"', '"the bulk upload always times out"'),    # 4 paraphrase in quotes
+    ("customer_names", "- 3 mentions across 2 routes [i:a]", "- Pennine Cover also reported it [i:a]"),  # 5 name not in cited insight
+])
+def test_one_failing_example_per_rule(rule, old, new):
+    assert old in GOOD
+    assert rule in rules(GOOD.replace(old, new, 1))
+
+
+def test_unverified_quote_fails_rule_1():
+    m = {**MEMBERS, "a": {**MEMBERS["a"], "verified": False}}
+    assert "cited_ids" in rules(GOOD, m)
+
+
+def test_rule_6_two_routes_must_both_be_cited():
+    ms = {k: {**v, "route": "support"} for k, v in MEMBERS.items()} | {"d": {**MEMBERS["a"], "route": "sales"}}
+    assert "citation_spread" in rules("## Problem\nIt hurts [i:a] [i:b] [i:c].\n", ms)
+
+
+def test_arr_precision_is_the_stated_precision():
+    allowed = [2450000.0]
+    assert money_ok("£2.5m", allowed) == [] and money_ok("£2,450,000", allowed) == [] and money_ok("£2450k", allowed) == []
+    assert money_ok("£2.4m", allowed) == ["£2.4m"]
+
+
+def test_rule_6_three_insights_need_three_citations():
+    assert "citation_spread" in rules("## Problem\nIt hurts [i:b].\n")
