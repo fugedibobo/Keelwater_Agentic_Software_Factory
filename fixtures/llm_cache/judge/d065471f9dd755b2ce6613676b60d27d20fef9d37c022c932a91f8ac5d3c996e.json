@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"title\": \"Insufficient role-based permissions\",\n \"problem_statement\": \"Different roles like adjusters, supervisors, and auditors need precise access controls, but the system lacks granular permissions. This forces users to have overly broad access, increasing risk and reducing security.\",\n \"quotes\": [\n  {\n   \"quote\": \"And what about roles? We’ve got adjusters, supervisors, and external auditors — can permissions be granular?\",\n   \"route\": \"sales\",\n   \"date\": \"2026-09-24T13:42:00Z\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The evidence describes a product capability gap: Keelwater lacks granular role-based permissions for adjusters, supervisors, and auditors, forcing overly broad access. The sales quote explicitly asks for granular permissions, functioning as a feature request and product signal. The cause is within the product, not pricing, contracts, customer IT, or staffing, and no help article would resolve a missing permissions model.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 343,
+   "tokens_out": 111,
+   "cost_usd": 0.0001792727
+  }
+ }
+}

@@ -364,6 +364,7 @@ class TriageOutput(_Checked):
 
 
 class ExtractOutput(_Checked):
+    states_product_problem: Literal["yes", "no"]
     problem: str
     quote: str
     workflow: str

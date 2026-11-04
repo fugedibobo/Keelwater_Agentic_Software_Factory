@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: Claims are being assigned in a way that doesn't align with the motor team's workload or postcode zones.\n  quote: we’ve been having some issues with how claims are assigned in our motor team — it’s not matching our workload or postcode zones.\n- problem: The system cannot manually route complex commercial claims while keeping motor claims automated.\n  quote: Our commercial claims are too complex for auto-routing — we need manual claim routing for those, while motor claims can stay automated by postcode and workload.\n- problem: The platform lacks per‑team configuration for claim routing, forcing a one‑size‑fits‑all approach.\n  quote: We don’t want to force one approach across all teams. Per-team configuration would solve it. We really need per-team configuration because our commercial team handles complex claims and prefers manual claim routing — one-size-fits-all doesn’t work for us.\n- problem: Auto-routing does not handle complex commercial claims with multiple suppliers and policyholders, requiring manual routing.\n  quote: Our commercial and specialty claims handlers find auto-routing unhelpful — we need manual claim routing to manage complex files properly, especially with multiple suppliers and policyholders involved.\n- problem: The motor team needs automated claim routing by postcode and workload, but the current system only supports manual routing.\n  quote: Our motor team handles high-volume cases and wants automatic assignment based on postcode and workload... manual claim routing slows them down too much.\n- problem: The motor team needs automatic claim allocation based on postcode and workload, but the current system relies on manual control for complex cases.\n  quote: our motor team wants more automatic claim allocation based on postcode and workload, but commercial prefers manual control for complex cases\n- problem: The system cannot automatically route claims by postcode while allowing manual control for complex cases.\n  quote: Our motor team wants claims routed automatically based on postcode and workload, but our specialty handlers need manual control for complex cases — it’s a team-level thing.\n- problem: The commercial claims team cannot use auto-assignment for complex cases and requires manual claim routing.\n  quote: our commercial claims team needs manual claim routing — auto-assignment breaks our complex cases."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Inflexible claim routing across teams\",\n  \"problem_statement\": \"Different teams need tailored claim routing—motor teams require automation by postcode and workload, while commercial teams need manual control for complex cases—but the system forces a single approach, causing inefficiency and errors.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 543,
+   "tokens_out": 61,
+   "cost_usd": 0.00011597
+  }
+ }
+}

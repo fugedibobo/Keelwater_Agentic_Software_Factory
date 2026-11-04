@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The user cannot generate a claim summary that includes all payments, reserves, and supplier details for audit purposes.\n  quote: I need to print a claim summary for one of our policyholders — it’s for internal review and must include all payments, reserves, and attached supplier details, as per our audit protocol.\n- problem: The user cannot locate where to configure printing of a full claim summary.\n  quote: I’m trying to pull a full claim summary for a policyholder and need to print it out for our internal file — can you help me find where that’s configured?\n- problem: The printed claim summary may not include supplier details, and the customer is unsure if they are included.\n  quote: Do you know if the printed version includes supplier details too, or just policyholder and reserve info?\n- problem: The user cannot retrieve the latest reserves report for marine cargo claims.\n  quote: I’m having trouble pulling up the latest reserves report for our marine cargo claims."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Incomplete Claim Summary Output\",\n  \"problem_statement\": \"Users cannot generate or locate a complete printed claim summary that includes all required details like payments, reserves, and supplier information. This matters because missing data compromises audit compliance and internal review processes.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 305,
+   "tokens_out": 56,
+   "cost_usd": 9.21e-05
+  }
+ }
+}

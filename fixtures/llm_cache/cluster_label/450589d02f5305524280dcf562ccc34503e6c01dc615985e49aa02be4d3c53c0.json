@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: Need clean integration with supplier portals to pull in supplier data without breaking existing reporting.\n  quote: Perfect. We also need clean integrations with our supplier portals — can your system pull in supplier data without breaking our existing reporting?\n- problem: The current suppliers section does not support streamlined vendor payments.\n  quote: are there any upcoming updates to the suppliers section? We’re hoping to streamline our vendor payments soon.\n- problem: The product lacks a feature to automate reserves and supplier reconciliations, forcing manual work.\n  quote: We’ve been waiting for that feature to reduce manual work on reserves and supplier reconciliations.\n- problem: User cannot pull the latest supplier reports into the system.\n  quote: I’m having trouble pulling the latest supplier reports into the system — any idea what might be blocking it?\n- problem: The current product does not adequately support increasingly complex supplier integrations and reporting.\n  quote: That’s exactly what we need — especially with supplier integrations and reporting getting more complex each quarter."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Supplier Integration and Reporting Challenges\",\n  \"problem_statement\": \"Users struggle to pull in and maintain accurate supplier data without disrupting existing reports, and the system lacks automation for reconciliations and payments. This forces manual work and hinders scalability as supplier requirements grow more complex.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 312,
+   "tokens_out": 62,
+   "cost_usd": 9.628e-05
+  }
+ }
+}

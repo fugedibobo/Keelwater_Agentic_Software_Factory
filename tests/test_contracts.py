@@ -22,7 +22,7 @@ def test_every_model_is_listed_and_forbids_extras():
 GOOD = [
     (c.Account, dict(account_id="a", name="n")),
     (c.Snippet, dict(snippet_id="s", raw_id="r", text="t")),
-    (c.ExtractOutput, dict(problem="p", quote=Q, workflow="w", desired_outcome="o")),
+    (c.ExtractOutput, dict(states_product_problem="yes", problem="p", quote=Q, workflow="w", desired_outcome="o")),
     (c.TriageOutput, dict(is_product_signal=0.5, bucket="fnol_intake", bucket_confidence=0.9, severity=2, signal_type="bug")),
     (c.RejectBody, dict(reason_code="low_value")),
     (c.AcceptBody, dict(confirmed=True)),
@@ -42,7 +42,7 @@ def test_constraints():
     for bad in (dict(bucket="nope"), dict(severity=5), dict(severity=0), dict(is_product_signal=1.2), dict(bucket_confidence=-0.1)):
         with pytest.raises(ValidationError):
             c.TriageOutput(**{**ok, **bad})
-    base = dict(problem="p", workflow="w", desired_outcome="o")
+    base = dict(states_product_problem="yes", problem="p", workflow="w", desired_outcome="o")
     with pytest.raises(ValidationError):
         c.ExtractOutput(quote="one two three four", **base)
     with pytest.raises(ValidationError):

@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"title\": \"Joint Policyholder Names Not Displayed Correctly\",\n \"problem_statement\": \"Letters to joint policyholders show only one name or the wrong name because the system fails to merge both names properly. This confuses recipients and erodes trust in communications.\",\n \"quotes\": [\n  {\n   \"quote\": \"we’re getting complaints because our letters to joint policyholders only show one name — it’s causing confusion\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-30T15:16:00+00:00\"\n  },\n  {\n   \"quote\": \"We’re getting complaints because the system isn’t merging both names correctly — it’s only showing one joint policyholder names, and customers are understandably upset.\",\n   \"route\": \"support\",\n   \"date\": \"2026-09-03T12:32:00+00:00\"\n  },\n  {\n   \"quote\": \"We’re getting complaints because when there are joint policyholder names, the system merges them incorrectly—sometimes only showing one or the wrong one, and it’s causing real issues with policyholders.\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-07T14:03:00Z\"\n  },\n  {\n   \"quote\": \"Appreciate you taking this seriously — we’ve had three complaints this month just because the joint policyholder names weren’t merged correctly.\",\n   \"route\": \"support\",\n   \"date\": \"2026-09-03T12:32:00+00:00\"\n  },\n  {\n   \"quote\": \"We’re seeing repeated issues where letters sent to joint policyholders only display one name — this leads to complaints and we need the joint policyholder names to appear correctly in all communications.\",\n   \"route\": \"support\",\n   \"date\": \"2026-09-29T15:23:00+00:00\"\n  },\n  {\n   \"quote\": \"We’ve got a few joint policyholder cases where the letters are coming out with mismatched names—causing complaints.\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-07T14:03:00Z\"\n  },\n  {\n   \"quote\": \"The issue with letters merging multiple names on letters is causing us real problems — clients are complaining because only one name shows up, and sometimes it’s not even the right one.\",\n   \"route\": \"account_management\",\n   \"date\": \"2026-09-29T13:22:00+00:00\"\n  },\n  {\n   \"quote\": \"we’ve been having some trouble with joint policyholder names in outgoing letters\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-29T10:16:00Z\"\n  },\n  {\n   \"quote\": \"we’re getting complaints again because letters to joint policyholders only show one name — it’s causing real friction with clients.\",\n   \"route\": \"support\",\n   \"date\": \"2026-09-29T15:23:00+00:00\"\n  },\n  {\n   \"quote\": \"Just need to know when we can expect the joint policyholder names to appear correctly in correspondence.\",\n   \"route\": \"support\",\n   \"date\": \"2026-09-29T15:23:00+00:00\"\n  },\n  {\n   \"quote\": \"when letters go out for policies with two named holders, the system only includes one name — and sometimes it’s the wrong one, which really messes up the joint policyholder names.\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-29T10:16:00Z\"\n  },\n  {\n   \"quote\": \"we’ve got a repeat issue where letters sent to joint policyholders are only showing one name — it’s causing confusion and complaints from customers.\",\n   \"route\": \"support\",\n   \"date\": \"2026-09-03T12:32:00+00:00\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked the claim that letters to joint policyholders display only one name or the wrong name due to the system failing to merge both names. The quotes across support, sales, and account_management routes consistently describe this as a product defect in outgoing correspondence (e.g., 'the system merges them incorrectly—sometimes only showing one or the wrong one'), not a pricing, contract, or customer-side issue. No quote suggests a help article would resolve it, and none is praise; customers repeatedly report the problem persisting over multiple dates. This is a product bug a squad could act on.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1062,
+   "tokens_out": 143,
+   "cost_usd": 0.000390298
+  }
+ }
+}

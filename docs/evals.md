@@ -67,6 +67,8 @@ The quote must be in **the insight's own snippet text**, never `context_text`, s
 
 The matched span is stored, so the board highlights the exact words.
 
+The extraction call also carries the typed `states_product_problem` field (prompt `extract@2`); a `no` is dropped, written as an `extract.dropped` audit event and counted, so `kept for extract = insights + dropped_at_extract + failed` holds on every run. Quote verification is measured on the insights that remain; the ground-truth suites see the effect as fewer noise snippets in clusters.
+
 ### 3.3 Account attribution (stages 0 and 4)
 
 No model chooses an account: the connector resolves `raw_record.account_id` and code copies it. Gong: the HubSpot object in `context[].objects`, else `External` email domains. Intercom: `source.author.email`. Fireflies: non-Keelwater `meeting_attendees[].email`. FullStory: the session `userId`. Domains match HubSpot `properties.domain` (lower-case, `www.` stripped); of duplicates, the `customer` record with the latest `hs_lastmodifieddate` wins. A personal email gives `null` and `unresolved`; two customer domains give `null` and `ambiguous`; broker and adjuster domains are ignored. Enrich never fills a `null`. Assertion every run: `insight.account_id == raw_record.account_id`.

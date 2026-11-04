@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (duplicate) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is the core problem still open, not solved by a shipped story and not covered by a roadmap item? Pass means yes.\nCompare the problem itself, not the product area. A spike that is unstarted or in progress is not shipped.\nFail if a completed story solves the same problem, or a roadmap item already covers it.\nThe evidence is the problem statement and the five most similar stories and roadmap pages, with status and dates.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"Users click Save on claims and reports pages but changes aren't saved, causing frustration and lost work. This breaks trust in the platform's reliability.\",\n \"similar\": [\n  {\n   \"source\": \"notion\",\n   \"id\": \"3725e3b1-1ae8-55a3-9286-7db8d9b8fbd5\",\n   \"similarity\": 0.051,\n   \"record\": \"{\\\"id\\\": \\\"3725e3b1-1ae8-55a3-9286-7db8d9b8fbd5\\\", \\\"object\\\": \\\"page\\\", \\\"properties\\\": {\\\"Name\\\": {\\\"title\\\": [{\\\"plain_text\\\": \\\"Task overview\\\", \\\"text\\\": {\\\"content\\\": \\\"Task overview\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"title\\\"}, \\\"Problem\\\": {\\\"rich_text\\\": [{\\\"plain_text\\\": \\\"A centralized dashboard in Keelwater that displays all active, pending, and completed tasks related to claims processing, helping users track progress and prioritize work without switching contexts.\\\", \\\"text\\\": {\\\"content\\\": \\\"A centralized dashboard in Keelwater that displays all active, pending, and completed tasks related to claims processing, helping users track progress and prioritize work without switching contexts.\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"ri\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4127\",\n   \"similarity\": 0.043,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-10-06T00:00:00Z\\\", \\\"description\\\": \\\"Users can now upload multiple documents at once to a claim in Keelwater, streamlining the process and reducing manual effort for claims handlers.\\\", \\\"id\\\": 4127, \\\"name\\\": \\\"Bulk upload documents to a claim\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4131\",\n   \"similarity\": 0.04,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-09-15T00:00:00Z\\\", \\\"description\\\": \\\"Keelwater's workspace administration feature allows users to manage permissions, configure settings, and organize teams within their claims environment — all through a centralized, intuitive dashboard.\\\", \\\"id\\\": 4131, \\\"name\\\": \\\"Workspace administration\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4128\",\n   \"similarity\": 0.039,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-09-15T00:00:00Z\\\", \\\"description\\\": \\\"Keelwater now allows users to filter claims by date range, status, and claim type, making it easier to locate specific claims without scrolling through unrelated entries.\\\", \\\"id\\\": 4128, \\\"name\\\": \\\"Claim search refinements\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4135\",\n   \"similarity\": 0.038,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": false, \\\"completed_at\\\": null, \\\"description\\\": \\\"Keelwater's claim information display provides a clear, real-time overview of active claims, including status, assigned adjuster, and key dates, helping users stay informed without switching screens.\\\", \\\"id\\\": 4135, \\\"name\\\": \\\"Claim information display\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 2}\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked the problem statement — 'Users click Save on claims and reports pages but changes aren't saved' — against the five most similar items. The Notion 'Task overview' page concerns a task dashboard, not save failures. The Shortcut stories (bulk upload, workspace administration, claim search refinements) are all unrelated features, and 'Claim information display' (in progress) covers claim overview, not saving/persistence. No shipped story or roadmap item addresses save reliability or data persistence on claims/reports pages. The problem remains open.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1054,
+   "tokens_out": 122,
+   "cost_usd": 0.00052352
+  }
+ }
+}

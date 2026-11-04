@@ -1,0 +1,58 @@
+{
+ "request": {
+  "model": "deepseek/deepseek-v3.2",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou write a one-page opportunity brief for a Keelwater product manager. Keelwater makes claims-handling software. You use only the facts and customer insights below.\n</role>\n<opportunity>\n{\n \"title\": \"Handlers tied up on phone calls\",\n \"problem_statement\": \"Handlers spend hours daily on phone calls instead of processing claims or managing reserves. This delays claim resolution and reduces efficiency in core tasks.\"\n}\n</opportunity>\n<fact_sheet>\n{\n \"as_of\": \"2026-11-03\",\n \"accounts_n\": 1,\n \"mentions_n\": 1,\n \"routes_n\": 1,\n \"mentions_by_route\": {\n  \"sales\": 1\n },\n \"arr_total_gbp\": 80000.0,\n \"renewals_90d_n\": 0,\n \"accounts\": [\n  {\n   \"name\": \"Duncastle Auto\",\n   \"arr_gbp\": 80000.0,\n   \"renewal_date\": \"2027-08-19\",\n   \"mentions\": 1\n  }\n ]\n}\n</fact_sheet>\n<insights>\n[\n {\n  \"id\": \"10dfa29ece8d2cc7\",\n  \"quote\": \"Every single day. We’ve got handlers spending hours on the phone instead of processing claims or managing reserves.\",\n  \"account\": \"Duncastle Auto\",\n  \"route\": \"sales\",\n  \"date\": \"2026-10-14T16:28:00Z\"\n }\n]\n</insights>\n<rules>\n- Cite every insight you rely on as [i:INSIGHT_ID], using the id exactly as given. Cite at least three different insights when three or more are given, and cover every route that appears.\n- Use these sections, in this order, as Markdown headings: \"## Problem\", \"## Who is affected\", \"## Evidence\", \"## Why now\".\n- Every bullet under \"Who is affected\" and \"Evidence\" ends with a citation. Every sentence that contains a number or a date carries a citation.\n- Copy every account count, mention count, route count, renewal count and ARR figure from the fact sheet. Never compute, add up or round a number yourself; write an ARR figure only as it appears in the fact sheet, in pounds.\n- Write counts as digits exactly as the fact sheet gives them (\"5 accounts\", never \"five accounts\"); never write \"one customer\" or \"a single customer\" unless the fact sheet count says 1 for that same thing.\n- Put text in quotation marks only when it is a customer quote copied word for word, character for character, from one insight cited in the same sentence. Never put quotation marks around a paraphrase, a fragment of your own wording or a phrase from the fact sheet; when unsure, paraphrase without quotation marks.\n- Name a customer only when a cited insight in the same sentence belongs to that customer.\n- Do not claim more than the evidence shows: no \"all customers\", no scope wider than the cited accounts, and mention any cited insight that points the other way.\n- Do not recommend a solution.\n</rules>\n<output>\nJSON only: {\"body_md\": the brief as Markdown, \"citations\": the list of insight ids you cited}\n</output>\n\n<failed_checks>\nYour previous draft failed these checks. Fix them and write the brief again.\n- numbers: '1' matches no fact-sheet value: The issue was mentioned 1 time in total [i:10dfa29ece8d2cc7]\n</failed_checks>\n<previous_draft>\n## Problem\nHandlers are spending hours each day on phone calls, which prevents them from processing claims or managing reserves. This delays claim resolution and reduces efficiency in core tasks.\n\n## Who is affected\n- The claims handlers at Duncastle Auto, who are described as spending hours on the phone daily instead of performing their core duties [i:10dfa29ece8d2cc7].\n\n## Evidence\n- A single account, Duncastle Auto, has reported this problem [i:10dfa29ece8d2cc7].\n- The issue was mentioned 1 time in total [i:10dfa29ece8d2cc7].\n- This mention came through the sales route [i:10dfa29ece8d2cc7].\n- The account has an Annual Recurring Revenue (ARR) of 80000.0 GBP [i:10dfa29ece8d2cc7].\n- A customer stated, “Every single day. We’ve got handlers spending hours on the phone instead of processing claims or managing reserves.” [i:10dfa29ece8d2cc7].\n\n## Why now\n- The problem was reported on 2026-10-14 [i:10dfa29ece8d2cc7].\n- The account, Duncastle Auto, is due for renewal on 2027-08-19 [i:10dfa29ece8d2cc7].\n- There have been 0 renewals in the last 90 days [i:10dfa29ece8d2cc7].\n- The total ARR from all accounts is 80000.0 GBP [i:10dfa29ece8d2cc7].\n</previous_draft>"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 1500,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "brief",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "body_md": {
+       "title": "Body Md",
+       "type": "string"
+      },
+      "citations": {
+       "items": {
+        "type": "string"
+       },
+       "title": "Citations",
+       "type": "array"
+      }
+     },
+     "required": [
+      "body_md",
+      "citations"
+     ],
+     "title": "BriefOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"body_md\": \"## Problem\\nHandlers are spending hours each day on phone calls, which prevents them from processing claims or managing reserves. This delays claim resolution and reduces efficiency in core tasks.\\n\\n## Who is affected\\n- The claims handlers at Duncastle Auto, who are described as spending hours on the phone daily instead of performing their core duties [i:10dfa29ece8d2cc7].\\n\\n## Evidence\\n- The issue was mentioned 1 time in total [i:10dfa29ece8d2cc7].\\n- This mention came through the sales route [i:10dfa29ece8d2cc7].\\n- The account has an Annual Recurring Revenue (ARR) of 80000.0 GBP [i:10dfa29ece8d2cc7].\\n- A customer stated, \\u201cEvery single day. We\\u2019ve got handlers spending hours on the phone instead of processing claims or managing reserves.\\u201d [i:10dfa29ece8d2cc7].\\n- There is 1 account [i:10dfa29ece8d2cc7].\\n- There is 1 route [i:10dfa29ece8d2cc7].\\n\\n## Why now\\n- The problem was reported on 2026-10-14 [i:10dfa29ece8d2cc7].\\n- The account, Duncastle Auto, is due for renewal on 2027-08-19 [i:10dfa29ece8d2cc7].\\n- There have been 0 renewals in the last 90 days [i:10dfa29ece8d2cc7].\\n- The total ARR from all accounts is 80000.0 GBP [i:10dfa29ece8d2cc7].\",\n  \"citations\": [\"10dfa29ece8d2cc7\"]\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1115,
+   "tokens_out": 426,
+   "cost_usd": 0.0003769
+  }
+ }
+}

@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: Payments are being held up, causing suppliers to inquire.\n  quote: Appreciate that — it’s been holding up payments and suppliers are starting to ask questions.\n- problem: Handlers cannot complete reserve changes because there is no delegated approver, causing claim processing to stall.\n  quote: We’ve had three handlers stuck for two days because their reserve changes are waiting for an approver who’s on leave — no delegate set up. Claims are stalled because reserve changes beyond handler authority are stuck in an approver’s queue with no backup — approval waiting list is blocking everything.\n- problem: Webhook retries are delayed, causing real‑time claim processing and policyholder update issues.\n  quote: We’re still seeing some delays with the webhook retries on our supplier payments module, and it’s causing issues with how we process claims and update policyholders in real time.\n- problem: Reserve authorisation delay blocks all actions when a reserve change exceeds handler limits.\n  quote: Yes, it’s specifically when a reserve change exceeds handler limits — the reserve authorisation delay blocks everything until the approver returns.\n- problem: Claims are stuck because the approver is unavailable and no one is covering their queue.\n  quote: we’ve got a few claims held up because the approver’s out and no one’s covering their queue.\n- problem: Claims are stuck waiting for approval because there is no backup approver.\n  quote: we’ve got a couple of ... claims held up because the ... approver’s ...  …  …  …  ...  … ... … … … … … … … … … … … … … … … … … … … … … … … … … … … … … … …… …………………………………………………………\n- problem: The approval waiting list is delaying payments and supplier invoices.\n  quote: Exactly. It’s not just inconvenient — it’s holding up payments and supplier invoices too.\n- problem: Handlers cannot get reserve adjustments approved when the required approver is out of office and has no delegate, causing delays.\n  quote: We’re experiencing a reserve authorisation delay because when a handler tries to adjust a reserve beyond their limit, it sits waiting for one specific approver who’s out of office and has no delegate assigned, so nothing moves."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Approval bottlenecks delay claims and payments\",\n  \"problem_statement\": \"Handlers and suppliers are blocked when reserve changes or claims require approval from a single person who is unavailable, with no backup approver assigned. This causes critical processes like payments and claim updates to stall, impacting trust and operational flow.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 602,
+   "tokens_out": 68,
+   "cost_usd": 0.000135
+  }
+ }
+}

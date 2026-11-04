@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The platform does not provide a way to filter tasks by due date.\n  quote: I’m trying to filter tasks by due date because we’ve got multiple claims coming up and I need to prioritize them before the next reporting cycle.\n- problem: Customers cannot filter claims tasks by due date in the platform.\n  quote: we’re trying to streamline our claims handling and need help filtering tasks by due date."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Inability to filter tasks by due date\",\n  \"problem_statement\": \"Users managing multiple claims cannot prioritize work because the platform lacks due date filtering. This delays timely handling and increases risk of missed deadlines.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 189,
+   "tokens_out": 49,
+   "cost_usd": 7.091e-05
+  }
+ }
+}

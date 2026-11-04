@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The user cannot lock saved filters on the claims list.\n  quote: I’m trying to set up some saved filters on the claims list ... but I can’t seem to lock them in properly.\n- problem: Saved filters on the claims list cannot be saved correctly.\n  quote: I’m trying to set up some saved filters on the claims list to help my team track high‑priority cases, but I can’t seem to lock them in properly.\n- problem: The system rejects the uploaded claim document because it thinks the selected document category is incorrect.\n  quote: I’m trying to upload a claim document but the system says I’ve selected the wrong document category — can you help?\n- problem: Claims are not being assigned correctly and documents are not being filed properly.\n  quote: We’re seeing some issues with how claims get assigned and docs get filed\n- problem: The system rejects the supplier’s invoice format when trying to upload claim documents.\n  quote: I’m trying to upload the latest documents for a claim under policyholder J. Whitmore, but the system won’t accept the supplier’s invoice format.\n- problem: The user cannot find the upload button to attach documents to a claim.\n  quote: Could you walk me through how to attach documents to a claim in the system? I’m not seeing the upload button on the claims tab.\n- problem: The user cannot retrieve the latest claim documents, possibly due to a permissions issue.\n  quote: I’m having trouble pulling the latest documents for a policyholder claim — can you check if there’s a permissions issue?\n- problem: The platform rejects file attachments even when they are in the correct format.\n  quote: Hi Bryn, I’m having trouble attaching the right files to the claim — it keeps rejecting them even though I’m sure they’re the correct format."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Document Upload and Filter Issues\",\n  \"problem_statement\": \"Users cannot save or lock filters on the claims list, making it hard to consistently track priority cases. The system also rejects valid document uploads due to incorrect category detection, format mismatches, or missing upload buttons, delaying claim processing.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 477,
+   "tokens_out": 66,
+   "cost_usd": 0.00011553
+  }
+ }
+}

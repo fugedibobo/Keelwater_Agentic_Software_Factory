@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"title\": \"No sandbox for fraud rule testing\",\n \"problem_statement\": \"Customers cannot safely test fraud detection rules before deployment, leading to risky false positives in live operations. Without a sandbox, they lack confidence in rule effectiveness and accuracy.\",\n \"quotes\": [\n  {\n   \"quote\": \"we need a sandbox environment to test fraud detection rules before rolling them out live — can that be prioritized? ... We’re risking false positives in production without a safe testing environment.\",\n   \"route\": \"account_management\",\n   \"date\": \"2026-09-01T12:50:00+00:00\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The title and problem statement claim customers lack a sandbox to safely test fraud rules before deployment, risking false positives in production. The sole quote directly supports this, explicitly requesting a sandbox environment for pre-deployment testing. This is a described product gap and feature request a squad could act on, not a pricing, contract, IT, or documentation issue. Only one quote exists, but it clearly establishes the signal.\",\"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 353,
+   "tokens_out": 94,
+   "cost_usd": 0.000366128
+  }
+ }
+}

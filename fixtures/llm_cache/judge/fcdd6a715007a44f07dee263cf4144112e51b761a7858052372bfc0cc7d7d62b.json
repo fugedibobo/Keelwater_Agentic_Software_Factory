@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\nPolicyholders experience slow claims processing, which makes them lose confidence in the system. This undermines their belief that their needs will be handled fairly and promptly.\\n\\n## Who is affected\\n- The customer Callowfield Auto Assurance, which has expressed concern that delays are affecting policyholder trust [i:e15e94776fec318d].\\n\\n## Evidence\\n- There is 1 account, Callowfield Auto Assurance, with an Annual Recurring Revenue of £1250000.0 [i:e15e94776fec318d].\\n- There has been 1 total mention of this problem across all customer interactions [i:e15e94776fec318d].\\n- This mention came via the support route [i:e15e94776fec318d].\\n- The customer stated, \\\"Exactly — it’s not just delays, it’s affecting policyholder trust too.\\\" [i:e15e94776fec318d].\\n- There have been 0 renewals in the last 90 days [i:e15e94776fec318d].\\n\\n## Why now\\nThe customer Callowfield Auto Assurance raised this concern on 2026-10-28 [i:e15e94776fec318d]. Their contract renewal date is 2027-03-31 [i:e15e94776fec318d]. The issue of trust erosion due to claims delays is a current and active concern for this customer as they approach their renewal.\",\n \"cited_insights\": [\n  {\n   \"id\": \"e15e94776fec318d\",\n   \"quote\": \"Exactly — it’s not just delays, it’s affecting policyholder trust too.\",\n   \"account\": \"Callowfield Auto Assurance\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-28T08:19:00+00:00\"\n  }\n ],\n \"fact_sheet\": {\n  \"as_of\": \"2026-11-03\",\n  \"accounts_n\": 1,\n  \"mentions_n\": 1,\n  \"routes_n\": 1,\n  \"mentions_by_route\": {\n   \"support\": 1\n  },\n  \"arr_total_gbp\": 1250000.0,\n  \"renewals_90d_n\": 0,\n  \"accounts\": [\n   {\n    \"name\": \"Callowfield Auto Assurance\",\n    \"arr_gbp\": 1250000.0,\n    \"renewal_date\": \"2027-03-31\",\n    \"mentions\": 1\n   }\n  ]\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"All factual claims match the evidence: the ARR of £1,250,000, 1 account (Callowfield Auto Assurance), 1 mention via the support route, 0 renewals in 90 days, and the renewal date of 2027-03-31 all align with the fact sheet. The quotation 'Exactly — it's not just delays, it's affecting policyholder trust too.' matches the cited insight verbatim, and the mention date of 2026-10-28 matches the insight's timestamp. The problem framing about slow claims processing eroding policyholder trust is directly supported by the cited quote, and the affected party is correctly scoped to the single cited account rather than generalized. No contrary evidence is present.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 793,
+   "tokens_out": 236,
+   "cost_usd": 0.00091304
+  }
+ }
+}

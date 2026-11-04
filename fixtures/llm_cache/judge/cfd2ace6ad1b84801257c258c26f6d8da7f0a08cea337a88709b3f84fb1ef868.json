@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\nCustomers face delays in resolving critical issues just before a high-volume claims period. Without timely fixes, operations risk disruption during peak demand.\\n\\n## Who is affected\\n- Orrinbury Fleet Insurance is affected, as they have stated a need for a fix before a high-volume period [i:29a0fda8c5a909b4].\\n\\n## Evidence\\n- There is 1 account, Orrinbury Fleet Insurance, with an ARR of £120,000 [i:29a0fda8c5a909b4].\\n- There has been 1 mention of this issue [i:29a0fda8c5a909b4].\\n- The issue was raised via 1 route: support [i:29a0fda8c5a909b4].\\n- The customer quote is: \\\"We need this fixed before the year-end claims surge.\\\" [i:29a0fda8c5a909b4].\\n- The customer made this statement on 2026-10-31 [i:29a0fda8c5a909b4].\\n- There have been 0 renewals in the last 90 days [i:29a0fda8c5a909b4].\\n\\n## Why now\\nThe customer, Orrinbury Fleet Insurance, has explicitly stated the urgency is due to an impending year-end claims surge [i:29a0fda8c5a909b4]. Their renewal date is 2027-02-16 [i:29a0fda8c5a909b4], but the immediate operational risk is tied to the high-volume period occurring before the end of the current year.\",\n \"cited_insights\": [\n  {\n   \"id\": \"29a0fda8c5a909b4\",\n   \"quote\": \"We need this fixed before the year-end claims surge.\",\n   \"account\": \"Orrinbury Fleet Insurance\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-31T11:19:00+00:00\"\n  }\n ],\n \"fact_sheet\": {\n  \"as_of\": \"2026-11-03\",\n  \"accounts_n\": 1,\n  \"mentions_n\": 1,\n  \"routes_n\": 1,\n  \"mentions_by_route\": {\n   \"support\": 1\n  },\n  \"arr_total_gbp\": 120000.0,\n  \"renewals_90d_n\": 0,\n  \"accounts\": [\n   {\n    \"name\": \"Orrinbury Fleet Insurance\",\n    \"arr_gbp\": 120000.0,\n    \"renewal_date\": \"2027-02-16\",\n    \"mentions\": 1\n   }\n  ]\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked every factual claim in the brief against the cited insight and fact sheet. The account (Orrinbury Fleet Insurance), ARR (£120,000), mention count (1), route (support), quote text, statement date (2026-10-31), renewals in the last 90 days (0), and renewal date (2027-02-16) all match the cited insight and fact sheet exactly. The quote is reproduced verbatim, the scope is limited to the single cited account, and no contrary evidence exists. The framing of urgency around the year-end claims surge is directly supported by the customer quote.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 845,
+   "tokens_out": 166,
+   "cost_usd": 0.00184044
+  }
+ }
+}
