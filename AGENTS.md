@@ -14,7 +14,7 @@
 - L2: one Claude Code session, model sonnet, effort high, in .worktrees/L2, for #12 then #11 (Archify and visual fitting). It opens its own PRs and never merges.
 - Reviewer: codex, newest sol model, effort medium, once, on the finished milestone in #13.
 - One level of delegation: workers and subagents never start further agents.
-- The orchestrator hands over to a fresh session after #7 merges (handover comment on #13). Any session warns at about 75% context and hands over by 85%. Never /compact.
+- Claude Code build sessions compact normally (auto-compaction on); they never stop to hand over because of context size. Push and post a checkpoint comment on the current issue at each finished Done-means box, so a restarted session can resume. The 75%/85% warn-and-hand-over rule applies only to the author's Cowork planning chats.
 </roles>
 
 <workflow>
