@@ -234,3 +234,14 @@ def test_bom_in_denylist_and_env_does_not_hide_the_first_entry(tmp_path):
     env.write_bytes(b"\xef\xbb\xbfOPENROUTER_API_KEY=fake-value-123456\n")
     assert sp.read_names(deny) == ["Zorvanne Quill"]
     assert "fake-value-123456" in sp.read_env_values(env)
+
+
+def test_code_identifiers_are_not_key_like_but_real_values_are():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("scan_public", Path(__file__).resolve().parents[1] / "scripts" / "scan_public.py")
+    sp = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(sp)
+    hit = lambda line: any(r.search(line) for r in sp.KEY_PATTERNS)
+    assert not hit("var token = relationshipTokenGeometry(shapes[0], tokenKind, key);")
+    assert hit("API_TOKEN=abcd1234efgh5678ijkl9012mnop")
+    assert hit('secret: "abcdefghijklmnopqrstuvwxyzABCD"')

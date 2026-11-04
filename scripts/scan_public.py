@@ -38,7 +38,8 @@ def decode(data):
 KEY_PATTERNS = [re.compile(p) for p in (
     r"sk-or-v1-[A-Za-z0-9]{16,}", r"\bsk-[A-Za-z0-9_-]{32,}", r"\bAKIA[0-9A-Z]{16}\b",
     r"\bgh[pousr]_[A-Za-z0-9]{30,}",
-    r"(?i)\b[a-z_]*(?:api_?key|secret|token)[a-z_]*\s*[:=]\s*['\"]?[A-Za-z0-9_\-]{24,}",
+    # unquoted values must contain a digit, so code like `token = relationshipTokenGeometry(` is not a hit
+    r"(?i)\b[a-z_]*(?:api_?key|secret|token)[a-z_]*\s*[:=]\s*(?:['\"][A-Za-z0-9_\-]{24,}|(?=[A-Za-z0-9_\-]*\d)[A-Za-z0-9_\-]{24,})",
 )]
 
 
