@@ -1,0 +1,146 @@
+{
+  "date": 1790094060000,
+  "duration": 1.4066666666666667,
+  "host_email": "deryn.pell@keelwater.example",
+  "id": "d3f751e2bfad",
+  "meeting_attendees": [
+    {
+      "displayName": "Deryn Pell",
+      "email": "deryn.pell@keelwater.example",
+      "name": "Deryn Pell"
+    },
+    {
+      "displayName": "Farrin Fellward",
+      "email": "contact@a06.example",
+      "name": "Farrin Fellward"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 10.0,
+      "index": 0,
+      "raw_text": "Hi Deryn, thanks for jumping on this call — I’ve got a few things I’d like to flag about how we’re using the system lately.",
+      "speaker_id": "customer",
+      "speaker_name": "Farrin Fellward",
+      "start_time": 0.0,
+      "text": "Hi Deryn, thanks for jumping on this call — I’ve got a few things I’d like to flag about how we’re using the system lately."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 16.8,
+      "index": 1,
+      "raw_text": "Happy to help, Farrin. What’s on your mind? We’re here to make sure Quillon’s workflow stays smooth.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 10.0,
+      "text": "Happy to help, Farrin. What’s on your mind? We’re here to make sure Quillon’s workflow stays smooth."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 26.8,
+      "index": 2,
+      "raw_text": "It’s about the interface — we’ve had to retrain our claims team twice in three months because of unannounced screen changes. It’s disruptive and costly.",
+      "speaker_id": "customer",
+      "speaker_name": "Farrin Fellward",
+      "start_time": 16.8,
+      "text": "It’s about the interface — we’ve had to retrain our claims team twice in three months because of unannounced screen changes. It’s disruptive and costly."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 38.4,
+      "index": 3,
+      "raw_text": "We’ve had to retrain our claims team twice in three months because of unannounced screen changes — it’s disruptive and costly, and we need more notice before interface updates.",
+      "speaker_id": "customer",
+      "speaker_name": "Farrin Fellward",
+      "start_time": 26.8,
+      "text": "We’ve had to retrain our claims team twice in three months because of unannounced screen changes — it’s disruptive and costly, and we need more notice before interface updates."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 46.8,
+      "index": 4,
+      "raw_text": "That’s not the experience we want for you. Can you tell me more about what’s been moving or changing without warning?",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 38.4,
+      "text": "That’s not the experience we want for you. Can you tell me more about what’s been moving or changing without warning?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 58.0,
+      "index": 5,
+      "raw_text": "Exactly — unexpected interface changes keep shifting where we click for reserves or payments. Our staff are making errors because the controls aren’t where they were last week.",
+      "speaker_id": "customer",
+      "speaker_name": "Farrin Fellward",
+      "start_time": 46.8,
+      "text": "Exactly — unexpected interface changes keep shifting where we click for reserves or payments. Our staff are making errors because the controls aren’t where they were last week."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 68.8,
+      "index": 6,
+      "raw_text": "Unexpected interface changes keep shifting where we click for reserves or payments — our staff are making errors because the controls aren’t where they were last week.",
+      "speaker_id": "customer",
+      "speaker_name": "Farrin Fellward",
+      "start_time": 58.0,
+      "text": "Unexpected interface changes keep shifting where we click for reserves or payments — our staff are making errors because the controls aren’t where they were last week."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 77.6,
+      "index": 7,
+      "raw_text": "I hear you — we’ll log this as a priority and make sure future updates are grouped and previewed ahead of time.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 68.8,
+      "text": "I hear you — we’ll log this as a priority and make sure future updates are grouped and previewed ahead of time."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 84.4,
+      "index": 8,
+      "raw_text": "Appreciate that. We just need some stability so we can focus on policyholders, not relearning the software.",
+      "speaker_id": "customer",
+      "speaker_name": "Farrin Fellward",
+      "start_time": 77.6,
+      "text": "Appreciate that. We just need some stability so we can focus on policyholders, not relearning the software."
+    }
+  ]
+}

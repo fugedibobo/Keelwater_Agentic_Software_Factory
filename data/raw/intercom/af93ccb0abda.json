@@ -1,0 +1,112 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Quenna Glenmere",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m Quenna from Quarrendon Commercial — we’ve been using Keelwater for a few months now and it’s mostly smooth sailing, but I’ve got a small request around document handling.",
+        "created_at": 1789120740,
+        "id": "af93ccb0abda-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Hi Quenna, thanks for reaching out — I’m Bryn from support. Happy to help. What’s the issue with documents?",
+        "created_at": 1789120752,
+        "id": "af93ccb0abda-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Quenna Glenmere",
+          "type": "user"
+        },
+        "body": "We often need to upload files together when opening a new claim, especially when policyholders send in bundles. Right now, it’s one by one, which slows us down.",
+        "created_at": 1789120760,
+        "id": "af93ccb0abda-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Quenna Glenmere",
+          "type": "user"
+        },
+        "body": "We often need to upload files together when opening a new claim, especially when policyholders send in bundles. Right now, it’s one by one, which slows us down.",
+        "created_at": 1789120771,
+        "id": "af93ccb0abda-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for flagging that — we’ve actually just shipped a feature to let you upload files together, which should help with bulk claim document handling. It went live on 6 October.",
+        "created_at": 1789120782,
+        "id": "af93ccb0abda-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Quenna Glenmere",
+          "type": "user"
+        },
+        "body": "That’s great to hear — we’ll test it out this week and let you know how it goes.",
+        "created_at": 1789120794,
+        "id": "af93ccb0abda-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Perfect — if you hit any snags or want to share feedback, feel free to reach back out. We’re always refining based on user input.",
+        "created_at": 1789120802,
+        "id": "af93ccb0abda-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 7,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1789120740,
+  "id": "af93ccb0abda",
+  "source": {
+    "author": {
+      "email": "contact@p4.example",
+      "name": "Quenna Glenmere",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "documents_evidence"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

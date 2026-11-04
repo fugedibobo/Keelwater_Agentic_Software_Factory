@@ -1,0 +1,160 @@
+{
+  "date": 1789743780000,
+  "duration": 1.8666666666666667,
+  "host_email": "carys.fenwick@keelwater.example",
+  "id": "881d5164e4d8",
+  "meeting_attendees": [
+    {
+      "displayName": "Carys Fenwick",
+      "email": "carys.fenwick@keelwater.example",
+      "name": "Carys Fenwick"
+    },
+    {
+      "displayName": "Dovren Dovemere",
+      "email": "contact@a04.example",
+      "name": "Dovren Dovemere"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 10.4,
+      "index": 0,
+      "raw_text": "Hi Carys, thanks for jumping on this call so quickly. I’ve been reviewing our onboarding setup and have a couple of items I’d like to flag.",
+      "speaker_id": "customer",
+      "speaker_name": "Dovren Dovemere",
+      "start_time": 0.0,
+      "text": "Hi Carys, thanks for jumping on this call so quickly. I’ve been reviewing our onboarding setup and have a couple of items I’d like to flag."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 16.0,
+      "index": 1,
+      "raw_text": "You’re welcome, Dovren. I’m here to help. What’s top of mind for you today?",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 10.4,
+      "text": "You’re welcome, Dovren. I’m here to help. What’s top of mind for you today?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 31.2,
+      "index": 2,
+      "raw_text": "We’re seeing a pattern where our motor teams are asking for more automation in claim routing — especially by postcode and workload — but our commercial side insists on keeping it manual for complex cases. It’s causing friction.",
+      "speaker_id": "customer",
+      "speaker_name": "Dovren Dovemere",
+      "start_time": 16.0,
+      "text": "We’re seeing a pattern where our motor teams are asking for more automation in claim routing — especially by postcode and workload — but our commercial side insists on keeping it manual for complex cases. It’s causing friction."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 46.0,
+      "index": 3,
+      "raw_text": "Our motor teams are pushing for automated claim routing by postcode and workload, but our commercial teams need manual claim routing for complex cases — we really need configuration that varies by team to keep everyone happy.",
+      "speaker_id": "customer",
+      "speaker_name": "Dovren Dovemere",
+      "start_time": 31.2,
+      "text": "Our motor teams are pushing for automated claim routing by postcode and workload, but our commercial teams need manual claim routing for complex cases — we really need configuration that varies by team to keep everyone happy."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 57.6,
+      "index": 4,
+      "raw_text": "That’s a common tension. We can configure routing rules at the team level — so motor can auto-assign, and commercial can keep manual control. Would that resolve the issue?",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 46.0,
+      "text": "That’s a common tension. We can configure routing rules at the team level — so motor can auto-assign, and commercial can keep manual control. Would that resolve the issue?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 62.8,
+      "index": 5,
+      "raw_text": "Yes, that’s exactly what we need — per-team configuration. Appreciate you confirming that.",
+      "speaker_id": "customer",
+      "speaker_name": "Dovren Dovemere",
+      "start_time": 57.6,
+      "text": "Yes, that’s exactly what we need — per-team configuration. Appreciate you confirming that."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 77.6,
+      "index": 6,
+      "raw_text": "Also, we’ve had several instances where the same loss gets reported twice — once by phone, once via web — and the system doesn’t warn us. It creates duplicate claims and messes up our reserves and reporting.",
+      "speaker_id": "customer",
+      "speaker_name": "Dovren Dovemere",
+      "start_time": 62.8,
+      "text": "Also, we’ve had several instances where the same loss gets reported twice — once by phone, once via web — and the system doesn’t warn us. It creates duplicate claims and messes up our reserves and reporting."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 91.6,
+      "index": 7,
+      "raw_text": "We’ve had multiple situations where the same claim twice gets created — once by phone, once online — and the system doesn’t show any warning at intake, which leads to duplicate records and inaccurate reserves.",
+      "speaker_id": "customer",
+      "speaker_name": "Dovren Dovemere",
+      "start_time": 77.6,
+      "text": "We’ve had multiple situations where the same claim twice gets created — once by phone, once online — and the system doesn’t show any warning at intake, which leads to duplicate records and inaccurate reserves."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 107.6,
+      "index": 8,
+      "raw_text": "That’s a critical gap. I’ll log this as a feature request to add a matching warning at intake — ideally with a prompt to link to an existing claim. We’ll also check if that button is disabled in your workflow.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 91.6,
+      "text": "That’s a critical gap. I’ll log this as a feature request to add a matching warning at intake — ideally with a prompt to link to an existing claim. We’ll also check if that button is disabled in your workflow."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 112.0,
+      "index": 9,
+      "raw_text": "Perfect. That’ll save us a lot of cleanup. Thanks again, Carys.",
+      "speaker_id": "customer",
+      "speaker_name": "Dovren Dovemere",
+      "start_time": 107.6,
+      "text": "Perfect. That’ll save us a lot of cleanup. Thanks again, Carys."
+    }
+  ]
+}

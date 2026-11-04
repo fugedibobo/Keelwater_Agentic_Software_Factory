@@ -1,0 +1,127 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "assumed_resolution"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Dovren Keldmere",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m trying to pull the latest reporting for our policyholders but I can’t access the portal. I think I’ve lost my password.",
+        "created_at": 1789042980,
+        "id": "dd03db9b9ccd-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "I’ll trigger a password reset for your account right away. You’ll receive an email with instructions to set a new one — make sure to check your spam folder if it doesn’t appear.",
+        "created_at": 1789042989,
+        "id": "dd03db9b9ccd-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Dovren Keldmere",
+          "type": "user"
+        },
+        "body": "I need to reset my password for the claims portal — I’ve forgotten it and can’t log in to check my reserves or documents.",
+        "created_at": 1789043002,
+        "id": "dd03db9b9ccd-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Dovren Keldmere",
+          "type": "user"
+        },
+        "body": "Got it — I’ve reset it and I’m back in. Now I can update the tasks and letters for the suppliers. Thanks for the quick help.",
+        "created_at": 1789043012,
+        "id": "dd03db9b9ccd-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "You’re welcome, Dovren. Let me know if you need help with integrations or setting up roles for your team next time.",
+        "created_at": 1789043022,
+        "id": "dd03db9b9ccd-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your case has been marked as resolved in our system. Please let us know if you need further assistance.",
+        "created_at": 1789043031,
+        "id": "dd03db9b9ccd-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your case has been marked as resolved in our system. Please let us know if you need further assistance.",
+        "created_at": 1789043038,
+        "id": "dd03db9b9ccd-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Dovren Keldmere",
+          "type": "user"
+        },
+        "body": "No problem — I’ll reach out if I need to adjust any payments or check reserves again.",
+        "created_at": 1789043046,
+        "id": "dd03db9b9ccd-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1789042980,
+  "id": "dd03db9b9ccd",
+  "source": {
+    "author": {
+      "email": "contact@a21.example",
+      "name": "Dovren Keldmere",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "fnol_intake"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

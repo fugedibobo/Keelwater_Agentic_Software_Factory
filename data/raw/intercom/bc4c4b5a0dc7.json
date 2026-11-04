@@ -1,0 +1,127 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "assumed_resolution"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Kessra Keldmere",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m having trouble locating the updated reserves after finalising a claim — can you help?",
+        "created_at": 1792150260,
+        "id": "bc4c4b5a0dc7-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Kessra. After a claim is approved, you’ll find the updated reserves under the claims tab, then select the specific case and check the financial summary.",
+        "created_at": 1792150266,
+        "id": "bc4c4b5a0dc7-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Kessra Keldmere",
+          "type": "user"
+        },
+        "body": "Could you walk me through how to update the reserves section after a claim is approved?",
+        "created_at": 1792150278,
+        "id": "bc4c4b5a0dc7-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Kessra Keldmere",
+          "type": "user"
+        },
+        "body": "That worked — thank you so much for the quick guidance, Bryn. Really appreciate it.",
+        "created_at": 1792150284,
+        "id": "bc4c4b5a0dc7-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "You’re welcome! Let us know if anything else comes up.",
+        "created_at": 1792150290,
+        "id": "bc4c4b5a0dc7-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your query has been resolved and no further action is required at this time.",
+        "created_at": 1792150294,
+        "id": "bc4c4b5a0dc7-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Your case is now resolved. If you need further assistance, feel free to reach out again.",
+        "created_at": 1792150300,
+        "id": "bc4c4b5a0dc7-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Kessra Keldmere",
+          "type": "user"
+        },
+        "body": "Will do — thanks again for the support.",
+        "created_at": 1792150306,
+        "id": "bc4c4b5a0dc7-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1792150260,
+  "id": "bc4c4b5a0dc7",
+  "source": {
+    "author": {
+      "email": "contact@a11.example",
+      "name": "Kessra Keldmere",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "customer_comms"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

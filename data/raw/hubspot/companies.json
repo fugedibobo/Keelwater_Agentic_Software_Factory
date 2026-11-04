@@ -1,0 +1,472 @@
+{
+  "results": [
+    {
+      "id": "18452001001",
+      "properties": {
+        "annualrevenue": "24000000",
+        "domain": "a01.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "2400000",
+        "keelwater_tier": "Strategic",
+        "lifecyclestage": "customer",
+        "name": "Hollinbrook Home Insurance",
+        "renewal_date": "2027-01-15"
+      }
+    },
+    {
+      "id": "18452001002",
+      "properties": {
+        "annualrevenue": "19500000",
+        "domain": "a02.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "1950000.00",
+        "keelwater_tier": "Strategic",
+        "lifecyclestage": "customer",
+        "name": "Wexmoor Motor",
+        "renewal_date": "2027-06-30"
+      }
+    },
+    {
+      "id": "18452001003",
+      "properties": {
+        "annualrevenue": "16000000",
+        "domain": "a03.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "£1600k",
+        "keelwater_tier": "Strategic",
+        "lifecyclestage": "customer",
+        "name": "Marrowgate Commercial",
+        "renewal_date": "2026-12-12"
+      }
+    },
+    {
+      "id": "18452001004",
+      "properties": {
+        "annualrevenue": "12500000",
+        "domain": "a04.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "1,250,000",
+        "keelwater_tier": "Strategic",
+        "lifecyclestage": "customer",
+        "name": "Callowfield Auto Assurance",
+        "renewal_date": "2027-03-31"
+      }
+    },
+    {
+      "id": "18452001005",
+      "properties": {
+        "annualrevenue": "9800000",
+        "domain": "a05.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "980000",
+        "keelwater_tier": "Strategic",
+        "lifecyclestage": "customer",
+        "name": "Thistlecombe Mutual",
+        "renewal_date": "2027-09-01"
+      }
+    },
+    {
+      "id": "18452001006",
+      "properties": {
+        "annualrevenue": "8600000",
+        "domain": "a06.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "860000.00",
+        "keelwater_tier": "Enterprise",
+        "lifecyclestage": "customer",
+        "name": "Quillon Business Insurance",
+        "renewal_date": "2027-01-20"
+      }
+    },
+    {
+      "id": "18452001007",
+      "properties": {
+        "annualrevenue": "7400000",
+        "domain": "a07.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "£740k",
+        "keelwater_tier": "enterprise",
+        "lifecyclestage": "customer",
+        "name": "Saltmarsh Specialty",
+        "renewal_date": "2027-05-15"
+      }
+    },
+    {
+      "id": "18452001008",
+      "properties": {
+        "annualrevenue": "6900000",
+        "domain": "a08.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "690,000",
+        "keelwater_tier": "Enterprise",
+        "lifecyclestage": "customer",
+        "name": "Pendleford Motor Mutual",
+        "renewal_date": "2027-02-28"
+      }
+    },
+    {
+      "id": "18452001009",
+      "properties": {
+        "annualrevenue": "6100000",
+        "domain": "a09.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "610000",
+        "keelwater_tier": "Enterprise",
+        "lifecyclestage": "customer",
+        "name": "Brackwater Homecover",
+        "renewal_date": "2027-10-10"
+      }
+    },
+    {
+      "id": "18452001010",
+      "properties": {
+        "annualrevenue": "5400000",
+        "domain": "a10.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "540000.00",
+        "keelwater_tier": "Enterprise",
+        "lifecyclestage": "customer",
+        "name": "Stannary Commercial",
+        "renewal_date": "2026-12-05"
+      }
+    },
+    {
+      "id": "18452001011",
+      "properties": {
+        "annualrevenue": "4700000",
+        "domain": "a11.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "£470k",
+        "keelwater_tier": "Enterprise",
+        "lifecyclestage": "customer",
+        "name": "Ravensgill Insurance",
+        "renewal_date": "2027-04-30"
+      }
+    },
+    {
+      "id": "18452001012",
+      "properties": {
+        "annualrevenue": "4200000",
+        "domain": "a12.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "420,000",
+        "keelwater_tier": "Enterprise",
+        "lifecyclestage": "customer",
+        "name": "Tidewell Marine & Cargo",
+        "renewal_date": "2027-07-31"
+      }
+    },
+    {
+      "id": "18452001013",
+      "properties": {
+        "annualrevenue": "3600000",
+        "domain": "a13.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "360000",
+        "keelwater_tier": "Enterprise",
+        "lifecyclestage": "customer",
+        "name": "Linnet House Insurance",
+        "renewal_date": "2027-03-14"
+      }
+    },
+    {
+      "id": "18452001014",
+      "properties": {
+        "annualrevenue": "3200000",
+        "domain": "a14.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "320000.00",
+        "keelwater_tier": "Enterprise",
+        "lifecyclestage": "customer",
+        "name": "Holloway Reach Underwriting",
+        "renewal_date": "2027-08-22"
+      }
+    },
+    {
+      "id": "18452001015",
+      "properties": {
+        "annualrevenue": "2900000",
+        "domain": "a15.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "£290k",
+        "keelwater_tier": "Enterprise",
+        "lifecyclestage": "customer",
+        "name": "Tarnholt Drive Cover",
+        "renewal_date": "2027-01-09"
+      }
+    },
+    {
+      "id": "18452001016",
+      "properties": {
+        "annualrevenue": "2500000",
+        "domain": "a16.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "250,000",
+        "keelwater_tier": "Growth",
+        "lifecyclestage": "customer",
+        "name": "Ashcombe Property Mutual",
+        "renewal_date": "2026-11-30"
+      }
+    },
+    {
+      "id": "18452001017",
+      "properties": {
+        "annualrevenue": "2300000",
+        "domain": "a17.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "230000",
+        "keelwater_tier": "Growth",
+        "lifecyclestage": "customer",
+        "name": "Penhallow Specialty Risks",
+        "renewal_date": "2027-06-18"
+      }
+    },
+    {
+      "id": "18452001018",
+      "properties": {
+        "annualrevenue": "2100000",
+        "domain": "a18.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "210000.00",
+        "keelwater_tier": "Growth",
+        "lifecyclestage": "customer",
+        "name": "Cindermill Trade Cover",
+        "renewal_date": "2027-04-03"
+      }
+    },
+    {
+      "id": "18452001019",
+      "properties": {
+        "annualrevenue": "1900000",
+        "domain": "a19.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "£190k",
+        "keelwater_tier": "Growth",
+        "lifecyclestage": "customer",
+        "name": "Selsby Motor",
+        "renewal_date": "2027-09-27"
+      }
+    },
+    {
+      "id": "18452001020",
+      "properties": {
+        "annualrevenue": "1700000",
+        "domain": "a20.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "170,000",
+        "keelwater_tier": "Growth",
+        "lifecyclestage": "customer",
+        "name": "Elderfold Home",
+        "renewal_date": "2026-12-21"
+      }
+    },
+    {
+      "id": "18452001021",
+      "properties": {
+        "annualrevenue": "1500000",
+        "domain": "a21.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "150000",
+        "keelwater_tier": "Growth",
+        "lifecyclestage": "customer",
+        "name": "Brantwick Commercial",
+        "renewal_date": "2027-05-11"
+      }
+    },
+    {
+      "id": "18452001022",
+      "properties": {
+        "annualrevenue": "1350000",
+        "domain": "a22.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "135000.00",
+        "keelwater_tier": "Growth",
+        "lifecyclestage": "customer",
+        "name": "Ormsgill Cyber",
+        "renewal_date": null
+      }
+    },
+    {
+      "id": "18452001023",
+      "properties": {
+        "annualrevenue": "1200000",
+        "domain": "a23.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "£120k",
+        "keelwater_tier": "Growth",
+        "lifecyclestage": "customer",
+        "name": "Orrinbury Fleet Insurance",
+        "renewal_date": "2027-02-16"
+      }
+    },
+    {
+      "id": "18452001024",
+      "properties": {
+        "annualrevenue": "1050000",
+        "domain": "a24.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "105,000",
+        "keelwater_tier": "Growth",
+        "lifecyclestage": "customer",
+        "name": "Kilnsey Household",
+        "renewal_date": "2027-07-07"
+      }
+    },
+    {
+      "id": "18452001025",
+      "properties": {
+        "annualrevenue": "920000",
+        "domain": "a25.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "92000",
+        "keelwater_tier": "Growth",
+        "lifecyclestage": "customer",
+        "name": "Greystock Liability",
+        "renewal_date": "2027-01-25"
+      }
+    },
+    {
+      "id": "18452001026",
+      "properties": {
+        "annualrevenue": "800000",
+        "domain": "a26.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "80000.00",
+        "keelwater_tier": "Growth",
+        "lifecyclestage": "customer",
+        "name": "Duncastle Auto",
+        "renewal_date": "2027-08-19"
+      }
+    },
+    {
+      "id": "18452001027",
+      "properties": {
+        "annualrevenue": "700000",
+        "domain": "a27.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "£70k",
+        "keelwater_tier": "Growth",
+        "lifecyclestage": "customer",
+        "name": "Fellbrook Fine Art & Specie",
+        "renewal_date": "2027-03-13"
+      }
+    },
+    {
+      "id": "18452001028",
+      "properties": {
+        "annualrevenue": "600000",
+        "domain": "a28.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "60,000",
+        "keelwater_tier": "Growth",
+        "lifecyclestage": "customer",
+        "name": "Farrowdene Home",
+        "renewal_date": "2027-06-02"
+      }
+    },
+    {
+      "id": "18452001029",
+      "properties": {
+        "annualrevenue": "520000",
+        "domain": "a29.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "52000",
+        "keelwater_tier": "Growth",
+        "lifecyclestage": "customer",
+        "name": "Calderwick Commercial",
+        "renewal_date": "2027-09-24"
+      }
+    },
+    {
+      "id": "18452001030",
+      "properties": {
+        "annualrevenue": "460000",
+        "domain": "a30.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "46000.00",
+        "keelwater_tier": "Growth",
+        "lifecyclestage": "customer",
+        "name": "Merrow Vale Motor",
+        "renewal_date": "2027-04-08"
+      }
+    },
+    {
+      "id": "18452001031",
+      "properties": {
+        "annualrevenue": null,
+        "domain": "p1.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": null,
+        "keelwater_tier": "prospect",
+        "lifecyclestage": "opportunity",
+        "name": "Harrowfield Fleet Mutual",
+        "renewal_date": null
+      }
+    },
+    {
+      "id": "18452001032",
+      "properties": {
+        "annualrevenue": null,
+        "domain": "p2.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": null,
+        "keelwater_tier": "prospect",
+        "lifecyclestage": "opportunity",
+        "name": "Brindlecombe Home",
+        "renewal_date": null
+      }
+    },
+    {
+      "id": "18452001033",
+      "properties": {
+        "annualrevenue": null,
+        "domain": "p3.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": null,
+        "keelwater_tier": "prospect",
+        "lifecyclestage": "opportunity",
+        "name": "Sallowmere Motor",
+        "renewal_date": null
+      }
+    },
+    {
+      "id": "18452001034",
+      "properties": {
+        "annualrevenue": null,
+        "domain": "p4.example",
+        "hs_lastmodifieddate": "2026-10-31T12:00:00Z",
+        "keelwater_arr_gbp": null,
+        "keelwater_tier": "prospect",
+        "lifecyclestage": "opportunity",
+        "name": "Quarrendon Commercial",
+        "renewal_date": null
+      }
+    },
+    {
+      "id": "18452002006",
+      "properties": {
+        "annualrevenue": "8600000",
+        "domain": "a06.example",
+        "hs_lastmodifieddate": "2025-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "850000",
+        "keelwater_tier": "Enterprise",
+        "lifecyclestage": "customer",
+        "name": "Quillon Business Insurance",
+        "renewal_date": "2027-01-20"
+      }
+    },
+    {
+      "id": "18452002015",
+      "properties": {
+        "annualrevenue": "2900000",
+        "domain": "a15.example",
+        "hs_lastmodifieddate": "2025-10-31T12:00:00Z",
+        "keelwater_arr_gbp": "280000",
+        "keelwater_tier": "Enterprise",
+        "lifecyclestage": "customer",
+        "name": "Tarnholt Drive Cover",
+        "renewal_date": "2027-01-09"
+      }
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "assumed_resolution"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Pennfell",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m trying to update our team’s access levels and I’m stuck on assigning roles for new staff.",
+        "created_at": 1788691560,
+        "id": "de0ededbceab-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "I can help with that — you’ll need to go to the Roles section under Settings and use the bulk assign tool for new handlers.",
+        "created_at": 1788691567,
+        "id": "de0ededbceab-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Pennfell",
+          "type": "user"
+        },
+        "body": "Can you walk me through how to assign roles to new claims handlers in the dashboard?",
+        "created_at": 1788691577,
+        "id": "de0ededbceab-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Pennfell",
+          "type": "user"
+        },
+        "body": "Got it, that worked perfectly. Also, can we adjust the reserves on policyholder claims without triggering alerts?",
+        "created_at": 1788691584,
+        "id": "de0ededbceab-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "You can adjust reserves manually, but alerts are tied to thresholds — you’d need to temporarily raise the threshold if you want to avoid them.",
+        "created_at": 1788691590,
+        "id": "de0ededbceab-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your request has been resolved and all related tasks are now closed in the system.",
+        "created_at": 1788691600,
+        "id": "de0ededbceab-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your request has been resolved and all related tasks are now closed in the system.",
+        "created_at": 1788691606,
+        "id": "de0ededbceab-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Ilyra Pennfell",
+          "type": "user"
+        },
+        "body": "Thanks for walking me through that — everything’s sorted now and the team’s all set up.",
+        "created_at": 1788691612,
+        "id": "de0ededbceab-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1788691560,
+  "id": "de0ededbceab",
+  "source": {
+    "author": {
+      "email": "contact@a26.example",
+      "name": "Ilyra Pennfell",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "supplier_network"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

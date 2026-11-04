@@ -1,0 +1,211 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "routed_to_team"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Ashfell",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m Avenna from Hollinbrook. We’ve got a few items we need to resolve ahead of our renewal.",
+        "created_at": 1789223280,
+        "id": "53c07b0d1a17-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: A01 is a strategic account. Their renewal is at risk without Welsh-language templates and duplicate claim detection.",
+        "created_at": 1789223287,
+        "id": "53c07b0d1a17-1",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Avenna. I’ll take note of your renewal timeline and prioritize accordingly.",
+        "created_at": 1789223295,
+        "id": "53c07b0d1a17-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Ashfell",
+          "type": "user"
+        },
+        "body": "Can we schedule a 15-minute call next Tuesday to walk through the reporting dashboard?",
+        "created_at": 1789223301,
+        "id": "53c07b0d1a17-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Ashfell",
+          "type": "user"
+        },
+        "body": "Your team’s work on the tasks module has made our claims handling smoother — really appreciate it.",
+        "created_at": 1789223306,
+        "id": "53c07b0d1a17-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Ashfell",
+          "type": "user"
+        },
+        "body": "The supplier integration has cut our processing time by half — thank you for that update!",
+        "created_at": 1789223313,
+        "id": "53c07b0d1a17-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Glad to hear that’s helping. What’s the top item on your list today?",
+        "created_at": 1789223320,
+        "id": "53c07b0d1a17-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "I’ve logged your escalation and assigned it to our specialist team. You’ll receive a follow-up within 24 hours.",
+        "created_at": 1789223325,
+        "id": "53c07b0d1a17-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Ashfell",
+          "type": "user"
+        },
+        "body": "We need to generate formal correspondence in letters in Welsh for our policyholders in Wales — it’s non-negotiable for us.",
+        "created_at": 1789223332,
+        "id": "53c07b0d1a17-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Noted: A01’s renewal hinges on Welsh letter templates and duplicate claim prevention. Flagged for Product and UX review.",
+        "created_at": 1789223340,
+        "id": "53c07b0d1a17-9",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood. I’ll escalate that request to our product team for prioritization ahead of your renewal.",
+        "created_at": 1789223347,
+        "id": "53c07b0d1a17-10",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Ashfell",
+          "type": "user"
+        },
+        "body": "We’re under pressure to deliver full compliance for our Welsh-speaking policyholders, which includes letters in Welsh — without them, our renewal won’t proceed.",
+        "created_at": 1789223353,
+        "id": "53c07b0d1a17-11",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Ashfell",
+          "type": "user"
+        },
+        "body": "Also, we’ve had a duplicate loss report issue — same incident logged twice, no alert triggered at intake.",
+        "created_at": 1789223362,
+        "id": "53c07b0d1a17-12",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "That’s a critical workflow gap. I’m flagging this for our engineering team to investigate immediately.",
+        "created_at": 1789223370,
+        "id": "53c07b0d1a17-13",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Ashfell",
+          "type": "user"
+        },
+        "body": "We’ve seen the same loss reported through two channels — phone and web — and no system warning appeared, creating a duplicate loss report that complicates our reserves and payments.",
+        "created_at": 1789223376,
+        "id": "53c07b0d1a17-14",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 15,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1789223280,
+  "id": "53c07b0d1a17",
+  "source": {
+    "author": {
+      "email": "contact@a01.example",
+      "name": "Avenna Ashfell",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "customer_comms"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

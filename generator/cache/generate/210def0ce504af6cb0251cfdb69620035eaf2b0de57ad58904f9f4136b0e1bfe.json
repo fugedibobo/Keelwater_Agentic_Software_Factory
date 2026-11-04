@@ -1,0 +1,174 @@
+{
+ "request": {
+  "model": "qwen/qwen3-vl-235b-a22b-instruct",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nWrite one realistic intercom record for Keelwater, a UK claims-handling software company.\n</role>\n<record>\n{\"customer\": {\"account\": \"A08\", \"company\": \"Pendleford Motor Mutual\", \"email\": \"contact@a08.example\", \"name\": \"Havren Harthwick\"}, \"date\": \"2026-10-23T08:15:00Z\", \"fin_mode\": \"escalated\", \"glossary\": [\"claims\", \"documents\", \"reserves\", \"payments\", \"suppliers\", \"reporting\", \"roles\", \"integrations\", \"tasks\", \"letters\", \"policyholders\"], \"never_write_verbatim\": [\"No live repair status from garages, so handlers phone suppliers to chase progress; they call it a daily blocker\", \"chasing status interrupts daily work\", \"garage progress is not live\", \"staff telephone repairers for updates\"], \"only_people_who_may_be_named\": [\"Pendleford Motor Mutual\", \"Havren Harthwick\", \"Bryn Telford\"], \"route\": \"support\", \"source\": \"intercom\", \"staff\": {\"email\": \"bryn.telford@keelwater.example\", \"name\": \"Bryn Telford\", \"team\": \"support\"}, \"turns_range\": null}\n</record>\n<mentions>\n[{\"fact\": \"chasing status interrupts daily work\", \"form\": \"workaround\", \"id\": \"m1\", \"post_ship\": false, \"problem\": \"No live repair status from garages, so handlers phone suppliers to chase progress; they call it a daily blocker.\", \"severity\": 3, \"stance\": null, \"synonym\": \"repair updates missing\"}]\n</mentions>\n<noise>\n{\"admin_note\": true, \"allowed_categories\": [\"pleasantry\", \"scheduling\", \"pricing\", \"internal\", \"password_reset\", \"how_to\", \"praise\", \"closer\"], \"distractor_how_to_phrase\": null, \"instructions\": \"Tag every noise turn with its category. Put the distractor phrase, if given, in a how-to turn with no mention id. An admin note must be an internal turn tagged internal. A Fin-resolved or escalated conversation needs a bot turn; an escalated one also needs an internal reply. About 35 percent of customer turns are pleasantries. Every tagged customer mention, including a short agreement, must contain its supplied synonym.\", \"required_categories\": []}\n</noise>\n<rules>\nCustomers speak like claims staff. Do not use headings or bullets in speech. Use only the names in the record brief; never name a real company, product or person. Mention no feature outside the supplied glossary. Express the supplied facts in the speaker's own words. Tag each turn with its noise category or null. Do not put the planted mentions in `turns`: write each one, in the customer's own words and at least twelve words long, under `mentions[<mention id>].text`, containing that mention's `synonym` exactly as written (a mention whose form is a short agreement is different: write the internal speaker's turn stating the problem, at least twelve words and containing the synonym exactly as written, under `internal_text`, and the customer's reply of under eight words under `agreement_text`), and set after_turn to the index of the turn it should follow. The `turns` conversation is the rest of the record. Do not put the turns listed under `extras` in `turns`: write each one once under `extras[<key>].text` (at least twenty characters, containing the exact phrase where one is given), and set after_turn to the index of the turn it should follow. Name only the people in only_people_who_may_be_named. When fin_mode is resolved or escalated, at least one turn must have speaker bot; when it is escalated, at least one turn must have speaker internal; when it is human, no turn has speaker bot. Never write any phrase listed in never_write_verbatim, including the supplied facts: paraphrase them.\n</rules>\n<output>\nReturn JSON matching the supplied source schema.\n{\"extras\": {\"admin_note\": \"a internal turn, noise_category 'internal'\", \"bot_turn\": \"a bot turn, noise_category None\", \"internal_reply\": \"a internal turn, noise_category None\"}, \"mentions\": {\"m1\": {\"after_turn\": \"index of the turns entry it follows\", \"text\": \"the customer turn carrying this mention\"}}, \"turns\": [{\"noise_category\": \"string or null\", \"speaker\": \"customer|internal|bot\", \"text\": \"string\"}]}\n</output>\n\nRegeneration 1: rewrite the record, satisfy every rule, and return the full JSON again.\nYour previous attempt was rejected: c07bc76a6386: forbidden raw phrase chasing status interrupts daily work\nMention m1 must contain the exact phrase 'repair updates missing'.\nDo not write the phrase 'chasing status interrupts daily work'; paraphrase it.\n"
+   }
+  ],
+  "temperature": 0.8,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "generate",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "turns",
+      "mentions",
+      "extras"
+     ],
+     "properties": {
+      "extras": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [
+        "bot_turn",
+        "internal_reply",
+        "admin_note"
+       ],
+       "properties": {
+        "bot_turn": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 20
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        },
+        "internal_reply": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 20
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        },
+        "admin_note": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 20
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        }
+       }
+      },
+      "turns": {
+       "type": "array",
+       "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+         "speaker",
+         "text",
+         "noise_category"
+        ],
+        "properties": {
+         "speaker": {
+          "type": "string",
+          "enum": [
+           "customer",
+           "internal",
+           "bot"
+          ]
+         },
+         "text": {
+          "type": "string"
+         },
+         "noise_category": {
+          "enum": [
+           "pleasantry",
+           "scheduling",
+           "pricing",
+           "internal",
+           "password_reset",
+           "how_to",
+           "praise",
+           "closer",
+           null
+          ]
+         }
+        }
+       },
+       "minItems": 6
+      },
+      "mentions": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [
+        "m1"
+       ],
+       "properties": {
+        "m1": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 45
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "allow",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"extras\": {\n    \"bot_turn\": {\n      \"text\": \"Thank you for reaching out. I’m flagging this as escalated for our support lead to review and respond within 24 hours.\",\n      \"after_turn\": 2\n    },\n    \"internal_reply\": {\n      \"text\": \"Noted — Pendleford’s team is manually tracking garage progress due to repair updates missing. We’ll prioritise this for the next sprint.\",\n      \"after_turn\": 3\n    },\n    \"admin_note\": {\n      \"text\": \"Internal note: Escalated by Bryn Telford. Customer flagged repair updates missing as a daily blocker. Follow up by EOD tomorrow.\",\n      \"after_turn\": 0\n    }\n  },\n  \"turns\": [\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Morning Bryn, just wanted to flag that our handlers are spending half their day calling garages because we can’t see live repair progress in the system.\",\n      \"noise_category\": \"pleasantry\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Thanks for letting us know, Havren. That’s definitely not how the workflow should be — can you describe how this impacts your daily tasks?\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"It’s a real drag — every time we need to update a policyholder or adjust reserves, we have to interrupt our workflow to phone suppliers because repair updates missing means no visibility.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"bot\",\n      \"text\": \"Your case has been escalated. A support lead will contact you within 24 hours with next steps.\",\n      \"noise_category\": null\n    }\n  ,\n  {\n      \"speaker\": \"internal\",\n      \"text\": \"We’ve logged this as high priority. Our dev team will look at integrating live supplier status feeds to eliminate the need for manual calls due to repair updates missing.\",\n      \"noise_category\": null\n    }\n  ,\n  {\n      \"speaker\": \"customer\",\n      \"text\": \"Appreciate the quick action.\",\n      \"noise_category\": \"pleasantry\"\n    }\n  ],\n  \"mentions\": {\n    \"m1\": {\n      \"text\": \"It’s a real drag — every time we need to update a policyholder or adjust reserves, we have to interrupt our workflow to phone suppliers because repair updates missing means no visibility.\",\n      \"after_turn\": 1\n    }\n  }\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1074,
+   "tokens_out": 535,
+   "cost_usd": 0.00123852
+  }
+ }
+}

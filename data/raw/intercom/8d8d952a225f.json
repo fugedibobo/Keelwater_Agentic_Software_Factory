@@ -1,0 +1,127 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "assumed_resolution"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Harthwick",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m trying to upload the latest documents for a claim under policyholder J. Whitmore, but the system won’t accept the supplier’s invoice format. Can you help?",
+        "created_at": 1788712860,
+        "id": "8d8d952a225f-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Harthwick",
+          "type": "user"
+        },
+        "body": "Could you walk me through how to upload supporting documents for a claim? I keep getting stuck at the supplier validation step.",
+        "created_at": 1788712871,
+        "id": "8d8d952a225f-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Avenna. I’ll check the file type requirements for supplier documents and send you the correct template right away.",
+        "created_at": 1788712880,
+        "id": "8d8d952a225f-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Harthwick",
+          "type": "user"
+        },
+        "body": "That would be great — I need to get those reserves updated before the end of the week and the reporting deadline is looming.",
+        "created_at": 1788712888,
+        "id": "8d8d952a225f-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood. I’ve just emailed you the validated supplier invoice template. Once uploaded, the system will auto-populate the payments and tasks sections.",
+        "created_at": 1788712898,
+        "id": "8d8d952a225f-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your query has been resolved and closed in our system. Let us know if you need anything else.",
+        "created_at": 1788712906,
+        "id": "8d8d952a225f-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Avenna Harthwick",
+          "type": "user"
+        },
+        "body": "Perfect — thanks so much, Bryn. This saves me a ton of time.",
+        "created_at": 1788712914,
+        "id": "8d8d952a225f-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your query has been resolved and closed in our system. Let us know if you need anything else.",
+        "created_at": 1788712919,
+        "id": "8d8d952a225f-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1788712860,
+  "id": "8d8d952a225f",
+  "source": {
+    "author": {
+      "email": "contact@a18.example",
+      "name": "Avenna Harthwick",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "fnol_intake"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

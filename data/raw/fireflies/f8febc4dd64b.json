@@ -1,0 +1,146 @@
+{
+  "date": 1792408920000,
+  "duration": 1.1733333333333333,
+  "host_email": "deryn.pell@keelwater.example",
+  "id": "f8febc4dd64b",
+  "meeting_attendees": [
+    {
+      "displayName": "Deryn Pell",
+      "email": "deryn.pell@keelwater.example",
+      "name": "Deryn Pell"
+    },
+    {
+      "displayName": "Kessra Ashfell",
+      "email": "contact@a28.example",
+      "name": "Kessra Ashfell"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 6.4,
+      "index": 0,
+      "raw_text": "Hi Deryn, thanks for getting back so quickly — I appreciate you making time for this.",
+      "speaker_id": "customer",
+      "speaker_name": "Kessra Ashfell",
+      "start_time": 0.0,
+      "text": "Hi Deryn, thanks for getting back so quickly — I appreciate you making time for this."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 11.6,
+      "index": 1,
+      "raw_text": "You’re welcome, Kessra. I’m here to help — what’s on your mind today?",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 6.4,
+      "text": "You’re welcome, Kessra. I’m here to help — what’s on your mind today?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 21.2,
+      "index": 2,
+      "raw_text": "We’ve got a claim where we need to split a payment across several payees — not sure how to handle that in the system.",
+      "speaker_id": "customer",
+      "speaker_name": "Kessra Ashfell",
+      "start_time": 11.6,
+      "text": "We’ve got a claim where we need to split a payment across several payees — not sure how to handle that in the system."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 30.8,
+      "index": 3,
+      "raw_text": "We’ve got a claim where we need to split a payment across several payees — not sure how to handle that in the system.",
+      "speaker_id": "customer",
+      "speaker_name": "Kessra Ashfell",
+      "start_time": 21.2,
+      "text": "We’ve got a claim where we need to split a payment across several payees — not sure how to handle that in the system."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 41.2,
+      "index": 4,
+      "raw_text": "Got it — splitting a payment across several payees is doable, but let me walk you through the steps to make sure it’s set up right.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 30.8,
+      "text": "Got it — splitting a payment across several payees is doable, but let me walk you through the steps to make sure it’s set up right."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 47.2,
+      "index": 5,
+      "raw_text": "That’d be great — I’m not seeing the option under payments or tasks right now.",
+      "speaker_id": "customer",
+      "speaker_name": "Kessra Ashfell",
+      "start_time": 41.2,
+      "text": "That’d be great — I’m not seeing the option under payments or tasks right now."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 57.6,
+      "index": 6,
+      "raw_text": "It’s under the payments tab, but you’ll need to open the claim first, then select ‘Allocate to Multiple Payees’ — I’ll send you a quick guide.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 47.2,
+      "text": "It’s under the payments tab, but you’ll need to open the claim first, then select ‘Allocate to Multiple Payees’ — I’ll send you a quick guide."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 62.4,
+      "index": 7,
+      "raw_text": "Perfect — thanks again, Deryn. That’ll save us a lot of back-and-forth.",
+      "speaker_id": "customer",
+      "speaker_name": "Kessra Ashfell",
+      "start_time": 57.6,
+      "text": "Perfect — thanks again, Deryn. That’ll save us a lot of back-and-forth."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 70.4,
+      "index": 8,
+      "raw_text": "Happy to help — let me know if you hit any snags. I’ll keep an eye out for your follow-up.",
+      "speaker_id": "staff",
+      "speaker_name": "Deryn Pell",
+      "start_time": 62.4,
+      "text": "Happy to help — let me know if you hit any snags. I’ll keep an eye out for your follow-up."
+    }
+  ]
+}

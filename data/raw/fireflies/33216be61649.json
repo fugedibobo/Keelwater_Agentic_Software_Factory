@@ -1,0 +1,174 @@
+{
+  "date": 1791795540000,
+  "duration": 1.6133333333333333,
+  "host_email": "carys.fenwick@keelwater.example",
+  "id": "33216be61649",
+  "meeting_attendees": [
+    {
+      "displayName": "Carys Fenwick",
+      "email": "carys.fenwick@keelwater.example",
+      "name": "Carys Fenwick"
+    },
+    {
+      "displayName": "Avenna Harthwick",
+      "email": "contact@a18.example",
+      "name": "Avenna Harthwick"
+    }
+  ],
+  "sentences": [
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 8.8,
+      "index": 0,
+      "raw_text": "Hi Carys, thanks for setting up the demo — I’ve got a few things I’d like to flag before we go live.",
+      "speaker_id": "customer",
+      "speaker_name": "Avenna Harthwick",
+      "start_time": 0.0,
+      "text": "Hi Carys, thanks for setting up the demo — I’ve got a few things I’d like to flag before we go live."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 16.4,
+      "index": 1,
+      "raw_text": "Could we schedule a follow-up for next Thursday at 10 AM? I’ll need to coordinate with the claims team.",
+      "speaker_id": "customer",
+      "speaker_name": "Avenna Harthwick",
+      "start_time": 8.8,
+      "text": "Could we schedule a follow-up for next Thursday at 10 AM? I’ll need to coordinate with the claims team."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 21.2,
+      "index": 2,
+      "raw_text": "Of course, Avenna — I’m here to help. What’s on your mind?",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 16.4,
+      "text": "Of course, Avenna — I’m here to help. What’s on your mind?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 29.2,
+      "index": 3,
+      "raw_text": "First, we need to set up a custom claim-reference format — our internal systems rely on specific prefixes and sequences.",
+      "speaker_id": "customer",
+      "speaker_name": "Avenna Harthwick",
+      "start_time": 21.2,
+      "text": "First, we need to set up a custom claim-reference format — our internal systems rely on specific prefixes and sequences."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 41.2,
+      "index": 4,
+      "raw_text": "We really need to set up a custom claim-reference format because our internal systems use specific naming conventions and we can’t have mismatches when pulling reports or syncing with suppliers.",
+      "speaker_id": "customer",
+      "speaker_name": "Avenna Harthwick",
+      "start_time": 29.2,
+      "text": "We really need to set up a custom claim-reference format because our internal systems use specific naming conventions and we can’t have mismatches when pulling reports or syncing with suppliers."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 47.6,
+      "index": 5,
+      "raw_text": "Got it — we can configure that during onboarding. I’ll note it for the tech team.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 41.2,
+      "text": "Got it — we can configure that during onboarding. I’ll note it for the tech team."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 59.6,
+      "index": 6,
+      "raw_text": "Also, there’s an issue where uploaded documents sometimes end up misfiled — garage estimates get tagged as correspondence, and handlers have to move them manually, which risks missing critical evidence.",
+      "speaker_id": "customer",
+      "speaker_name": "Avenna Harthwick",
+      "start_time": 47.6,
+      "text": "Also, there’s an issue where uploaded documents sometimes end up misfiled — garage estimates get tagged as correspondence, and handlers have to move them manually, which risks missing critical evidence."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 72.8,
+      "index": 7,
+      "raw_text": "Uploaded documents are sometimes misfiled — garage estimates get dumped into correspondence, forcing handlers to manually reassign them, and that’s where evidence can slip through the cracks because of incorrect file type assignment.",
+      "speaker_id": "customer",
+      "speaker_name": "Avenna Harthwick",
+      "start_time": 59.6,
+      "text": "Uploaded documents are sometimes misfiled — garage estimates get dumped into correspondence, forcing handlers to manually reassign them, and that’s where evidence can slip through the cracks because of incorrect file type assignment."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 82.0,
+      "index": 8,
+      "raw_text": "That’s a serious concern — I’ll log this as a priority bug. We’ll need to fix the auto-classification logic to avoid overlooking evidence.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 72.8,
+      "text": "That’s a serious concern — I’ll log this as a priority bug. We’ll need to fix the auto-classification logic to avoid overlooking evidence."
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": true,
+        "task": false
+      },
+      "end_time": 89.6,
+      "index": 9,
+      "raw_text": "Appreciate that. Let’s lock in a time to review the fixes — next Thursday at 10 AM still work?",
+      "speaker_id": "customer",
+      "speaker_name": "Avenna Harthwick",
+      "start_time": 82.0,
+      "text": "Appreciate that. Let’s lock in a time to review the fixes — next Thursday at 10 AM still work?"
+    },
+    {
+      "ai_filters": {
+        "pricing": false,
+        "question": false,
+        "task": false
+      },
+      "end_time": 96.8,
+      "index": 10,
+      "raw_text": "Yes, I’ve added it to my calendar. I’ll send a calendar invite with the agenda and any pre-reads.",
+      "speaker_id": "staff",
+      "speaker_name": "Carys Fenwick",
+      "start_time": 89.6,
+      "text": "Yes, I’ve added it to my calendar. I’ll send a calendar invite with the agenda and any pre-reads."
+    }
+  ]
+}

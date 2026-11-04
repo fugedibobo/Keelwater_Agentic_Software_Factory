@@ -1,0 +1,48 @@
+{
+ "request": {
+  "model": "qwen/qwen3-vl-235b-a22b-instruct",
+  "messages": [
+   {
+    "role": "user",
+    "content": "Write one short realistic description for this fictional claims software item. Use no company, person or product name except Keelwater. Return JSON.\n{\"key\": \"page:0\", \"name\": \"Policyholder milestone notifications\", \"source\": \"notion\", \"status\": \"In progress\", \"target\": \"2027-03-31\"}\nVersion 0\n"
+   }
+  ],
+  "temperature": 0.8,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "generate",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "description"
+     ],
+     "properties": {
+      "description": {
+       "type": "string"
+      }
+     }
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "allow",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"description\": \"Keelwater will automatically notify policyholders when they reach key milestones in their claims process, such as document submission completion, adjuster assignment, or payout approval, helping them stay informed without needing to check status manually.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 86,
+   "tokens_out": 51,
+   "cost_usd": 0.00011144
+  }
+ }
+}

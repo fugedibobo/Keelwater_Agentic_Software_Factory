@@ -1,0 +1,127 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "assumed_resolution"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Elwenna Larchvale",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m trying to upload some policyholder documents for a recent claim but the interface isn’t showing the upload field — is there a permissions issue or a step I’m missing?",
+        "created_at": 1793175960,
+        "id": "9ff96329973e-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Elwenna. You’ll need to ensure you’re in the correct role with document upload permissions — I’ll check your access level and guide you through the steps.",
+        "created_at": 1793175972,
+        "id": "9ff96329973e-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Elwenna Larchvale",
+          "type": "user"
+        },
+        "body": "Could you walk me through how to attach documents to a claim in the system? I’m not seeing the upload button on the claims tab.",
+        "created_at": 1793175984,
+        "id": "9ff96329973e-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Elwenna Larchvale",
+          "type": "user"
+        },
+        "body": "That would be great — I’m under the impression I’m assigned the right role, but maybe something’s misconfigured on our end.",
+        "created_at": 1793175994,
+        "id": "9ff96329973e-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "I’ve confirmed your role has full document permissions. The upload field appears after you click the ‘Edit Claim’ button — let me know if you still don’t see it.",
+        "created_at": 1793176003,
+        "id": "9ff96329973e-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your query has been resolved and a summary has been sent to your registered email address for your records.",
+        "created_at": 1793176014,
+        "id": "9ff96329973e-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Elwenna Larchvale",
+          "type": "user"
+        },
+        "body": "Ah, got it — clicking ‘Edit Claim’ reveals the upload section. Thank you, that’s exactly what I needed.",
+        "created_at": 1793176022,
+        "id": "9ff96329973e-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your query has been resolved and a summary has been sent to your registered email address for your records.",
+        "created_at": 1793176029,
+        "id": "9ff96329973e-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1793175960,
+  "id": "9ff96329973e",
+  "source": {
+    "author": {
+      "email": "contact@a22.example",
+      "name": "Elwenna Larchvale",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "reporting_mi"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

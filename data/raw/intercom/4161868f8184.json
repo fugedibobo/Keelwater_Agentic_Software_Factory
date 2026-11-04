@@ -1,0 +1,163 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "routed_to_team"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Farrin Fellward",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m Farrin from Quillon Business Insurance. We’ve got a few high-ARR clients asking why their renewal quotes jumped—can you help us explain that?",
+        "created_at": 1792059420,
+        "id": "4161868f8184-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Farrin Fellward",
+          "type": "user"
+        },
+        "body": "We’re getting renewal price concern from several of our biggest clients—they’re asking why their quotes increased so much, and it’s putting pressure on our retention team.",
+        "created_at": 1792059430,
+        "id": "4161868f8184-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Hi Farrin, thanks for reaching out. I’ll check the pricing logic for those accounts and get back to you shortly.",
+        "created_at": 1792059440,
+        "id": "4161868f8184-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: Customer escalated due to export mismatch affecting high-ARR renewals. Finance team flagged distrust in reporting figures.",
+        "created_at": 1792059448,
+        "id": "4161868f8184-3",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Farrin Fellward",
+          "type": "user"
+        },
+        "body": "Also, our finance team is confused—dashboard totals don’t match what they export, and they’re worried the numbers aren’t reliable for reporting.",
+        "created_at": 1792059455,
+        "id": "4161868f8184-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Farrin Fellward",
+          "type": "user"
+        },
+        "body": "Finance keeps comparing the MI dashboard totals with the CSV export and finds them off—this export figures mismatch is causing distrust in the numbers they use for monthly reporting.",
+        "created_at": 1792059464,
+        "id": "4161868f8184-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "I’ve escalated your concern to our finance integration team for review.",
+        "created_at": 1792059475,
+        "id": "4161868f8184-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood. I’m escalating this to our finance integration team. They’ll look into the discrepancy between the dashboard and export outputs.",
+        "created_at": 1792059480,
+        "id": "4161868f8184-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Bryn, please flag this for the product team—UTC cutoff is causing finance distrust in exported figures. We need to clarify time zones in export metadata.",
+        "created_at": 1792059488,
+        "id": "4161868f8184-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Farrin Fellward",
+          "type": "user"
+        },
+        "body": "Appreciate the quick response. Let me know if you need access to any policyholder or supplier records.",
+        "created_at": 1792059498,
+        "id": "4161868f8184-9",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "We’ll reach out if we need anything further. Thanks for your patience while we resolve this.",
+        "created_at": 1792059504,
+        "id": "4161868f8184-10",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 11,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1792059420,
+  "id": "4161868f8184",
+  "source": {
+    "author": {
+      "email": "contact@a06.example",
+      "name": "Farrin Fellward",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "supplier_network"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

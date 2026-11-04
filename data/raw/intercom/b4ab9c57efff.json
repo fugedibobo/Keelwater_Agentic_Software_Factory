@@ -1,0 +1,139 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "assumed_resolution"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Dovren Keldmere",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m Dovren from Brantwick Commercial. We’ve got a few claims needing urgent attention and I’m not sure how to allocate the tasks correctly.",
+        "created_at": 1789469160,
+        "id": "b4ab9c57efff-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Thanks for reaching out, Dovren. I’ll guide you through assigning roles to your team members so tasks are distributed properly across your claims workflow.",
+        "created_at": 1789469170,
+        "id": "b4ab9c57efff-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Dovren Keldmere",
+          "type": "user"
+        },
+        "body": "Can you walk me through how to assign roles to new team members when they join our claims handling workflow?",
+        "created_at": 1789469179,
+        "id": "b4ab9c57efff-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Dovren Keldmere",
+          "type": "user"
+        },
+        "body": "That’s a relief. Also, we need to schedule regular reviews for reserves and supplier payments—any way to automate that in Keelwater?",
+        "created_at": 1789469187,
+        "id": "b4ab9c57efff-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Dovren Keldmere",
+          "type": "user"
+        },
+        "body": "I need to schedule a weekly review of our reserves and supplier payments—can you help me set that up in the system?",
+        "created_at": 1789469196,
+        "id": "b4ab9c57efff-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Absolutely. I can set up a recurring task for your reserves and supplier payment reviews, synced with your reporting cycle. I’ll email you the setup steps.",
+        "created_at": 1789469204,
+        "id": "b4ab9c57efff-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your request has been fully processed and all related claims documents have been archived as per policy.",
+        "created_at": 1789469215,
+        "id": "b4ab9c57efff-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your request has been fully processed and all related claims documents have been archived as per policy.",
+        "created_at": 1789469222,
+        "id": "b4ab9c57efff-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Dovren Keldmere",
+          "type": "user"
+        },
+        "body": "Thanks, Bryn. That’s exactly what we needed—everything’s sorted now.",
+        "created_at": 1789469228,
+        "id": "b4ab9c57efff-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 9,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1789469160,
+  "id": "b4ab9c57efff",
+  "source": {
+    "author": {
+      "email": "contact@a21.example",
+      "name": "Dovren Keldmere",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "triage_assignment"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

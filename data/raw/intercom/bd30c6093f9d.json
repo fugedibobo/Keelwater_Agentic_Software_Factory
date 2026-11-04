@@ -1,0 +1,124 @@
+{
+  "ai_agent": null,
+  "ai_agent_participated": false,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Brelis Isleford",
+          "type": "user"
+        },
+        "body": "Hi Bryn, it’s Brelis from Selsby Motor — we’re running claims reports late into the evening and the bright interface is straining our eyes. Any chance we can get dark mode enabled?",
+        "created_at": 1793290800,
+        "id": "bd30c6093f9d-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Brelis Isleford",
+          "type": "user"
+        },
+        "body": "We’re running claims reports late into the evening and the bright interface is straining our eyes — any chance we can get dark mode enabled? It’s not urgent but would really help with our overnight reserves and payments workflow.",
+        "created_at": 1793290812,
+        "id": "bd30c6093f9d-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Internal note: Customer A19 has requested dark mode interface; no current roadmap item but logged for UX review.",
+        "created_at": 1793290828,
+        "id": "bd30c6093f9d-2",
+        "part_type": "note",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Hi Brelis, thanks for reaching out. I’ve noted your request for dark mode — we don’t have it live yet, but I’ll log it with our product team for consideration in the next UI update cycle.",
+        "created_at": 1793290835,
+        "id": "bd30c6093f9d-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Brelis Isleford",
+          "type": "user"
+        },
+        "body": "Appreciate you logging that. We handle a lot of late-night reserves and payments, so eye comfort matters. Let me know if there’s a timeline or workaround.",
+        "created_at": 1793290850,
+        "id": "bd30c6093f9d-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "Understood — I’ll flag this as high priority for the UX squad. In the meantime, you can adjust your monitor’s night mode or reduce screen brightness as a temporary fix while we evaluate the feature request.",
+        "created_at": 1793290860,
+        "id": "bd30c6093f9d-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Brelis Isleford",
+          "type": "user"
+        },
+        "body": "That’s helpful, thanks. We’ll tweak the monitor settings for now and wait for updates on dark mode.",
+        "created_at": 1793290874,
+        "id": "bd30c6093f9d-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "You’re welcome, Brelis. I’ll personally follow up once we have a decision from the product team. In the meantime, if you need help with tasks or integrations, just ping us.",
+        "created_at": 1793290881,
+        "id": "bd30c6093f9d-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 8,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1793290800,
+  "id": "bd30c6093f9d",
+  "source": {
+    "author": {
+      "email": "contact@a19.example",
+      "name": "Brelis Isleford",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "triage_assignment"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}

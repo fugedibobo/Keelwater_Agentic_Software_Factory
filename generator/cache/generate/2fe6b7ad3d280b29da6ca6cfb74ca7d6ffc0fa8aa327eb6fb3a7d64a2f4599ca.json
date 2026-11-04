@@ -1,0 +1,228 @@
+{
+ "request": {
+  "model": "qwen/qwen3-vl-235b-a22b-instruct",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nWrite one realistic intercom record for Keelwater, a UK claims-handling software company.\n</role>\n<record>\n{\"customer\": {\"account\": \"A01\", \"company\": \"Hollinbrook Home Insurance\", \"email\": \"contact@a01.example\", \"name\": \"Avenna Ashfell\"}, \"date\": \"2026-10-16T09:43:00Z\", \"fin_mode\": \"escalated\", \"glossary\": [\"claims\", \"documents\", \"reserves\", \"payments\", \"suppliers\", \"reporting\", \"roles\", \"integrations\", \"tasks\", \"letters\", \"policyholders\"], \"never_write_verbatim\": [\"MI dashboard totals disagree with the CSV export (UTC versus UK local cut-off), so finance distrusts the figures\", \"One Strategic account (A01, renewing in January) asks for Welsh-language letter templates through sales, support and its account manager, and calls it a renewal blocker\", \"dashboard totals differ from downloaded figures\", \"finance questions which figure is correct\", \"one account wants Welsh language letters\", \"the customer describes this as a renewal blocker\", \"the cutoff uses UTC rather than UK time\"], \"only_people_who_may_be_named\": [\"Hollinbrook Home Insurance\", \"Avenna Ashfell\", \"Bryn Telford\"], \"route\": \"support\", \"source\": \"intercom\", \"staff\": {\"email\": \"bryn.telford@keelwater.example\", \"name\": \"Bryn Telford\", \"team\": \"support\"}, \"turns_range\": null}\n</record>\n<mentions>\n[{\"fact\": \"the customer describes this as a renewal blocker\", \"form\": \"complaint\", \"id\": \"m1\", \"post_ship\": false, \"problem\": \"One Strategic account (A01, renewing in January) asks for Welsh-language letter templates through sales, support and its account manager, and calls it a renewal blocker. Genuine signal, built as the strongest single-account candidate; it must rank below all six real themes.\", \"severity\": 4, \"stance\": null, \"synonym\": \"letters in Welsh\"}, {\"fact\": \"finance questions which figure is correct\", \"form\": \"question\", \"id\": \"m2\", \"post_ship\": false, \"problem\": \"MI dashboard totals disagree with the CSV export (UTC versus UK local cut-off), so finance distrusts the figures. FullStory: error clicks on \\\"Export CSV\\\", then repeated exports.\", \"severity\": 2, \"stance\": null, \"synonym\": \"report totals differ\"}]\n</mentions>\n<noise>\n{\"admin_note\": true, \"allowed_categories\": [\"pleasantry\", \"scheduling\", \"pricing\", \"internal\", \"password_reset\", \"how_to\", \"praise\", \"closer\"], \"distractor_how_to_phrase\": null, \"instructions\": \"Tag every noise turn with its category. Put the distractor phrase, if given, in a how-to turn with no mention id. An admin note must be an internal turn tagged internal. A Fin-resolved or escalated conversation needs a bot turn; an escalated one also needs an internal reply. About 35 percent of customer turns are pleasantries. Every tagged customer mention, including a short agreement, must contain its supplied synonym.\", \"required_categories\": [\"scheduling\", \"praise\"]}\n</noise>\n<rules>\nCustomers speak like claims staff. Do not use headings or bullets in speech. Use only the names in the record brief; never name a real company, product or person. Mention no feature outside the supplied glossary. Express the supplied facts in the speaker's own words. Tag each turn with its noise category or null. Do not put the planted mentions in `turns`: write each one, in the customer's own words and at least twelve words long, under `mentions[<mention id>].text`, containing that mention's `synonym` exactly as written (a mention whose form is a short agreement is different: write the internal speaker's turn stating the problem, at least twelve words and containing the synonym exactly as written, under `internal_text`, and the customer's reply of under eight words under `agreement_text`), and set after_turn to the index of the turn it should follow. The `turns` conversation is the rest of the record. Do not put the turns listed under `extras` in `turns`: write each one once under `extras[<key>].text` (at least twenty characters, containing the exact phrase where one is given), and set after_turn to the index of the turn it should follow. Name only the people in only_people_who_may_be_named. When fin_mode is resolved or escalated, at least one turn must have speaker bot; when it is escalated, at least one turn must have speaker internal; when it is human, no turn has speaker bot. Never write any phrase listed in never_write_verbatim, including the supplied facts: paraphrase them.\n</rules>\n<output>\nReturn JSON matching the supplied source schema.\n{\"extras\": {\"admin_note\": \"a internal turn, noise_category 'internal'\", \"bot_turn\": \"a bot turn, noise_category None\", \"internal_reply\": \"a internal turn, noise_category None\", \"noise_praise\": \"a customer turn, noise_category 'praise'\", \"noise_scheduling\": \"a customer turn, noise_category 'scheduling'\"}, \"mentions\": {\"m1\": {\"after_turn\": \"index of the turns entry it follows\", \"text\": \"the customer turn carrying this mention\"}, \"m2\": {\"after_turn\": \"index of the turns entry it follows\", \"text\": \"the customer turn carrying this mention\"}}, \"turns\": [{\"noise_category\": \"string or null\", \"speaker\": \"customer|internal|bot\", \"text\": \"string\"}]}\n</output>\n"
+   }
+  ],
+  "temperature": 0.8,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "generate",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "turns",
+      "mentions",
+      "extras"
+     ],
+     "properties": {
+      "extras": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [
+        "bot_turn",
+        "internal_reply",
+        "admin_note",
+        "noise_scheduling",
+        "noise_praise"
+       ],
+       "properties": {
+        "bot_turn": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 20
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        },
+        "internal_reply": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 20
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        },
+        "admin_note": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 20
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        },
+        "noise_scheduling": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 20
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        },
+        "noise_praise": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 20
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        }
+       }
+      },
+      "turns": {
+       "type": "array",
+       "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+         "speaker",
+         "text",
+         "noise_category"
+        ],
+        "properties": {
+         "speaker": {
+          "type": "string",
+          "enum": [
+           "customer",
+           "internal",
+           "bot"
+          ]
+         },
+         "text": {
+          "type": "string"
+         },
+         "noise_category": {
+          "enum": [
+           "pleasantry",
+           "scheduling",
+           "pricing",
+           "internal",
+           "password_reset",
+           "how_to",
+           "praise",
+           "closer",
+           null
+          ]
+         }
+        }
+       },
+       "minItems": 6
+      },
+      "mentions": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [
+        "m1",
+        "m2"
+       ],
+       "properties": {
+        "m1": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 45
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        },
+        "m2": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 45
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "allow",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"extras\": {\n    \"bot_turn\": {\n      \"text\": \"I’ve escalated your request to our support lead for urgent review.\",\n      \"after_turn\": 2\n    },\n    \"internal_reply\": {\n      \"text\": \"Noted — Welsh-language letter templates are now flagged as a renewal blocker for A01. We’ll prioritise this ahead of January renewal.\",\n      \"after_turn\": 3\n    },\n    \"admin_note\": {\n      \"text\": \"Internal note: A01’s Welsh letter request must be tagged as strategic renewal blocker. Assign to product team by EOD.\",\n      \"after_turn\": 1\n    },\n    \"noise_scheduling\": {\n      \"text\": \"Could we schedule a quick call next Tuesday to walk through the reporting settings?\",\n      \"after_turn\": 0\n    },\n    \"noise_praise\": {\n      \"text\": \"Your team’s responsiveness on the reserves update last week was really appreciated.\",\n      \"after_turn\": 0\n    }\n  },\n  \"turns\": [\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Hi Bryn, thanks for picking this up — I know you’re swamped. Just wanted to flag something urgent on our end.\",\n      \"noise_category\": \"pleasantry\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Hi Avenna — thanks for reaching out. I’ve got your case flagged as high priority. What’s the main blocker?\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"We need letters in Welsh for policyholders — it’s not just a nice-to-have, it’s tied to our renewal terms with Keelwater.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Understood — I’ll escalate this immediately. Can you confirm if any other reporting or payments features are currently affected?\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Also, our finance team’s noticed the report totals differ — they’re comparing dashboard numbers with exported files and getting confused.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"bot\",\n      \"text\": \"Your escalation has been logged. A support lead will contact you within 24 hours.\",\n      \"noise_category\": null\n    }\n  ],\n  \"mentions\": {\n    \"m1\": {\n      \"text\": \"We need letters in Welsh for policyholders — it’s not just a nice-to-have, it’s tied to our renewal terms with Keelwater.\",\n      \"after_turn\": 2\n    },\n    \"m2\": {\n      \"text\": \"Also, our finance team’s noticed the report totals differ — they’re comparing dashboard numbers with exported files and getting confused.\",\n      \"after_turn\": 4\n    }\n  }\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1242,
+   "tokens_out": 614,
+   "cost_usd": 0.00142742
+  }
+ }
+}

@@ -1,0 +1,139 @@
+{
+  "ai_agent": {
+    "last_answer_type": "ai_answer",
+    "resolution_state": "assumed_resolution"
+  },
+  "ai_agent_participated": true,
+  "conversation_parts": {
+    "conversation_parts": [
+      {
+        "author": {
+          "id": "customer",
+          "name": "Mavren Cairnwick",
+          "type": "user"
+        },
+        "body": "Hi Bryn, I’m having trouble accessing the claims module — it’s saying my login credentials aren’t valid.",
+        "created_at": 1789027980,
+        "id": "da666e736f4e-0",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "I’ll reset your access right away and send a temporary link to your email. Let me know if you need help with roles or integrations after that.",
+        "created_at": 1789027986,
+        "id": "da666e736f4e-1",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Mavren Cairnwick",
+          "type": "user"
+        },
+        "body": "I need to reset my password for the claims portal as I’m locked out and can’t access documents or reserves.",
+        "created_at": 1789027997,
+        "id": "da666e736f4e-2",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Mavren Cairnwick",
+          "type": "user"
+        },
+        "body": "That’d be great — also, could we set up a time to go over how we’re handling supplier payments and reporting this quarter?",
+        "created_at": 1789028005,
+        "id": "da666e736f4e-3",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Mavren Cairnwick",
+          "type": "user"
+        },
+        "body": "Can we schedule a quick call next Tuesday to review supplier payments and reporting workflows?",
+        "created_at": 1789028014,
+        "id": "da666e736f4e-4",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "internal",
+          "name": "Bryn Telford",
+          "type": "admin"
+        },
+        "body": "I’ve scheduled a 15-minute slot for Tuesday at 10:30 AM. You’ll receive a calendar invite with a link to join. We can walk through tasks and letters too if needed.",
+        "created_at": 1789028020,
+        "id": "da666e736f4e-5",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "customer",
+          "name": "Mavren Cairnwick",
+          "type": "user"
+        },
+        "body": "Perfect, thanks Bryn — I’ll make sure to have all the policyholders’ details ready for review.",
+        "created_at": 1789028032,
+        "id": "da666e736f4e-6",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your case has been resolved and all related tasks are now closed in the system.",
+        "created_at": 1789028039,
+        "id": "da666e736f4e-7",
+        "part_type": "comment",
+        "type": "conversation_part"
+      },
+      {
+        "author": {
+          "id": "bot",
+          "name": "Bryn Telford",
+          "type": "bot"
+        },
+        "body": "Your case has been resolved and all related tasks are now closed in the system.",
+        "created_at": 1789028045,
+        "id": "da666e736f4e-8",
+        "part_type": "comment",
+        "type": "conversation_part"
+      }
+    ],
+    "total_count": 9,
+    "type": "conversation_part.list"
+  },
+  "created_at": 1789027980,
+  "id": "da666e736f4e",
+  "source": {
+    "author": {
+      "email": "contact@a30.example",
+      "name": "Mavren Cairnwick",
+      "type": "user"
+    }
+  },
+  "tags": {
+    "tags": [
+      {
+        "name": "triage_assignment"
+      }
+    ],
+    "type": "tag.list"
+  },
+  "type": "conversation"
+}
