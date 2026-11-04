@@ -331,6 +331,10 @@ def test_invalid_response_keeps_finish_reason(tmp_path):
 
 
 def test_reasoning_option_reaches_generate_requests_only(tmp_path):
-    gw = demo(tmp_path)
+    import copy
+    from signal_engine import config
+    models = copy.deepcopy(config.load("models"))
+    models["profiles"]["demo"]["stages"]["generate"]["reasoning"] = {"enabled": False}
+    gw = demo(tmp_path, models=models)
     assert gw.chat_request("generate", gwm.PROBE_MESSAGES, schema={"type": "object"})["reasoning"] == {"enabled": False}
     assert "reasoning" not in gw.chat_request("extract", gwm.PROBE_MESSAGES)
