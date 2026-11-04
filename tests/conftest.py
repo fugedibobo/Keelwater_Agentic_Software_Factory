@@ -8,6 +8,11 @@ import pytest
 from signal_engine.gateway import Gateway
 from signal_engine.store import Store
 
+
+def pytest_configure(config):
+    # --basetemp in pyproject points at git-ignored .scratch/, absent on a fresh checkout
+    Path(".scratch").mkdir(exist_ok=True)
+
 ROOT = Path(__file__).resolve().parent.parent
 
 
