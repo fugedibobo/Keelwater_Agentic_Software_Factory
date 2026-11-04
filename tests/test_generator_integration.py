@@ -38,7 +38,8 @@ class FakeClient:
         if prompt.startswith('Write one short realistic description'):
             return Response({'description': 'A routine description of the work.'})
         assert prompt in self.records
-        return Response(self.records[prompt])
+        rec = self.records[prompt]
+        return Response({**rec, 'turns': [{**t, 'synonym_used': None} for t in rec['turns']]})
 
 
 def test_generation_and_forced_replay_are_byte_identical(tmp_path, monkeypatch):

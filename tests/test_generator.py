@@ -269,3 +269,24 @@ def test_gateway_rejects_response_outside_the_schema(tmp_path):
     gw = Gateway(store=None, profile='demo', cache_dir=tmp_path, keys={}, client=Client(), sleep=lambda s: None, max_usd=1)
     with pytest.raises(InvalidResponse):
         gw.chat('generate', [{'role': 'user', 'content': 'x'}], target_type='t', target_id='1', schema=record_schema(r, 42))
+
+
+def test_synonym_is_one_deterministic_term_and_prompt_forbids_facts():
+    from generator.brief import mention_briefs
+    from generator.planner import plan
+    from generator.writer import record_schema
+    from generator.specs import load
+    r = next(r for r in plan(42)['records'] if r['source'] != 'fullstory' and any(m['theme'] in {t['id'] for t in load(42)['themes']['themes']} for m in r['mentions']))
+    briefs = mention_briefs(42, r)
+    assert briefs == mention_briefs(42, r)
+    chosen = [m['synonym'] for m in briefs if 'synonym' in m]
+    assert chosen and record_schema(r, 42)['properties']['turns']['items']['properties']['synonym_used']['enum'] == [*chosen, None]
+    prompt = make_prompt(42, r)
+    theme = next(t for t in load(42)['themes']['themes'] if t['id'] == r['mentions'][0]['theme'])
+    assert 'never_write_verbatim' in prompt and theme['facts'][0] in prompt and 'exactly as written' in prompt
+
+
+def test_common_capitalised_word_passes_but_invented_name_fails():
+    from generator.verify import unknown_names
+    assert unknown_names('We only get the English letters here', 42) == []
+    assert unknown_names('please ask Brenda Quillfeather about it', 42)

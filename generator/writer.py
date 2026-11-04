@@ -10,7 +10,7 @@ from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from signal_engine import config
 from signal_engine.gateway import InvalidResponse
-from .brief import make_prompt
+from .brief import make_prompt, mention_briefs
 from .specs import ROOT, load
 from .verify import leaked_terms, repeated_record_ids, unknown_names, verify_mention_text
 
@@ -19,10 +19,10 @@ TURN_SCHEMA = {
     'type': 'object', 'additionalProperties': False, 'required': ['turns'],
     'properties': {'turns': {'type': 'array', 'items': {
         'type': 'object', 'additionalProperties': False,
-        'required': ['speaker', 'text', 'mention_ids', 'noise_category'],
+        'required': ['speaker', 'text', 'mention_ids', 'noise_category', 'synonym_used'],
         'properties': {'speaker': {'type': 'string', 'enum': ['customer', 'internal', 'bot']},
                        'text': {'type': 'string'}, 'mention_ids': {'type': 'array', 'items': {'type': 'string'}},
-                       'noise_category': {'type': ['string', 'null']}}
+                       'noise_category': {'type': ['string', 'null']}, 'synonym_used': {'type': ['string', 'null']}}
     }}}
 }
 
@@ -35,6 +35,7 @@ def record_schema(record, seed):
         turns['minItems'], turns['maxItems'] = record['turns_range']
     props = turns['items']['properties']
     props['mention_ids']['items'] = {'type': 'string', 'enum': [m['id'] for m in record['mentions']]}
+    props['synonym_used'] = {'enum': [*(m['synonym'] for m in mention_briefs(seed, record) if 'synonym' in m), None]}
     props['noise_category'] = {'enum': [*load(seed)['noise']['categories'], None]}
     return schema
 
