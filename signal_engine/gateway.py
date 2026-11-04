@@ -154,20 +154,25 @@ class Gateway:
         return body
 
     def decide_request(self, stage, text, model=None):
-        # shortcut: question field names follow the vendor docs summary (docs/research), verify with `keelwater probe`.
+        # shortcut: OpenRouter's Decisions API is alpha (POST /api/alpha/decisions); the shape may change, `keelwater probe` checks it.
         c = self.stage_cfg(stage)
         buckets = {b["id"]: b["description"] for b in config.load("taxonomy")["buckets"]}
-        return {"model": model or c["model"], "state": text, "questions": {
-            "is_product_signal": {"type": "noul", "instructions": "Is this a problem or request about the Keelwater product that a product squad could act on?"},
-            "bucket": {"type": "choice", "instructions": "Which product area does it belong to?", "options": buckets},
-            "severity": {"type": "score", "instructions": "How severe is the impact on the customer (1 low, 4 blocking)?", "levels": 4},
-            "signal_type": {"type": "choice", "instructions": "What kind of signal is it?", "options": {t.value: t.value for t in SignalType}}}}
+        body = {"model": model or c["model"], "state": text, "questions": {
+            "is_product_signal": {"type": "noul", "instructions": "Is this a problem or request about the Keelwater product that a product squad could act on?",
+                                  "criteria": {"true": "A customer problem, defect or request about the product.", "false": "Chatter, scheduling, small talk or anything not about the product."}},
+            "bucket": {"type": "choice", "instructions": "Which product area does it belong to?", "criteria": buckets},
+            "severity": {"type": "score", "instructions": "How severe is the impact on the customer?",
+                         "criteria": ["Minor annoyance", "Slows the customer down", "Blocks part of their work", "Blocks the customer entirely"]},
+            "signal_type": {"type": "choice", "instructions": "What kind of signal is it?", "criteria": {t.value: t.value.replace("_", " ") for t in SignalType}}}}
+        if self._is_openrouter(stage):
+            body["provider"] = dict(PROVIDER)
+        return body
 
     def probe_request(self, stage, model=None):
         c = self.stage_cfg(stage)
         if stage == "embed":
             return self.embed_request(stage, ["probe"], model)
-        if c.get("backend") == "jev":
+        if c.get("backend") == "clef":
             return self.decide_request(stage, "probe", model)
         return self.chat_request(stage, PROBE_MESSAGES, max_tokens=PROBE_MAX_TOKENS, model=model)
 
@@ -235,9 +240,9 @@ class Gateway:
         return self._call(stage, "embed", self.embed_request(stage, texts), target_type, target_id)["embeddings"]
 
     def decide(self, text, *, target_type, target_id, stage="triage"):
-        """Decision-model adapter: Jev answers four questions in one call; mapped to the triage record."""
+        """Decision-model adapter: Clef answers four questions in one call; mapped to the triage record."""
         a = self._call(stage, "decide", self.decide_request(stage, text), target_type, target_id)["answers"]
-        return map_jev_answers(a)
+        return map_decision_answers(a)
 
     def map(self, fn, items):
         """Run fn over items with the stage concurrency (8 by default)."""
@@ -266,14 +271,14 @@ class Gateway:
         attempts = c["retries"] + 1
         for i in range(attempts):
             try:
-                if c.get("backend") == "jev":
-                    return self._jev(c, body)
+                if c.get("backend") == "clef":
+                    return self._decide(c, body)
                 return self._openai(stage, c, kind, body, call_id)
             except Unavailable:
                 raise
             except Exception as e:  # scrub: never let a key reach a log or a report
                 status = getattr(e, "status_code", None) or getattr(getattr(e, "response", None), "status_code", None)
-                if status in RETRY_STATUS and i < attempts - 1:
+                if (status in RETRY_STATUS or "Timeout" in type(e).__name__) and i < attempts - 1:
                     self._sleep(min(0.5 * 2 ** i, 8))
                     continue
                 raise GatewayError(self.scrub(f"{stage} call failed: {type(e).__name__}: {e}")) from None
@@ -298,15 +303,15 @@ class Gateway:
         from openai import OpenAI
         return OpenAI(base_url=c["base_url"], api_key=self.key(c["key_env"]), max_retries=0)
 
-    def _jev(self, c, body):
+    def _decide(self, c, body):
         import httpx
         http = self._http or httpx.Client()
-        r = http.post(c["base_url"].rstrip("/") + "/v1/systemone", json=body, timeout=c["timeout_s"],
+        r = http.post(c["base_url"].rstrip("/") + "/alpha/decisions", json=body, timeout=c["timeout_s"],
                       headers={"Authorization": f"Bearer {self.key(c['key_env'])}"})
         r.raise_for_status()
         d = r.json()
         u = d.get("usage") or {}
-        return {"answers": d["answers"], "usage": {"tokens_in": u.get("input_tokens", u.get("prompt_tokens", 0)), "tokens_out": 0}}
+        return {"answers": d["answers"], "usage": {"tokens_in": u.get("input_tokens", 0), "tokens_out": 0, "cost_usd": u.get("cost")}}
 
     def probe_one(self, stage, model=None):
         """One real call with the stage's real parameters and max_tokens 32; returns latency in ms."""
@@ -324,25 +329,12 @@ class Gateway:
         return {"usage": d.get("usage"), "limit": d.get("limit")}
 
 
-def map_jev_answers(a):
-    """Jev answers -> triage record. shortcut: answer shapes follow the vendor docs summary, verified by the live probe."""
-    def num(v, *names):
-        if isinstance(v, dict):
-            for n in names:
-                if n in v:
-                    return float(v[n])
-        return float(v)
-
-    def pick(v):
-        if isinstance(v, dict):
-            return v.get("choice") or v.get("label") or v.get("answer"), float(v.get("confidence", 0))
-        return v, 1.0
-
-    bucket, conf = pick(a["bucket"])
-    sev = a["severity"]
-    sev = int(sev.get("score", sev.get("level"))) if isinstance(sev, dict) else int(sev)
-    return {"is_signal_p": num(a["is_product_signal"], "probability", "yes", "p"), "bucket": bucket, "bucket_conf": conf,
-            "severity": max(1, min(4, sev)), "signal_type": pick(a["signal_type"])[0]}
+def map_decision_answers(a):
+    """Decisions API answers -> triage record: noul {noul: p}, choice {choice, confidence}, score {score} (0-based index)."""
+    sev = round(float(a["severity"]["score"])) + 1
+    return {"is_signal_p": float(a["is_product_signal"]["noul"]), "bucket": a["bucket"]["choice"],
+            "bucket_conf": float(a["bucket"]["confidence"]), "severity": max(1, min(4, sev)),
+            "signal_type": a["signal_type"]["choice"]}
 
 
 # ---- probe command -----------------------------------------------------------------------------------------
@@ -352,7 +344,7 @@ def run_probe(gw, stages, out=print):
     rows = []
     for stage in stages:
         c = gw.stage_cfg(stage)
-        if c.get("backend") == "jev" and not gw.keys.get(c["key_env"]):
+        if c.get("backend") == "clef" and not gw.keys.get(c["key_env"]):
             rows.append((stage, c["model"], "-", "skipped (no key)", "-"))
             continue
         for served, model in (("primary", c["model"]), ("fallback", c.get("fallback"))):

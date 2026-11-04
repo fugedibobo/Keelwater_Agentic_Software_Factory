@@ -1,0 +1,13 @@
+<section id="how" class="tab" role="tabpanel" aria-labelledby="t-how">
+<h2>How it works</h2>
+{% for d in diagrams %}<figure><figcaption>{{ d.title }} <a href="{{ d.src }}" target="_blank" rel="noopener">open full size</a></figcaption>
+{% if d.exists %}<iframe src="{{ d.src }}" title="{{ d.title }}" loading="lazy"></iframe>{% else %}<p class="placeholder">Diagram not available yet (it is built by issue #11).</p>{% endif %}</figure>{% endfor %}
+<ol class="steps">
+<li><strong>Collect.</strong> Every night Keelwater's feedback is collected from calls, tickets and sessions.</li>
+<li><strong>Clean.</strong> What customers said is kept, with the line before it as context that is never quoted, and idle session time is cut.</li>
+<li><strong>Judge relevance.</strong> A small fast model decides what is product signal and what is noise, and a person checks a weekly sample of 40 dropped items.</li>
+<li><strong>Extract and check.</strong> A model pulls out the problem and the customer's exact words, and code checks the words really appear in the source.</li>
+<li><strong>Group and rank.</strong> Similar problems are grouped, matched to the roadmap and ranked with a formula the PM can read.</li>
+<li><strong>Brief and review.</strong> The top ones get a cited brief, three judges from another model family check it, and a PM accepts, merges, rejects, parks or sends it to another squad.</li>
+</ol>
+</section>

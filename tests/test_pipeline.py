@@ -14,6 +14,9 @@ STAGE_MODULE = '''
 from signal_engine import contracts as c
 from signal_engine.store import raw_id, snippet_id, insight_id
 
+def idle(ctx):
+    pass
+
 def run(ctx):
     s = ctx.store
     rid = raw_id("gong", "g1")
@@ -41,6 +44,7 @@ def fake_stage(tmp_path, monkeypatch):
     (tmp_path / "fake_stage_mod.py").write_text(STAGE_MODULE, encoding="utf-8")
     monkeypatch.syspath_prepend(str(tmp_path))
     monkeypatch.setitem(pipeline.STAGES, "connect", "fake_stage_mod:run")
+    monkeypatch.setitem(pipeline.STAGES, "triage", "fake_stage_mod:idle")  # the real triage needs the model cache
     for name in ("cluster", "tag"):  # built stages would need cached model replies for the stub insight
         monkeypatch.setitem(pipeline.STAGES, name, "absent_stage_mod:run")
     monkeypatch.setitem(pipeline.STAGES, "segment", "no_such_module:run")  # the real segment would read the fake raw rows
@@ -80,11 +84,10 @@ def test_run_recreates_the_store_but_oct_appends(tmp_path, fake_stage):
     assert (tmp_path / "rep" / "runs" / "latest-replay-oct.json").is_file()
 
 
-def test_stage_subset_and_unknown_stage(tmp_path, capsys, monkeypatch):
-    monkeypatch.setitem(pipeline.STAGES, "rank", "absent_stage_mod:run")  # rank is built, so point it at a missing module
-    assert pipeline.run_pipeline(args(tmp_path, "--stages", "triage,rank")) == 0
+def test_stage_subset_and_unknown_stage(tmp_path, capsys):
+    assert pipeline.run_pipeline(args(tmp_path, "--stages", "review,handoff")) == 0
     out = capsys.readouterr().out
-    assert "triage: skipped" in out and "rank: skipped" in out and "connect" not in out
+    assert "review: skipped" in out and "handoff: done" in out and "connect" not in out
     assert pipeline.run_pipeline(args(tmp_path, "--stages", "bogus")) == 2
 
 

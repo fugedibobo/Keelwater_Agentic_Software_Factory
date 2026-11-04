@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Signal Board</title>
+<link rel="icon" href="data:,">
+{% if static %}<style>{{ css|safe }}</style>{% else %}<link rel="stylesheet" href="/static/board.css">{% endif %}
+</head>
+<body data-mode="{{ 'static' if static else 'live' }}">
+<a class="skip" href="#main">Skip to content</a>
+<header>
+  <h1>Signal Board</h1>
+  <p class="runline">{% if hdr.run %}run {{ hdr.run.started_at[8:10] }}/{{ hdr.run.started_at[5:7] }}/{{ hdr.run.started_at[:4] }} {{ hdr.run.started_at[11:16] }} ({{ hdr.run.profile }}){% else %}no run in this store{% endif %}</p>
+  <p class="judgeline"><a href="#evals">Judges: {{ hdr.trusted }} of {{ hdr.judges_total }} trusted{% if hdr.judge_note %} ({{ hdr.judge_note }}){% endif %}</a></p>
+  {% if static %}<p class="banner" role="note">Static snapshot of run {{ hdr.run.run_id if hdr.run else 'none' }}, {{ hdr.run.as_of[8:10] ~ '/' ~ hdr.run.as_of[5:7] ~ '/' ~ hdr.run.as_of[:4] if hdr.run else '' }}. Actions are disabled. Run the local server to review.</p>{% endif %}
+</header>
+<nav aria-label="Board tabs">
+  <div class="tabgroup" role="tablist" aria-label="PM workspace"><span class="grp">PM workspace:</span>
+    <a role="tab" id="t-opportunities" href="#opportunities" data-tab="opportunities">1 Opportunities</a>
+    <a role="tab" id="t-handoffs" href="#handoffs" data-tab="handoffs">2 Handoffs</a></div>
+  <div class="tabgroup" role="tablist" aria-label="Ops console"><span class="grp">Ops console:</span>
+    <a role="tab" id="t-pipeline" href="#pipeline" data-tab="pipeline">3 Pipeline</a>
+    <a role="tab" id="t-evals" href="#evals" data-tab="evals">4 Evals</a>
+    <a role="tab" id="t-audit" href="#audit" data-tab="audit">5 Audit</a>
+    <a role="tab" id="t-how" href="#how" data-tab="how">6 How it works</a></div>
+</nav>
+<main id="main">
+{% block content %}{% endblock %}
+</main>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<dialog id="confirm" aria-labelledby="confirm-title"><form method="dialog">
+  <h2 id="confirm-title">Accept and draft the intent document?</h2><p id="confirm-text"></p>
+  <button class="btn" value="cancel">Cancel</button> <button class="btn primary" value="ok" id="confirm-ok" autofocus>Confirm</button></form></dialog>
+<dialog id="keys"><form method="dialog"><h2>Keyboard shortcuts</h2>
+  <p>j / k move, Enter open, Esc close, a accept (then Enter to confirm), m merge, r reject, p park, s send to squad, e edit, u undo, l labels, ? this list.</p>
+  <button class="btn">Close</button></form></dialog>
+<footer><p>Synthetic data. Keelwater is fictional.</p></footer>
+{% if static %}<script>{{ js|safe }}</script>{% else %}<script src="/static/board.js"></script><script src="/static/board-live.js"></script>{% endif %}
+</body>
+</html>
