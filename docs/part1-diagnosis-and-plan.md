@@ -89,7 +89,7 @@ Tell the board that halving idea-to-customer is not plausible within 18 months. 
 
 Before adding squads, compare pilot and control on both lead times, throughput, decision latency, release time, status hours, acceptance, judge agreement and review wait. My recommendation changes if:
 
-- pilot decision time falls by half and release time by 70%: halving is in reach, so I add squads sooner;
+- pilot decision time falls by half and release time by 70%: halving nears (high case 51%), so I add squads sooner;
 - acceptance stays below 30% after calibration: rework taxonomy and ranking with PMs first;
 - review dominates lead time: fund review capacity (smaller PRs, agent pre-review) first;
 - customers reject bundles: give each customer flag-level control instead.
