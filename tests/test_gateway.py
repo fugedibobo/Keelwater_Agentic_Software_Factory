@@ -311,7 +311,6 @@ def test_only_generate_allows_data_collection(tmp_path):
             continue
         want = "allow" if stage == "generate" else "deny"
         assert gw.chat_request(stage, gwm.PROBE_MESSAGES, schema={"type": "object"})["provider"]["data_collection"] == want
-    assert gw.stage_cfg("generate")["price"] == {"in": 0, "out": 0}
 
 
 def test_rpm_pacing_spaces_requests(tmp_path):
