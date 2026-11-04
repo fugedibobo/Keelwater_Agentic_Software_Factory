@@ -1,0 +1,386 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Production architecture: customer data stays in the VPC",
+    "output": "docs/diagrams/production-architecture.html",
+    "visual_preset": "signal-flow",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    {
+      "id": "ext_calls",
+      "type": "external",
+      "label": "Gong and Fireflies",
+      "sublabel": "sales calls",
+      "pos": [
+        10,
+        90
+      ],
+      "size": [
+        140,
+        56
+      ]
+    },
+    {
+      "id": "ext_intercom",
+      "type": "external",
+      "label": "Intercom and Fin",
+      "sublabel": "tickets",
+      "pos": [
+        10,
+        170
+      ],
+      "size": [
+        140,
+        56
+      ]
+    },
+    {
+      "id": "ext_fullstory",
+      "type": "external",
+      "label": "FullStory",
+      "sublabel": "sessions",
+      "pos": [
+        10,
+        250
+      ],
+      "size": [
+        140,
+        56
+      ]
+    },
+    {
+      "id": "ext_hubspot",
+      "type": "external",
+      "label": "HubSpot",
+      "sublabel": "account data",
+      "pos": [
+        10,
+        330
+      ],
+      "size": [
+        140,
+        56
+      ]
+    },
+    {
+      "id": "sfn",
+      "type": "messagebus",
+      "label": "Step Functions",
+      "sublabel": "nightly run",
+      "pos": [
+        282,
+        80
+      ],
+      "size": [
+        130,
+        56
+      ]
+    },
+    {
+      "id": "connectors",
+      "type": "backend",
+      "label": "Connectors",
+      "sublabel": "allow-listed pulls",
+      "pos": [
+        282,
+        200
+      ],
+      "size": [
+        130,
+        56
+      ]
+    },
+    {
+      "id": "s3_raw",
+      "type": "cloud",
+      "label": "S3 raw landing",
+      "sublabel": "raw exports",
+      "pos": [
+        282,
+        330
+      ],
+      "size": [
+        130,
+        56
+      ]
+    },
+    {
+      "id": "triage",
+      "type": "backend",
+      "label": "Triage (gpt-oss)",
+      "sublabel": "noise filter",
+      "pos": [
+        537,
+        330
+      ],
+      "size": [
+        130,
+        56
+      ]
+    },
+    {
+      "id": "bedrock",
+      "type": "cloud",
+      "label": "Bedrock endpoints",
+      "sublabel": "open-weight models",
+      "pos": [
+        777,
+        200
+      ],
+      "size": [
+        140,
+        56
+      ]
+    },
+    {
+      "id": "intel",
+      "type": "backend",
+      "label": "Extract, rank, brief",
+      "sublabel": "insight pipeline",
+      "pos": [
+        777,
+        330
+      ],
+      "size": [
+        140,
+        56
+      ]
+    },
+    {
+      "id": "pg",
+      "type": "database",
+      "label": "RDS Postgres + pgvector",
+      "sublabel": "system of record",
+      "pos": [
+        657,
+        470
+      ],
+      "size": [
+        170,
+        56
+      ]
+    },
+    {
+      "id": "audit",
+      "type": "security",
+      "label": "CloudTrail and audit_event",
+      "sublabel": "audit trail",
+      "pos": [
+        967,
+        470
+      ],
+      "size": [
+        182,
+        56
+      ]
+    },
+    {
+      "id": "phoenix",
+      "type": "backend",
+      "label": "Phoenix",
+      "sublabel": "traces",
+      "pos": [
+        987,
+        330
+      ],
+      "size": [
+        110,
+        56
+      ]
+    },
+    {
+      "id": "board",
+      "type": "frontend",
+      "label": "Signal Board",
+      "sublabel": "PM review",
+      "pos": [
+        667,
+        600
+      ],
+      "size": [
+        140,
+        56
+      ]
+    },
+    {
+      "id": "ext_workspace",
+      "type": "external",
+      "label": "Notion, Shortcut, Slack",
+      "sublabel": "workspace tools",
+      "pos": [
+        895,
+        740
+      ],
+      "size": [
+        170,
+        56
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "AWS VPC (eu-west-2)",
+      "wraps": [
+        "sfn",
+        "connectors",
+        "s3_raw",
+        "triage",
+        "bedrock",
+        "intel",
+        "pg",
+        "audit",
+        "phoenix",
+        "board"
+      ],
+      "pad": 38
+    },
+    {
+      "kind": "security-group",
+      "label": "Ingestion",
+      "wraps": [
+        "sfn",
+        "connectors",
+        "s3_raw"
+      ],
+      "pad": 14
+    },
+    {
+      "kind": "security-group",
+      "label": "Triage",
+      "wraps": [
+        "triage"
+      ],
+      "pad": 14
+    },
+    {
+      "kind": "security-group",
+      "label": "Intelligence",
+      "wraps": [
+        "bedrock",
+        "intel"
+      ],
+      "pad": 14
+    },
+    {
+      "kind": "security-group",
+      "label": "Store",
+      "wraps": [
+        "pg"
+      ],
+      "pad": 14
+    },
+    {
+      "kind": "security-group",
+      "label": "Telemetry and audit",
+      "wraps": [
+        "audit",
+        "phoenix"
+      ],
+      "pad": 14
+    },
+    {
+      "kind": "security-group",
+      "label": "People-facing outputs",
+      "wraps": [
+        "board"
+      ],
+      "pad": 14
+    }
+  ],
+  "connections": [
+    {
+      "from": "ext_calls",
+      "to": "connectors",
+      "label": "calls via allow-list"
+    },
+    {
+      "from": "ext_intercom",
+      "to": "connectors",
+      "label": "tickets via allow-list"
+    },
+    {
+      "from": "ext_fullstory",
+      "to": "connectors",
+      "label": "sessions via allow-list"
+    },
+    {
+      "from": "ext_hubspot",
+      "to": "connectors",
+      "label": "ARR, tier, renewal"
+    },
+    {
+      "from": "connectors",
+      "to": "s3_raw",
+      "label": "raw export"
+    },
+    {
+      "from": "sfn",
+      "to": "connectors",
+      "label": "nightly trigger"
+    },
+    {
+      "from": "s3_raw",
+      "to": "triage",
+      "label": "segmented snippets"
+    },
+    {
+      "from": "triage",
+      "to": "intel",
+      "label": "product signal"
+    },
+    {
+      "from": "triage",
+      "to": "bedrock",
+      "label": "typed decisions"
+    },
+    {
+      "from": "intel",
+      "to": "bedrock",
+      "label": "typed prompts"
+    },
+    {
+      "from": "intel",
+      "to": "pg",
+      "label": "insights, scores"
+    },
+    {
+      "from": "triage",
+      "to": "pg",
+      "label": "triage decisions"
+    },
+    {
+      "from": "intel",
+      "to": "phoenix",
+      "label": "traces"
+    },
+    {
+      "from": "intel",
+      "to": "audit",
+      "label": "model_call rows"
+    },
+    {
+      "from": "pg",
+      "to": "board",
+      "label": "ranked opportunities"
+    },
+    {
+      "from": "board",
+      "to": "pg",
+      "label": "annotations"
+    },
+    {
+      "from": "board",
+      "to": "audit",
+      "label": "audit_event rows"
+    },
+    {
+      "from": "board",
+      "to": "ext_workspace",
+      "label": "digest, write-back (planned)",
+      "variant": "dashed"
+    }
+  ]
+}

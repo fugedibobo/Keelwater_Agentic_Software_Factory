@@ -1,0 +1,228 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Agentic product lifecycle: agents work, people pass the gates",
+    "subtitle": "Agents do the work; people pass the gates.",
+    "output": "docs/diagrams/agentic-pdlc.html",
+    "visual_preset": "blueprint",
+    "quality_profile": "standard"
+  },
+  "lanes": [
+    {
+      "id": "pops",
+      "label": "Product operations layer"
+    },
+    {
+      "id": "pops2",
+      "label": "Product operations layer (Trio gate)"
+    },
+    {
+      "id": "factory",
+      "label": "Platform team: engineering factory"
+    },
+    {
+      "id": "pops3",
+      "label": "Product operations layer (continued)"
+    }
+  ],
+  "mainPath": [
+    "sense",
+    "decide",
+    "g1",
+    "define",
+    "g2",
+    "build"
+  ],
+  "nodes": [
+    {
+      "id": "sense",
+      "lane": "pops",
+      "col": 0,
+      "type": "backend",
+      "label": "Sense",
+      "width": 132
+    },
+    {
+      "id": "decide",
+      "lane": "pops",
+      "col": 1,
+      "type": "backend",
+      "label": "Decide",
+      "width": 132
+    },
+    {
+      "id": "g1",
+      "lane": "pops",
+      "col": 2,
+      "type": "security",
+      "label": "Gate 1",
+      "width": 132,
+      "sublabel": "PM accepts opportunity"
+    },
+    {
+      "id": "define",
+      "lane": "pops",
+      "col": 3,
+      "type": "backend",
+      "label": "Define",
+      "width": 132
+    },
+    {
+      "id": "g2",
+      "lane": "pops2",
+      "col": 3,
+      "type": "security",
+      "label": "Gate 2",
+      "width": 132,
+      "sublabel": "Trio approves intent"
+    },
+    {
+      "id": "build",
+      "lane": "factory",
+      "col": 3,
+      "type": "backend",
+      "label": "Build",
+      "width": 132
+    },
+    {
+      "id": "g3",
+      "lane": "factory",
+      "col": 2,
+      "type": "security",
+      "label": "Gate 3",
+      "width": 132,
+      "sublabel": "human PR review"
+    },
+    {
+      "id": "release",
+      "lane": "factory",
+      "col": 1,
+      "type": "backend",
+      "label": "Release",
+      "width": 132
+    },
+    {
+      "id": "g4",
+      "lane": "factory",
+      "col": 0,
+      "type": "security",
+      "label": "Gate 4",
+      "width": 132,
+      "sublabel": "bundle announced, approved"
+    },
+    {
+      "id": "enable",
+      "lane": "pops3",
+      "col": 0,
+      "type": "backend",
+      "label": "Enable",
+      "width": 132
+    },
+    {
+      "id": "g5",
+      "lane": "pops3",
+      "col": 1,
+      "type": "security",
+      "label": "Gate 5",
+      "width": 132,
+      "sublabel": "PM accepts drafts"
+    },
+    {
+      "id": "learn",
+      "lane": "pops3",
+      "col": 2,
+      "type": "database",
+      "label": "Learn",
+      "width": 132
+    }
+  ],
+  "edges": [
+    {
+      "from": "sense",
+      "to": "decide",
+      "label": "ranked signals",
+      "variant": "default"
+    },
+    {
+      "from": "decide",
+      "to": "g1",
+      "label": "opportunity brief",
+      "variant": "security"
+    },
+    {
+      "from": "g1",
+      "to": "define",
+      "label": "accepted",
+      "variant": "security"
+    },
+    {
+      "from": "define",
+      "to": "g2",
+      "label": "intent doc + mockup",
+      "variant": "security"
+    },
+    {
+      "from": "g2",
+      "to": "build",
+      "label": "factory job",
+      "variant": "security"
+    },
+    {
+      "from": "build",
+      "to": "g3",
+      "label": "pull request",
+      "variant": "security"
+    },
+    {
+      "from": "g3",
+      "to": "release",
+      "label": "approved change",
+      "variant": "security"
+    },
+    {
+      "from": "release",
+      "to": "g4",
+      "label": "flag-controlled bundle",
+      "variant": "security"
+    },
+    {
+      "from": "g4",
+      "to": "enable",
+      "label": "released bundle",
+      "variant": "security"
+    },
+    {
+      "from": "enable",
+      "to": "g5",
+      "label": "notes, article, notice",
+      "variant": "security"
+    },
+    {
+      "from": "g5",
+      "to": "learn",
+      "label": "accepted and sent",
+      "variant": "security"
+    },
+    {
+      "from": "learn",
+      "to": "sense",
+      "label": "outcomes and labels",
+      "variant": "dashed",
+      "role": "return"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Who owns each stage",
+      "items": [
+        "Product ops: Sense, Decide, Define, Enable, Learn",
+        "Platform team: Build; Release shared with product ops",
+        "Gates 1, 2, 5 and 4 are product-owned; Gate 3 is the engineer",
+        "Gate 2 Trio: PM, Designer, Tech Lead",
+        "Gate 4: bundle announced and approved; Gate 5: PM or product marketing"
+      ]
+    }
+  ]
+}
