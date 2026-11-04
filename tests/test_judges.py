@@ -31,7 +31,7 @@ def test_three_judges_write_verdicts_and_uncalibrated_versions(tmp_store, fake_g
     assert all(j["critique"] and j["call_id"] for j in got.values())
     versions = tmp_store.select("judge_version")
     assert {v["state"] for v in versions} == {"uncalibrated"} and len(versions) == 3
-    assert all(v["judge_version_id"] == f"{v['prompt_version']}+z-ai/glm-5" for v in versions)
+    assert all(v["judge_version_id"] == f"{v['prompt_version']}+z-ai/glm-5.3" for v in versions)
     body = gw.calls[0][2]
     assert body["temperature"] == 0 and list(body["response_format"]["json_schema"]["schema"]["properties"]) == ["critique", "verdict"]
 
