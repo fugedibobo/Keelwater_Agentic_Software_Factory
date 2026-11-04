@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
+from signal_engine.gateway import InvalidResponse
 from .brief import make_prompt
 from .specs import ROOT, load
 from .verify import leaked_terms, repeated_record_ids, unknown_names, verify_mention_text
@@ -106,7 +107,7 @@ def write_record(record, seed, make_request, start_attempt=0, on_rejection=None)
             if errors:
                 raise RecordValidationError('; '.join(errors))
             return response
-        except RecordValidationError as exc:
+        except (RecordValidationError, InvalidResponse) as exc:
             last = exc
             if on_rejection:
                 on_rejection(record['id'], attempt, str(exc))
@@ -131,9 +132,14 @@ def write_reference(gateway, brief, seed, on_rejection=None):
         prompt = ('Write one short realistic description for this fictional claims software item. '
                   'Use no company, person or product name except Keelwater. Return JSON.\n' +
                   json.dumps(brief, ensure_ascii=False, sort_keys=True) + f'\nVersion {attempt}\n')
-        response = gateway.chat('generate', [{'role': 'user', 'content': prompt}],
-                                target_type='generator_reference', target_id=brief['key'],
-                                prompt_version='reference@0.1.0', schema=DESCRIPTION_SCHEMA)
+        try:
+            response = gateway.chat('generate', [{'role': 'user', 'content': prompt}],
+                                    target_type='generator_reference', target_id=brief['key'],
+                                    prompt_version='reference@0.1.0', schema=DESCRIPTION_SCHEMA)
+        except InvalidResponse as exc:
+            last = str(exc)
+            if on_rejection: on_rejection(brief['key'], attempt, last)
+            continue
         text = response.get('description') if isinstance(response, dict) else None
         if not isinstance(text, str) or not text.strip():
             last = 'missing description'

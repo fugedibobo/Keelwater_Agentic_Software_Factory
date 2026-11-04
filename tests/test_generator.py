@@ -194,3 +194,25 @@ def test_dataset_rejects_missing_model_outputs_before_validation():
         assemble_dataset(42, {}, {}, schema_check)
 
 
+
+
+def test_null_content_is_invalid_retried_and_never_cached(tmp_path):
+    from signal_engine.gateway import InvalidResponse
+    from tests.conftest import FakeGateway
+    gw = FakeGateway(None, {'generate': {'content': None}}, tmp=tmp_path / 'c', sleep=lambda s: None)
+    with pytest.raises(InvalidResponse):
+        gw.chat('generate', [{'role': 'user', 'content': 'x'}], target_type='t', target_id='1')
+    assert len(gw.calls) == gw.stage_cfg('generate')['retries'] + 1
+    assert not list((tmp_path / 'c').rglob('*.json'))
+
+
+def test_write_record_regenerates_on_invalid_response():
+    from signal_engine.gateway import InvalidResponse
+    seen = []
+    def bad(record, attempt):
+        seen.append(attempt)
+        raise InvalidResponse('null content')
+    record = {'id': 'r1'}
+    with pytest.raises(RecordValidationError, match='failed after two regenerations'):
+        write_record(record, 42, bad)
+    assert seen == [0, 1, 2]

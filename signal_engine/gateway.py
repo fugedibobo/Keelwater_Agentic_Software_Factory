@@ -35,6 +35,10 @@ class BudgetExceeded(GatewayError):
     pass
 
 
+class InvalidResponse(GatewayError):
+    """Null, empty or unparseable model content: never cached, retried, then raised."""
+
+
 class Unavailable(GatewayError):
     pass
 
@@ -181,7 +185,7 @@ class Gateway:
         elif self.cache_only:
             raise ReplayMiss(f"replay cache miss: stage={stage} request_hash={key}")
         else:
-            raw = self._live(stage, kind, body, call_id_for(stage, sha256(canonical(body)), target_type, target_id))
+            raw = self._live_valid(stage, kind, body, call_id_for(stage, sha256(canonical(body)), target_type, target_id))
             if self.profile == "demo":  # aws and self-hosted data never goes to disk
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_text(json.dumps({"request": body, "response": raw}, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
@@ -229,6 +233,22 @@ class Gateway:
         """Run fn over items with the stage concurrency (8 by default)."""
         with ThreadPoolExecutor(max_workers=self.models.get("stage_defaults", {}).get("concurrency", 8)) as pool:
             return list(pool.map(fn, items))
+
+    def _live_valid(self, stage, kind, body, call_id):
+        attempts = self.stage_cfg(stage)["retries"] + 1
+        for i in range(attempts):
+            raw = self._live(stage, kind, body, call_id)
+            if kind != "chat":
+                return raw
+            try:
+                json.loads(raw.get("content") or "")
+                return raw
+            except (TypeError, ValueError):
+                with self._lock:  # a bad response is still billed
+                    self.spent += self._cost(stage, raw.get("usage", {}))
+                if i < attempts - 1:
+                    self._sleep(min(0.5 * 2 ** i, 8))
+        raise InvalidResponse(f"{stage} call returned null, empty or unparseable content after {attempts} attempts")
 
     # ---- live transport ------------------------------------------------------------------------------------
     def _live(self, stage, kind, body, call_id):
