@@ -29,8 +29,10 @@ def fact_sheet(store, opportunity_id, as_of):
     accounts = {}
     for m in ms:
         if m["account_id"]:
-            a = accounts.setdefault(m["account_id"], {"mentions": 0, **dict(store.db.execute(
-                "SELECT name, arr_gbp, renewal_date FROM account WHERE account_id=?", (m["account_id"],)).fetchone() or {})})
+            with store.lock:
+                row = store.db.execute(
+                    "SELECT name, arr_gbp, renewal_date FROM account WHERE account_id=?", (m["account_id"],)).fetchone()
+            a = accounts.setdefault(m["account_id"], {"mentions": 0, **dict(row or {})})
             a["mentions"] += 1
     by_route = {}
     for m in ms:
