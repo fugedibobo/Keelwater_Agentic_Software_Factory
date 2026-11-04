@@ -1,0 +1,58 @@
+{
+ "request": {
+  "model": "deepseek/deepseek-v3.2",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou write a one-page opportunity brief for a Keelwater product manager. Keelwater makes claims-handling software. You use only the facts and customer insights below.\n</role>\n<opportunity>\n{\n \"title\": \"Unclear timeline for reconciliation\",\n \"problem_statement\": \"Teams cannot complete month-end close because they lack a defined timeline for reconciling numbers. This delays financial reporting and undermines confidence in the data.\"\n}\n</opportunity>\n<fact_sheet>\n{\n \"as_of\": \"2026-11-03\",\n \"accounts_n\": 1,\n \"mentions_n\": 1,\n \"routes_n\": 1,\n \"mentions_by_route\": {\n  \"sales\": 1\n },\n \"arr_total_gbp\": 420000.0,\n \"renewals_90d_n\": 0,\n \"accounts\": [\n  {\n   \"name\": \"Tidewell Marine & Cargo\",\n   \"arr_gbp\": 420000.0,\n   \"renewal_date\": \"2027-07-31\",\n   \"mentions\": 1\n  }\n ]\n}\n</fact_sheet>\n<insights>\n[\n {\n  \"id\": \"976ffec775570dc6\",\n  \"quote\": \"Understood. Can we get a timeline? Our month-end close depends on reconciling those numbers accurately.\",\n  \"account\": \"Tidewell Marine & Cargo\",\n  \"route\": \"sales\",\n  \"date\": \"2026-10-15T11:14:00Z\"\n }\n]\n</insights>\n<rules>\n- Cite every insight you rely on as [i:INSIGHT_ID], using the id exactly as given. Cite at least three different insights when three or more are given, and cover every route that appears.\n- Use these sections, in this order, as Markdown headings: \"## Problem\", \"## Who is affected\", \"## Evidence\", \"## Why now\".\n- Every bullet under \"Who is affected\" and \"Evidence\" ends with a citation. Every sentence that contains a number or a date carries a citation.\n- Copy every account count, mention count, route count, renewal count and ARR figure from the fact sheet. Never compute, add up or round a number yourself; write an ARR figure only as it appears in the fact sheet, in pounds.\n- Write counts as digits exactly as the fact sheet gives them (\"5 accounts\", never \"five accounts\"); never write \"one customer\" or \"a single customer\" unless the fact sheet count says 1 for that same thing.\n- Put text in quotation marks only when it is a customer quote copied word for word, character for character, from one insight cited in the same sentence. Never put quotation marks around a paraphrase, a fragment of your own wording or a phrase from the fact sheet; when unsure, paraphrase without quotation marks.\n- Name a customer only when a cited insight in the same sentence belongs to that customer.\n- Do not claim more than the evidence shows: no \"all customers\", no scope wider than the cited accounts, and mention any cited insight that points the other way.\n- Do not recommend a solution.\n</rules>\n<output>\nJSON only: {\"body_md\": the brief as Markdown, \"citations\": the list of insight ids you cited}\n</output>\n\n<failed_checks>\nYour previous draft failed these checks. Fix them and write the brief again.\n- numbers: '1' matches no fact-sheet value: This issue has been mentioned 1 time across 1 account [i:976\n- numbers: '15' matches no fact-sheet value: The customer's request for a timeline was made on 15 October\n- numbers: '31' matches no fact-sheet value: The account, Tidewell Marine & Cargo, has a renewal date of \n- numbers: '3' matches no fact-sheet value: There have been 0 renewals in the last 90 days as of 3 Novem\n</failed_checks>\n<previous_draft>\n## Problem\nTeams cannot complete their month-end financial close because they lack a defined timeline for reconciling numbers. This delay in reconciliation holds up financial reporting and undermines confidence in the data.\n\n## Who is affected\n- At least one customer, Tidewell Marine & Cargo, has explicitly requested a timeline to complete their month-end close [i:976ffec775570dc6].\n\n## Evidence\n- This issue has been mentioned 1 time across 1 account [i:976ffec775570dc6].\n- The mention came via the sales route [i:976ffec775570dc6].\n- The total Annual Recurring Revenue (ARR) from the account mentioning this issue is £420,000 [i:976ffec775570dc6].\n- The customer stated, \"Understood. Can we get a timeline? Our month-end close depends on reconciling those numbers accurately.\" [i:976ffec775570dc6].\n\n## Why now\n- The customer's request for a timeline was made on 15 October 2026 [i:976ffec775570dc6].\n- The account, Tidewell Marine & Cargo, has a renewal date of 31 July 2027 [i:976ffec775570dc6].\n- There have been 0 renewals in the last 90 days as of 3 November 2026 [i:976ffec775570dc6].\n</previous_draft>"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 1500,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "brief",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "body_md": {
+       "title": "Body Md",
+       "type": "string"
+      },
+      "citations": {
+       "items": {
+        "type": "string"
+       },
+       "title": "Citations",
+       "type": "array"
+      }
+     },
+     "required": [
+      "body_md",
+      "citations"
+     ],
+     "title": "BriefOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"body_md\": \"## Problem\\nTeams cannot complete their month-end financial close because they lack a defined timeline for reconciling numbers. This delay in reconciliation holds up financial reporting and undermines confidence in the data.\\n\\n## Who is affected\\n- At least one account has explicitly requested a timeline to complete their month-end close [i:976ffec775570dc6].\\n\\n## Evidence\\n- This issue has been mentioned 1 time across 1 account [i:976ffec775570dc6].\\n- The mention came via the sales route [i:976ffec775570dc6].\\n- The total Annual Recurring Revenue (ARR) from the account mentioning this issue is £420,000 [i:976ffec775570dc6].\\n- The customer stated, Understood. Can we get a timeline? Our month-end close depends on reconciling those numbers accurately. [i:976ffec775570dc6].\\n\\n## Why now\\n- The customer's request for a timeline was made in October 2026 [i:976ffec775570dc6].\\n- The account, Tidewell Marine & Cargo, has a renewal date in 2027 [i:976ffec775570dc6].\\n- There have been 0 renewals in the last 90 days as of November 2026 [i:976ffec775570dc6].\",\n  \"citations\": [\"976ffec775570dc6\"]\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1140,
+   "tokens_out": 320,
+   "cost_usd": 0.000418
+  }
+ }
+}

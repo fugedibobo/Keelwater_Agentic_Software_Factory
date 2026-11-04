@@ -1,0 +1,58 @@
+{
+ "request": {
+  "model": "deepseek/deepseek-v3.2",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou write a one-page opportunity brief for a Keelwater product manager. Keelwater makes claims-handling software. You use only the facts and customer insights below.\n</role>\n<opportunity>\n{\n \"title\": \"Claims Processing Delays\",\n \"problem_statement\": \"Policyholders are experiencing slower claim handling, which increases complaints and risks SLA violations. These delays threaten compliance and trust ahead of critical audits.\"\n}\n</opportunity>\n<fact_sheet>\n{\n \"as_of\": \"2026-11-03\",\n \"accounts_n\": 3,\n \"mentions_n\": 4,\n \"routes_n\": 2,\n \"mentions_by_route\": {\n  \"sales\": 2,\n  \"support\": 2\n },\n \"arr_total_gbp\": 1870000.0,\n \"renewals_90d_n\": 0,\n \"accounts\": [\n  {\n   \"name\": \"Brantwick Commercial\",\n   \"arr_gbp\": 150000.0,\n   \"renewal_date\": \"2027-05-11\",\n   \"mentions\": 2\n  },\n  {\n   \"name\": \"Thistlecombe Mutual\",\n   \"arr_gbp\": 980000.0,\n   \"renewal_date\": \"2027-09-01\",\n   \"mentions\": 1\n  },\n  {\n   \"name\": \"Saltmarsh Specialty\",\n   \"arr_gbp\": 740000.0,\n   \"renewal_date\": \"2027-05-15\",\n   \"mentions\": 1\n  }\n ]\n}\n</fact_sheet>\n<insights>\n[\n {\n  \"id\": \"1abdb0aaf97b3eb1\",\n  \"quote\": \"That’d be a huge help — our policyholders are starting to notice the delays.\",\n  \"account\": \"Brantwick Commercial\",\n  \"route\": \"sales\",\n  \"date\": \"2026-10-27T15:26:00Z\"\n },\n {\n  \"id\": \"2447302ce5405dc0\",\n  \"quote\": \"We’re under pressure to reduce delays in claims processing.\",\n  \"account\": \"Thistlecombe Mutual\",\n  \"route\": \"support\",\n  \"date\": \"2026-10-14T09:14:00+00:00\"\n },\n {\n  \"id\": \"5a320a9ef9c0e9f1\",\n  \"quote\": \"we’re seeing a spike ... last month’s batch ... affecting ... SLAs\",\n  \"account\": \"Saltmarsh Specialty\",\n  \"route\": \"support\",\n  \"date\": \"2026-10-30T15:16:00+00:00\"\n },\n {\n  \"id\": \"7d29e2a1cb8ae476\",\n  \"quote\": \"Appreciate that — we need to reduce those delays before next quarter’s audit.\",\n  \"account\": \"Brantwick Commercial\",\n  \"route\": \"sales\",\n  \"date\": \"2026-10-27T15:26:00Z\"\n }\n]\n</insights>\n<rules>\n- Cite every insight you rely on as [i:INSIGHT_ID], using the id exactly as given. Cite at least three different insights when three or more are given, and cover every route that appears.\n- Use these sections, in this order, as Markdown headings: \"## Problem\", \"## Who is affected\", \"## Evidence\", \"## Why now\".\n- Every bullet under \"Who is affected\" and \"Evidence\" ends with a citation. Every sentence that contains a number or a date carries a citation.\n- Copy every account count, mention count, route count, renewal count and ARR figure from the fact sheet. Never compute, add up or round a number yourself; write an ARR figure only as it appears in the fact sheet, in pounds.\n- Write counts as digits exactly as the fact sheet gives them (\"5 accounts\", never \"five accounts\"); never write \"one customer\" or \"a single customer\" unless the fact sheet count says 1 for that same thing.\n- Put text in quotation marks only when it is a customer quote copied word for word, character for character, from one insight cited in the same sentence. Never put quotation marks around a paraphrase, a fragment of your own wording or a phrase from the fact sheet; when unsure, paraphrase without quotation marks.\n- Name a customer only when a cited insight in the same sentence belongs to that customer.\n- Do not claim more than the evidence shows: no \"all customers\", no scope wider than the cited accounts, and mention any cited insight that points the other way.\n- Do not recommend a solution.\n</rules>\n<output>\nJSON only: {\"body_md\": the brief as Markdown, \"citations\": the list of insight ids you cited}\n</output>\n\n<failed_checks>\nYour previous draft failed these checks. Fix them and write the brief again.\n- numbers: '2' matches no fact-sheet value: Brantwick Commercial has an ARR of £150,000.0 and has mentio\n- numbers: '1' matches no fact-sheet value: Thistlecombe Mutual has an ARR of £980,000.0 and has mention\n- numbers: '1' matches no fact-sheet value: Saltmarsh Specialty has an ARR of £740,000.0 and has mention\n</failed_checks>\n<previous_draft>\n## Problem\nPolicyholders are experiencing slower claim handling, which increases complaints and risks SLA violations. These delays threaten compliance and trust ahead of critical audits.\n\n## Who is affected\n- Brantwick Commercial, which notes its policyholders are starting to notice the delays [i:1abdb0aaf97b3eb1] and needs to reduce those delays before next quarter’s audit [i:7d29e2a1cb8ae476].\n- Thistlecombe Mutual, which is under pressure to reduce delays in claims processing [i:2447302ce5405dc0].\n- Saltmarsh Specialty, which is seeing a spike affecting SLAs [i:5a320a9ef9c0e9f1].\n\n## Evidence\n- The issue has been raised by 3 accounts [i:1abdb0aaf97b3eb1][i:2447302ce5405dc0][i:5a320a9ef9c0e9f1][i:7d29e2a1cb8ae476].\n- There have been 4 total mentions of the problem [i:1abdb0aaf97b3eb1][i:2447302ce5405dc0][i:5a320a9ef9c0e9f1][i:7d29e2a1cb8ae476].\n- The feedback has come through 2 routes: sales and support [i:1abdb0aaf97b3eb1][i:2447302ce5405dc0][i:5a320a9ef9c0e9f1][i:7d29e2a1cb8ae476].\n- The combined Annual Recurring Revenue (ARR) of the affected accounts is £1,870,000.0 [i:1abdb0aaf97b3eb1][i:2447302ce5405dc0][i:5a320a9ef9c0e9f1][i:7d29e2a1cb8ae476].\n- Brantwick Commercial has an ARR of £150,000.0 and has mentioned the issue 2 times [i:1abdb0aaf97b3eb1][i:7d29e2a1cb8ae476].\n- Thistlecombe Mutual has an ARR of £980,000.0 and has mentioned the issue 1 time [i:2447302ce5405dc0].\n- Saltmarsh Specialty has an ARR of £740,000.0 and has mentioned the issue 1 time [i:5a320a9ef9c0e9f1].\n- There have been 0 renewals in the last 90 days [i:1abdb0aaf97b3eb1][i:2447302ce5405dc0][i:5a320a9ef9c0e9f1][i:7d29e2a1cb8ae476].\n\n## Why now\n- Brantwick Commercial states it needs to reduce delays before next quarter’s audit [i:7d29e2a1cb8ae476].\n- Saltmarsh Specialty reports seeing a spike last month’s batch affecting SLAs [i:5a320a9ef9c0e9f1].\n- Thistlecombe Mutual is currently under pressure to reduce delays [i:2447302ce5405dc0].\n- The fact sheet data is current as of 2026-11-03 [i:1abdb0aaf97b3eb1][i:2447302ce5405dc0][i:5a320a9ef9c0e9f1][i:7d29e2a1cb8ae476].\n</previous_draft>"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 1500,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "brief",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "body_md": {
+       "title": "Body Md",
+       "type": "string"
+      },
+      "citations": {
+       "items": {
+        "type": "string"
+       },
+       "title": "Citations",
+       "type": "array"
+      }
+     },
+     "required": [
+      "body_md",
+      "citations"
+     ],
+     "title": "BriefOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"body_md\": \"## Problem\\nPolicyholders are experiencing slower claim handling, which increases complaints and risks SLA violations. These delays threaten compliance and trust ahead of critical audits.\\n\\n## Who is affected\\n- Brantwick Commercial, which notes its policyholders are starting to notice the delays [i:1abdb0aaf97b3eb1] and needs to reduce those delays before next quarter’s audit [i:7d29e2a1cb8ae476].\\n- Thistlecombe Mutual, which is under pressure to reduce delays in claims processing [i:2447302ce5405dc0].\\n- Saltmarsh Specialty, which is seeing a spike ... last month’s batch ... affecting ... SLAs [i:5a320a9ef9c0e9f1].\\n\\n## Evidence\\n- The issue has been raised by 3 accounts [i:1abdb0aaf97b3eb1][i:2447302ce5405dc0][i:5a320a9ef9c0e9f1][i:7d29e2a1cb8ae476].\\n- There have been 4 total mentions of the problem [i:1abdb0aaf97b3eb1][i:2447302ce5405dc0][i:5a320a9ef9c0e9f1][i:7d29e2a1cb8ae476].\\n- The feedback has come through 2 routes: sales and support [i:1abdb0aaf97b3eb1][i:2447302ce5405dc0][i:5a320a9ef9c0e9f1][i:7d29e2a1cb8ae476].\\n- The combined Annual Recurring Revenue (ARR) of the affected accounts is £1870000.0 [i:1abdb0aaf97b3eb1][i:2447302ce5405dc0][i:5a320a9ef9c0e9f1][i:7d29e2a1cb8ae476].\\n- Brantwick Commercial has an ARR of £150000.0 and has mentioned the issue 2 times [i:1abdb0aaf97b3eb1][i:7d29e2a1cb8ae476].\\n- Thistlecombe Mutual has an ARR of £980000.0 and has mentioned the issue 1 time [i:2447302ce5405dc0].\\n- Saltmarsh Specialty has an ARR of £740000.0 and has mentioned the issue 1 time [i:5a320a9ef9c0e9f1].\\n- There have been 0 renewals in the last 90 days [i:1abdb0aaf97b3eb1][i:2447302ce5405dc0][i:5a320a9ef9c0e9f1][i:7d29e2a1cb8ae476].\\n\\n## Why now\\n- Brantwick Commercial states it needs to reduce delays before next quarter’s audit [i:7d29e2a1cb8ae476].\\n- Saltmarsh Specialty reports seeing a spike last month’s batch affecting SLAs [i:5a320a9ef9c0e9f1].\\n- Thistlecombe Mutual is currently under pressure to reduce delays [i:2447302ce5405dc0].\\n- The fact sheet data is current as of 2026-11-03 [i:1abdb0aaf97b3eb1][i:2447302ce5405dc0][i:5a320a9ef9c0e9f1][i:7d29e2a1cb8ae476].\",\n  \"citations\": [\"i:1abdb0aaf97b3eb1\", \"i:7d29e2a1cb8ae476\", \"i:2447302ce5405dc0\", \"i:5a320a9ef9c0e9f1\"]\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1960,
+   "tokens_out": 914,
+   "cost_usd": 0.00085692
+  }
+ }
+}

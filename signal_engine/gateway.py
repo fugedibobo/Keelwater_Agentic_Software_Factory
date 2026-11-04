@@ -96,7 +96,7 @@ class Gateway:
         self.cfg = resolve_profile(self.models, profile)
         self.cache_only = bool(self.cfg.get("cache_only"))
         self._keys, self._client, self._http, self._sleep = keys, client, http, sleep
-        self.spent, self.used_keys, self.swaps = 0.0, set(), {}
+        self.spent, self.reserved, self.used_keys, self.swaps = 0.0, 0.0, set(), {}
         self._lock = threading.Lock()
         self._next_slot = {}  # stage -> earliest monotonic time of its next request (rpm pacing)
         if profile in ("aws", "self-hosted"):  # env overrides included: egress is allow-listed, never open
@@ -190,10 +190,15 @@ class Gateway:
         key, path = self._cache_path(stage, body)
         cached, raw = False, None
         if self.profile in ("replay", "demo") and path.is_file():
-            try:
-                raw, cached = json.loads(path.read_text(encoding="utf-8"))["response"], True
-            except (ValueError, KeyError):  # half-written or corrupt file is a miss
-                raw = None
+            for attempt in range(2):
+                try:
+                    raw, cached = json.loads(path.read_text(encoding="utf-8"))["response"], True
+                    break
+                except (ValueError, KeyError):  # half-written or corrupt file is a miss
+                    break
+                except OSError:  # Windows: read collided with another thread's os.replace; one short retry, then a miss
+                    if attempt == 0:
+                        time.sleep(0.02)
         if raw is not None:
             pass
         elif self.cache_only:
@@ -224,9 +229,7 @@ class Gateway:
         for fn in list(_LISTENERS):
             fn(row, parsed)
         log.info("call stage=%s target=%s/%s cached=%s ms=%s", stage, target_type, target_id, cached, row["latency_ms"])
-        with self._lock:
-            self.spent += cost
-        if self.spent > self.max_usd:
+        if self.spent > self.max_usd:  # live spend was settled per attempt in _attempt
             raise BudgetExceeded(f"spend USD {self.spent:.4f} passed --max-usd {self.max_usd}")
         return raw
 
@@ -266,11 +269,38 @@ class Gateway:
                     jsonschema.validate(parsed, sch)  # a provider that ignores the schema is retried, not trusted
                 return raw
             except (TypeError, ValueError, jsonschema.ValidationError):
-                with self._lock:  # a bad response is still billed
-                    self.spent += self._cost(stage, raw.get("usage", {}))
                 if i < attempts - 1:
                     self._sleep(min(0.5 * 2 ** i, 8))
         raise InvalidResponse(f"{stage} call returned null, empty or unparseable content after {attempts} attempts (last finish_reason={raw.get('finish_reason')})")
+
+    def _bound(self, stage, body):
+        """Hard upper bound of one attempt's bill: request bytes (never fewer than prompt tokens) x input price + max_tokens x output price."""
+        p = self.stage_cfg(stage).get("price", {"in": 0, "out": 0})
+        return (len(json.dumps(body).encode("utf-8")) * p["in"] + (body.get("max_tokens") or 0) * p["out"]) / 1e6
+
+    def _attempt(self, stage, c, kind, body, call_id):
+        """One billed transport attempt (first try, retry, fallback or probe). Reserves its bound first and refuses when it does not
+        fit under --max-usd; settles the real cost, or the bound when usage is unknown (a failed attempt may still have been billed)."""
+        bound = self._bound(stage, body)
+        with self._lock:
+            held = self.spent + self.reserved
+            if held >= self.max_usd or held + bound > self.max_usd:
+                raise BudgetExceeded(f"spend USD {self.spent:.4f} (reserved {self.reserved:.4f}, this attempt up to {bound:.4f}) leaves no room under --max-usd {self.max_usd}")
+            self.reserved += bound
+        cost = bound
+        try:
+            raw = self._decide(c, body) if c.get("backend") == "clef" else self._openai(stage, c, kind, body, call_id)
+            u = raw.get("usage") or {}
+            if u.get("cost_usd") is not None or u.get("tokens_in") or u.get("tokens_out"):
+                cost = self._cost(stage, u)
+            return raw
+        except Unavailable:  # missing key: nothing was sent
+            cost = 0.0
+            raise
+        finally:
+            with self._lock:
+                self.reserved -= bound
+                self.spent += cost
 
     # ---- live transport ------------------------------------------------------------------------------------
     def _live(self, stage, kind, body, call_id):
@@ -279,10 +309,8 @@ class Gateway:
         for i in range(attempts):
             self._pace(stage, c)
             try:
-                if c.get("backend") == "clef":
-                    return self._decide(c, body)
-                return self._openai(stage, c, kind, body, call_id)
-            except Unavailable:
+                return self._attempt(stage, c, kind, body, call_id)
+            except (Unavailable, BudgetExceeded):
                 raise
             except Exception as e:  # scrub: never let a key reach a log or a report
                 status = getattr(e, "status_code", None) or getattr(getattr(e, "response", None), "status_code", None)
@@ -374,6 +402,8 @@ def run_probe(gw, stages, out=print):
                 if served == "fallback":
                     gw.swaps[stage] = model
                 break
+            except BudgetExceeded:
+                raise
             except GatewayError as e:
                 log.info("probe %s %s failed: %s", stage, served, e)
                 rows.append((stage, model, served, "fail", "-"))

@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\nWhen a claims handler needs to adjust a reserve beyond their personal authority limit, the change is routed to a specific approver for sign-off. If that designated approver is unavailable (e.g., on leave) and no delegate is assigned to cover their queue, the reserve change becomes stuck. This single-point failure halts all processing on the associated claim, causing unnecessary delays, backlogs, and customer dissatisfaction while waiting for the primary approver to return.\\n\\n## Who is affected\\n- **8 accounts** have reported this issue through account management, support, and sales channels [i:279cabe81068b3d3][i:30284f66470fac05][i:47e4aac56f39b4d3].\\n- The problem is explicitly confirmed by named accounts including Pendleford Motor Mutual, Wexmoor Motor, Callowfield Auto Assurance, Ravensgill Insurance, Holloway Reach Underwriting, and Saltmarsh Specialty [i:279cabe81068b3d3][i:45c3dd4ac5c4d494][i:9daa7fe509e60a2f][i:655489deaf46b80c][i:94dd9ecf8c2990c2][i:c50e7d9cace2b869].\\n- Two accounts, Sallowmere Motor and Harrowfield Fleet Mutual, have also mentioned related queue or stalling issues [i:65bfde9b620967c0][i:f50f773669fba30b].\\n\\n## Evidence\\n- There have been **19 mentions** of this problem across **3 routes**: account management (6 mentions), support (7 mentions), and sales (6 mentions) [i:279cabe81068b3d3][i:30284f66470fac05][i:47e4aac56f39b4d3].\\n- The collective Annual Recurring Revenue (ARR) from accounts is **5,420,000 GBP** [i:279cabe81068b3d3][i:30284f66470fac05][i:47e4aac56f39b4d3].\\n- A customer from Pendleford Motor Mutual states, We’ve had three handlers stuck for two days because their reserve changes are waiting for an approver who’s on leave — no delegate set up... Claims are stalled [i:279cabe81068b3d3].\\n- A customer from Callowfield Auto Assurance reports, the reserve authorisation delay has caused real issues for us, especially when the approver’s out and no one’s covering [i:47e4aac56f39b4d3].\\n- A customer from Saltmarsh Specialty explains, it’s creating a backlog on the approval waiting list, and policyholders are starting to ask why payments are delayed [i:e3f90adc3c0d1c88].\\n- The issue is described as blocking everything until the approver returns [i:30284f66470fac05] and causing claims to pile up [i:94dd9ecf8c2990c2]. A customer from Callowfield Auto Assurance notes it’s not sustainable [i:f6dc3676926959e6].\\n- **0 renewals** have occurred in the last 90 days as of 2026-11-03 [i:279cabe81068b3d3][i:30284f66470fac05][i:47e4aac56f39b4d3].\\n\\n## Why now\\nCustomer reports cluster in September and October 2026, indicating recent, repeated operational disruptions [i:279cabe81068b3d3][i:30284f66470fac05][i:47e4aac56f39b4d3]. The issue directly impacts claim cycle times and customer service levels, with one customer noting policyholders are noticing delays [i:e3f90adc3c0d1c88]. With **0 renewals** in the past 90 days, maintaining service levels is critical [i:279cabe81068b3d3][i:30284f66470fac05][i:47e4aac56f39b4d3]. The problem is reported by multiple high-value accounts, including Wexmoor Motor (**1,950,000 GBP** ARR) and Callowfield Auto Assurance (**1,250,000 GBP** ARR), whose renewals are upcoming in 2027 [i:30284f66470fac05][i:47e4aac56f39b4d3].\",\n \"cited_insights\": [\n  {\n   \"id\": \"279cabe81068b3d3\",\n   \"quote\": \"We’ve had three handlers stuck for two days because their reserve changes are waiting for an approver who’s on leave — no delegate set up... Claims are stalled because reserve changes beyond handler authority are stuck in an approver’s queue with no backup — approval waiting list is blocking everything.\",\n   \"account\": \"Pendleford Motor Mutual\",\n   \"route\": \"account_management\",\n   \"date\": \"2026-09-17T13:03:00+00:00\"\n  },\n  {\n   \"id\": \"30284f66470fac05\",\n   \"quote\": \"Yes, it’s specifically when a reserve change exceeds handler limits — the reserve authorisation delay blocks everything until the approver returns.\",\n   \"account\": \"Wexmoor Motor\",\n   \"route\": \"support\",\n   \"date\": \"2026-09-21T13:07:00+00:00\"\n  },\n  {\n   \"id\": \"45c3dd4ac5c4d494\",\n   \"quote\": \"We’re experiencing a reserve authorisation delay because when a handler tries to adjust a reserve beyond their limit, it sits waiting for one specific approver who’s out of office and has no delegate assigned, so nothing moves.\",\n   \"account\": \"Wexmoor Motor\",\n   \"route\": \"support\",\n   \"date\": \"2026-09-21T13:07:00+00:00\"\n  },\n  {\n   \"id\": \"47e4aac56f39b4d3\",\n   \"quote\": \"When a reserve change goes beyond what a handler can approve, it just sits there — that reserve authorisation delay has caused real issues for us, especially when the approver’s out and no one’s covering.\",\n   \"account\": \"Callowfield Auto Assurance\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-18T12:10:00Z\"\n  },\n  {\n   \"id\": \"655489deaf46b80c\",\n   \"quote\": \"when a handler needs to adjust a reserve beyond their limit, it goes into an approval waiting list — but if the approver’s out, nothing moves.\",\n   \"account\": \"Ravensgill Insurance\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-28T08:08:00+00:00\"\n  },\n  {\n   \"id\": \"65bfde9b620967c0\",\n   \"quote\": \"Some tasks are getting stuck in the queue.\",\n   \"account\": \"Sallowmere Motor\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-16T12:52:00Z\"\n  },\n  {\n   \"id\": \"94dd9ecf8c2990c2\",\n   \"quote\": \"We’re running into delays because reserve adjustments above our team’s limit just sit there until the one approver comes back — no backup, no delegation, and claims pile up.\",\n   \"account\": \"Holloway Reach Underwriting\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-17T16:58:00Z\"\n  },\n  {\n   \"id\": \"9daa7fe509e60a2f\",\n   \"quote\": \"Morning Bryn, we’ve got a couple of claims held up because the approver’s out and there’s no backup — the approval waiting list is piling up.\",\n   \"account\": \"Callowfield Auto Assurance\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-28T08:19:00+00:00\"\n  },\n  {\n   \"id\": \"c50e7d9cace2b869\",\n   \"quote\": \"Hi Deryn, I’m Gellin from Saltmarsh Specialty — we’ve got a few claims held up because the approver’s out and no one’s covering their queue.\",\n   \"account\": \"Saltmarsh Specialty\",\n   \"route\": \"account_management\",\n   \"date\": \"2026-09-25T10:50:00+00:00\"\n  },\n  {\n   \"id\": \"e3f90adc3c0d1c88\",\n   \"quote\": \"it’s creating a backlog on the approval waiting list, and policyholders are starting to ask why payments are delayed. We’re seeing claims held up because when a reserve change exceeds authority, it sits in one approver’s queue with no delegate, and that creates a backlog on the approval waiting list — policyholders are noticing delays.\",\n   \"account\": \"Saltmarsh Specialty\",\n   \"route\": \"account_management\",\n   \"date\": \"2026-09-25T10:50:00+00:00\"\n  },\n  {\n   \"id\": \"f50f773669fba30b\",\n   \"quote\": \"When a reserve exceeds authority and the approver’s out with no delegate, it just piles… it’s claims stalling until someone returns.\",\n   \"account\": \"Harrowfield Fleet Mutual\",\n   \"route\": \"account_management\",\n   \"date\": \"2026-09-14T10:43:00+00:00\"\n  },\n  {\n   \"id\": \"f6dc3676926959e6\",\n   \"quote\": \"We’ve got claims stuck because the reserve change needs approval, and with the approver away and no delegate, the approval waiting list just grows — it’s not sustainable.\",\n   \"account\": \"Callowfield Auto Assurance\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-28T08:19:00+00:00\"\n  }\n ],\n \"fact_sheet\": {\n  \"as_of\": \"2026-11-03\",\n  \"accounts_n\": 8,\n  \"mentions_n\": 19,\n  \"routes_n\": 3,\n  \"mentions_by_route\": {\n   \"account_management\": 6,\n   \"support\": 7,\n   \"sales\": 6\n  },\n  \"arr_total_gbp\": 5420000.0,\n  \"renewals_90d_n\": 0,\n  \"accounts\": [\n   {\n    \"name\": \"Pendleford Motor Mutual\",\n    \"arr_gbp\": 690000.0,\n    \"renewal_date\": \"2027-02-28\",\n    \"mentions\": 2\n   },\n   {\n    \"name\": \"Wexmoor Motor\",\n    \"arr_gbp\": 1950000.0,\n    \"renewal_date\": \"2027-06-30\",\n    \"mentions\": 3\n   },\n   {\n    \"name\": \"Callowfield Auto Assurance\",\n    \"arr_gbp\": 1250000.0,\n    \"renewal_date\": \"2027-03-31\",\n    \"mentions\": 4\n   },\n   {\n    \"name\": \"Ravensgill Insurance\",\n    \"arr_gbp\": 470000.0,\n    \"renewal_date\": \"2027-04-30\",\n    \"mentions\": 2\n   },\n   {\n    \"name\": \"Sallowmere Motor\",\n    \"arr_gbp\": null,\n    \"renewal_date\": null,\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Holloway Reach Underwriting\",\n    \"arr_gbp\": 320000.0,\n    \"renewal_date\": \"2027-08-22\",\n    \"mentions\": 2\n   },\n   {\n    \"name\": \"Saltmarsh Specialty\",\n    \"arr_gbp\": 740000.0,\n    \"renewal_date\": \"2027-05-15\",\n    \"mentions\": 4\n   },\n   {\n    \"name\": \"Harrowfield Fleet Mutual\",\n    \"arr_gbp\": null,\n    \"renewal_date\": null,\n    \"mentions\": 1\n   }\n  ]\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked the figures (8 accounts, 19 mentions across 3 routes with 6/7/6 split, ARR of 5,420,000 GBP, 0 renewals, Wexmoor 1,950,000 GBP and Callowfield 1,250,000 GBP with 2027 renewals) against the fact sheet and all match. The quoted customer statements (Pendleford, Callowfield, Saltmarsh) correspond to the cited insights verbatim or near-verbatim, and each named account is backed by a cited insight; Sallowmere and Harrowfield are correctly described as only mentioning related issues, matching their vague/general quotes. No contrary evidence or overstated scope was found.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 2996,
+   "tokens_out": 243,
+   "cost_usd": 0.0005496204
+  }
+ }
+}

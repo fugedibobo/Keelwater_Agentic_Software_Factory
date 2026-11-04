@@ -1,0 +1,58 @@
+{
+ "request": {
+  "model": "deepseek/deepseek-v3.2",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou write a one-page opportunity brief for a Keelwater product manager. Keelwater makes claims-handling software. You use only the facts and customer insights below.\n</role>\n<opportunity>\n{\n \"title\": \"Unclear Impact of Tiered Pricing\",\n \"problem_statement\": \"Customers don't understand how tiered pricing applies to their claims volume, making it hard to plan or adjust. This uncertainty causes concern they may be locked into unsuitable payment terms.\"\n}\n</opportunity>\n<fact_sheet>\n{\n \"as_of\": \"2026-11-03\",\n \"accounts_n\": 2,\n \"mentions_n\": 2,\n \"routes_n\": 1,\n \"mentions_by_route\": {\n  \"sales\": 2\n },\n \"arr_total_gbp\": 3200000.0,\n \"renewals_90d_n\": 0,\n \"accounts\": [\n  {\n   \"name\": \"Wexmoor Motor\",\n   \"arr_gbp\": 1950000.0,\n   \"renewal_date\": \"2027-06-30\",\n   \"mentions\": 1\n  },\n  {\n   \"name\": \"Callowfield Auto Assurance\",\n   \"arr_gbp\": 1250000.0,\n   \"renewal_date\": \"2027-03-31\",\n   \"mentions\": 1\n  }\n ]\n}\n</fact_sheet>\n<insights>\n[\n {\n  \"id\": \"230317b3a22a024c\",\n  \"quote\": \"We’re reviewing our annual spend with Keelwater and need clarity on how tiered pricing affects our claims volume this year... can you send me a breakdown of how your pricing tiers apply to our monthly claims volume?\",\n  \"account\": \"Wexmoor Motor\",\n  \"route\": \"sales\",\n  \"date\": \"2026-10-30T15:59:00Z\"\n },\n {\n  \"id\": \"7ed1486c914e257a\",\n  \"quote\": \"We’re evaluating whether the tiered pricing model fits our claims volume, especially with seasonal spikes... are we locked into the current payment integration?\",\n  \"account\": \"Callowfield Auto Assurance\",\n  \"route\": \"sales\",\n  \"date\": \"2026-10-07T14:03:00Z\"\n }\n]\n</insights>\n<rules>\n- Cite every insight you rely on as [i:INSIGHT_ID], using the id exactly as given. Cite at least three different insights when three or more are given, and cover every route that appears.\n- Use these sections, in this order, as Markdown headings: \"## Problem\", \"## Who is affected\", \"## Evidence\", \"## Why now\".\n- Every bullet under \"Who is affected\" and \"Evidence\" ends with a citation. Every sentence that contains a number or a date carries a citation.\n- Copy every account count, mention count, route count, renewal count and ARR figure from the fact sheet. Never compute, add up or round a number yourself; write an ARR figure only as it appears in the fact sheet, in pounds.\n- Write counts as digits exactly as the fact sheet gives them (\"5 accounts\", never \"five accounts\"); never write \"one customer\" or \"a single customer\" unless the fact sheet count says 1 for that same thing.\n- Put text in quotation marks only when it is a customer quote copied word for word, character for character, from one insight cited in the same sentence. Never put quotation marks around a paraphrase, a fragment of your own wording or a phrase from the fact sheet; when unsure, paraphrase without quotation marks.\n- Name a customer only when a cited insight in the same sentence belongs to that customer.\n- Do not claim more than the evidence shows: no \"all customers\", no scope wider than the cited accounts, and mention any cited insight that points the other way.\n- Do not recommend a solution.\n</rules>\n<output>\nJSON only: {\"body_md\": the brief as Markdown, \"citations\": the list of insight ids you cited}\n</output>\n\n<failed_checks>\nYour previous draft failed these checks. Fix them and write the brief again.\n- numbers: '2' matches no fact-sheet value: The problem has been mentioned 2 times across 2 accounts [i:\n- uncited_claims: no citation: The total ARR from these accounts is 3200000.0 GBP.\n- uncited_claims: no citation: There have been 0 renewals in the last 90 days.\n</failed_checks>\n<previous_draft>\n## Problem\nCustomers are uncertain about how Keelwater's tiered pricing model applies to their specific claims volume, making it difficult for them to plan or adjust their usage. This lack of clarity causes concern that they may be locked into payment terms that are unsuitable for their business patterns, such as seasonal spikes in claims [i:7ed1486c914e257a].\n\n## Who is affected\n- Two accounts have raised this issue via the sales route [i:230317b3a22a024c][i:7ed1486c914e257a].\n- The affected accounts are Wexmoor Motor, which has an ARR of 1950000.0 GBP [i:230317b3a22a024c], and Callowfield Auto Assurance, which has an ARR of 1250000.0 GBP [i:7ed1486c914e257a].\n\n## Evidence\n- The problem has been mentioned 2 times across 2 accounts [i:230317b3a22a024c][i:7ed1486c914e257a].\n- All 2 mentions came through the sales route [i:230317b3a22a024c][i:7ed1486c914e257a].\n- Wexmoor Motor is reviewing its annual spend and has requested a breakdown of how pricing tiers apply to its monthly claims volume [i:230317b3a22a024c].\n- Callowfield Auto Assurance is evaluating if the tiered pricing model fits its claims volume, especially with seasonal spikes, and is concerned about being locked into the current payment integration [i:7ed1486c914e257a].\n- The total ARR from these accounts is 3200000.0 GBP.\n- There have been 0 renewals in the last 90 days.\n\n## Why now\n- Wexmoor Motor's renewal date is 2027-06-30, and they are actively reviewing their annual spend [i:230317b3a22a024c].\n- Callowfield Auto Assurance's renewal date is 2027-03-31, and they are currently evaluating the suitability of the pricing model [i:7ed1486c914e257a].\n- The most recent mention was on 2026-10-30 [i:230317b3a22a024c], indicating active, current concern.\n</previous_draft>"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 1500,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "brief",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "body_md": {
+       "title": "Body Md",
+       "type": "string"
+      },
+      "citations": {
+       "items": {
+        "type": "string"
+       },
+       "title": "Citations",
+       "type": "array"
+      }
+     },
+     "required": [
+      "body_md",
+      "citations"
+     ],
+     "title": "BriefOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"body_md\": \"## Problem\\nCustomers are uncertain about how Keelwater's tiered pricing model applies to their specific claims volume, making it difficult for them to plan or adjust their usage. This lack of clarity causes concern that they may be locked into payment terms that are unsuitable for their business patterns, such as seasonal spikes in claims [i:7ed1486c914e257a].\\n\\n## Who is affected\\n- 2 accounts have raised this issue via the sales route [i:230317b3a22a024c][i:7ed1486c914e257a].\\n- The affected accounts are Wexmoor Motor, which has an ARR of 1950000.0 GBP [i:230317b3a22a024c], and Callowfield Auto Assurance, which has an ARR of 1250000.0 GBP [i:7ed1486c914e257a].\\n\\n## Evidence\\n- The problem has been mentioned 2 times across 2 accounts [i:230317b3a22a024c][i:7ed1486c914e257a].\\n- All 2 mentions came through 1 route, which is sales [i:230317b3a22a024c][i:7ed1486c914e257a].\\n- Wexmoor Motor is reviewing its annual spend and has requested a breakdown of how pricing tiers apply to its monthly claims volume [i:230317b3a22a024c].\\n- Callowfield Auto Assurance is evaluating if the tiered pricing model fits its claims volume, especially with seasonal spikes, and is concerned about being locked into the current payment integration [i:7ed1486c914e257a].\\n- The total ARR from these accounts is 3200000.0 GBP [i:230317b3a22a024c][i:7ed1486c914e257a].\\n- There have been 0 renewals in the last 90 days [i:230317b3a22a024c][i:7ed1486c914e257a].\\n\\n## Why now\\n- Wexmoor Motor's renewal date is 2027-06-30, and they are actively reviewing their annual spend [i:230317b3a22a024c].\\n- Callowfield Auto Assurance's renewal date is 2027-03-31, and they are currently evaluating the suitability of the pricing model [i:7ed1486c914e257a].\\n- The most recent mention was on 2026-10-30 [i:230317b3a22a024c], indicating active, current concern.\",\n  \"citations\": [\"230317b3a22a024c\", \"7ed1486c914e257a\"]\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1476,
+   "tokens_out": 615,
+   "cost_usd": 0.00061746
+  }
+ }
+}

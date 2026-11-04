@@ -12,10 +12,39 @@ CITE = re.compile(r"\[i:([0-9a-zA-Z_-]+)\]")
 QUOTE = re.compile(r'"([^"]+)"|\u201c([^\u201d]+)\u201d')
 BULLET = re.compile(r"^\s*(?:[-*]|\d+\.)\s+")
 MONEY = re.compile(r"\u00a3\s?([\d,]+(?:\.(\d+))?)\s?(bn|m|k)?\b", re.I)
-COUNT = re.compile(r"\b(\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s+(?:[\w-]+\s+)?(account|customer|mention|route|renewal)s?\b", re.I)
-WORDS = dict(zip("one two three four five six seven eight nine ten".split(), range(1, 11)))
+_UNITS = "zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen".split()
+_TENS = "twenty thirty forty fifty sixty seventy eighty ninety".split()
+WORDS = {**{w: n for n, w in enumerate(_UNITS)}, **{w: 20 + 10 * n for n, w in enumerate(_TENS)}}
+SCALES = {"hundred": 100, "thousand": 10**3, "million": 10**6}
+_W = "|".join([*_UNITS, *_TENS, *SCALES, "dozen"])
+WORD_NUM = rf"(?:{_W})(?:[\s-]+(?:and[\s-]+)?(?:{_W}))*"  # one..ninety-nine, hundred, thousand, million and combinations: "thirteen", "twenty-one", "one hundred and five"
+COUNT = re.compile(rf"\b(\d+|{WORD_NUM})\s+(?:[\w-]+\s+)?(account|customer|mention|route|renewal)s?\b", re.I)
+WINDOW = re.compile(r"\b90[- ]days?\b", re.I)  # the renewal horizon of the fact sheet (brief.RENEWAL_DAYS); exempt only in a renewals clause
+RENEWAL = re.compile(r"\brenew\w*", re.I)
+ARR_FIELD = re.compile(r"\b(?:arr|gbp|revenue)\b", re.I)  # a clause that names ARR may state ARR values as bare numbers
+ISO = re.compile(r"\b\d{4}-\d{2}-\d{2}\b")
+NUMBER = re.compile(rf"\d(?:,?\d)*(?:\.\d+)?|%|\b{WORD_NUM}\b", re.I)
 UNIT = {"": 1, "k": 10**3, "m": 10**6, "bn": 10**9}
 RULES = ("cited_ids", "uncited_claims", "numbers", "quotes", "customer_names", "citation_spread")
+
+
+def number_value(tok):
+    """Decimal value of a digit or number-word token (None for %): 'thirteen' 13, 'twenty-one' 21, 'one hundred and five' 105, 'dozen' 12."""
+    if tok[0].isdigit():
+        return Decimal(tok.replace(",", ""))
+    if not tok[0].isalpha():
+        return None
+    total = cur = 0
+    for w in re.split(r"[\s-]+", tok.lower()):
+        if w in WORDS:
+            cur += WORDS[w]
+        elif w == "dozen":
+            cur += 12
+        elif w == "hundred":
+            cur = max(cur, 1) * 100
+        elif w in SCALES:
+            total, cur = total + max(cur, 1) * SCALES[w], 0
+    return Decimal(total + cur)
 
 
 def cited_ids(text):
@@ -81,6 +110,7 @@ def check(body, members, facts, names):
             fail("cited_ids", f"{i} has an unverified quote")
     allowed_money = [facts["arr_total_gbp"], *[a["arr_gbp"] for a in facts["accounts"] if a["arr_gbp"] is not None]]
     expected = count_expected(facts)
+    dates = {facts.get("as_of"), *[(a.get("renewal_date") or "")[:10] for a in facts["accounts"]]} - {None, ""}
     for section, bullet, sent in units(body):
         ids = cited_ids(sent)
         plain = QUOTE.sub("", sent)
@@ -90,9 +120,25 @@ def check(body, members, facts, names):
             for bad in money_ok(m.group(0), allowed_money):
                 fail("numbers", f"{bad} does not match the fact sheet (total {facts['arr_total_gbp']:,.0f})")
         for m in COUNT.finditer(plain):  # rule 3, counts
-            n = WORDS.get(m.group(1).lower()) or int(m.group(1))
+            n = number_value(m.group(1))
             if n not in expected[m.group(2).lower()]:
                 fail("numbers", f"'{m.group(0)}' does not match the fact sheet ({sorted(expected[m.group(2).lower()])})")
+        mine = {str(members[i].get("date") or "")[:10] for i in ids if i in members}  # dates of the cited insights and in their text
+        for i in ids:
+            mine |= set(ISO.findall(members.get(i, {}).get("quote") or ""))
+        ok_dates = (dates | mine) - {""}
+        sent_n = {Decimal(d[:4]) for d in ok_dates}  # shortcut: any year of a fact-sheet or cited date passes, not tied to a date phrase; tie it if briefs start abusing it
+        near = ids or next((cited_ids(ln) for ln in body.splitlines() if sent in ln), [])  # the sentence's own citations, else its paragraph's
+        accts = {members[i]["account_id"] for i in near if i in members}
+        arr = [a["arr_gbp"] for a in facts["accounts"] if a["arr_gbp"] is not None and any(names.get(x) == a["name"] for x in accts)]
+        if ARR_FIELD.search(plain):  # a bare number passes only as a value of a fact this clause names: ARR (total, an account's, the cited accounts' sum)
+            sent_n |= {Decimal(str(x)) for x in allowed_money} | ({Decimal(str(sum(arr)))} if arr else set())
+        rest = COUNT.sub(" ", MONEY.sub(" ", ISO.sub(lambda m: " " if m.group(0) in ok_dates else m.group(0), CITE.sub(" ", plain))))
+        for m in NUMBER.finditer(WINDOW.sub(" ", rest) if RENEWAL.search(plain) else rest):  # rule 3, every other number must equal a fact the clause names
+            tok = m.group(0)
+            v = number_value(tok)
+            if v is None or v not in sent_n:
+                fail("numbers", f"'{tok}' matches no fact-sheet value: {sent[:60]}")
         have = {norm(members[i]["quote"]) for i in ids if i in members}
         for m in QUOTE.finditer(sent):  # rule 4
             if norm(m.group(1) or m.group(2)) not in have:

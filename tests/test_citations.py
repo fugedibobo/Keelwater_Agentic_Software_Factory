@@ -49,6 +49,37 @@ def test_one_failing_example_per_rule(rule, old, new):
     assert rule in rules(GOOD.replace(old, new, 1))
 
 
+@pytest.mark.parametrize("old,new", [
+    ("Claims handlers lose time when uploads fail [i:a]", "Failure rate is 99% [i:a]"),    # cited, but no fact supports a percentage
+    ("Claims handlers lose time when uploads fail [i:a]", "Seven handlers lose time every day [i:a]"),  # number word outside a count phrase
+    ("Claims handlers lose time when uploads fail [i:a]", "Uploads fail 12 times a day [i:a]"),  # digits outside a count phrase
+])
+def test_numbers_outside_supported_facts_fail(old, new):
+    assert old in GOOD
+    assert "numbers" in rules(GOOD.replace(old, new, 1))
+
+
+@pytest.mark.parametrize("new", [
+    "Renewals fall due by 2026-12-05 [i:a]",                    # fact-sheet date
+    "The newest report is dated 2026-10-28 [i:a]",              # date of a cited insight
+    "Reports run from September to October 2026 [i:a]",         # year of a cited insight
+    "Combined ARR is GBP 2450000.0 [i:a]",                      # sum of the account ARR values, GBP form
+    "Combined ARR is 2,450,000 GBP [i:a]",                      # same, with separators
+])
+def test_verifiable_derived_numbers_pass(new):
+    facts = {**FACTS, "as_of": "2026-11-03", "accounts": [{**FACTS["accounts"][0], "renewal_date": "2026-12-05"}, *FACTS["accounts"][1:]]}
+    members = {**MEMBERS, "a": {**MEMBERS["a"], "date": "2026-10-28"}}
+    body = GOOD.replace("Claims handlers lose time when uploads fail [i:a]", new, 1)
+    assert check(body, members, facts, NAMES) == []
+
+
+def test_arr_sum_of_cited_accounts_only():
+    body = GOOD.replace("Claims handlers lose time when uploads fail [i:a] [i:b] [i:c].", "A combined ARR of 1,950,000 GBP [i:a][i:b].", 1)
+    assert check(body, MEMBERS, FACTS, NAMES) == []  # 1,200,000 + 750,000 = the accounts behind a and b
+    other = GOOD.replace("Claims handlers lose time when uploads fail [i:a] [i:b] [i:c].", "A combined ARR of 1,950,000 GBP [i:b][i:c].", 1)
+    assert "numbers" in rules(other)  # b and c are 750,000 + 500,000
+
+
 def test_unverified_quote_fails_rule_1():
     m = {**MEMBERS, "a": {**MEMBERS["a"], "verified": False}}
     assert "cited_ids" in rules(GOOD, m)
@@ -67,3 +98,33 @@ def test_arr_precision_is_the_stated_precision():
 
 def test_rule_6_three_insights_need_three_citations():
     assert "citation_spread" in rules("## Problem\nIt hurts [i:b].\n")
+
+
+@pytest.mark.parametrize("new", [
+    "Uploads fail 3 times daily [i:a]",                  # 3 is the account count, but this clause does not name a count of accounts
+    "Uploads fail thirteen times daily [i:a]",           # word number outside the old list
+    "Uploads fail every 90 days [i:a]",                  # the 90-day horizon belongs to a renewals clause only
+    "Uploads fail twenty-one times daily [i:a]",
+    "Uploads fail one hundred and five times daily [i:a]",
+    "Uploads fail two thousand times daily [i:a]",
+])
+def test_numbers_must_belong_to_a_fact_the_clause_names(new):
+    body = GOOD.replace("Claims handlers lose time when uploads fail [i:a] [i:b] [i:c]", new, 1)
+    assert "numbers" in rules(body)
+
+
+@pytest.mark.parametrize("tok,value", [("thirteen", 13), ("twenty-one", 21), ("twenty one", 21), ("ninety-nine", 99), ("hundred", 100),
+                                       ("one hundred and five", 105), ("two thousand", 2000), ("three million", 3_000_000), ("dozen", 12), ("12", 12)])
+def test_number_words_parse(tok, value):
+    from signal_engine.citations import number_value
+    assert number_value(tok) == value
+
+
+def test_count_phrases_with_word_numbers_are_checked():
+    assert "numbers" in rules(GOOD.replace("3 accounts report it", "thirteen accounts report it", 1))
+    assert rules(GOOD.replace("3 accounts report it", "three accounts report it", 1)) == set()
+
+
+def test_ninety_days_passes_in_a_renewals_clause_only():
+    assert rules(GOOD.replace("1 renewal falls in the next 90 days", "Renewal is due within 90 days", 1)) == set()
+    assert "numbers" in rules(GOOD.replace("1 renewal falls in the next 90 days", "Handlers wait 90 days for a fix", 1))

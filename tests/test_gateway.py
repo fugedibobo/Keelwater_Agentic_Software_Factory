@@ -338,3 +338,136 @@ def test_reasoning_option_reaches_generate_requests_only(tmp_path):
     gw = demo(tmp_path, models=models)
     assert gw.chat_request("generate", gwm.PROBE_MESSAGES, schema={"type": "object"})["reasoning"] == {"enabled": False}
     assert "reasoning" not in gw.chat_request("extract", gwm.PROBE_MESSAGES)
+
+
+def _bad_client(cost=0.4):
+    return FakeClient(lambda kw: {"choices": [{"message": {"content": ""}}], "usage": {"prompt_tokens": 1, "completion_tokens": 1, "cost": cost}})
+
+
+def _bound_of(gw, usd):
+    """Price the cluster_label stage so that one attempt's hard bound is exactly usd (max_tokens x out price)."""
+    gw.cfg["stages"]["cluster_label"]["price"] = {"in": 0, "out": 1_000_000}
+    gw.cfg["stages"]["cluster_label"]["max_tokens"] = usd
+
+
+def test_invalid_billed_responses_never_push_spend_over_the_cap(tmp_path):
+    client = _bad_client(0.4)
+    gw = demo(tmp_path, client, max_usd=1.0)
+    _bound_of(gw, 0.4)  # 4 attempts would bill 1.60 against max 1.0
+    with pytest.raises(BudgetExceeded):
+        ask(gw)
+    assert len(client.calls) == 2 and gw.spent <= 1.0 and gw.spent == pytest.approx(0.8)
+
+
+def test_probe_never_pushes_spend_over_the_cap(tmp_path):
+    client = FakeClient(lambda kw: {"choices": [{"message": {"content": "{}"}}], "usage": {"prompt_tokens": 1, "completion_tokens": 1, "cost": 0.6}})
+    gw = demo(tmp_path, client, max_usd=1.0)
+    gw.cfg["stages"]["cluster_label"]["price"] = {"in": 0, "out": 0.6 * 1e6 / gwm.PROBE_MAX_TOKENS}  # probe bound = 0.6
+    gw.probe_one("cluster_label")
+    with pytest.raises(BudgetExceeded):
+        gw.probe_one("cluster_label")
+    assert len(client.calls) == 1 and gw.spent <= 1.0 and gw.spent == pytest.approx(0.6)
+
+
+def _flaky(status=429):
+    def handler(kw):
+        e = RuntimeError("busy")
+        e.status_code = status
+        raise e
+    return FakeClient(handler)
+
+
+def test_failed_transport_retries_settle_at_their_bound_and_stop_at_the_cap(tmp_path):
+    client = _flaky()  # every attempt fails with unknown usage: each is charged its reserved bound
+    gw = demo(tmp_path, client, max_usd=1.0)
+    _bound_of(gw, 0.4)
+    with pytest.raises(BudgetExceeded):
+        ask(gw)
+    assert len(client.calls) == 2 and gw.spent == pytest.approx(0.8) and gw.spent <= 1.0 and gw.reserved == 0
+
+
+def test_response_without_usage_settles_at_the_bound(tmp_path):
+    gw = demo(tmp_path, FakeClient(lambda kw: {"choices": [{"message": {"content": json.dumps(LABEL)}}]}), max_usd=1.0)
+    _bound_of(gw, 0.4)
+    ask(gw)
+    assert gw.spent == pytest.approx(0.4)
+
+
+def test_bound_uses_request_size_and_both_prices(tmp_path):
+    gw = demo(tmp_path)
+    body = gw.chat_request("cluster_label", [{"role": "user", "content": "x" * 1000}])
+    p = gw.stage_cfg("cluster_label")["price"]
+    assert gw._bound("cluster_label", body) == pytest.approx((len(json.dumps(body).encode()) * p["in"] + body["max_tokens"] * p["out"]) / 1e6)
+    assert gw._bound("cluster_label", body) > 1000 * p["in"] / 1e6  # at least one token per request byte
+
+
+def test_concurrent_failing_calls_cannot_overshoot_the_cap(tmp_path):
+    from concurrent.futures import ThreadPoolExecutor
+    client = _flaky()
+    gw = demo(tmp_path, client, max_usd=1.0)
+    _bound_of(gw, 0.3)
+    with ThreadPoolExecutor(8) as pool:
+        errs = [f.exception() for f in [pool.submit(ask, gw, str(i)) for i in range(8)]]
+    assert all(errs) and gw.spent <= 1.0 and gw.reserved == 0 and len(client.calls) == 3  # 3 x 0.3 fit, the rest are refused
+
+
+def test_concurrent_calls_reserve_budget_before_the_call(tmp_path):
+    from concurrent.futures import ThreadPoolExecutor
+    import threading
+    import time
+    client = FakeClient()
+    gw = demo(tmp_path, client, max_usd=0.5)
+    gw.cfg["stages"]["cluster_label"]["price"] = {"in": 0, "out": 1_000_000}  # estimate = max_tokens USD, far above the 0.5 cap
+    gw.cfg["stages"]["cluster_label"]["max_tokens"] = 0.3  # one reservation fits (0.3), two do not
+    gate, started = threading.Event(), []
+    orig = client.handler
+
+    def slow(kw):
+        started.append(1)
+        gate.wait(2)
+        return orig(kw)
+    client.handler = slow
+    with ThreadPoolExecutor(2) as pool:
+        futs = [pool.submit(ask, gw, t) for t in ("a", "b")]
+        while not started:
+            time.sleep(0.01)
+        time.sleep(0.3)  # the second call has tried (and been refused) while the first is still in flight
+        gate.set()
+    errs = [f.exception() for f in futs]
+    assert sum(isinstance(e, BudgetExceeded) for e in errs) == 1 and len(client.calls) == 1
+
+
+def test_cache_read_colliding_with_a_write_never_raises(tmp_path, monkeypatch):
+    import os
+    import threading
+    gw = demo(tmp_path)
+    body = gw.chat_request("cluster_label", [{"role": "user", "content": "x"}])
+    ask_body = lambda: gw._call("cluster_label", "chat", body, "opportunity", "o1")  # noqa: E731
+    ask_body()
+    real = os.replace
+    state = {"n": 0}
+
+    def flaky(src, dst):  # a replace in flight makes the next read of dst fail once, as on Windows
+        state["n"] += 1
+        return real(src, dst)
+    real_read = type(_path := gw._cache_path("cluster_label", body)[1]).read_text
+
+    def contended(self, *a, **k):
+        if self == _path and state["n"] % 2 == 0:
+            state["n"] += 1
+            raise PermissionError(13, "in use by another process")
+        return real_read(self, *a, **k)
+    monkeypatch.setattr(os, "replace", flaky)
+    monkeypatch.setattr(type(_path), "read_text", contended)
+    for _ in range(20):
+        errs = []
+
+        def go():
+            try:
+                ask_body()
+            except Exception as e:  # noqa: BLE001
+                errs.append(e)
+        ts = [threading.Thread(target=go) for _ in range(4)]
+        [t.start() for t in ts]
+        [t.join() for t in ts]
+        assert errs == []
