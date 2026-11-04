@@ -8,29 +8,31 @@ import yaml
 from .. import config
 from ..contracts import Account
 
-DEFAULT_TEAMS = {"internal_domains": ["keelwater.example"], "teams": {}}
+DEFAULT_TEAMS = {"teams": {}}
 
 
 def load_teams(data_dir):
-    """<data root>/teams.yaml when it exists (fixtures), else config/teams.yaml, else the built-in default.
+    """<data root>/teams.yaml when it exists (fixtures), else config/teams.yaml, else an empty map.
 
-    Format: internal_domains: [..]; teams: {onboarding: [emails], account_management: [emails], ...}.
+    Shape (written by #2): {"teams": {"<staff email>": "sales|support|onboarding|account_management"}}.
+    Returns {"teams": {email: team}, "internal_domains": [keelwater.example + the emails' domains]}.
     """
+    raw = DEFAULT_TEAMS
     for p in (Path(data_dir) / "teams.yaml", config.CONFIG_DIR / "teams.yaml"):
         if p.is_file():
-            return {**DEFAULT_TEAMS, **(yaml.safe_load(p.read_text(encoding="utf-8")) or {})}
-    return DEFAULT_TEAMS
+            raw = yaml.safe_load(p.read_text(encoding="utf-8")) or DEFAULT_TEAMS
+            break
+    teams = {e.strip().lower(): t for e, t in raw["teams"].items()}
+    return {"teams": teams, "internal_domains": sorted({"keelwater.example", *(e.rsplit("@", 1)[-1] for e in teams)})}
 
 
 def is_internal(email, teams):
     e = (email or "").strip().lower()
-    return bool(e) and (e.rsplit("@", 1)[-1] in teams["internal_domains"]
-                        or any(e == m.lower() for ms in teams["teams"].values() for m in ms))
+    return bool(e) and (e.rsplit("@", 1)[-1] in teams["internal_domains"] or e in teams["teams"])
 
 
 def team_of(email, teams):
-    e = (email or "").strip().lower()
-    return next((t for t, ms in teams["teams"].items() if e in [m.lower() for m in ms]), None)
+    return teams["teams"].get((email or "").strip().lower())
 
 
 def norm_domain(value):

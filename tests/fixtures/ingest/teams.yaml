@@ -1,6 +1,5 @@
-internal_domains: [keelwater.example]
 teams:
-  onboarding: [ada@keelwater.example]
-  account_management: [grace@keelwater.example]
-  sales: [sam@keelwater.example]
-  support: [sue@keelwater.example]
+  ada@keelwater.example: onboarding
+  grace@keelwater.example: account_management
+  sam@keelwater.example: sales
+  sue@keelwater.example: support
