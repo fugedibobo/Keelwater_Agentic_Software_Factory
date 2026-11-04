@@ -98,3 +98,33 @@ def test_arr_precision_is_the_stated_precision():
 
 def test_rule_6_three_insights_need_three_citations():
     assert "citation_spread" in rules("## Problem\nIt hurts [i:b].\n")
+
+
+@pytest.mark.parametrize("new", [
+    "Uploads fail 3 times daily [i:a]",                  # 3 is the account count, but this clause does not name a count of accounts
+    "Uploads fail thirteen times daily [i:a]",           # word number outside the old list
+    "Uploads fail every 90 days [i:a]",                  # the 90-day horizon belongs to a renewals clause only
+    "Uploads fail twenty-one times daily [i:a]",
+    "Uploads fail one hundred and five times daily [i:a]",
+    "Uploads fail two thousand times daily [i:a]",
+])
+def test_numbers_must_belong_to_a_fact_the_clause_names(new):
+    body = GOOD.replace("Claims handlers lose time when uploads fail [i:a] [i:b] [i:c]", new, 1)
+    assert "numbers" in rules(body)
+
+
+@pytest.mark.parametrize("tok,value", [("thirteen", 13), ("twenty-one", 21), ("twenty one", 21), ("ninety-nine", 99), ("hundred", 100),
+                                       ("one hundred and five", 105), ("two thousand", 2000), ("three million", 3_000_000), ("dozen", 12), ("12", 12)])
+def test_number_words_parse(tok, value):
+    from signal_engine.citations import number_value
+    assert number_value(tok) == value
+
+
+def test_count_phrases_with_word_numbers_are_checked():
+    assert "numbers" in rules(GOOD.replace("3 accounts report it", "thirteen accounts report it", 1))
+    assert rules(GOOD.replace("3 accounts report it", "three accounts report it", 1)) == set()
+
+
+def test_ninety_days_passes_in_a_renewals_clause_only():
+    assert rules(GOOD.replace("1 renewal falls in the next 90 days", "Renewal is due within 90 days", 1)) == set()
+    assert "numbers" in rules(GOOD.replace("1 renewal falls in the next 90 days", "Handlers wait 90 days for a fix", 1))

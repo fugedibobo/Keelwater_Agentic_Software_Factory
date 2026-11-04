@@ -344,23 +344,71 @@ def _bad_client(cost=0.4):
     return FakeClient(lambda kw: {"choices": [{"message": {"content": ""}}], "usage": {"prompt_tokens": 1, "completion_tokens": 1, "cost": cost}})
 
 
-def test_invalid_billed_responses_stop_at_the_budget_not_after_all_retries(tmp_path):
-    client = _bad_client(0.4)  # 4 attempts would bill 1.60 against max 1.0
+def _bound_of(gw, usd):
+    """Price the cluster_label stage so that one attempt's hard bound is exactly usd (max_tokens x out price)."""
+    gw.cfg["stages"]["cluster_label"]["price"] = {"in": 0, "out": 1_000_000}
+    gw.cfg["stages"]["cluster_label"]["max_tokens"] = usd
+
+
+def test_invalid_billed_responses_never_push_spend_over_the_cap(tmp_path):
+    client = _bad_client(0.4)
     gw = demo(tmp_path, client, max_usd=1.0)
+    _bound_of(gw, 0.4)  # 4 attempts would bill 1.60 against max 1.0
     with pytest.raises(BudgetExceeded):
         ask(gw)
-    assert len(client.calls) == 3 and gw.spent == pytest.approx(1.2)
+    assert len(client.calls) == 2 and gw.spent <= 1.0 and gw.spent == pytest.approx(0.8)
 
 
-def test_probe_is_accounted_and_refused_once_the_budget_is_spent(tmp_path):
+def test_probe_never_pushes_spend_over_the_cap(tmp_path):
     client = FakeClient(lambda kw: {"choices": [{"message": {"content": "{}"}}], "usage": {"prompt_tokens": 1, "completion_tokens": 1, "cost": 0.6}})
     gw = demo(tmp_path, client, max_usd=1.0)
+    gw.cfg["stages"]["cluster_label"]["price"] = {"in": 0, "out": 0.6 * 1e6 / gwm.PROBE_MAX_TOKENS}  # probe bound = 0.6
     gw.probe_one("cluster_label")
-    gw.probe_one("cluster_label")
-    assert gw.spent == pytest.approx(1.2)
     with pytest.raises(BudgetExceeded):
         gw.probe_one("cluster_label")
-    assert len(client.calls) == 2
+    assert len(client.calls) == 1 and gw.spent <= 1.0 and gw.spent == pytest.approx(0.6)
+
+
+def _flaky(status=429):
+    def handler(kw):
+        e = RuntimeError("busy")
+        e.status_code = status
+        raise e
+    return FakeClient(handler)
+
+
+def test_failed_transport_retries_settle_at_their_bound_and_stop_at_the_cap(tmp_path):
+    client = _flaky()  # every attempt fails with unknown usage: each is charged its reserved bound
+    gw = demo(tmp_path, client, max_usd=1.0)
+    _bound_of(gw, 0.4)
+    with pytest.raises(BudgetExceeded):
+        ask(gw)
+    assert len(client.calls) == 2 and gw.spent == pytest.approx(0.8) and gw.spent <= 1.0 and gw.reserved == 0
+
+
+def test_response_without_usage_settles_at_the_bound(tmp_path):
+    gw = demo(tmp_path, FakeClient(lambda kw: {"choices": [{"message": {"content": json.dumps(LABEL)}}]}), max_usd=1.0)
+    _bound_of(gw, 0.4)
+    ask(gw)
+    assert gw.spent == pytest.approx(0.4)
+
+
+def test_bound_uses_request_size_and_both_prices(tmp_path):
+    gw = demo(tmp_path)
+    body = gw.chat_request("cluster_label", [{"role": "user", "content": "x" * 1000}])
+    p = gw.stage_cfg("cluster_label")["price"]
+    assert gw._bound("cluster_label", body) == pytest.approx((len(json.dumps(body).encode()) * p["in"] + body["max_tokens"] * p["out"]) / 1e6)
+    assert gw._bound("cluster_label", body) > 1000 * p["in"] / 1e6  # at least one token per request byte
+
+
+def test_concurrent_failing_calls_cannot_overshoot_the_cap(tmp_path):
+    from concurrent.futures import ThreadPoolExecutor
+    client = _flaky()
+    gw = demo(tmp_path, client, max_usd=1.0)
+    _bound_of(gw, 0.3)
+    with ThreadPoolExecutor(8) as pool:
+        errs = [f.exception() for f in [pool.submit(ask, gw, str(i)) for i in range(8)]]
+    assert all(errs) and gw.spent <= 1.0 and gw.reserved == 0 and len(client.calls) == 3  # 3 x 0.3 fit, the rest are refused
 
 
 def test_concurrent_calls_reserve_budget_before_the_call(tmp_path):

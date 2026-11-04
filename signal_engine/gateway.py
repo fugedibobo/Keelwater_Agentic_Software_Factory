@@ -229,7 +229,7 @@ class Gateway:
         for fn in list(_LISTENERS):
             fn(row, parsed)
         log.info("call stage=%s target=%s/%s cached=%s ms=%s", stage, target_type, target_id, cached, row["latency_ms"])
-        if self.spent > self.max_usd:  # live spend was settled per attempt in _billed
+        if self.spent > self.max_usd:  # live spend was settled per attempt in _attempt
             raise BudgetExceeded(f"spend USD {self.spent:.4f} passed --max-usd {self.max_usd}")
         return raw
 
@@ -259,7 +259,7 @@ class Gateway:
     def _live_valid(self, stage, kind, body, call_id):
         attempts = self.stage_cfg(stage)["retries"] + 1
         for i in range(attempts):
-            raw = self._billed(stage, kind, body, call_id)
+            raw = self._live(stage, kind, body, call_id)
             if kind != "chat":
                 return raw
             try:
@@ -273,24 +273,33 @@ class Gateway:
                     self._sleep(min(0.5 * 2 ** i, 8))
         raise InvalidResponse(f"{stage} call returned null, empty or unparseable content after {attempts} attempts (last finish_reason={raw.get('finish_reason')})")
 
-    def _billed(self, stage, kind, body, call_id):
-        """One billed attempt (first try, retry, fallback or probe): refuse when the budget is spent, reserve an estimate so
-        concurrent calls cannot overshoot, then settle the real cost, valid response or not."""
+    def _bound(self, stage, body):
+        """Hard upper bound of one attempt's bill: request bytes (never fewer than prompt tokens) x input price + max_tokens x output price."""
         p = self.stage_cfg(stage).get("price", {"in": 0, "out": 0})
-        est = (len(json.dumps(body)) / 4 * p["in"] + (body.get("max_tokens") or 0) * p["out"]) / 1e6
+        return (len(json.dumps(body).encode("utf-8")) * p["in"] + (body.get("max_tokens") or 0) * p["out"]) / 1e6
+
+    def _attempt(self, stage, c, kind, body, call_id):
+        """One billed transport attempt (first try, retry, fallback or probe). Reserves its bound first and refuses when it does not
+        fit under --max-usd; settles the real cost, or the bound when usage is unknown (a failed attempt may still have been billed)."""
+        bound = self._bound(stage, body)
         with self._lock:
             held = self.spent + self.reserved
-            if held >= self.max_usd or held + est > self.max_usd:
-                raise BudgetExceeded(f"spend USD {self.spent:.4f} (reserved {self.reserved:.4f}) leaves no room under --max-usd {self.max_usd}")
-            self.reserved += est
-        cost = 0.0
+            if held >= self.max_usd or held + bound > self.max_usd:
+                raise BudgetExceeded(f"spend USD {self.spent:.4f} (reserved {self.reserved:.4f}, this attempt up to {bound:.4f}) leaves no room under --max-usd {self.max_usd}")
+            self.reserved += bound
+        cost = bound
         try:
-            raw = self._live(stage, kind, body, call_id)
-            cost = self._cost(stage, raw.get("usage", {}))
+            raw = self._decide(c, body) if c.get("backend") == "clef" else self._openai(stage, c, kind, body, call_id)
+            u = raw.get("usage") or {}
+            if u.get("cost_usd") is not None or u.get("tokens_in") or u.get("tokens_out"):
+                cost = self._cost(stage, u)
             return raw
+        except Unavailable:  # missing key: nothing was sent
+            cost = 0.0
+            raise
         finally:
             with self._lock:
-                self.reserved -= est
+                self.reserved -= bound
                 self.spent += cost
 
     # ---- live transport ------------------------------------------------------------------------------------
@@ -300,10 +309,8 @@ class Gateway:
         for i in range(attempts):
             self._pace(stage, c)
             try:
-                if c.get("backend") == "clef":
-                    return self._decide(c, body)
-                return self._openai(stage, c, kind, body, call_id)
-            except Unavailable:
+                return self._attempt(stage, c, kind, body, call_id)
+            except (Unavailable, BudgetExceeded):
                 raise
             except Exception as e:  # scrub: never let a key reach a log or a report
                 status = getattr(e, "status_code", None) or getattr(getattr(e, "response", None), "status_code", None)
@@ -357,7 +364,7 @@ class Gateway:
         """One real call with the stage's real parameters and max_tokens 32; returns latency in ms."""
         body = self.probe_request(stage, model)
         t0 = time.perf_counter()
-        self._billed(stage, "embed" if stage == "embed" else "decide" if "questions" in body else "chat", body, "probe")
+        self._live(stage, "embed" if stage == "embed" else "decide" if "questions" in body else "chat", body, "probe")
         return round((time.perf_counter() - t0) * 1000)
 
     def key_usage(self):
