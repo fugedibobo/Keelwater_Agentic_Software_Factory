@@ -73,7 +73,7 @@ class Scanner:
 
 
 def read_names(path):
-    lines = Path(path).read_text(encoding="utf-8").splitlines()
+    lines = Path(path).read_text(encoding="utf-8-sig").splitlines()
     return [x.strip() for x in lines if x.strip() and not x.strip().startswith("#")]
 
 
@@ -82,7 +82,7 @@ def read_env_values(path):
     if not p.is_file():
         return []
     vals = []
-    for line in p.read_text(encoding="utf-8").splitlines():
+    for line in p.read_text(encoding="utf-8-sig").splitlines():
         k, sep, v = line.partition("=")
         v = v.strip().strip("'\"")
         if sep and len(v) >= 8 and re.search(r"KEY|TOKEN|SECRET", k.upper()):

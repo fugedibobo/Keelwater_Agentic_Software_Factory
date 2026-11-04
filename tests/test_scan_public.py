@@ -220,3 +220,17 @@ def test_github_sources(tmp_path):
     assert "pr-review-comment#5" in joined and "commit-comment#6" in joined and "pr#3 head ref" in joined
     assert_no_leak(joined)
     assert not any("1000" in c for c in calls)
+
+
+def test_bom_in_denylist_and_env_does_not_hide_the_first_entry(tmp_path):
+    # Notepad on Windows saves UTF-8 with a BOM; the first entry must still load cleanly.
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("scan_public", Path(__file__).resolve().parents[1] / "scripts" / "scan_public.py")
+    sp = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(sp)
+    deny = tmp_path / "deny.txt"
+    deny.write_bytes(b"\xef\xbb\xbfZorvanne Quill\n")
+    env = tmp_path / ".env"
+    env.write_bytes(b"\xef\xbb\xbfOPENROUTER_API_KEY=fake-value-123456\n")
+    assert sp.read_names(deny) == ["Zorvanne Quill"]
+    assert "fake-value-123456" in sp.read_env_values(env)
