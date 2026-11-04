@@ -1,4 +1,4 @@
-"""Cost scenario for docs/delegation.md, section 8. INFERRED, list-price arithmetic only."""
+"""Cost scenario for docs/delegation.md, section 9. INFERRED, list-price arithmetic only."""
 OPUS = 11.42  # FOUND: Opus 5.5 USD per task, AA Coding Agent Index at max effort
 # INFERRED: other engines scaled from Opus 5.5 by list price (in/out) at equal tokens
 RATIO = {"haiku": 0.10 / 4, "terra": 1 / 4, "sonnet": 2 / 4}  # same ratio on input and output

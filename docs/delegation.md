@@ -94,7 +94,37 @@ The routing table is versioned config. A weekly review reads it against the tele
 
 Challengers run in shadow on replayed factory tasks: past accepted pull requests with their hidden tests, which are the factory's own benchmark. They never touch live code. They are promoted only by the rule in section 5. Public leaderboards are used to rule models out, not to rank them.
 
-## 7. Evidence
+## 7. Clef as the router and the telemetry triager
+
+Clef (`cloudflare/clef`) is an open-weight decision model with a 65k context. It answers typed questions with probabilities and writes no text (FOUND, [decision-models-and-telemetry.md](research/decision-models-and-telemetry.md)). It is the same kind of model the Signal Engine uses for triage ([ADR-003](decisions.md)).
+
+**Router.** At work-order intake, before any session starts, Clef answers four typed questions: task class T0 to T3 (choice), touches a crown-jewel path (yes or no), spec clear enough to build (yes or no), and expected size (score 1 to 4). It acts at intake because most of the routing saving comes from choosing at session start, and a mid-task switch pays back only after 8-291 requests (FOUND, [research note](research/model-routing-evidence.md), Q5).
+
+```text
+<router>
+Code, not Clef, decides T3: any change touching a path on the crown-jewel list is T3 whatever Clef says.
+Below the confidence threshold, the work order routes one class up, never down.
+A work order with an unclear spec goes back to its author, not to a builder.
+Clef's choice is used without an engineer confirming it only after at least 50 labelled outcomes per class and a Wilson 95% lower bound of at least 0.75.
+Until then Clef runs in shadow beside the routing table and the miss rate is reported weekly.
+</router>
+```
+
+The "one class up" rule exists because the cited routing study had 12.5% false downgrades (FOUND).
+
+**Telemetry triager.** Each night Clef reads one compact summary per agent task, built by code. It holds the section 4 fields, the check result, the reviewer findings and the last error lines. Clef never reads a raw trace: one agent task can run to 4.8M tokens (FOUND, research note, Q2), and Clef's context is 65k. It answers three typed questions:
+
+- Did the task fail (yes or no)?
+- What was the failure cause (spec gap, wrong tier, flaky test, tool or environment error, model error, other)?
+- Does it need a person's look (yes or no)?
+
+Its labels feed the weekly routing review in section 5 and the rework statistics. A person reviews a fixed weekly sample, as in the Signal Engine's noise audit. Root-cause analysis stays with a strong model or an engineer: a decision model sorts, it does not explain.
+
+**Why Clef for both (INFERRED).** It is cheap and fast: $0.24 per million input tokens and a 209 ms median, both vendor-reported (FOUND). Its open weights can run inside the VPC next to the telemetry, so trace data never leaves. It comes from a different model family than the Claude and Codex builders, so it does not grade its own family's work.
+
+Designed, not built in this demo.
+
+## 8. Evidence
 
 Prices are USD per million tokens. Blank means not found. "Vendor" means self-reported. Full sources and cautions are in the [research note](research/model-routing-evidence.md).
 
@@ -117,7 +147,7 @@ V2 scores come from one harness at different efforts and sit near saturation. Te
 - **About a third of agent pull requests are rejected.** Acceptance was 61.6% to 77.9% by tool across 7,156 filtered PRs; by task, tests 61.5% and performance 55.4%, chores 84.0% (FOUND, MSR 2026). Rework was not measured directly.
 - **Gaps.** No source measured a mixed Claude and Codex pipeline end to end, with quality and cost together. Cost per task varies up to 30x for the same task (FOUND, secondary).
 
-## 8. Cost scenario (INFERRED)
+## 9. Cost scenario (INFERRED)
 
 Assumptions, all INFERRED unless marked FOUND:
 
@@ -140,7 +170,7 @@ Routed       : 368.30 USD per day
 Saving       : 67.8%
 ```
 
-## 9. Measured on this build
+## 10. Measured on this build
 
 This repo was built with the same pattern: an Opus orchestrator, Codex Terra and Gemini via agy as builders, and Sonnet subagents checking every pull request. Gemini was used here only to save cost on a non-critical demo. It is not part of the Keelwater proposal.
 
