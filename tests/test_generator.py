@@ -223,7 +223,7 @@ def test_cache_is_atomic_and_corrupt_file_is_a_miss(tmp_path):
     from concurrent.futures import ThreadPoolExecutor
     from tests.conftest import FakeGateway
     gw = FakeGateway(None, {'generate': {'content': '{"a": "' + 'x' * 200000 + '"}'}}, tmp=tmp_path / 'c')
-    ask = lambda _: gw.chat('generate', [{'role': 'user', 'content': 'same'}], target_type='t', target_id='1')
+    ask = lambda _: gw.chat('generate', [{'role': 'user', 'content': 'same'}], target_type='t', target_id='1', schema={'type': 'object'})
     with ThreadPoolExecutor(16) as ex:
         assert all(len(r['a']) == 200000 for r in ex.map(ask, range(64)))
     files = list((tmp_path / 'c').rglob('*'))
@@ -231,3 +231,41 @@ def test_cache_is_atomic_and_corrupt_file_is_a_miss(tmp_path):
     f = next(f for f in files if f.suffix == '.json')
     f.write_text('{"request": ', encoding='utf-8')
     assert len(ask(0)['a']) == 200000
+
+
+def test_record_schema_carries_band_and_enums():
+    from generator.planner import plan
+    from generator.writer import record_schema
+    r = next(r for r in plan(42)['records'] if r.get('turns_range') == [40, 60] and r['mentions'])
+    t = record_schema(r, 42)['properties']['turns']
+    assert (t['minItems'], t['maxItems']) == (40, 60)
+    p = t['items']['properties']
+    assert p['mention_ids']['items']['enum'] == [m['id'] for m in r['mentions']]
+    assert None in p['noise_category']['enum'] and 'how_to' in p['noise_category']['enum']
+
+
+def test_gateway_rejects_response_outside_the_schema(tmp_path):
+    import json
+    import pytest
+    from generator.planner import plan
+    from generator.writer import record_schema
+    from signal_engine.gateway import Gateway, InvalidResponse
+    r = next(r for r in plan(42)['records'] if r.get('turns_range') and r['source'] != 'fullstory')
+    bad = json.dumps({'turns': [{'speaker': 'customer', 'text': 'x', 'mention_ids': [], 'noise_category': None}]})
+
+    class C:
+        class chat:
+            @staticmethod
+            def completions_create(**kw): ...
+    class Resp:
+        def model_dump(self):
+            return {'choices': [{'message': {'content': bad}, 'finish_reason': 'stop'}], 'usage': {}}
+    class Client:
+        class chat:
+            class completions:
+                @staticmethod
+                def create(**kw):
+                    return Resp()
+    gw = Gateway(store=None, profile='demo', cache_dir=tmp_path, keys={}, client=Client(), sleep=lambda s: None, max_usd=1)
+    with pytest.raises(InvalidResponse):
+        gw.chat('generate', [{'role': 'user', 'content': 'x'}], target_type='t', target_id='1', schema=record_schema(r, 42))

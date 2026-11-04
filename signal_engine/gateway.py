@@ -2,6 +2,7 @@
 
 import argparse
 import json
+import jsonschema
 import logging
 import os
 import threading
@@ -259,9 +260,12 @@ class Gateway:
             if kind != "chat":
                 return raw
             try:
-                json.loads(raw.get("content") or "")
+                parsed = json.loads(raw.get("content") or "")
+                sch = (body.get("response_format") or {}).get("json_schema", {}).get("schema")
+                if sch is not None:
+                    jsonschema.validate(parsed, sch)  # a provider that ignores the schema is retried, not trusted
                 return raw
-            except (TypeError, ValueError):
+            except (TypeError, ValueError, jsonschema.ValidationError):
                 with self._lock:  # a bad response is still billed
                     self.spent += self._cost(stage, raw.get("usage", {}))
                 if i < attempts - 1:

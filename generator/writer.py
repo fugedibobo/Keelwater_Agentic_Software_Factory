@@ -5,6 +5,7 @@ or read credentials, and it does not record pipeline model_call rows.
 """
 from __future__ import annotations
 
+import copy
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from signal_engine import config
@@ -24,6 +25,20 @@ TURN_SCHEMA = {
                        'noise_category': {'type': ['string', 'null']}}
     }}}
 }
+
+
+def record_schema(record, seed):
+    """Per-record response schema: turn-count band, allowed mention ids and noise categories become hard bounds."""
+    schema = copy.deepcopy(TURN_SCHEMA)
+    turns = schema['properties']['turns']
+    if record.get('turns_range'):
+        turns['minItems'], turns['maxItems'] = record['turns_range']
+    props = turns['items']['properties']
+    props['mention_ids']['items'] = {'type': 'string', 'enum': [m['id'] for m in record['mentions']]}
+    props['noise_category'] = {'enum': [*load(seed)['noise']['categories'], None]}
+    return schema
+
+
 DESCRIPTION_SCHEMA = {'type': 'object', 'additionalProperties': False, 'required': ['description'],
                       'properties': {'description': {'type': 'string'}}}
 
@@ -122,7 +137,7 @@ def gateway_request(gateway, record, seed, attempt):
     if attempt:
         prompt += f'\nRegeneration {attempt}: rewrite the record, satisfy every rule, and return the full JSON again.\n'
     return gateway.chat('generate', [{'role': 'user', 'content': prompt}], target_type='generator_record',
-                        target_id=record['id'], prompt_version='record@0.1.0', schema=TURN_SCHEMA)
+                        target_id=record['id'], prompt_version='record@0.1.0', schema=record_schema(record, seed))
 
 
 def write_reference(gateway, brief, seed, on_rejection=None):
