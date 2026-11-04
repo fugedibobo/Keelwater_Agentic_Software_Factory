@@ -10,6 +10,7 @@ Keelwater is a fictional claims-handling software company whose engineers alread
 
 | Time you have | Read | What you get |
 |---|---|---|
+| 5 minutes | [The presentation (8 slides)](site/presentation/index.html) | The whole story, answer first: diagnosis, agentic lifecycle, what to tell the board, Part 2 running, how AI was used. One file, opens with a double-click |
 | 5 minutes | [Two-page diagnosis and 90-day plan](docs/part1-diagnosis-and-plan.md) (PDF to follow) | Where the lifecycle loses time, the agentic lifecycle, 30/60/90 days, adoption, what to tell the board |
 | 2 minutes | [Signal Board snapshot](site/index.html) (after build day) | The page a PM uses each week; opens with a double-click, no install |
 | 15 minutes | [Architecture](docs/architecture.md) and [diagrams](docs/diagrams/) | Pipeline stage by stage, models, data model, CLI, production on AWS |
