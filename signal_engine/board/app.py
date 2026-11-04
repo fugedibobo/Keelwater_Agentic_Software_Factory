@@ -52,7 +52,8 @@ def create_app(db, labels_dir=None, reports_dir=None):
 
     @app.get("/api/me")
     def me():
-        return {"actor": getpass.getuser()}
+        user = getpass.getuser()
+        return {"actor": user if user in config.people() else next(iter(config.people()))}
 
     @app.get("/diagrams/{name}")
     def diagram(name: str):

@@ -24,6 +24,11 @@ def bucket_ids():
     return tuple(b["id"] for b in load("taxonomy")["buckets"])
 
 
+def people():
+    """Board allow-list: actor id -> synthetic email (config/people.yaml)."""
+    return load("people")["people"]
+
+
 def squads():
     return tuple(load("taxonomy")["squads"])
 

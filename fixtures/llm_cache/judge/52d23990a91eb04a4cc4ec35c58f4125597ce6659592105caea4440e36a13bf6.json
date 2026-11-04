@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\nUsers repeatedly click the Document type control without success, leading to frustration. This wastes time and blocks progress because the interface does not clearly respond to their actions.\\n\\n## Who is affected\\n- Wexmoor Motor, a customer with an ARR of £1950000.0, is affected [i:1a90673ada7e16fc].\\n- Stannary Commercial, a customer with an ARR of £540000.0, is affected [i:358dc611c11a4ee3].\\n- Quillon Business Insurance, a customer with an ARR of £860000.0, is affected [i:4843cee742777ad4].\\n- Cindermill Trade Cover, a customer with an ARR of £210000.0, is affected [i:6a064136d9a8fc29].\\n- Thistlecombe Mutual, a customer with an ARR of £980000.0, is affected [i:c69bf9e79671507b].\\n- Hollinbrook Home Insurance, a customer with an ARR of £2400000.0, is affected [i:e22d62ba1644eeff].\\n\\n## Evidence\\n- The problem has been mentioned 6 times across 6 accounts [i:1a90673ada7e16fc][i:358dc611c11a4ee3][i:4843cee742777ad4][i:6a064136d9a8fc29][i:c69bf9e79671507b][i:e22d62ba1644eeff].\\n- All 6 mentions come from the sessions route [i:1a90673ada7e16fc][i:358dc611c11a4ee3][i:4843cee742777ad4][i:6a064136d9a8fc29][i:c69bf9e79671507b][i:e22d62ba1644eeff].\\n- A session log from Wexmoor Motor shows Documents: click \\\"Document type\\\", rage x5... Documents: click \\\"Open\\\" [i:1a90673ada7e16fc].\\n- A session log from Cindermill Trade Cover shows click \\\"Document type\\\", rage x5...click \\\"Save\\\" [i:6a064136d9a8fc29].\\n- A session log from Thistlecombe Mutual shows Documents: click \\\"Document type\\\", rage x5... Documents: click \\\"Open\\\" [i:c69bf9e79671507b].\\n- A session log from Hollinbrook Home Insurance shows Documents: click \\\"Document type\\\", rage x5 [i:e22d62ba1644eeff].\\n- The total ARR of the affected accounts is £6940000.0 [i:1a90673ada7e16fc][i:358dc611c11a4ee3][i:4843cee742777ad4][i:6a064136d9a8fc29][i:c69bf9e79671507b][i:e22d62ba1644eeff].\\n\\n## Why now\\n- The evidence is recent, with all insights recorded in September 2026 [i:1a90673ada7e16fc][i:358dc611c11a4ee3][i:4843cee742777ad4][i:6a064136d9a8fc29][i:c69bf9e79671507b][i:e22d62ba1644eeff].\\n- Stannary Commercial, a customer with an ARR of £540000.0, has a renewal date of 2026-12-05 [i:358dc611c11a4ee3].\\n- Only 1 renewal has occurred in the last 90 days [i:1a90673ada7e16fc][i:358dc611c11a4ee3][i:4843cee742777ad4][i:6a064136d9a8fc29][i:c69bf9e79671507b][i:e22d62ba1644eeff].\\n- The problem is widespread, affecting all 6 accounts in the fact sheet [i:1a90673ada7e16fc][i:358dc611c11a4ee3][i:4843cee742777ad4][i:6a064136d9a8fc29][i:c69bf9e79671507b][i:e22d62ba1644eeff].\",\n \"cited_insights\": [\n  {\n   \"id\": \"1a90673ada7e16fc\",\n   \"quote\": \"Documents: click \\\"Document type\\\", rage x5... Documents: click \\\"Open\\\"\",\n   \"account\": \"Wexmoor Motor\",\n   \"route\": \"sessions\",\n   \"date\": \"2026-09-23T09:05:00Z\"\n  },\n  {\n   \"id\": \"358dc611c11a4ee3\",\n   \"quote\": \"Documents: click \\\"Open\\\"\\nDocuments: click \\\"Save\\\", rage x3\",\n   \"account\": \"Stannary Commercial\",\n   \"route\": \"sessions\",\n   \"date\": \"2026-09-16T10:04:00Z\"\n  },\n  {\n   \"id\": \"4843cee742777ad4\",\n   \"quote\": \"Suppliers: click \\\"Open\\\" ... click \\\"Save\\\", rage x3\",\n   \"account\": \"Quillon Business Insurance\",\n   \"route\": \"sessions\",\n   \"date\": \"2026-09-09T14:19:00Z\"\n  },\n  {\n   \"id\": \"6a064136d9a8fc29\",\n   \"quote\": \"click \\\"Document type\\\", rage x5...click \\\"Save\\\"\",\n   \"account\": \"Cindermill Trade Cover\",\n   \"route\": \"sessions\",\n   \"date\": \"2026-09-14T15:35:00Z\"\n  },\n  {\n   \"id\": \"c69bf9e79671507b\",\n   \"quote\": \"Documents: click \\\"Document type\\\", rage x5... Documents: click \\\"Open\\\"\",\n   \"account\": \"Thistlecombe Mutual\",\n   \"route\": \"sessions\",\n   \"date\": \"2026-09-05T14:45:00Z\"\n  },\n  {\n   \"id\": \"e22d62ba1644eeff\",\n   \"quote\": \"Documents: click \\\"Document type\\\", rage x5\",\n   \"account\": \"Hollinbrook Home Insurance\",\n   \"route\": \"sessions\",\n   \"date\": \"2026-09-03T12:51:00Z\"\n  }\n ],\n \"fact_sheet\": {\n  \"as_of\": \"2026-10-01\",\n  \"accounts_n\": 6,\n  \"mentions_n\": 6,\n  \"routes_n\": 1,\n  \"mentions_by_route\": {\n   \"sessions\": 6\n  },\n  \"arr_total_gbp\": 6940000.0,\n  \"renewals_90d_n\": 1,\n  \"accounts\": [\n   {\n    \"name\": \"Wexmoor Motor\",\n    \"arr_gbp\": 1950000.0,\n    \"renewal_date\": \"2027-06-30\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Stannary Commercial\",\n    \"arr_gbp\": 540000.0,\n    \"renewal_date\": \"2026-12-05\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Quillon Business Insurance\",\n    \"arr_gbp\": 860000.0,\n    \"renewal_date\": \"2027-01-20\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Cindermill Trade Cover\",\n    \"arr_gbp\": 210000.0,\n    \"renewal_date\": \"2027-04-03\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Thistlecombe Mutual\",\n    \"arr_gbp\": 980000.0,\n    \"renewal_date\": \"2027-09-01\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Hollinbrook Home Insurance\",\n    \"arr_gbp\": 2400000.0,\n    \"renewal_date\": \"2027-01-15\",\n    \"mentions\": 1\n   }\n  ]\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked the claim that Quillon Business Insurance is affected by the Document type problem, cited as [i:4843cee742777ad4]. The cited insight for Quillon actually reads 'Suppliers: click \\\"Open\\\" ... click \\\"Save\\\", rage x3', which contains no mention of the Document type control at all, so that account's inclusion (and the 'widespread, affecting all 6 accounts' claim) is unsupported. The remaining figures (per-account ARR values, total ARR of £6,940,000, 6 mentions across 6 accounts, all from the sessions route, Stannary's 2026-12-05 renewal, 1 renewal in 90 days, September 2026 dates) all match the fact sheet and cited insights, and the session-log quotes are reproduced accurately with quotation marks.\", \"verdict\": \"fail\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 2155,
+   "tokens_out": 254,
+   "cost_usd": 0.0010868
+  }
+ }
+}

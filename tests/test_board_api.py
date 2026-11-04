@@ -183,8 +183,8 @@ def test_label_panel_is_blind_until_saved(board):
 
 def test_actor_name_cannot_escape_the_labels_folder(board):
     c, s, lab = board
-    c.post("/api/opportunities/o1/park", json={}, headers={"X-Actor": "../../evil"})
-    assert [p.name for p in lab.iterdir()] == ["_.._evil.jsonl"] or all(p.parent == lab for p in lab.iterdir())
+    assert c.post("/api/opportunities/o1/park", json={}, headers={"X-Actor": "../../evil"}).status_code == 403  # not on the allow-list
+    assert not lab.exists() or all(p.parent == lab for p in lab.iterdir())
 
 
 def test_reads_and_audit_filters(board):
