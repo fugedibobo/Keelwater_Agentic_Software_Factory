@@ -190,10 +190,15 @@ class Gateway:
         key, path = self._cache_path(stage, body)
         cached, raw = False, None
         if self.profile in ("replay", "demo") and path.is_file():
-            try:
-                raw, cached = json.loads(path.read_text(encoding="utf-8"))["response"], True
-            except (ValueError, KeyError):  # half-written or corrupt file is a miss
-                raw = None
+            for attempt in range(2):
+                try:
+                    raw, cached = json.loads(path.read_text(encoding="utf-8"))["response"], True
+                    break
+                except (ValueError, KeyError):  # half-written or corrupt file is a miss
+                    break
+                except OSError:  # Windows: read collided with another thread's os.replace; one short retry, then a miss
+                    if attempt == 0:
+                        time.sleep(0.02)
         if raw is not None:
             pass
         elif self.cache_only:

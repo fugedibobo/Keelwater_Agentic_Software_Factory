@@ -387,3 +387,39 @@ def test_concurrent_calls_reserve_budget_before_the_call(tmp_path):
         gate.set()
     errs = [f.exception() for f in futs]
     assert sum(isinstance(e, BudgetExceeded) for e in errs) == 1 and len(client.calls) == 1
+
+
+def test_cache_read_colliding_with_a_write_never_raises(tmp_path, monkeypatch):
+    import os
+    import threading
+    gw = demo(tmp_path)
+    body = gw.chat_request("cluster_label", [{"role": "user", "content": "x"}])
+    ask_body = lambda: gw._call("cluster_label", "chat", body, "opportunity", "o1")  # noqa: E731
+    ask_body()
+    real = os.replace
+    state = {"n": 0}
+
+    def flaky(src, dst):  # a replace in flight makes the next read of dst fail once, as on Windows
+        state["n"] += 1
+        return real(src, dst)
+    real_read = type(_path := gw._cache_path("cluster_label", body)[1]).read_text
+
+    def contended(self, *a, **k):
+        if self == _path and state["n"] % 2 == 0:
+            state["n"] += 1
+            raise PermissionError(13, "in use by another process")
+        return real_read(self, *a, **k)
+    monkeypatch.setattr(os, "replace", flaky)
+    monkeypatch.setattr(type(_path), "read_text", contended)
+    for _ in range(20):
+        errs = []
+
+        def go():
+            try:
+                ask_body()
+            except Exception as e:  # noqa: BLE001
+                errs.append(e)
+        ts = [threading.Thread(target=go) for _ in range(4)]
+        [t.start() for t in ts]
+        [t.join() for t in ts]
+        assert errs == []

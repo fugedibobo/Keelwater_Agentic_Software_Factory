@@ -73,6 +73,13 @@ def test_verifiable_derived_numbers_pass(new):
     assert check(body, members, facts, NAMES) == []
 
 
+def test_arr_sum_of_cited_accounts_only():
+    body = GOOD.replace("Claims handlers lose time when uploads fail [i:a] [i:b] [i:c].", "A combined ARR of 1,950,000 GBP [i:a][i:b].", 1)
+    assert check(body, MEMBERS, FACTS, NAMES) == []  # 1,200,000 + 750,000 = the accounts behind a and b
+    other = GOOD.replace("Claims handlers lose time when uploads fail [i:a] [i:b] [i:c].", "A combined ARR of 1,950,000 GBP [i:b][i:c].", 1)
+    assert "numbers" in rules(other)  # b and c are 750,000 + 500,000
+
+
 def test_unverified_quote_fails_rule_1():
     m = {**MEMBERS, "a": {**MEMBERS["a"], "verified": False}}
     assert "cited_ids" in rules(GOOD, m)

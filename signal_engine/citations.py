@@ -104,6 +104,10 @@ def check(body, members, facts, names):
             mine |= set(ISO.findall(members.get(i, {}).get("quote") or ""))
         ok_dates = (dates | mine) - {""}
         sent_n = facts_n | {Decimal(d[:4]) for d in ok_dates}
+        near = ids or next((cited_ids(ln) for ln in body.splitlines() if sent in ln), [])  # the sentence's own citations, else its paragraph's
+        accts = {members[i]["account_id"] for i in near if i in members}
+        arr = [a["arr_gbp"] for a in facts["accounts"] if a["arr_gbp"] is not None and any(names.get(x) == a["name"] for x in accts)]
+        sent_n |= {Decimal(str(sum(arr)))} if arr else set()  # ARR sum of the accounts behind the cited insights
         rest = COUNT.sub(" ", MONEY.sub(" ", ISO.sub(lambda m: " " if m.group(0) in ok_dates else m.group(0), CITE.sub(" ", plain))))
         for m in NUMBER.finditer(WINDOW.sub(" ", rest)):  # rule 3, every other number must equal a fact-sheet value
             tok = m.group(0)
