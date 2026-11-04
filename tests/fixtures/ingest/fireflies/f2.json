@@ -1,0 +1,28 @@
+{
+  "id": "f2",
+  "title": "QBR",
+  "date": 1760440000000,
+  "duration": 20,
+  "host_email": "grace@keelwater.example",
+  "meeting_attendees": [
+    {
+      "email": "grace@keelwater.example",
+      "name": "Grace H",
+      "displayName": "Grace H"
+    },
+    {
+      "email": "cat@third.example",
+      "name": "Cat Third",
+      "displayName": "Cat Third"
+    }
+  ],
+  "sentences": [
+    {
+      "index": 0,
+      "speaker_name": "Cat Third",
+      "text": "Reports take ages.",
+      "start_time": 1.0,
+      "end_time": 3.0
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 import itertools
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date
 from pathlib import Path
 
@@ -51,6 +52,24 @@ def test_fact_sheet_is_computed_from_the_store(tmp_store):
     f = fact_sheet(tmp_store, "O1", AS_OF)
     assert (f["accounts_n"], f["mentions_n"], f["routes_n"], f["arr_total_gbp"], f["renewals_90d_n"]) == (3, 3, 2, 2450000.0, 1)
     assert f["mentions_by_route"] == {"sales": 1, "support": 2}
+
+
+def test_fact_sheet_concurrent_reads_hold_lock(tmp_store, monkeypatch):
+    seed(tmp_store, [("O2", 5.0, "none"), ("O3", 1.0, "none")])
+    expected = {oid: fact_sheet(tmp_store, oid, AS_OF) for oid in ("O1", "O2", "O3")}
+    connection = tmp_store.db
+
+    class CheckedConnection:
+        def execute(self, *args, **kwargs):
+            assert tmp_store.lock._is_owned(), "shared connection accessed without lock"
+            return connection.execute(*args, **kwargs)
+
+    ids = ["O1", "O2", "O3"] * 134
+    with monkeypatch.context() as patch:
+        patch.setattr(tmp_store, "db", CheckedConnection())
+        with ThreadPoolExecutor(max_workers=8) as pool:
+            results = list(pool.map(lambda oid: fact_sheet(tmp_store, oid, AS_OF), ids))
+    assert results == [expected[oid] for oid in ids]
 
 
 def test_run_stores_passing_brief_and_proposes(tmp_store, fake_gateway):

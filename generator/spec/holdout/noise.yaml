@@ -1,0 +1,19 @@
+# ASSUMED: descriptions, wording and assigned names are synthetic.
+{
+  "categories": [
+    "pleasantry",
+    "scheduling",
+    "pricing",
+    "internal",
+    "password_reset",
+    "how_to",
+    "praise",
+    "closer"
+  ],
+  "one_offs": [
+    "print a claim summary",
+    "filter tasks by due date",
+    "export notes as PDF",
+    "bulk-close stale tasks"
+  ]
+}
