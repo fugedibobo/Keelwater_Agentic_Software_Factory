@@ -49,7 +49,7 @@ Product line: [milestone] | Depends on: [#N, or none] | Run by: [L1 orchestrator
 Implement #N
 ```
 
-- Do not send to any external model, codex included: `.env`, the values of OPENROUTER_API_KEY and TYPESAFE_API_KEY, the publish deny-list file. [Add anything else.]
+- Do not send to any external model, codex included: `.env`, the value of OPENROUTER_API_KEY, the publish deny-list file. [Add anything else.]
 - Live calls: [none, or: probe first, then ..., run by a sonnet subagent; cap USD x.xx. The codex worker never runs live steps.]
 - Review: [orchestrator's sonnet check only, or: codex sol, effort medium, once on the finished milestone]
 
