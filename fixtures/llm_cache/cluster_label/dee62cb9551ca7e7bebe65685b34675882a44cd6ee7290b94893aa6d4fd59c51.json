@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: Roles are not syncing, causing the letters tab to be disabled and preventing task assignment to the team.\n  quote: Yes, the letters tab is greyed out too, and I can’t assign new tasks to my team since the roles aren’t syncing properly.\n- problem: Setting up permissions is error‑prone and can lock users out.\n  quote: we’re setting up our new claims team and I’m already dreading the permissions setup — it’s so easy to miss a box and then someone gets locked out.\n- problem: Admins must manually assign permissions for every new user because access roles cannot be copied, and a single error blocks the user.\n  quote: The issue is we can’t copy access roles — each new user needs permissions manually assigned, and one mistake blocks them entirely.\n- problem: Assigning permissions for each new team member is slow and they fear missing a required setup.\n  quote: it’s taking forever to assign permissions. Each person needs a custom setup and I keep worrying I’ll miss something.\n- problem: Users become frustrated when trying to set permissions in the admin area.\n  quote: Administration: click \"Permission\", rage x5\n- problem: The customer is having trouble understanding how to assign roles during setup.\n  quote: Perfect — we’ve had issues with permissions before. Can you show how roles are assigned during setup?\n- problem: The user cannot assign roles to new team members on the claims dashboard.\n  quote: Hi Bryn, I’m having trouble assigning roles to new team members on our claims dashboard.\n- problem: Manually configuring permissions for each new user is slow and prone to errors, causing lockouts.\n  quote: the permission setup is taking ages — each user needs dozens of boxes ticked manually and if we miss one, they get locked out."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Role and permission setup is manual and error-prone\",\n  \"problem_statement\": \"Admins struggle to assign roles to new team members because permissions must be configured manually for each user, with no way to copy settings. A single missed setting locks users out, delaying work and increasing frustration.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 475,
+   "tokens_out": 66,
+   "cost_usd": 0.0001201
+  }
+ }
+}

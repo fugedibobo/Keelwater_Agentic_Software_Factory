@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The platform does not currently allow exporting case notes as PDFs, which is needed for audit and compliance.\n  quote: Can we export our case notes as PDFs? It’s for audit purposes. We need to be able to export notes as PDF for compliance and internal review — it’s not just convenience, it’s required for our monthly audits."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Missing PDF export for case notes\",\n  \"problem_statement\": \"Users cannot export case notes as PDFs, which prevents them from meeting audit and compliance requirements. This forces manual workarounds and risks non-compliance during reviews.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 178,
+   "tokens_out": 54,
+   "cost_usd": 7.72e-05
+  }
+ }
+}

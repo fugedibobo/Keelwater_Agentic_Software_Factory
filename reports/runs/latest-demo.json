@@ -1,5 +1,5 @@
 {
-  "cost_usd": 0.06732623800000002,
+  "cost_usd": 0.0,
   "manifest": {
     "as_of": "2026-11-03",
     "batch": "all",
@@ -1230,8 +1230,8 @@
     },
     "seed": 42
   },
-  "output_hash": "2da85f4ccef3a45cf396b63dd98a4034f6833444064fdcde1a2356886cb53664",
-  "run_id": "6cd394d3d9d6413b",
+  "output_hash": "703c04e003c65c8c7a4c2c577b6814024ac6fbbb00a0b7059c8fb0ec222f6baf",
+  "run_id": "f393f6e5c86d4a45",
   "stages": {
     "brief": "done",
     "cluster": "done",

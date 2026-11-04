@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"I need to reset my password for the claims portal — can you help me with that right away?\",\n \"quotes\": [\n  {\n   \"date\": \"2026-10-27T09:47:00+00:00\",\n   \"quote\": \"I need to reset my password for the claims portal — can you help me with that right away?\",\n   \"route\": \"support\"\n  },\n  {\n   \"date\": \"2026-09-22T16:21:00+00:00\",\n   \"quote\": \"Hi Deryn, thanks for jumping on this call — I’ve got a few things I’d like to flag about how we’re using the system lately.\",\n   \"route\": \"account_management\"\n  },\n  {\n   \"date\": \"2026-09-06T16:41:00+00:00\",\n   \"quote\": \"Could you walk me through how to upload supporting documents for a claim? I keep getting stuck at the supplier validation step.\",\n   \"route\": \"support\"\n  },\n  {\n   \"date\": \"2026-09-25T13:58:00+00:00\",\n   \"quote\": \"Hi Bryn, I’m having trouble logging into Keelwater to upload the policyholder documents for our latest claim.\",\n   \"route\": \"support\"\n  }\n ],\n \"title\": \"I need to reset my password for the claims portal — can\"\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The title and problem statement are a password reset request for the claims portal, which is a routine support issue a help article would answer, not an actionable product problem. The quotes include login trouble and a document upload question, but none describe a product defect, feature request, or workaround. The supplier validation mention is vague and not developed into a product issue. This is outside the scope of product signal.\", \"verdict\": \"fail\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 525,
+   "tokens_out": 94,
+   "cost_usd": 0.00103374
+  }
+ }
+}

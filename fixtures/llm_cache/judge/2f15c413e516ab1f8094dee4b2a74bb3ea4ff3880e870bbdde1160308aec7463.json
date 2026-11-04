@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"title\": \"Claims Processing Delays\",\n \"problem_statement\": \"Policyholders are experiencing slower claim handling, which increases complaints and risks SLA violations. These delays threaten compliance and trust ahead of critical audits.\",\n \"quotes\": [\n  {\n   \"quote\": \"That’d be a huge help — our policyholders are starting to notice the delays.\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-27T15:26:00Z\"\n  },\n  {\n   \"quote\": \"We’re under pressure to reduce delays in claims processing.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-14T09:14:00+00:00\"\n  },\n  {\n   \"quote\": \"we’re seeing a spike ... last month’s batch ... affecting ... SLAs\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-30T15:16:00+00:00\"\n  },\n  {\n   \"quote\": \"Appreciate that — we need to reduce those delays before next quarter’s audit.\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-27T15:26:00Z\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The title and problem statement describe claims processing delays, but no quote or evidence identifies Keelwater's product as the cause. The quotes ('we're under pressure to reduce delays', 'spike... affecting SLAs') describe business symptoms without pointing to any product defect, missing capability, or workaround. Delays could stem from staffing, process, or the customer's own operations, and nothing here gives a squad an actionable product problem.\", \"verdict\": \"fail\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 479,
+   "tokens_out": 123,
+   "cost_usd": 0.0012118
+  }
+ }
+}

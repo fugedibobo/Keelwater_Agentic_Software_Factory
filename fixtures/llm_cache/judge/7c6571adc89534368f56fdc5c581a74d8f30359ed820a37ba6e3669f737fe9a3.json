@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (duplicate) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is the core problem still open, not solved by a shipped story and not covered by a roadmap item? Pass means yes.\nCompare the problem itself, not the product area. A spike that is unstarted or in progress is not shipped.\nFail if a completed story solves the same problem, or a roadmap item already covers it.\nThe evidence is the problem statement and the five most similar stories and roadmap pages, with status and dates.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"Policyholders are experiencing slower claim handling, which increases complaints and risks SLA violations. These delays threaten compliance and trust ahead of critical audits.\",\n \"similar\": [\n  {\n   \"source\": \"notion\",\n   \"id\": \"721cd34e-1dc3-5b5f-8068-453592e06a05\",\n   \"similarity\": 0.036,\n   \"record\": \"{\\\"id\\\": \\\"721cd34e-1dc3-5b5f-8068-453592e06a05\\\", \\\"object\\\": \\\"page\\\", \\\"properties\\\": {\\\"Name\\\": {\\\"title\\\": [{\\\"plain_text\\\": \\\"Reserve history audit export\\\", \\\"text\\\": {\\\"content\\\": \\\"Reserve history audit export\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"title\\\"}, \\\"Problem\\\": {\\\"rich_text\\\": [{\\\"plain_text\\\": \\\"Export a detailed audit trail of all reserve adjustments for a claim, including timestamps, user actions, and reason codes, formatted for compliance review in Keelwater.\\\", \\\"text\\\": {\\\"content\\\": \\\"Export a detailed audit trail of all reserve adjustments for a claim, including timestamps, user actions, and reason codes, formatted for compliance review in Keelwater.\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"rich_text\\\"}, \\\"Status\\\": {\\\"statu\"\n  },\n  {\n   \"source\": \"notion\",\n   \"id\": \"30cf8382-0725-5e19-b883-945ae35bebcd\",\n   \"similarity\": 0.034,\n   \"record\": \"{\\\"id\\\": \\\"30cf8382-0725-5e19-b883-945ae35bebcd\\\", \\\"object\\\": \\\"page\\\", \\\"properties\\\": {\\\"Name\\\": {\\\"title\\\": [{\\\"plain_text\\\": \\\"Supplier directory\\\", \\\"text\\\": {\\\"content\\\": \\\"Supplier directory\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"title\\\"}, \\\"Problem\\\": {\\\"rich_text\\\": [{\\\"plain_text\\\": \\\"A searchable directory within Keelwater that lets users find and manage supplier information, including contact details, contract status, and claim history, streamlining collaboration and compliance tracking.\\\", \\\"text\\\": {\\\"content\\\": \\\"A searchable directory within Keelwater that lets users find and manage supplier information, including contact details, contract status, and claim history, streamlining collaboration and compliance tracking.\\\"},\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4127\",\n   \"similarity\": 0.021,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-10-06T00:00:00Z\\\", \\\"description\\\": \\\"Users can now upload multiple documents at once to a claim in Keelwater, streamlining the process and reducing manual effort for claims handlers.\\\", \\\"id\\\": 4127, \\\"name\\\": \\\"Bulk upload documents to a claim\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4136\",\n   \"similarity\": 0.02,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": false, \\\"completed_at\\\": null, \\\"description\\\": \\\"Keelwater is updating its supplier address fields to support international formats and improve data validation, ensuring accurate claim processing across global regions.\\\", \\\"id\\\": 4136, \\\"name\\\": \\\"Supplier address fields\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 2}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4138\",\n   \"similarity\": 0.02,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": false, \\\"completed_at\\\": null, \\\"description\\\": \\\"Configure global settings for your organisation within Keelwater, including default claim categories, notification preferences, and user permissions to ensure consistent workflows across teams.\\\", \\\"id\\\": 4138, \\\"name\\\": \\\"Organisation settings\\\", \\\"started\\\": false, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 1}\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The problem is slow claim handling causing complaints and SLA/compliance risk. I checked the five most similar items: 'Reserve history audit export' (compliance audit trail, not speed), 'Supplier directory', 'Bulk upload documents to a claim' (completed, but about document upload efficiency, not overall claim handling speed), 'Supplier address fields' (in progress), and 'Organisation settings' (unstarted). All have very low similarity (≤0.036) and none address the core problem of slow claim processing or SLA violations, whether shipped or on the roadmap.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1125,
+   "tokens_out": 144,
+   "cost_usd": 0.0022086
+  }
+ }
+}

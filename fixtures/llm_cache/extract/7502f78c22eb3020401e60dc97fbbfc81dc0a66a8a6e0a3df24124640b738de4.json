@@ -1,0 +1,69 @@
+{
+ "request": {
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You extract one product insight from a single customer snippet about the Keelwater claims platform.\n\nReturn JSON with exactly these fields:\n- problem: the customer problem in one plain sentence, in your own words.\n- quote: the customer words that best show the problem, copied VERBATIM from the SNIPPET block, 5 to 60 words. Never take words from the CONTEXT block. You may join up to three fragments with \"...\" if they appear in that order.\n- workflow: the task the customer was doing, a few words.\n- desired_outcome: what the customer wants instead, one short phrase.\n\nThe CONTEXT block is what an internal Keelwater person said just before; it is context, do not quote it.\n"
+   },
+   {
+    "role": "user",
+    "content": "SNIPPET (quote only from here):\nThanks. Also — can we export our case notes as PDFs? It’s for audit purposes. We need to be able to export notes as PDF for compliance and internal review — it’s not just convenience, it’s required for our monthly audits.\n\nCONTEXT (internal, do not quote):\nTotally agree. We’re tracking this as a priority to streamline. For now, I’ll walk you through the checklist to avoid locking anyone out."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 600,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "extract",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "problem": {
+       "title": "Problem",
+       "type": "string"
+      },
+      "quote": {
+       "title": "Quote",
+       "type": "string"
+      },
+      "workflow": {
+       "title": "Workflow",
+       "type": "string"
+      },
+      "desired_outcome": {
+       "title": "Desired Outcome",
+       "type": "string"
+      }
+     },
+     "required": [
+      "problem",
+      "quote",
+      "workflow",
+      "desired_outcome"
+     ],
+     "title": "ExtractOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"problem\": \"The platform does not currently allow exporting case notes as PDFs, which is needed for audit and compliance.\",\n  \"quote\": \"Can we export our case notes as PDFs? It’s for audit purposes. We need to be able to export notes as PDF for compliance and internal review — it’s not just convenience, it’s required for our monthly audits.\",\n  \"workflow\": \"Exporting case notes for audit review\",\n  \"desired_outcome\": \"PDF export of case notes for compliance\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 322,
+   "tokens_out": 300,
+   "cost_usd": 6.366e-05
+  }
+ }
+}

@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (duplicate) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is the core problem still open, not solved by a shipped story and not covered by a roadmap item? Pass means yes.\nCompare the problem itself, not the product area. A spike that is unstarted or in progress is not shipped.\nFail if a completed story solves the same problem, or a roadmap item already covers it.\nThe evidence is the problem statement and the five most similar stories and roadmap pages, with status and dates.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"The user gets frustrated when trying to select a document type.\",\n \"similar\": [\n  {\n   \"id\": \"6c413d61-b72b-5cf2-9349-34ba54498719\",\n   \"record\": \"{\\\"id\\\": \\\"6c413d61-b72b-5cf2-9349-34ba54498719\\\", \\\"object\\\": \\\"page\\\", \\\"properties\\\": {\\\"Name\\\": {\\\"title\\\": [{\\\"plain_text\\\": \\\"October release notes\\\", \\\"text\\\": {\\\"content\\\": \\\"October release notes\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"title\\\"}, \\\"Problem\\\": {\\\"rich_text\\\": [{\\\"plain_text\\\": \\\"Keelwater's October release notes detail incremental improvements to claims processing workflows, including faster document upload speeds and enhanced error logging for user troubleshooting.\\\", \\\"text\\\": {\\\"content\\\": \\\"Keelwater's October release notes detail incremental improvements to claims processing workflows, including faster document upload speeds and enhanced error logging for user troubleshooting.\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"ri\",\n   \"similarity\": 0.065,\n   \"source\": \"notion\"\n  },\n  {\n   \"id\": \"3d6f7b4a-ed9c-52d3-97a0-2d967a79bcf2\",\n   \"record\": \"{\\\"id\\\": \\\"3d6f7b4a-ed9c-52d3-97a0-2d967a79bcf2\\\", \\\"object\\\": \\\"page\\\", \\\"properties\\\": {\\\"Name\\\": {\\\"title\\\": [{\\\"plain_text\\\": \\\"Policyholder milestone notifications\\\", \\\"text\\\": {\\\"content\\\": \\\"Policyholder milestone notifications\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"title\\\"}, \\\"Problem\\\": {\\\"rich_text\\\": [{\\\"plain_text\\\": \\\"Keelwater will automatically notify policyholders when they reach key milestones in their claims process, such as document submission completion, adjuster assignment, or payout approval, helping them stay informed without needing to check status manually.\\\", \\\"text\\\": {\\\"content\\\": \\\"Keelwater will automatically notify policyholders when they reach key milestones in their claims process, such as document submi\",\n   \"similarity\": 0.052,\n   \"source\": \"notion\"\n  },\n  {\n   \"id\": \"4138\",\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": false, \\\"completed_at\\\": null, \\\"description\\\": \\\"Configure global settings for your organisation within Keelwater, including default claim categories, notification preferences, and user permissions to ensure consistent workflows across teams.\\\", \\\"id\\\": 4138, \\\"name\\\": \\\"Organisation settings\\\", \\\"started\\\": false, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 1}\",\n   \"similarity\": 0.051,\n   \"source\": \"shortcut\"\n  },\n  {\n   \"id\": \"4132\",\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-09-15T00:00:00Z\\\", \\\"description\\\": \\\"Keelwater now displays a chronological activity timeline for each claim, showing key events, user actions, and system updates in a clear, scrollable interface to improve case tracking and accountability.\\\", \\\"id\\\": 4132, \\\"name\\\": \\\"Activity timeline display\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\",\n   \"similarity\": 0.048,\n   \"source\": \"shortcut\"\n  },\n  {\n   \"id\": \"12bcb5be-0c29-55d6-8bc8-8920d645ee53\",\n   \"record\": \"{\\\"id\\\": \\\"12bcb5be-0c29-55d6-8bc8-8920d645ee53\\\", \\\"object\\\": \\\"page\\\", \\\"properties\\\": {\\\"Name\\\": {\\\"title\\\": [{\\\"plain_text\\\": \\\"Account settings\\\", \\\"text\\\": {\\\"content\\\": \\\"Account settings\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"title\\\"}, \\\"Problem\\\": {\\\"rich_text\\\": [{\\\"plain_text\\\": \\\"Configure user preferences and security settings for your Keelwater account, including notification options, password management, and access controls.\\\", \\\"text\\\": {\\\"content\\\": \\\"Configure user preferences and security settings for your Keelwater account, including notification options, password management, and access controls.\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"rich_text\\\"}, \\\"Status\\\": {\\\"status\\\": {\\\"name\\\": \\\"Planned\\\"}, \\\"type\\\": \\\"status\\\"}, \\\"Target\\\": {\\\"date\\\":\",\n   \"similarity\": 0.048,\n   \"source\": \"notion\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The problem is user frustration when selecting a document type. The five most similar items—October release notes, policyholder milestone notifications, an unstarted Organisation settings story, a completed Activity timeline display story, and a Planned Account settings page—address unrelated problems (upload speed, notifications, settings, timelines), and none mention document type selection. No shipped story or roadmap item covers this problem.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1246,
+   "tokens_out": 91,
+   "cost_usd": 0.0002144954
+  }
+ }
+}
