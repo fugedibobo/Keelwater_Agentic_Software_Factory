@@ -13,7 +13,7 @@ from signal_engine import config
 from signal_engine.gateway import InvalidResponse
 from .brief import labels, make_prompt, mention_briefs
 from .specs import ROOT, load
-from .verify import leaked_terms, repeated_record_ids, unknown_names, verify_mention_text
+from .verify import leaked_terms, note_text, repeated_record_ids, unknown_names, verify_mention_text
 
 MODEL = config.load('models')['profiles']['demo']['stages']['generate']['model']
 TURN_ITEM = {
@@ -210,6 +210,8 @@ def write_record(record, seed, make_request, start_attempt=0, on_rejection=None)
                         errors.append(f"{record['id']}: forbidden raw phrase {terms[0]}")
             if errors:
                 raise RecordValidationError('; '.join(errors))
+            for turn in response['turns']:
+                note_text(turn['text'])
             return response
         except (RecordValidationError, InvalidResponse) as exc:
             last = exc

@@ -36,6 +36,14 @@ def verify_plan(plan: dict) -> list[str]:
     return errors
 
 
+SEEN_LOWER: set[str] = set()  # lowercase words already seen in accepted generated records of this run
+_LOWER = r"(?<![\w@.])[a-z]+(?![\w@.])"
+
+
+def note_text(text: str) -> None:
+    SEEN_LOWER.update(re.findall(_LOWER, text))
+
+
 def unknown_names(text: str, seed: int = 42) -> list[str]:
     """# shortcut: capitalisation heuristic, upgrade to an NER pass if a real export is ever generated from.
 
@@ -49,6 +57,10 @@ def unknown_names(text: str, seed: int = 42) -> list[str]:
     allowed_names = {a['name'] for a in spec['accounts']['accounts']} | set(spec['glossary'].get('common_capitalised', []))
     allowed_names.update(p['name'] for p in spec['people']['staff'] + spec['people']['customer_contacts'])
     allowed_names.update(p['name'] for p in spec['people'].get('brokers', []))
+    # A capitalised word is a name candidate only if its lowercase form never appears in this text, earlier accepted
+    # records or the spec text; an invented proper name is never written in lowercase, a role word like Customer is.
+    known = set(re.findall(_LOWER, text)) | SEEN_LOWER | set(re.findall(_LOWER, ' '.join(str(spec[k]) for k in ('themes', 'people', 'accounts', 'glossary', 'noise'))))
+    allowed |= {w for w in re.findall(r"[A-Z][a-z]+", text) if w.lower() in known}
     unknown = []
     for match in re.finditer(r'\b[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*\b', text):
         prefix = text[:match.start()].rstrip()
@@ -56,7 +68,7 @@ def unknown_names(text: str, seed: int = 42) -> list[str]:
         if not prefix or prefix[-1] in '.!?':
             words = words[1:]
         phrase = ' '.join(words)
-        if words and (any(word not in allowed for word in words) or (len(words) > 1 and not any(f' {phrase} ' in f" {' '.join(re.findall(r'[A-Za-z]+', n))} " for n in allowed_names))):  # a contiguous part of a listed name passes
+        if words and (any(word not in allowed for word in words) or (len(words) > 1 and not all(w.lower() in known for w in words) and not any(f' {phrase} ' in f" {' '.join(re.findall(r'[A-Za-z]+', n))} " for n in allowed_names))):  # a contiguous part of a listed name passes
             unknown.append(phrase)
     return unknown
 

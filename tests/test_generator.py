@@ -472,3 +472,10 @@ def test_dry_pass_every_planned_record_satisfies_the_missing_element_rules_by_co
             validate_response(r, merged, seed)  # no rule at all fires, so no missing-element rule is masked
             checked += 1
     assert checked > 140
+
+
+def test_role_word_passes_when_written_lowercase_elsewhere_and_invented_name_fails():
+    from generator.verify import unknown_names
+    assert unknown_names('We spoke. Customer is high-priority and the customer agrees', 42) == []
+    assert unknown_names('The Zorbulon team said the customer agrees', 42) == ['Zorbulon']
+    assert unknown_names('We heard from Brackenford Mutual today.', 42)
