@@ -4,7 +4,9 @@ Synthetic company, invented data. Inputs are labelled FOUND or INFERRED in `conf
 
 ## Answer
 
-Halving idea-to-customer is not plausible within 18 months in the mid scenario (month-18 index 79% of baseline; low 99%, high 51%): no scenario reaches it, and AI alone does not halve it (ai_only mid 95% at month 18).
+Halving idea-to-customer is not plausible within 18 months on the mid inputs (month-18 index 79% of baseline); the high scenario reaches 51% by month 18; AI alone does not halve it (ai_only mid 95%). It becomes plausible only if other stages speed up as well: even a 90% process cut of both decision latency and review wait leaves the index at 55% by month 18.
+
+Note: the process-change effects are INFERRED (my reasoning from Part 1, not measured) and they set this answer.
 
 ## First month at or below 50% of baseline
 
@@ -28,6 +30,19 @@ Swing in the month-18 idea_to_customer index (ai_plus_process), moving one input
 | build AI effect | -0.04 | -0.40 | 82% | 77% | 5.0 pt |
 | review process effect | -0.10 | -0.60 | 81% | 77% | 4.4 pt |
 | discovery_decision AI effect | 0.00 | -0.30 | 81% | 77% | 4.2 pt |
+
+## What would have to be true
+
+Mid inputs, ai_plus_process, idea_to_customer. The extra process cut is added to the mid process effect (fractional points of stage time) and is solved by bisection for the index to reach 50% of baseline. Total cut is the AI plus process effect on that stage's time at the month shown. A 90% process cut is the cap.
+
+| Lever | By month | Extra process cut | Total stage-time cut |
+|---|---|---|---|
+| discovery_decision | 18 | not reachable by this lever alone | index still 60% at a 90% process cut |
+| discovery_decision | 12 | not reachable by this lever alone | index still 60% at a 90% process cut |
+| review | 18 | not reachable by this lever alone | index still 74% at a 90% process cut |
+| review | 12 | not reachable by this lever alone | index still 74% at a 90% process cut |
+| discovery_decision and review together | 18 | not reachable by this lever alone | index still 55% at a 90% process cut |
+| discovery_decision and review together | 12 | not reachable by this lever alone | index still 55% at a 90% process cut |
 
 ## Tracker status
 

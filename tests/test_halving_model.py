@@ -106,3 +106,27 @@ def test_tracker_windows_on_hand_made_csv(tmp_path):
     assert tp["a"] == pytest.approx((2 / 3, 0.5, 0.5 / (2 / 3) - 1))
     # raw can be outside 0-100% and is clamped for display
     assert hm.clamp(-0.2) == 0.0 and hm.clamp(1.4) == 1.0
+
+
+def _req_toy(share_a):
+    return {"shares": {"a": share_a, "b": 1 - share_a}, "ai": {"a": 0.0, "b": 0.0}, "proc": {"a": 0.0, "b": 0.0},
+            "ramp": [0.0] * 18, "start": 1, "full": 1}
+
+
+def test_required_cuts_bisection_on_toy_input():
+    # a alone with share 0.6: 0.6 * (1 + p) + 0.4 <= 0.5 needs p = -5/6, so extra 0.8333 and total cut 83.3%
+    r = hm.required_cuts(_req_toy(0.6), ["a", "b"], [("a", ["a"])], months=(18,))[0]
+    assert r["extra"] == pytest.approx(5 / 6, abs=1e-6) and r["cuts"]["a"] == pytest.approx(5 / 6, abs=1e-6)
+    # share 0.5: even a 90% cut of a alone leaves 0.55, so not reachable by this lever alone; a and b together need 0.5
+    rows = hm.required_cuts(_req_toy(0.5), ["a", "b"], [("a", ["a"]), ("both", ["a", "b"])], months=(18,))
+    assert rows[0]["extra"] is None and rows[0]["floor"] == pytest.approx(0.55)
+    assert "not reachable by this lever alone" in hm.required_line(rows[0])
+    assert rows[1]["extra"] == pytest.approx(0.5, abs=1e-6)
+
+
+def test_required_rows_on_real_inputs_and_sentence():
+    inp = hm.load_inputs()
+    rows = hm.required_rows(inp)
+    assert len(rows) == 6 and {r["month"] for r in rows} == {12, 18}
+    sentence = hm.answer_sentence(inp, hm.run_model(inp), rows)
+    assert "on the mid inputs (month-18 index 79% of baseline)" in sentence and "It becomes plausible only if" in sentence and "even a 90% process cut" in sentence

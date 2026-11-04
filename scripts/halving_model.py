@@ -179,7 +179,80 @@ def fmt_val(v) -> str:
     return f"{v[-1]:.2f}" if isinstance(v, list) else f"{v:+.2f}" if abs(v) < 0.6 and v != 0 else f"{v:.2f}"
 
 
-def answer_sentence(inp: dict, res: dict) -> str:
+CUT_CAP = -0.90  # most any process lever may deliver: a 90% cut of the stage's time
+LEVER_NAMES = {"discovery_decision": "decision latency", "review": "review wait"}
+
+
+def required_cuts(p: dict, stages: list, levers: list, months=(18, 12)) -> list:
+    """Bisect the uniform extra process cut (fractional points, on top of p's own effect) that brings the
+    ai_plus_process index to <= 50% by each month. levers = [(name, [stages cut together])].
+    Each row: dict(lever, stages, month, extra, effects, cuts, floor); extra is None if the 90% cap is not enough."""
+    def at(x, ss):
+        q = copy.deepcopy(p)
+        for s in ss:
+            q["proc"][s] = max(CUT_CAP, p["proc"][s] - x)
+        return q
+
+    rows = []
+    for name, ss in levers:
+        for m in months:
+            def idx(x):
+                return min(index_series(at(x, ss), stages, True)[:m])
+            if idx(0.0) <= TARGET:
+                x = 0.0
+            elif idx(1.0) > TARGET + 1e-12:
+                x = None
+            else:
+                lo, hi = 0.0, 1.0
+                for _ in range(50):
+                    mid = (lo + hi) / 2
+                    lo, hi = (lo, mid) if idx(mid) <= TARGET else (mid, hi)
+                x = hi
+            q = at(1.0 if x is None else x, ss)
+            cuts = {s: 1 - (1 + q["ai"][s] * q["ramp"][m - 1]) * (1 + q["proc"][s] * phase(q["start"], q["full"], m))
+                    for s in ss}
+            rows.append({"lever": name, "stages": ss, "month": m, "extra": x,
+                         "effects": {s: q["proc"][s] for s in ss}, "cuts": cuts, "floor": idx(1.0)})
+    return rows
+
+
+def required_rows(inp: dict) -> list:
+    levers = [("discovery_decision", ["discovery_decision"]), ("review", ["review"]),
+              ("discovery_decision and review together", ["discovery_decision", "review"])]
+    return required_cuts(params_for(inp, "mid"), inp["lead_time_definitions"]["idea_to_customer"], levers)
+
+
+def required_line(r: dict) -> str:
+    if r["extra"] is None:
+        return (f"not reachable by this lever alone (even a 90% process cut leaves the index at {r['floor']:.0%} "
+                f"by month {r['month']})")
+    cuts = " and ".join(f"{s} {c:.0%}" for s, c in r["cuts"].items())
+    return f"extra process cut of {r['extra'] * 100:.1f} points; total stage-time cut by month {r['month']}: {cuts}"
+
+
+def required_text(rows: list) -> str:
+    L = ["What would have to be true (mid inputs, ai_plus_process, idea_to_customer): extra process cut, added to the mid "
+         "process effect, needed to reach 50% of baseline. Total cut = AI plus process effect on the stage's time."]
+    for r in rows:
+        L.append(f"  by month {r['month']:>2}, {r['lever']}: {required_line(r)}")
+    return "\n".join(L)
+
+
+def required_phrase(rows: list) -> str:
+    """The cheapest lever that reaches 50% by month 18, as the end of the answer sentence."""
+    ok = [r for r in rows if r["month"] == MONTHS and r["extra"] is not None]
+    if not ok:
+        both = next(r for r in rows if r["month"] == MONTHS and len(r["stages"]) == 2)
+        return (f"other stages speed up as well: even a 90% process cut of both decision latency and review wait "
+                f"leaves the index at {both['floor']:.0%} by month {MONTHS}")
+    r = min(ok, key=lambda r: r["extra"])
+    stages = " and ".join(LEVER_NAMES[s] for s in r["stages"])
+    cuts = " and ".join(f"{c:.0%}" for c in r["cuts"].values())
+    return (f"{stages} stage time falls {cuts} in total by month {MONTHS} "
+            f"(an extra {r['extra'] * 100:.0f} points of process cut beyond the mid case)")
+
+
+def answer_sentence(inp: dict, res: dict, req: list = None) -> str:
     cross = {sc: first_crossing(res[(sc, "ai_plus_process", "idea_to_customer")]) for sc in SCENARIOS}
     m18 = {sc: res[(sc, "ai_plus_process", "idea_to_customer")][-1] for sc in SCENARIOS}
     ai18 = res[("mid", "ai_only", "idea_to_customer")][-1]
@@ -189,11 +262,11 @@ def answer_sentence(inp: dict, res: dict) -> str:
         hi = cross["high"] and f"month {cross['high']}" or f"later than month {MONTHS}"
         return (f"Halving idea-to-customer is plausible by month {cross['mid']} (mid), between {hi} (high) "
                 f"and {lo} (low), and does not happen {z}.")
-    reach = (f"only the high scenario reaches it, at month {cross['high']}" if cross["high"]
-             else "no scenario reaches it")
-    return (f"Halving idea-to-customer is not plausible within {MONTHS} months in the mid scenario "
-            f"(month-{MONTHS} index {m18['mid']:.0%} of baseline; low {m18['low']:.0%}, high {m18['high']:.0%}): "
-            f"{reach}, and AI alone does not halve it (ai_only mid {ai18:.0%} at month {MONTHS}).")
+    req = req or required_rows(inp)
+    return (f"Halving idea-to-customer is not plausible within {MONTHS} months on the mid inputs "
+            f"(month-{MONTHS} index {m18['mid']:.0%} of baseline); the high scenario reaches {m18['high']:.0%} by month "
+            f"{MONTHS}; AI alone does not halve it (ai_only mid {ai18:.0%}). It becomes plausible only if "
+            f"{required_phrase(req)}.")
 
 
 def model_text(res: dict) -> str:
@@ -408,10 +481,10 @@ def write_chart(res: dict, tracker: dict, out_dir: Path) -> None:
     plt.close(fig)
 
 
-def summary_md(inp: dict, res: dict, sens: list, t) -> str:
-    d = "idea_to_customer"
+def summary_md(inp: dict, res: dict, sens: list, t, req: list) -> str:
     L = ["# Halving model: summary", "", "Synthetic company, invented data. Inputs are labelled FOUND or INFERRED in "
-         "`config/halving_inputs.yaml`; most are INFERRED.", "", "## Answer", "", answer_sentence(inp, res), "",
+         "`config/halving_inputs.yaml`; most are INFERRED.", "", "## Answer", "", answer_sentence(inp, res, req), "",
+         "Note: the process-change effects are INFERRED (my reasoning from Part 1, not measured) and they set this answer.", "",
          "## First month at or below 50% of baseline", "",
          "| Scenario | Levers | idea_to_production_behind_flag | idea_to_customer | idea_to_customer at month 18 |",
          "|---|---|---|---|---|"]
@@ -425,6 +498,18 @@ def summary_md(inp: dict, res: dict, sens: list, t) -> str:
           "| Input | Low | High | Index at low | Index at high | Swing |", "|---|---|---|---|---|---|"]
     for n, lo, hi, il, ih, sw in sens[:5]:
         L.append(f"| {n} | {fmt_val(lo)} | {fmt_val(hi)} | {il:.0%} | {ih:.0%} | {sw * 100:.1f} pt |")
+    L += ["", "## What would have to be true", "",
+          "Mid inputs, ai_plus_process, idea_to_customer. The extra process cut is added to the mid process effect "
+          "(fractional points of stage time) and is solved by bisection for the index to reach 50% of baseline. "
+          "Total cut is the AI plus process effect on that stage's time at the month shown. A 90% process cut is the cap.", "",
+          "| Lever | By month | Extra process cut | Total stage-time cut |", "|---|---|---|---|"]
+    for r in req:
+        if r["extra"] is None:
+            L.append(f"| {r['lever']} | {r['month']} | not reachable by this lever alone | "
+                     f"index still {r['floor']:.0%} at a 90% process cut |")
+        else:
+            cuts = ", ".join(f"{s} {c:.0%}" for s, c in r["cuts"].items())
+            L.append(f"| {r['lever']} | {r['month']} | {r['extra'] * 100:.1f} points | {cuts} |")
     L += ["", "## Tracker status", ""]
     if t:
         c0, c1 = t["cur_months"]
@@ -451,6 +536,7 @@ def main(argv=None) -> None:
     ap.add_argument("--generate", action="store_true", help="write synthetic items.csv (seed 42)")
     ap.add_argument("--track", nargs="?", const=str(ITEMS), metavar="CSV", help="report tracker progress from an items csv")
     ap.add_argument("--outputs", "--chart", action="store_true", help="write halving.svg, halving.png, summary.md, tracker.md")
+    ap.add_argument("--required", action="store_true", help="solve the extra process cut needed to reach 50%% (also in --outputs)")
     ap.add_argument("--items", default=str(ITEMS), help="items csv for --generate and --outputs")
     ap.add_argument("--config", default=str(CONFIG))
     ap.add_argument("--out-dir", default=str(OUT_DIR))
@@ -472,10 +558,14 @@ def main(argv=None) -> None:
         return
     res = run_model(inp)
     sens = sensitivity(inp)
-    print(model_text(res), "", sens_text(sens), "", answer_sentence(inp, res), sep="\n")
+    req = required_rows(inp)
+    print(model_text(res), "", sens_text(sens), sep="\n")
+    if a.required or a.outputs:
+        print("", required_text(req), sep="\n")
+    print("", answer_sentence(inp, res, req), sep="\n")
     if a.outputs:
         write_chart(res, t, out_dir)
-        (out_dir / "summary.md").write_text(summary_md(inp, res, sens, t), encoding="utf-8", newline="\n")
+        (out_dir / "summary.md").write_text(summary_md(inp, res, sens, t, req), encoding="utf-8", newline="\n")
         print(f"wrote halving.svg, halving.png, summary.md in {out_dir}")
 
 
