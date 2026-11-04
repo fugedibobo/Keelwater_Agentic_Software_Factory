@@ -14,7 +14,8 @@ BULLET = re.compile(r"^\s*(?:[-*]|\d+\.)\s+")
 MONEY = re.compile(r"\u00a3\s?([\d,]+(?:\.(\d+))?)\s?(bn|m|k)?\b", re.I)
 COUNT = re.compile(r"\b(\d+|one|two|three|four|five|six|seven|eight|nine|ten)\s+(?:[\w-]+\s+)?(account|customer|mention|route|renewal)s?\b", re.I)
 WINDOW = re.compile(r"\b90[- ]days?\b", re.I)  # the renewal horizon of the fact sheet (brief.RENEWAL_DAYS)
-NUMBER = re.compile(r"\d[\d,.]*|%|\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|dozen|hundred|thousand|million)\b", re.I)
+ISO = re.compile(r"\b\d{4}-\d{2}-\d{2}\b")
+NUMBER = re.compile(r"\d(?:,?\d)*(?:\.\d+)?|%|\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|dozen|hundred|thousand|million)\b", re.I)
 WORDS = dict(zip("one two three four five six seven eight nine ten".split(), range(1, 11)))
 UNIT = {"": 1, "k": 10**3, "m": 10**6, "bn": 10**9}
 RULES = ("cited_ids", "uncited_claims", "numbers", "quotes", "customer_names", "citation_spread")
@@ -83,6 +84,9 @@ def check(body, members, facts, names):
             fail("cited_ids", f"{i} has an unverified quote")
     allowed_money = [facts["arr_total_gbp"], *[a["arr_gbp"] for a in facts["accounts"] if a["arr_gbp"] is not None]]
     expected = count_expected(facts)
+    facts_n = {Decimal(str(x)) for x in [*allowed_money, *[n for v in expected.values() for n in v]]}
+    facts_n |= {Decimal(facts["as_of"][:4])} if facts.get("as_of") else set()  # the as-of year
+    dates = {facts.get("as_of"), *[(a.get("renewal_date") or "")[:10] for a in facts["accounts"]]} - {None, ""}
     for section, bullet, sent in units(body):
         ids = cited_ids(sent)
         plain = QUOTE.sub("", sent)
@@ -95,9 +99,12 @@ def check(body, members, facts, names):
             n = WORDS.get(m.group(1).lower()) or int(m.group(1))
             if n not in expected[m.group(2).lower()]:
                 fail("numbers", f"'{m.group(0)}' does not match the fact sheet ({sorted(expected[m.group(2).lower()])})")
-        rest = COUNT.sub(" ", WINDOW.sub(" ", MONEY.sub(" ", CITE.sub(" ", plain))))
-        for m in NUMBER.finditer(rest):  # rule 3, any other number is a claim no fact type supports
-            fail("numbers", f"'{m.group(0)}' is not a supported fact (account/mention/route/renewal count, ARR or 90 days): {sent[:60]}")
+        rest = COUNT.sub(" ", MONEY.sub(" ", ISO.sub(lambda m: " " if m.group(0) in dates else m.group(0), CITE.sub(" ", plain))))
+        for m in NUMBER.finditer(WINDOW.sub(" ", rest)):  # rule 3, every other number must equal a fact-sheet value
+            tok = m.group(0)
+            v = Decimal({**WORDS, "zero": 0}[tok.lower()]) if tok.lower() in {**WORDS, "zero": 0} else None if not tok[0].isdigit() else Decimal(tok.replace(",", ""))
+            if v is None or v not in facts_n:
+                fail("numbers", f"'{tok}' matches no fact-sheet value: {sent[:60]}")
         have = {norm(members[i]["quote"]) for i in ids if i in members}
         for m in QUOTE.finditer(sent):  # rule 4
             if norm(m.group(1) or m.group(2)) not in have:

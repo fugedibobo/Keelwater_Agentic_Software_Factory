@@ -51,7 +51,7 @@ def test_one_failing_example_per_rule(rule, old, new):
 
 @pytest.mark.parametrize("old,new", [
     ("Claims handlers lose time when uploads fail [i:a]", "Failure rate is 99% [i:a]"),    # cited, but no fact supports a percentage
-    ("Claims handlers lose time when uploads fail [i:a]", "Several handlers lose three hours a day [i:a]"),  # number word outside a count phrase
+    ("Claims handlers lose time when uploads fail [i:a]", "Seven handlers lose time every day [i:a]"),  # number word outside a count phrase
     ("Claims handlers lose time when uploads fail [i:a]", "Uploads fail 12 times a day [i:a]"),  # digits outside a count phrase
 ])
 def test_numbers_outside_supported_facts_fail(old, new):
