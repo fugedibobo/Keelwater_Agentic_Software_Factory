@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "intercom_conversation",
+  "description": "One retrieved conversation with conversation_parts. Times are Unix seconds; author.type user, admin or bot; part_type note is internal.",
+  "type": "object",
+  "properties": {
+    "type": {
+      "const": "conversation"
+    },
+    "id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "integer"
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "author": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ]
+        },
+        "body": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "author"
+      ]
+    },
+    "ai_agent": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "conversation_parts": {
+      "type": "object",
+      "properties": {
+        "conversation_parts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "part_type": {
+                "type": "string"
+              },
+              "body": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "created_at": {
+                "type": "integer"
+              },
+              "author": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "enum": [
+                      "user",
+                      "admin",
+                      "bot"
+                    ]
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "type"
+                ]
+              }
+            },
+            "required": [
+              "part_type",
+              "created_at",
+              "author"
+            ]
+          }
+        }
+      },
+      "required": [
+        "conversation_parts"
+      ]
+    }
+  },
+  "required": [
+    "type",
+    "id",
+    "created_at",
+    "source",
+    "conversation_parts"
+  ]
+}

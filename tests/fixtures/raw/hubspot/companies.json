@@ -1,0 +1,14 @@
+{
+  "results": [
+    {
+      "id": "100",
+      "properties": {
+        "name": "Fixture Insurance",
+        "domain": "client.example",
+        "keelwater_arr_gbp": "1,250,000",
+        "keelwater_tier": "Strategic",
+        "renewal_date": null
+      }
+    }
+  ]
+}

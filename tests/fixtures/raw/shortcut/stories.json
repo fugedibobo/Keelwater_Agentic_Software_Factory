@@ -1,0 +1,12 @@
+{
+  "stories": [
+    {
+      "id": 4127,
+      "name": "Bulk upload",
+      "story_type": "feature",
+      "completed": true,
+      "completed_at": "2026-10-06T10:00:00Z",
+      "description": null
+    }
+  ]
+}

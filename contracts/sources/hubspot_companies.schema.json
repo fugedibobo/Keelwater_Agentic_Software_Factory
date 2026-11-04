@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "hubspot_companies",
+  "description": "CRM companies list. Every property value is a string or null (ARR in mixed formats).",
+  "type": "object",
+  "properties": {
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "properties": {
+            "type": "object",
+            "additionalProperties": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "required": [
+              "name",
+              "domain"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "properties"
+        ]
+      }
+    }
+  },
+  "required": [
+    "results"
+  ]
+}

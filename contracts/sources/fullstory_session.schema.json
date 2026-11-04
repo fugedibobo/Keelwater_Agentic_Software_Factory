@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "fullstory_session",
+  "description": "One session-list row; userId is the user email and joins the account.",
+  "type": "object",
+  "properties": {
+    "userId": {
+      "type": "string"
+    },
+    "sessionId": {
+      "type": "string"
+    },
+    "createdTime": {
+      "type": "string"
+    },
+    "fsUrl": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "userId",
+    "sessionId",
+    "createdTime"
+  ]
+}

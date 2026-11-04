@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "notion_pages",
+  "description": "Pages of the roadmap data source: Name (title), Status, Target (date), Problem (rich_text).",
+  "type": "object",
+  "properties": {
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "properties": {
+            "type": "object",
+            "properties": {
+              "Name": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "plain_text": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "plain_text"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "title"
+                ]
+              },
+              "Status": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ]
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "Target": {
+                "type": "object",
+                "properties": {
+                  "date": {
+                    "type": [
+                      "object",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "date"
+                ]
+              },
+              "Problem": {
+                "type": "object",
+                "properties": {
+                  "rich_text": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "plain_text": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "plain_text"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "rich_text"
+                ]
+              }
+            },
+            "required": [
+              "Name",
+              "Status"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "properties"
+        ]
+      }
+    }
+  },
+  "required": [
+    "results"
+  ]
+}

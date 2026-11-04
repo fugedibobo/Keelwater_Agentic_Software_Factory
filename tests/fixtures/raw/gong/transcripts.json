@@ -1,0 +1,20 @@
+{
+  "callTranscripts": [
+    {
+      "callId": "g1",
+      "transcript": [
+        {
+          "speakerId": "s2",
+          "topic": null,
+          "sentences": [
+            {
+              "start": 1000,
+              "end": 4200,
+              "text": "Uploaded documents keep landing under the wrong type."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
