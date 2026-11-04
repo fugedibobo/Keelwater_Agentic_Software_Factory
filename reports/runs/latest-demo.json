@@ -1,15 +1,15 @@
 {
-  "cost_usd": 0.0,
+  "cost_usd": 0.0047552,
   "manifest": {
     "as_of": "2026-11-03",
     "batch": "all",
     "cache_keys": [
       "brief/2c1d8d7325b0631c5b3bdec10837b081a6a18db38594783b0c1d9e7ea45081af",
       "brief/311307c885f46b388cae8ad06183f187850b53c4192be25f36cb65ae8399e3d1",
+      "brief/38d854bc49bc47ca619e9bf2e5755c2f86aa587597997f6d1fedf7d34337431c",
       "brief/3b92f3ae8e09a5cf3d53fe474804be2be99f9a7728f82ded0d416c995cd5c736",
       "brief/4e711fde8938cbe573319314772ced66cf23d84935c376b1dc5c5eae1062ba2f",
       "brief/5d1867167b29fb75938a7a7283c897199a0595dcbe214bf265696a6af7816f0b",
-      "brief/61673c9dd57afb615aba720a3b3754532282d94788442fbc4435b7b7d503747f",
       "brief/682a7f9871494cbd2ab7987dcfb97a68cf252bbc94b9b8e348a6c4f0658f043d",
       "brief/7d96336cde8926d6da34669dabe6e81569e343a7fed8cd546f32dc1b5325d784",
       "brief/864628735fba6f735c8719090ef003a6c57a9115894a5ff6ee3bb1ad029d74f4",
@@ -468,6 +468,7 @@
       "judge/05574e983fc9af85d86dae5df9d98e29b5561c528672b0d4ac69abca54ab6542",
       "judge/0b030f8503166e1d038dad8a940feee41bbb997a41c3fb5d967ff3fad097d0b6",
       "judge/0de8bc78e2bcdb31d2ebf23a68094bd95476e6a0bcc0db44796ec84599f82c8c",
+      "judge/143cf2ad8ced8510d8626f4fce301bce56e943ec88854209a24d1578ea2a3d4a",
       "judge/144e276a78170c5cde6e0a4a0ac7056878e9df7e50dbd4559d4d3be442672849",
       "judge/1a68febbd6c8477ddccd0aa39d266fc7a385786c0c1f231bc86a1537f1a7047f",
       "judge/39709d9006c2ae39af3f0a146f293f46a7d1b911d282bbd2720a56ddcdc5f33a",
@@ -503,7 +504,6 @@
       "judge/bf71b304681f03f7262a7698265122adc9fb810d0f81e2b77bb8e0ce9ff8a198",
       "judge/c6879a64136eda2c7f84390ce2c9eba77257f7684b544b23bd7f6b4efb4f9570",
       "judge/cb33a4ad748ea336ec32af87416bc0086113a48334434a11b6590f5496bb9f67",
-      "judge/cf68f3ff3bb1d156f3e9ad45af70cf3f109dd3e8bbe76c0cac43711229352b32",
       "judge/d5118ca2c7c3f62d18a6400d2ff9d833f516257e425380672ec07d03a66b3322",
       "judge/dcefe0f2ef0e28de0c0f7c0730b793964fe7728a0a4d0f3ec95aeee9d274059c",
       "judge/dee3a1bd2ad79b82b515c9a6e16ebf6783f4cf8ce250a69777a4ede614835788",
@@ -1230,8 +1230,8 @@
     },
     "seed": 42
   },
-  "output_hash": "703c04e003c65c8c7a4c2c577b6814024ac6fbbb00a0b7059c8fb0ec222f6baf",
-  "run_id": "f393f6e5c86d4a45",
+  "output_hash": "ea6bed3f94be1bcd7bebc2b3be3cdd9773c5c27499eb20a2b9c29823ee3ead16",
+  "run_id": "282a116e1ac24194",
   "stages": {
     "brief": "done",
     "cluster": "done",
