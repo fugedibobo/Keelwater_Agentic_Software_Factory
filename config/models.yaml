@@ -40,7 +40,8 @@ profiles:
         model: z-ai/glm-5
         fallback: z-ai/glm-5.3
         price: {in: 1.40, out: 4.40}   # est
-        max_tokens: 2500   # glm-5 reasons before it answers; 400 truncated every call (finish_reason=length)
+        max_tokens: 800   # glm-5 reasons by default and ran past 2500; reasoning off keeps verdicts short
+        reasoning: {enabled: false}
         timeout_s: 120
       handoff:
         model: deepseek/deepseek-v3.2
