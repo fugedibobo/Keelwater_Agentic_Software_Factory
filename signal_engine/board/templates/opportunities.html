@@ -1,0 +1,72 @@
+{% import "_m.html" as m %}
+<section id="opportunities" class="tab" role="tabpanel" aria-labelledby="t-opportunities">
+<h2>Opportunities</h2>
+<p class="strip" aria-label="Since last week"><strong>Since last week:</strong>
+  <button type="button" class="count" data-filter="new">{{ strip.new|length }} new</button>
+  <button type="button" class="count" data-filter="up">{{ strip.up|length }} up</button>
+  <button type="button" class="count" data-filter="down">{{ strip.down|length }} down</button>
+  <button type="button" class="count" data-filter="postship">{{ strip.post_ship|length }} post-ship feedback</button>
+  <button type="button" class="count" data-filter="decided">{{ strip.decided|length }} decided since the run</button>
+  <span>{{ strip.new_evidence }} evidence items dated in the last 7 days</span>
+  <button type="button" class="count" data-filter="" hidden id="clear-filter">clear</button></p>
+<p class="filters"><label>Bucket <select id="f-bucket"><option value="">all</option>{% for b in buckets %}<option>{{ b }}</option>{% endfor %}</select></label>
+  <label>Status <select id="f-status"><option value="">all</option>{% for s in statuses %}<option{% if s == 'proposed' %} selected{% endif %}>{{ s }}</option>{% endfor %}</select></label>
+  <label>Squad <select id="f-squad"><option value="">all</option>{% for s in squads %}<option>{{ s }}</option>{% endfor %}</select></label></p>
+
+{% if tagq %}<div class="tagq"><h3>Tags the duplicate judge disputes</h3><ul>
+{% for o in tagq %}<li>{{ o.title }}: proposed tag <strong>{{ o.tag }}</strong> ({{ o.tag_ref }}). {{ m.btn('Confirm tag', 'confirm_tag', o.opportunity_id, static) }} {{ m.btn('Remove tag', 'remove_tag', o.opportunity_id, static) }}</li>{% endfor %}</ul></div>{% endif %}
+
+<ol class="opps" id="opplist">
+{% for o in opps %}
+<li class="opp" data-id="{{ o.opportunity_id }}" data-status="{{ o.status }}" data-bucket="{{ o.bucket }}" data-squad="{{ o.squad }}" data-flags="{{ o.flags }}">
+<details>
+ <summary><span class="rank">#{{ o.rank or '-' }}</span> <span class="title">{{ o.title }}</span>
+  <span class="score">score {{ o.score if o.score is not none else '-' }}</span> <span class="trend">{{ m.trend(o) }}</span>
+  <span class="status status-{{ o.status }}">{{ o.status }}</span></summary>
+ <div class="oppline">
+  <p class="chips">{% for c in o.chips %}<span class="chip" tabindex="0" title="{{ c.hint }}">{{ c.name }} {{ c.value }}</span>{% endfor %}</p>
+  {{ m.checkline(o) }}
+  <p class="acct">{{ o.accounts_n }} accounts, {{ m.money(o.arr_gbp) }} ARR, {{ o.renewing_n }} renew in 90 days</p>
+ </div>
+ <div class="drill">
+  <p>{{ o.problem_statement }}{% if o.tag != 'none' %} <span class="chip">tag {{ o.tag }}{% if o.tag_state %}: {{ o.tag_state }}{% endif %}</span>{% endif %}</p>
+  {% if o.brief %}
+  <details class="brief"{% if not o.brief_failed %} open{% endif %}><summary>{% if o.brief_failed %}Brief hidden: a deterministic check failed. Open anyway{% else %}Brief (cited){% endif %}</summary>
+   <p>{{ o.brief.body_md }}</p></details>
+  {% for j in o.judges %}<p class="critique"><strong>{{ j.judge }} {{ j.verdict }}:</strong> {{ j.critique }}</p>{% endfor %}
+  {% endif %}
+  <h4>Evidence</h4>
+  <ul class="evidence">{% for e in o.evidence_main %}
+   <li><q class="quote">{{ e.before }}<mark>{{ e.match }}</mark>{{ e.after }}</q> <span class="tick">quote check: {{ e.match_kind }} match</span>
+     {% if e.context %}<span class="context">context, not a quote: {{ e.context }}</span>{% endif %}
+     <a href="{{ raw_href(e.raw_id) }}">{{ e.ref }}</a></li>{% else %}<li>No verified quotes.</li>{% endfor %}</ul>
+  {% if o.post_ship_evidence %}<h4>Post-ship feedback</h4><ul class="evidence">{% for e in o.post_ship_evidence %}
+   <li><q class="quote">{{ e.before }}<mark>{{ e.match }}</mark>{{ e.after }}</q> <a href="{{ raw_href(e.raw_id) }}">{{ e.ref }}</a></li>{% endfor %}</ul>{% endif %}
+  <h4>Accounts</h4>
+  <table><thead><tr><th scope="col">Account</th><th scope="col">ARR (GBP)</th><th scope="col">Tier</th><th scope="col">Renewal</th><th scope="col">Insights</th></tr></thead><tbody>
+  {% for a in o.accounts %}<tr><td>{{ a.name or a.account_id }}</td><td>{% if a.in_hubspot %}{{ m.num(a.arr_gbp) }}{% else %}not in HubSpot{% endif %}</td><td>{{ a.tier or '-' }}</td><td>{{ a.renewal or '-' }}</td><td>{{ a.insights }}</td></tr>{% else %}<tr><td colspan="5">No resolved accounts.</td></tr>{% endfor %}</tbody></table>
+  {% if o.unresolved %}<p>Unresolved: {{ o.unresolved }} insights with no account (breadth counts 0).</p>{% endif %}
+  {% if o.history %}<h4>Decisions</h4><ul>{% for h in o.history %}<li>{{ h.created_at[:16] }} {{ h.actor }}: {{ h.action }}{% if h.reason_code %} {{ h.reason_code }}{% endif %}{% if h.note %} ({{ h.note }}){% endif %}</li>{% endfor %}</ul>{% endif %}
+  <div class="actions" data-id="{{ o.opportunity_id }}" data-title="{{ o.title }}" data-evidence="{{ o.evidence|length }}">
+   {% set open_ = o.status == 'proposed' %}
+   {{ m.btn('Accept', 'accept', o.opportunity_id, static or not open_) }}
+   <span class="act"><select data-field="target" aria-label="Merge target"><option value="">Merge into...</option>{% for t in opps if t.opportunity_id != o.opportunity_id %}<option value="{{ t.opportunity_id }}">{{ t.title }}</option>{% endfor %}</select>{{ m.btn('Merge', 'merge', o.opportunity_id, static or not open_) }}</span>
+   <span class="act"><select data-field="reason" aria-label="Reject reason"><option value="">Reject reason...</option>{% for r in reasons %}<option>{{ r }}</option>{% endfor %}</select><input data-field="rnote" placeholder="reference or note" aria-label="Reject note">{{ m.btn('Reject', 'reject', o.opportunity_id, static or not open_) }}</span>
+   <span class="act"><input data-field="pnote" placeholder="park note (optional)" aria-label="Park note">{{ m.btn('Park', 'park', o.opportunity_id, static or not open_) }}</span>
+   <span class="act"><select data-field="squad" aria-label="Send to squad"><option value="">Send to squad...</option>{% for s in squads %}<option>{{ s }}</option>{% endfor %}</select>{{ m.btn('Send', 'reassign', o.opportunity_id, static) }}</span>
+   <span class="act"><input data-field="etitle" value="{{ o.title }}" aria-label="Title"><input data-field="eprob" value="{{ o.problem_statement }}" aria-label="Problem statement"><label><input type="checkbox" data-field="ewrong"> Was the original wrong?</label>{{ m.btn('Edit', 'edit', o.opportunity_id, static) }}</span>
+   {% if o.tag != 'none' and o.tag_state == 'proposed' %}{{ m.btn('Confirm tag', 'confirm_tag', o.opportunity_id, static) }} {{ m.btn('Remove tag', 'remove_tag', o.opportunity_id, static) }}{% endif %}
+  </div>
+ </div>
+</details></li>
+{% else %}<li>No opportunities in this store.</li>{% endfor %}
+</ol>
+
+<details id="labels" class="labels"><summary>This week's labels: {{ labelq.briefs|length + labelq.noise|length }} left ({{ labelq.briefs|length }} briefs, {{ labelq.noise|length }} noise)</summary>
+ <p>Blind: the judge's verdict and critique appear only after you save a label.</p>
+ {% for b in labelq.briefs %}<div class="lblitem"><h4>{{ b.title }}</h4><p>{{ b.body_md }}</p>
+  {% for j in b.judges %}<p>{{ j }}: {{ m.labelbtns('brief', 'brief', b.target_id, j, static) }}</p>{% endfor %}</div>{% endfor %}
+ {% for n in labelq.noise %}<div class="lblitem"><p>Dropped item: {{ n.text }}</p>{{ m.labelbtns('noise', 'noise_audit', n.snippet_id, 'signal', static) }}</div>{% endfor %}
+</details>
+<p class="keys">a accept  m merge  r reject  p park  s squad  e edit  u undo  l labels  ? shortcuts</p>
+</section>
