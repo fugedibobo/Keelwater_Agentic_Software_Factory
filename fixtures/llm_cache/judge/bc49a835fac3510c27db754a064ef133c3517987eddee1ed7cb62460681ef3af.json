@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"title\": \"Duplicate record merging risks data loss\",\n \"problem_statement\": \"Users cannot safely merge duplicate records because the system may delete important documents or supplier notes. This forces them to avoid merging, leaving data fragmented and harder to manage.\",\n \"quotes\": [\n  {\n   \"quote\": \"can we at least manually merge them without losing any documents or supplier notes?\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-06T16:28:00Z\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The title and problem statement claim that merging duplicate records risks deleting documents and supplier notes, forcing users to avoid merging. The single sales quote ('can we at least manually merge them without losing any documents or supplier notes?') confirms users lack a safe merge path, indicating a product behavior gap a squad could address. This is not pricing, contracts, customer IT, staffing, or a help-article issue, and it is not praise. Evidence is thin (one quote), but it is consistent with the stated problem and describes a product limitation with a workaround (avoiding merges).\",\"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 328,
+   "tokens_out": 128,
+   "cost_usd": 0.0010224
+  }
+ }
+}

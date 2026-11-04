@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"title\": \"Missing audit log export for compliance\",\n \"problem_statement\": \"Admins cannot export full audit logs, preventing compliance teams from meeting internal review deadlines. This delays audits and increases risk of non-compliance.\",\n \"quotes\": [\n  {\n   \"quote\": \"we can pull full audit logs for admin review — it’s becoming urgent for our compliance team... we really need the audit-log export for admins to meet our internal compliance deadlines\",\n   \"route\": \"account_management\",\n   \"date\": \"2026-09-01T12:50:00+00:00\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The claim is that admins cannot export full audit logs, blocking compliance reviews. The single quote (account_management, 2026-09-01) directly supports this: the customer states they need audit-log export for admins to meet internal compliance deadlines. This is a product capability gap a squad could act on, not a pricing, contract, or customer-IT issue, and no help article workaround is indicated. It is a feature request, which counts as signal.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 348,
+   "tokens_out": 107,
+   "cost_usd": 0.00044252
+  }
+ }
+}
