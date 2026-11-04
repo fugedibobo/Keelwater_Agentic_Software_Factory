@@ -153,7 +153,7 @@ Purpose: show what the last run did to the data, what it cost, and let a sceptic
 | TOTAL       470  1260   323       287    19     10           |
 +--------------------------------------------------------------+
 | Stage     model            p50 ms  tok in/out    cost USD    |
-| triage    jev-latest          210  -             0.01        |
+| triage    cloudflare/clef     210  -             0.01        |
 | Run spend USD 0.00 of cap 1.50                               |
 +--------------------------------------------------------------+
 ```
@@ -212,7 +212,7 @@ Purpose: prove every model call and human decision is on record.
 | from [   ] to [   ]  run [latest]   [Open Phoenix trace]     |
 | Hash chain: verified to event 1,284                          |
 +--------------------------------------------------------------+
-| 02:03:11 triage   jev-latest  in a1f3 out 77c2  210ms $0.00  |
+| 02:03:11 triage cloudflare/clef in a1f3 out 77c2 210ms $0.00  |
 | 02:03:12 extract  gpt-oss...  in 19bd out e0a4  640ms $0.00  |
 | 09:12:40 audit_event  priya.n  opportunity#7 reject low_value|
 | 09:12:44 audit_event  priya.n  opportunity#7 undo            |
