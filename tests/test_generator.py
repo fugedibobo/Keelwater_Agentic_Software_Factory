@@ -408,3 +408,9 @@ def test_unbanded_record_still_needs_a_real_conversation():
 def test_department_words_pass_the_name_check():
     from generator.verify import unknown_names
     assert unknown_names('we raised it with the Finance team and it was Escalated', 42) == []
+
+
+def test_part_of_another_account_name_passes_but_an_invented_company_fails():
+    from generator.verify import unknown_names
+    assert unknown_names('we spoke to Tidewell Marine about it', 42) == []
+    assert unknown_names('we spoke to Holloway Reach about it', 42)

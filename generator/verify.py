@@ -56,7 +56,7 @@ def unknown_names(text: str, seed: int = 42) -> list[str]:
         if not prefix or prefix[-1] in '.!?':
             words = words[1:]
         phrase = ' '.join(words)
-        if words and (any(word not in allowed for word in words) or (len(words) > 1 and phrase not in allowed_names)):
+        if words and (any(word not in allowed for word in words) or (len(words) > 1 and not any(f' {phrase} ' in f" {' '.join(re.findall(r'[A-Za-z]+', n))} " for n in allowed_names))  # a contiguous part of a listed name passes):
             unknown.append(phrase)
     return unknown
 
