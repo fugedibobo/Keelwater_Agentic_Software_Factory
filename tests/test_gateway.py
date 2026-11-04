@@ -158,7 +158,7 @@ def test_fake_key_is_never_written_or_logged(tmp_path, caplog, monkeypatch):
     store.close()
     # a full demo-profile run writes db, report and logs: none may hold the key
     from signal_engine.cli import main
-    assert main(["run", "--profile", "demo", "--data", "tests/fixtures/raw", "--db", str(tmp_path / "r.sqlite"),
+    assert main(["run", "--profile", "demo", "--stages", "connect,segment", "--data", "tests/fixtures/raw", "--db", str(tmp_path / "r.sqlite"),  # no model stage: no real network
                  "--cache-dir", str(tmp_path / "cache"), "--report-dir", str(tmp_path / "reports")]) == 0
     hits = [p for p in tmp_path.rglob("*") if p.is_file() and p != env and FAKE_KEY.encode() in p.read_bytes()]
     assert hits == [] and FAKE_KEY not in caplog.text
