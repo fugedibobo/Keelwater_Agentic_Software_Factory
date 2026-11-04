@@ -59,6 +59,8 @@ class Truth:
     def label(self, raw, start, end):
         """(label, (theme, mention) or None) per evals.md 4.1 rule 1."""
         key, start, end = (raw["source"], raw["source_id"]), start or 0, end or start or 0
+        if end == start:  # point snippets (Intercom parts) store whole seconds; the mention keeps its milliseconds
+            end += 999
         hits = [(t, m) for t, m in self.by_raw.get(key, []) if start <= m["at_ms"] <= end]
         sig = [h for h in hits if h[0]["kind"] in SIGNAL_KINDS]
         if sig:
