@@ -1,0 +1,92 @@
+{
+ "request": {
+  "model": "qwen/qwen3-vl-235b-a22b-instruct",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nWrite one realistic gong record for Keelwater, a UK claims-handling software company.\n</role>\n<record>\n{\"customer\": {\"account\": \"A03\", \"company\": \"Marrowgate Commercial\", \"email\": \"contact@a03.example\", \"name\": \"Celdra Cairnwick\"}, \"date\": \"2026-10-06T15:02:00Z\", \"fin_mode\": null, \"glossary\": [\"claims\", \"documents\", \"reserves\", \"payments\", \"suppliers\", \"reporting\", \"roles\", \"integrations\", \"tasks\", \"letters\", \"policyholders\"], \"never_write_verbatim\": [], \"only_people_who_may_be_named\": [\"Marrowgate Commercial\", \"Celdra Cairnwick\", \"Alwen Dovell\"], \"route\": \"sales\", \"source\": \"gong\", \"staff\": {\"email\": \"alwen.dovell@keelwater.example\", \"name\": \"Alwen Dovell\", \"team\": \"sales\"}, \"turns_range\": [15, 30]}\n</record>\n<mentions>\n[]\n</mentions>\n<noise>\n{\"admin_note\": false, \"allowed_categories\": [\"pleasantry\", \"scheduling\", \"pricing\", \"internal\", \"password_reset\", \"how_to\", \"praise\", \"closer\"], \"distractor_how_to_phrase\": null, \"instructions\": \"Tag every noise turn with its category. Put the distractor phrase, if given, in a how-to turn with no mention id. An admin note must be an internal turn tagged internal. A Fin-resolved or escalated conversation needs a bot turn; an escalated one also needs an internal reply. About 35 percent of customer turns are pleasantries. Every tagged customer mention, including a short agreement, must contain its supplied synonym.\", \"required_categories\": [\"scheduling\"]}\n</noise>\n<rules>\nCustomers speak like claims staff. Do not use headings or bullets in speech. Use only the names in the record brief; never name a real company, product or person. Mention no feature outside the supplied glossary. Express the supplied facts in the speaker's own words. Tag each turn with its noise category or null. Do not put the planted mentions in `turns`: write each one, in the customer's own words and at least twelve words long, under `mentions[<mention id>].text`, containing that mention's `synonym` exactly as written (a mention whose form is a short agreement is different: write the internal speaker's turn stating the problem, at least twelve words and containing the synonym exactly as written, under `internal_text`, and the customer's reply of under eight words under `agreement_text`), and set after_turn to the index of the turn it should follow. The `turns` conversation is the rest of the record. Name only the people in only_people_who_may_be_named. When fin_mode is resolved or escalated, at least one turn must have speaker bot; when it is escalated, at least one turn must have speaker internal; when it is human, no turn has speaker bot. Never write any phrase listed in never_write_verbatim, including the supplied facts: paraphrase them.\n</rules>\n<output>\nReturn JSON matching the supplied source schema.\n{\"mentions\": {}, \"turns\": [{\"noise_category\": \"string or null\", \"speaker\": \"customer|internal|bot\", \"text\": \"string\"}]}\n</output>\n"
+   }
+  ],
+  "temperature": 0.8,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "generate",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "turns",
+      "mentions"
+     ],
+     "properties": {
+      "turns": {
+       "type": "array",
+       "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+         "speaker",
+         "text",
+         "noise_category"
+        ],
+        "properties": {
+         "speaker": {
+          "type": "string",
+          "enum": [
+           "customer",
+           "internal",
+           "bot"
+          ]
+         },
+         "text": {
+          "type": "string"
+         },
+         "noise_category": {
+          "enum": [
+           "pleasantry",
+           "scheduling",
+           "pricing",
+           "internal",
+           "password_reset",
+           "how_to",
+           "praise",
+           "closer",
+           null
+          ]
+         }
+        }
+       },
+       "minItems": 15,
+       "maxItems": 30
+      },
+      "mentions": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [],
+       "properties": {}
+      }
+     }
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "allow",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"turns\": [\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Hi Alwen, thanks for jumping on this call — we’re really trying to get our claims workflow tidier before the Q4 audit hits.\",\n      \"noise_category\": \"pleasantry\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Happy to help, Celdra. I’ve pulled up your account — you’re looking to streamline how you handle documents and reserves, right?\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Exactly. We’re drowning in paper trails and manual reserve updates. Can your system auto-sync those with our suppliers?\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Yes — we integrate with your supplier feeds and auto-populate reserve changes. You’ll also get real-time reporting on claims status.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"That’s a relief. We also need role-based access so only claims managers can approve payments.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"We’ve got granular roles built in — you can assign permissions down to the task level, including letters and policyholder comms.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Perfect. When can we schedule a sandbox demo? We need to test integrations before committing.\",\n      \"noise_category\": \"scheduling\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"I can book you for next Tuesday at 10 AM — we’ll walk through the claims module and test your supplier API handshake.\",\n      \"noise_category\": \"scheduling\"\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Sounds good. I’ll have my team ready with sample data. Thanks for the quick turnaround.\",\n      \"noise_category\": \"pleasantry\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"My pleasure. I’ll send a calendar invite and prep the sandbox environment with your policyholder templates.\",\n      \"noise_category\": \"scheduling\"\n    }\n  ,\n  {\n    \"speaker\": \"customer\",\n    \"text\": \"One last thing — can we set up automated task reminders for overdue claims? We’re missing SLAs.\",\n    \"noise_category\": null\n  },\n  {\n    \"speaker\": \"internal\",\n    \"text\": \"Absolutely. We’ll configure task escalations and email nudges tied to your internal SLA timers.\",\n    \"noise_category\": null\n  },\n  {\n    \"speaker\": \"customer\",\n    \"text\": \"That’ll be a game-changer. Let’s lock in that Tuesday demo — I’ll confirm with my team.\",\n    \"noise_category\": \"pleasantry\"\n  },\n  {\n    \"speaker\": \"internal\",\n    \"text\": \"Will do. I’ll also include a sample reporting dashboard so you can see how claims data flows into your finance team.\",\n    \"noise_category\": null\n  },\n  {\n    \"speaker\": \"customer\",\n    \"text\": \"Appreciate it. We’ve been chasing manual processes for too long — this feels like the right fix.\",\n    \"noise_category\": \"pleasantry\"\n  },\n  {\n    \"speaker\": \"internal\",\n    \"text\": \"Glad to hear it. I’ll follow up with the invite and a pre-read on roles and integrations.\",\n    \"noise_category\": \"scheduling\"\n  }\n  ],\n  \"mentions\": {}\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 743,
+   "tokens_out": 777,
+   "cost_usd": 0.00162353
+  }
+ }
+}

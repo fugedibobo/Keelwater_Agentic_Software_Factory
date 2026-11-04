@@ -1,0 +1,147 @@
+{
+ "request": {
+  "model": "qwen/qwen3-vl-235b-a22b-instruct",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nWrite one realistic intercom record for Keelwater, a UK claims-handling software company.\n</role>\n<record>\n{\"customer\": {\"account\": \"A07\", \"company\": \"Saltmarsh Specialty\", \"email\": \"contact@a07.example\", \"name\": \"Gellin Glenmere\"}, \"date\": \"2026-10-27T09:02:00Z\", \"fin_mode\": \"escalated\", \"glossary\": [\"claims\", \"documents\", \"reserves\", \"payments\", \"suppliers\", \"reporting\", \"roles\", \"integrations\", \"tasks\", \"letters\", \"policyholders\"], \"never_write_verbatim\": [\"Large motor accounts want more automatic assignment (by postcode, skill, workload); commercial and specialty accounts want it off for complex claims\", \"Uploaded documents are auto-classified under the wrong type (garage estimates under \\\"Correspondence\\\"), so handlers re-file them and sometimes miss evidence\", \"complex commercial teams want manual routing\", \"configuration should vary by team\", \"garage estimates go into correspondence\", \"handlers manually recategorise evidence\", \"misfiled evidence can be overlooked\", \"motor teams want automated routing\"], \"only_people_who_may_be_named\": [\"Saltmarsh Specialty\", \"Gellin Glenmere\", \"Bryn Telford\"], \"route\": \"support\", \"source\": \"intercom\", \"staff\": {\"email\": \"bryn.telford@keelwater.example\", \"name\": \"Bryn Telford\", \"team\": \"support\"}, \"turns_range\": null}\n</record>\n<mentions>\n[{\"fact\": \"configuration should vary by team\", \"form\": \"question\", \"id\": \"m1\", \"post_ship\": false, \"problem\": \"Large motor accounts want more automatic assignment (by postcode, skill, workload); commercial and specialty accounts want it off for complex claims. The honest answer is per-team configuration.\", \"severity\": 2, \"stance\": \"less_automation\", \"synonym\": \"manual claim routing\"}, {\"fact\": \"garage estimates go into correspondence\", \"form\": \"workaround\", \"id\": \"m2\", \"post_ship\": false, \"problem\": \"Uploaded documents are auto-classified under the wrong type (garage estimates under \\\"Correspondence\\\"), so handlers re-file them and sometimes miss evidence. FullStory: rage clicks on the \\\"Document type\\\" select after upload.\", \"severity\": 3, \"stance\": null, \"synonym\": \"incorrect file type\"}, {\"fact\": \"handlers manually recategorise evidence\", \"form\": \"feature ask\", \"id\": \"m3\", \"post_ship\": false, \"problem\": \"Uploaded documents are auto-classified under the wrong type (garage estimates under \\\"Correspondence\\\"), so handlers re-file them and sometimes miss evidence. FullStory: rage clicks on the \\\"Document type\\\" select after upload.\", \"severity\": 3, \"stance\": null, \"synonym\": \"incorrect file type\"}]\n</mentions>\n<noise>\n{\"admin_note\": true, \"allowed_categories\": [\"pleasantry\", \"scheduling\", \"pricing\", \"internal\", \"password_reset\", \"how_to\", \"praise\", \"closer\"], \"distractor_how_to_phrase\": null, \"instructions\": \"Tag every noise turn with its category. Put the distractor phrase, if given, in a how-to turn with no mention id. An admin note must be an internal turn tagged internal. A Fin-resolved or escalated conversation needs a bot turn; an escalated one also needs an internal reply. About 35 percent of customer turns are pleasantries. Every tagged customer mention, including a short agreement, must contain its supplied synonym.\", \"required_categories\": []}\n</noise>\n<rules>\nCustomers speak like claims staff. Do not use headings or bullets in speech. Use only the names in the record brief; never name a real company, product or person. Mention no feature outside the supplied glossary. Express the supplied facts in the speaker's own words. Tag each turn with its noise category or null. Do not put the planted mentions in `turns`: write each one, in the customer's own words and at least twelve words long, under `mentions[<mention id>].text`, containing that mention's `synonym` exactly as written (a mention whose form is a short agreement is different: write the internal speaker's turn stating the problem, at least twelve words and containing the synonym exactly as written, under `internal_text`, and the customer's reply of under eight words under `agreement_text`), and set after_turn to the index of the turn it should follow. The `turns` conversation is the rest of the record. Name only the people in only_people_who_may_be_named. When fin_mode is resolved or escalated, at least one turn must have speaker bot; when it is escalated, at least one turn must have speaker internal; when it is human, no turn has speaker bot. Never write any phrase listed in never_write_verbatim, including the supplied facts: paraphrase them.\n</rules>\n<output>\nReturn JSON matching the supplied source schema.\n{\"mentions\": {\"m1\": {\"after_turn\": \"index of the turns entry it follows\", \"text\": \"the customer turn carrying this mention\"}, \"m2\": {\"after_turn\": \"index of the turns entry it follows\", \"text\": \"the customer turn carrying this mention\"}, \"m3\": {\"after_turn\": \"index of the turns entry it follows\", \"text\": \"the customer turn carrying this mention\"}}, \"turns\": [{\"noise_category\": \"string or null\", \"speaker\": \"customer|internal|bot\", \"text\": \"string\"}]}\n</output>\n\nRegeneration 1: rewrite the record, satisfy every rule, and return the full JSON again.\nYour previous attempt was rejected: abb64c9fff63: mention m1 lacks the required phrase 'manual claim routing'\nMention m1 must contain the exact phrase 'manual claim routing'.\nMention m2 must contain the exact phrase 'incorrect file type'.\nMention m3 must contain the exact phrase 'incorrect file type'.\n"
+   }
+  ],
+  "temperature": 0.8,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "generate",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "turns",
+      "mentions"
+     ],
+     "properties": {
+      "turns": {
+       "type": "array",
+       "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+         "speaker",
+         "text",
+         "noise_category"
+        ],
+        "properties": {
+         "speaker": {
+          "type": "string",
+          "enum": [
+           "customer",
+           "internal",
+           "bot"
+          ]
+         },
+         "text": {
+          "type": "string"
+         },
+         "noise_category": {
+          "enum": [
+           "pleasantry",
+           "scheduling",
+           "pricing",
+           "internal",
+           "password_reset",
+           "how_to",
+           "praise",
+           "closer",
+           null
+          ]
+         }
+        }
+       },
+       "minItems": 6
+      },
+      "mentions": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [
+        "m1",
+        "m2",
+        "m3"
+       ],
+       "properties": {
+        "m1": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 45
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        },
+        "m2": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 45
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        },
+        "m3": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "text",
+          "after_turn"
+         ],
+         "properties": {
+          "text": {
+           "type": "string",
+           "minLength": 45
+          },
+          "after_turn": {
+           "type": "integer"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "allow",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"turns\": [\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Morning Bryn, it’s Gellin from Saltmarsh Specialty. We’ve got a few pain points we’d like to flag — nothing urgent, but they’re slowing us down on complex claims.\",\n      \"noise_category\": \"pleasantry\"\n    },\n    {\n      \"speaker\": \"bot\",\n      \"text\": \"Thanks for reaching out, Gellin. I’ve flagged this as escalated for our support team to review. Bryn will respond shortly.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Noted — will prioritize this escalation. Bryn, please review Saltmarsh Specialty’s workflow pain points, especially around routing and document classification.\",\n      \"noise_category\": \"internal\"\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Our commercial team handles complex claims and needs manual claim routing — automation just doesn’t fit their workflow, even if motor teams love it.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Also, we keep getting garage estimates misfiled under correspondence — that’s an incorrect file type, and it’s causing handlers to miss critical evidence.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Handlers have to manually recategorise evidence because of the incorrect file type, which is tedious and risks overlooking key documents in the claim file.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"bot\",\n      \"text\": \"Understood. We’re logging your feedback on routing preferences and document classification. A member of our team will follow up within 24 hours.\",\n      \"noise_category\": null\n    }\n  ],\n  \"mentions\": {\n    \"m1\": {\n      \"text\": \"Our commercial team handles complex claims and needs manual claim routing — automation just doesn’t fit their workflow, even if motor teams love it.\",\n      \"after_turn\": 3\n    },\n    \"m2\": {\n      \"text\": \"Also, we keep getting garage estimates misfiled under correspondence — that’s an incorrect file type, and it’s causing handlers to miss critical evidence.\",\n      \"after_turn\": 4\n    },\n    \"m3\": {\n      \"text\": \"Handlers have to manually recategorise evidence because of the incorrect file type, which is tedious and risks overlooking key documents in the claim file.\",\n      \"after_turn\": 5\n    }\n  }\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1304,
+   "tokens_out": 541,
+   "cost_usd": 0.00116974
+  }
+ }
+}

@@ -414,3 +414,8 @@ def test_part_of_another_account_name_passes_but_an_invented_company_fails():
     from generator.verify import unknown_names
     assert unknown_names('we spoke to Tidewell Marine about it', 42) == []
     assert unknown_names('we spoke to Brackenford Mutual about it', 42)
+
+
+def test_compass_place_names_pass():
+    from generator.verify import unknown_names
+    assert unknown_names('our offices in North Wales and the West Midlands', 42) == []

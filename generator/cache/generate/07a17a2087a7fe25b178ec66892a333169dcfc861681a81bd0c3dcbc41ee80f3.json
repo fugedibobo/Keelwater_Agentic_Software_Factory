@@ -1,0 +1,163 @@
+{
+ "request": {
+  "model": "qwen/qwen3-vl-235b-a22b-instruct",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nWrite one realistic gong record for Keelwater, a UK claims-handling software company.\n</role>\n<record>\n{\"customer\": {\"account\": \"A01\", \"company\": \"Hollinbrook Home Insurance\", \"email\": \"contact@a01.example\", \"name\": \"Avenna Ashfell\"}, \"date\": \"2026-10-18T12:21:00Z\", \"fin_mode\": null, \"glossary\": [\"claims\", \"documents\", \"reserves\", \"payments\", \"suppliers\", \"reporting\", \"roles\", \"integrations\", \"tasks\", \"letters\", \"policyholders\"], \"never_write_verbatim\": [\"One Strategic account (A01, renewing in January) asks for Welsh-language letter templates through sales, support and its account manager, and calls it a renewal blocker\", \"Renewal price complaints, concentrated in high-ARR accounts, so it would rank highly if triage let it through\", \"commercial negotiation is not a product defect\", \"customer questions contract renewal pricing\", \"one account wants Welsh language letters\", \"the customer describes this as a renewal blocker\"], \"only_people_who_may_be_named\": [\"Hollinbrook Home Insurance\", \"Avenna Ashfell\", \"Alwen Dovell\"], \"route\": \"sales\", \"source\": \"gong\", \"staff\": {\"email\": \"alwen.dovell@keelwater.example\", \"name\": \"Alwen Dovell\", \"team\": \"sales\"}, \"turns_range\": [40, 60]}\n</record>\n<mentions>\n[{\"fact\": \"the customer describes this as a renewal blocker\", \"form\": \"short agreement: the internal speaker states the problem with the synonym, then the customer agrees in under eight words\", \"id\": \"m1\", \"post_ship\": false, \"problem\": \"One Strategic account (A01, renewing in January) asks for Welsh-language letter templates through sales, support and its account manager, and calls it a renewal blocker. Genuine signal, built as the strongest single-account candidate; it must rank below all six real themes.\", \"severity\": 4, \"stance\": null, \"synonym\": \"Welsh letter formats\"}, {\"fact\": \"one account wants Welsh language letters\", \"form\": \"short agreement: the internal speaker states the problem with the synonym, then the customer agrees in under eight words\", \"id\": \"m2\", \"post_ship\": false, \"problem\": \"One Strategic account (A01, renewing in January) asks for Welsh-language letter templates through sales, support and its account manager, and calls it a renewal blocker. Genuine signal, built as the strongest single-account candidate; it must rank below all six real themes.\", \"severity\": 4, \"stance\": null, \"synonym\": \"letters in Welsh\"}, {\"fact\": \"commercial negotiation is not a product defect\", \"form\": \"short agreement: the internal speaker states the problem with the synonym, then the customer agrees in under eight words\", \"id\": \"m3\", \"post_ship\": false, \"problem\": \"Renewal price complaints, concentrated in high-ARR accounts, so it would rank highly if triage let it through.\", \"severity\": null, \"stance\": null, \"synonym\": \"contract cost complaint\"}]\n</mentions>\n<noise>\n{\"admin_note\": false, \"allowed_categories\": [\"pleasantry\", \"scheduling\", \"pricing\", \"internal\", \"password_reset\", \"how_to\", \"praise\", \"closer\"], \"distractor_how_to_phrase\": null, \"instructions\": \"Tag every noise turn with its category. Put the distractor phrase, if given, in a how-to turn with no mention id. An admin note must be an internal turn tagged internal. A Fin-resolved or escalated conversation needs a bot turn; an escalated one also needs an internal reply. About 35 percent of customer turns are pleasantries. Every tagged customer mention, including a short agreement, must contain its supplied synonym.\", \"required_categories\": [\"praise\"]}\n</noise>\n<rules>\nCustomers speak like claims staff. Do not use headings or bullets in speech. Use only the names in the record brief; never name a real company, product or person. Mention no feature outside the supplied glossary. Express the supplied facts in the speaker's own words. Tag each turn with its noise category or null. Do not put the planted mentions in `turns`: write each one, in the customer's own words and at least twelve words long, under `mentions[<mention id>].text`, containing that mention's `synonym` exactly as written (a mention whose form is a short agreement is different: write the internal speaker's turn stating the problem, at least twelve words and containing the synonym exactly as written, under `internal_text`, and the customer's reply of under eight words under `agreement_text`), and set after_turn to the index of the turn it should follow. The `turns` conversation is the rest of the record. Name only the people in only_people_who_may_be_named. When fin_mode is resolved or escalated, at least one turn must have speaker bot; when it is escalated, at least one turn must have speaker internal; when it is human, no turn has speaker bot. Never write any phrase listed in never_write_verbatim, including the supplied facts: paraphrase them.\n</rules>\n<output>\nReturn JSON matching the supplied source schema.\n{\"mentions\": {\"m1\": {\"after_turn\": \"index of the turns entry it follows\", \"agreement_text\": \"customer reply, under eight words\", \"internal_text\": \"internal turn stating the problem, with the synonym\"}, \"m2\": {\"after_turn\": \"index of the turns entry it follows\", \"agreement_text\": \"customer reply, under eight words\", \"internal_text\": \"internal turn stating the problem, with the synonym\"}, \"m3\": {\"after_turn\": \"index of the turns entry it follows\", \"agreement_text\": \"customer reply, under eight words\", \"internal_text\": \"internal turn stating the problem, with the synonym\"}}, \"turns\": [{\"noise_category\": \"string or null\", \"speaker\": \"customer|internal|bot\", \"text\": \"string\"}]}\n</output>\n"
+   }
+  ],
+  "temperature": 0.8,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "generate",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "turns",
+      "mentions"
+     ],
+     "properties": {
+      "turns": {
+       "type": "array",
+       "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+         "speaker",
+         "text",
+         "noise_category"
+        ],
+        "properties": {
+         "speaker": {
+          "type": "string",
+          "enum": [
+           "customer",
+           "internal",
+           "bot"
+          ]
+         },
+         "text": {
+          "type": "string"
+         },
+         "noise_category": {
+          "enum": [
+           "pleasantry",
+           "scheduling",
+           "pricing",
+           "internal",
+           "password_reset",
+           "how_to",
+           "praise",
+           "closer",
+           null
+          ]
+         }
+        }
+       },
+       "minItems": 34,
+       "maxItems": 54
+      },
+      "mentions": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [
+        "m1",
+        "m2",
+        "m3"
+       ],
+       "properties": {
+        "m1": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "internal_text",
+          "agreement_text",
+          "after_turn"
+         ],
+         "properties": {
+          "after_turn": {
+           "type": "integer"
+          },
+          "internal_text": {
+           "type": "string",
+           "minLength": 45
+          },
+          "agreement_text": {
+           "type": "string",
+           "maxLength": 44
+          }
+         }
+        },
+        "m2": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "internal_text",
+          "agreement_text",
+          "after_turn"
+         ],
+         "properties": {
+          "after_turn": {
+           "type": "integer"
+          },
+          "internal_text": {
+           "type": "string",
+           "minLength": 45
+          },
+          "agreement_text": {
+           "type": "string",
+           "maxLength": 44
+          }
+         }
+        },
+        "m3": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "internal_text",
+          "agreement_text",
+          "after_turn"
+         ],
+         "properties": {
+          "after_turn": {
+           "type": "integer"
+          },
+          "internal_text": {
+           "type": "string",
+           "minLength": 45
+          },
+          "agreement_text": {
+           "type": "string",
+           "maxLength": 44
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "allow",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"turns\": [\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Hi Alwen, thanks for getting back to me so quickly. I appreciate you making time for this call today.\",\n      \"noise_category\": \"pleasantry\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Of course, Avenna — always happy to help. I understand you’ve got a few things you’d like to go over ahead of your renewal in January.\",\n      \"noise_category\": \"pleasantry\"\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Yes, and one thing’s become pretty urgent — we need Welsh-language letter templates for policyholder correspondence. It’s a hard requirement for us now.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Understood. You’re saying Welsh letter formats are needed for your communications, and that this is blocking your renewal decision?\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Exactly. We can’t proceed without them.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Got it. I’ll flag this as high priority with product and make sure it’s on the roadmap before your renewal window.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"Also — and I know this isn’t a product issue — we’re reviewing our contract cost and need to understand the pricing structure better.\",\n      \"noise_category\": \"pricing\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"I hear you. Contract cost complaint is something I can walk through with you — it’s not a defect, but I’ll make sure you get clarity before renewal.\",\n      \"noise_category\": null\n    },\n    {\n      \"speaker\": \"customer\",\n      \"text\": \"That would be really helpful. Thanks again for your support — you’ve been great to work with.\",\n      \"noise_category\": \"praise\"\n    },\n    {\n      \"speaker\": \"internal\",\n      \"text\": \"Thank you, Avenna — I’m glad we could get this sorted. I’ll send over a summary and next steps by end of day.\",\n      \"noise_category\": \"closer\"\n    }\n  ,\n  {\n    \"speaker\": \"customer\",\n    \"text\": \"I’m also wondering if we can get those letters in Welsh added to our document library soon — it’s holding up our policyholder comms.\",\n    \"noise_category\": null\n  },\n  {\n    \"speaker\": \"internal\",\n    \"text\": \"You’re asking for letters in Welsh to be added to your document templates, and that this is impacting your policyholder communications?\",\n    \"noise_category\": null\n  },\n  {\n    \"speaker\": \"customer\",\n    \"text\": \"Yes, absolutely.\",\n    \"noise_category\": null\n  },\n  {\n    \"speaker\": \"internal\",\n    \"text\": \"Noted — I’ll escalate this to the content team and get a timeline for you.\",\n    \"noise_category\": null\n  }\n  ,\n  {\n    \"speaker\": \"customer\",\n    \"text\": \"Just to confirm — this isn’t about the software not working, it’s about the contract cost. We need to understand the renewal pricing before we commit.\",\n    \"noise_category\": \"pricing\"\n  },\n  {\n    \"speaker\": \"internal\",\n    \"text\": \"Understood — this is a contract cost complaint, not a product defect. I’ll arrange a session with finance to walk through the numbers.\",\n    \"noise_category\": null\n  },\n  {\n    \"speaker\": \"customer\",\n    \"text\": \"Perfect. Thanks, Alwen.\",\n    \"noise_category\": \"pleasantry\"\n  }\n  ,\n  {\n    \"speaker\": \"internal\",\n    \"text\": \"You’re welcome. I’ll follow up by email with next steps and timelines for both the Welsh templates and the pricing review.\",\n    \"noise_category\": \"closer\"\n  }\n  ,\n  {\n    \"speaker\": \"customer\",\n    \"text\": \"Appreciate it. Looking forward to the update.\",\n    \"noise_category\": \"pleasantry\"\n  }\n  ,\n  {\n    \"speaker\": \"internal\",\n    \"text\": \"Likewise — thanks again for your time, Avenna.\",\n    \"noise_category\": \"closer\"\n  }\n  ,\n  {\n    \"speaker\": \"customer\",\n    \"text\": \"One last thing — could we also get Welsh letter formats added to the supplier comms section? It’s for consistency across all touchpoints.\",\n    \"noise_category\": null\n  },\n  {\n    \"speaker\": \"internal\",\n    \"text\": \"You’re asking for Welsh letter formats to be added to supplier communications as well, for consistency across all channels?\",\n    \"noise_category\": null\n  },\n  {\n    \"speaker\": \"customer\",\n    \"text\": \"Yes, please.\",\n    \"noise_category\": null\n  },\n  {\n    \"speaker\": \"internal\",\n    \"text\": \"Noted — I’ll include that in the scope for the content team.\",\n    \"noise_category\": null\n  }\n  ,\n  {\n    \"speaker\": \"customer\",\n    \"text\": \"Thanks again — you’ve been incredibly responsive.\",\n    \"noise_category\": \"praise\"\n  },\n  {\n    \"speaker\": \"internal\",\n    \"text\": \"My pleasure — I’ll make sure everything’s tracked and you’re kept in the loop.\",\n    \"noise_category\": \"closer\"\n  }\n  ,\n  {\n    \"speaker\": \"customer\",\n    \"text\": \"Looking forward to the update. Have a great day!\",\n    \"noise_category\": \"pleasantry\"\n  },\n  {\n    \"speaker\": \"internal\",\n    \"text\": \"You too, Avenna — talk soon.\",\n    \"noise_category\": \"closer\"\n  }\n  ,\n  {\n    \"speaker\": \"customer\",\n    \"text\": \"Just checking — are the Welsh letter formats still on track for next month?\",\n    \"noise_category\": null\n  },\n  {\n    \"speaker\": \"internal\",\n    \"text\": \"Yes — the content team confirmed they’re targeting delivery by the end of next month. I’ll send you a progress update Friday.\",\n    \"noise_category\": null\n  },\n  {\n    \"speaker\": \"customer\",\n    \"text\": \"That’s great to hear. Thanks for the update.\",\n    \"noise_category\": \"pleasantry\"\n  },\n  {\n    \"speaker\": \"internal\",\n    \"text\": \"You’re welcome — I’ll make sure it’s delivered on time.\",\n    \"noise_category\": \"closer\"\n  }\n  ,\n  {\n    \"speaker\": \"customer\",\n    \"text\": \"Also — any word on the contract cost review? We need to lock in our renewal decision soon.\",\n    \"noise_category\": \"pricing\"\n  },\n  {\n    \"speaker\": \"internal\",\n    \"text\": \"I’ve scheduled a session with finance for Thursday — we’ll walk through the contract cost complaint and get you all the clarity you need.\",\n    \"noise_category\": null\n  },\n  {\n    \"speaker\": \"customer\",\n    \"text\": \"Perfect. Looking forward to it.\",\n    \"noise_category\": \"pleasantry\"\n  },\n  {\n    \"speaker\": \"internal\",\n    \"text\": \"Great — I’ll send the calendar invite shortly.\",\n    \"noise_category\": \"scheduling\"\n  }\n  ,\n  {\n    \"speaker\": \"customer\",\n    \"text\": \"Thanks again — you’ve been a lifesaver.\",\n    \"noise_category\": \"praise\"\n  },\n  {\n    \"speaker\": \"internal\",\n    \"text\": \"Happy to help — I’ll make sure everything’s sorted before your renewal deadline.\",\n    \"noise_category\": \"closer\"\n  }\n  ,\n  {\n    \"speaker\": \"customer\",\n    \"text\": \"Appreciate it. Talk soon!\",\n    \"noise_category\": \"pleasantry\"\n  },\n  {\n    \"speaker\": \"internal\",\n    \"text\": \"You too — take care, Avenna.\",\n    \"noise_category\": \"closer\"\n  }\n  ],\n  \"mentions\": {\n    \"m1\": {\n      \"after_turn\": 4,\n      \"internal_text\": \"Understood. You’re saying Welsh letter formats are needed for your communications, and that this is blocking your renewal decision?\",\n      \"agreement_text\": \"Exactly. We can’t proceed without them.\"\n    },\n    \"m2\": {\n      \"after_turn\": 12,\n      \"internal_text\": \"You’re asking for letters in Welsh to be added to your document templates, and that this is impacting your policyholder communications?\",\n      \"agreement_text\": \"Yes, absolutely.\"\n    },\n    \"m3\": {\n      \"after_turn\": 8,\n      \"internal_text\": \"I hear you. Contract cost complaint is something I can walk through with you — it’s not a defect, but I’ll make sure you get clarity before renewal.\",\n      \"agreement_text\": \"That would be really helpful.\"\n    }\n  }\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1336,
+   "tokens_out": 1938,
+   "cost_usd": 0.00381668
+  }
+ }
+}
