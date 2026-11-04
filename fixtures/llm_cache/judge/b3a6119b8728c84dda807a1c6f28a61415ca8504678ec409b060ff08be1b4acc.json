@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\nCustomers see error messages that falsely suggest a Keelwater system bug when the real issue is their own network failure. This creates unnecessary confusion and diverts attention from the actual root cause.\\n\\n## Who is affected\\n- At least 2 accounts have reported this issue via support channels [i:12562525e3b8565d][i:64074f6fe85adcfb].\\n- One of the affected accounts, Marrowgate Commercial, has an ARR of £1,600,000 and is due for renewal on 2026-12-12 [i:12562525e3b8565d].\\n- The other affected account, Ormsgill Cyber, has an ARR of £135,000 [i:64074f6fe85adcfb].\\n\\n## Evidence\\n- There have been 2 total mentions of this problem [i:12562525e3b8565d][i:64074f6fe85adcfb].\\n- All 2 mentions came through a single route: support [i:12562525e3b8565d][i:64074f6fe85adcfb].\\n- A user from Marrowgate Commercial stated, \\\"I’ve ruled out our own systems — it’s definitely a customer network failure, not Keelwater being down, though the error message makes it sound like a bug.\\\" [i:12562525e3b8565d].\\n- A user from Ormsgill Cyber stated, \\\"That’s what I suspected — our IT team is looking into the customer network failure now. Sorry for the false alarm.\\\" [i:64074f6fe85adcfb].\\n- The total ARR from accounts that have mentioned this issue is £1,735,000 [i:12562525e3b8565d][i:64074f6fe85adcfb].\\n- In the last 90 days, 1 of the affected accounts has renewed [i:12562525e3b8565d].\\n\\n## Why now\\nThis issue is actively causing confusion and wasted effort for at least two customers, as evidenced by their recent support interactions in September and October 2026 [i:12562525e3b8565d][i:64074f6fe85adcfb]. One of these customers, representing a significant portion of the affected ARR, is approaching a renewal date in December 2026, making the clarity of system communication a timely concern [i:12562525e3b8565d].\",\n \"cited_insights\": [\n  {\n   \"id\": \"12562525e3b8565d\",\n   \"quote\": \"I’ve ruled out our own systems — it’s definitely a customer network failure, not Keelwater being down, though the error message makes it sound like a bug.\",\n   \"account\": \"Marrowgate Commercial\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-27T11:53:00+00:00\"\n  },\n  {\n   \"id\": \"64074f6fe85adcfb\",\n   \"quote\": \"That’s what I suspected — our IT team is looking into the customer network failure now. Sorry for the false alarm.\",\n   \"account\": \"Ormsgill Cyber\",\n   \"route\": \"support\",\n   \"date\": \"2026-09-14T10:19:00+00:00\"\n  }\n ],\n \"fact_sheet\": {\n  \"as_of\": \"2026-11-03\",\n  \"accounts_n\": 2,\n  \"mentions_n\": 2,\n  \"routes_n\": 1,\n  \"mentions_by_route\": {\n   \"support\": 2\n  },\n  \"arr_total_gbp\": 1735000.0,\n  \"renewals_90d_n\": 1,\n  \"accounts\": [\n   {\n    \"name\": \"Marrowgate Commercial\",\n    \"arr_gbp\": 1600000.0,\n    \"renewal_date\": \"2026-12-12\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Ormsgill Cyber\",\n    \"arr_gbp\": 135000.0,\n    \"renewal_date\": null,\n    \"mentions\": 1\n   }\n  ]\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked the account figures (Marrowgate £1,600,000 ARR, renewal 2026-12-12; Ormsgill £135,000; total £1,735,000) against the fact sheet and all match. The quotes from both insights are verbatim and correctly attributed, and the mention/route counts (2 mentions, all via support) match the fact sheet. The 'Why now' section's September/October 2026 dating matches the insight dates (2026-09-14 and 2026-10-27), and the claim of 1 renewal in the last 90 days matches renewals_90d_n. No uncited claims, overstatements, or omitted contrary evidence found.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1187,
+   "tokens_out": 259,
+   "cost_usd": 0.0028014
+  }
+ }
+}

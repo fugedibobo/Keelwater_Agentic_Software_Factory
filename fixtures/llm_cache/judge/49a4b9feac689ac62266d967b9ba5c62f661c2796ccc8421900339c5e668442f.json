@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"title\": \"Role and permission setup is manual and error-prone\",\n \"problem_statement\": \"Admins struggle to assign roles to new team members because permissions must be configured manually for each user, with no way to copy settings. A single missed setting locks users out, delaying work and increasing frustration.\",\n \"quotes\": [\n  {\n   \"quote\": \"Yes, the letters tab is greyed out too, and I can’t assign new tasks to my team since the roles aren’t syncing properly.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-13T12:54:00+00:00\"\n  },\n  {\n   \"quote\": \"we’re setting up our new claims team and I’m already dreading the permissions setup — it’s so easy to miss a box and then someone gets locked out.\",\n   \"route\": \"onboarding\",\n   \"date\": \"2026-09-22T10:20:00+00:00\"\n  },\n  {\n   \"quote\": \"The issue is we can’t copy access roles — each new user needs permissions manually assigned, and one mistake blocks them entirely.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-04T08:01:00+00:00\"\n  },\n  {\n   \"quote\": \"it’s taking forever to assign permissions. Each person needs a custom setup and I keep worrying I’ll miss something.\",\n   \"route\": \"onboarding\",\n   \"date\": \"2026-10-29T15:59:00+00:00\"\n  },\n  {\n   \"quote\": \"Administration: click \\\"Permission\\\", rage x5\",\n   \"route\": \"sessions\",\n   \"date\": \"2026-09-25T08:22:00Z\"\n  },\n  {\n   \"quote\": \"Perfect — we’ve had issues with permissions before. Can you show how roles are assigned during setup?\",\n   \"route\": \"sales\",\n   \"date\": \"2026-09-15T14:44:00Z\"\n  },\n  {\n   \"quote\": \"Hi Bryn, I’m having trouble assigning roles to new team members on our claims dashboard.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-06T09:45:00+00:00\"\n  },\n  {\n   \"quote\": \"the permission setup is taking ages — each user needs dozens of boxes ticked manually and if we miss one, they get locked out.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-25T14:19:00+00:00\"\n  },\n  {\n   \"quote\": \"Morning Bryn, I’m setting up our new claims team and the permissions system is causing delays — it’s tedious and error-prone.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-04T08:01:00+00:00\"\n  },\n  {\n   \"quote\": \"Hi Bryn, we’re setting up a new claims team and the permission setup duplication is slowing us down — can we get help?\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-21T15:06:00+00:00\"\n  },\n  {\n   \"quote\": \"We’re setting up a new team for claims handling and the permission setup is taking ages — each user needs dozens of boxes ticked manually and if we miss one, they get locked out.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-25T14:19:00+00:00\"\n  },\n  {\n   \"quote\": \"I just spent 45 minutes ticking boxes for one person. ... I can’t just duplicate an existing role — I have to manually select permissions for each new user, and if I make a mistake, it locks them out of their tasks.\",\n   \"route\": \"onboarding\",\n   \"date\": \"2026-10-29T15:59:00+00:00\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The evidence describes a product usability problem: manual per-user permission setup with no role-copying capability, causing lockouts and delays. Multiple quotes (e.g., 2026-10-29 onboarding: 'can't just duplicate an existing role... 45 minutes ticking boxes for one person') consistently confirm the same product gap that a squad could act on, e.g., by adding role templates or duplication. Causes are not outside the product—pricing, contracts, customer IT, and staffing are not implicated, and no help article would resolve a missing feature. One quote mentions 'roles aren't syncing properly,' which could hint at a bug, but it still points to product behavior. Praise is absent.\",\"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1071,
+   "tokens_out": 156,
+   "cost_usd": 0.00064728
+  }
+ }
+}

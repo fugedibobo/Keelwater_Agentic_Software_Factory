@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The customer lacks clear information on how tiered pricing impacts their claims volume.\n  quote: We’re reviewing our annual spend with Keelwater and need clarity on how tiered pricing affects our claims volume this year... can you send me a breakdown of how your pricing tiers apply to our monthly claims volume?\n- problem: The customer is unsure if the tiered pricing works for their fluctuating claim volume and worries they may be stuck with the current payment integration.\n  quote: We’re evaluating whether the tiered pricing model fits our claims volume, especially with seasonal spikes... are we locked into the current payment integration?"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Unclear Impact of Tiered Pricing\",\n  \"problem_statement\": \"Customers don't understand how tiered pricing applies to their claims volume, making it hard to plan or adjust. This uncertainty causes concern they may be locked into unsuitable payment terms.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 231,
+   "tokens_out": 58,
+   "cost_usd": 8.69e-05
+  }
+ }
+}

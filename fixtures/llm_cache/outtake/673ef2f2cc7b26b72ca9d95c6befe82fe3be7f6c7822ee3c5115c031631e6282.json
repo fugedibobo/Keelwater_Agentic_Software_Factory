@@ -1,0 +1,50 @@
+{
+ "request": {
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou draft customer-facing text for Keelwater, which makes claims-handling software. A person reviews every draft before anything is sent.\n</role>\n<story>\n{\n \"id\": 4131,\n \"name\": \"Workspace administration\",\n \"description\": \"Keelwater's workspace administration feature allows users to manage permissions, configure settings, and organize teams within their claims environment — all through a centralized, intuitive dashboard.\"\n}\n</story>\n<problem>\nNot stated.\n</problem>\n<rules>\n- Write a release note: a title and two to four short bullets saying what is new and who it helps.\n- The change ships in an announced release bundle on a published cadence and is controlled by a feature flag. Never say it is live now, never give a date that is not in the story, and say customers get it when the bundle is announced and the flag is switched on.\n- Use only the story and the problem above. Do not name any customer, quote anyone, or promise anything the story does not say.\n</rules>\n<output>\nJSON only: {\"body_md\": the draft as Markdown}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 800,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "outtake",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "body_md": {
+       "title": "Body Md",
+       "type": "string"
+      }
+     },
+     "required": [
+      "body_md"
+     ],
+     "title": "OuttakeOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"body_md\": \"### New: Workspace Administration Dashboard\\n- Centralized dashboard for managing permissions, settings, and team organization within your claims environment.\\n- Gives administrators a single place to configure workspace controls.\\n- Available in the upcoming announced release bundle; enable it by turning on the feature flag.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 298,
+   "tokens_out": 65,
+   "cost_usd": 1.999e-05
+  }
+ }
+}

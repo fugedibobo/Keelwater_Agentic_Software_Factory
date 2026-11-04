@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"The team needs both automatic claim routing by postcode and workload, and manual routing control for complex cases, but the system lacks configurable per‑team routing options.\",\n \"quotes\": [\n  {\n   \"date\": \"2026-10-27T09:02:00+00:00\",\n   \"quote\": \"Our motor team wants claims routed automatically based on postcode and workload, but our specialty handlers need manual control for complex cases — it’s a team‑level thing. We need manual claim routing options configurable per team.\",\n   \"route\": \"support\"\n  },\n  {\n   \"date\": \"2026-10-21T14:33:00+00:00\",\n   \"quote\": \"Our commercial claims are too complex for auto-routing — we need manual claim routing for those, while motor claims can stay automated by postcode and workload.\",\n   \"route\": \"support\"\n  },\n  {\n   \"date\": \"2026-09-19T09:57:00+00:00\",\n   \"quote\": \"We don’t want to force one approach across all teams... Per-team configuration would solve it... prefers manual claim routing — one-size-fits-all doesn’t work for us.\",\n   \"route\": \"onboarding\"\n  }\n ],\n \"title\": \"The team needs both automatic claim routing by postcode and workload, and\"\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The problem statement claims the system lacks configurable per-team routing options, and the quotes from support and onboarding consistently describe the same gap: teams want automatic postcode/workload routing for some teams (e.g., motor) but manual routing for complex cases (e.g., specialty/commercial), and one-size-fits-all configuration doesn't work. All three quotes align with the title and statement, none are praise, none are answerable by a help article, and the cause lies within the product's configurability rather than pricing, contracts, or customer IT. This is a actionable feature gap a squad could address.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 505,
+   "tokens_out": 136,
+   "cost_usd": 0.0002256995
+  }
+ }
+}

@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: Delays occur because payment detail checking takes too long.\n  quote: That’s reassuring. We’ve had too many delays from payment detail checking.\n- problem: Delays in claim payments occur because third‑party bank details cannot be verified in advance, leading to reissues and unhappy policyholders.\n  quote: We’re seeing delays in claims payments because we can’t verify third-party bank details ahead of time — it’s causing reissues and unhappy policyholders.\n- problem: Inability to verify third‑party bank details before processing claims causes payment delays.\n  quote: we’re seeing delays in claims payments because we can’t verify third-party bank details ahead of time.\n- problem: The customer has difficulty checking payment details, which creates delays.\n  quote: One thing we’ve struggled with is payment detail checking — it’s causing delays.\n- problem: The lack of payee account verification is causing payment delays that affect reserves and supplier reporting.\n  quote: we need payee account verification to prevent delays. It’s impacting our reserves and supplier reporting too.\n- problem: Recurring delays due to third‑party payee account verification issues.\n  quote: Hi Bryn, I’m Nellin from Holloway Reach — we’ve got a recurring issue with third-party payee account verification causing delays.\n- problem: The customer needs to process a batch of supplier payments quickly and cannot tolerate any delays.\n  quote: That’s a relief — I’ve got a batch of supplier payments to process today and can’t afford delays.\n- problem: The customer is experiencing delays in receiving payments.\n  quote: Hi Alwen, thanks for jumping on this call — we’ve been struggling with some payment delays lately."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Payment delays from unverified bank details\",\n  \"problem_statement\": \"Claims payments are delayed because third-party bank details cannot be verified before processing, leading to reissues and frustrated policyholders. This affects cash flow and reporting accuracy.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 451,
+   "tokens_out": 54,
+   "cost_usd": 0.000149985
+  }
+ }
+}

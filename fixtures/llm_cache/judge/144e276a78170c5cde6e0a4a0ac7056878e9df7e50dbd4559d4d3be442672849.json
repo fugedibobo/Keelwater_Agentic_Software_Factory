@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (duplicate) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is the core problem still open, not solved by a shipped story and not covered by a roadmap item? Pass means yes.\nCompare the problem itself, not the product area. A spike that is unstarted or in progress is not shipped.\nFail if a completed story solves the same problem, or a roadmap item already covers it.\nThe evidence is the problem statement and the five most similar stories and roadmap pages, with status and dates.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"Motor and commercial teams need different routing approaches—automatic by postcode and workload for high-volume cases, manual for complex ones—but the system enforces a single method. This slows down efficient work and misallocates complex claims, hurting resolution quality and team productivity.\",\n \"similar\": [\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4133\",\n   \"similarity\": 0.061,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": false, \\\"completed_at\\\": null, \\\"description\\\": \\\"Keelwater's document classifier confidence threshold setting allows users to define the minimum confidence level required for automatic categorization of claims documents, ensuring only high-certainty classifications are applied without manual review.\\\", \\\"id\\\": 4133, \\\"name\\\": \\\"Document classifier confidence threshold\\\", \\\"started\\\": false, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 1}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4127\",\n   \"similarity\": 0.033,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-10-06T00:00:00Z\\\", \\\"description\\\": \\\"Users can now upload multiple documents at once to a claim in Keelwater, streamlining the process and reducing manual effort for claims handlers.\\\", \\\"id\\\": 4127, \\\"name\\\": \\\"Bulk upload documents to a claim\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4131\",\n   \"similarity\": 0.031,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-09-15T00:00:00Z\\\", \\\"description\\\": \\\"Keelwater's workspace administration feature allows users to manage permissions, configure settings, and organize teams within their claims environment — all through a centralized, intuitive dashboard.\\\", \\\"id\\\": 4131, \\\"name\\\": \\\"Workspace administration\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4129\",\n   \"similarity\": 0.03,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-09-15T00:00:00Z\\\", \\\"description\\\": \\\"Keelwater automatically pulls and updates supplier contact details from integrated systems, ensuring claims handlers always have the most current information without manual entry.\\\", \\\"id\\\": 4129, \\\"name\\\": \\\"Supplier contact details\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"notion\",\n   \"id\": \"02667fa8-ad6a-5f71-85e0-ab7f6a88ad86\",\n   \"similarity\": 0.029,\n   \"record\": \"{\\\"id\\\": \\\"02667fa8-ad6a-5f71-85e0-ab7f6a88ad86\\\", \\\"object\\\": \\\"page\\\", \\\"properties\\\": {\\\"Name\\\": {\\\"title\\\": [{\\\"plain_text\\\": \\\"Summer release notes\\\", \\\"text\\\": {\\\"content\\\": \\\"Summer release notes\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"title\\\"}, \\\"Problem\\\": {\\\"rich_text\\\": [{\\\"plain_text\\\": \\\"Keelwater's Summer release notes detail new features, bug fixes, and performance improvements for the claims processing system, ensuring smoother workflows and enhanced user experience.\\\", \\\"text\\\": {\\\"content\\\": \\\"Keelwater's Summer release notes detail new features, bug fixes, and performance improvements for the claims processing system, ensuring smoother workflows and enhanced user experience.\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"rich_text\\\"}, \\\"\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The problem is that motor and commercial teams need different claim routing methods (automatic vs manual) but the system enforces a single method. I checked the five most similar items: story 4133 (document classifier confidence threshold, unstarted), 4127 (bulk document upload, completed), 4131 (workspace administration, completed), 4129 (supplier contact details, completed), and the Summer release notes page. None of these address claim routing methods or team-specific routing configuration, and no roadmap item covers it. The problem remains open.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1062,
+   "tokens_out": 127,
+   "cost_usd": 0.0011775
+  }
+ }
+}

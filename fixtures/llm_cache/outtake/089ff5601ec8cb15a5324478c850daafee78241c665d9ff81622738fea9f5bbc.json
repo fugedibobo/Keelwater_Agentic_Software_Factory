@@ -1,0 +1,50 @@
+{
+ "request": {
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou draft customer-facing text for Keelwater, which makes claims-handling software. A person reviews every draft before anything is sent.\n</role>\n<story>\n{\n \"id\": 4131,\n \"name\": \"Workspace administration\",\n \"description\": \"Keelwater's workspace administration feature allows users to manage permissions, configure settings, and organize teams within their claims environment — all through a centralized, intuitive dashboard.\"\n}\n</story>\n<problem>\nNot stated.\n</problem>\n<rules>\n- Write a customer change notice: a short email-style notice that says what is changing, when customers will see it, and that an administrator can switch it on from the release bundle.\n- The change ships in an announced release bundle on a published cadence and is controlled by a feature flag. Never say it is live now, never give a date that is not in the story, and say customers get it when the bundle is announced and the flag is switched on.\n- Use only the story and the problem above. Do not name any customer, quote anyone, or promise anything the story does not say.\n</rules>\n<output>\nJSON only: {\"body_md\": the draft as Markdown}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 800,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "outtake",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "body_md": {
+       "title": "Body Md",
+       "type": "string"
+      }
+     },
+     "required": [
+      "body_md"
+     ],
+     "title": "OuttakeOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"body_md\": \"Subject: Upcoming Workspace Administration Feature Update\\r\\n\\r\\nHello,\\r\\n\\r\\nWe’re excited to let you know that a new Workspace Administration capability is included in the next Keelwater release bundle. This feature adds a centralized dashboard for managing permissions, configuring settings, and organizing teams within your claims environment.\\r\\n\\r\\n**What’s changing?**\\r\\n- A new Workspace Administration dashboard will be available.\\r\\n\\r\\n**When will you see it?**\\r\\n- The feature ships with the upcoming release bundle, announced on our regular cadence. It will become visible in your instance once the bundle is released and the feature flag is enabled.\\r\\n\\r\\n**How to enable it?**\\r\\n- An administrator can turn the feature on by activating the corresponding flag in the release bundle’s configuration settings.\\r\\n\\r\\nIf you have any questions about enabling the new Workspace Administration tools, please reach out to your account manager or consult the release notes.\\r\\n\\r\\nThank you for using Keelwater!\\r\\n\\r\\nBest regards,\\r\\nThe Keelwater Team\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 330,
+   "tokens_out": 242,
+   "cost_usd": 2.8782e-05
+  }
+ }
+}

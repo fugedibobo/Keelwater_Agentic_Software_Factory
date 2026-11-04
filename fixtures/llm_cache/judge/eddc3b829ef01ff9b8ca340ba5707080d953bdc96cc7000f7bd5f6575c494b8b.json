@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\nCustomers cannot see live repair updates, forcing them to call garages daily. This lack of real-time visibility into garage progress creates a manual, time-consuming process for claims handlers, delaying claim resolution and impacting team productivity.\\n\\n## Who is affected\\n- Claims handling teams at Pendleford Motor Mutual, who report being on the phone daily with garages because there’s no live status [i:75fd8957b8a7521e].\\n- Teams at Harrowfield Fleet Mutual, who are forced to chase manually due to a lack of real-time visibility into garage progress [i:9014828c3010d505].\\n- The team at Duncastle Auto, who are stuck calling garages every day, describing it as a constant drag on productivity [i:c2900067638ffbc1].\\n\\n## Evidence\\nThe problem has been raised by 3 accounts across 4 mentions [i:75fd8957b8a7521e][i:9014828c3010d505][i:c2900067638ffbc1][i:cc1f885c45824167]. Feedback has come via 2 routes: sales and account management [i:75fd8957b8a7521e][i:9014828c3010d505][i:c2900067638ffbc1][i:cc1f885c45824167].\\n\\nCustomer quotes directly describe the impact:\\n- Pendleford Motor Mutual states, \\\"Also, repair updates missing — we’re on the phone daily with garages because there’s no live status\\\" [i:75fd8957b8a7521e].\\n- Harrowfield Fleet Mutual says, \\\"The lack of real-time visibility into garage progress is forcing us to chase manually — garage progress visibility is a blocker we need solved ASAP\\\" [i:9014828c3010d505] and, \\\"First, we’re spending too much time calling garages because we can’t see live repair updates — it’s a daily grind\\\" [i:cc1f885c45824167].\\n- Duncastle Auto reports, \\\"We’re drowning in repair updates missing again this week — it’s eating into our daily tasks. We’re stuck calling garages every day because repair updates missing — it’s a constant drag on our team’s productivity and delays claim resolution\\\" [i:c2900067638ffbc1].\\n\\nThe total ARR from the fact sheet is £770,000 [i:75fd8957b8a7521e][i:c2900067638ffbc1][i:9014828c3010d505]. Pendleford Motor Mutual contributes £690,000 ARR, Duncastle Auto contributes £80,000 ARR, and Harrowfield Fleet Mutual's ARR is not specified [i:75fd8957b8a7521e][i:c2900067638ffbc1][i:9014828c3010d505].\\n\\n## Why now\\nTwo of the affected accounts have upcoming renewal dates. Pendleford Motor Mutual renews on 2027-02-28 [i:75fd8957b8a7521e], and Duncastle Auto renews on 2027-08-19 [i:c2900067638ffbc1]. In the last 90 days, there have been 0 renewals [i:75fd8957b8a7521e][i:c2900067638ffbc1][i:9014828c3010d505]. The most recent feedback was recorded on 2026-10-26 [i:75fd8957b8a7521e], indicating the issue remains current and unresolved.\",\n \"cited_insights\": [\n  {\n   \"account\": \"Pendleford Motor Mutual\",\n   \"date\": \"2026-10-26T09:40:00Z\",\n   \"id\": \"75fd8957b8a7521e\",\n   \"quote\": \"Also, repair updates missing — we’re on the phone daily with garages because there’s no live status.\",\n   \"route\": \"sales\"\n  },\n  {\n   \"account\": \"Harrowfield Fleet Mutual\",\n   \"date\": \"2026-09-14T10:43:00+00:00\",\n   \"id\": \"9014828c3010d505\",\n   \"quote\": \"The lack of real-time visibility into garage progress is forcing us to chase manually — garage progress visibility is a blocker we need solved ASAP.\",\n   \"route\": \"account_management\"\n  },\n  {\n   \"account\": \"Duncastle Auto\",\n   \"date\": \"2026-10-14T16:28:00Z\",\n   \"id\": \"c2900067638ffbc1\",\n   \"quote\": \"We’re drowning in repair updates missing again this week — it’s eating into our daily tasks. We’re stuck calling garages every day because repair updates missing — it’s a constant drag on our team’s productivity and delays claim resolution.\",\n   \"route\": \"sales\"\n  },\n  {\n   \"account\": \"Harrowfield Fleet Mutual\",\n   \"date\": \"2026-09-14T10:43:00+00:00\",\n   \"id\": \"cc1f885c45824167\",\n   \"quote\": \"First, we’re spending too much time calling garages because we can’t see live repair updates — it’s a daily grind.\",\n   \"route\": \"account_management\"\n  }\n ],\n \"fact_sheet\": {\n  \"accounts\": [\n   {\n    \"arr_gbp\": 690000.0,\n    \"mentions\": 1,\n    \"name\": \"Pendleford Motor Mutual\",\n    \"renewal_date\": \"2027-02-28\"\n   },\n   {\n    \"arr_gbp\": null,\n    \"mentions\": 2,\n    \"name\": \"Harrowfield Fleet Mutual\",\n    \"renewal_date\": null\n   },\n   {\n    \"arr_gbp\": 80000.0,\n    \"mentions\": 1,\n    \"name\": \"Duncastle Auto\",\n    \"renewal_date\": \"2027-08-19\"\n   }\n  ],\n  \"accounts_n\": 3,\n  \"arr_total_gbp\": 770000.0,\n  \"as_of\": \"2026-11-03\",\n  \"mentions_by_route\": {\n   \"account_management\": 2,\n   \"sales\": 2\n  },\n  \"mentions_n\": 4,\n  \"renewals_90d_n\": 0,\n  \"routes_n\": 2\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked every quote against the cited insights and all were verbatim matches with correct citations. Numbers align with the fact sheet: 3 accounts, 4 mentions, 2 routes (sales and account_management, 2 each), £770,000 total ARR (£690,000 Pendleford, £80,000 Duncastle, Harrowfield unspecified), renewals on 2027-02-28 and 2027-08-19, and 0 renewals in 90 days. The most recent feedback date 2026-10-26 matches the Pendleford insight, and no cited contrary evidence or overstatements were found.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1719,
+   "tokens_out": 182,
+   "cost_usd": 0.001989962
+  }
+ }
+}

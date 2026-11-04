@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (duplicate) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is the core problem still open, not solved by a shipped story and not covered by a roadmap item? Pass means yes.\nCompare the problem itself, not the product area. A spike that is unstarted or in progress is not shipped.\nFail if a completed story solves the same problem, or a roadmap item already covers it.\nThe evidence is the problem statement and the five most similar stories and roadmap pages, with status and dates.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"Customers cannot confirm whether the platform integrates with their existing systems like policyholder data, third-party adjusters, or legacy document tools. This uncertainty delays adoption and risks misaligned workflows.\",\n \"similar\": [\n  {\n   \"source\": \"notion\",\n   \"id\": \"3d6f7b4a-ed9c-52d3-97a0-2d967a79bcf2\",\n   \"similarity\": 0.039,\n   \"record\": \"{\\\"id\\\": \\\"3d6f7b4a-ed9c-52d3-97a0-2d967a79bcf2\\\", \\\"object\\\": \\\"page\\\", \\\"properties\\\": {\\\"Name\\\": {\\\"title\\\": [{\\\"plain_text\\\": \\\"Policyholder milestone notifications\\\", \\\"text\\\": {\\\"content\\\": \\\"Policyholder milestone notifications\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"title\\\"}, \\\"Problem\\\": {\\\"rich_text\\\": [{\\\"plain_text\\\": \\\"Keelwater will automatically notify policyholders when they reach key milestones in their claims process, such as document submission completion, adjuster assignment, or payout approval, helping them stay informed without needing to check status manually.\\\", \\\"text\\\": {\\\"content\\\": \\\"Keelwater will automatically notify policyholders when they reach key milestones in their claims process, such as document submi\"\n  },\n  {\n   \"source\": \"notion\",\n   \"id\": \"6c413d61-b72b-5cf2-9349-34ba54498719\",\n   \"similarity\": 0.031,\n   \"record\": \"{\\\"id\\\": \\\"6c413d61-b72b-5cf2-9349-34ba54498719\\\", \\\"object\\\": \\\"page\\\", \\\"properties\\\": {\\\"Name\\\": {\\\"title\\\": [{\\\"plain_text\\\": \\\"October release notes\\\", \\\"text\\\": {\\\"content\\\": \\\"October release notes\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"title\\\"}, \\\"Problem\\\": {\\\"rich_text\\\": [{\\\"plain_text\\\": \\\"Keelwater's October release notes detail incremental improvements to claims processing workflows, including faster document upload speeds and enhanced error logging for user troubleshooting.\\\", \\\"text\\\": {\\\"content\\\": \\\"Keelwater's October release notes detail incremental improvements to claims processing workflows, including faster document upload speeds and enhanced error logging for user troubleshooting.\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"ri\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4136\",\n   \"similarity\": 0.018,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": false, \\\"completed_at\\\": null, \\\"description\\\": \\\"Keelwater is updating its supplier address fields to support international formats and improve data validation, ensuring accurate claim processing across global regions.\\\", \\\"id\\\": 4136, \\\"name\\\": \\\"Supplier address fields\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 2}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4138\",\n   \"similarity\": 0.017,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": false, \\\"completed_at\\\": null, \\\"description\\\": \\\"Configure global settings for your organisation within Keelwater, including default claim categories, notification preferences, and user permissions to ensure consistent workflows across teams.\\\", \\\"id\\\": 4138, \\\"name\\\": \\\"Organisation settings\\\", \\\"started\\\": false, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 1}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4131\",\n   \"similarity\": 0.017,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-09-15T00:00:00Z\\\", \\\"description\\\": \\\"Keelwater's workspace administration feature allows users to manage permissions, configure settings, and organize teams within their claims environment — all through a centralized, intuitive dashboard.\\\", \\\"id\\\": 4131, \\\"name\\\": \\\"Workspace administration\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The problem asks whether customers can confirm platform integration with existing systems (policyholder data, third-party adjusters, legacy document tools). None of the five similar items addresses integrations or integration transparency: the closest stories concern policyholder milestone notifications, October release notes (document upload speeds, error logging), supplier address fields, organisation settings, and the completed Workspace administration feature (permissions/settings/teams), none of which solves the integration-uncertainty problem. The completed Workspace administration story covers internal administration, not external system integration. No roadmap item or shipped story covers this problem.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1122,
+   "tokens_out": 128,
+   "cost_usd": 0.0013871
+  }
+ }
+}

@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The reporting module fails to sync the latest tasks with policyholder records.\n  quote: the reporting module doesn’t always sync the latest tasks with our policyholders’ records.\n- problem: Stale tasks remain active for months, cluttering the dashboard.\n  quote: I’ve been reviewing our active tasks and noticed quite a few that haven’t moved in months—could we get those bulk-closed to clean up the dashboard?\n- problem: User cannot easily filter tasks by due date to prioritize multiple claims.\n  quote: I’m trying to filter tasks by due date because we’ve got multiple claims coming up and I need to prioritize them before the next reporting cycle.\n- problem: Supplier letters are not triggering automatically, which delays task assignments.\n  quote: That’s a relief — we’ve had issues with supplier letters not triggering automatically, and it’s causing delays in task assignments.\n- problem: Tasks are not being auto-assigned when letters are sent, causing delays.\n  quote: are tasks auto-assigned when letters go out to policyholders? We’re seeing delays.\n- problem: They cannot easily filter claim tasks by due date, making claims handling inefficient.\n  quote: we’re trying to streamline our claims handling and need help filtering tasks by due date."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Delayed and Unmanaged Task Assignments\",\n  \"problem_statement\": \"Tasks aren't automatically assigned or synced with policyholder records, causing delays and cluttered dashboards. This makes it hard to prioritize work by due date, slowing down claims handling.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 361,
+   "tokens_out": 58,
+   "cost_usd": 9.99e-05
+  }
+ }
+}

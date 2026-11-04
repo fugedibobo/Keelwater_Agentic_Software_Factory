@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\nManual claim routing is slowing down high-volume motor claims teams who need faster, automatic assignment based on criteria like postcode and workload to scale efficiently [i:63e7d0c8fea46281][i:9bcfbf187a659dd5]. However, some commercial teams require manual control for complex cases, indicating a need for per-team configuration [i:c8869934e9e77aad][i:ec07f5c294ac850c].\\n\\n## Who is affected\\n- High-volume motor claims teams at four accounts who are slowed down by manual routing and want automatic assignment [i:63e7d0c8fea46281][i:9bcfbf187a659dd5].\\n- Commercial teams at some accounts who prefer manual control for complex cases and need configuration that varies by team [i:c8869934e9e77aad][i:ec07f5c294ac850c].\\n\\n## Evidence\\n- Four accounts have mentioned this issue across two routes: onboarding and support [i:63e7d0c8fea46281][i:9bcfbf187a659dd5][i:c8869934e9e77aad][i:ec07f5c294ac850c].\\n- There have been 4 total mentions: 3 via the onboarding route and 1 via the support route [i:63e7d0c8fea46281][i:9bcfbf187a659dd5][i:c8869934e9e77aad][i:ec07f5c294ac850c].\\n- The combined Annual Recurring Revenue (ARR) of these four accounts is £2,880,000 [i:63e7d0c8fea46281][i:9bcfbf187a659dd5][i:c8869934e9e77aad][i:ec07f5c294ac850c].\\n- Tidewell Marine & Cargo (ARR: £420,000) states, \\\"Our motor team handles high-volume cases and wants automatic assignment based on postcode and workload... manual claim routing slows them down too much.\\\" [i:63e7d0c8fea46281]\\n- Saltmarsh Specialty (ARR: £740,000) says, \\\"Our motor claims team really prefers automatic claim allocation to balance workload and match skills efficiently — it’s critical for scaling without adding headcount.\\\" [i:9bcfbf187a659dd5]\\n- Ravensgill Insurance (ARR: £470,000) notes, \\\"Our motor team wants more automatic claim allocation based on postcode and workload, but commercial prefers manual control for complex cases — we need per-team configuration.\\\" [i:c8869934e9e77aad]\\n- Callowfield Auto Assurance (ARR: £1,250,000) reports, \\\"Our motor teams are pushing for automated claim routing by postcode and workload, but our commercial teams need manual claim routing for complex cases — we really need configuration that varies by team to keep everyone happy.\\\" [i:ec07f5c294ac850c]\\n- Zero renewals have occurred in the last 90 days [i:63e7d0c8fea46281][i:9bcfbf187a659dd5][i:c8869934e9e77aad][i:ec07f5c294ac850c].\\n\\n## Why now\\n- The issue has been raised consistently by four key accounts, including our largest (Callowfield Auto Assurance, ARR: £1,250,000), over the last two months [i:63e7d0c8fea46281][i:9bcfbf187a659dd5][i:c8869934e9e77aad][i:ec07f5c294ac850c].\\n- Three of these accounts have renewal dates in Q1 and Q2 of 2027, with Callowfield Auto Assurance renewing on 2027-03-31, Ravensgill Insurance on 2027-04-30, and Saltmarsh Specialty on 2027-05-15 [i:9bcfbf187a659dd5][i:c8869934e9e77aad][i:ec07f5c294ac850c].\\n- The combined ARR of £2,880,000 from these accounts is at stake, and the need for scalable, team-specific configuration is a recurring theme that could impact retention and expansion [i:63e7d0c8fea46281][i:9bcfbf187a659dd5][i:c8869934e9e77aad][i:ec07f5c294ac850c].\",\n \"cited_insights\": [\n  {\n   \"account\": \"Tidewell Marine & Cargo\",\n   \"date\": \"2026-09-19T09:57:00+00:00\",\n   \"id\": \"63e7d0c8fea46281\",\n   \"quote\": \"Our motor team handles high-volume cases and wants automatic assignment based on postcode and workload... manual claim routing slows them down too much.\",\n   \"route\": \"onboarding\"\n  },\n  {\n   \"account\": \"Saltmarsh Specialty\",\n   \"date\": \"2026-09-23T10:05:00+00:00\",\n   \"id\": \"9bcfbf187a659dd5\",\n   \"quote\": \"Our motor claims team really prefers automatic claim allocation to balance workload and match skills efficiently — it’s critical for scaling without adding headcount.\",\n   \"route\": \"onboarding\"\n  },\n  {\n   \"account\": \"Ravensgill Insurance\",\n   \"date\": \"2026-10-28T08:08:00+00:00\",\n   \"id\": \"c8869934e9e77aad\",\n   \"quote\": \"Our motor team wants more automatic claim allocation based on postcode and workload, but commercial prefers manual control for complex cases — we need per-team configuration.\",\n   \"route\": \"support\"\n  },\n  {\n   \"account\": \"Callowfield Auto Assurance\",\n   \"date\": \"2026-09-18T15:03:00+00:00\",\n   \"id\": \"ec07f5c294ac850c\",\n   \"quote\": \"Our motor teams are pushing for automated claim routing by postcode and workload, but our commercial teams need manual claim routing for complex cases — we really need configuration that varies by team to keep everyone happy.\",\n   \"route\": \"onboarding\"\n  }\n ],\n \"fact_sheet\": {\n  \"accounts\": [\n   {\n    \"arr_gbp\": 420000.0,\n    \"mentions\": 1,\n    \"name\": \"Tidewell Marine & Cargo\",\n    \"renewal_date\": \"2027-07-31\"\n   },\n   {\n    \"arr_gbp\": 740000.0,\n    \"mentions\": 1,\n    \"name\": \"Saltmarsh Specialty\",\n    \"renewal_date\": \"2027-05-15\"\n   },\n   {\n    \"arr_gbp\": 470000.0,\n    \"mentions\": 1,\n    \"name\": \"Ravensgill Insurance\",\n    \"renewal_date\": \"2027-04-30\"\n   },\n   {\n    \"arr_gbp\": 1250000.0,\n    \"mentions\": 1,\n    \"name\": \"Callowfield Auto Assurance\",\n    \"renewal_date\": \"2027-03-31\"\n   }\n  ],\n  \"accounts_n\": 4,\n  \"arr_total_gbp\": 2880000.0,\n  \"as_of\": \"2026-11-03\",\n  \"mentions_by_route\": {\n   \"onboarding\": 3,\n   \"support\": 1\n  },\n  \"mentions_n\": 4,\n  \"renewals_90d_n\": 0,\n  \"routes_n\": 2\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked the account quotes against the cited insights and found they match verbatim, including Tidewell's 'manual claim routing slows them down too much' and Callowfield's request for team-varying configuration. The fact sheet confirms 4 accounts, 4 mentions (3 onboarding, 1 support), combined ARR of £2,880,000, and zero renewals in the last 90 days, all matching the brief. The renewal dates cited (Callowfield 2027-03-31, Ravensgill 2027-04-30, Saltmarsh 2027-05-15) fall in Q1/Q2 2027 as stated, and the insight dates (2026-09-18 to 2026-10-28) support the 'last two months' claim relative to the 2026-11-03 as-of date. No overstated scope, misquoted paraphrase, or contrary evidence was found.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1991,
+   "tokens_out": 347,
+   "cost_usd": 0.0043142
+  }
+ }
+}

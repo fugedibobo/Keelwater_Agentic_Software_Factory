@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: Garage estimates are misfiled and require manual recategorization, leading to missed evidence and delays.\n  quote: Garage estimates keep landing in correspondence — we have to manually recategorise them, and sometimes evidence gets missed because of it. The incorrect file type assignment is causing real ... delays and oversight risks.\n- problem: Garage estimate documents are misfiled, requiring manual correction and causing evidence to be missed.\n  quote: Every time a garage estimate gets dumped into correspondence, someone has to manually fix it — and sometimes the wrong document category means evidence gets overlooked entirely.\n- problem: The document upload system misclassifies files, causing them to be placed in the wrong category and resulting in file type errors.\n  quote: Also, the document upload system keeps assigning the wrong category — say, putting repair quotes under correspondence — which leads to incorrect file type issues.\n- problem: Garage estimate documents are automatically categorized incorrectly, requiring manual reclassification.\n  quote: We’re still wrestling with the wrong document category issue — garage estimates keep landing in Correspondence, and our handlers have to manually move them, which risks missing critical evidence.\n- problem: Handlers waste excessive time correcting wrong file type assignments for garage estimates.\n  quote: Handlers are spending too much time fixing the incorrect file type assignments — we need a better way to classify garage estimates so we don’t miss critical evidence during claims processing.\n- problem: Documents are being mis‑categorized, forcing manual re‑classification and risking missed evidence.\n  quote: We’re still wrestling with the wrong document category issue — garage estimates keep landing in Correspondence, and our handlers have to manually move them, which risks missing critical evidence.\n- problem: Garage estimate files are incorrectly categorized as Correspondence, requiring manual re‑categorisation.\n  quote: Also, when we upload garage estimates, they land under Correspondence — that incorrect file type is causing handlers to manually re-categorise everything.\n- problem: Garage estimate documents are automatically placed in the wrong category, causing handlers to miss important evidence.\n  quote: Also, every time we upload a garage estimate, it lands in correspondence — it’s a wrong document category and handlers keep missing key evidence because of it."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Garage estimates misclassified\",\n  \"problem_statement\": \"Garage estimate documents are automatically placed in the wrong category, forcing manual correction. This leads to missed evidence and delays because critical information is overlooked during claims processing.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 553,
+   "tokens_out": 52,
+   "cost_usd": 0.0001125
+  }
+ }
+}

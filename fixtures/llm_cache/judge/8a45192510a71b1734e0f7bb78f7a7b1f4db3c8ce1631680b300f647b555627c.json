@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"The platform forces a single claim routing approach, but the commercial team needs a different, manual process.\",\n \"quotes\": [\n  {\n   \"date\": \"2026-09-19T09:57:00+00:00\",\n   \"quote\": \"We don’t want to force one approach across all teams... Per-team configuration would solve it... prefers manual claim routing — one-size-fits-all doesn’t work for us.\",\n   \"route\": \"onboarding\"\n  },\n  {\n   \"date\": \"2026-10-27T11:53:00+00:00\",\n   \"quote\": \"Our commercial and specialty claims handlers find auto-routing unhelpful — we need manual claim routing to manage complex files properly, especially with multiple suppliers and policyholders involved.\",\n   \"route\": \"support\"\n  },\n  {\n   \"date\": \"2026-09-19T09:57:00+00:00\",\n   \"quote\": \"Our motor team handles high-volume cases and wants automatic assignment based on postcode and workload... manual claim routing slows them down too much.\",\n   \"route\": \"onboarding\"\n  },\n  {\n   \"date\": \"2026-09-23T10:05:00+00:00\",\n   \"quote\": \"Our motor claims team really prefers automatic claim allocation to balance workload and match skills efficiently — it’s critical for scaling without adding headcount.\",\n   \"route\": \"onboarding\"\n  },\n  {\n   \"date\": \"2026-10-28T08:08:00+00:00\",\n   \"quote\": \"Our motor team wants more automatic claim allocation based on postcode and workload, but commercial prefers manual control for complex cases — we need per-team configuration.\",\n   \"route\": \"support\"\n  },\n  {\n   \"date\": \"2026-09-18T15:03:00+00:00\",\n   \"quote\": \"Our motor teams are pushing for automated claim routing by postcode and workload, but our commercial teams need manual claim routing for complex cases — we really need configuration that varies by team to keep everyone happy.\",\n   \"route\": \"onboarding\"\n  }\n ],\n \"title\": \"The platform forces a single claim routing approach, but the commercial team\"\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\":\"The problem statement and all six quotes consistently describe a product limitation: the platform enforces a single claim-routing approach, while customers need per-team configuration (auto-routing for motor, manual for commercial). This is a clear feature request with repeated signal across onboarding and support routes; no pricing, contract, or customer-IT causes, and no praise. A squad could act on per-team routing configuration.\",\"verdict\":\"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 694,
+   "tokens_out": 90,
+   "cost_usd": 0.00107576
+  }
+ }
+}

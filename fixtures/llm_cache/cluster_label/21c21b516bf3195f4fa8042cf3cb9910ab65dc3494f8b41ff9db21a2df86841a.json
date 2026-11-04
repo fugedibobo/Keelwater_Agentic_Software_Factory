@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The customer cannot attend the scheduled demo because they have a claims audit that day and there are issues with how claims are logged.\n  quote: Can we push the demo to next Tuesday? I’ve got a claims audit that day and can’t reschedule... let’s start with how claims get logged.\n- problem: The platform does not allow pulling full audit logs for admin review, jeopardizing compliance deadlines.\n  quote: we can pull full audit logs for admin review — it’s becoming urgent for our compliance team. We really need the audit-log export for admins to meet our internal compliance deadlines — it’s not just a nice-to-have anymore."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Inadequate claims logging and audit capabilities\",\n  \"problem_statement\": \"Users cannot properly log claims or export audit logs, which disrupts daily operations and risks compliance deadlines. Without reliable tracking and reporting, teams face audits unprepared and lose trust in the system.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 237,
+   "tokens_out": 61,
+   "cost_usd": 9.08e-05
+  }
+ }
+}

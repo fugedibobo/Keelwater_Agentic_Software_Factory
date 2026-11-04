@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The user cannot lock saved filters on the claims list.\n  quote: Hi Bryn, I’m trying to set up some saved filters on the claims list to help my team track high-priority cases, but I can’t seem to lock them in properly.\n- problem: The user cannot lock saved filters on the claims list.\n  quote: I’m trying to set up some saved filters on the claims list to help my team track high-priority cases, but I can’t seem to lock them in properly."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Inability to lock saved filters\",\n  \"problem_statement\": \"Users trying to create consistent workflows for tracking high-priority cases cannot lock their saved filters. This causes inconsistent views across the team and undermines efficiency.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 211,
+   "tokens_out": 50,
+   "cost_usd": 7.61e-05
+  }
+ }
+}

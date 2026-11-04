@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"Approvals get stuck when the designated approver is unavailable, causing delays in reserve adjustments.\",\n \"quotes\": [\n  {\n   \"date\": \"2026-10-28T08:08:00+00:00\",\n   \"quote\": \"When a handler needs to adjust a reserve beyond their limit, it goes into an approval waiting list — but if the approver’s out, nothing moves until they return.\",\n   \"route\": \"support\"\n  },\n  {\n   \"date\": \"2026-10-26T09:40:00Z\",\n   \"quote\": \"And when reserves go over limit? The approval waiting list just ... if the approver’s out.\",\n   \"route\": \"sales\"\n  },\n  {\n   \"date\": \"2026-09-25T10:50:00+00:00\",\n   \"quote\": \"it’s creating a backlog on the approval waiting list, and policyholders are starting to ask why payments are delayed. We’re seeing claims held up because when a reserve change exceeds authority, it sits in one approver’s queue with no delegate, and that creates a backlog on the approval waiting list — policyholders are noticing delays.\",\n   \"route\": \"account_management\"\n  },\n  {\n   \"date\": \"2026-09-14T10:43:00+00:00\",\n   \"quote\": \"When a reserve exceeds authority and the approver’s out with no delegate, it just piles… it’s claims stalling until someone returns.\",\n   \"route\": \"account_management\"\n  }\n ],\n \"title\": \"Approvals get stuck when the designated approver is unavailable, causing delays in\"\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"All four quotes and the problem statement describe a product behavior issue: reserve adjustments exceeding authority sit in a single approver's queue with no delegation or fallback when that approver is unavailable, causing claims and payments to stall. This is a workflow limitation within Keelwater's software (missing delegation/substitute-approver capability), not a pricing, contract, or customer IT problem, and no quote is praise or answerable by a help article. The account_management quotes confirm real claim delays with policyholder impact.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 572,
+   "tokens_out": 116,
+   "cost_usd": 0.000264685
+  }
+ }
+}

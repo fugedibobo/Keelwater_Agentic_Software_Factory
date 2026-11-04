@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The user does not know how to upload claim documents and link them to the appropriate reserves.\n  quote: Can you walk me through how to upload claims documents and assign them to the correct reserves?\n- problem: The customer cannot find the task queue in the interface while trying to upload and link a batch of claims documents.\n  quote: I’m trying to get a batch of claims documents uploaded and linked to the right reserves, but I’m not sure where the task queue sits in the interface.\n- problem: The user cannot upload policyholder documents because they fail validation.\n  quote: I’m having trouble uploading the policyholder documents for claim A13 — they keep failing validation.\n- problem: The user cannot successfully attach documents to a claim because they keep missing a step.\n  quote: Can you walk me through how to attach documents to a claim? I keep missing a step."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Difficulty uploading and linking documents\",\n  \"problem_statement\": \"Users struggle to upload and link claim or policyholder documents to the correct reserves because the interface lacks clear guidance and steps are easily missed, causing delays and errors in processing.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 286,
+   "tokens_out": 54,
+   "cost_usd": 8.514e-05
+  }
+ }
+}

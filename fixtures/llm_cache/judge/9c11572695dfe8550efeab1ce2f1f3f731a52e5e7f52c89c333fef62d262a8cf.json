@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"Manual claim routing slows down the high-volume motor team.\",\n \"quotes\": [\n  {\n   \"date\": \"2026-09-19T09:57:00+00:00\",\n   \"quote\": \"Our motor team handles high-volume cases and wants automatic assignment based on postcode and workload... manual claim routing slows them down too much.\",\n   \"route\": \"onboarding\"\n  },\n  {\n   \"date\": \"2026-09-23T10:05:00+00:00\",\n   \"quote\": \"Our motor claims team really prefers automatic claim allocation to balance workload and match skills efficiently — it’s critical for scaling without adding headcount.\",\n   \"route\": \"onboarding\"\n  },\n  {\n   \"date\": \"2026-10-28T08:08:00+00:00\",\n   \"quote\": \"Our motor team wants more automatic claim allocation based on postcode and workload, but commercial prefers manual control for complex cases — we need per-team configuration.\",\n   \"route\": \"support\"\n  },\n  {\n   \"date\": \"2026-09-18T15:03:00+00:00\",\n   \"quote\": \"Our motor teams are pushing for automated claim routing by postcode and workload, but our commercial teams need manual claim routing for complex cases — we really need configuration that varies by team to keep everyone happy.\",\n   \"route\": \"onboarding\"\n  }\n ],\n \"title\": \"Manual claim routing slows down the high-volume motor team.\"\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The claim is that manual claim routing slows down the high-volume motor team. All four quotes (from onboarding and support, Sept–Oct 2026) consistently describe a product gap: the motor teams want automatic claim allocation based on postcode and workload, with per-team configuration so commercial teams can retain manual control. This is a clear feature request describing a product limitation a squad could act on, not a pricing, staffing, or documentation issue. No quote is praise or answered by a help article.\",\"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 537,
+   "tokens_out": 113,
+   "cost_usd": 0.001249
+  }
+ }
+}

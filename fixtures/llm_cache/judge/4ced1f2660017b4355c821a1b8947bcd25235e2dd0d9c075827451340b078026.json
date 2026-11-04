@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"That sounds promising. Can we see how reserves and payments sync with our existing accounting tools?\",\n \"quotes\": [\n  {\n   \"date\": \"2026-10-18T10:32:00Z\",\n   \"quote\": \"That sounds promising. Can we see how reserves and payments sync with our existing accounting tools?\",\n   \"route\": \"sales\"\n  },\n  {\n   \"date\": \"2026-10-31T09:12:00+00:00\",\n   \"quote\": \"That’d be great — I also need to sync up on the tasks for policyholders and make sure the integrations are pulling correctly.\",\n   \"route\": \"support\"\n  },\n  {\n   \"date\": \"2026-10-15T11:14:00Z\",\n   \"quote\": \"Will do — have a great day.\",\n   \"route\": \"sales\"\n  },\n  {\n   \"date\": \"2026-09-01T08:33:00+00:00\",\n   \"quote\": \"That’d be great — we need those reserves figures locked in before we process any further payments to suppliers this week.\",\n   \"route\": \"support\"\n  },\n  {\n   \"date\": \"2026-10-28T16:59:00Z\",\n   \"quote\": \"Sounds good. Thanks again, Alwen.\",\n   \"route\": \"sales\"\n  }\n ],\n \"title\": \"That sounds promising. Can we see how reserves and payments sync with\"\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The problem statement is a sales inquiry asking to see how reserves and payments sync with existing accounting tools — a demo request, not a described product problem. The support quotes mention syncing integrations and reserves figures, but neither describes a malfunction, gap, or workaround; they read as routine coordination. No quote evidences a product defect or actionable signal, and a sales question about capabilities is not a product problem a squad could act on.\",\"verdict\": \"fail\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 537,
+   "tokens_out": 99,
+   "cost_usd": 0.00033834
+  }
+ }
+}

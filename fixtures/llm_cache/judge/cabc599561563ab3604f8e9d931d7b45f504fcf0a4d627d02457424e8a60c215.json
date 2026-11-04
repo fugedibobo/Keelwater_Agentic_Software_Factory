@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"Exactly — we need garage progress visibility baked into the system so we don’t have to interrupt our daily work with phone calls. Could we schedule a follow-up call next Tuesday? I’ll need to align with my team’s shift roster\",\n \"quotes\": [\n  {\n   \"date\": \"2026-10-26T11:03:00Z\",\n   \"quote\": \"Exactly — we need garage progress visibility baked into the system so we don’t have to interrupt our daily work with phone calls. Could we schedule a follow-up call next Tuesday? I’ll need to align with my team’s shift roster first.\",\n   \"route\": \"sales\"\n  },\n  {\n   \"date\": \"2026-10-13T12:03:00+00:00\",\n   \"quote\": \"Hi Bryn, I’m reaching out because we’ve got a few policyholders asking when they’ll get updates during their claim process. Is there a way to automate those messages?\",\n   \"route\": \"support\"\n  },\n  {\n   \"date\": \"2026-10-19T10:29:00Z\",\n   \"quote\": \"That’s all we ask — thanks again.\",\n   \"route\": \"sales\"\n  }\n ],\n \"title\": \"Exactly — we need garage progress visibility baked into the system so\"\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The quotes describe a product gap: customers want garage progress visibility and automated claim-status updates built into the system, requiring manual phone calls today. This is a feature request (missing product capability), not pricing, customer IT, or something a help article would resolve. No praise or workaround contradiction appears in the evidence.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 500,
+   "tokens_out": 76,
+   "cost_usd": 0.000140991
+  }
+ }
+}

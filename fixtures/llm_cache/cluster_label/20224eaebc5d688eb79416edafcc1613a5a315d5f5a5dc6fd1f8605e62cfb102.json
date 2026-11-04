@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The purchase order number on the invoice is incorrect.\n  quote: I’m trying to get our purchase order number updated on your latest invoice — it’s currently wrong and needs to reflect our internal tracking correctly.\n- problem: The purchase order reference on the latest invoice is incorrect, causing reconciliation problems.\n  quote: we need to update the purchase order reference on our most recent invoice — it’s causing reconciliation issues with our finance team.\n- problem: The invoice has an incorrect purchase order number, causing reconciliation issues for the customer.\n  quote: I’m writing to request an update to the purchase order number on your invoice — this is causing reconciliation issues, and I need the invoice contact change reflected accurately in our records.\n- problem: The invoice has an incorrect purchase order reference that is causing finance reconciliation issues.\n  quote: We need to adjust the purchase order reference on the invoice you sent — it’s causing reconciliation problems with our finance team, and we’re hoping you can help with the purchase order correction.\n- problem: The purchase order they referenced does not match the billing information, which is halting their payment process.\n  quote: The PO we referenced doesn’t match what’s on your billing, and it’s blocking our payment cycle."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Incorrect Purchase Order on Invoices\",\n  \"problem_statement\": \"Customers face reconciliation and payment delays because invoices contain wrong purchase order numbers. This mismatch disrupts finance workflows and blocks timely payments.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 356,
+   "tokens_out": 46,
+   "cost_usd": 8.62e-05
+  }
+ }
+}

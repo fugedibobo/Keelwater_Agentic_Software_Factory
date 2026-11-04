@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"title\": \"Frustrating document type selection\",\n \"problem_statement\": \"Users repeatedly click 'Document type' without success, leading to frustration. This wastes time and blocks progress because the interface doesn't clearly respond to their actions.\",\n \"quotes\": [\n  {\n   \"quote\": \"Documents: click \\\"Document type\\\", rage x5... Documents: click \\\"Open\\\"\",\n   \"route\": \"sessions\",\n   \"date\": \"2026-09-23T09:05:00Z\"\n  },\n  {\n   \"quote\": \"Documents: click \\\"Open\\\"\\nDocuments: click \\\"Save\\\", rage x3\",\n   \"route\": \"sessions\",\n   \"date\": \"2026-09-16T10:04:00Z\"\n  },\n  {\n   \"quote\": \"Suppliers: click \\\"Open\\\" ... click \\\"Save\\\", rage x3\",\n   \"route\": \"sessions\",\n   \"date\": \"2026-09-09T14:19:00Z\"\n  },\n  {\n   \"quote\": \"click \\\"Document type\\\", rage x5...click \\\"Save\\\"\",\n   \"route\": \"sessions\",\n   \"date\": \"2026-09-14T15:35:00Z\"\n  },\n  {\n   \"quote\": \"Documents: click \\\"Document type\\\", rage x5... Documents: click \\\"Open\\\"\",\n   \"route\": \"sessions\",\n   \"date\": \"2026-09-05T14:45:00Z\"\n  },\n  {\n   \"quote\": \"Documents: click \\\"Document type\\\", rage x5\",\n   \"route\": \"sessions\",\n   \"date\": \"2026-09-03T12:51:00Z\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The title and problem statement claim users repeatedly fail when clicking 'Document type', and the session quotes support this: five of six quotes show repeated rage clicks on 'Document type' or related save/open actions in Documents across multiple sessions in September. This is an in-product usability issue with a clear, actionable UI behavior (non-responsive control), not pricing, contracts, customer IT, or a help-article answer. No praise or out-of-product cause is present.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 579,
+   "tokens_out": 105,
+   "cost_usd": 0.000250538
+  }
+ }
+}

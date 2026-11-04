@@ -84,7 +84,7 @@ def test_datasets_versioned_and_experiment_scores(tmp_path):
     seeds = tmp_path / "seed"
     seeds.mkdir()
     (seeds / "signal.jsonl").write_text(json.dumps({"evidence": "e", "verdict": "pass"}) + "\n", encoding="utf-8")
-    sets = telemetry.build_label_datasets(store, seeds, {"themes": [{"name": "t1", "kind": "real"}]})
+    sets = telemetry.build_label_datasets(store, seeds, {"themes": [{"id": "t1", "kind": "real"}]})
     assert set(sets) == {"keelwater-ground-truth", "keelwater-judge-seed-signal", "keelwater-labels-blind", "keelwater-noise-audit"}
     client = FakeClient()
     assert telemetry.upload_datasets(sets, client)["keelwater-labels-blind"] == 1

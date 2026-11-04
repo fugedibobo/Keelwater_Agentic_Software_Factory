@@ -37,10 +37,11 @@ profiles:
         max_tokens: 1500
         timeout_s: 120
       judge:
-        model: z-ai/glm-5
-        fallback: z-ai/glm-5.3
+        model: z-ai/glm-5.3   # swap: glm-5 ignores json_schema (returns prose), glm-5.3 obeys it; reasoning is mandatory there
+        fallback: z-ai/glm-5
         price: {in: 1.40, out: 4.40}   # est
-        max_tokens: 400
+        max_tokens: 4000
+        reasoning: {effort: low}   # glm-5.3 reasons at length by default and overran 4000 on some briefs
         timeout_s: 120
       handoff:
         model: deepseek/deepseek-v3.2

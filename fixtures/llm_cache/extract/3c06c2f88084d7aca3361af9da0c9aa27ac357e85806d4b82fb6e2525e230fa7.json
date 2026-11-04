@@ -1,0 +1,69 @@
+{
+ "request": {
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You extract one product insight from a single customer snippet about the Keelwater claims platform.\n\nReturn JSON with exactly these fields:\n- problem: the customer problem in one plain sentence, in your own words.\n- quote: the customer words that best show the problem, copied VERBATIM from the SNIPPET block, 5 to 60 words. Never take words from the CONTEXT block. You may join up to three fragments with \"...\" if they appear in that order.\n- workflow: the task the customer was doing, a few words.\n- desired_outcome: what the customer wants instead, one short phrase.\n\nThe CONTEXT block is what an internal Keelwater person said just before; it is context, do not quote it.\n"
+   },
+   {
+    "role": "user",
+    "content": "SNIPPET (quote only from here):\nWe’re planning to expand our policyholder letters automation next month — any tips on best practices? Your team’s handling of our supplier integrations last quarter saved us hours in manual reconciliation — truly impressive work.\n\nCONTEXT (internal, do not quote):\nThank you — we’re glad to hear it’s making a difference. Let me know if you need any help setting up new supplier tasks or reporting views."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 600,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "extract",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "problem": {
+       "title": "Problem",
+       "type": "string"
+      },
+      "quote": {
+       "title": "Quote",
+       "type": "string"
+      },
+      "workflow": {
+       "title": "Workflow",
+       "type": "string"
+      },
+      "desired_outcome": {
+       "title": "Desired Outcome",
+       "type": "string"
+      }
+     },
+     "required": [
+      "problem",
+      "quote",
+      "workflow",
+      "desired_outcome"
+     ],
+     "title": "ExtractOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"problem\": \"The customer lacks guidance on how to effectively expand their policyholder letters automation.\",\n  \"quote\": \"We’re planning to expand our policyholder letters automation next month — any tips on best practices?\",\n  \"workflow\": \"policyholder letters automation\",\n  \"desired_outcome\": \"receive best‑practice guidance for scaling automation\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 428,
+   "tokens_out": 300,
+   "cost_usd": 0.0001928
+  }
+ }
+}

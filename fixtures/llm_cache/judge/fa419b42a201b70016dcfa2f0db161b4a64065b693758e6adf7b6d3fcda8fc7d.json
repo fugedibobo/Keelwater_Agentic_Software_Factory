@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"Unannounced UI changes cause staff confusion and delays as they must relearn where everything is.\",\n \"quotes\": [\n  {\n   \"date\": \"2026-10-22T11:44:00+00:00\",\n   \"quote\": \"We had unannounced screen changes last time and it caused confusion and delays because staff had to relearn where everything was — we really need advance notice and previews going forward.\",\n   \"route\": \"onboarding\"\n  },\n  {\n   \"date\": \"2026-10-25T11:45:00Z\",\n   \"quote\": \"It’s the unexpected interface changes — we keep having to retrain staff because buttons and menus shift without warning, and that’s costing us time and accuracy.\",\n   \"route\": \"sales\"\n  },\n  {\n   \"date\": \"2026-09-22T16:21:00+00:00\",\n   \"quote\": \"Unexpected interface changes keep shifting where we click for reserves or payments — our staff are making errors because the controls aren’t where they were last week.\",\n   \"route\": \"account_management\"\n  },\n  {\n   \"date\": \"2026-10-16T15:14:00+00:00\",\n   \"quote\": \"The unexpected interface changes have forced us to retrain staff mid-cycle, which is causing errors in our claims and payments processing — we really need advance notice and bundled releases next time.\",\n   \"route\": \"support\"\n  },\n  {\n   \"date\": \"2026-09-30T09:19:00+00:00\",\n   \"quote\": \"Your interface changes lately — controls moving without warning — it’s forcing us to retrain staff constantly, and unannounced screen changes are disrupting our operations... We’d prefer fewer, bundled changes with previews — unannounced screen changes are hurting our efficiency and we need advance notice to adapt properly.\",\n   \"route\": \"account_management\"\n  },\n  {\n   \"date\": \"2026-10-19T10:29:00Z\",\n   \"quote\": \"we had to retrain three people just to find the new location, and someone even submitted a payment in error because the button moved... unexpected interface changes moved key controls without warning — it’s causing real errors in claims and payments.\",\n   \"route\": \"sales\"\n  }\n ],\n \"title\": \"Unannounced UI changes cause staff confusion and delays as they must relearn\"\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The claim is that unannounced UI changes cause staff confusion, retraining, and errors (e.g., a payment submitted in error because a button moved, per the 2026-10-19 sales quote). Multiple quotes across routes (onboarding, sales, account_management, support) consistently describe controls moving without warning and the resulting operational impact. This is a product behavior a squad could act on (release communication, change previews, UI stability), not pricing, contracts, customer IT, or praise. The request for advance notice/previews is a feature request, which counts as signal.\",\"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 735,
+   "tokens_out": 132,
+   "cost_usd": 0.00091141
+  }
+ }
+}

@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The platform is disrupting their ability to manage reserves and update policyholders.\n  quote: It’s affecting how we handle reserves and policyholder updates.\n- problem: Users cannot find familiar locations in the claims module after the recent update.\n  quote: Hi Bryn, we’re having some trouble navigating the claims module after the last update — things aren’t where we left them.\n- problem: The reserves tab on the claims dashboard moved without any notice or guidance, causing confusion.\n  quote: Well, the issue is that last week the claims dashboard suddenly shifted where the reserves tab sits — no heads-up, no training notes, nothing.\n- problem: The customer cannot access the reserves dashboard after a recent update.\n  quote: Hi Bryn, I’m Quenna from Penhallow Specialty Risks — we’re having trouble accessing our reserves dashboard after the update last week."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Unannounced UI Changes Disrupt Core Workflows\",\n  \"problem_statement\": \"Users can't access or navigate key features like the reserves dashboard and claims module after unannounced updates. This disrupts critical tasks like managing reserves and updating policyholders because the interface no longer matches their established workflows.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 283,
+   "tokens_out": 68,
+   "cost_usd": 0.00010027
+  }
+ }
+}

@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"We’ve had a few false alarms lately where Keelwater appears down, but it’s actually our own customer network failure — maybe the sign-on provider or our VPN acting up again.\",\n \"quotes\": [\n  {\n   \"date\": \"2026-09-14T10:19:00+00:00\",\n   \"quote\": \"We’ve had a few false alarms lately where Keelwater appears down, but it’s actually our own customer network failure — maybe the sign-on provider or our VPN acting up again.\",\n   \"route\": \"support\"\n  },\n  {\n   \"date\": \"2026-10-24T14:35:00+00:00\",\n   \"quote\": \"We’ve had three people report the same customer login outage today, and it’s holding up claims processing — I’d appreciate any insight from your end.\",\n   \"route\": \"support\"\n  },\n  {\n   \"date\": \"2026-10-27T11:53:00+00:00\",\n   \"quote\": \"I’ve ruled out our own systems — it’s definitely a customer network failure, not Keelwater being down, though the error message makes it sound like a bug.\",\n   \"route\": \"support\"\n  },\n  {\n   \"date\": \"2026-09-17T13:03:00+00:00\",\n   \"quote\": \"Hi Deryn, we’re having trouble getting into Keelwater this morning — our team says it’s down again. Our team keeps saying Keelwater is down, but it turns out it’s our own sign-on service failing — customer network failure is the real issue. We thought the platform was offline, but it’s actually our VPN or email system causing the login issue\",\n   \"route\": \"account_management\"\n  },\n  {\n   \"date\": \"2026-10-09T16:30:00+00:00\",\n   \"quote\": \"We keep getting error messages that say Keelwater is down, but I think it’s actually our own customer network failure — maybe the sign-on provider or our corporate VPN is interfering with the login flow.\",\n   \"route\": \"support\"\n  },\n  {\n   \"date\": \"2026-10-24T14:35:00+00:00\",\n   \"quote\": \"Our team’s been unable to access Keelwater this morning — it looks like a customer login outage, but we haven’t touched our SSO setup, and it’s impacting multiple staff.\",\n   \"route\": \"support\"\n  },\n  {\n   \"date\": \"2026-09-19T09:57:00+00:00\",\n   \"quote\": \"One more thing — we had a login issue last week. It turned out to be our VPN, not Keelwater. Just wanted to clarify that. Last week’s ‘Keelwater is down’ report was actually caused by our own VPN — not a product issue, just a customer login outage we need to track better.\",\n   \"route\": \"onboarding\"\n  }\n ],\n \"title\": \"We’ve had a few false alarms lately where Keelwater appears down, but\"\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The problem statement and all quotes attribute the login failures to the customer's own network, VPN, or sign-on provider, not to Keelwater's product. One quote even explicitly says 'not a product issue, just a customer login outage.' The cause lies in the customer's own IT infrastructure, which is outside the product and not actionable by a squad. The only faint signal is a complaint that the error message 'makes it sound like a bug,' but that alone is too weak to make this a product problem.\",\"verdict\": \"fail\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 884,
+   "tokens_out": 116,
+   "cost_usd": 0.00116432
+  }
+ }
+}

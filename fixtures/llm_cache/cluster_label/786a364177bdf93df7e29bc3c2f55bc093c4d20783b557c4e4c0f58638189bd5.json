@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: They need reliable integrations with supplier portals that won’t disrupt their current reporting.\n  quote: Perfect. We also need clean integrations with our supplier portals — can your system pull in supplier data without breaking our existing reporting?\n- problem: Supplier integrations and reporting are becoming increasingly complex each quarter.\n  quote: That’s exactly what we need — especially with supplier integrations and reporting getting more complex each quarter."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Complex supplier integrations disrupting reporting\",\n  \"problem_statement\": \"Teams struggle with supplier integrations that grow more complex over time and risk breaking existing reporting systems. This undermines confidence in data accuracy and delays critical workflows.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 191,
+   "tokens_out": 51,
+   "cost_usd": 7.52e-05
+  }
+ }
+}

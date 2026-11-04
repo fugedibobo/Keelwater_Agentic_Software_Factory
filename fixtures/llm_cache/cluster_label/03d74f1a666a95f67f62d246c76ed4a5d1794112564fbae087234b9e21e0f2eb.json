@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The user cannot find the updated reserves after finalizing a claim.\n  quote: Hi Bryn, I’m having trouble locating the updated reserves after finalising a claim — can you help?\n- problem: The reporting team cannot complete month-end close because reserve data hasn't updated.\n  quote: Our reporting team’s been waiting on those reserves ... it’s holding up the month‑end close.\n- problem: The reserves report they try to retrieve shows outdated data despite re-syncing integrations.\n  quote: we’re having trouble pulling the latest reserves report for our policyholders. It’s showing outdated figures even after we re-synced the integrations.\n- problem: The user does not know how to update the reserves section after a claim is approved.\n  quote: Could you walk me through how to update the reserves section after a claim is approved?\n- problem: Reserves are not updating in the reporting tab even after reprocessing documents.\n  quote: The claim reference is A17-MAR-0089. We’ve already reprocessed the documents twice but the reserves still aren’t updating in the reporting tab.\n- problem: The user cannot match the latest reserves update with the payments processed, resulting in a discrepancy.\n  quote: I’m trying to reconcile the latest reserves update with the payments we’ve processed for policyholders this week, and the numbers aren’t lining up.\n- problem: Payments remain pending and claim reserves do not update after submitting commercial property claims.\n  quote: It’s mostly the commercial property claims under policyholder ID C8821 — the ones we submitted last Tuesday. The payments show as pending but reserves aren’t updating.\n- problem: The user cannot retrieve the latest payments report, delaying month‑end close.\n  quote: we’re having trouble pulling the latest payments report for our policyholders, and it’s holding up our month-end close."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Reserve Data Not Updating After Claim Finalization\",\n  \"problem_statement\": \"Users cannot access or confirm updated reserve values after finalizing claims, which delays reporting and reconciliation. This happens because changes don't propagate to reports or dashboards, making it impossible to trust the data for closing or reconciliation.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 491,
+   "tokens_out": 68,
+   "cost_usd": 0.00011899
+  }
+ }
+}

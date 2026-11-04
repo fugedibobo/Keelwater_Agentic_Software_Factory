@@ -1,0 +1,69 @@
+{
+ "request": {
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You extract one product insight from a single customer snippet about the Keelwater claims platform.\n\nReturn JSON with exactly these fields:\n- problem: the customer problem in one plain sentence, in your own words.\n- quote: the customer words that best show the problem, copied VERBATIM from the SNIPPET block, 5 to 60 words. Never take words from the CONTEXT block. You may join up to three fragments with \"...\" if they appear in that order.\n- workflow: the task the customer was doing, a few words.\n- desired_outcome: what the customer wants instead, one short phrase.\n\nThe CONTEXT block is what an internal Keelwater person said just before; it is context, do not quote it.\n"
+   },
+   {
+    "role": "user",
+    "content": "SNIPPET (quote only from here):\nThe lack of real-time visibility into garage progress is forcing us to chase manually — garage progress visibility is a blocker we need solved ASAP. Also, when someone’s out and a reserve goes over limit, it just sits there — no backup, no movement.\n\nCONTEXT (internal, do not quote):\nUnderstood. We’ll log this under ‘garage progress visibility’ to make sure it’s visible to the product team."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 600,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "extract",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "problem": {
+       "title": "Problem",
+       "type": "string"
+      },
+      "quote": {
+       "title": "Quote",
+       "type": "string"
+      },
+      "workflow": {
+       "title": "Workflow",
+       "type": "string"
+      },
+      "desired_outcome": {
+       "title": "Desired Outcome",
+       "type": "string"
+      }
+     },
+     "required": [
+      "problem",
+      "quote",
+      "workflow",
+      "desired_outcome"
+     ],
+     "title": "ExtractOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"problem\": \"The team cannot see garage progress in real time, so they have to chase updates manually.\",\n  \"quote\": \"The lack of real-time visibility into garage progress is forcing us to chase manually — garage progress visibility is a blocker we need solved ASAP.\",\n  \"workflow\": \"monitoring garage progress\",\n  \"desired_outcome\": \"real-time garage progress visibility\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 318,
+   "tokens_out": 304,
+   "cost_usd": 0.00013864
+  }
+ }
+}
