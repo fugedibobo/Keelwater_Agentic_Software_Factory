@@ -18,7 +18,7 @@ def mention_briefs(seed, record):
         if theme is None:
             mentions.append({'id': mention['id'], 'request': mention['request'], 'severity': mention['severity']})
         else:
-            mentions.append({'id': mention['id'], 'problem': theme['description'], 'fact': rng.choice(theme['facts']), 'synonym': rng.choice(theme['synonyms']), 'severity': theme['severity'], 'stance': mention.get('stance'), 'post_ship': mention.get('post_ship', False), 'form': 'short agreement to preceding internal summary' if mention.get('agreement') else rng.choice(['complaint', 'workaround', 'feature ask', 'question'])})
+            mentions.append({'id': mention['id'], 'problem': theme['description'], 'fact': rng.choice(theme['facts']), 'synonym': rng.choice(theme['synonyms']), 'severity': theme['severity'], 'stance': mention.get('stance'), 'post_ship': mention.get('post_ship', False), 'form': 'short agreement to the preceding internal summary: fewer than eight words, still containing the synonym' if mention.get('agreement') else rng.choice(['complaint', 'workaround', 'feature ask', 'question'])})
     return mentions
 
 

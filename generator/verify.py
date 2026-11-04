@@ -45,7 +45,7 @@ def unknown_names(text: str, seed: int = 42) -> list[str]:
     spec = load(seed)
     allowed_text = ' '.join(str(spec[k]) for k in ('accounts', 'people', 'glossary'))
     allowed = set(re.findall(r"[A-Z][a-z]+", allowed_text))
-    allowed.update('January February March April May June July August September October November December Monday Tuesday Wednesday Thursday Friday Saturday Sunday London Welsh UK Yes No The Keelwater'.split())
+    allowed.update('January February March April May June July August September October November December Monday Tuesday Wednesday Thursday Friday Saturday Sunday Mondays Tuesdays Wednesdays Thursdays Fridays Saturdays Sundays London Welsh UK Yes No The Keelwater'.split())
     allowed_names = {a['name'] for a in spec['accounts']['accounts']} | set(spec['glossary'].get('common_capitalised', []))
     allowed_names.update(p['name'] for p in spec['people']['staff'] + spec['people']['customer_contacts'])
     allowed_names.update(p['name'] for p in spec['people'].get('brokers', []))
