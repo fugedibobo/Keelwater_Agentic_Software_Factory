@@ -449,6 +449,7 @@ class SuiteReport(Row):
     metrics: dict[str, float | int | bool | None] = {}
     gates: dict[str, bool] = {}
     cache_keys: list[str] = []
+    detail: dict[str, Any] = {}  # additive (#7): text verdicts, tables, drift
 
 
 class GroundTruthReport(SuiteReport):
