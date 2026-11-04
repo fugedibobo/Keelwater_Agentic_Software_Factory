@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: Claims are being assigned to the motor team in a way that doesn't align with their workload or postcode zones.\n  quote: we’ve been having some issues with how claims are assigned in our motor team — it’s not matching our workload or postcode zones.\n- problem: The team needs both automatic claim routing by postcode and workload, and manual routing control for complex cases, but the system lacks configurable per‑team routing options.\n  quote: Our motor team wants claims routed automatically based on postcode and workload, but our specialty handlers need manual control for complex cases — it’s a team‑level thing. We need manual claim routing options configurable per team.\n- problem: The commercial claims team must manually route claims because automatic assignment mishandles complex cases.\n  quote: Also, our commercial claims team needs manual claim routing — auto-assignment breaks our complex cases.\n- problem: Commercial claims are too complex to be automatically routed.\n  quote: Our commercial claims are too complex for auto-routing — we need manual claim routing for those, while motor claims can stay automated by postcode and workload.\n- problem: The platform forces a single claim routing approach, but the commercial team needs a different, manual process.\n  quote: We don’t want to force one approach across all teams... Per-team configuration would solve it... prefers manual claim routing — one-size-fits-all doesn’t work for us.\n- problem: Claims handlers find the system's auto‑routing unhelpful for complex commercial and specialty files.\n  quote: Our commercial and specialty claims handlers find auto-routing unhelpful — we need manual claim routing to manage complex files properly, especially with multiple suppliers and policyholders involved.\n- problem: Manual claim routing slows down the high-volume motor team.\n  quote: Our motor team handles high-volume cases and wants automatic assignment based on postcode and workload... manual claim routing slows them down too much.\n- problem: The motor and commercial teams disagree on whether claim allocation should be automated or manually controlled for complex cases.\n  quote: First, our motor team wants more automatic claim allocation based on postcode and workload, but commercial prefers manual control for complex cases."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"One-size-fits-all claim routing\",\n  \"problem_statement\": \"Motor and commercial teams need different routing approaches—automatic by postcode and workload for high-volume cases, manual for complex ones—but the system enforces a single method. This slows down efficient work and misallocates complex claims, hurting resolution quality and team productivity.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 537,
+   "tokens_out": 73,
+   "cost_usd": 0.000134
+  }
+ }
+}

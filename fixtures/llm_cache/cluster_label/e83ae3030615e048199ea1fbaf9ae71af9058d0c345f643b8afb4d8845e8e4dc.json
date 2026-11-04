@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The customer is unsure whether the reporting module includes data from all active roles.\n  quote: could you confirm if the reporting module pulls data from all active roles?\n- problem: The customer is uncertain whether the letters module and its email system integration are still functioning correctly.\n  quote: One last thing — are the letters module and integrations with our email system still working as expected?\n- problem: The user is unsure whether the new reporting module is active, which blocks their ability to retrieve data.\n  quote: can you confirm if the new reporting module is live? We’re trying to pull policyholder data for Q3 reserves."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Uncertainty about module functionality\",\n  \"problem_statement\": \"Users cannot trust if key modules like reporting or letters are active or pulling correct data. This blocks their ability to rely on system outputs for critical tasks.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 234,
+   "tokens_out": 50,
+   "cost_usd": 7.84e-05
+  }
+ }
+}

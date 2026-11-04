@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\nUsers are locked out of the Keelwater platform due to authentication issues tied to their VPN or SSO provider, even when their credentials are correct. This blocks access despite no changes on their side, disrupting workflow and eroding trust in the system.\\n\\n## Who is affected\\n- **Marrowgate Commercial**, a customer with an ARR of £1,600,000, has reported that the issue feels like a customer network failure despite checking their VPN and email [i:46fae06c9042eeb1].\\n- **Ormsgill Cyber**, a customer with an ARR of £135,000, has acknowledged a history of issues with their VPN and SSO provider [i:6b60ca04b86f0c7a].\\n- **Penhallow Specialty Risks**, a customer with an ARR of £230,000, has reported that users on SSO through their internal IdP are experiencing lockouts without any changes on their end [i:70b8679b750dc80f].\\n\\n## Evidence\\n- The problem has been reported by 3 accounts, generating a total of 3 mentions [i:46fae06c9042eeb1][i:6b60ca04b86f0c7a][i:70b8679b750dc80f].\\n- All 3 mentions came through a single route: the support channel [i:46fae06c9042eeb1][i:6b60ca04b86f0c7a][i:70b8679b750dc80f].\\n- The total Annual Recurring Revenue (ARR) from the affected accounts is £1,965,000 [i:46fae06c9042eeb1][i:6b60ca04b86f0c7a][i:70b8679b750dc80f].\\n- One of the affected accounts, Marrowgate Commercial, has a renewal date of 2026-12-12 [i:46fae06c9042eeb1]. Another, Penhallow Specialty Risks, has a renewal date of 2027-06-18 [i:70b8679b750dc80f].\\n- In the last 90 days, there has been 1 renewal among the affected accounts [i:46fae06c9042eeb1][i:70b8679b750dc80f].\\n\\n## Why now\\nReports from October 2026 indicate the issue is actively disrupting customer workflows, with Marrowgate Commercial reporting an incident on 2026-10-27 [i:46fae06c9042eeb1], Penhallow Specialty Risks reporting one on 2026-10-24 [i:70b8679b750dc80f], and Ormsgill Cyber's mention on 2026-10-09 suggesting a pattern of recurring issues [i:6b60ca04b86f0c7a]. With one customer renewal imminent in December 2026 [i:46fae06c9042eeb1] and significant ARR at stake [i:46fae06c9042eeb1][i:6b60ca04b86f0c7a][i:70b8679b750dc80f], the problem presents an immediate risk to customer satisfaction and revenue retention.\",\n \"cited_insights\": [\n  {\n   \"id\": \"46fae06c9042eeb1\",\n   \"quote\": \"It’s not my login — I’ve checked the VPN and email, and it’s still happening. Feels like a customer network failure.\",\n   \"account\": \"Marrowgate Commercial\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-27T11:53:00+00:00\"\n  },\n  {\n   \"id\": \"6b60ca04b86f0c7a\",\n   \"quote\": \"That makes sense — we’ve had issues before with our VPN and the SSO provider. I’ll try bypassing them and get back to you.\",\n   \"account\": \"Ormsgill Cyber\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-09T16:30:00+00:00\"\n  },\n  {\n   \"id\": \"70b8679b750dc80f\",\n   \"quote\": \"They’re all on SSO through our internal IdP — we haven’t changed anything on our end, but it’s been happening since this morning.\",\n   \"account\": \"Penhallow Specialty Risks\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-24T14:35:00+00:00\"\n  }\n ],\n \"fact_sheet\": {\n  \"as_of\": \"2026-11-03\",\n  \"accounts_n\": 3,\n  \"mentions_n\": 3,\n  \"routes_n\": 1,\n  \"mentions_by_route\": {\n   \"support\": 3\n  },\n  \"arr_total_gbp\": 1965000.0,\n  \"renewals_90d_n\": 1,\n  \"accounts\": [\n   {\n    \"name\": \"Marrowgate Commercial\",\n    \"arr_gbp\": 1600000.0,\n    \"renewal_date\": \"2026-12-12\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Ormsgill Cyber\",\n    \"arr_gbp\": 135000.0,\n    \"renewal_date\": null,\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Penhallow Specialty Risks\",\n    \"arr_gbp\": 230000.0,\n    \"renewal_date\": \"2027-06-18\",\n    \"mentions\": 1\n   }\n  ]\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 800,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked the problem statement's claim that users are locked out due to authentication issues tied to their VPN or SSO provider even when credentials are correct. The cited insights support this: Marrowgate Commercial notes checking the VPN and email, Ormsgill Cyber acknowledges a history of issues with their VPN and SSO provider, and Penhallow Specialty Risks states users on SSO through their internal IdP are experiencing lockouts without changes on their end. I also verified the account ARR figures, total ARR (£1,965,000), mention count (3), route (support), and renewal dates against the fact sheet, all of which match exactly. No claims are uncited, overstated, or contrary to the evidence.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1500,
+   "tokens_out": 160,
+   "cost_usd": 0.0014084
+  }
+ }
+}

@@ -1,0 +1,56 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"title\": \"Role-based access confusion for reserve adjustments\",\n \"problem_statement\": \"Staff are unsure if their roles properly grant access to adjust reserves, leading to uncertainty and potential errors. This matters because incorrect permissions can block legitimate changes or allow unauthorized ones before payment triggers.\",\n \"quotes\": [\n  {\n   \"quote\": \"I also want to make sure roles are assigned correctly so only authorized staff can adjust reserves.\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-06T15:02:00Z\"\n  },\n  {\n   \"quote\": \"That would be great — I’m under the impression I’m assigned the right role, but maybe something’s misconfigured on our end.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-28T08:26:00+00:00\"\n  },\n  {\n   \"quote\": \"That’s exactly what I’m after — especially how roles affect who can adjust those reserves before payment triggers.\",\n   \"route\": \"sales\",\n   \"date\": \"2026-09-22T12:46:00Z\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The claim is that staff confusion over role-based access to reserve adjustments is an actionable product problem. Checking each quote, none describes a product defect, workaround, or feature request: the sales quotes ('I want to make sure roles are assigned correctly' and 'how roles affect who can adjust those reserves before payment triggers') are requests for explanation that a help article or documentation on the permissions model would answer. The support quote points the cause outside the product entirely, with the customer suspecting 'something's misconfigured on our end' — i.e., their own configuration. With no evidence of a product flaw and the signals pointing to an education gap or customer-side setup, this is not something a product squad could act on.\", \"verdict\": \"fail\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 458,
+   "tokens_out": 1923,
+   "cost_usd": 0.0091024
+  }
+ }
+}

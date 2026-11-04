@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: Unannounced UI changes cause staff confusion and delays as they must relearn where everything is.\n  quote: We had unannounced screen changes last time and it caused confusion and delays because staff had to relearn where everything was — we really need advance notice and previews going forward.\n- problem: Unexpected interface changes force staff to be retrained, wasting time and reducing accuracy.\n  quote: It’s the unexpected interface changes — we keep having to retrain staff because buttons and menus shift without warning, and that’s costing us time and accuracy.\n- problem: Unexpected interface changes cause staff to click the wrong controls and make errors.\n  quote: Unexpected interface changes keep shifting where we click for reserves or payments — our staff are making errors because the controls aren’t where they were last week.\n- problem: Unexpected interface changes force mid‑cycle staff retraining, leading to errors in claims and payments processing.\n  quote: The unexpected interface changes have forced us to retrain staff mid-cycle, which is causing errors in our claims and payments processing — we really need advance notice and bundled releases next time.\n- problem: A UI change forced the team to relearn how to use the system.\n  quote: Also, the last update ... moved the ‘reserves’ button — we had to retrain half the team because of that.\n- problem: The platform is disrupting their ability to manage reserves and update policyholders.\n  quote: It’s affecting how we handle reserves and policyholder updates.\n- problem: Unexpected interface changes disrupt the team's workflow and cause delays in processing reserves.\n  quote: It’s not just the layout — it’s the unexpected interface changes that threw off our team’s workflow and caused delays in processing reserves.\n- problem: Customers receive no advance warning or preview of interface changes, leading to wasted time retraining.\n  quote: That’d be great — we just need a bit of warning and maybe a preview before changes go live, so we don’t waste time retraining."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Unannounced UI Changes Disrupt Workflow\",\n  \"problem_statement\": \"Staff are forced to relearn the interface after unexpected changes, causing confusion, errors, and delays in processing claims and reserves. Without advance notice or previews, teams waste time on retraining and lose accuracy in critical tasks.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 510,
+   "tokens_out": 67,
+   "cost_usd": 0.0001196
+  }
+ }
+}

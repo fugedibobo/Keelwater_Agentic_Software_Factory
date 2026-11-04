@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: Webhook retries are delayed, causing real‑time claim processing issues.\n  quote: We’re still seeing some delays with the webhook retries on our supplier payments module, and it’s causing issues with how we process claims and update policyholders in real time.\n- problem: The approval waiting list is delaying payments and supplier invoices.\n  quote: Exactly. It’s not just inconvenient — it’s holding up payments and supplier invoices too.\n- problem: The current system causes delays in reserves and payments due to how claims and documents flow.\n  quote: We’ve been reviewing how claims and documents flow through our current system, and it’s causing delays in reserves and payments.\n- problem: The finance team lacks clear reporting on reserves versus actual payments, causing delays in supplier reconciliation.\n  quote: Also, our finance team needs clearer reporting on reserves versus actual payments — it’s ... causing delays in supplier reconciliation.\n- problem: Tasks are not always visible, leading to potential delays in supplier payments.\n  quote: we rely on those tasks being visible to avoid delays with supplier payments\n- problem: The team lacks a clear method for managing reserves and supplier payments.\n  quote: I think we need a clearer way to manage reserves and supplier payments.\n- problem: Payments and supplier settlements are being delayed.\n  quote: Appreciate that — we need to avoid any more delays in payments or supplier settlements.\n- problem: The platform is delaying payments, causing supplier concerns.\n  quote: it’s been holding up payments and suppliers are starting to ask questions"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Delayed Payments and Settlements\",\n  \"problem_statement\": \"Supplier payments and claim settlements are being held up due to system delays in processing, reserves management, and task visibility. This causes financial disruptions and erodes supplier trust.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 415,
+   "tokens_out": 53,
+   "cost_usd": 9.98e-05
+  }
+ }
+}

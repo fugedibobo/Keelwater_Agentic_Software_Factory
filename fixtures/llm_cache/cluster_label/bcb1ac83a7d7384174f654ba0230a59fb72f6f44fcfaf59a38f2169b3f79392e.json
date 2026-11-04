@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The user needs to submit many files quickly before a reporting deadline.\n  quote: That’d be great — I’ve got about twenty files to get in before the reserves report closes.\n- problem: The platform has an issue that must be resolved before the upcoming year‑end claims surge.\n  quote: We need this fixed before the year-end claims surge.\n- problem: They need to update reserves quickly to meet an imminent reporting deadline.\n  quote: That would be great — I need to get those reserves updated before the end of the week and the reporting deadline is looming.\n- problem: The customer needs a fast fix because a reporting deadline is approaching.\n  quote: We’ve got a reporting deadline next week, so getting this sorted quickly would really ease the pressure.\n- problem: They need to implement the platform quickly before their peak season.\n  quote: Perfect. Thanks again — we’re keen to get this live before our peak season."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Urgent deadline pressure for reporting\",\n  \"problem_statement\": \"Users must complete multiple file submissions or updates rapidly before looming reporting deadlines. Delays create pressure and risk missed compliance windows, impacting operational stability.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 297,
+   "tokens_out": 50,
+   "cost_usd": 8.47e-05
+  }
+ }
+}

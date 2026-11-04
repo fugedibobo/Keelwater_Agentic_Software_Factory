@@ -1,0 +1,58 @@
+{
+ "request": {
+  "model": "deepseek/deepseek-v3.2",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou write a one-page opportunity brief for a Keelwater product manager. Keelwater makes claims-handling software. You use only the facts and customer insights below.\n</role>\n<opportunity>\n{\n \"title\": \"Reserves and payments sync visibility\",\n \"problem_statement\": \"Users cannot see how reserves and payments integrate with their accounting tools or update in real time with supplier changes. This makes it hard to trust financial data and plan accurately.\"\n}\n</opportunity>\n<fact_sheet>\n{\n \"as_of\": \"2026-11-03\",\n \"accounts_n\": 2,\n \"mentions_n\": 2,\n \"routes_n\": 1,\n \"mentions_by_route\": {\n  \"sales\": 2\n },\n \"arr_total_gbp\": 1600000.0,\n \"renewals_90d_n\": 1,\n \"accounts\": [\n  {\n   \"name\": \"Sallowmere Motor\",\n   \"arr_gbp\": null,\n   \"renewal_date\": null,\n   \"mentions\": 1\n  },\n  {\n   \"name\": \"Marrowgate Commercial\",\n   \"arr_gbp\": 1600000.0,\n   \"renewal_date\": \"2026-12-12\",\n   \"mentions\": 1\n  }\n ]\n}\n</fact_sheet>\n<insights>\n[\n {\n  \"id\": \"26e61b44eb162f19\",\n  \"quote\": \"That sounds promising. Can we see how reserves and payments sync with our existing accounting tools?\",\n  \"account\": \"Sallowmere Motor\",\n  \"route\": \"sales\",\n  \"date\": \"2026-10-18T10:32:00Z\"\n },\n {\n  \"id\": \"39d4d6cef8757f3e\",\n  \"quote\": \"Yes, that’d be helpful — especially if we can see how reserves and payments sync with supplier updates in real time.\",\n  \"account\": \"Marrowgate Commercial\",\n  \"route\": \"sales\",\n  \"date\": \"2026-10-17T13:44:00Z\"\n }\n]\n</insights>\n<rules>\n- Cite every insight you rely on as [i:INSIGHT_ID], using the id exactly as given. Cite at least three different insights when three or more are given, and cover every route that appears.\n- Use these sections, in this order, as Markdown headings: \"## Problem\", \"## Who is affected\", \"## Evidence\", \"## Why now\".\n- Every bullet under \"Who is affected\" and \"Evidence\" ends with a citation. Every sentence that contains a number or a date carries a citation.\n- Copy every account count, mention count, route count, renewal count and ARR figure from the fact sheet. Never compute, add up or round a number yourself; write an ARR figure only as it appears in the fact sheet, in pounds.\n- Put text in quotation marks only when it is a customer quote copied word for word from one insight cited in the same sentence.\n- Name a customer only when a cited insight in the same sentence belongs to that customer.\n- Do not claim more than the evidence shows: no \"all customers\", no scope wider than the cited accounts, and mention any cited insight that points the other way.\n- Do not recommend a solution.\n</rules>\n<output>\nJSON only: {\"body_md\": the brief as Markdown, \"citations\": the list of insight ids you cited}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 1500,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "brief",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "body_md": {
+       "title": "Body Md",
+       "type": "string"
+      },
+      "citations": {
+       "items": {
+        "type": "string"
+       },
+       "title": "Citations",
+       "type": "array"
+      }
+     },
+     "required": [
+      "body_md",
+      "citations"
+     ],
+     "title": "BriefOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"body_md\": \"## Problem\\nUsers cannot see how reserves and payments integrate with their accounting tools or update in real time with supplier changes. This makes it hard to trust financial data and plan accurately.\\n\\n## Who is affected\\n- At least one prospect, Sallowmere Motor, has asked about seeing how reserves and payments sync with their existing accounting tools [i:26e61b44eb162f19].\\n- At least one customer, Marrowgate Commercial, has expressed a need to see how reserves and payments sync with supplier updates in real time [i:39d4d6cef8757f3e].\\n\\n## Evidence\\n- The opportunity is based on 2 accounts [i:26e61b44eb162f19][i:39d4d6cef8757f3e].\\n- There are 2 total mentions of this problem [i:26e61b44eb162f19][i:39d4d6cef8757f3e].\\n- The mentions come from 1 route: sales [i:26e61b44eb162f19][i:39d4d6cef8757f3e].\\n- The total ARR from the accounts in the fact sheet is £1,600,000 [i:39d4d6cef8757f3e].\\n- There has been 1 renewal in the last 90 days [i:39d4d6cef8757f3e].\\n- A prospect, Sallowmere Motor, said, \\\"That sounds promising. Can we see how reserves and payments sync with our existing accounting tools?\\\" [i:26e61b44eb162f19].\\n- A customer, Marrowgate Commercial, said, \\\"Yes, that’d be helpful — especially if we can see how reserves and payments sync with supplier updates in real time.\\\" [i:39d4d6cef8757f3e].\\n\\n## Why now\\n- The customer Marrowgate Commercial, which has an ARR of £1,600,000, has a renewal date of 2026-12-12 [i:39d4d6cef8757f3e].\\n- The problem was mentioned by both a prospect and a customer in October 2026 [i:26e61b44eb162f19][i:39d4d6cef8757f3e].\\n- The fact sheet is current as of 2026-11-03, placing these recent mentions just before this date [i:26e61b44eb162f19][i:39d4d6cef8757f3e].\",\n  \"citations\": [\"26e61b44eb162f19\", \"39d4d6cef8757f3e\"]\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 738,
+   "tokens_out": 618,
+   "cost_usd": 0.00042672
+  }
+ }
+}

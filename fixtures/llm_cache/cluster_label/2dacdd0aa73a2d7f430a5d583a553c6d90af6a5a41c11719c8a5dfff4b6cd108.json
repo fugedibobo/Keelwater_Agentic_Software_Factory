@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The user cannot find the documents that match a payment batch during reconciliation.\n  quote: Hi Bryn, I’m trying to reconcile the latest payment batch with our suppliers’ invoices but can’t locate the matching documents in the system.\n- problem: The system fails to display the latest supplier payments when generating reports.\n  quote: we’re trying to pull a full report on outstanding claims and reserves but the system’s not showing updated supplier payments.\n- problem: The user cannot find the updated reserves after finalizing a claim.\n  quote: Hi Bryn, I’m having trouble locating the updated reserves after finalising a claim — can you help?\n- problem: Webhook retries are delayed, causing real‑time claim processing issues.\n  quote: We’re still seeing some delays with the webhook retries on our supplier payments module, and it’s causing issues with how we process claims and update policyholders in real time.\n- problem: Inability to view real-time synchronization of reserves and payments with supplier updates.\n  quote: Yes, that’d be helpful — especially if we can see how reserves and payments sync with supplier updates in real time.\n- problem: The approval waiting list is delaying payments and supplier invoices.\n  quote: Exactly. It’s not just inconvenient — it’s holding up payments and supplier invoices too.\n- problem: The reporting team cannot complete month-end close because reserve data hasn't updated.\n  quote: Our reporting team’s been waiting on those reserves ... it’s holding up the month‑end close.\n- problem: The current system causes delays in reserves and payments due to how claims and documents flow.\n  quote: We’ve been reviewing how claims and documents flow through our current system, and it’s causing delays in reserves and payments."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Delayed Reserve and Payment Sync\",\n  \"problem_statement\": \"Users cannot access updated reserves or payment data in real time, causing delays in reconciliation, reporting, and supplier payments. This happens because claims and documents flow through a system that doesn't synchronize updates promptly.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 461,
+   "tokens_out": 60,
+   "cost_usd": 0.0001121
+  }
+ }
+}

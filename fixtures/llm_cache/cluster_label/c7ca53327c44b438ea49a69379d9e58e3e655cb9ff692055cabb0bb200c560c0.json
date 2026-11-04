@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: Multiple users are unable to log in, causing a delay in claims processing.\n  quote: we’ve had three people report the same customer login outage today, and it’s ... holding up claims processing.\n- problem: Customers are unable to log in, causing delays in claims processing.\n  quote: We’ve had three people report the same customer login outage today, and it’s holding up claims processing — I’d appreciate any insight from your end.\n- problem: The user receives false “Keelwater is down” errors caused by their own network or VPN interfering with login.\n  quote: We keep getting error messages that say Keelwater is down, but I think it’s actually our own customer network failure — maybe the sign-on provider or our corporate VPN is interfering with the login flow.\n- problem: The team cannot log into Keelwater due to an unexpected login outage affecting multiple staff.\n  quote: Our team’s been unable to access Keelwater this morning — it looks like a customer login outage, but we haven’t touched our SSO setup, and it’s impacting multiple staff.\n- problem: Users cannot access Keelwater when logging in via the corporate portal.\n  quote: Keelwater isn’t accessible — I think it’s happening when they try to log in through our corporate portal.\n- problem: The user cannot log into Keelwater because the system shows it is down.\n  quote: we’re getting blocked trying to log into Keelwater again this morning. It’s showing ‘down’ but I think it’s on our end.\n- problem: The user cannot log in to Keilwater to upload claim documents.\n  quote: Hi Bryn, I’m having trouble logging into Keelwater to upload the policyholder documents for our latest claim.\n- problem: Keelwater shows false downtime alerts caused by the customer's own network issues.\n  quote: We’ve had a few false alarms lately where Keelwater appears down, but it’s actually our own customer network failure — maybe the sign-on provider or our VPN acting up again."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Login failures due to network issues\",\n  \"problem_statement\": \"Users are unable to log in to Keelwater because false downtime messages appear, often caused by their own network or VPN problems. This delays claims processing since access is blocked even when the platform is operational.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 527,
+   "tokens_out": 62,
+   "cost_usd": 0.00011563
+  }
+ }
+}

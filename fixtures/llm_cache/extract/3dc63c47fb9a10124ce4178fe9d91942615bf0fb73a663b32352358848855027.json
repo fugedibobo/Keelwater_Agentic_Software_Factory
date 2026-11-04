@@ -1,0 +1,69 @@
+{
+ "request": {
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You extract one product insight from a single customer snippet about the Keelwater claims platform.\n\nReturn JSON with exactly these fields:\n- problem: the customer problem in one plain sentence, in your own words.\n- quote: the customer words that best show the problem, copied VERBATIM from the SNIPPET block, 5 to 60 words. Never take words from the CONTEXT block. You may join up to three fragments with \"...\" if they appear in that order.\n- workflow: the task the customer was doing, a few words.\n- desired_outcome: what the customer wants instead, one short phrase.\n\nThe CONTEXT block is what an internal Keelwater person said just before; it is context, do not quote it.\n"
+   },
+   {
+    "role": "user",
+    "content": "SNIPPET (quote only from here):\nIt’s the MI dashboard versus the CSV export. The numbers don’t line up, and finance is questioning which one to trust. We need this clarified soon.\n\nCONTEXT (internal, do not quote):\nGot it. That’s definitely something we can look into. Can you tell me which reports are showing the mismatch?"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 600,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "extract",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "problem": {
+       "title": "Problem",
+       "type": "string"
+      },
+      "quote": {
+       "title": "Quote",
+       "type": "string"
+      },
+      "workflow": {
+       "title": "Workflow",
+       "type": "string"
+      },
+      "desired_outcome": {
+       "title": "Desired Outcome",
+       "type": "string"
+      }
+     },
+     "required": [
+      "problem",
+      "quote",
+      "workflow",
+      "desired_outcome"
+     ],
+     "title": "ExtractOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"problem\": \"The MI dashboard numbers conflict with the CSV export, causing finance to doubt which source is correct.\",\n  \"quote\": \"It’s the MI dashboard versus the CSV export... The numbers don’t line up, and finance is questioning which one to trust.\",\n  \"workflow\": \"Comparing dashboard metrics to exported CSV reports\",\n  \"desired_outcome\": \"Consistent, trustworthy numbers across both views\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 298,
+   "tokens_out": 334,
+   "cost_usd": 5.592e-05
+  }
+ }
+}

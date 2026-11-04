@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The customer is uncertain whether the letters module and its email system integration are still functioning correctly.\n  quote: One last thing — are the letters module and integrations with our email system still working as expected?\n- problem: The customer is unsure if the policyholder letters will show the updated reserves after a sync.\n  quote: Just to confirm — will the letters to policyholders also reflect the corrected reserves after this sync?\n- problem: The user wants confirmation that policyholder letters are still generated via the letters tab.\n  quote: Perfect — and just to confirm, all policyholder letters are still generated through the letters tab, right?"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Uncertainty about letter generation and integration\",\n  \"problem_statement\": \"Users are unsure if policyholder letters are being generated correctly and whether they reflect updated data or integrate properly with email systems. This creates risk of sending inaccurate or outdated communications.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 235,
+   "tokens_out": 56,
+   "cost_usd": 8.275e-05
+  }
+ }
+}

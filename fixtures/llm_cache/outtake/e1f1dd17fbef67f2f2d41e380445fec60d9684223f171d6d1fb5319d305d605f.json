@@ -1,0 +1,50 @@
+{
+ "request": {
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou draft customer-facing text for Keelwater, which makes claims-handling software. A person reviews every draft before anything is sent.\n</role>\n<story>\n{\n \"id\": 4129,\n \"name\": \"Supplier contact details\",\n \"description\": \"Keelwater automatically pulls and updates supplier contact details from integrated systems, ensuring claims handlers always have the most current information without manual entry.\"\n}\n</story>\n<problem>\nNot stated.\n</problem>\n<rules>\n- Write a customer change notice: a short email-style notice that says what is changing, when customers will see it, and that an administrator can switch it on from the release bundle.\n- The change ships in an announced release bundle on a published cadence and is controlled by a feature flag. Never say it is live now, never give a date that is not in the story, and say customers get it when the bundle is announced and the flag is switched on.\n- Use only the story and the problem above. Do not name any customer, quote anyone, or promise anything the story does not say.\n</rules>\n<output>\nJSON only: {\"body_md\": the draft as Markdown}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 800,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "outtake",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "body_md": {
+       "title": "Body Md",
+       "type": "string"
+      }
+     },
+     "required": [
+      "body_md"
+     ],
+     "title": "OuttakeOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"body_md\": \"## Upcoming change: Automatic supplier contact details\\n\\nWe’re adding a new capability that **automatically pulls and updates supplier contact details** from your integrated systems. This will keep the information your claims handlers see up‑to‑date without any manual entry.\\n\\n- **When you’ll see it:** The feature ships in the next announced release bundle, following our regular release cadence.\\n- **How it’s enabled:** An administrator can turn the feature on via a feature‑flag in the release bundle. Once the flag is switched on, the automatic updates will become available to users.\\n\\nIf you have any questions about enabling the feature, please contact your system administrator.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 308,
+   "tokens_out": 422,
+   "cost_usd": 8.8154e-05
+  }
+ }
+}

@@ -1,0 +1,56 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (duplicate) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is the core problem still open, not solved by a shipped story and not covered by a roadmap item? Pass means yes.\nCompare the problem itself, not the product area. A spike that is unstarted or in progress is not shipped.\nFail if a completed story solves the same problem, or a roadmap item already covers it.\nThe evidence is the problem statement and the five most similar stories and roadmap pages, with status and dates.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"Users trying to create consistent workflows for tracking high-priority cases cannot lock their saved filters. This causes inconsistent views across the team and undermines efficiency.\",\n \"similar\": [\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4138\",\n   \"similarity\": 0.058,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": false, \\\"completed_at\\\": null, \\\"description\\\": \\\"Configure global settings for your organisation within Keelwater, including default claim categories, notification preferences, and user permissions to ensure consistent workflows across teams.\\\", \\\"id\\\": 4138, \\\"name\\\": \\\"Organisation settings\\\", \\\"started\\\": false, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 1}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4131\",\n   \"similarity\": 0.037,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-09-15T00:00:00Z\\\", \\\"description\\\": \\\"Keelwater's workspace administration feature allows users to manage permissions, configure settings, and organize teams within their claims environment — all through a centralized, intuitive dashboard.\\\", \\\"id\\\": 4131, \\\"name\\\": \\\"Workspace administration\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4134\",\n   \"similarity\": 0.034,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": false, \\\"completed_at\\\": null, \\\"description\\\": \\\"Keelwater is enhancing its task list interface to improve user efficiency, allowing for better prioritization, drag-and-drop reordering, and real-time status updates—all designed to streamline claims processing workflows.\\\", \\\"id\\\": 4134, \\\"name\\\": \\\"Task list improvements\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 2}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4133\",\n   \"similarity\": 0.034,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": false, \\\"completed_at\\\": null, \\\"description\\\": \\\"Keelwater's document classifier confidence threshold setting allows users to define the minimum confidence level required for automatic categorization of claims documents, ensuring only high-certainty classifications are applied without manual review.\\\", \\\"id\\\": 4133, \\\"name\\\": \\\"Document classifier confidence threshold\\\", \\\"started\\\": false, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 1}\"\n  },\n  {\n   \"source\": \"notion\",\n   \"id\": \"30cf8382-0725-5e19-b883-945ae35bebcd\",\n   \"similarity\": 0.032,\n   \"record\": \"{\\\"id\\\": \\\"30cf8382-0725-5e19-b883-945ae35bebcd\\\", \\\"object\\\": \\\"page\\\", \\\"properties\\\": {\\\"Name\\\": {\\\"title\\\": [{\\\"plain_text\\\": \\\"Supplier directory\\\", \\\"text\\\": {\\\"content\\\": \\\"Supplier directory\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"title\\\"}, \\\"Problem\\\": {\\\"rich_text\\\": [{\\\"plain_text\\\": \\\"A searchable directory within Keelwater that lets users find and manage supplier information, including contact details, contract status, and claim history, streamlining collaboration and compliance tracking.\\\", \\\"text\\\": {\\\"content\\\": \\\"A searchable directory within Keelwater that lets users find and manage supplier information, including contact details, contract status, and claim history, streamlining collaboration and compliance tracking.\\\"},\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The problem claims users 'cannot lock their saved filters' for tracking high-priority cases, causing inconsistent team views. I checked the five most similar items: the only completed story, 'Workspace administration' (4131, completed 2026-09-15), covers permissions, settings, and team organization but says nothing about saved filters or locking them. The remaining stories — 'Organisation settings' (unstarted), 'Task list improvements' (in progress), and 'Document classifier confidence threshold' (unstarted) — plus the 'Supplier directory' roadmap page address unrelated areas, and none mention saved filters; their low similarity scores (max 0.058) confirm this. No shipped story or roadmap item solves or covers the saved-filter locking problem, so it remains open.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1011,
+   "tokens_out": 942,
+   "cost_usd": 0.00331886
+  }
+ }
+}

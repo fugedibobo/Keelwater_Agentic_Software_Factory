@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The user cannot access the platform despite confirming their login credentials and checking VPN and email connections.\n  quote: It’s not my login — I’ve checked the VPN and email, and it’s still happening. Feels like a customer network failure.\n- problem: The user cannot access the platform because their VPN and SSO provider are causing authentication issues.\n  quote: That makes sense — we’ve had issues before with our VPN and the SSO provider. I’ll try bypassing them and get back to you.\n- problem: Users cannot log in via SSO after a change on the provider side.\n  quote: They’re all on SSO through our internal IdP — we haven’t changed anything on our end, but it’s been happening since this morning."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"SSO and VPN Authentication Failures\",\n  \"problem_statement\": \"Users are locked out of the platform due to authentication issues tied to their VPN or SSO provider, even when credentials are correct. This blocks access despite no changes on their side, disrupting workflow and trust in the system.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 262,
+   "tokens_out": 66,
+   "cost_usd": 9.88e-05
+  }
+ }
+}

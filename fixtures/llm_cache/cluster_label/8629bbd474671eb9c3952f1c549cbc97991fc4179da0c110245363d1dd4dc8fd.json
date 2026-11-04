@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The company must produce official letters in Welsh for policyholders, which they find mandatory.\n  quote: We need to generate formal correspondence in letters in Welsh for our policyholders in Wales — it’s non‑negotiable for us.\n- problem: The customer must provide policy documents in Welsh to meet renewal requirements.\n  quote: We need letters in Welsh for policyholders — it’s not just a nice-to-have, it’s tied to our renewal terms with Keelwater.\n- problem: The customer needs confirmation that Welsh-language letters can be accessed in the templates section for the claims team.\n  quote: Yes, that’s right. Yes, that’s right.\n- problem: The team cannot produce Welsh-language letters needed for compliance, risking renewal delays.\n  quote: We’re under pressure to deliver full compliance for our Welsh-speaking policyholders, which includes letters in Welsh — without them, our renewal won’t proceed.\n- problem: The customer lacks Welsh-language letters for policyholders, which is required for renewal terms.\n  quote: We need letters in Welsh for policyholders — it’s not just a nice-to-have, it’s tied to our renewal terms with Keelwater.\n- problem: The company lacks Welsh-language letter formats for claims and payments, causing pressure from Welsh policyholders.\n  quote: We’re getting pressure ... they need official correspondence in their own language. Specifically, ... Welsh letter formats for claims and payments."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Missing Welsh-language letter templates\",\n  \"problem_statement\": \"Policyholders in Wales require official correspondence in Welsh to meet compliance and renewal requirements, but the platform lacks accessible templates. Without these letters, renewals are delayed and trust with Welsh-speaking customers is at risk.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 396,
+   "tokens_out": 61,
+   "cost_usd": 0.0001067
+  }
+ }
+}

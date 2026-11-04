@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"title\": \"Lack of unified oversight for suppliers and policyholders\",\n \"problem_statement\": \"Teams struggle to track supplier communications, tasks, and performance across regions, while also lacking visibility into reserves. This makes it hard to coordinate effectively and make informed decisions.\",\n \"quotes\": [\n  {\n   \"quote\": \"We’re counting on it — especially for managing suppliers and policyholders across multiple regions.\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-28T16:59:00Z\"\n  },\n  {\n   \"quote\": \"We’re also struggling with supplier comms and task tracking — it’s all tied together.\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-14T16:28:00Z\"\n  },\n  {\n   \"quote\": \"That’ll be useful — we need better oversight on reserves and supplier performance.\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-14T16:28:00Z\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The problem statement claims Keelwater lacks unified oversight for supplier communications, task tracking, and reserves visibility. The quotes (all sales-route, Oct 2026) directly describe these product gaps: 'struggling with supplier comms and task tracking' and needing 'better oversight on reserves and supplier performance.' These are feature gaps within the product that a squad could act on, not pricing, contract, IT, or help-article issues, and no quote is mere praise. The evidence is somewhat thin and vague, but each item points to missing product capability rather than an external cause.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 438,
+   "tokens_out": 174,
+   "cost_usd": 0.0002741132
+  }
+ }
+}

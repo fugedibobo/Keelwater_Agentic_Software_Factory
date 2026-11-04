@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The user gets frustrated when trying to select a document type.\n  quote: Documents: click \"Document type\", rage x5... Documents: click \"Open\"\n- problem: Users must repeatedly click Open and Save to view claim details, leading to frustration.\n  quote: Tasks: click \"Open\"... Claim details: click \"Save\", rage x3\n- problem: The Overview button in the Administration section does not work.\n  quote: Administration: click \"Overview\", dead x1\n- problem: The user struggles with inefficient document opening and saving actions.\n  quote: Documents: click \"Open\"\nDocuments: click \"Save\", rage x3\n- problem: Users become frustrated when trying to open and save supplier records.\n  quote: Suppliers: click \"Open\" ... click \"Save\", rage x3\n- problem: The user gets frustrated when trying to select a document type in the Documents section.\n  quote: click \"Document type\", rage x5...click \"Save\"\n- problem: Users get frustrated because saving claim details requires multiple clicks.\n  quote: click \"Details\" ... click \"Save\", rage x3\n- problem: Clicking Next then trying to go to Overview results in a dead end.\n  quote: Claims: click \"Next\"...Claims: click \"Overview\", dead x1"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Inefficient document and record workflows\",\n  \"problem_statement\": \"Users must repeatedly click Open and Save to view or update documents, claims, or supplier records, causing frustration. These actions are unnecessarily layered and don't provide direct access, wasting time and disrupting workflow.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 373,
+   "tokens_out": 61,
+   "cost_usd": 0.0001044
+  }
+ }
+}

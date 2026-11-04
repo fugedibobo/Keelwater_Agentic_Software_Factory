@@ -1,0 +1,120 @@
+{
+ "request": {
+  "model": "cloudflare/clef",
+  "state": "Hi Deryn, just checking in — we’ve got some handlers still manually moving garage estimates out of correspondence, and it’s causing delays. Could we schedule a follow-up for next Tuesday? I’ll be out Monday but back Wednesday.",
+  "questions": {
+   "is_product_signal": {
+    "type": "noul",
+    "instructions": "Is this a problem or request about the Keelwater product that a product squad could act on?",
+    "criteria": {
+     "true": "A customer problem, defect or request about the product.",
+     "false": "Chatter, scheduling, small talk or anything not about the product."
+    }
+   },
+   "bucket": {
+    "type": "choice",
+    "instructions": "Which product area does it belong to?",
+    "criteria": {
+     "fnol_intake": "Starting a new claim and capturing its first details.",
+     "triage_assignment": "Choosing who works a claim, in what order, and when it is sent for specialist review.",
+     "documents_evidence": "Files and other material kept with a claim, and how handlers organise and retrieve them.",
+     "reserves_payments": "Money set aside, paid out or recovered on a claim.",
+     "supplier_network": "Repairers, adjusters and other outside parties a claim depends on.",
+     "customer_comms": "Messages sent from a claim to the people involved, and what those messages say.",
+     "reporting_mi": "Management information and figures drawn from claims data.",
+     "admin_permissions": "Running the Keelwater workspace, such as user accounts, access and settings.",
+     "integrations_api": "Connections between Keelwater and other systems.",
+     "release_change": "How Keelwater's own product updates reach users and how their arrival is handled."
+    }
+   },
+   "severity": {
+    "type": "score",
+    "instructions": "How severe is the impact on the customer?",
+    "criteria": [
+     "Minor annoyance",
+     "Slows the customer down",
+     "Blocks part of their work",
+     "Blocks the customer entirely"
+    ]
+   },
+   "signal_type": {
+    "type": "choice",
+    "instructions": "What kind of signal is it?",
+    "criteria": {
+     "bug": "bug",
+     "feature_gap": "feature gap",
+     "usability_friction": "usability friction",
+     "workflow_blocker": "workflow blocker",
+     "praise": "praise",
+     "churn_risk": "churn risk",
+     "question": "question"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  }
+ },
+ "response": {
+  "answers": {
+   "is_product_signal": {
+    "type": "noul",
+    "noul": 0.5804
+   },
+   "bucket": {
+    "type": "choice",
+    "choice": "documents_evidence",
+    "probabilities": {
+     "fnol_intake": 0.0334,
+     "triage_assignment": 0.0502,
+     "documents_evidence": 0.401,
+     "reserves_payments": 0.0203,
+     "supplier_network": 0.0759,
+     "customer_comms": 0.2569,
+     "reporting_mi": 0.0314,
+     "admin_permissions": 0.0197,
+     "integrations_api": 0.1022,
+     "release_change": 0.0091
+    },
+    "confidence": 0.3344
+   },
+   "severity": {
+    "type": "score",
+    "score": 1.2408,
+    "legend": {
+     "0": "Minor annoyance",
+     "1": "Slows the customer down",
+     "2": "Blocks part of their work",
+     "3": "Blocks the customer entirely"
+    },
+    "probabilities": {
+     "0": 0.0989,
+     "1": 0.5803,
+     "2": 0.3019,
+     "3": 0.0189
+    },
+    "confidence": 0.5614
+   },
+   "signal_type": {
+    "type": "choice",
+    "choice": "workflow_blocker",
+    "probabilities": {
+     "bug": 0.0149,
+     "feature_gap": 0.1841,
+     "usability_friction": 0.3634,
+     "workflow_blocker": 0.396,
+     "praise": 0.0024,
+     "churn_risk": 0.0096,
+     "question": 0.0296
+    },
+    "confidence": 0.2953
+   }
+  },
+  "usage": {
+   "tokens_in": 817,
+   "tokens_out": 0,
+   "cost_usd": 0.00019608
+  }
+ }
+}

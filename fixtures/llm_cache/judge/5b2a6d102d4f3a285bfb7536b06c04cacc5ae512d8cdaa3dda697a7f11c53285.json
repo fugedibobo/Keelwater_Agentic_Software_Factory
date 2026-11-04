@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"title\": \"One-size-fits-all claim routing\",\n \"problem_statement\": \"Motor and commercial teams need different routing approaches—automatic by postcode and workload for high-volume cases, manual for complex ones—but the system enforces a single method. This slows down efficient work and misallocates complex claims, hurting resolution quality and team productivity.\",\n \"quotes\": [\n  {\n   \"quote\": \"we’ve been having some issues with how claims are assigned in our motor team — it’s not matching our workload or postcode zones.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-21T14:33:00+00:00\"\n  },\n  {\n   \"quote\": \"Our motor team wants claims routed automatically based on postcode and workload, but our specialty handlers need manual control for complex cases — it’s a team‑level thing. We need manual claim routing options configurable per team.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-27T09:02:00+00:00\"\n  },\n  {\n   \"quote\": \"Also, our commercial claims team needs manual claim routing — auto-assignment breaks our complex cases.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-27T11:53:00+00:00\"\n  },\n  {\n   \"quote\": \"Our commercial claims are too complex for auto-routing — we need manual claim routing for those, while motor claims can stay automated by postcode and workload.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-21T14:33:00+00:00\"\n  },\n  {\n   \"quote\": \"We don’t want to force one approach across all teams... Per-team configuration would solve it... prefers manual claim routing — one-size-fits-all doesn’t work for us.\",\n   \"route\": \"onboarding\",\n   \"date\": \"2026-09-19T09:57:00+00:00\"\n  },\n  {\n   \"quote\": \"Our commercial and specialty claims handlers find auto-routing unhelpful — we need manual claim routing to manage complex files properly, especially with multiple suppliers and policyholders involved.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-27T11:53:00+00:00\"\n  },\n  {\n   \"quote\": \"Our motor team handles high-volume cases and wants automatic assignment based on postcode and workload... manual claim routing slows them down too much.\",\n   \"route\": \"onboarding\",\n   \"date\": \"2026-09-19T09:57:00+00:00\"\n  },\n  {\n   \"quote\": \"First, our motor team wants more automatic claim allocation based on postcode and workload, but commercial prefers manual control for complex cases.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-28T08:08:00+00:00\"\n  },\n  {\n   \"quote\": \"Our motor claims team really prefers automatic claim allocation to balance workload and match skills efficiently — it’s critical for scaling without adding headcount.\",\n   \"route\": \"onboarding\",\n   \"date\": \"2026-09-23T10:05:00+00:00\"\n  },\n  {\n   \"quote\": \"can we turn off auto‑routing for our commercial claims? They’re too complex.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-21T14:33:00+00:00\"\n  },\n  {\n   \"quote\": \"Our motor team wants claims routed automatically based on postcode and workload, but our specialty handlers need manual ... control for complex cases — it’s a team‑level thing.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-27T09:02:00+00:00\"\n  },\n  {\n   \"quote\": \"Our motor team wants more automatic claim allocation based on postcode and workload, but commercial prefers manual control for complex cases — we need per-team configuration.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-28T08:08:00+00:00\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 800,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The evidence describes a product limitation where the system enforces a single, one-size-fits-all claim routing method. Customers explicitly request per-team configuration to allow automatic routing for high-volume motor claims and manual control for complex commercial cases. This is a clear, actionable feature request for the product squad. No items indicate external causes like pricing, IT issues, or missing help articles. The verdict is pass.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1092,
+   "tokens_out": 92,
+   "cost_usd": 0.00083184
+  }
+ }
+}

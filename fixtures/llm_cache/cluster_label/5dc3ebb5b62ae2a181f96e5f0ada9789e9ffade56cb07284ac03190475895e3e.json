@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: Recent interface changes are disrupting the team's workflow.\n  quote: Hi Alwen, thanks for setting this up — we’ve been meaning to talk about how your platform’s recent interface tweaks are throwing off our team’s rhythm.\n- problem: The platform has an issue that must be resolved before the upcoming year‑end claims surge.\n  quote: We need this fixed before the year-end claims surge.\n- problem: The customer needs to address renewals and resolve reporting inconsistencies.\n  quote: We’ve got a few things to run through today, mainly around renewals and some reporting oddities.\n- problem: The customer is experiencing workflow hiccups with the platform.\n  quote: We’ve got a few workflow hiccups I’d like to flag.\n- problem: The customer is encountering a bug that needs to be fixed.\n  quote: Thanks again, Carys. Looking forward to the fix.\n- problem: The customer has unresolved items that must be addressed before their contract renewal.\n  quote: We’ve got a few items we need to resolve ahead of our renewal.\n- problem: Minor issues after going live are slowing the team down.\n  quote: just wanted to flag a few things we’ve run into since going live — nothing critical, but they’re slowing us down a bit.\n- problem: The user is unable to resolve an issue that is delaying the reporting cycle.\n  quote: Appreciate the quick response — I’ve been stuck on this since this morning and it’s holding up the reporting cycle."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Platform issues delaying critical workflows\",\n  \"problem_statement\": \"Teams are slowed down by unresolved bugs, interface changes, and reporting inconsistencies that disrupt daily operations. These issues matter because they delay essential processes like reporting and renewals, risking operational continuity.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 414,
+   "tokens_out": 57,
+   "cost_usd": 9.996e-05
+  }
+ }
+}

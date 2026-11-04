@@ -1,0 +1,69 @@
+{
+ "request": {
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You extract one product insight from a single customer snippet about the Keelwater claims platform.\n\nReturn JSON with exactly these fields:\n- problem: the customer problem in one plain sentence, in your own words.\n- quote: the customer words that best show the problem, copied VERBATIM from the SNIPPET block, 5 to 60 words. Never take words from the CONTEXT block. You may join up to three fragments with \"...\" if they appear in that order.\n- workflow: the task the customer was doing, a few words.\n- desired_outcome: what the customer wants instead, one short phrase.\n\nThe CONTEXT block is what an internal Keelwater person said just before; it is context, do not quote it.\n"
+   },
+   {
+    "role": "user",
+    "content": "SNIPPET (quote only from here):\nYour interface changes lately — controls moving without warning — it’s forcing us to retrain staff constantly, and unannounced screen changes are disrupting our operations. Absolutely. We’d prefer fewer, bundled changes with previews — unannounced screen changes are hurting our efficiency. We’d prefer fewer, bundled changes with previews — unannounced screen changes are hurting our efficiency and we need advance notice to adapt properly.\n\nCONTEXT (internal, do not quote):\nI understand the disruption. Our release process is under review. Would advance previews help?"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 600,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "extract",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "problem": {
+       "title": "Problem",
+       "type": "string"
+      },
+      "quote": {
+       "title": "Quote",
+       "type": "string"
+      },
+      "workflow": {
+       "title": "Workflow",
+       "type": "string"
+      },
+      "desired_outcome": {
+       "title": "Desired Outcome",
+       "type": "string"
+      }
+     },
+     "required": [
+      "problem",
+      "quote",
+      "workflow",
+      "desired_outcome"
+     ],
+     "title": "ExtractOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"problem\": \"Frequent, unannounced interface changes force staff retraining and disrupt operations.\",\n  \"quote\": \"Your interface changes lately — controls moving without warning — it’s forcing us to retrain staff constantly, and unannounced screen changes are disrupting our operations... We’d prefer fewer, bundled changes with previews — unannounced screen changes are hurting our efficiency and we need advance notice to adapt properly.\",\n  \"workflow\": \"using the claims platform UI\",\n  \"desired_outcome\": \"advance notice of UI changes\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 451,
+   "tokens_out": 356,
+   "cost_usd": 0.00011155
+  }
+ }
+}

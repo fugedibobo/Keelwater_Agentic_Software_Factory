@@ -1,0 +1,77 @@
+{
+ "request": {
+  "model": "openai/gpt-oss-120b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You extract one product insight from a single customer snippet about the Keelwater claims platform.\n\nReturn JSON with exactly these fields:\n- problem: the customer problem in one plain sentence, in your own words.\n- quote: the customer words that best show the problem, copied VERBATIM from the SNIPPET block, 5 to 60 words. Never take words from the CONTEXT block. You may join up to three fragments with \"...\" if they appear in that order.\n- workflow: the task the customer was doing, a few words.\n- desired_outcome: what the customer wants instead, one short phrase.\n\nThe CONTEXT block is what an internal Keelwater person said just before; it is context, do not quote it.\n"
+   },
+   {
+    "role": "user",
+    "content": "SNIPPET (quote only from here):\nThat’s great — we’ve got a lot of policyholder files to attach to claims, so we’re hoping there’s a way to handle multiple file upload efficiently. We’ve got a number of claims files to attach and really need the multiple file upload capability to save time — it’s a bit of a bottleneck doing them one by one right now.\n\nCONTEXT (internal, do not quote):\nHello Pellin, happy to help — we’ll walk you through the document upload process and any roles or integrations you need configured."
+   },
+   {
+    "role": "assistant",
+    "content": "{\"desired_outcome\":\"bulk file upload\",\"problem\":\"Uploading claim files one by one is slow and creates a bottleneck.\",\"quote\":\"we’ve got a lot of policyholder files to attach to claims, so we’re hoping there’s a way to handle multiple file upload efficiently... we really need the multiple file upload capability to save time — it’s a bit of a bottleneck doing them one by one right now.\",\"workflow\":\"attaching files to claims\"}"
+   },
+   {
+    "role": "user",
+    "content": "quote not found in snippet; copy it verbatim"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 600,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "extract",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "problem": {
+       "title": "Problem",
+       "type": "string"
+      },
+      "quote": {
+       "title": "Quote",
+       "type": "string"
+      },
+      "workflow": {
+       "title": "Workflow",
+       "type": "string"
+      },
+      "desired_outcome": {
+       "title": "Desired Outcome",
+       "type": "string"
+      }
+     },
+     "required": [
+      "problem",
+      "quote",
+      "workflow",
+      "desired_outcome"
+     ],
+     "title": "ExtractOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"problem\": \"Uploading claim files one by one is slow and creates a bottleneck.\",\n  \"quote\": \"we’ve got a lot of policyholder files to attach to claims, so we’re hoping there’s a way to handle multiple file upload efficiently. We’ve got a number of claims files to attach and really need the multiple file upload capability to save time — it’s a bit of a bottleneck doing them one by one right now.\",\n  \"workflow\": \"attaching files to claims\",\n  \"desired_outcome\": \"multiple file upload capability\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 451,
+   "tokens_out": 475,
+   "cost_usd": 0.00035265
+  }
+ }
+}

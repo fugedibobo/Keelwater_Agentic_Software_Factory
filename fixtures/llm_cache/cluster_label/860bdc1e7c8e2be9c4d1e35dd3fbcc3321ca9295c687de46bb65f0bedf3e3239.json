@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The reporting team cannot complete month-end close because reserve data hasn't updated.\n  quote: Our reporting team’s been waiting on those reserves ... it’s holding up the month‑end close.\n- problem: The reserves report they try to retrieve shows outdated data despite re-syncing integrations.\n  quote: we’re having trouble pulling the latest reserves report for our policyholders. It’s showing outdated figures even after we re-synced the integrations.\n- problem: Reserves are not updating in the reporting tab even after reprocessing documents.\n  quote: The claim reference is A17-MAR-0089. We’ve already reprocessed the documents twice but the reserves still aren’t updating in the reporting tab.\n- problem: Payments remain pending and claim reserves do not update after submitting commercial property claims.\n  quote: It’s mostly the commercial property claims under policyholder ID C8821 — the ones we submitted last Tuesday. The payments show as pending but reserves aren’t updating.\n- problem: The user cannot retrieve the latest payments report, delaying month‑end close.\n  quote: we’re having trouble pulling the latest payments report for our policyholders, and it’s holding up our month-end close.\n- problem: The user cannot pull the latest reserves report for a high‑value marine claim, delaying payments.\n  quote: we’re having trouble pulling the latest reserves report for a high-value marine claim, and it’s holding up our payment cycle.\n- problem: They cannot retrieve the latest reserve amounts for high-value claims.\n  quote: we’re having trouble pulling updated reserves for our high-value claims this morning\n- problem: A claim has been stuck in reserves for over a week without payment processing.\n  quote: I’ve got a claim for a policyholder that’s been sitting in reserves ... can you check if the payment ... is queued?"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Reserve and payment data not updating\",\n  \"problem_statement\": \"Teams cannot access current reserve or payment information, delaying month-end close and payment cycles. This happens because data fails to refresh even after reprocessing or re-syncing, leaving critical financial processes stuck.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 487,
+   "tokens_out": 61,
+   "cost_usd": 0.0001158
+  }
+ }
+}

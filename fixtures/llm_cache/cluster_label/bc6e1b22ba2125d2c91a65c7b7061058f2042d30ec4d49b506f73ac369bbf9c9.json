@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: Uploading documents one by one is time‑consuming for large claims.\n  quote: We’re still waiting on the multiple file upload feature — right now I have to add each document individually, which takes ages when handling large claims with suppliers and policyholders.\n- problem: Users must upload each document one at a time.\n  quote: we’ll manage with single uploads for now and look forward to the multiple file upload improvement\n- problem: Users must upload claim documents one at a time, which is slow when many files are needed.\n  quote: We often need to upload files together when opening a new claim, especially when policyholders send in bundles. Right now, it’s one by one, which slows us down.\n- problem: The user has to upload each policyholder document individually, which is time‑consuming.\n  quote: Hi Bryn, I’m trying to get a batch of policyholder documents into a single claim — is there a way to do that without uploading each one separately?\n- problem: The user has to add supporting documents to each claim individually, which slows down handling multiple claims.\n  quote: I’m managing several claims with lots of supporting documents, and doing them one by one is slowing things down.\n- problem: Uploading evidence files one by one is tedious and slows down claim processing.\n  quote: Also, when we’re uploading evidence for a claim, it’s tedious to add each file one at a time... we really need the ability to use multiple file upload to batch-add documents to a claim.\n- problem: Users must upload files one by one because batch uploading isn’t available yet.\n  quote: I know the official way to upload files together isn’t live yet, but I’ve got a temporary method that’ll let you add multiple documents without doing them one at a time — it’s not ideal, but it’ll get you through until the feature ships on 6 October.\n- problem: Uploading claim files one by one is slow and creates a bottleneck.\n  quote: we’ve got a lot of policyholder files to attach to claims, so we’re hoping there’s a way to handle multiple file upload efficiently. We’ve got a number of claims files to attach and really need the multiple file upload capability to save time — it’s a bit of a bottleneck doing them one by one right now."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Slow single-file document uploads\",\n  \"problem_statement\": \"Users handling claims with multiple documents must upload each file individually, which takes excessive time and slows down claim processing. This bottleneck delays resolution and increases administrative effort.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 583,
+   "tokens_out": 51,
+   "cost_usd": 0.0001144
+  }
+ }
+}

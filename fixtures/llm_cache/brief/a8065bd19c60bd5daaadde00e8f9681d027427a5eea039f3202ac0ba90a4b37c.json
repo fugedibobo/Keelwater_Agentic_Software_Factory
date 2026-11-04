@@ -1,0 +1,58 @@
+{
+ "request": {
+  "model": "deepseek/deepseek-v3.2",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou write a one-page opportunity brief for a Keelwater product manager. Keelwater makes claims-handling software. You use only the facts and customer insights below.\n</role>\n<opportunity>\n{\n \"title\": \"Need to trial or quote roles before committing\",\n \"problem_statement\": \"Customers want to test or get pricing for additional roles before deciding to commit. Without this, they can't evaluate value or plan budgets confidently.\"\n}\n</opportunity>\n<fact_sheet>\n{\n \"as_of\": \"2026-11-03\",\n \"accounts_n\": 2,\n \"mentions_n\": 2,\n \"routes_n\": 1,\n \"mentions_by_route\": {\n  \"sales\": 2\n },\n \"arr_total_gbp\": 1250000.0,\n \"renewals_90d_n\": 0,\n \"accounts\": [\n  {\n   \"name\": \"Callowfield Auto Assurance\",\n   \"arr_gbp\": 1250000.0,\n   \"renewal_date\": \"2027-03-31\",\n   \"mentions\": 1\n  },\n  {\n   \"name\": \"Sallowmere Motor\",\n   \"arr_gbp\": null,\n   \"renewal_date\": null,\n   \"mentions\": 1\n  }\n ]\n}\n</fact_sheet>\n<insights>\n[\n {\n  \"id\": \"40a66e16cb5bffd6\",\n  \"quote\": \"Also, can you send over a quote for adding more roles next quarter?\",\n  \"account\": \"Callowfield Auto Assurance\",\n  \"route\": \"sales\",\n  \"date\": \"2026-10-18T12:10:00Z\"\n },\n {\n  \"id\": \"fc502b52110e1c6b\",\n  \"quote\": \"One last thing — can we trial the roles and tasks features before committing?\",\n  \"account\": \"Sallowmere Motor\",\n  \"route\": \"sales\",\n  \"date\": \"2026-10-18T10:32:00Z\"\n }\n]\n</insights>\n<rules>\n- Cite every insight you rely on as [i:INSIGHT_ID], using the id exactly as given. Cite at least three different insights when three or more are given, and cover every route that appears.\n- Use these sections, in this order, as Markdown headings: \"## Problem\", \"## Who is affected\", \"## Evidence\", \"## Why now\".\n- Every bullet under \"Who is affected\" and \"Evidence\" ends with a citation. Every sentence that contains a number or a date carries a citation.\n- Copy every account count, mention count, route count, renewal count and ARR figure from the fact sheet. Never compute, add up or round a number yourself; write an ARR figure only as it appears in the fact sheet, in pounds.\n- Put text in quotation marks only when it is a customer quote copied word for word from one insight cited in the same sentence.\n- Name a customer only when a cited insight in the same sentence belongs to that customer.\n- Do not claim more than the evidence shows: no \"all customers\", no scope wider than the cited accounts, and mention any cited insight that points the other way.\n- Do not recommend a solution.\n</rules>\n<output>\nJSON only: {\"body_md\": the brief as Markdown, \"citations\": the list of insight ids you cited}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 1500,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "brief",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "body_md": {
+       "title": "Body Md",
+       "type": "string"
+      },
+      "citations": {
+       "items": {
+        "type": "string"
+       },
+       "title": "Citations",
+       "type": "array"
+      }
+     },
+     "required": [
+      "body_md",
+      "citations"
+     ],
+     "title": "BriefOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"body_md\": \"## Problem\\nCustomers want to test or get pricing for additional roles before deciding to commit. Without this, they can't evaluate value or plan budgets confidently.\\n\\n## Who is affected\\n- An existing customer, Callowfield Auto Assurance, which has asked for a quote for adding more roles [i:40a66e16cb5bffd6].\\n- A prospective customer, Sallowmere Motor, which has asked to trial the roles and tasks features before committing [i:fc502b52110e1c6b].\\n\\n## Evidence\\nThis need has been mentioned 2 times across 2 accounts [i:40a66e16cb5bffd6][i:fc502b52110e1c6b]. The mentions came through 1 route: sales [i:40a66e16cb5bffd6][i:fc502b52110e1c6b]. The total ARR for the accounts in the fact sheet is 1250000.0 GBP [i:40a66e16cb5bffd6]. There have been 0 renewals in the last 90 days. One customer, Callowfield Auto Assurance, asked, \\\"Also, can you send over a quote for adding more roles next quarter?\\\" [i:40a66e16cb5bffd6]. Another customer, Sallowmere Motor, asked, \\\"One last thing — can we trial the roles and tasks features before committing?\\\" [i:fc502b52110e1c6b].\\n\\n## Why now\\nThe requests from both customers were made on 2026-10-18 [i:40a66e16cb5bffd6][i:fc502b52110e1c6b]. For the existing customer, Callowfield Auto Assurance, its renewal date is 2027-03-31 [i:40a66e16cb5bffd6], indicating a potential need to plan for the next contract period.\",\n  \"citations\": [\"40a66e16cb5bffd6\", \"fc502b52110e1c6b\"]\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 727,
+   "tokens_out": 465,
+   "cost_usd": 0.00036572
+  }
+ }
+}

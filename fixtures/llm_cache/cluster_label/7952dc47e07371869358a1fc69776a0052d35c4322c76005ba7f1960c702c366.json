@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The team needs to train claims handlers on a new workflow.\n  quote: We’re keen to get our claims handlers trained up on the new workflow.\n- problem: The customer needs to begin using the claims and document handling system promptly.\n  quote: we’re really keen to get started with your system for handling claims and documents\n- problem: Claims documents are not being auto-assigned to the correct supplier tasks.\n  quote: Hi Bryn, I’m trying to figure out why my latest batch of claims documents didn’t auto-assign to the right supplier tasks.\n- problem: The team needs a seamless experience when using the claims platform.\n  quote: Our team relies on this being seamless.\n- problem: The customer lacks effective task tracking for their claims work.\n  quote: That’s a welcome update — we’ve been needing better task tracking.\n- problem: The customer is unclear about how claims are assigned to their teams.\n  quote: We’ve got a few questions about how claims get assigned to our teams.\n- problem: The customer needs to schedule an onboarding walkthrough to streamline claims handling.\n  quote: I’m looking to streamline our claims handling, especially around documents and reserves tracking... can you confirm your availability on Tuesday or Thursday?\n- problem: The customer is experiencing problems with how claims are assigned and how documents are filed.\n  quote: We’re seeing some issues with how claims get assigned and docs get filed — can we talk it through?"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Inconsistent claims assignment and document handling\",\n  \"problem_statement\": \"Teams struggle with claims and documents being misassigned or improperly filed, leading to delays and confusion. This undermines efficiency and trust in the platform's reliability.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 402,
+   "tokens_out": 52,
+   "cost_usd": 9.338e-05
+  }
+ }
+}

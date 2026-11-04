@@ -1,0 +1,120 @@
+{
+ "request": {
+  "model": "cloudflare/clef",
+  "state": "Exactly — it’s creating a backlog on the approval waiting list, and policyholders are starting to ask why payments are delayed. We’re seeing claims held up because when a reserve change exceeds authority, it sits in one approver’s queue with no delegate, and that creates a backlog on the approval waiting list — policyholders are noticing delays.",
+  "questions": {
+   "is_product_signal": {
+    "type": "noul",
+    "instructions": "Is this a problem or request about the Keelwater product that a product squad could act on?",
+    "criteria": {
+     "true": "A customer problem, defect or request about the product.",
+     "false": "Chatter, scheduling, small talk or anything not about the product."
+    }
+   },
+   "bucket": {
+    "type": "choice",
+    "instructions": "Which product area does it belong to?",
+    "criteria": {
+     "fnol_intake": "Starting a new claim and capturing its first details.",
+     "triage_assignment": "Choosing who works a claim, in what order, and when it is sent for specialist review.",
+     "documents_evidence": "Files and other material kept with a claim, and how handlers organise and retrieve them.",
+     "reserves_payments": "Money set aside, paid out or recovered on a claim.",
+     "supplier_network": "Repairers, adjusters and other outside parties a claim depends on.",
+     "customer_comms": "Messages sent from a claim to the people involved, and what those messages say.",
+     "reporting_mi": "Management information and figures drawn from claims data.",
+     "admin_permissions": "Running the Keelwater workspace, such as user accounts, access and settings.",
+     "integrations_api": "Connections between Keelwater and other systems.",
+     "release_change": "How Keelwater's own product updates reach users and how their arrival is handled."
+    }
+   },
+   "severity": {
+    "type": "score",
+    "instructions": "How severe is the impact on the customer?",
+    "criteria": [
+     "Minor annoyance",
+     "Slows the customer down",
+     "Blocks part of their work",
+     "Blocks the customer entirely"
+    ]
+   },
+   "signal_type": {
+    "type": "choice",
+    "instructions": "What kind of signal is it?",
+    "criteria": {
+     "bug": "bug",
+     "feature_gap": "feature gap",
+     "usability_friction": "usability friction",
+     "workflow_blocker": "workflow blocker",
+     "praise": "praise",
+     "churn_risk": "churn risk",
+     "question": "question"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  }
+ },
+ "response": {
+  "answers": {
+   "is_product_signal": {
+    "type": "noul",
+    "noul": 0.9115
+   },
+   "bucket": {
+    "type": "choice",
+    "choice": "reserves_payments",
+    "probabilities": {
+     "fnol_intake": 0.0069,
+     "triage_assignment": 0.1662,
+     "documents_evidence": 0.0141,
+     "reserves_payments": 0.6272,
+     "supplier_network": 0.0165,
+     "customer_comms": 0.0407,
+     "reporting_mi": 0.044,
+     "admin_permissions": 0.0602,
+     "integrations_api": 0.0162,
+     "release_change": 0.008
+    },
+    "confidence": 0.3657
+   },
+   "severity": {
+    "type": "score",
+    "score": 1.5105,
+    "legend": {
+     "0": "Minor annoyance",
+     "1": "Slows the customer down",
+     "2": "Blocks part of their work",
+     "3": "Blocks the customer entirely"
+    },
+    "probabilities": {
+     "0": 0.0461,
+     "1": 0.4875,
+     "2": 0.376,
+     "3": 0.0904
+    },
+    "confidence": 0.1858
+   },
+   "signal_type": {
+    "type": "choice",
+    "choice": "workflow_blocker",
+    "probabilities": {
+     "bug": 0.0283,
+     "feature_gap": 0.1911,
+     "usability_friction": 0.0456,
+     "workflow_blocker": 0.6964,
+     "praise": 0.0018,
+     "churn_risk": 0.0316,
+     "question": 0.0052
+    },
+    "confidence": 0.4464
+   }
+  },
+  "usage": {
+   "tokens_in": 837,
+   "tokens_out": 0,
+   "cost_usd": 0.000160704
+  }
+ }
+}

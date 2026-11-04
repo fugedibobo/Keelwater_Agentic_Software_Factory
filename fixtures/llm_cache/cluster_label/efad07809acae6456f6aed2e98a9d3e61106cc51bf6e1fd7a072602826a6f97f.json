@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "qwen/qwen3-next-80b-a3b-instruct",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The customer needs to understand how reserves and payments will integrate with their current accounting tools.\n  quote: That sounds promising. Can we see how reserves and payments sync with our existing accounting tools?\n- problem: The user cannot easily verify that supplier payment workflows match policyholder expectations.\n  quote: That would help — I’d like to go over the suppliers tab and ensure our payment workflows are aligned with policyholders’ expectations.\n- problem: The customer is unclear about how the system handles reserves and supplier payments together.\n  quote: I’ve been reviewing our claims handling workflows and need clarity on how your system manages reserves and supplier payments together.\n- problem: They are uncertain how Keelwater integrates with their claims workflow, particularly for reserves and supplier payments.\n  quote: we’re still evaluating how Keelwater fits our claims workflow, especially around reserves and supplier payments..."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Unclear integration of reserves and supplier payments\",\n  \"problem_statement\": \"Users struggle to understand how reserves and supplier payments work together within the platform and how they connect to existing accounting tools and claims workflows. This uncertainty delays adoption and risks misalignment with policyholder expectations.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 281,
+   "tokens_out": 62,
+   "cost_usd": 9.349e-05
+  }
+ }
+}
