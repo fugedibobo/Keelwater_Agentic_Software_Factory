@@ -1,0 +1,162 @@
+# ASSUMED: synthetic phrases, names and invented details.
+{
+  "themes": [
+    {
+      "id": "ho-payee-bank-details",
+      "kind": "real",
+      "bucket": "reserves_payments",
+      "severity": 3,
+      "routes": {
+        "sales": 2,
+        "support": 3,
+        "onboarding": 0,
+        "account_management": 2,
+        "sessions": 0
+      },
+      "mentions": 7,
+      "accounts": [
+        "A03",
+        "A05",
+        "A08",
+        "A11",
+        "A14",
+        "A21"
+      ],
+      "description": "Third-party payee bank details cannot be checked before payment, so payments bounce and are re-issued days later.",
+      "facts": [
+        "bank details are not checked before payment",
+        "failed payments must be reissued days later"
+      ],
+      "synonyms": [
+        "payee account verification",
+        "payment detail checking"
+      ],
+      "title": "Third-party payee bank details cannot be checked before payment, so payments bounce and are re-issued days later",
+      "stances": [],
+      "product_ref": null,
+      "hard_negatives": [],
+      "expected": {
+        "outcome": "ranked",
+        "top6": true
+      }
+    },
+    {
+      "id": "ho-role-setup",
+      "kind": "real",
+      "bucket": "admin_permissions",
+      "severity": 2,
+      "routes": {
+        "sales": 0,
+        "support": 3,
+        "onboarding": 3,
+        "account_management": 0,
+        "sessions": 2
+      },
+      "mentions": 8,
+      "accounts": [
+        "A02",
+        "A06",
+        "A09",
+        "A12",
+        "A16",
+        "A19",
+        "A24"
+      ],
+      "description": "Admins cannot copy an existing role, so a new team means ticking dozens of permission boxes per user; mistakes lock handlers out. FullStory: bursts of checkbox clicks.",
+      "facts": [
+        "existing access roles cannot be duplicated",
+        "staff must select permissions individually",
+        "mistakes lock out handlers"
+      ],
+      "synonyms": [
+        "copy access roles",
+        "permission setup duplication"
+      ],
+      "title": "Admins cannot copy an existing role, so a new team means ticking dozens of permission boxes per user; mistakes lock handlers out",
+      "stances": [],
+      "product_ref": null,
+      "hard_negatives": [],
+      "expected": {
+        "outcome": "ranked",
+        "top6": true
+      }
+    },
+    {
+      "id": "ho-letter-joint-names",
+      "kind": "real",
+      "bucket": "customer_comms",
+      "severity": 3,
+      "routes": {
+        "sales": 2,
+        "support": 3,
+        "onboarding": 0,
+        "account_management": 2,
+        "sessions": 0
+      },
+      "mentions": 7,
+      "accounts": [
+        "A01",
+        "A04",
+        "A07",
+        "A10",
+        "A13",
+        "A15"
+      ],
+      "description": "With joint policyholders, letters merge only one name or the wrong one, and complaints follow.",
+      "facts": [
+        "a letter shows just one joint policyholder",
+        "incorrect names lead to complaints"
+      ],
+      "synonyms": [
+        "joint policyholder names",
+        "multiple names on letters"
+      ],
+      "title": "With joint policyholders, letters merge only one name or the wrong one, and complaints follow",
+      "stances": [],
+      "product_ref": null,
+      "hard_negatives": [],
+      "expected": {
+        "outcome": "ranked",
+        "top6": true
+      }
+    },
+    {
+      "id": "hz-invoice-admin",
+      "kind": "noise",
+      "bucket": null,
+      "severity": null,
+      "routes": {
+        "sales": 1,
+        "support": 3,
+        "onboarding": 0,
+        "account_management": 2,
+        "sessions": 0
+      },
+      "mentions": 6,
+      "accounts": [
+        "A02",
+        "A03",
+        "A17",
+        "A20",
+        "A25"
+      ],
+      "description": "Requests to change purchase-order numbers or billing contacts on Keelwater's own invoices.",
+      "facts": [
+        "customer wants a purchase order changed",
+        "billing contact changes are an administrative request"
+      ],
+      "synonyms": [
+        "invoice contact change",
+        "purchase order correction"
+      ],
+      "title": "Requests to change purchase-order numbers or billing contacts on Keelwater's own invoices",
+      "stances": [],
+      "product_ref": null,
+      "hard_negatives": [],
+      "expected": {
+        "outcome": "suppressed",
+        "top6": false
+      }
+    }
+  ]
+}

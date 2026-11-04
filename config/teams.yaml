@@ -1,0 +1,9 @@
+# ASSUMED: descriptions, wording and assigned names are synthetic.
+{
+  "teams": {
+    "alwen.dovell@keelwater.example": "sales",
+    "bryn.telford@keelwater.example": "support",
+    "carys.fenwick@keelwater.example": "onboarding",
+    "deryn.pell@keelwater.example": "account_management"
+  }
+}

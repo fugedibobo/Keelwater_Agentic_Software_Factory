@@ -1,0 +1,16 @@
+# ASSUMED: descriptions, wording and assigned names are synthetic.
+{
+  "features": [
+    "claims",
+    "documents",
+    "reserves",
+    "payments",
+    "suppliers",
+    "reporting",
+    "roles",
+    "integrations",
+    "tasks",
+    "letters",
+    "policyholders"
+  ]
+}

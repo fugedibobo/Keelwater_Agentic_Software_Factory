@@ -1,0 +1,296 @@
+# ASSUMED: A30 ARR increased by GBP 1000 to match the stated total.
+# ASSUMED: stale values and company revenue multiplier.
+{
+  "accounts": [
+    {
+      "key": "A01",
+      "name": "Hollinbrook Home Insurance",
+      "line": "home",
+      "tier": "Strategic",
+      "arr_gbp": 2400000,
+      "renewal": "15/01/2027"
+    },
+    {
+      "key": "A02",
+      "name": "Wexmoor Motor",
+      "line": "motor",
+      "tier": "Strategic",
+      "arr_gbp": 1950000,
+      "renewal": "30/06/2027"
+    },
+    {
+      "key": "A03",
+      "name": "Marrowgate Commercial",
+      "line": "commercial",
+      "tier": "Strategic",
+      "arr_gbp": 1600000,
+      "renewal": "12/12/2026"
+    },
+    {
+      "key": "A04",
+      "name": "Callowfield Auto Assurance",
+      "line": "motor",
+      "tier": "Strategic",
+      "arr_gbp": 1250000,
+      "renewal": "31/03/2027"
+    },
+    {
+      "key": "A05",
+      "name": "Thistlecombe Mutual",
+      "line": "home",
+      "tier": "Strategic",
+      "arr_gbp": 980000,
+      "renewal": "01/09/2027"
+    },
+    {
+      "key": "A06",
+      "name": "Quillon Business Insurance",
+      "line": "commercial",
+      "tier": "Enterprise",
+      "arr_gbp": 860000,
+      "renewal": "20/01/2027"
+    },
+    {
+      "key": "A07",
+      "name": "Saltmarsh Specialty",
+      "line": "specialty",
+      "tier": "Enterprise",
+      "arr_gbp": 740000,
+      "renewal": "15/05/2027"
+    },
+    {
+      "key": "A08",
+      "name": "Pendleford Motor Mutual",
+      "line": "motor",
+      "tier": "Enterprise",
+      "arr_gbp": 690000,
+      "renewal": "28/02/2027"
+    },
+    {
+      "key": "A09",
+      "name": "Brackwater Homecover",
+      "line": "home",
+      "tier": "Enterprise",
+      "arr_gbp": 610000,
+      "renewal": "10/10/2027"
+    },
+    {
+      "key": "A10",
+      "name": "Stannary Commercial",
+      "line": "commercial",
+      "tier": "Enterprise",
+      "arr_gbp": 540000,
+      "renewal": "05/12/2026"
+    },
+    {
+      "key": "A11",
+      "name": "Ravensgill Insurance",
+      "line": "motor",
+      "tier": "Enterprise",
+      "arr_gbp": 470000,
+      "renewal": "30/04/2027"
+    },
+    {
+      "key": "A12",
+      "name": "Tidewell Marine & Cargo",
+      "line": "specialty",
+      "tier": "Enterprise",
+      "arr_gbp": 420000,
+      "renewal": "31/07/2027"
+    },
+    {
+      "key": "A13",
+      "name": "Linnet House Insurance",
+      "line": "home",
+      "tier": "Enterprise",
+      "arr_gbp": 360000,
+      "renewal": "14/03/2027"
+    },
+    {
+      "key": "A14",
+      "name": "Holloway Reach Underwriting",
+      "line": "commercial",
+      "tier": "Enterprise",
+      "arr_gbp": 320000,
+      "renewal": "22/08/2027"
+    },
+    {
+      "key": "A15",
+      "name": "Tarnholt Drive Cover",
+      "line": "motor",
+      "tier": "Enterprise",
+      "arr_gbp": 290000,
+      "renewal": "09/01/2027"
+    },
+    {
+      "key": "A16",
+      "name": "Ashcombe Property Mutual",
+      "line": "home",
+      "tier": "Growth",
+      "arr_gbp": 250000,
+      "renewal": "30/11/2026"
+    },
+    {
+      "key": "A17",
+      "name": "Penhallow Specialty Risks",
+      "line": "specialty",
+      "tier": "Growth",
+      "arr_gbp": 230000,
+      "renewal": "18/06/2027"
+    },
+    {
+      "key": "A18",
+      "name": "Cindermill Trade Cover",
+      "line": "commercial",
+      "tier": "Growth",
+      "arr_gbp": 210000,
+      "renewal": "03/04/2027"
+    },
+    {
+      "key": "A19",
+      "name": "Selsby Motor",
+      "line": "motor",
+      "tier": "Growth",
+      "arr_gbp": 190000,
+      "renewal": "27/09/2027"
+    },
+    {
+      "key": "A20",
+      "name": "Elderfold Home",
+      "line": "home",
+      "tier": "Growth",
+      "arr_gbp": 170000,
+      "renewal": "21/12/2026"
+    },
+    {
+      "key": "A21",
+      "name": "Brantwick Commercial",
+      "line": "commercial",
+      "tier": "Growth",
+      "arr_gbp": 150000,
+      "renewal": "11/05/2027"
+    },
+    {
+      "key": "A22",
+      "name": "Ormsgill Cyber",
+      "line": "specialty",
+      "tier": "Growth",
+      "arr_gbp": 135000,
+      "renewal": null
+    },
+    {
+      "key": "A23",
+      "name": "Orrinbury Fleet Insurance",
+      "line": "motor",
+      "tier": "Growth",
+      "arr_gbp": 120000,
+      "renewal": "16/02/2027"
+    },
+    {
+      "key": "A24",
+      "name": "Kilnsey Household",
+      "line": "home",
+      "tier": "Growth",
+      "arr_gbp": 105000,
+      "renewal": "07/07/2027"
+    },
+    {
+      "key": "A25",
+      "name": "Greystock Liability",
+      "line": "commercial",
+      "tier": "Growth",
+      "arr_gbp": 92000,
+      "renewal": "25/01/2027"
+    },
+    {
+      "key": "A26",
+      "name": "Duncastle Auto",
+      "line": "motor",
+      "tier": "Growth",
+      "arr_gbp": 80000,
+      "renewal": "19/08/2027"
+    },
+    {
+      "key": "A27",
+      "name": "Fellbrook Fine Art & Specie",
+      "line": "specialty",
+      "tier": "Growth",
+      "arr_gbp": 70000,
+      "renewal": "13/03/2027"
+    },
+    {
+      "key": "A28",
+      "name": "Farrowdene Home",
+      "line": "home",
+      "tier": "Growth",
+      "arr_gbp": 60000,
+      "renewal": "02/06/2027"
+    },
+    {
+      "key": "A29",
+      "name": "Calderwick Commercial",
+      "line": "commercial",
+      "tier": "Growth",
+      "arr_gbp": 52000,
+      "renewal": "24/09/2027"
+    },
+    {
+      "key": "A30",
+      "name": "Merrow Vale Motor",
+      "line": "motor",
+      "tier": "Growth",
+      "arr_gbp": 46000,
+      "renewal": "08/04/2027"
+    },
+    {
+      "key": "P1",
+      "name": "Harrowfield Fleet Mutual",
+      "line": "motor",
+      "tier": "prospect",
+      "arr_gbp": null,
+      "renewal": null
+    },
+    {
+      "key": "P2",
+      "name": "Brindlecombe Home",
+      "line": "home",
+      "tier": "prospect",
+      "arr_gbp": null,
+      "renewal": null
+    },
+    {
+      "key": "P3",
+      "name": "Sallowmere Motor",
+      "line": "motor",
+      "tier": "prospect",
+      "arr_gbp": null,
+      "renewal": null
+    },
+    {
+      "key": "P4",
+      "name": "Quarrendon Commercial",
+      "line": "commercial",
+      "tier": "prospect",
+      "arr_gbp": null,
+      "renewal": null
+    }
+  ],
+  "hubspot_duplicates": [
+    {
+      "account": "A06",
+      "arr_decrement_gbp": 10000,
+      "last_modified": "2025-10-31T12:00:00Z"
+    },
+    {
+      "account": "A15",
+      "arr_decrement_gbp": 10000,
+      "last_modified": "2025-10-31T12:00:00Z"
+    }
+  ],
+  "hubspot_mess": {
+    "arr_property": "keelwater_arr_gbp",
+    "default_revenue_multiplier": 10,
+    "lowercase_tier_account": "A07",
+    "null_renewal_account": "A22"
+  }
+}
