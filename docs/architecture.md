@@ -121,6 +121,10 @@ One decision-model call per snippet asks four typed questions at once, so the te
 
 Thresholds are per backend in `config/pipeline.yaml`, because probabilities from different models are not on one scale, and changing one is an audit event. Nothing is ever silently dropped (ADR-003).
 
+### Extract filter (stage 3)
+
+The extraction call, still one model call per snippet, also answers a typed field `states_product_problem` (`yes` or `no`): does the snippet itself state a product problem a squad could act on? A `no` stores no insight; the snippet gets an `extract.dropped` audit event (reason, call id, prompt version) and is counted. Reconciliation stays exact: triage ends with snippets in = keep + drop + low_confidence + untriaged, and extract prints and asserts kept-for-extract = insights + dropped_at_extract + failed (failed: a snippet too short to hold an insight, or a replay cache miss). Added because the triage model passed noise snippets at high probability and they diluted clusters (issue #7).
+
 ### Clustering (stage 5)
 
 | Step | Rule |

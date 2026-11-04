@@ -3,7 +3,7 @@ from signal_engine import extract
 
 
 def answer(quote, problem="Uploads are slow"):
-    return {"problem": problem, "quote": quote, "workflow": "upload documents", "desired_outcome": "bulk upload"}
+    return {"states_product_problem": "yes", "problem": problem, "quote": quote, "workflow": "upload documents", "desired_outcome": "bulk upload"}
 
 
 def last_user(body):
@@ -72,3 +72,63 @@ def test_replay_skips_untriaged_snippets_instead_of_raising_a_replay_miss(tmp_st
     gw = fake_gateway({}, profile="replay")
     extract.run(ctx_for(tmp_store, gw))
     assert tmp_store.select("insight") == []
+
+
+def with_flag(quote, flag):
+    return {**answer(quote), "states_product_problem": flag}
+
+
+def test_no_answer_stores_no_insight_and_is_audited_and_counted(tmp_store, fake_gateway, capsys):
+    seed_account(tmp_store, "A01", 1000)
+    yes = seed_snippet(tmp_store, "k1", "we upload documents one at a time and it is slow")
+    no = seed_snippet(tmp_store, "k2", "thanks so much for the call today, speak next week")
+    gw = fake_gateway({"extract": lambda b: with_flag("documents one at a time and it is slow", "yes") if "upload documents" in last_user(b)
+                       else with_flag("thanks so much for the call today", "no")})
+    extract.run(ctx_for(tmp_store, gw))
+    assert [r["snippet_id"] for r in tmp_store.select("insight")] == [yes]
+    (ev,) = tmp_store.select("audit_event", {"action": "extract.dropped"})
+    assert ev["target_type"] == "snippet" and ev["target_id"] == no and "product problem" in ev["details_json"]["reason"]
+    assert len(gw.calls) == 2  # a 'no' is not retried for its quote
+    assert "extract: 2 kept for extract = 1 insights + 1 dropped_at_extract + 0 failed" in capsys.readouterr().out
+    assert extract.run(ctx_for(tmp_store, gw)) is None and len(gw.calls) == 2  # rerun does not re-ask dropped snippets
+    assert len(tmp_store.select("audit_event", {"action": "extract.dropped"})) == 1
+
+
+def test_yes_answer_behaves_as_before(tmp_store, fake_gateway):
+    seed_account(tmp_store, "A01", 1000)
+    sid = seed_snippet(tmp_store, "k1", "we upload documents one at a time and it is slow")
+    gw = fake_gateway({"extract": with_flag("documents one at a time and it is slow", "yes")})
+    extract.run(ctx_for(tmp_store, gw))
+    (row,) = tmp_store.select("insight")
+    assert row["snippet_id"] == sid and row["quote_match"] == "exact"
+    assert tmp_store.select("audit_event", {"action": "extract.dropped"}) == []
+
+
+def test_request_schema_and_prompt_carry_the_typed_field(tmp_store, fake_gateway):
+    from signal_engine import prompts
+    seed_account(tmp_store, "A01", 1000)
+    seed_snippet(tmp_store, "k1", "we upload documents one at a time and it is slow")
+    gw = fake_gateway({"extract": with_flag("documents one at a time and it is slow", "yes")})
+    extract.run(ctx_for(tmp_store, gw))
+    body = gw.calls[0][2]
+    sch = body["response_format"]["json_schema"]["schema"]
+    assert sch["properties"]["states_product_problem"]["enum"] == ["yes", "no"] and "states_product_problem" in sch["required"]
+    system, version = prompts.load_prompt("extract", "extract")
+    assert "states_product_problem" in system and version.startswith("extract@2+")
+
+
+def test_replay_miss_is_counted_per_snippet_and_never_crashes(tmp_store, fake_gateway, capsys):
+    seed_account(tmp_store, "A01", 1000)
+    seed_snippet(tmp_store, "k1", "we upload documents one at a time and it is slow")
+    gw = fake_gateway({}, profile="replay")
+    extract.run(ctx_for(tmp_store, gw))
+    assert tmp_store.select("insight") == []
+    assert "extract: 1 kept for extract = 0 insights + 0 dropped_at_extract + 1 failed (1 not in the replay cache)" in capsys.readouterr().out
+
+
+def test_reconciliation_counts_short_snippets_as_failed(tmp_store, fake_gateway, capsys):
+    seed_account(tmp_store, "A01", 1000)
+    seed_snippet(tmp_store, "k1", "export is slow")
+    gw = fake_gateway({"extract": with_flag("export is slow", "yes")})
+    extract.run(ctx_for(tmp_store, gw))
+    assert "= 0 insights + 0 dropped_at_extract + 1 failed" in capsys.readouterr().out
