@@ -154,8 +154,10 @@ def draft(ctx, opp, preview=False):
     handoff_id = content_id("handoff", oid, snapshot)
     doc = out["intent_doc_md"]
     job = build_job(ctx, opp, out, snapshot, ms, accept, handoff_id, sha256(doc))
-    errors = [f"citation {f['rule']}: {f['detail']}" for f in fails] + deidentify_errors(job, store) + schema_errors(job)
-    row = Handoff(handoff_id=handoff_id, opportunity_id=oid, intent_doc_md=doc, factory_job_json=job, evidence_snapshot=snapshot,
+    deid = deidentify_errors(job, store)
+    errors = [f"citation {f['rule']}: {f['detail']}" for f in fails] + deid + schema_errors(job)
+    row = Handoff(handoff_id=handoff_id, opportunity_id=oid, intent_doc_md=doc, factory_job_json=None if deid else job,  # never persist an identifying job
+                  evidence_snapshot=snapshot,
                   manifest_hash=job["evidence"]["run_manifest_hash"], errors_json=errors)
     store.insert("handoff", row, replace=True)
     if not errors and not preview:
@@ -166,6 +168,8 @@ def draft(ctx, opp, preview=False):
 def submit(store, handoff_id, approvals):
     """Trio sign-off (Gate 2): add the approvals, mark the job submitted and re-validate. Returns the error list."""
     (h,) = store.select("handoff", {"handoff_id": handoff_id})
+    if not h["factory_job_json"]:
+        return ["no factory job: the draft failed de-identification"]
     job = dict(h["factory_job_json"], status="submitted")
     job["gate_approvals"] = [*job.get("gate_approvals", []), *approvals]
     errors = deidentify_errors(job, store) + schema_errors(job)

@@ -65,6 +65,7 @@ def test_planted_name_or_quote_fails_and_opportunity_stays_accepted(tmp_store, f
     handoff.run(make_ctx(gw_for(fake_gateway, ids, problem_statement=statement), tmp_store))
     (h,) = tmp_store.select("handoff")
     assert any(needle in e for e in h["errors_json"]) and status(tmp_store) == "accepted"
+    assert h["factory_job_json"] is None  # nothing identifying is persisted or shown to copy
     assert [o["opportunity_id"] for o in handoff.pending(tmp_store)] == [OID]  # retried on the next run
 
 
