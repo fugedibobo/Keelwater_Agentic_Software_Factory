@@ -176,6 +176,8 @@ def render_table(tokens, prices, openrouter):
     L = ["| Model | What it did | Total tokens | Blended rate (USD per million tokens) | API cost equivalent (USD) |", "|---|---|---|---|---|"]
     for r in c:
         mark = "estimated" if r["source"] == "estimated" else "measured"
+        if r["model"] == "OpenRouter pipeline":
+            mark += ", lower bound"
         rate = f"{r['blended']:.2f}" + (" (nearest published tier, estimated)" if r["basis"] == "nearest-tier" else "")
         L.append(f"| {r['model']} | {WHAT[r['model']]} | {r['total']:,} ({mark}) | {rate} | {r['usd']:,.2f} |")
     t = sum(r["total"] for r in c)

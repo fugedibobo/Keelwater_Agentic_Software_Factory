@@ -186,7 +186,7 @@ Tokens per model are measured from the session logs by scripts/measure_tokens.py
 | Codex Terra | Offline builds, mostly stalled or hit its limit | 35,642,913 (measured) | 0.08 | 2.79 |
 | Codex Sol | Adversarial review of the finished build | 1,461,945 (measured) | 0.41 | 0.60 |
 | Gemini Argon (agy) | One blocked turn, wrote nothing | 53,000 (measured) | 2.00 | 0.11 |
-| OpenRouter pipeline | Ran the product's pipeline stages on open-weight models | 1,510,716 (measured) | 0.29 | 0.44 |
+| OpenRouter pipeline | Ran the product's pipeline stages on open-weight models | 1,510,716 (measured, lower bound) | 0.29 | 0.44 |
 | **Total** | | **628,278,423** | **0.24** | **149.48** |
 
 <!-- tokens:end -->
