@@ -44,7 +44,8 @@ def version_id(gw, judge):
 
 
 def judged_by_version(store, jv_ids):
-    return {(j["target_id"], j["judge"]): j["verdict"] for j in store.select("judgement") if j["judge_version_id"] in jv_ids}
+    return {(j["target_id"], j["judge"]): j["verdict"] for j in store.select("judgement")
+            if j["judge_version_id"] in jv_ids and j["verdict"] != "not_independent"}
 
 
 def candidates(store, label):

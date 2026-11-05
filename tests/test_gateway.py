@@ -100,6 +100,9 @@ def test_request_controls_and_probe_request(tmp_path):
         assert req["provider"] == {"data_collection": "allow" if stage == "generate" else "deny", "require_parameters": True}
         assert req["response_format"]["type"] == "json_schema"
         probe = gw.probe_request(stage)
+        if stage == "triage_fallback":  # demo: a second Decisions API model, probed like the primary
+            assert probe["model"] == "cloudflare/clef-flash" and probe["questions"].keys() == gw.probe_request("triage")["questions"].keys()
+            continue
         assert probe["max_tokens"] == 32
         assert {k: v for k, v in probe.items() if k != "max_tokens"} == {k: v for k, v in req.items() if k != "max_tokens"}
     assert gw.probe_request("embed")["provider"]["data_collection"] == "deny"
@@ -119,7 +122,7 @@ def test_cost_falls_back_to_token_prices(tmp_path):
                                     "usage": {"prompt_tokens": 1_000_000, "completion_tokens": 1_000_000}})
     gw = demo(tmp_path, client, max_usd=100)
     ask(gw)
-    assert gw.store.select("model_call")[0]["cost_usd"] == pytest.approx(0.10 + 0.90)
+    assert gw.store.select("model_call")[0]["cost_usd"] == pytest.approx(0.029 + 1.575)
 
 
 def test_retries_on_429_with_backoff(tmp_path):
@@ -215,20 +218,28 @@ def test_embed_goes_through_the_cache(tmp_path):
 # ---- probe ----------------------------------------------------------------------------------------------------
 def test_probe_table_fallback_and_missing_clef_key(fake_gateway):
     def brief(body):
-        if body["model"] == "deepseek/deepseek-v3.2":
+        if body["model"] == "qwen/qwen3.8-max-0902":
             raise GatewayError("model not served")
         return {"body_md": "x", "citations": []}
 
-    gw = fake_gateway({"triage_fallback": {"is_product_signal": 0.5, "bucket": "fnol_intake", "bucket_confidence": 0.9, "severity": 1, "signal_type": "bug"},
-                       "brief": brief})
+    gw = fake_gateway({"brief": brief})  # both Decisions API stages are skipped without a key
     rows, ok = gwm.run_probe(gw, ["triage", "triage_fallback", "brief"], out=lambda s: None)
     assert ok
-    assert rows[0] == ("triage", "cloudflare/clef", "-", "skipped (no key)", "-")
-    assert [r[:4] for r in rows[1:]] == [("triage_fallback", "openai/gpt-oss-120b", "primary", "ok"),
-                                         ("brief", "deepseek/deepseek-v3.2", "primary", "fail"),
-                                         ("brief", "deepseek/deepseek-v4-pro-0813", "fallback", "ok")]
-    assert gw.swaps == {"brief": "deepseek/deepseek-v4-pro-0813"}
+    assert rows[:2] == [("triage", "cloudflare/clef", "-", "skipped (no key)", "-"),
+                        ("triage_fallback", "cloudflare/clef-flash", "-", "skipped (no key)", "-")]
+    assert [r[:4] for r in rows[2:]] == [("brief", "qwen/qwen3.8-max-0902", "primary", "fail"),
+                                         ("brief", "deepseek/deepseek-v4.1-flash", "fallback", "ok")]
+    assert gw.swaps == {"brief": "deepseek/deepseek-v4.1-flash"}
     assert all(c[2].get("max_tokens", 32) == 32 for c in gw.calls if "questions" not in c[2])
+
+
+def test_probe_runs_the_second_decision_model_through_the_decisions_api(fake_gateway):
+    ans = {"is_product_signal": {"noul": 0.5}, "bucket": {"choice": "fnol_intake", "confidence": 0.9}, "severity": {"score": 1},
+           "signal_type": {"choice": "bug"}}
+    gw = fake_gateway({"triage": {"answers": ans}, "triage_fallback": {"answers": ans}}, keys={"OPENROUTER_API_KEY": "k"})
+    rows, ok = gwm.run_probe(gw, ["triage", "triage_fallback"], out=lambda s: None)
+    assert ok and [r[:4] for r in rows] == [("triage", "cloudflare/clef", "primary", "ok"), ("triage_fallback", "cloudflare/clef-flash", "primary", "ok")]
+    assert [(c[0], c[1], c[2]["model"]) for c in gw.calls] == [("triage", "decide", "cloudflare/clef"), ("triage_fallback", "decide", "cloudflare/clef-flash")]
 
 
 def test_probe_main_without_key_exits_1_with_no_network(monkeypatch, capsys):
