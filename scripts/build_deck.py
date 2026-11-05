@@ -19,22 +19,23 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import deck_charts  # noqa: E402
 
 EDGE = Path("C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe")
-# placeholder -> (default file in the repo, mime type, width in px, quality)
-IMAGES = {"IMG_PIPELINE": ("docs/diagrams/pipeline.png", "image/webp", 900, 0.9),
-          "IMG_ABOUT": ("docs/screenshots/board-about.png", "image/jpeg", 1500, 0.8),
-          "IMG_OPPS": ("docs/screenshots/board-opportunities.png", "image/jpeg", 1500, 0.8)}
+# placeholder -> (default file in the repo, mime type, output width in px, quality, crop x/y/w/h in source px or None)
+# IMG_OPPS keeps one opportunity card (score, factors, check line) of the 2880x1800 screenshot.
+IMAGES = {"IMG_PIPELINE": ("docs/diagrams/pipeline.png", "image/webp", 900, 0.9, None),
+          "IMG_ABOUT": ("docs/screenshots/board-about.png", "image/jpeg", 1500, 0.8, None),
+          "IMG_OPPS": ("docs/screenshots/board-opportunities.png", "image/jpeg", 2000, 0.85, [300, 1050, 2280, 720])}
 JS = """const jobs=%s;const res={};let left=jobs.length;
-jobs.forEach(([k,src,t,w,q])=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas');c.width=w;
-c.height=Math.round(im.naturalHeight*w/im.naturalWidth);const x=c.getContext('2d');x.imageSmoothingQuality='high';
-x.drawImage(im,0,0,c.width,c.height);res[k]=c.toDataURL(t,q);if(--left==0)document.getElementById('out').textContent=JSON.stringify(res)};
+jobs.forEach(([k,src,t,w,q,cr])=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas');c.width=w;
+const [sx,sy,sw,sh]=cr||[0,0,im.naturalWidth,im.naturalHeight];c.height=Math.round(sh*w/sw);
+const x=c.getContext('2d');x.imageSmoothingQuality='high';x.drawImage(im,sx,sy,sw,sh,0,0,c.width,c.height);res[k]=c.toDataURL(t,q);if(--left==0)document.getElementById('out').textContent=JSON.stringify(res)};
 im.onerror=()=>{document.getElementById('out').textContent='ERR '+k};im.src=src});"""
 
 
 def encode_images(folder):
     jobs = []
-    for key, (rel, mime, w, q) in IMAGES.items():
+    for key, (rel, mime, w, q, crop) in IMAGES.items():
         p = (Path(folder) / Path(rel).name) if folder else ROOT / rel
-        jobs.append([key, p.resolve().as_uri(), mime, w, q])
+        jobs.append([key, p.resolve().as_uri(), mime, w, q, crop])
     with tempfile.TemporaryDirectory() as tmp:
         page = Path(tmp) / "enc.html"
         page.write_text('<!doctype html><meta charset="utf-8"><pre id="out">pending</pre><script>' + JS % json.dumps(jobs) + "</script>", encoding="utf-8")

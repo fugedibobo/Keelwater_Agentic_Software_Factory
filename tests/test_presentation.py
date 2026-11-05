@@ -144,3 +144,9 @@ def test_house_style():
     assert "—" not in HTML and "–" not in HTML  # no em or en dashes
     low = HTML.lower()
     assert "interview" not in low and "assessment" not in low
+
+
+def test_headline_sticks_and_print_text_is_at_least_11pt():
+    assert "position:sticky" in HTML
+    print_css = HTML[HTML.index("@media print"):HTML.index("</style>")]
+    assert "11pt" in print_css and not re.search(r"font-size:\s*(\d|10)(\.\d+)?(px|pt)", print_css)

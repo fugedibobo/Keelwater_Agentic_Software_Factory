@@ -47,39 +47,36 @@ def lines(x, y, text, cls, width, step, anchor="start"):
 def leadtime_chart():
     # Figures: docs/part1-diagnosis-and-plan.md, "The point": coding and testing 25-35% of idea-to-launch time;
     # halving needs 50 points, so about 20 must come from elsewhere even at zero build time.
-    X0, X1 = 360, 1270
+    X0, X1 = 330, 1280
     X = lambda p: X0 + p / 100 * (X1 - X0)
+    BH = 64
     o = []
     for p in (0, 25, 50, 75, 100):
-        o.append(f'<line class="gr" x1="{X(p):.0f}" x2="{X(p):.0f}" y1="14" y2="372"/>'
-                 f'<text class="tk" x="{X(p):.0f}" y="402" text-anchor="middle">{p}</text>')
-    o.append(f'<text class="tk" x="{X(50):.0f}" y="436" text-anchor="middle">Points of today&#39;s idea-to-launch time</text>')
-    # bar A: today
-    y = 40
-    o.append(lines(0, y + 30, "Today: all of idea-to-launch time", "tl", 26, 24))
-    o.append(f'<rect class="fa" x="{X(0):.0f}" y="{y}" width="{X(25) - X(0):.0f}" height="72"/>'
-             f'<rect x="{X(25):.0f}" y="{y}" width="{X(35) - X(25):.0f}" height="72" fill="HATCH"/>'
-             f'<rect class="fr" x="{X(35):.0f}" y="{y}" width="{X(100) - X(35):.0f}" height="72"/>')
-    o.append(f'<text class="tw" x="{X(12.5):.0f}" y="{y + 34}" text-anchor="middle">Coding and</text>'
-             f'<text class="tw" x="{X(12.5):.0f}" y="{y + 58}" text-anchor="middle">testing</text>')
-    o.append(f'<text class="tl" x="{X(67.5):.0f}" y="{y + 34}" text-anchor="middle">Decide, define, release, enable</text>'
-             f'<text class="ts" x="{X(67.5):.0f}" y="{y + 58}" text-anchor="middle">65 to 75 points</text>')
-    o.append(f'<text class="ts" x="{X(0):.0f}" y="{y - 10}">Coding and testing: 25 to 35 points</text>')
-    # bar B: needed
-    y = 170
-    o.append(lines(0, y + 30, "Cut needed to halve it", "tl", 26, 24))
-    o.append(f'<rect class="fb" x="{X(0):.0f}" y="{y}" width="{X(50) - X(0):.0f}" height="72"/>'
-             f'<text class="tl" x="{X(25):.0f}" y="{y + 45}" text-anchor="middle">50 points</text>')
-    # bar C: free code
-    y = 300
-    o.append(lines(0, y + 20, "Most that free code can cut", "tl", 26, 24))
-    o.append(f'<rect class="gap" x="{X(25):.0f}" y="{y}" width="{X(50) - X(25):.0f}" height="72" rx="3"/>'
-             f'<rect class="fa" x="{X(0):.0f}" y="{y}" width="{X(25) - X(0):.0f}" height="72"/>'
-             f'<rect x="{X(25):.0f}" y="{y}" width="{X(35) - X(25):.0f}" height="72" fill="HATCH"/>'
-             f'<text class="tw" x="{X(12.5):.0f}" y="{y + 45}" text-anchor="middle">25 to 35</text>'
+        o.append(f'<line class="gr" x1="{X(p):.0f}" x2="{X(p):.0f}" y1="14" y2="340"/>'
+                 f'<text class="tk" x="{X(p):.0f}" y="368" text-anchor="middle">{p}</text>')
+    o.append('<text class="ts" x="0" y="368">Points of today&#39;s time</text>')
+    y = 48  # bar A: today
+    o.append(f'<text class="tl" x="0" y="{y + 40}">Today: all of it</text>')
+    o.append(f'<text class="ts" x="{X(0):.0f}" y="{y - 12}">Coding and testing: 25 to 35 points</text>')
+    o.append(f'<rect class="fa" x="{X(0):.0f}" y="{y}" width="{X(25) - X(0):.0f}" height="{BH}"/>'
+             f'<rect x="{X(25):.0f}" y="{y}" width="{X(35) - X(25):.0f}" height="{BH}" fill="HATCH"/>'
+             f'<rect class="fr" x="{X(35):.0f}" y="{y}" width="{X(100) - X(35):.0f}" height="{BH}"/>')
+    o.append(f'<text class="tw" x="{X(12.5):.0f}" y="{y + 41}" text-anchor="middle">Coding, testing</text>')
+    o.append(f'<text class="tl" x="{X(67.5):.0f}" y="{y + 28}" text-anchor="middle">Decide, define, release, enable</text>'
+             f'<text class="ts" x="{X(67.5):.0f}" y="{y + 54}" text-anchor="middle">65 to 75 points</text>')
+    y = 160  # bar B: needed
+    o.append(f'<text class="tl" x="0" y="{y + 40}">Cut needed to halve</text>')
+    o.append(f'<rect class="fb" x="{X(0):.0f}" y="{y}" width="{X(50) - X(0):.0f}" height="{BH}"/>'
+             f'<text class="tl" x="{X(25):.0f}" y="{y + 41}" text-anchor="middle">50 points</text>')
+    y = 272  # bar C: free code
+    o.append(f'<text class="tl" x="0" y="{y + 40}">Most free code can cut</text>')
+    o.append(f'<rect class="gap" x="{X(25):.0f}" y="{y}" width="{X(50) - X(25):.0f}" height="{BH}" rx="3"/>'
+             f'<rect class="fa" x="{X(0):.0f}" y="{y}" width="{X(25) - X(0):.0f}" height="{BH}"/>'
+             f'<rect x="{X(25):.0f}" y="{y}" width="{X(35) - X(25):.0f}" height="{BH}" fill="HATCH"/>'
+             f'<text class="tw" x="{X(12.5):.0f}" y="{y + 41}" text-anchor="middle">25 to 35</text>'
              f'<text class="tl" x="{X(42.5):.0f}" y="{y + 28}" text-anchor="middle">15 to 25</text>'
-             f'<text class="ts" x="{X(42.5):.0f}" y="{y + 52}" text-anchor="middle">still to find</text>')
-    return _svg(1300, 450, "Where idea-to-launch time goes, and what free code can cut",
+             f'<text class="ts" x="{X(42.5):.0f}" y="{y + 54}" text-anchor="middle">still to find</text>')
+    return _svg(1300, 380, "Where idea-to-launch time goes, and what free code can cut",
                 "Three bars on one scale of points of today's idea-to-launch time. Coding and testing are 25 to 35 points. "
                 "Halving needs a cut of 50 points. Removing all coding and testing cuts at most 25 to 35 points, "
                 "so 15 to 25 points must come from deciding, defining, releasing and enabling.", "".join(o))
@@ -88,48 +85,38 @@ def leadtime_chart():
 # ---------------------------------------------------------------- slide 2: lifecycle with five gates
 def lifecycle_diagram():
     # Stages and gates: docs/part1-diagnosis-and-plan.md section 2 (seven stages, five gates, who passes each).
-    stages = [("Sense", "Signal Engine,", "runs nightly"), ("Decide", "Clusters, ranks,", "cited briefs"),
-              ("Define", "Intent doc and", "mockup"), ("Build", "Platform", "factory"),
-              ("Release", "Notes, notices", "and bundle"), ("Enable", "Help articles,", "call briefs"),
-              ("Learn", "Adoption and", "outcomes")]
-    gates = {1: ("PM accepts the opportunity", 1), 2: ("Trio signs off the intent doc and mockup", 2),
-             3: ("An engineer reviews and merges the pull request", 3),
-             4: ("PM and customer success approve the bundle", 4), 5: ("Product marketing accepts the drafts", 5)}
-    W, BW, GAP, BY, BH = 1310, 126, 71, 86, 104
-    xs = [i * (BW + GAP) + 1 for i in range(7)]
+    names = ["Sense", "Decide", "Define", "Build", "Release", "Enable", "Learn"]
+    gates = {1: "PM accepts", 2: "Trio signs off", 3: "Engineer merges", 4: "Bundle approved", 5: "Drafts accepted"}
+    BW, GAP, BY, BH = 128, 67, 84, 66
+    xs = [i * (BW + GAP) for i in range(7)]
     mid = BY + BH / 2
     o = []
-    # return loop
     lx0, lx1 = xs[6] + BW / 2, xs[0] + BW / 2
     o.append(f'<path class="arr dsh" d="M{lx0} {BY} V36 H{lx1} V{BY - 4}" marker-end="MARK" fill="none"/>')
-    o.append(f'<rect class="bgrect" x="{(lx0 + lx1) / 2 - 215}" y="18" width="430" height="36"/>'
-             f'<text class="ts" x="{(lx0 + lx1) / 2}" y="43" text-anchor="middle">Outcomes feed the next round of signals</text>')
-    for i, (name, a, b) in enumerate(stages):
+    o.append(f'<rect class="bgrect" x="{(lx0 + lx1) / 2 - 190}" y="16" width="380" height="40"/>'
+             f'<text class="ts" x="{(lx0 + lx1) / 2}" y="43" text-anchor="middle">Outcomes feed the next signals</text>')
+    for i, name in enumerate(names):
         x = xs[i]
         o.append(f'<rect class="box" x="{x}" y="{BY}" width="{BW}" height="{BH}" rx="8"/>'
-                 f'<text class="tl" x="{x + BW / 2}" y="{BY + 40}" text-anchor="middle">{name}</text>'
-                 f'<text class="tk" x="{x + BW / 2}" y="{BY + 68}" text-anchor="middle">{esc(a)}</text>'
-                 f'<text class="tk" x="{x + BW / 2}" y="{BY + 89}" text-anchor="middle">{esc(b)}</text>')
+                 f'<text class="tl" x="{x + BW / 2}" y="{mid + 8}" text-anchor="middle">{name}</text>')
         if i < 6:
             gx0, gx1 = x + BW, xs[i + 1]
-            gate = i  # junction i joins stage i and i+1; gates sit after Decide
-            if gate == 0:  # Sense to Decide: no gate
+            if i == 0:
                 o.append(f'<line class="arr" x1="{gx0 + 4}" x2="{gx1 - 4}" y1="{mid}" y2="{mid}" marker-end="MARK"/>')
             else:
                 cx = (gx0 + gx1) / 2
-                o.append(f'<line class="arr" x1="{gx0 + 4}" x2="{cx - 21}" y1="{mid}" y2="{mid}"/>'
+                o.append(f'<line class="arr" x1="{gx0 + 3}" x2="{cx - 21}" y1="{mid}" y2="{mid}"/>'
                          f'<line class="arr" x1="{cx + 21}" x2="{gx1 - 4}" y1="{mid}" y2="{mid}" marker-end="MARK"/>'
                          f'<circle class="gate" cx="{cx}" cy="{mid}" r="19"/>'
-                         f'<text class="gn" x="{cx}" y="{mid + 9}" text-anchor="middle">{gate}</text>'
-                         f'<line class="tick" x1="{cx}" x2="{cx}" y1="{mid + 22}" y2="248"/>')
-                txt, n = gates[gate]
-                o.append(f'<text class="tl" x="{cx}" y="276" text-anchor="middle">Gate {n}</text>')
-                o.append(lines(cx, 304, txt, "tg2", 21, 24, "middle"))
-    o.append(f'<rect class="sw" x="2" y="408" width="22" height="22" rx="4"/>'
-             f'<text class="ts" x="34" y="426">Stage: agents read, draft and check</text>'
-             f'<circle class="gate" cx="480" cy="419" r="12"/>'
-             f'<text class="ts" x="500" y="426">Gate: a named person decides; no agent merges its own work</text>')
-    return _svg(W, 450, "The agentic product lifecycle: seven stages and five human gates",
+                         f'<text class="gn" x="{cx}" y="{mid + 8}" text-anchor="middle">{i}</text>'
+                         f'<line class="tick" x1="{cx}" x2="{cx}" y1="{mid + 22}" y2="188"/>'
+                         f'<text class="tl" x="{cx}" y="216" text-anchor="middle">Gate {i}</text>'
+                         f'<text class="tg2" x="{cx}" y="244" text-anchor="middle">{gates[i]}</text>')
+    o.append(f'<rect class="sw" x="2" y="274" width="24" height="24" rx="4"/>'
+             f'<text class="ts" x="38" y="294">Stage: agents read, draft and check</text>'
+             f'<circle class="gate" cx="540" cy="286" r="13"/>'
+             f'<text class="ts" x="562" y="294">Gate: a named person decides</text>')
+    return _svg(1300, 316, "The agentic product lifecycle: seven stages and five human gates",
                 "Sense, Decide, Define, Build, Release, Enable and Learn in a row, with five gates between them. "
                 "Gate 1 after Decide: the PM accepts the opportunity. Gate 2: the Trio signs off the intent document and mockup. "
                 "Gate 3: an engineer merges the pull request. Gate 4: PM and customer success approve the release bundle. "
@@ -140,52 +127,32 @@ def lifecycle_diagram():
 def delegation_diagram():
     # Roles and phases: docs/delegation.md sections 2 and 6 (Now: Opus orchestrates; Sonnet, Haiku and Codex GPT-6.1 Terra build;
     # Codex GPT-6.1 Sol reviews as the other family. Back pocket: GLM 5.3 builds; DeepSeek V4.1 Flash or Qwen3.8 checks).
-    o = []
-    # Opus
-    o.append('<rect class="boxa" x="235" y="14" width="430" height="104" rx="10"/>'
-             '<text class="twb" x="450" y="55" text-anchor="middle">Opus 5.5</text>'
-             '<text class="tw" x="450" y="86" text-anchor="middle">Orchestrates: splits, routes, checks</text>'
-             '<text class="tw2" x="450" y="109" text-anchor="middle">Never writes production code</text>')
-    builders = [(20, "Sonnet 5.5", "Builds cross-module", "and routine work"),
-                (315, "Haiku 5.5", "Builds mechanical work,", "reads and searches"),
-                (610, "Codex Terra", "Builds routine changes", "inside one module")]
-    for x, n, a, b in builders:
-        cx = x + 135
-        o.append(f'<path class="arr" d="M450 118 V158 H{cx} V196" marker-end="MARK" fill="none"/>')
-        o.append(f'<rect class="box" x="{x}" y="200" width="270" height="108" rx="10"/>'
-                 f'<text class="tl" x="{cx}" y="238" text-anchor="middle">{n}</text>'
-                 f'<text class="ts" x="{cx}" y="268" text-anchor="middle">{a}</text>'
-                 f'<text class="ts" x="{cx}" y="290" text-anchor="middle">{b}</text>')
-    o.append('<text class="ts" x="462" y="146">task and class</text>')
-    # Sol checks
-    for x, _, _, _ in builders:
-        cx = x + 135
-        o.append(f'<path class="arr" d="M{cx} 308 V340 H450 V372" fill="none"/>')
-    o.append('<path class="arr" d="M450 340 V372" marker-end="MARK" fill="none"/>')
-    o.append('<rect class="boxt" x="235" y="376" width="430" height="108" rx="10"/>'
-             '<text class="tl" x="450" y="416" text-anchor="middle">Codex Sol</text>'
-             '<text class="ts" x="450" y="446" text-anchor="middle">Checks: adversarial review</text>'
-             '<text class="ts" x="450" y="468" text-anchor="middle">by the other model family</text>')
-    o.append('<text class="ts" x="462" y="362">pull request</text>')
-    o.append('<path class="arr" d="M665 430 H700" marker-end="MARK" fill="none"/>'
-             '<rect class="box" x="704" y="388" width="176" height="84" rx="10"/>'
-             '<text class="tl" x="792" y="425" text-anchor="middle">A person</text>'
-             '<text class="ts" x="792" y="452" text-anchor="middle">passes the merge</text>')
-    # back pocket
-    o.append('<rect class="dash" x="20" y="530" width="860" height="132" rx="12"/>'
-             '<text class="tl" x="40" y="566">Back pocket: the open stack, kept ready</text>'
-             '<text class="ts" x="580" y="566">No tasks routed yet</text>')
-    chips = [(40, "GLM 5.3", "builder", 240), (300, "DeepSeek V4.1 Flash", "checker", 310), (630, "Qwen3.8", "checker", 230)]
-    for x, n, r, w in chips:
-        o.append(f'<rect class="chip" x="{x}" y="584" width="{w}" height="58" rx="8"/>'
-                 f'<text class="tl" x="{x + 14}" y="620">{n}</text>'
-                 f'<text class="ts" x="{x + w - 14}" y="620" text-anchor="end">{r}</text>')
-    o.append('<path class="arr dsh" d="M880 596 H898 V250 H884" marker-end="MARK" fill="none"/>'
-             '<text class="ts vtext" transform="translate(924 580) rotate(-90)">Shadow comparison later</text>')
-    return _svg(960, 676, "Delegation: Opus orchestrates, cheaper models build, Codex Sol checks, the open stack waits",
-                "Opus 5.5 orchestrates and sends tasks with a class to three builders: Sonnet 5.5, Haiku 5.5 and Codex GPT-6.1 Terra. "
-                "Their pull requests go to Codex GPT-6.1 Sol for adversarial review by the other model family, then a person passes the merge. "
-                "In the back pocket, not yet routing tasks, the open stack: GLM 5.3 as builder, DeepSeek V4.1 Flash or Qwen3.8 as checker, "
+    o = ['<rect class="boxa" x="0" y="66" width="250" height="110" rx="10"/>'
+         '<text class="twb" x="125" y="114" text-anchor="middle">Opus 5.5</text>'
+         '<text class="tw" x="125" y="150" text-anchor="middle">orchestrates</text>']
+    ys = [6, 86, 166]
+    for (n, r), y in zip((("Sonnet 5.5", "builds"), ("Haiku 5.5", "builds"), ("Codex Terra", "builds")), ys):
+        o.append(f'<path class="arr" d="M250 121 H290 V{y + 33} H326" marker-end="MARK" fill="none"/>')
+        o.append(f'<rect class="box" x="330" y="{y}" width="300" height="66" rx="10"/>'
+                 f'<text class="tl" x="350" y="{y + 42}">{n}</text><text class="ts" x="610" y="{y + 42}" text-anchor="end">{r}</text>')
+        o.append(f'<path class="arr" d="M630 {y + 33} H672 V121 H716" fill="none"/>')
+    o.append('<path class="arr" d="M672 121 H716" marker-end="MARK" fill="none"/>')
+    o.append('<rect class="boxt" x="720" y="66" width="270" height="110" rx="10"/>'
+             '<text class="tl" x="855" y="114" text-anchor="middle">Codex Sol</text>'
+             '<text class="ts" x="855" y="146" text-anchor="middle">checks</text>')
+    o.append('<path class="arr" d="M990 121 H1050" marker-end="MARK" fill="none"/>'
+             '<rect class="box" x="1054" y="66" width="246" height="110" rx="10"/>'
+             '<text class="tl" x="1177" y="114" text-anchor="middle">A person</text>'
+             '<text class="ts" x="1177" y="146" text-anchor="middle">merges</text>')
+    o.append('<rect class="dash" x="0" y="258" width="1300" height="130" rx="12"/>'
+             '<text class="tl" x="20" y="294">Back pocket: the open stack, no tasks yet, for shadow comparison later</text>')
+    for x, n, w in ((20, "GLM 5.3 builds", 330), (380, "DeepSeek V4.1 Flash checks", 450), (860, "Qwen3.8 checks", 420)):
+        o.append(f'<rect class="chip" x="{x}" y="312" width="{w}" height="58" rx="8"/>'
+                 f'<text class="tl" x="{x + 18}" y="349">{n}</text>')
+    return _svg(1300, 394, "Delegation: Opus orchestrates, cheaper models build, Codex Sol checks, the open stack waits",
+                "Opus 5.5 orchestrates and sends tasks to three builders: Sonnet 5.5, Haiku 5.5 and Codex GPT-6.1 Terra. "
+                "Their pull requests go to Codex GPT-6.1 Sol for adversarial review by the other model family, then a person merges. "
+                "In the back pocket, not yet routing tasks, the open stack: GLM 5.3 as builder, DeepSeek V4.1 Flash and Qwen3.8 as checkers, "
                 "for a later shadow comparison.", "".join(o))
 
 
@@ -204,20 +171,20 @@ def halving_series():
 
 def halving_chart():
     s = halving_series()
-    W, H, L, R, T, B = 960, 650, 76, 690, 16, 560
+    W, H, L, R, T, B = 1300, 372, 84, 1000, 12, 288
     X = lambda m: L + (m - 1) / 17 * (R - L)
     Y = lambda v: T + (110 - v) / 70 * (B - T)
     style = {"Low": ("mute", ""), "Mid": ("accent", ""), "High": ("ink", ""), "AI only (mid)": ("accent", ' stroke-dasharray="10 7"')}
     out = []
     for v in range(40, 111, 10):
         out.append(f'<line class="gr" x1="{L}" x2="{R}" y1="{Y(v):.1f}" y2="{Y(v):.1f}"/>'
-                   f'<text class="tk" x="{L - 10}" y="{Y(v) + 6:.1f}" text-anchor="end">{v}%</text>')
+                   f'<text class="tk" x="{L - 12}" y="{Y(v) + 7:.1f}" text-anchor="end">{v}%</text>')
     for m in (1, 3, 6, 9, 12, 15, 18):
-        out.append(f'<text class="tk" x="{X(m):.1f}" y="{B + 28}" text-anchor="middle">{m}</text>')
+        out.append(f'<text class="tk" x="{X(m):.1f}" y="{B + 30}" text-anchor="middle">{m}</text>')
     out.append(f'<text class="tk" x="{(L + R) / 2:.0f}" y="{B + 62}" text-anchor="middle">'
                'Months from the start of the programme (month 1 = May 2026)</text>')
     out.append(f'<line class="tgt" x1="{L}" x2="{R}" y1="{Y(50):.1f}" y2="{Y(50):.1f}"/>'
-               f'<text class="tl" x="{X(1.4):.1f}" y="{Y(50) + 30:.1f}">Board target: 50% of today&#39;s lead time</text>')
+               f'<text class="tl" x="{X(1.4):.1f}" y="{Y(50) + 28:.1f}">Board target: 50% of today&#39;s lead time</text>')
     ends = []
     for name, ys in s.items():
         col, dash = style[name]
@@ -228,7 +195,7 @@ def halving_chart():
     prev = None
     for v, name in sorted(ends, reverse=True):
         y = Y(v) if prev is None else max(Y(v), prev + 30)
-        out.append(f'<text class="tl" x="{R + 16}" y="{y + 6:.1f}">{name} {v:.0f}%</text>')
+        out.append(f'<text class="tl" x="{R + 18}" y="{y + 7:.1f}">{name} {v:.0f}%</text>')
         prev = y
     return _svg(W, H, "Idea-to-customer lead time over 18 months, four model cases",
                 "Lines show lead time as a percentage of today's. At month 18: Low 99%, AI only on mid inputs 95%, Mid 79%, High 51%. "
@@ -237,39 +204,32 @@ def halving_chart():
 
 # ---------------------------------------------------------------- slide 5: pipeline
 def pipeline_diagram():
-    # Stages: README "The pipeline" and the pipeline PNG from PR #69 (portrait, so redrawn here as a row);
-    # models from config/models.yaml (demo profile).
-    cards = [("1", "Collect", "Code", "Sales calls, support tickets, onboarding and account calls and sessions arrive each night. "
-                                      "Code keeps the customer's turns and cuts idle session time."),
-             ("2", "Filter", "Decision model", "Clef answers three typed questions: signal, bucket, severity. "
-                                               "Small talk is dropped; about 40 dropped items a week go to a PM audit."),
-             ("3", "Extract", "Cheap model + code", "Qwen3.8 Flash writes the problem and the customer's exact words. "
-                                                     "Code finds those words in the customer's own turn."),
-             ("4", "Group and rank", "Code and formula", "Pull in account data from HubSpot, cluster similar problems, "
-                                                         "match the roadmap and what shipped. A formula ranks them."),
-             ("5", "Brief and decide", "Strong model + PM", "The top 10 get a cited brief (DeepSeek V4.1 Flash). "
-                                                            "Three judges (GLM 5.3) check it. The PM decides on the board; "
-                                                            "accept drafts an intent doc and factory job.")]
-    CW, GAP, Y0, CH = 232, 35, 22, 366
+    # Stages: README "The pipeline" and the pipeline PNG from PR #69 (portrait, so redrawn here as a row); detail is in the expander.
+    cards = [("Collect", "Code", "Calls, tickets, sessions"),
+             ("Filter", "Decision model", "Keeps signal, drops small talk"),
+             ("Extract", "Cheap model + code", "Problem and exact quote, quote checked"),
+             ("Rank", "Code and formula", "Cluster, match roadmap, rank"),
+             ("Decide", "Models, judges, PM", "Cited briefs for the top 10; a PM decides")]
+    CW, GAP, Y0, CH = 232, 35, 8, 222
     o = []
-    for i, (n, name, who, text) in enumerate(cards):
+    for i, (name, who, text) in enumerate(cards):
         x = i * (CW + GAP)
         o.append(f'<rect class="box" x="{x}" y="{Y0}" width="{CW}" height="{CH}" rx="10"/>'
-                 f'<circle class="gate" cx="{x + 30}" cy="{Y0 + 36}" r="19"/>'
-                 f'<text class="gn" x="{x + 30}" y="{Y0 + 43}" text-anchor="middle">{n}</text>'
-                 f'<text class="tl" x="{x + 58}" y="{Y0 + 44}">{esc(name)}</text>')
-        o.append(f'<rect class="chip" x="{x + 14}" y="{Y0 + 66}" width="{CW - 28}" height="32" rx="6"/>'
+                 f'<circle class="gate" cx="{x + 30}" cy="{Y0 + 34}" r="17"/>'
+                 f'<text class="gn" x="{x + 30}" y="{Y0 + 42}" text-anchor="middle">{i + 1}</text>'
+                 f'<text class="tl" x="{x + 58}" y="{Y0 + 42}">{esc(name)}</text>')
+        o.append(f'<rect class="chip" x="{x + 12}" y="{Y0 + 64}" width="{CW - 24}" height="36" rx="6"/>'
                  f'<text class="ts" x="{x + CW / 2}" y="{Y0 + 89}" text-anchor="middle">{esc(who)}</text>')
-        o.append(lines(x + 16, Y0 + 134, text, "tp", 22, 26))
+        o.append(lines(x + 16, Y0 + 134, text, "tp", 20, 27))
         if i < 4:
-            o.append(f'<line class="arr" x1="{x + CW + 4}" x2="{x + CW + GAP - 3}" y1="{Y0 + CH / 2}" y2="{Y0 + CH / 2}" marker-end="MARK"/>')
-    o.append(f'<rect class="boxt" x="0" y="{Y0 + CH + 22}" width="1300" height="58" rx="8"/>'
-             f'<text class="tl" x="650" y="{Y0 + CH + 58}" text-anchor="middle">'
-             "Code checks every quote and every number; a brief that fails a check is hidden from the PM.</text>")
-    return _svg(1300, 478, "The Signal Engine pipeline in five steps",
+            o.append(f'<line class="arr" x1="{x + CW + 3}" x2="{x + CW + GAP - 3}" y1="{Y0 + CH / 2}" y2="{Y0 + CH / 2}" marker-end="MARK"/>')
+    o.append(f'<rect class="boxt" x="0" y="{Y0 + CH + 18}" width="1300" height="52" rx="8"/>'
+             f'<text class="tl" x="650" y="{Y0 + CH + 52}" text-anchor="middle">'
+             "Code checks every quote and number; a failed check hides the brief.</text>")
+    return _svg(1300, 304, "The Signal Engine pipeline in five steps",
                 "Step 1, collect: calls, tickets and sessions arrive each night. Step 2, filter: a decision model keeps signal and drops small talk. "
-                "Step 3, extract: a cheap model writes the problem and quote and code verifies the quote. Step 4, group and rank: enrich, cluster, "
-                "match the roadmap and rank by formula. Step 5, brief and decide: the top ten get cited briefs, three judges check them and the PM decides.",
+                "Step 3, extract: a cheap model writes the problem and quote and code verifies the quote. Step 4, rank: cluster, "
+                "match the roadmap and rank by formula. Step 5, decide: the top ten get cited briefs, three judges check them and the PM decides.",
                 "".join(o))
 
 
@@ -282,7 +242,7 @@ def _eval():
 
 def results_chart():
     rs, f42, f43, bools, r42, r43 = _eval()
-    # (label, result as a share of 1, floor as a share of 1, holds, result text)
+
     def row(rep, floors, label, key):
         m, g = rep["metrics"], rep["gates"]
         v = m[key]
@@ -292,37 +252,32 @@ def results_chart():
             return label, v / tot, (tot if fl == "all" else fl) / tot, g[key], f"{v} of {tot}"
         return label, v, fl, g[key], f"{v:.2f}"
     rows42 = [("Signal recall", "signal_recall"), ("Noise-drop rate", "noise_drop_rate"), ("Bucket accuracy", "bucket_accuracy"),
-              ("Quote verification", "quote_verification"), ("Account attribution", "attribution"),
+              ("Quote verification", "quote_verification"), ("Attribution", "attribution"),
               ("Themes recovered", "themes_recovered"), ("Mean purity", "mean_purity")]
     rows43 = [("Signal recall", "signal_recall"), ("Quote verification", "quote_verification"),
-              ("Account attribution", "attribution"), ("Themes recovered", "themes_recovered"), ("Mean purity", "mean_purity")]
-    X0, X1 = 250, 740
-    X = lambda p: X0 + p * (X1 - X0)
+              ("Attribution", "attribution"), ("Themes recovered", "themes_recovered"), ("Mean purity", "mean_purity")]
     o = []
-    y = 20
-    pitch = 40
-    for p in (0, 0.25, 0.5, 0.75, 1.0):
-        o.append(f'<line class="gr" x1="{X(p):.0f}" x2="{X(p):.0f}" y1="0" y2="592"/>')
-    for title, rep, floors, rows in (("Seed 42", r42, f42, rows42), ("Seed 43, held out", r43, f43, rows43)):
-        o.append(f'<text class="tg3" x="0" y="{y + 14}">{title}</text>')
-        y += 30
+    for px, title, rep, floors, rows in ((0, "Seed 42", r42, f42, rows42), (670, "Seed 43, held out", r43, f43, rows43)):
+        X0, X1 = px + 206, px + 406
+        X = lambda p: X0 + p * (X1 - X0)
+        for p in (0, 0.5, 1.0):
+            o.append(f'<line class="gr" x1="{X(p):.0f}" x2="{X(p):.0f}" y1="36" y2="{44 + 44 * len(rows)}"/>'
+                     f'<text class="tk" x="{X(p):.0f}" y="{86 + 44 * len(rows) - 6}" text-anchor="middle">{p:g}</text>')
+        o.append(f'<text class="tg3" x="{px}" y="26">{title}</text>')
+        y = 44
         for label, key in rows:
             lab, v, fl, ok, txt = row(rep, floors, label, key)
-            cls = "okb" if ok else "badb"
-            o.append(f'<text class="tp2" x="0" y="{y + 22}">{label}</text>'
-                     f'<rect class="{cls}" x="{X0}" y="{y + 5}" width="{max(X(v) - X0, 2):.1f}" height="24" rx="2"/>'
-                     f'<line class="floor" x1="{X(fl):.1f}" x2="{X(fl):.1f}" y1="{y}" y2="{y + 34}"/>'
-                     f'<text class="tp2 b" x="{X1 + 16}" y="{y + 23}">{txt}</text>'
-                     f'<text class="{"okt" if ok else "badt"}" x="{X1 + 120}" y="{y + 23}">{"holds" if ok else "below floor"}</text>')
-            y += pitch
-        y += 14
-    for p in (0, 0.5, 1.0):
-        o.append(f'<text class="tk" x="{X(p):.0f}" y="{y + 20}" text-anchor="middle">{p:g}</text>')
-    o.append(f'<line class="floor" x1="{X0 + 2}" x2="{X0 + 2}" y1="{y + 40}" y2="{y + 62}"/>'
-             f'<text class="ts" x="{X0 + 14}" y="{y + 58}">Black tick: the floor each check must reach</text>')
-    return _svg(960, y + 76, "Eval results against their floors, seed 42 and held-out seed 43",
+            o.append(f'<text class="tp2" x="{px}" y="{y + 25}">{label}</text>'
+                     f'<rect class="{"okb" if ok else "badb"}" x="{X0}" y="{y + 6}" width="{max(X(v) - X0, 2):.1f}" height="26" rx="2"/>'
+                     f'<line class="floor" x1="{X(fl):.1f}" x2="{X(fl):.1f}" y1="{y}" y2="{y + 38}"/>'
+                     f'<text class="tp2 b" x="{X1 + 12}" y="{y + 25}">{txt}</text>'
+                     f'<text class="{"okt" if ok else "badt"}" x="{X1 + 84}" y="{y + 25}">{"holds" if ok else "below floor"}</text>')
+            y += 44
+    o.append('<line class="floor" x1="672" x2="672" y1="310" y2="334"/>'
+             '<text class="ts" x="686" y="329">Black tick: the floor each check must reach</text>')
+    return _svg(1300, 388, "Eval results against their floors, seed 42 and held-out seed 43",
                 "Bars show each measure as a share of 1; a black tick marks the floor. Seed 42: signal recall 0.95 against 0.90, noise-drop 0.64 against 0.60, "
-                "bucket accuracy 0.90 against 0.75, quote verification 0.99 against 0.93 all hold; account attribution 0.98 against 1.00, themes recovered 1 of 6 "
+                "bucket accuracy 0.90 against 0.75, quote verification 0.99 against 0.93 all hold; attribution 0.98 against 1.00, themes recovered 1 of 6 "
                 "against 6 of 6 and mean purity 0.54 against 0.75 are below their floors. Seed 43: signal recall, quote verification and attribution hold; "
                 "themes recovered 0 of 3 against 2 of 3 and mean purity 0.37 against 0.75 are below their floors.", "".join(o))
 

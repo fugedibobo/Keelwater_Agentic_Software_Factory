@@ -29,10 +29,10 @@ main{position:fixed;inset:56px 0 0 0}
 .slide{height:100%;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain}
 .slide[hidden]{display:none}
 .slide:focus,.slide:focus-visible{outline:none}
-.inner{max-width:1380px;margin:0 auto;padding:20px 48px 26px;min-height:100%;display:flex;flex-direction:column;gap:14px}
+.inner{max-width:1380px;margin:0 auto;padding:0 48px 24px;min-height:100%;display:flex;flex-direction:column;gap:14px}
 @media (prefers-reduced-motion:no-preference){.slide.on{animation:in .2s ease-out}@keyframes in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}}
-h2{margin:0;font:600 clamp(28px,2.75vw,40px)/1.15 Georgia,"Iowan Old Style","Palatino Linotype",serif;letter-spacing:-.01em;text-wrap:balance;max-width:34em}
-.stage{flex:1 1 auto;min-height:max(330px,calc(100vh - 360px));display:grid;grid-template-columns:minmax(300px,31%) minmax(0,1fr);gap:32px;align-items:stretch}
+h2{position:sticky;top:0;z-index:5;margin:0;padding:20px 0 10px;background:var(--bg);font:600 clamp(28px,2.75vw,40px)/1.2 Georgia,"Iowan Old Style","Palatino Linotype",serif;letter-spacing:-.01em;text-wrap:balance}
+.stage{flex:1 1 auto;min-height:300px;display:grid;grid-template-columns:minmax(300px,31%) minmax(0,1fr);gap:32px;align-items:stretch}
 .stage.stack{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);gap:16px}
 .pts{list-style:none;margin:0;padding:0;align-self:center}
 .pts li{position:relative;padding-left:1.1em;margin:0 0 .9em}
@@ -43,15 +43,11 @@ h2{margin:0;font:600 clamp(28px,2.75vw,40px)/1.15 Georgia,"Iowan Old Style","Pal
 .viz{position:relative;min-height:0;margin:0;background:var(--surface);border:1px solid var(--rule);border-radius:12px;box-shadow:var(--shadow)}
 .viz>svg.chart,.viz>img{position:absolute;inset:12px;width:calc(100% - 24px);height:calc(100% - 24px)}
 .viz>img{object-fit:contain}
-.viz.shots{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:minmax(0,1fr);gap:14px;padding:12px}
-.shot{display:flex;flex-direction:column;gap:6px;min-height:0;min-width:0;margin:0}
-.shot img{flex:1 1 0;min-height:0;width:100%;object-fit:cover;object-position:center top;border:1px solid var(--rule);border-radius:8px}
-.shot figcaption{font-size:18px;line-height:1.3;color:var(--ink2);font-weight:600}
 .chart text{font-family:inherit}
-.tk{font-size:17px;fill:var(--ink2)}.tl{font-size:20px;font-weight:650;fill:var(--ink)}.ts{font-size:18px;fill:var(--ink2)}
-.tw{font-size:21px;font-weight:650;fill:var(--on-accent)}.twb{font-size:32px;font-weight:700;fill:var(--on-accent)}.tw2{font-size:17px;fill:var(--on-accent)}
-.tp{font-size:19px;fill:var(--ink)}.tp2{font-size:19px;fill:var(--ink)}.tp2.b{font-weight:650}.tg2{font-size:19px;fill:var(--ink)}.tg3{font-size:21px;font-weight:700;fill:var(--ink)}
-.gn{font-size:21px;font-weight:700;fill:var(--on-accent)}
+.tk{font-size:20px;fill:var(--ink2)}.tl{font-size:22px;font-weight:650;fill:var(--ink)}.ts{font-size:20px;fill:var(--ink2)}
+.tw{font-size:22px;font-weight:650;fill:var(--on-accent)}.twb{font-size:30px;font-weight:700;fill:var(--on-accent)}
+.tp{font-size:20px;fill:var(--ink)}.tp2{font-size:20px;fill:var(--ink)}.tp2.b{font-weight:650}.tg2{font-size:20px;fill:var(--ink)}.tg3{font-size:22px;font-weight:700;fill:var(--ink)}
+.gn{font-size:22px;font-weight:700;fill:var(--on-accent)}
 .gr{stroke:var(--grid);stroke-width:1}
 .box{fill:var(--surface);stroke:var(--accent);stroke-width:2}.boxa{fill:var(--accent)}.boxt{fill:var(--tint);stroke:var(--accent);stroke-width:2}
 .dash{fill:none;stroke:var(--ink2);stroke-width:2;stroke-dasharray:9 7}
@@ -66,18 +62,18 @@ h2{margin:0;font:600 clamp(28px,2.75vw,40px)/1.15 Georgia,"Iowan Old Style","Pal
 .ln.accent{stroke:var(--accent)}.ln.ink{stroke:var(--ink)}.ln.mute{stroke:var(--mute)}
 .dot.accent{fill:var(--accent)}.dot.ink{fill:var(--ink)}.dot.mute{fill:var(--mute)}
 .tgt{stroke:var(--ink);stroke-width:2;stroke-dasharray:3 6}
-.okb{fill:var(--accent)}.badb{fill:var(--bad)}.okt{font-size:19px;font-weight:650;fill:var(--ink2)}.badt{font-size:19px;font-weight:650;fill:var(--bad)}
+.okb{fill:var(--accent)}.badb{fill:var(--bad)}.okt{font-size:20px;font-weight:650;fill:var(--ink2)}.badt{font-size:20px;font-weight:650;fill:var(--bad)}
 .floor{stroke:var(--ink);stroke-width:3}.rl{stroke:var(--ink2);stroke-width:1.5}
 .more{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start}
-details{border:1.5px solid var(--accent);border-radius:10px;background:var(--surface)}
+details{border:1.5px solid var(--accent);border-radius:10px;background:var(--surface);padding:3px}
 details[open]{flex:1 1 100%}
 summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;min-height:48px;padding:8px 18px 8px 14px;font-weight:650;font-size:20px;line-height:1.3;color:var(--accent);border-radius:9px}
 summary::-webkit-details-marker{display:none}
-summary::before{content:"+";flex:none;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:inline-grid;place-items:center;font-size:20px;line-height:1;font-weight:700}
+summary::before{content:"+";flex:none;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:inline-grid;place-items:center;font-size:20px;line-height:1.3;font-weight:700}
 details[open]>summary::before{content:"\2212"}
 summary:hover{background:var(--tint)}
-.dtl{padding:4px 22px 20px;font-size:20px;line-height:1.45}
-.dtl h3{margin:1.1em 0 .3em;font:650 20px/1.3 inherit;color:var(--ink)}
+.dtl{padding:4px 19px 18px;font-size:20px;line-height:1.45}
+.dtl h3{margin:1.1em 0 .3em;font-weight:650;font-size:20px;line-height:1.3;color:var(--ink)}
 .dtl p{margin:.6em 0;max-width:62em}
 .dtl ul,.dtl ol{margin:.5em 0;padding-left:1.3em;max-width:62em}
 .dtl li{margin:.3em 0}
@@ -92,30 +88,38 @@ caption{text-align:left;color:var(--ink2);padding:0 0 4px;caption-side:top;font-
 .note p{margin:.3em 0}
 .small{font-size:18px;color:var(--ink2)}
 .full{display:block;width:min(100%,640px);height:auto;margin:.6em auto;border:1px solid var(--rule);border-radius:8px}
+@media (max-height:800px){h2{font-size:27px;padding:12px 0 8px}.inner{padding-bottom:14px;gap:10px}.pts{font-size:18px;line-height:1.4}.pts li{margin-bottom:.6em}.stack .pts{gap:24px}summary{min-height:42px;padding:4px 14px 4px 10px;font-size:18px}.viz>svg.chart,.viz>img{inset:8px;width:calc(100% - 16px);height:calc(100% - 16px)}.more{gap:8px}}
 @media (max-width:900px){.stage{grid-template-columns:1fr}.stack .pts{grid-template-columns:1fr}.cols{grid-template-columns:1fr}.inner{padding:16px 18px 22px}.brand span{display:none}.viz{min-height:300px}}
 @media print{
  :root:root:root{color-scheme:light;--bg:#fff;--surface:#fff;--ink:#14202e;--ink2:#46515f;--mute:#7b8697;--grid:#e3e7ee;--rule:#d3d9e2;--accent:#1b4fa0;--tint:#e8eefa;--rest:#eef1f6;--on-accent:#fff;--good:#1d6b3a;--bad:#b3261e;--shadow:none}
  @page{size:A4 landscape;margin:10mm}
- html,body{height:auto;overflow:visible;font-size:12px}
+ html,body{height:auto;overflow:visible;font-size:11pt}
  .topbar,.skip{display:none!important}
  main{position:static}
  .slide,.slide[hidden]{display:block!important;height:auto;overflow:visible;break-before:page;animation:none}
  .slide:first-child{break-before:auto}
- .inner{padding:0;max-width:none;min-height:0;gap:8px}
- h2{font-size:20px}
- .pts{font-size:11px}.stack .pts{gap:16px}
- .stage{min-height:0;gap:14px;grid-template-columns:30% 1fr}.stage.stack{grid-template-columns:1fr}
- .viz{break-inside:avoid}
- .viz>svg.chart,.viz>img{position:static;width:100%;height:auto;max-height:84mm;display:block;padding:4px}
- .viz.shots{padding:6px}
- summary,.dtl,table,.small{font-size:10px}
- summary{min-height:0;padding:3px 8px}summary::before{display:none}
- details,details[open]{flex:1 1 100%;border-width:1px}
- .dtl{padding:0 10px 6px}th,td{padding:2px 8px 2px 0}
- .dtl h3{font-size:12px;margin:.6em 0 .2em}
- .full{width:20%}
- .slide .inner{zoom:var(--pz,1)}
- #s1{--pz:.85}#s2{--pz:.8}#s3{--pz:.7}#s4,#s5,#s7{--pz:.72}#s8{--pz:.74}
+ .inner{display:block;padding:0;max-width:none;min-height:0}
+ h2{position:static;font-size:17pt;padding:0 0 4pt}
+ .pts{font-size:11pt;line-height:1.35}
+ .stage,.stage.stack{display:block;min-height:0!important;height:auto!important}
+ .stack .pts{display:grid;grid-template-columns:repeat(3,1fr);gap:12pt;margin:0 0 4pt}
+ .viz{break-inside:avoid;margin:0 0 6pt}
+ .viz>svg.chart,.viz>img{position:static;display:block;width:100%;height:auto;padding:0}
+ .viz{padding:2pt}
+  summary,.dtl,table,.small,.dtl h3{font-size:11pt}
+ summary{min-height:0;padding:2pt 6pt}summary::before{display:none}
+ .more{display:block;column-count:2;column-gap:14pt}
+ details,details[open]{display:block;border-width:1px;margin:0 0 3pt;padding:0;break-inside:auto}
+ .cols{display:block}
+ .dtl{padding:0 6pt 3pt}
+ .dtl p,.dtl ul{margin:.3em 0}
+ table{margin:.3em 0 .5em}
+ th,td{padding:1pt 6pt 1pt 0}
+ tr{break-inside:avoid}
+ .dtl h3{margin:.5em 0 .2em}
+ .full{width:42%;margin:4pt 0}
+ .about{width:64%}
+ #s8 .viz>svg.chart{width:74%;margin:0 auto}
 }
 </style>
 </head>
@@ -138,9 +142,9 @@ caption{text-align:left;color:var(--ink2);padding:0 0 4px;caption-side:top;font-
 <h2 id="h1">The constraint has moved from building to deciding what to build and getting it adopted.</h2><!-- src: docs/part1-diagnosis-and-plan.md -->
 <div class="stage stack">
 <ul class="pts">
-<li>Coding and testing take about 25 to 35% of idea-to-launch time. Halving it needs 50 points, so even free code leaves 15 to 25 to find elsewhere.<!-- src: docs/part1-diagnosis-and-plan.md (the 25-35% is from an industry report; 15 to 25 is 50 minus 25 to 35) --></li>
-<li>Value leaks at the joins: four feedback routes nobody consolidates, decisions that go unwritten, and review queues that grow.<!-- src: docs/part1-diagnosis-and-plan.md --></li>
-<li>Six recommendations follow, and Part 2 shows the first piece running. Its quality floors still fail (slide 7).<!-- src: reports/eval/ground-truth-9a0156dd325d49fc.json --></li>
+<li>Coding and testing are 25 to 35% of idea-to-launch time. Free code still leaves 15 to 25 of the 50 points needed to halve it.<!-- src: docs/part1-diagnosis-and-plan.md (the 25-35% is from an industry report; 15 to 25 is 50 minus 25 to 35) --></li>
+<li>Value leaks at the joins: feedback nobody consolidates, decisions left unwritten, and growing review queues.<!-- src: docs/part1-diagnosis-and-plan.md --></li>
+<li>Six recommendations follow. Part 2 runs end to end, but its quality floors fail (slide 7).<!-- src: docs/part1-diagnosis-and-plan.md, reports/eval/ground-truth-9a0156dd325d49fc.json --></li>
 </ul>
 <!-- chart src: docs/part1-diagnosis-and-plan.md, "The point" -->
 <figure class="viz">{{LEADTIME}}</figure>
@@ -186,7 +190,7 @@ caption{text-align:left;color:var(--ink2);padding:0 0 4px;caption-side:top;font-
 <ul class="pts">
 <li>Agents work in every stage. A named person passes each of the five gates, and no agent merges its own work.<!-- src: docs/part1-diagnosis-and-plan.md, docs/delegation.md --></li>
 <li>Each stage hands a typed artefact to the next, and every move is logged.<!-- src: docs/part1-diagnosis-and-plan.md --></li>
-<li>Product ops owns what crosses squads. The platform team keeps the coding harness, and squads set their own extensions.<!-- src: docs/part1-diagnosis-and-plan.md --></li>
+<li>Product ops owns what crosses squads; the platform team keeps the coding harness.<!-- src: docs/part1-diagnosis-and-plan.md --></li>
 </ul>
 <!-- chart src: docs/part1-diagnosis-and-plan.md section 2 (stages, agents, gates) -->
 <figure class="viz">{{LIFECYCLE}}</figure>
@@ -243,11 +247,11 @@ caption{text-align:left;color:var(--ink2);padding:0 0 4px;caption-side:top;font-
 <section class="slide" id="s3" aria-labelledby="h3" tabindex="0" hidden>
 <div class="inner">
 <h2 id="h3">Route each task by the cost of being wrong: Opus orchestrates, cheaper models build, Codex Sol checks.</h2><!-- src: docs/delegation.md -->
-<div class="stage">
+<div class="stage stack">
 <ul class="pts">
-<li>Opus 5.5 splits, routes and checks the work and never writes production code. Sonnet 5.5, Haiku 5.5 and Codex Terra build.<!-- src: docs/delegation.md sections 2 and 6 --></li>
-<li>Codex Sol reviews, so the checker is always from a different model family than the builder. A person passes every merge.<!-- src: docs/delegation.md section 3 --></li>
-<li>The open stack (GLM 5.3, DeepSeek V4.1 Flash, Qwen3.8) is kept ready and routes no tasks. It takes a task class only after 50 shadow tasks clear the bar the judges must clear.<!-- src: docs/delegation.md section 6 --></li>
+<li>Opus 5.5 splits, routes and checks, and never writes production code. Sonnet 5.5, Haiku 5.5 and Codex Terra build.<!-- src: docs/delegation.md sections 2 and 6 --></li>
+<li>Codex Sol checks, so the checker is always a different model family from the builder. A person passes every merge.<!-- src: docs/delegation.md section 3 --></li>
+<li>The open stack waits in reserve and routes no tasks until 50 shadow tasks clear the bar the judges must clear.<!-- src: docs/delegation.md section 6 --></li>
 </ul>
 <!-- chart src: docs/delegation.md section 6 (phases: now, back pocket, later) -->
 <figure class="viz">{{DELEGATION}}</figure>
@@ -304,11 +308,11 @@ caption{text-align:left;color:var(--ink2);padding:0 0 4px;caption-side:top;font-
 <section class="slide" id="s4" aria-labelledby="h4" tabindex="0" hidden>
 <div class="inner">
 <h2 id="h4">Tell the board: halving idea-to-customer time is not plausible within 18 months.</h2><!-- src: reports/halving/summary.md -->
-<div class="stage">
+<div class="stage stack">
 <ul class="pts">
-<li>On my mid inputs lead time reaches 79% of today's at month 18. The high case reaches 51%, and AI tools alone reach 95%.<!-- src: reports/halving/summary.md --></li>
+<li>On my mid inputs lead time is 79% of today's at month 18. The high case reaches 51%, and AI alone 95%.<!-- src: reports/halving/summary.md --></li>
 <li>All 24 inputs are my assumptions, so this is a model output, not a measurement.<!-- src: docs/halving-model.md --></li>
-<li>A 90-day pilot against a control squad starts replacing assumptions with data. Its first test: a pilot PM accepts three of the top 10 in 30 minutes.<!-- src: docs/part1-diagnosis-and-plan.md --></li>
+<li>A 90-day pilot against a control squad starts replacing assumptions with data.<!-- src: docs/part1-diagnosis-and-plan.md --></li>
 </ul>
 <!-- chart src: reports/halving/summary.md and scripts/halving_model.py (config/halving_inputs.yaml) -->
 <figure class="viz">{{HALVING}}</figure>
@@ -376,14 +380,28 @@ caption{text-align:left;color:var(--ink2);padding:0 0 4px;caption-side:top;font-
 <h2 id="h5">Part 2 runs end to end: raw feedback goes in, a ranked and cited list comes out for the PM.</h2><!-- src: README.md -->
 <div class="stage stack">
 <ul class="pts">
-<li>Code does the checking: it finds every quote in the customer's own turn and matches every number in a brief to a fact sheet.<!-- src: README.md, docs/evals.md --></li>
-<li>Cheap models handle the volume. A strong model writes only the top 10 briefs, and three judges from a different model family check them.<!-- src: README.md, config/models.yaml --></li>
+<li>Code checks every quote against the customer's own turn and every number in a brief against a fact sheet.<!-- src: README.md, docs/evals.md --></li>
+<li>Cheap models handle the volume. A strong model writes only the top 10 briefs, and three judges from another model family check them.<!-- src: README.md, config/models.yaml --></li>
 <li>It runs today on synthetic data from file exports. Production needs about 14 to 22 more engineer-weeks (an estimate).<!-- src: README.md, section "How ready is this" --></li>
 </ul>
 <!-- chart src: README.md "The pipeline", config/models.yaml (demo profile); drawn from the same stages as docs/diagrams/pipeline.png -->
 <figure class="viz">{{PIPELINE}}</figure>
 </div>
 <div class="more">
+<details><summary>More: each step in detail, with the README diagram</summary>
+<div class="dtl">
+<table>
+<thead><tr><th>Step</th><th>What happens, and with which model</th></tr></thead>
+<tbody>
+<tr><td>1 Collect</td><td>Sales calls, support tickets, onboarding and account calls and sessions arrive each night. Code keeps the customer's turns and cuts idle session time.</td></tr>
+<tr><td>2 Filter</td><td>Clef (Clef Flash as fallback) answers three typed questions: signal, bucket, severity. Small talk is dropped; about 40 dropped items a week go to a PM audit.</td></tr>
+<tr><td>3 Extract</td><td>Qwen3.8 Flash writes the problem and the customer's exact words; code finds those words in the customer's own turn.</td></tr>
+<tr><td>4 Rank</td><td>Pull in account data from HubSpot, cluster similar problems, match the roadmap and what shipped; a formula ranks them.</td></tr>
+<tr><td>5 Decide</td><td>The top 10 get a cited brief (DeepSeek V4.1 Flash). Three judges (GLM 5.3) check it. The PM decides on the board; accepting drafts an intent doc and a factory job.</td></tr>
+</tbody>
+</table><!-- src: README.md "The pipeline", config/models.yaml (demo profile), docs/diagrams/pipeline.png -->
+<img class="full" alt="Flowchart of the Signal Engine pipeline from sales calls, tickets and sessions through segmenting, triage, extraction with a quote check, enrichment and clustering, ranking, briefs for the top 10, three judges and the Signal Board, ending in an intent document and factory job. Triage sends dropped items to a noise audit queue for a PM." src="{{IMG_PIPELINE}}">
+</div></details>
 <details><summary>More: one piece of feedback, end to end</summary>
 <div class="dtl">
 <table>
@@ -391,19 +409,19 @@ caption{text-align:left;color:var(--ink2);padding:0 0 4px;caption-side:top;font-
 <thead><tr><th>Step</th><th>What happens</th></tr></thead>
 <tbody>
 <tr><td>Sales call</td><td>A customer says that when the approver is on leave, "anything over a handler's limit just sits there".</td></tr>
-<tr><td>Triage</td><td>The decision model marks it product signal, severity 3, in about 0.2 seconds; small talk in the same call is dropped and logged.</td></tr>
-<tr><td>Extract</td><td>A cheap model writes the problem and the verbatim quote; code finds the quote in the customer's turn.</td></tr>
+<tr><td>Triage</td><td>Marked product signal, severity 3, in about 0.2 seconds; small talk in the call is dropped and logged.</td></tr>
+<tr><td>Extract</td><td>The problem and the verbatim quote are written; code finds the quote in the customer's turn.</td></tr>
 <tr><td>Cluster and rank</td><td>It joins "Reserve approvals stall when the approver is away": 7 accounts, GBP 5.42m ARR, three routes.</td></tr>
 <tr><td>Brief and judges</td><td>The brief cites each insight; code checks every number; the judges pass it, still calibrating.</td></tr>
-<tr><td>PM decision</td><td>The PM clicks Accept and confirms. An agent drafts an intent document and a factory job, and the Trio signs off at gate 2.</td></tr>
+<tr><td>PM decision</td><td>The PM clicks Accept and confirms. An agent drafts an intent document and a factory job; the Trio signs off at gate 2.</td></tr>
 </tbody>
 </table><!-- src: README.md "One piece of feedback, end to end" -->
 </div></details>
 <details><summary>More: what production still needs</summary>
 <div class="dtl">
-<p>Today: the whole pipeline end to end in Python (about 9,000 lines outside the tests, 47 test files), the Signal Board web app, evals and judges, replay, and the model gateway with an <code>aws</code> profile. The effort column is an estimate in engineer-weeks, not a measurement.<!-- src: README.md, section "How ready is this" --></p>
+<p>Today: the whole pipeline end to end in Python (about 9,000 lines outside the tests, 47 test files), the Signal Board, evals and judges, replay, and the model gateway with an <code>aws</code> profile. Effort is an estimate, not a measurement.<!-- src: README.md, section "How ready is this" --></p>
 <table>
-<thead><tr><th>Still needed</th><th class="n">Engineer-weeks (estimate)</th></tr></thead>
+<thead><tr><th>Still needed</th><th class="n">Engineer-weeks</th></tr></thead>
 <tbody>
 <tr><td>Live API connectors with auth and incremental sync for each source</td><td class="n">4 to 6</td></tr>
 <tr><td>Bedrock with IAM and SigV4 tested in a real account</td><td class="n">1 to 2</td></tr>
@@ -414,11 +432,6 @@ caption{text-align:left;color:var(--ink2);padding:0 0 4px;caption-side:top;font-
 <tr><td><b>Total</b></td><td class="n"><b>about 14 to 22</b></td></tr>
 </tbody>
 </table><!-- src: README.md, section "How ready is this" -->
-</div></details>
-<details><summary>More: the pipeline diagram from the README</summary>
-<div class="dtl">
-<p class="small">The same stages as a flowchart, including the noise audit queue and the blind labels that feed back to the judges.</p>
-<img class="full" alt="Flowchart of the Signal Engine pipeline from sales calls, tickets and sessions through segmenting, triage, extraction with a quote check, enrichment and clustering, ranking, briefs for the top 10, three judges and the Signal Board, ending in an intent document and factory job. Triage sends dropped items to a noise audit queue for a PM." src="{{IMG_PIPELINE}}">
 </div></details>
 </div>
 </div>
@@ -434,22 +447,19 @@ caption{text-align:left;color:var(--ink2);padding:0 0 4px;caption-side:top;font-
 <li>The target is a review of the top 10 in 30 minutes. Accepting an item drafts an intent document and a factory job.<!-- src: README.md --></li>
 <li>The checks show their failures: a brief that fails a number check stays hidden, and no judge is trusted yet (0 of 3).<!-- src: docs/screenshots/board-opportunities.png, README.md --></li>
 </ul>
-<!-- images: docs/screenshots/board-about.png and board-opportunities.png from main fba88af (PR #69); a static snapshot of replay run 2be56408d5da4bba -->
-<figure class="viz shots">
-<figure class="shot"><figcaption>About this board</figcaption><img alt="The Signal Board's About tab: what is real and what is simulated, and five steps from feedback to opportunity: collect, filter, extract, group and rank, brief and decide." src="{{IMG_ABOUT}}"></figure>
-<figure class="shot"><figcaption>Opportunities: score, factors and checks per item</figcaption><img alt="The Signal Board's Opportunities tab: a ranked item with its score and factors, a check line with failed number checks, three judges marked not yet calibrated, and a hidden brief." src="{{IMG_OPPS}}"></figure>
-</figure>
+<!-- image: docs/screenshots/board-opportunities.png from main fba88af (PR #69), cropped to one opportunity card; a static snapshot of replay run 2be56408d5da4bba -->
+<figure class="viz"><img alt="One opportunity on the Signal Board: its title, score 19.85 and ranking factors (breadth, severity, value, corroboration, recency, renewal), a check line showing quotes ok, citations ok, a failed numbers check and names ok, three judges marked not yet calibrated, the account count and ARR, and a note that the brief is hidden because a deterministic check failed." src="{{IMG_OPPS}}"></figure>
 </div>
 <div class="more">
-<details><summary>More: what each tab is for, and what is real</summary>
+<details><summary>More: the About tab, and what each tab is for</summary>
 <div class="dtl">
+<img class="full about" alt="The Signal Board's About tab: what is real and what is simulated, and five steps from feedback to opportunity: collect, filter, extract, group and rank, brief and decide." src="{{IMG_ABOUT}}">
 <ul>
 <li><b>Real:</b> the code, the AI models, the checks and the audit trail. Code verifies every quote against its source and every model call is logged.</li>
 <li><b>Simulated:</b> the customers, calls and tickets (30 fictional insurers). In the static snapshot the PM buttons are switched off.</li>
-<li><b>Opportunities:</b> the ranked list, with evidence and the PM's actions. <b>Handoffs:</b> the build brief drafted for each accepted item. <b>Pipeline:</b> what each stage kept, dropped and cost.</li>
-<li><b>Evals:</b> how the run scored against the planted answers; several checks fail and the tab says so. <b>Audit:</b> every decision and model call, in a log that shows tampering.</li>
+<li><b>Opportunities:</b> the ranked list. <b>Handoffs:</b> the build brief drafted for each accepted item. <b>Pipeline:</b> what each stage kept, dropped and cost. <b>Evals:</b> the run against the planted answers; several checks fail and the tab says so. <b>Audit:</b> every decision and model call, in a log that shows tampering.</li>
 </ul><!-- src: docs/screenshots/board-about.png (the About tab), docs/signal-board.md -->
-<p class="small">Screenshots from a replay run, synthetic data. Keelwater is fictional.</p>
+<p class="small">Screenshots are from a replay run on synthetic data. Keelwater is fictional.</p>
 </div></details>
 <details><summary>More: the same run in Phoenix, and what it holds</summary>
 <div class="dtl">
@@ -464,10 +474,10 @@ caption{text-align:left;color:var(--ink2);padding:0 0 4px;caption-side:top;font-
 <section class="slide" id="s7" aria-labelledby="h7" tabindex="0" hidden>
 <div class="inner">
 <h2 id="h7">It runs end to end, but its quality floors fail, and the board says so.</h2><!-- src: reports/eval/ground-truth-9a0156dd325d49fc.json -->
-<div class="stage">
+<div class="stage stack">
 <ul class="pts">
-<li>On seed 42, signal recall, noise dropping, bucket accuracy and quote checks clear their floors. Theme recovery (1 of 6) and mean purity (0.54 against 0.75) do not.<!-- src: reports/eval/ground-truth-9a0156dd325d49fc.json --></li>
-<li>The held-out seed 43 recovers 0 of 3 themes, stability fails, and no judge is certified (0 of 50 real PM labels per class).<!-- src: reports/eval/holdout-b6cb1749832b493d.json, reports/eval/stability-d32ee635e4994de5.json, reports/eval/judges-d29d0a9d635c47d9.json --></li>
+<li>Seed 42: recall, noise dropping, bucket accuracy and quote checks hold. Theme recovery (1 of 6) and mean purity (0.54 against 0.75) do not.<!-- src: reports/eval/ground-truth-9a0156dd325d49fc.json --></li>
+<li>Held-out seed 43 recovers 0 of 3 themes, stability fails, and no judge is certified (0 of 50 real PM labels per class).<!-- src: reports/eval/holdout-b6cb1749832b493d.json, reports/eval/stability-d32ee635e4994de5.json, reports/eval/judges-d29d0a9d635c47d9.json --></li>
 <li>I capped the fix at one re-run per seed, so the floors ship as measured on the 05/11/2026 routing.<!-- src: README.md, section "Results" --></li>
 </ul>
 <!-- chart src: reports/eval/ground-truth-9a0156dd325d49fc.json and holdout-b6cb1749832b493d.json; floors from signal_engine/evals/ground_truth.py (read by scripts/readme_sections.py) -->
@@ -562,13 +572,17 @@ var count=document.getElementById("count"),root=document.documentElement;
 function clamp(i){return Math.max(0,Math.min(N-1,i))}
 function show(i,focus){
   cur=clamp(i);
-  slides.forEach(function(s,k){s.hidden=k!==cur;s.classList.toggle("on",k===cur);if(k!==cur)[].forEach.call(s.querySelectorAll("details[open]"),function(d){d.open=false})});
+  [].forEach.call(document.querySelectorAll("details[open]"),function(d){d.open=false});
+  slides.forEach(function(s,k){s.hidden=k!==cur;s.classList.toggle("on",k===cur)});
   count.textContent=(cur+1)+" / "+N;
   document.title="Keelwater: slide "+(cur+1)+" of "+N;
-  var s=slides[cur];s.scrollTop=0;
+  var s=slides[cur];s.scrollTop=0;fit();
   if(focus!==false){try{s.focus({preventScroll:true})}catch(e){s.focus()}}
   var h="#"+(cur+1);if(location.hash!==h){try{history.replaceState(null,"",h)}catch(e){location.hash=h}}
 }
+/* the visual keeps the size it has with every expander closed, so opening one never shrinks it */
+function fit(){var st=slides[cur].querySelector(".stage");if(!st)return;st.style.minHeight="";st.style.minHeight=st.offsetHeight+"px"}
+window.addEventListener("resize",function(){[].forEach.call(document.querySelectorAll("details[open]"),function(d){d.open=false});fit()});
 function fromHash(){var n=parseInt((location.hash||"").slice(1),10);return isNaN(n)?0:clamp(n-1)}
 window.addEventListener("hashchange",function(){var i=fromHash();if(i!==cur)show(i)});
 function step(d){show(cur+d)}
