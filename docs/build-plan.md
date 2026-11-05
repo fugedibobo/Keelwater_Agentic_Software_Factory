@@ -30,7 +30,7 @@ Why this shape:
 
 | Role | Engine and effort | Where | Does | Never does |
 |---|---|---|---|---|
-| L1 orchestrator | Claude Code, `opus`, effort `high` | main checkout `C:\dev\keelwater` | setup, dispatch, pushes branches, opens pull requests, posts issue comments, merges, asks the author | writes feature code; merges without a check PASS |
+| L1 orchestrator | Claude Code, `opus`, effort `high` | main checkout, outside OneDrive | setup, dispatch, pushes branches, opens pull requests, posts issue comments, merges, asks the author | writes feature code; merges without a check PASS |
 | Workers | codex, newest `terra`, effort `high`, through the codex plugin | `.worktrees/issue-N`, one per issue, at most 3 at once (the laptop's limit) | build and test offline with FakeGateway and replay; commit and report | run live steps, push, comment, merge, start other agents |
 | Checkers and live runners | Sonnet subagents of the orchestrator, effort `high` | `.worktrees/check` (detached) or the issue's worktree | check each pull request in at most 10 lines; run probes, smokes, live runs and #7's tuning; impeccable and playwright-cli passes | start other agents |
 | Fallback builder | a Sonnet subagent | the issue's worktree | builds when the codex 5-hour window has under 30% left | |
@@ -64,7 +64,7 @@ One level of delegation only: workers and subagents never start further agents. 
 | # | Human step (label `needs:human-action`, assigned to the repo owner) | When | Time |
 |---|---|---|---|
 | 18 | H5: approve AGENTS.md, the template and `.claude/settings.json` (rule and permission gate) | Tue 08:50 | 10 min |
-| 14 | H1: OpenRouter credit (at least USD 10) and a key with a USD 10 limit, `.env` in `C:\dev\keelwater`, the deny-list in the home folder, mains power and no sleep | Tue 08:45 | 20 min |
+| 14 | H1: OpenRouter credit (at least USD 10) and a key with a USD 10 limit, `.env` in the main checkout, the deny-list in the home folder, mains power and no sleep | Tue 08:45 | 20 min |
 | 15 | H2 (optional): act as the PM and review 20 items in the board | Tue about 19:15, or Wed 08:00 | 20 min |
 | 16 | H3: review the two-pager; pick the real AI-override examples | Wed about 11:30 | 30 min |
 | 17 | H4: GO to make the repo public after the final scan (publishing gate) | Wed about 13:30 | 15 min |
@@ -144,20 +144,20 @@ Each L1 work order follows the same path: the orchestrator creates the worktree 
 
 ## 6. The author's pastes
 
-Morning, block 1. Open Claude Code in `C:\dev`, choose the model and effort below, and paste:
+Morning, block 1. Open Claude Code in the main checkout, choose the model and effort below, and paste:
 
-- Machine: `laptop` (L1, main checkout `C:\dev\keelwater`)
+- Machine: `laptop` (L1, main checkout)
 - Model: `opus`
 - Effort: `high`
 - Parallel: `yes, with L2 (start L2 once #18 is merged)`
 
 ```
-Clone https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory.git into C:\dev\keelwater (outside OneDrive) and work inside it. Then implement milestone Demo v1: read AGENTS.md (from PR #20 if not yet merged) and docs/build-plan.md, run the setup in section 13 and the dispatch loop in section 7.
+Clone https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory.git into a folder outside OneDrive and work inside it. Then implement milestone Demo v1: read AGENTS.md (from PR #20 if not yet merged) and docs/build-plan.md, run the setup in section 13 and the dispatch loop in section 7.
 ```
 
-Morning, block 2, once #18 is merged. Open a second Claude Code session in `C:\dev\keelwater\.worktrees\L2` and paste:
+Morning, block 2, once #18 is merged. Open a second Claude Code session in `.worktrees/L2` of the main checkout and paste:
 
-- Machine: `laptop` (L2, `C:\dev\keelwater\.worktrees\L2`)
+- Machine: `laptop` (L2, `.worktrees/L2`)
 - Model: `sonnet`
 - Effort: `high`
 - Parallel: `yes, with L1`
@@ -166,9 +166,9 @@ Morning, block 2, once #18 is merged. Open a second Claude Code session in `C:\d
 Implement #12, then #11: read AGENTS.md first.
 ```
 
-Handover, when the orchestrator asks (planned Wednesday 08:30; Tuesday evening if the author is still at the desk). Open a fresh Claude Code session in `C:\dev\keelwater` and paste:
+Handover, when the orchestrator asks (planned Wednesday 08:30; Tuesday evening if the author is still at the desk). Open a fresh Claude Code session in the main checkout and paste:
 
-- Machine: `laptop` (L1, main checkout `C:\dev\keelwater`)
+- Machine: `laptop` (L1, main checkout)
 - Model: `opus`
 - Effort: `high`
 - Parallel: `no, wait for the handover comment on #13`
@@ -274,7 +274,7 @@ Never cut: replay mode, quote verification, the ground-truth, held-out and stabi
 | `cloudflare/clef` unavailable or slow on OpenRouter | probe fails for the triage stage; HTTP 429 | Triage runs on Clef Flash (`cloudflare/clef-flash`, same Decisions API and key) and the run says so once. Backoff on 429 and 529. |
 | OpenRouter ids drift (several demo ids are INFERRED) | probe shows a primary miss | Each stage has a fallback id in `config/models.yaml`; the swap is recorded in the pull request and the run manifest. Replay is unaffected. |
 | No credit behind the key | HTTP 402 on the first probe | #14 step 1 checks for at least USD 10 of credit; a key limit adds none. |
-| Windows path and encoding traps | SQLite or .venv errors in OneDrive; MAX_PATH errors; hashes differ across machines; a crash printing "≥" or "£" | Repo at `C:\dev\keelwater` outside OneDrive; `core.longpaths`; `.gitattributes` with `eol=lf` in the first commit; UTF-8 stdout and `encoding="utf-8"` everywhere. |
+| Windows path and encoding traps | SQLite or .venv errors in OneDrive; MAX_PATH errors; hashes differ across machines; a crash printing "≥" or "£" | Repo in a folder outside OneDrive; `core.longpaths`; `.gitattributes` with `eol=lf` in the first commit; UTF-8 stdout and `encoding="utf-8"` everywhere. |
 | Replay drifts from the live run | replay prints DIFF | Content-hash ids, the documented hash exclusions, a fixed `as_of`, a fresh store per run, cache-only replay, and MATCH on main after every merge from #7 on. |
 | Phoenix install fails on Windows (C++ build tools) | `uv sync --extra phoenix` errors | Optional, 15-minute time box, closed as not planned; nothing depends on it. |
 | Archify layout needs repair rounds | overlaps or crossing edges in the PNGs | Two repair rounds per diagram; B falls back to Mermaid; L2 runs off the critical path. |
@@ -287,7 +287,7 @@ Never cut: replay mode, quote verification, the ground-truth, held-out and stabi
 
 Pre-flight, step 0, by the orchestrator at 08:30 (results posted on #14 once it is filed):
 
-- The repo folder is `C:\dev\keelwater` and is not under OneDrive. It already holds `docs/`, `README.md`, `AGENTS.md`, `.github/`, `.claude/`, `.gitattributes` and `.gitignore`.
+- The repo folder is not under OneDrive. It already holds `docs/`, `README.md`, `AGENTS.md`, `.github/`, `.claude/`, `.gitattributes` and `.gitignore`.
 - `git --version`; `uv --version`; `uv python find 3.12` (if missing, `uv python install 3.12` is a download, so it waits for the author's approval).
 - `gh auth status` shows the `repo` scope; `codex` is logged in and the codex plugin answers; Claude and codex usage left.
 - `node --version`; `playwright-cli` and a browser installed; `npx impeccable` available; the Archify skill installed; Edge found in one of the Program Files folders.
@@ -298,7 +298,7 @@ Setup, 08:30 to 08:50:
 
 The repo, the 18 issues (#1-#18) and the gated PR #20 (AGENTS.md, `.claude/settings.json`) already exist on GitHub, and main already holds `docs/`, `README.md`, `.github/`, `.gitattributes` and `.gitignore`.
 
-1. Clone into `C:\dev\keelwater` and run `git config core.longpaths true`.
+1. Clone into a folder outside OneDrive and run `git config core.longpaths true`.
 2. Confirm issues #1-#18 are open and PR #20 is open (the author approves and merges it as #18; until then AGENTS.md is read from the PR branch).
 3. Labels already exist from issue filing; use the label set on the issues, no milestone object (track the milestone by the issue list).
 4. Post the pre-flight results on #14.
