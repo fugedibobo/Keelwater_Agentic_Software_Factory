@@ -9,6 +9,10 @@
 {% macro btn(label, act, id, static, cls='') -%}
 <button type="button" class="btn {{ cls }}" data-act="{{ act }}" data-id="{{ id }}"{% if static %} disabled aria-disabled="true" title="Actions are disabled in the static snapshot"{% endif %}>{{ label }}</button>
 {%- endmacro %}
+{# info marker: title is the no-script fallback; board.js swaps it for a tip that shows on hover and keyboard focus; aria-describedby names the tip for screen readers #}
+{% macro info(id, text) -%}
+<span class="info"><button type="button" class="i" aria-label="What this means" aria-describedby="h-{{ id }}" title="{{ text }}">i</button><span id="h-{{ id }}" role="tooltip" class="tip">{{ text }}</span></span>
+{%- endmacro %}
 {% macro money(v) %}{% if v is none %}-{% else %}GBP {{ '{:,.0f}'.format(v) }}{% endif %}{% endmacro %}
 {% macro num(v) %}{% if v is none %}-{% elif v is boolean %}{{ 'yes' if v else 'no' }}{% elif v is number %}{{ v }}{% else %}{{ v }}{% endif %}{% endmacro %}
 {% macro labelbtns(kind, target_type, target_id, judge, static) -%}

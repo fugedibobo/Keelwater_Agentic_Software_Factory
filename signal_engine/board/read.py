@@ -5,11 +5,15 @@ import re
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
+import yaml
 from jsonschema import Draft202012Validator
 from markupsafe import Markup, escape
 
 from .. import config
 from ..store import canonical, sha256
+
+# Plain-English hover text for every metric, column and score on the board; definitions follow docs/evals.md.
+HELP = yaml.safe_load((Path(__file__).with_name("metric_help.yaml")).read_text(encoding="utf-8"))
 
 JUDGES = ("faithfulness", "signal", "duplicate")
 PAGE = 100
@@ -156,8 +160,7 @@ def _chips(sc):
         chips.append(("renewal", f"x{sc['renewal']:g}", "renewal"))
     if abs(sc["roadmap"] - 1) > 1e-9:
         chips.append(("on roadmap", f"x{sc['roadmap']:g}", "roadmap"))
-    hints = {"renewal": "x(1 + 0.25 x renewing share of affected ARR)", "roadmap": "x0.5 when on the roadmap"}
-    return [{"name": n, "value": v, "hint": hints.get(k, f"{n} factor of the score")} for n, v, k in chips]
+    return [{"name": n, "value": v, "key": k, "hint": HELP["scores"][k]["what"]} for n, v, k in chips]
 
 
 def _opp_row(store, o, sc, ranks, prev_ranks, prev_scores, since, states, run):
@@ -383,16 +386,38 @@ def drift(store):
     return [_series(agree, "agreement"), _series(miss, "miss_rate"), _series(acc, "acceptance")]
 
 
+def _num(v):
+    return str(v) if isinstance(v, int) else f"{v:.2f}"
+
+
+def gate_text(key):
+    """Floor and target per seed, read from the code that gates the suites, so hover text cannot drift from the gates."""
+    from ..evals import ground_truth as gt
+    parts = []
+    for seed, floors, bools in ((42, gt.FLOORS_42, gt.BOOLS_42), (43, gt.FLOORS_43, ())):
+        if key in floors:
+            target, floor, op = floors[key]
+            parts.append(f"seed {seed}: all {target} themes" if floor == "all" else
+                         f"seed {seed}: {'at least' if op == '>=' else 'at most'} {_num(floor)}" + (f" (target {_num(target)})" if target != floor else ""))
+        elif key in bools:
+            parts.append(f"seed {seed}: must be yes")
+    return f"Floor, {'; '.join(parts)}." if parts else "Reported only, not gated."
+
+
 def evals(store, reports_dir=None):
     reports = {s: newest_report(reports_dir, s) for s in ("ground-truth", "holdout", "stability", "judges")}
     gt, ho = reports["ground-truth"], reports["holdout"]
     keys = list(dict.fromkeys(list((gt or {}).get("metrics", {})) + list((ho or {}).get("metrics", {}))))
-    rows = [dict(metric=k, seed42=(gt or {}).get("metrics", {}).get(k), seed43=(ho or {}).get("metrics", {}).get(k)) for k in keys]
+    m42, m43, g42, g43 = (gt or {}).get("metrics", {}), (ho or {}).get("metrics", {}), (gt or {}).get("gates", {}), (ho or {}).get("gates", {})
+    rows = [dict(metric=k, label=HELP["metrics"].get(k, {}).get("label", k), help=f"{HELP['metrics'].get(k, {}).get('what', '')} {gate_text(k)}".strip(),
+                 seed42=m42.get(k), seed43=m43.get(k), ok42=g42.get(k), ok43=g43.get(k)) for k in keys]
+    stab = (reports["stability"] or {}).get("metrics", {})
+    stab_rows = [dict(metric=k, label=HELP["stability"].get(k, {}).get("label", k), help=HELP["stability"].get(k, {}).get("what", ""), value=v) for k, v in stab.items()]
     items = noise_items(store)
     done = [i for i in items if i["label"]]
     w = sum(i["audit_weight"] for i in done)
     miss = sum(i["audit_weight"] for i in done if i["label"] == "missed signal") / w if w else None
-    return dict(available=any(reports.values()), reports=reports, ground_truth=rows, stability=reports["stability"], judge_report=reports["judges"],
+    return dict(available=any(reports.values()), reports=reports, ground_truth=rows, stability=reports["stability"], stability_rows=stab_rows, judge_report=reports["judges"],
                 judges=list(judge_states(store).values()), noise=items, noise_labelled=len(done), miss_rate=miss, drift=drift(store))
 
 
