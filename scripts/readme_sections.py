@@ -25,14 +25,14 @@ README = ROOT / "README.md"
 EVAL_DIR = ROOT / "reports" / "eval"
 RUN_REPORT = ROOT / "reports" / "runs" / "latest-demo.json"
 CACHE_DIR = ROOT / "fixtures" / "llm_cache"
-EARLIER_LABEL = "Earlier run (gpt-oss routing, 04/11/2026)"
+EARLIER_LABEL = "Earlier run (previous routing, 04/11/2026)"
 MIN_LABELS = 50  # evals.md section 7: real PM labels per judge class needed to certify
 
 # Report ids the README cites. Change these when a new live run is committed.
 CURRENT = {"ground-truth": "9a0156dd325d49fc", "holdout": "b6cb1749832b493d",
            "stability": "d32ee635e4994de5", "judges": "d29d0a9d635c47d9"}  # #62 live re-run, 05/11/2026
 EARLIER = {"ground-truth": "efe009d511d14c7d", "holdout": "67fb4d4fbff640ad",
-           "stability": "6d7f81793bec4276", "judges": "8483fdb0aaee4817"}  # gpt-oss routing, 04/11/2026
+           "stability": "6d7f81793bec4276", "judges": "8483fdb0aaee4817"}  # previous routing, 04/11/2026
 
 # (label, metric key, kind): f = 2 decimals, i = integer, of = "n of total", b = yes/no, pair = two keys
 SEED42 = [

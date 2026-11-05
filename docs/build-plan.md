@@ -404,7 +404,7 @@ The reports add up to about USD 1.6. The key's own usage figure (`probe --key-us
 - **Start a day late**, and the live part of #7 moved from Tuesday afternoon to the early hours of Wednesday.
 - **Codex did not build.** The plan had codex terra building and Sonnet checking; Sonnet built 11 of 12 work orders. The sol review ran three times, not once, and its fixes were built by Sonnet because codex terra stalled in this setup.
 - **#7 floors fail.** Seed 42 recovers 2 of 6 planted themes, seed 43 recovers 0 of 3, and stability finds 2 forked themes. The plan allowed one tuning loop (60 minutes) and a frozen held-out run; the author added one capped extract filter and stopped there. The results ship as measured, with the diagnosis in the README.
-- **Judges: GLM 5 replaced by GLM 5.3** (`z-ai/glm-5.3`), because GLM 5 ignored `json_schema`.
+- **Judges: the plan's older GLM release replaced by GLM 5.3** (`z-ai/glm-5.3`), because the older release ignored `json_schema`.
 - **Triage model** changed from Jev to Cloudflare Clef through OpenRouter's Decisions API (author, 04/11). **The synthetic-data model** changed from Mistral to Qwen3 VL 235B after Mistral returned empty output.
 - **Author time** was about 2 hours by 02:30 on 04/11 (the author's estimate), inside the 4 hours asked for.
 
