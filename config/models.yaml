@@ -71,31 +71,34 @@ profiles:
     extends: demo
     cache_only: true
   aws:
+    # Bedrock ids only where an AWS page confirms them; every other name is the open-weight model, availability on Bedrock
+    # not confirmed (INFERRED), checked 05/11/2026 (docs/research/model-options-and-prices.md). No Decisions API in the VPC,
+    # so triage runs on triage_fallback (a chat model) until Clef is self-hosted.
     base_url: https://bedrock-runtime.eu-west-2.amazonaws.com/openai/v1
     base_url_env: KEELWATER_AWS_BASE_URL
     key_env: KEELWATER_AWS_KEY
     request_metadata: true
     stages:
-      triage: {model: "openai.gpt-oss-20b-1:0"}
-      triage_fallback: {model: "openai.gpt-oss-120b-1:0"}
-      extract: {model: "openai.gpt-oss-120b-1:0"}
-      embed: {model: qwen3-embedding-8b}
-      cluster_label: {model: "qwen.qwen3-next-80b-a3b"}
-      brief: {model: "deepseek.v3.2"}
-      judge: {model: "zai.glm-5"}
-      handoff: {model: "deepseek.v3.2"}
-      outtake: {model: "openai.gpt-oss-120b-1:0"}
+      triage: {model: Clef}                      # availability on Bedrock not confirmed (INFERRED); self-hosted open weights
+      triage_fallback: {model: Qwen3.8-Flash}    # availability on Bedrock not confirmed (INFERRED)
+      extract: {model: Qwen3.8-Flash}            # availability on Bedrock not confirmed (INFERRED)
+      embed: {model: Qwen3-VL-Embedding-8B}      # availability on Bedrock not confirmed (INFERRED)
+      cluster_label: {model: Qwen3.8-27B}        # availability on Bedrock not confirmed (INFERRED)
+      brief: {model: Qwen3.8-Max}                # availability on Bedrock not confirmed (INFERRED); Qwen 4 once released and qualified
+      judge: {model: "global.zai.glm-5.3"}       # FOUND: docs.aws.amazon.com/bedrock/latest/userguide/model-card-zai-glm-5-3.html; global routing, no UK residency guarantee
+      handoff: {model: Qwen3.8-Max}              # availability on Bedrock not confirmed (INFERRED)
+      outtake: {model: Qwen3.8-Flash}            # availability on Bedrock not confirmed (INFERRED)
   self-hosted:
     base_url: http://vllm.keelwater.internal:8000/v1
     base_url_env: KEELWATER_SELFHOSTED_BASE_URL
     key_env: KEELWATER_SELFHOSTED_KEY
     stages:
-      triage: {model: gpt-oss-120b}
-      triage_fallback: {model: gpt-oss-120b}
-      extract: {model: gpt-oss-120b}
-      embed: {model: Qwen3-Embedding-8B}
-      cluster_label: {model: qwen3-next-80b-a3b}
-      brief: {model: deepseek-v3.2}
-      judge: {model: glm-5}
-      handoff: {model: deepseek-v3.2}
-      outtake: {model: gpt-oss-120b}
+      triage: {model: Clef}
+      triage_fallback: {model: Qwen3.8-Flash}
+      extract: {model: Qwen3.8-Flash}
+      embed: {model: Qwen3-VL-Embedding-8B}
+      cluster_label: {model: Qwen3.8-27B}
+      brief: {model: Qwen3.8-Max}
+      judge: {model: GLM-5.3}
+      handoff: {model: Qwen3.8-Max}
+      outtake: {model: Qwen3.8-Flash}
