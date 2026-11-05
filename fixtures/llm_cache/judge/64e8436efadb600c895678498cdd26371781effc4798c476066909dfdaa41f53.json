@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"title\": \"Garage estimates misfiled as correspondence\",\n \"problem_statement\": \"Handlers are forced to manually recategorize garage estimates that the system incorrectly files as correspondence. This manual correction causes delays and risks overlooking critical evidence during claims processing.\",\n \"quotes\": [\n  {\n   \"quote\": \"Every time a garage estimate gets dumped into correspondence, someone has to manually fix it — and sometimes the wrong document category means evidence gets overlooked entirely.\",\n   \"route\": \"account_management\",\n   \"date\": \"2026-09-11T14:49:00+00:00\"\n  },\n  {\n   \"quote\": \"Garage estimates keep landing in correspondence — we have to manually recategorise them, and sometimes evidence gets missed because of it. The incorrect file type assignment is causing real delays and oversight risks.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-27T09:02:00+00:00\"\n  },\n  {\n   \"quote\": \"garage estimates keep landing in correspondence — we have to manually recategorise them, and sometimes evidence gets missed because of it.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-27T09:02:00+00:00\"\n  },\n  {\n   \"quote\": \"we’ve got some handlers still manually moving garage estimates out of correspondence, and it’s causing delays.\",\n   \"route\": \"account_management\",\n   \"date\": \"2026-09-11T14:49:00+00:00\"\n  },\n  {\n   \"quote\": \"Handlers are spending too much time fixing the incorrect file type assignments — we need a better way to classify garage estimates so we don’t miss critical evidence during claims processing.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-27T09:02:00+00:00\"\n  },\n  {\n   \"quote\": \"every time we upload a garage estimate, it lands in correspondence — it’s a wrong document category and handlers keep missing key evidence because of it.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-18T08:15:00+00:00\"\n  },\n  {\n   \"quote\": \"garage estimates keep landing in Correspondence, and our handlers have to manually move them, which risks missing critical evidence.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-11T12:56:00+00:00\"\n  },\n  {\n   \"quote\": \"handlers are wasting time fixing incorrect file type assignments, and it’s impacting claim accuracy.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-27T09:02:00+00:00\"\n  },\n  {\n   \"quote\": \"our team keeps getting locked out with ‘Keelwater is down’ messages — but it’s actually our customer network failure... when we upload garage estimates, they land under Correspondence... the Claims Tasks panel moved without warning\",\n   \"route\": \"onboarding\",\n   \"date\": \"2026-09-10T09:41:00+00:00\"\n  },\n  {\n   \"quote\": \"when we upload garage estimates, they’re landing in the wrong document category—like under Correspondence—and we’re having to manually move them, which risks things slipping through the cracks.\",\n   \"route\": \"onboarding\",\n   \"date\": \"2026-10-06T14:24:00+00:00\"\n  },\n  {\n   \"quote\": \"Every time we upload a garage estimate, it lands in correspondence — it’s a wrong document category and handlers keep missing key evidence because of it, which delays claims resolution.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-18T08:15:00+00:00\"\n  },\n  {\n   \"quote\": \"uploaded documents sometimes end up misfiled — garage estimates get tagged as correspondence, and handlers have to move them manually, which risks missing critical evidence.\",\n   \"route\": \"onboarding\",\n   \"date\": \"2026-10-12T08:59:00+00:00\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The claim is that Keelwater's system misclassifies garage estimates as correspondence, forcing manual recategorization. Multiple quotes across support, account_management, and onboarding routes consistently describe the same product behavior (wrong document category assignment) causing delays and missed evidence. One quote (onboarding, 2026-09-10) mixes in an unrelated network outage attributed to the customer's own IT, but the garage estimate misfiling portion is clearly a product classification issue a squad could address. No pricing, contract, staffing, or help-article issues dominate; the core signal is a product defect.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1103,
+   "tokens_out": 135,
+   "cost_usd": 0.00123225
+  }
+ }
+}

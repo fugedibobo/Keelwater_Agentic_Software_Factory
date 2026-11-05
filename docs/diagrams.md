@@ -55,7 +55,7 @@ Nodes (15):
 | s3_raw | S3 raw landing | cloud | z_ingest |
 | connectors | Connectors | backend | z_ingest |
 | sfn | Step Functions | messagebus | z_ingest |
-| triage | Triage (gpt-oss) | backend | z_triage |
+| triage | Triage (Clef) | backend | z_triage |
 | intel | Extract, rank, brief | backend | z_intel |
 | bedrock | Bedrock endpoints | cloud | z_intel |
 | pg | RDS Postgres + pgvector | database | z_store |

@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\n\\nSuppliers and policyholders experience delayed payments and status updates due to slow webhook retries and approval processes. These delays disrupt real-time claim processing and cause financial friction for downstream partners.\\n\\n## Who is affected\\n\\n- Orrinbury Fleet Insurance reports delays with webhook retries on its supplier payments module, which it says causes issues with how it processes claims and updates policyholders in real time [i:23d386fc82d6c342].\\n- Callowfield Auto Assurance reports that the issue has been holding up payments and that suppliers are starting to ask questions [i:2c5599e0c4552f3a].\\n- Holloway Reach Underwriting says the impact is not just inconvenient and is holding up payments and supplier invoices too [i:45301fb117b39eed].\\n\\n## Evidence\\n\\n- 3 accounts have raised this issue across 3 mentions, spanning 2 routes: sales with 2 mentions and support with 1 mention [i:23d386fc82d6c342][i:2c5599e0c4552f3a][i:45301fb117b39eed].\\n- The 3 accounts represent £1690000.0 in total ARR: Orrinbury Fleet Insurance at £120000.0, Callowfield Auto Assurance at £1250000.0, and Holloway Reach Underwriting at £320000.0 [i:23d386fc82d6c342][i:2c5599e0c4552f3a][i:45301fb117b39eed].\\n- The sales route surfaced the webhook retry delay at Orrinbury Fleet Insurance on 2026-10-22 [i:23d386fc82d6c342] and the payment and supplier invoice hold-up at Holloway Reach Underwriting on 2026-10-17 [i:45301fb117b39eed].\\n- The support route surfaced the payment hold-up and supplier questions at Callowfield Auto Assurance on 2026-10-28 [i:2c5599e0c4552f3a].\\n- No insight in this set points the other way; each of the cited insights describes delay or hold-up rather than resolution [i:23d386fc82d6c342][i:2c5599e0c4552f3a][i:45301fb117b39eed].\\n\\n## Why now\\n\\n- The issue is live across both routes, with 2 sales mentions and 1 support mention recorded between 2026-10-17 and 2026-10-28 [i:23d386fc82d6c342][i:2c5599e0c4552f3a][i:45301fb117b39eed].\\n- There are 0 renewals in the next 90 days as of 2026-11-03, so the nearest renewal dates are 2027-02-16 for Orrinbury Fleet Insurance, 2027-03-31 for Callowfield Auto Assurance, and 2027-08-22 for Holloway Reach Underwriting [i:23d386fc82d6c342][i:2c5599e0c4552f3a][i:45301fb117b39eed].\\n- The largest exposure in the set is Callowfield Auto Assurance at £1250000.0 in ARR, where the support route has already recorded supplier questions about held-up payments [i:2c5599e0c4552f3a].\\n\",\n \"cited_insights\": [\n  {\n   \"id\": \"23d386fc82d6c342\",\n   \"quote\": \"We’re still seeing some delays with the webhook retries on our supplier payments module, and it’s causing issues with how we process claims and update policyholders in real time.\",\n   \"account\": \"Orrinbury Fleet Insurance\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-22T16:09:00Z\"\n  },\n  {\n   \"id\": \"2c5599e0c4552f3a\",\n   \"quote\": \"it’s been holding up payments and suppliers are starting to ask questions.\",\n   \"account\": \"Callowfield Auto Assurance\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-28T08:19:00+00:00\"\n  },\n  {\n   \"id\": \"45301fb117b39eed\",\n   \"quote\": \"Exactly. It’s not just inconvenient — it’s holding up payments and supplier invoices too.\",\n   \"account\": \"Holloway Reach Underwriting\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-17T16:58:00Z\"\n  }\n ],\n \"fact_sheet\": {\n  \"as_of\": \"2026-11-03\",\n  \"accounts_n\": 3,\n  \"mentions_n\": 3,\n  \"routes_n\": 2,\n  \"mentions_by_route\": {\n   \"sales\": 2,\n   \"support\": 1\n  },\n  \"arr_total_gbp\": 1690000.0,\n  \"renewals_90d_n\": 0,\n  \"accounts\": [\n   {\n    \"name\": \"Orrinbury Fleet Insurance\",\n    \"arr_gbp\": 120000.0,\n    \"renewal_date\": \"2027-02-16\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Callowfield Auto Assurance\",\n    \"arr_gbp\": 1250000.0,\n    \"renewal_date\": \"2027-03-31\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Holloway Reach Underwriting\",\n    \"arr_gbp\": 320000.0,\n    \"renewal_date\": \"2027-08-22\",\n    \"mentions\": 1\n   }\n  ]\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked the Problem section's claim that delays stem from 'slow webhook retries and approval processes.' The cited insights mention webhook retries (Orrinbury) and held-up payments/invoices (Callowfield, Holloway Reach), but none of the three quotes mentions approval processes, making that an uncited claim. All other items check out: account names, ARR figures (£120000/£1250000/£320000, total £1690000), mention counts (3 accounts, 3 mentions, sales 2 / support 1), dates, routes, renewal dates, and the 0 renewals in 90 days all match the fact sheet and cited insights, and no contrary evidence is omitted.\", \"verdict\": \"fail\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1558,
+   "tokens_out": 206,
+   "cost_usd": 0.00089844
+  }
+ }
+}

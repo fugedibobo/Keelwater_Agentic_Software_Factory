@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"title\": \"Unscalable manual letter merge fixes\",\n \"problem_statement\": \"Users processing high volumes of claims must manually edit letter merge fields to correct errors. This workaround is inefficient and unsustainable for teams handling hundreds of claims weekly.\",\n \"quotes\": [\n  {\n   \"quote\": \"That’s a workaround, but we’re handling 200+ claims a week—manual edits aren’t scalable.\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-07T14:03:00Z\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The problem statement describes a product-driven workaround: users manually editing letter merge fields to correct merge errors. The sales quote confirms the workaround is unsustainable at volume ('200+ claims a week—manual edits aren't scalable'), which is signal per the definition. The cause lies in the product's letter merge behavior, not pricing, contracts, customer IT, or staffing, and no help article would resolve the scalability issue. I checked the title, problem statement, and the single quote, and found no failing items.\",\"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 334,
+   "tokens_out": 114,
+   "cost_usd": 0.00043712
+  }
+ }
+}

@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\n\\nUsers cannot safely test fraud detection rules before deployment, which risks false positives in production.\\n\\n## Who is affected\\n\\n- Brantwick Commercial, an account with 150000.0 GBP in ARR, raised this need through the account_management route [i:83ec7247d7fb6ce8].\\n\\n## Evidence\\n\\n- Brantwick Commercial reported: \\\"we need a sandbox environment to test fraud detection rules before rolling them out live... We’re risking false positives in production without a safe testing environment.\\\" [i:83ec7247d7fb6ce8]\\n- This is the only mention across 1 accounts, 1 mentions and 1 routes, with 0 renewals in the next 90 days [i:83ec7247d7fb6ce8].\\n\\n## Why now\\n\\n- The account's renewal date is 2027-05-11, and its ARR is 150000.0 GBP [i:83ec7247d7fb6ce8].\\n- No insight in this set points the other way; the single cited insight is the only evidence available as of 2026-11-03 [i:83ec7247d7fb6ce8].\\n\",\n \"cited_insights\": [\n  {\n   \"id\": \"83ec7247d7fb6ce8\",\n   \"quote\": \"we need a sandbox environment to test fraud detection rules before rolling them out live... We’re risking false positives in production without a safe testing environment.\",\n   \"account\": \"Brantwick Commercial\",\n   \"route\": \"account_management\",\n   \"date\": \"2026-09-01T12:50:00+00:00\"\n  }\n ],\n \"fact_sheet\": {\n  \"as_of\": \"2026-11-03\",\n  \"accounts_n\": 1,\n  \"mentions_n\": 1,\n  \"routes_n\": 1,\n  \"mentions_by_route\": {\n   \"account_management\": 1\n  },\n  \"arr_total_gbp\": 150000.0,\n  \"renewals_90d_n\": 0,\n  \"accounts\": [\n   {\n    \"name\": \"Brantwick Commercial\",\n    \"arr_gbp\": 150000.0,\n    \"renewal_date\": \"2027-05-11\",\n    \"mentions\": 1\n   }\n  ]\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked the account ARR (150000 GBP), route (account_management), renewal date (2027-05-11), and mention counts (1 account, 1 mention, 1 route, 0 renewals in 90 days) against the fact sheet, and all match. The quoted customer language in the Evidence section is verbatim from cited insight 83ec7247d7fb6ce8, and the scope ('only mention') matches the fact sheet's single mention. No uncited claims, overstated figures, or contrary evidence were found.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 753,
+   "tokens_out": 149,
+   "cost_usd": 0.0002611317
+  }
+ }
+}

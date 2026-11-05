@@ -1,0 +1,62 @@
+{
+ "request": {
+  "model": "qwen/qwen3.8-27b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The user is unable to assign roles to new team members within the claims dashboard.\n  quote: I’m having trouble assigning roles to new team members on our claims dashboard.\n- problem: The manual permission configuration process is inefficient and error-prone, requiring users to tick many individual boxes for each new team member.\n  quote: each user needs dozens of boxes ticked manually and if we miss one, they get locked out. The permission setup duplication is really slowing us down.\n- problem: Users cannot copy access roles, requiring manual permission assignment for each new user which is error-prone.\n  quote: The issue is we can’t copy access roles — each new user needs permissions manually assigned, and one mistake blocks them entirely.\n- problem: The customer has previously experienced issues with permission settings and needs clarity on how to assign roles during the initial setup.\n  quote: we’ve had issues with permissions before. Can you show how roles are assigned during setup?\n- problem: Assigning custom permissions to new team members is slow and error-prone.\n  quote: it’s taking forever to assign permissions. Each person needs a custom setup and I keep worrying I’ll miss something.\n- problem: The platform lacks a feature to duplicate existing access roles, forcing users to manually rebuild permissions for each new user.\n  quote: we need to copy access roles, not rebuild them from scratch every time.\n- problem: The platform lacks a feature to copy access roles, forcing manual permission selection for each new team member and causing handlers to be locked out if errors occur.\n  quote: you can’t copy access roles — every new team member means manually selecting permissions one by one, and if you make a mistake, the handler gets locked out until it’s corrected.\n- problem: The letters tab is disabled and task assignment fails due to role synchronization issues.\n  quote: the letters tab is greyed out too, and I can’t assign new tasks to my team since the roles aren’t syncing properly."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Manual role assignment lacks duplication\",\n  \"problem_statement\": \"Users cannot copy existing access roles, forcing them to manually configure permissions for every new team member. This inefficient process is error-prone, often resulting in locked-out users and significant delays in onboarding.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 530,
+   "tokens_out": 63,
+   "cost_usd": 0.000237
+  }
+ }
+}

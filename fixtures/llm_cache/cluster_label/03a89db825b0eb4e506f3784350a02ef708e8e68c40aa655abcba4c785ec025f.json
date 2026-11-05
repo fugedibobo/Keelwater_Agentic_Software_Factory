@@ -1,0 +1,62 @@
+{
+ "request": {
+  "model": "qwen/qwen3.8-27b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The user is struggling to effectively filter tasks by due date to prioritize multiple upcoming claims.\n  quote: I’m trying to filter tasks by due date because we’ve got multiple claims coming up and I need to prioritize them before the next reporting cycle.\n- problem: The user cannot locate the task queue in the interface to manage claim document uploads and linking.\n  quote: I’m trying to get a batch of claims documents uploaded and linked to the right reserves, but I’m not sure where the task queue sits in the interface.\n- problem: The customer needs a feature to filter tasks by due date to streamline claims handling.\n  quote: we’re trying to streamline our claims handling and need help filtering tasks by due date.\n- problem: The reporting module fails to consistently synchronize the latest task updates with policyholder records.\n  quote: the reporting module doesn’t always sync the latest tasks with our policyholders’ records. Is there a known fix or workaround?"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Task filtering and sync failures\",\n  \"problem_statement\": \"Users cannot effectively filter tasks by due date or locate the task queue, hindering claim prioritization and document management. Additionally, the reporting module fails to consistently synchronize task updates with policyholder records.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 314,
+   "tokens_out": 62,
+   "cost_usd": 0.00016144
+  }
+ }
+}

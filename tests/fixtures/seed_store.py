@@ -22,9 +22,9 @@ def seed(out_dir):
 
     for rid, started, as_of, cost in ((R1, "2026-10-27T02:00:00+00:00", A1, 0.05), (R2, "2026-11-03T02:00:00+00:00", A2, 0.12)):
         manifest = dict(profile="replay", seed=42, batch="all", as_of=as_of, data_hash=H, config_hash="b" * 64,
-                        config_files={"ranking": "c" * 8}, prompt_versions={"brief": "v1"}, model_ids={"brief": "deepseek"})
+                        config_files={"ranking": "c" * 8}, prompt_versions={"brief": "v1"}, model_ids={"brief": "qwen/qwen3.8-max-0902"})
         ins("run", dict(run_id=rid, started_at=started, as_of=as_of, profile="replay", seed=42, batch="all", data_hash=H,
-                        config_hash="b" * 64, prompt_versions={"brief": "v1"}, model_ids={"brief": "deepseek"},
+                        config_hash="b" * 64, prompt_versions={"brief": "v1"}, model_ids={"brief": "qwen/qwen3.8-max-0902"},
                         output_hash="d" * 64, cost_usd=cost, status="done", manifest_json={**manifest, "max_usd": 1.5}))
 
     accounts = [("acc1", "Pendleford Motor Mutual", 690000, "Strategic", "2026-11-28"), ("acc2", "Harrow Fleet Cover", 410000, "Enterprise", "2027-06-30"),
@@ -92,7 +92,7 @@ def seed(out_dir):
         ins("brief", dict(brief_id=content_id("brief", oid), opportunity_id=oid, run_id=R2, body_md="Handlers reassign claims one by one [i1].",
                           citations_json=["i1"], check_status="failed_checks" if failed else "passed",
                           check_failures_json=[{"rule": "numbers", "detail": "GBP 2.0m does not match the fact sheet (total 1,100,000)"}] if failed else [],
-                          prompt_version="v1", model="deepseek"))
+                          prompt_version="v1", model="qwen/qwen3.8-max-0902"))
     states = {"faithfulness": (23, 8), "signal": (31, 12), "duplicate": (19, 5)}
     for j, (p, f) in states.items():
         ins("judge_version", dict(judge_version_id=f"{j}@v1+glm", judge=j, prompt_version="v1", model="glm", state="calibrating", n_pass=p, n_fail=f))
@@ -104,7 +104,7 @@ def seed(out_dir):
     ins("judgement", dict(judgement_id=content_id("j", "o5"), run_id=R2, judge_version_id="duplicate@v1+glm", judge="duplicate",
                           target_type="opportunity", target_id="o5", verdict="fail", critique="Roadmap story 88 covers a different problem."))
 
-    stages = [("triage", "jev-latest", 210), ("extract", "gpt-oss", 640), ("brief", "deepseek", 2100), ("judge", "glm", 1800)]
+    stages = [("triage", "cloudflare/clef", 210), ("extract", "qwen/qwen3.8-flash", 640), ("brief", "qwen/qwen3.8-max-0902", 2100), ("judge", "glm", 1800)]
     for i, (stage, model, ms) in enumerate(stages * 3):
         ins("model_call", dict(call_id=f"call{i}", run_id=R2, stage=stage, target_type="opportunity", target_id="o1", model=model, profile="replay",
                                input_hash=sha256(f"in{i}")[:8], output_hash=sha256(f"out{i}")[:8], tokens_in=500, tokens_out=120,

@@ -1,0 +1,53 @@
+{
+ "request": {
+  "model": "qwen/qwen3.8-flash",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou draft customer-facing text for Keelwater, which makes claims-handling software. A person reviews every draft before anything is sent.\n</role>\n<story>\n{\n \"id\": 4127,\n \"name\": \"Bulk upload documents to a claim\",\n \"description\": \"Users can now upload multiple documents at once to a claim in Keelwater, streamlining the process and reducing manual effort for claims handlers.\"\n}\n</story>\n<problem>\nNot stated.\n</problem>\n<rules>\n- Write a customer change notice: a short email-style notice that says what is changing, when customers will see it, and that an administrator can switch it on from the release bundle.\n- The change ships in an announced release bundle on a published cadence and is controlled by a feature flag. Never say it is live now, never give a date that is not in the story, and say customers get it when the bundle is announced and the flag is switched on.\n- Use only the story and the problem above. Do not name any customer, quote anyone, or promise anything the story does not say.\n</rules>\n<output>\nJSON only: {\"body_md\": the draft as Markdown}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 800,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "outtake",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "body_md": {
+       "title": "Body Md",
+       "type": "string"
+      }
+     },
+     "required": [
+      "body_md"
+     ],
+     "title": "OuttakeOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\n  \"body_md\": \"**Subject: Upcoming Feature: Bulk Document Uploads**\\n\\nWe are pleased to announce that a new feature, **Bulk upload documents to a claim**, will be included in our next release bundle.\\n\\nThis update allows users to upload multiple documents at once to a claim, streamlining the process and reducing manual effort for claims handlers.\\n\\nPlease note that this feature is controlled by a feature flag. It will become available to your team when the release bundle is announced and your administrator switches the flag on.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 295,
+   "tokens_out": 114,
+   "cost_usd": 9.783e-05
+  }
+ }
+}

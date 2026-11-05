@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\n\\nUsers cannot find a way to divide a single claim payment among multiple recipients, which prevents them from processing claims that require distributing funds to several parties.\\n\\n## Who is affected\\n\\n- Farrowdene Home, an account with 60000.0 GBP in ARR and a renewal date of 2027-06-02, raised this need twice [i:4dc69dfc59fb39bc] [i:6b5fec6f43e17fc0].\\n- The affected scope in the fact sheet is 1 account, with 2 mentions across 1 route, account_management [i:4dc69dfc59fb39bc] [i:6b5fec6f43e17fc0].\\n\\n## Evidence\\n\\n- Farrowdene Home said they have a claim where they need to split a payment across several payees and are not sure how to handle that in the system [i:4dc69dfc59fb39bc].\\n- Farrowdene Home also said they are not seeing the option under payments or tasks right now [i:6b5fec6f43e17fc0].\\n- Both mentions came through the account_management route, and the fact sheet records 0 renewals in the next 90 days [i:4dc69dfc59fb39bc] [i:6b5fec6f43e17fc0].\\n\\n## Why now\\n\\n- The fact sheet is dated 2026-11-03 and records 1 account, 2 mentions and 1 route, with 60000.0 GBP in ARR tied to Farrowdene Home [i:4dc69dfc59fb39bc] [i:6b5fec6f43e17fc0].\\n- Farrowdene Home's renewal date is 2027-06-02, and the fact sheet shows 0 renewals in the next 90 days [i:4dc69dfc59fb39bc] [i:6b5fec6f43e17fc0].\\n- No cited insight points the other way; the evidence is limited to this account and route [i:4dc69dfc59fb39bc] [i:6b5fec6f43e17fc0].\\n\",\n \"cited_insights\": [\n  {\n   \"id\": \"4dc69dfc59fb39bc\",\n   \"quote\": \"We’ve got a claim where we need to split a payment across several payees — not sure how to handle that in the system.\",\n   \"account\": \"Farrowdene Home\",\n   \"route\": \"account_management\",\n   \"date\": \"2026-10-19T11:22:00+00:00\"\n  },\n  {\n   \"id\": \"6b5fec6f43e17fc0\",\n   \"quote\": \"I’m not seeing the option under payments or tasks right now.\",\n   \"account\": \"Farrowdene Home\",\n   \"route\": \"account_management\",\n   \"date\": \"2026-10-19T11:22:00+00:00\"\n  }\n ],\n \"fact_sheet\": {\n  \"as_of\": \"2026-11-03\",\n  \"accounts_n\": 1,\n  \"mentions_n\": 2,\n  \"routes_n\": 1,\n  \"mentions_by_route\": {\n   \"account_management\": 2\n  },\n  \"arr_total_gbp\": 60000.0,\n  \"renewals_90d_n\": 0,\n  \"accounts\": [\n   {\n    \"name\": \"Farrowdene Home\",\n    \"arr_gbp\": 60000.0,\n    \"renewal_date\": \"2027-06-02\",\n    \"mentions\": 2\n   }\n  ]\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked each claim against the cited insights and fact sheet: ARR (60000 GBP), renewal date (2027-06-02), account count (1), mentions (2), routes (1, account_management), and renewals in 90 days (0) all match exactly. The paraphrased quotes are not wrapped in quotation marks, both insights are properly cited to Farrowdene Home via account_management, and the brief correctly limits scope to this one account with no contrary evidence ignored. Nothing is overstated relative to the two cited insights.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1047,
+   "tokens_out": 148,
+   "cost_usd": 0.0002803853
+  }
+ }
+}

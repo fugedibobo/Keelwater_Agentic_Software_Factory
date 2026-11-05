@@ -1,0 +1,62 @@
+{
+ "request": {
+  "model": "qwen/qwen3.8-27b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The customer is unable to access the policyholder documents section due to a password issue.\n  quote: I need to reset my password because I can’t access the documents section for policyholders.\n- problem: The user is unable to access the claims portal due to a lockout and requires an urgent password reset.\n  quote: I’m locked out of our claims portal and need to reset my password urgently.\n- problem: The customer is unable to access the latest reserves report for marine cargo claims.\n  quote: I’m having trouble pulling up the latest reserves report for our marine cargo claims.\n- problem: The user is unable to access the claims dashboard due to a password issue.\n  quote: I need to reset my password because I can’t access the claims dashboard anymore.\n- problem: The user is locked out of the claims dashboard and cannot access policyholder documents, requiring a password reset.\n  quote: I need to reset my password because I’m locked out of the claims dashboard and can’t access policyholder documents."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Password lockouts block platform access\",\n  \"problem_statement\": \"Users are frequently locked out of the claims platform due to password issues. This prevents them from accessing critical sections like dashboards and policyholder documents, disrupting their workflow.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 330,
+   "tokens_out": 57,
+   "cost_usd": 0.00012435
+  }
+ }
+}

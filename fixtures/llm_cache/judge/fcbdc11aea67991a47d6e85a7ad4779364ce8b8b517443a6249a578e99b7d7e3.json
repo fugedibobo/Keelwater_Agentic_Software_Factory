@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\n\\nUsers cannot reconcile payment batches because supplier ledgers and invoices are missing or inaccessible, and uploaded claim documents fail to auto-assign to the correct supplier tasks, disrupting the workflow.\\n\\n## Who is affected\\n\\n- Cindermill Trade Cover, an account with £210000.0 in ARR and a renewal date of 2027-04-03, reports trouble seeing why a payment batch did not reflect in its supplier ledger [i:550f2b6c46f2b3dd].\\n- Wexmoor Motor, an account with £1950000.0 in ARR and a renewal date of 2027-06-30, reports being unable to locate matching documents in the system when reconciling a payment batch with suppliers' invoices [i:d93acbbda99a4ae5].\\n- Brackwater Homecover, an account with £610000.0 in ARR and a renewal date of 2027-10-10, reports that a batch of claims documents did not auto-assign to the right supplier tasks [i:f65321d912d263c2].\\n- In total, 3 accounts are affected, with 3 mentions across 1 route, all on the support route [i:550f2b6c46f2b3dd][i:d93acbbda99a4ae5][i:f65321d912d263c2].\\n\\n## Evidence\\n\\n- Cindermill Trade Cover raised the ledger reconciliation issue on 2026-09-09 via the support route [i:550f2b6c46f2b3dd].\\n- Wexmoor Motor raised the invoice reconciliation issue on 2026-10-30 via the support route [i:d93acbbda99a4ae5].\\n- Brackwater Homecover raised the auto-assignment issue on 2026-09-10 via the support route [i:f65321d912d263c2].\\n- The 3 accounts together represent £2770000.0 in ARR, with 0 renewals in the next 90 days [i:550f2b6c46f2b3dd][i:d93acbbda99a4ae5][i:f65321d912d263c2].\\n\\n## Why now\\n\\n- All 3 mentions arrived through the support route, and the most recent was on 2026-10-30 [i:d93acbbda99a4ae5].\\n- The affected accounts have renewal dates of 2027-04-03, 2027-06-30 and 2027-10-10, with 0 renewals in the next 90 days as of 2026-11-03 [i:550f2b6c46f2b3dd][i:d93acbbda99a4ae5][i:f65321d912d263c2].\\n- The evidence covers 3 accounts and 3 mentions; no insight in this set points the other way [i:550f2b6c46f2b3dd][i:d93acbbda99a4ae5][i:f65321d912d263c2].\\n\",\n \"cited_insights\": [\n  {\n   \"id\": \"550f2b6c46f2b3dd\",\n   \"quote\": \"I’m trying to figure out why the latest payment batch didn’t reflect in our supplier ledger\",\n   \"account\": \"Cindermill Trade Cover\",\n   \"route\": \"support\",\n   \"date\": \"2026-09-09T15:46:00+00:00\"\n  },\n  {\n   \"id\": \"d93acbbda99a4ae5\",\n   \"quote\": \"I’m trying to reconcile the latest payment batch with our suppliers’ invoices but can’t locate the matching documents in the system.\",\n   \"account\": \"Wexmoor Motor\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-30T09:52:00+00:00\"\n  },\n  {\n   \"id\": \"f65321d912d263c2\",\n   \"quote\": \"I’m trying to figure out why my latest batch of claims documents didn’t auto-assign to the right supplier tasks.\",\n   \"account\": \"Brackwater Homecover\",\n   \"route\": \"support\",\n   \"date\": \"2026-09-10T10:12:00+00:00\"\n  }\n ],\n \"fact_sheet\": {\n  \"as_of\": \"2026-11-03\",\n  \"accounts_n\": 3,\n  \"mentions_n\": 3,\n  \"routes_n\": 1,\n  \"mentions_by_route\": {\n   \"support\": 3\n  },\n  \"arr_total_gbp\": 2770000.0,\n  \"renewals_90d_n\": 0,\n  \"accounts\": [\n   {\n    \"name\": \"Cindermill Trade Cover\",\n    \"arr_gbp\": 210000.0,\n    \"renewal_date\": \"2027-04-03\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Wexmoor Motor\",\n    \"arr_gbp\": 1950000.0,\n    \"renewal_date\": \"2027-06-30\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Brackwater Homecover\",\n    \"arr_gbp\": 610000.0,\n    \"renewal_date\": \"2027-10-10\",\n    \"mentions\": 1\n   }\n  ]\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked each account's ARR and renewal date against the fact sheet (Cindermill £210000/2027-04-03, Wexmoor £1950000/2027-06-30, Brackwater £610000/2027-10-10) and all match, as do the totals of 3 accounts, 3 mentions, 1 route, £2770000 ARR, and 0 renewals in 90 days. The dates and routes cited (support, 2026-09-09, 2026-10-30, 2026-09-10) match the cited insights, and the paraphrased problem descriptions accurately reflect the quotes without placing paraphrase in quotation marks. The 'most recent was 2026-10-30' claim is correct, and no cited contrary evidence exists. The problem statement's 'missing or inaccessible' is a fair paraphrase of the cited accounts' reports.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1471,
+   "tokens_out": 235,
+   "cost_usd": 0.00278406
+  }
+ }
+}

@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (duplicate) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is the core problem still open, not solved by a shipped story and not covered by a roadmap item? Pass means yes.\nCompare the problem itself, not the product area. A spike that is unstarted or in progress is not shipped.\nFail if a completed story solves the same problem, or a roadmap item already covers it.\nThe evidence is the problem statement and the five most similar stories and roadmap pages, with status and dates.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"Users struggle to assign claim roles to new staff and map existing groups. This causes extra manual work and confusion about permissions.\",\n \"similar\": [\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4127\",\n   \"similarity\": 0.07,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-10-06T00:00:00Z\\\", \\\"description\\\": \\\"Users can now upload multiple documents at once to a claim in Keelwater, streamlining the process and reducing manual effort for claims handlers.\\\", \\\"id\\\": 4127, \\\"name\\\": \\\"Bulk upload documents to a claim\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4138\",\n   \"similarity\": 0.043,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": false, \\\"completed_at\\\": null, \\\"description\\\": \\\"Configure global settings for your organisation within Keelwater, including default claim categories, notification preferences, and user permissions to ensure consistent workflows across teams.\\\", \\\"id\\\": 4138, \\\"name\\\": \\\"Organisation settings\\\", \\\"started\\\": false, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 1}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4131\",\n   \"similarity\": 0.042,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-09-15T00:00:00Z\\\", \\\"description\\\": \\\"Keelwater's workspace administration feature allows users to manage permissions, configure settings, and organize teams within their claims environment — all through a centralized, intuitive dashboard.\\\", \\\"id\\\": 4131, \\\"name\\\": \\\"Workspace administration\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4128\",\n   \"similarity\": 0.041,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-09-15T00:00:00Z\\\", \\\"description\\\": \\\"Keelwater now allows users to filter claims by date range, status, and claim type, making it easier to locate specific claims without scrolling through unrelated entries.\\\", \\\"id\\\": 4128, \\\"name\\\": \\\"Claim search refinements\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4135\",\n   \"similarity\": 0.039,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": false, \\\"completed_at\\\": null, \\\"description\\\": \\\"Keelwater's claim information display provides a clear, real-time overview of active claims, including status, assigned adjuster, and key dates, helping users stay informed without switching screens.\\\", \\\"id\\\": 4135, \\\"name\\\": \\\"Claim information display\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 2}\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The problem is assigning claim roles to new staff and mapping existing groups. The most similar story, 'Bulk upload documents to a claim' (4127, completed), is unrelated. 'Workspace administration' (4131, completed) covers general permissions and team configuration broadly, but does not specifically address role assignment for new staff or group mapping. 'Organisation settings' (4138, unstarted) mentions user permissions only as part of broader settings and is not shipped. No completed story or roadmap item solves the same core problem.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 917,
+   "tokens_out": 123,
+   "cost_usd": 0.00067358
+  }
+ }
+}

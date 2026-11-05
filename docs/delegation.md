@@ -1,10 +1,10 @@
 # Delegation ruleset for the engineering factory
 
-Author: product operations. Date: 04/11/2026. Status: proposal to the platform team, who own the factory ([ADR-011](decisions.md)). Scope: Claude and Codex models only, for the factory's coding agents and for the product lifecycle layer's agents. Evidence: [model-routing-evidence.md](research/model-routing-evidence.md), gathered 04/11/2026. FOUND means read at a source; INFERRED means reasoning stated in the text.
+Author: product operations. Date: 04/11/2026; phases and prices revised 05/11/2026. Status: proposal to the platform team, who own the factory ([ADR-011](decisions.md)). Scope: the factory's coding agents and the product lifecycle layer's agents. Claude and Codex run them now; open models are kept in the back pocket for later (section 6). Evidence: [model-routing-evidence.md](research/model-routing-evidence.md), gathered 04/11/2026. FOUND means read at a source; INFERRED means reasoning stated in the text.
 
 ## 1. Why
 
-Building everything on the top model at API prices is the fastest way to lose budget. Most tasks in a factory are small and checkable, and a cheap model passes them. The top model earns its price only where a wrong answer is costly to find or to undo.
+Building everything on the top model at API prices is the fastest way to lose budget. Most tasks in a factory are small and checkable, and a cheap model passes them. The top model earns its price only where a wrong answer is costly to find or to undo. Claude and Codex build the factory now. The open stack waits in the back pocket until it has earned a task class (section 6).
 
 Routing therefore follows the cost of being wrong. This is the same principle as the Signal Engine's model routing ([ADR-002](decisions.md)): cheap tiers for work that code or a reviewer can check, strong tiers for work that cannot be undone easily.
 
@@ -82,17 +82,28 @@ The routing table is versioned config. A weekly review reads it against the tele
 
 - **Promote a cheaper engine for a class** when, on at least 50 tasks of that class, its first-check pass rate has a Wilson 95% lower bound no more than 5 points below the incumbent's point estimate, and its escaped-defect rate is not higher.
 - **Demote** (move the class up one engine) on the reverse: on at least 50 tasks, the current engine's first-check pass rate has a Wilson 95% upper bound more than 5 points below the point estimate of the engine one tier up, or its escaped-defect rate is higher.
-- The sample rule is the one that certifies the judges: at least 50 labels per class and a Wilson 95% lower bound ([evals.md](evals.md), [ADR-006](decisions.md)).
+- The sample rule is the one that certifies the judges: at least 50 labels per class and a Wilson 95% lower bound ([evals.md](evals.md), [ADR-006](decisions.md)). Section 6 applies the same rule to the open stack, on the factory's own work-order history.
 
-## 6. Open-weight challengers
+## 6. Phases: now, back pocket, later
 
-| Challenger | Status (04/11/2026, FOUND) | Why track it |
+| Phase | What runs | State |
 |---|---|---|
-| GLM 5.3 | Weights public by 28/08/2026; custom licence | Self-hosting inside the VPC; price pressure on the vendors |
-| DeepSeek V4.1 Flash | MIT licence; 17/10/2026 snapshot | Same |
-| Next large Qwen | Qwen 4 is unreleased: announced as "in training", no size or date. The nearest real model is Qwen3.8-2.4T-A95B | Same |
+| Now | Claude and Codex build the factory. Opus 5.5 orchestrates and dispatches. Sonnet 5.5 and Haiku 5.5 build and read. Codex GPT-6.1 Terra takes routine builds. Codex GPT-6.1 Sol reviews adversarially, as the other family. This is the routing in sections 2 and 3. | In use |
+| Back pocket | The open stack is kept ready and not run in parallel. GLM 5.3 is the builder. DeepSeek V4.1 Flash or Qwen3.8 is the checker, so the checker is never the builder's family. Qwen 4 joins the checker slot when it is released. | Kept ready; no tasks routed |
+| Later | Once the factory runs reliably, the hosted and open stacks run against each other in shadow on the same work orders. A task class moves to the open stack only when the open stack passes (below). | Not started |
 
-Challengers run in shadow on replayed factory tasks: past accepted pull requests with their hidden tests, which are the factory's own benchmark. They never touch live code. They are promoted only by the rule in section 5. Public leaderboards are used to rule models out, not to rank them.
+Status of the open models on 05/11/2026 (FOUND at OpenRouter, Hugging Face and the model cards listed in [model-options-and-prices.md](research/model-options-and-prices.md)):
+
+| Model | Status | Why keep it ready |
+|---|---|---|
+| GLM 5.3 | Weights public by 28/08/2026; custom licence. OpenRouter lists it at USD 0.0699 in and 1.40 out per million tokens | Self-hosting inside the VPC; price pressure on the vendors |
+| DeepSeek V4.1 Flash | MIT licence; 17/10/2026 snapshot | Same |
+| Qwen3.8 | Open weights for the 27B; larger variants are API-only (INFERRED) | Same |
+| Qwen 4 | Not released: announced as "in training", no size or date. The nearest real model is Qwen3.8-2.4T-A95B | Named only as the planned next step; no id until it ships |
+
+**Confidence bar for Later.** It is the rule in section 5, applied to the factory's own work-order history. A task class moves to the open stack only when, on at least 50 shadow tasks of that class, the open stack's first-check pass rate has a Wilson 95% lower bound no more than 5 points below the hosted stack's point estimate, and its escaped-defect rate is not higher. It is the same bar the judges must clear ([evals.md](evals.md)). Until then nothing moves.
+
+Shadow runs replay past accepted work orders with their hidden tests, which are the factory's own benchmark. They never touch live code. Public leaderboards are used to rule models out, not to rank them.
 
 ## 7. Clef as the router and the telemetry triager
 
@@ -120,7 +131,7 @@ The "one class up" rule exists because the cited routing study had 12.5% false d
 
 Its labels feed the weekly routing review in section 5 and the rework statistics. A person reviews a fixed weekly sample, as in the Signal Engine's noise audit. Root-cause analysis stays with a strong model or an engineer: a decision model sorts, it does not explain.
 
-**Why Clef for both (INFERRED).** It is cheap and fast: $0.24 per million input tokens and a 209 ms median, both vendor-reported (FOUND). Its open weights can run inside the VPC next to the telemetry, so trace data never leaves. It comes from a different model family than the Claude and Codex builders, so it does not grade its own family's work.
+**Why Clef for both (INFERRED).** It is cheap and fast: $0.192 per million input tokens on OpenRouter (FOUND, read 05/11/2026) and a 209 ms median, vendor-reported (FOUND). Its smaller sibling Clef Flash (`cloudflare/clef-flash`, 9B, $0.018 per million input tokens, same Decisions API) is the fallback. Its open weights can run inside the VPC next to the telemetry, so trace data never leaves. It comes from a different model family than the Claude and Codex builders, so it does not grade its own family's work.
 
 Designed, not built in this demo.
 
@@ -135,7 +146,7 @@ Prices are USD per million tokens. Blank means not found. "Vendor" means self-re
 | Haiku 5.5 | 0.10/0.50 | V2: 87.23 | 4.0: 39.2% | | FOUND: vendor page; Scale leaderboard |
 | GPT-6.1 Sol | 2/10 | V2: 96.11 | Science: 57.0% (max) | $1.50 (Codex, max) | FOUND: Scale; secondary page; Artificial Analysis summary |
 | GPT-6.1 Terra | 1/5 | | | | FOUND: OpenAI pricing page; no benchmark found |
-| GLM 5.3 | 1.40/4.40 | V2: 95.60 | 2.1: 88.2 (vendor, not comparable) | | FOUND: Scale; vendor-reported |
+| GLM 5.3 | 1.40/4.40 (04/11/2026; 0.0699/1.40 on OpenRouter, 05/11/2026) | V2: 95.60 | 2.1: 88.2 (vendor, not comparable) | | FOUND: Scale; vendor-reported |
 | DeepSeek V4.1 Flash | 0.15/0.60 | | 4.0: 42.3 (vendor) | $0.39 (Codex, max) | FOUND: model card; Artificial Analysis summary |
 | Qwen3.8-2.4T (not Qwen 4) | 2/6 | 67.7% (vendor) | 4.0: 11.1 | | FOUND: OpenRouter listing |
 
@@ -148,6 +159,8 @@ V2 scores come from one harness at different efforts and sit near saturation. Te
 - **Gaps.** No source measured a mixed Claude and Codex pipeline end to end, with quality and cost together. Cost per task varies up to 30x for the same task (FOUND, secondary).
 
 ## 9. Cost scenario (INFERRED)
+
+List prices for Opus 5.5 (4/20), Sonnet 5.5 (2/10), Haiku 5.5 (0.10/0.50, prompts up to 100,000 tokens), GPT-6.1 Terra (1/5), Sol (2/10) and GPT-6 Luna (0.10/0.50) USD per million tokens were re-read on 05/11/2026 at https://platform.claude.com/docs/en/about-claude/pricing and https://developers.openai.com/api/docs/pricing (FOUND). None had changed since 04/11/2026, so the constants and the output below are unchanged.
 
 Assumptions, all INFERRED unless marked FOUND:
 
@@ -174,21 +187,29 @@ Saving       : 67.8%
 
 This repo was built with the same pattern: an Opus orchestrator, Codex Terra and Gemini via agy as builders, and Sonnet subagents checking every pull request. Gemini was used here only to save cost on a non-critical demo. It is not part of the Keelwater proposal.
 
-Figures per work order and engine task: reports/factory/build-telemetry.csv, filled and refreshed by scripts/telemetry_summary.py (#28 Part B; columns explained in reports/factory/README.md). The block below is generated from that file: do not edit it by hand.
+Tokens per model are measured from the session logs by scripts/measure_tokens.py (reports/factory/tokens-by-model.csv; method and price sources in reports/factory/README.md). The table is generated: do not edit it by hand.
+
+<!-- tokens:start -->
+
+| Model | What it did | Total tokens | Blended rate (USD per million tokens) | API cost equivalent (USD) |
+|---|---|---|---|---|
+| Opus | Orchestrated, dispatched work orders, merged | 117,094,862 (measured) | 0.39 | 45.98 |
+| Sonnet | Built work orders, checked every pull request, ran live steps | 465,529,724 (measured) | 0.21 | 98.51 |
+| Haiku | Read, searched, summarised logs | 6,985,263 (measured) | 0.15 | 1.03 |
+| Codex Terra | Offline builds, mostly stalled or hit its limit | 35,642,913 (measured) | 0.08 | 2.79 |
+| Codex Sol | Adversarial review of the finished build | 1,461,945 (measured) | 0.41 | 0.60 |
+| Gemini Argon (agy) | One blocked turn, wrote nothing | 53,000 (measured) | 2.00 | 0.11 |
+| OpenRouter pipeline | Ran the product's pipeline stages on open-weight models | 1,510,716 (measured, lower bound) | 0.29 | 0.44 |
+| **Total** | | **628,278,423** | **0.24** | **149.48** |
+
+<!-- tokens:end -->
+
+Pass rates and reworks per work order and engine task come from reports/factory/build-telemetry.csv, refreshed by scripts/telemetry_summary.py (#28 Part B; columns explained in reports/factory/README.md). The block below is generated from that file: do not edit it by hand.
 
 <!-- measured:start -->
 
-11 done, 2 partial, 0 in progress: refreshed on 04/11/2026
+11 done, 2 partial, 0 in progress: refreshed on 05/11/2026
 (55 rows across 13 work orders.)
-
-Tokens and live spend per engine. Measured and estimated tokens are kept apart; rows with no figure are counted, never added in.
-
-| Engine | Tokens measured | Tokens estimated | Rows with tokens not reported | Live USD |
-|---|---|---|---|---|
-| opus | 0 | 157,000 | 0 | not reported |
-| sonnet | 4,268,000 | 2,087,000 | 6 | 0.51 measured + 1.44 estimated |
-| codex | 0 | 0 | 8 | not reported |
-| agy | 53,000 | 0 | 0 | not reported |
 
 First-check pass rate, reworks and share of building, per engine (build rows only; rows without a PASS or REWORK first check are left out of the rate).
 

@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\n\\nUsers experience system failures or significant slowdowns when processing large batches of claims, which limits the platform's ability to handle high-volume workloads efficiently.\\n\\n## Who is affected\\n\\n- Thistlecombe Mutual, an account with 980000.0 GBP in ARR, reported the issue through the sales route [i:766b5d8a50d314c4].\\n- This is the only account affected in the current evidence base, out of 1 accounts and 1 mentions recorded as of 2026-11-03 [i:766b5d8a50d314c4].\\n\\n## Evidence\\n\\n- A user at Thistlecombe Mutual said: \\\"we’ve had a few cases where the system choked on large batches — maybe a bug or limit?\\\" [i:766b5d8a50d314c4].\\n- The mention was logged on 2026-10-28 through the sales route, the only route with recorded mentions [i:766b5d8a50d314c4].\\n- The account's renewal date is 2027-09-01, with 0 renewals in the next 90 days [i:766b5d8a50d314c4].\\n\\n## Why now\\n\\n- The single recorded mention dates from 2026-10-28, and the fact sheet is current as of 2026-11-03 [i:766b5d8a50d314c4].\\n- With 980000.0 GBP in ARR tied to this account and 0 renewals in the next 90 days, there is no immediate renewal pressure, but the issue remains unresolved [i:766b5d8a50d314c4].\\n- The evidence covers 1 accounts, 1 mentions and 1 routes, so the scope of the problem beyond Thistlecombe Mutual is not yet established [i:766b5d8a50d314c4].\",\n \"cited_insights\": [\n  {\n   \"id\": \"766b5d8a50d314c4\",\n   \"quote\": \"we’ve had a few cases where the system choked on large batches — maybe a bug or limit?\",\n   \"account\": \"Thistlecombe Mutual\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-28T16:59:00Z\"\n  }\n ],\n \"fact_sheet\": {\n  \"as_of\": \"2026-11-03\",\n  \"accounts_n\": 1,\n  \"mentions_n\": 1,\n  \"routes_n\": 1,\n  \"mentions_by_route\": {\n   \"sales\": 1\n  },\n  \"arr_total_gbp\": 980000.0,\n  \"renewals_90d_n\": 0,\n  \"accounts\": [\n   {\n    \"name\": \"Thistlecombe Mutual\",\n    \"arr_gbp\": 980000.0,\n    \"renewal_date\": \"2027-09-01\",\n    \"mentions\": 1\n   }\n  ]\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked the quoted user statement against the cited insight and it matches verbatim. The ARR (980,000 GBP), account name, route (sales), mention date (2026-10-28), fact sheet as-of date (2026-11-03), renewal date (2027-09-01), and 0 renewals in 90 days all match the fact sheet. The brief correctly limits scope to 1 account, 1 mention, and 1 route, and explicitly acknowledges the problem's scope beyond Thistlecombe Mutual is not established, avoiding overstatement. No uncited claims or contrary evidence were found.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 914,
+   "tokens_out": 154,
+   "cost_usd": 0.00078596
+  }
+ }
+}

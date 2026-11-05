@@ -1,0 +1,62 @@
+{
+ "request": {
+  "model": "qwen/qwen3.8-27b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The platform does not allow users to verify third-party bank details before issuing payments, leading to failed transactions and reissuance delays.\n  quote: Right now, we can’t verify third-party bank info before paying — so payments bounce and we reissue days later.\n- problem: The payment detail checking feature is difficult to use and causes processing delays.\n  quote: One thing we’ve struggled with is payment detail checking — it’s causing delays.\n- problem: The platform lacks a payee account verification feature, causing payment delays that negatively impact financial reserves and supplier reporting.\n  quote: we need payee account verification to prevent delays. It’s impacting our reserves and supplier reporting too.\n- problem: The third-party payee account verification process is causing recurring delays.\n  quote: we’ve got a recurring issue with third-party payee account verification causing delays.\n- problem: The platform lacks a feature to verify third-party payee bank details before payment, causing failed payments and delays in claims resolution.\n  quote: We’re struggling because we can’t verify third-party payee bank details before sending payments — it forces us to reissue failed payments days later, which delays claims resolution for policyholders.\n- problem: The platform does not verify bank details for third-party payments before sending them, leading to failed transactions and delays.\n  quote: when we send payments to third parties, the bank info isn’t verified ahead of time... payment detail checking isn’t happening before funds go out, so we’re stuck reissuing failed payments days later\n- problem: The customer is experiencing issues with processing supplier payments.\n  quote: we’ve hit a snag with supplier payments again.\n- problem: The process of checking payment details is causing significant delays.\n  quote: We’ve had too many delays from payment detail checking."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\n\"title\": \"Missing third-party bank verification\",\n\"problem_statement\": \"Users cannot verify third-party bank details before issuing payments, causing transactions to fail. This forces reissuance days later, delaying claims resolution and impacting financial reserves.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 494,
+   "tokens_out": 53,
+   "cost_usd": 0.0002313
+  }
+ }
+}

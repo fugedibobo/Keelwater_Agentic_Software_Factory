@@ -377,7 +377,7 @@ def _series(pairs, key):
 
 
 def drift(store):
-    judged = {(j["target_id"], j["judge"]): j["verdict"] for j in q(store, "SELECT * FROM judgement WHERE target_type='brief'")}
+    judged = {(j["target_id"], j["judge"]): j["verdict"] for j in q(store, "SELECT * FROM judgement WHERE target_type='brief' AND verdict!='not_independent'")}
     labels = q(store, "SELECT * FROM label WHERE blind=1 ORDER BY created_at")
     agree = [(_week(l["created_at"]), float(judged[(l["target_id"], l["judge"])] == l["verdict"]), 1) for l in labels if (l["target_id"], l["judge"]) in judged]
     miss = [(_week(l["created_at"]), l["weight"] * (l["verdict"] == "pass"), l["weight"]) for l in labels if l["target_type"] == "noise_audit"]

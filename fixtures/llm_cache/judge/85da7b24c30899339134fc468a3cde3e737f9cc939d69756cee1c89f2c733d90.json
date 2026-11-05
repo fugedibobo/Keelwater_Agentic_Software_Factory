@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\n\\nUsers are unsure how to upload policyholder documents without accidentally triggering reserve alerts. This uncertainty creates friction in the workflow and risks generating unnecessary notifications.\\n\\n## Who is affected\\n\\n- Brackwater Homecover raised this uncertainty through the support route [i:8b9467aa186d8d6f].\\n- The fact sheet covers 1 accounts, 1 mentions and 1 routes, with 0 renewals in the next 90 days [i:8b9467aa186d8d6f].\\n\\n## Evidence\\n\\n- A Brackwater Homecover user asked: \\\"How do I upload policyholder documents into the system without triggering a reserve alert?\\\" [i:8b9467aa186d8d6f]\\n- The question was logged on 2026-09-10 via the support route [i:8b9467aa186d8d6f].\\n- Brackwater Homecover carries ARR of £610000.0 and renews on 2027-10-10 [i:8b9467aa186d8d6f].\\n- The evidence base is thin: 1 mentions across 1 accounts and 1 routes, all from support, with no insight pointing the other way [i:8b9467aa186d8d6f].\\n\\n## Why now\\n\\n- The only signal is recent, dated 2026-09-10, and comes from an account with ARR of £610000.0 [i:8b9467aa186d8d6f].\\n- There are 0 renewals in the next 90 days, so there is no renewal-driven urgency attached to this account [i:8b9467aa186d8d6f].\\n- With 1 accounts and 1 mentions as of 2026-10-01, this is a single-account signal rather than a broad pattern [i:8b9467aa186d8d6f].\\n\",\n \"cited_insights\": [\n  {\n   \"id\": \"8b9467aa186d8d6f\",\n   \"quote\": \"How do I upload policyholder documents into the system without triggering a reserve alert?\",\n   \"account\": \"Brackwater Homecover\",\n   \"route\": \"support\",\n   \"date\": \"2026-09-10T10:12:00+00:00\"\n  }\n ],\n \"fact_sheet\": {\n  \"as_of\": \"2026-10-01\",\n  \"accounts_n\": 1,\n  \"mentions_n\": 1,\n  \"routes_n\": 1,\n  \"mentions_by_route\": {\n   \"support\": 1\n  },\n  \"arr_total_gbp\": 610000.0,\n  \"renewals_90d_n\": 0,\n  \"accounts\": [\n   {\n    \"name\": \"Brackwater Homecover\",\n    \"arr_gbp\": 610000.0,\n    \"renewal_date\": \"2027-10-10\",\n    \"mentions\": 1\n   }\n  ]\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked the quoted user question against the cited insight and it matches verbatim, so no paraphrase is placed in quotation marks. All figures match the fact sheet: 1 account, 1 mention, 1 route (support), ARR £610000.0, renewal date 2027-10-10, 0 renewals in the next 90 days, and the 2026-09-10 log date. The brief correctly frames this as a single-account signal rather than a broad pattern, and there is no contrary evidence to omit since only one insight exists. Scope is appropriately limited to the cited account and route.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 911,
+   "tokens_out": 154,
+   "cost_usd": 0.0007254
+  }
+ }
+}

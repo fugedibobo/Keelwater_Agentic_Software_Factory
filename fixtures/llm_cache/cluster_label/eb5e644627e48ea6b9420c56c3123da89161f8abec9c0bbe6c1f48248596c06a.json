@@ -1,0 +1,62 @@
+{
+ "request": {
+  "model": "qwen/qwen3.8-27b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The system creates duplicate claims when the same incident is reported via both phone and portal, without any alert to flag the duplication.\n  quote: same incident came in both by phone and through the portal, and now we’ve got two separate claims with no alert to flag it.\n- problem: The system fails to detect or alert users when the same incident is reported via multiple channels, resulting in duplicate claims.\n  quote: When a policyholder reports the same incident both by phone and through the web portal, the system doesn’t alert us — it just creates two separate claims...\n- problem: The system allows duplicate loss reports for the same incident to be created without triggering an alert during intake.\n  quote: we’ve had a duplicate loss report issue — same incident logged twice, no alert triggered at intake.\n- problem: The system fails to detect and alert users about duplicate claims when the same incident is reported via multiple channels.\n  quote: when a policyholder reports the same incident both by phone and through the web portal, the system doesn’t alert us — it just creates two separate claims.\n- problem: The system fails to detect and prevent duplicate loss reports submitted via different channels, leading to data integrity issues.\n  quote: We’ve seen the same loss reported through two channels — phone and web — and no system warning appeared, creating a duplicate loss report that complicates our reserves and payments.\n- problem: The platform lacks an automated duplicate claim detection feature, forcing users to manually cross-check every new claim.\n  quote: Right now, we’re manually cross-checking every new claim to avoid the same claim twice, which eats up time we could spend on supplier coordination or reporting.\n- problem: The system fails to automatically detect and flag duplicate claims submitted through different channels.\n  quote: It’s messy when the same claim twice comes in — one by phone, one online, and the system doesn’t flag it.\n- problem: The system fails to detect and alert users when the same incident is reported via multiple channels, resulting in duplicate claims that disrupt financial reserves and adjuster workflows.\n  quote: the same incident came in both by phone and web portal, and now we’ve got two separate claims with no alert to flag it... causing real confusion for our adjusters when reserves and payments get split across two records."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Missing duplicate claim detection alerts\",\n  \"problem_statement\": \"Adjusters are affected because the system creates duplicate claims when the same incident is reported via multiple channels without triggering an alert. This forces manual cross-checking and splits financial reserves, disrupting workflow and data integrity.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 597,
+   "tokens_out": 64,
+   "cost_usd": 0.00014868
+  }
+ }
+}

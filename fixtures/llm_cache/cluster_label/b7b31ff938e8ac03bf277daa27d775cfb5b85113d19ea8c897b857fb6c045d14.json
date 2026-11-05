@@ -1,0 +1,62 @@
+{
+ "request": {
+  "model": "qwen/qwen3.8-27b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The user is frustrated by the repetitive clicking required to open documents, specifically having to click 'Document type' multiple times before being able to click 'Open'.\n  quote: Documents: click \"Document type\", rage x5\nDocuments: click \"Open\"\n- problem: The user is frustrated by the repetitive clicking required to select document types and save documents.\n  quote: Documents: click \"Document type\", rage x5\nDocuments: click \"Save\"\n- problem: The user is frustrated with the document saving process, specifically when clicking 'Save' after opening a document.\n  quote: Documents: click \"Open\"\nDocuments: click \"Save\", rage x3\n- problem: The user is frustrated by the repetitive clicking required to open documents, specifically having to click 'Document type' multiple times before being able to click 'Open'.\n  quote: Documents: click \"Document type\", rage x5\nDocuments: click \"Open\"\n- problem: The user is frustrated because the 'Save' action on claim details fails or behaves unexpectedly, requiring multiple attempts.\n  quote: Claim details: click \"Save\", rage x3\n- problem: The user is frustrated and repeatedly clicking the Save button, indicating it may not be working or providing feedback.\n  quote: Tasks: click \"Save\", rage x3\n- problem: The save action for suppliers is unreliable or frustrating, causing repeated failures.\n  quote: Suppliers: click \"Save\", rage x3\n- problem: The user is frustrated by the repetitive and cumbersome process of saving task details.\n  quote: Tasks: click \"Details\"\nTasks: click \"Save\", rage x3"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\n  \"problem_statement\": \"Users are forced to perform repetitive and unreliable save actions across various sections of the platform. This friction causes frustration and delays because the system fails to provide immediate confirmation or requires excessive clicks to complete basic tasks.\",\n  \"title\": \"Unreliable and repetitive save actions\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 459,
+   "tokens_out": 65,
+   "cost_usd": 0.000113565
+  }
+ }
+}

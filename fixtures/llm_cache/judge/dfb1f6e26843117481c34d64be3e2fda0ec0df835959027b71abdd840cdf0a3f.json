@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\n\\nUsers cannot see how financial reserves align with supplier updates in real time, which prevents them from monitoring supplier performance and managing financial controls. The gap appears in the sales route, where 2 mentions across 2 accounts describe the same need for real-time visibility into reserves and supplier activity [i:f198f05f3726bee3][i:f8c9ec288b00cc31].\\n\\n## Who is affected\\n\\n- Marrowgate Commercial, an account with 1600000.0 GBP in ARR and a renewal on 2026-12-12, wants to see how reserves and payments sync with supplier updates in real time [i:f198f05f3726bee3].\\n- Duncastle Auto, an account with 80000.0 GBP in ARR and a renewal on 2027-08-19, needs better oversight on reserves and supplier performance [i:f8c9ec288b00cc31].\\n\\n## Evidence\\n\\n- Across 2 accounts and 2 mentions, all 2 mentions arrived through the sales route, and the total ARR represented is 1680000.0 GBP [i:f198f05f3726bee3][i:f8c9ec288b00cc31].\\n- Marrowgate Commercial raised the need for real-time syncing of reserves and payments with supplier updates, saying \\\"especially if we can see how reserves and payments sync with supplier updates in real time\\\" [i:f198f05f3726bee3].\\n- Duncastle Auto framed the same gap as an oversight problem, saying \\\"we need better oversight on reserves and supplier performance.\\\" [i:f8c9ec288b00cc31].\\n- Marrowgate Commercial, one of the 2 accounts, has a renewal within the next 90 days, on 2026-12-12 [i:f198f05f3726bee3].\\n\\n## Why now\\n\\n- The fact sheet records 1 renewal within 90 days, at Marrowgate Commercial on 2026-12-12, and that account carries 1600000.0 GBP of the 1680000.0 GBP total ARR in scope [i:f198f05f3726bee3].\\n- The evidence base is small: 2 accounts, 2 mentions and 1 route, all sales, as of 2026-11-03, so the pattern is directional rather than broad [i:f198f05f3726bee3][i:f8c9ec288b00cc31].\\n- No cited insight argues against the need for real-time reserve visibility; both cited accounts describe the same gap [i:f198f05f3726bee3][i:f8c9ec288b00cc31].\\n\",\n \"cited_insights\": [\n  {\n   \"id\": \"f198f05f3726bee3\",\n   \"quote\": \"especially if we can see how reserves and payments sync with supplier updates in real time\",\n   \"account\": \"Marrowgate Commercial\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-17T13:44:00Z\"\n  },\n  {\n   \"id\": \"f8c9ec288b00cc31\",\n   \"quote\": \"we need better oversight on reserves and supplier performance.\",\n   \"account\": \"Duncastle Auto\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-14T16:28:00Z\"\n  }\n ],\n \"fact_sheet\": {\n  \"as_of\": \"2026-11-03\",\n  \"accounts_n\": 2,\n  \"mentions_n\": 2,\n  \"routes_n\": 1,\n  \"mentions_by_route\": {\n   \"sales\": 2\n  },\n  \"arr_total_gbp\": 1680000.0,\n  \"renewals_90d_n\": 1,\n  \"accounts\": [\n   {\n    \"name\": \"Marrowgate Commercial\",\n    \"arr_gbp\": 1600000.0,\n    \"renewal_date\": \"2026-12-12\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Duncastle Auto\",\n    \"arr_gbp\": 80000.0,\n    \"renewal_date\": \"2027-08-19\",\n    \"mentions\": 1\n   }\n  ]\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked the brief's figures against the fact sheet and cited insights: the 2 accounts, 2 mentions, all-sales route, 1680000.0 GBP total ARR, 1600000.0 GBP for Marrowgate Commercial with a 2026-12-12 renewal, and 80000.0 GBP for Duncastle Auto with a 2027-08-19 renewal all match exactly. The quoted phrases match the cited insight quotes verbatim, including the Duncastle Auto oversight quote. The 90-day renewal claim is consistent with the as-of date (2026-12-12 is within 90 days of 2026-11-03), and no contrary citations exist. Claims are appropriately scoped, noting the evidence base is small and directional.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1189,
+   "tokens_out": 244,
+   "cost_usd": 0.000554431
+  }
+ }
+}

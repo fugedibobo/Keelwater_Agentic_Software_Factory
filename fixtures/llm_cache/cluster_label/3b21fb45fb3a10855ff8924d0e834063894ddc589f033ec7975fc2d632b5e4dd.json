@@ -1,0 +1,62 @@
+{
+ "request": {
+  "model": "qwen/qwen3.8-27b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The user is unsure how to split a single payment across multiple payees within the claims platform.\n  quote: We’ve got a claim where we need to split a payment across several payees — not sure how to handle that in the system.\n- problem: The customer cannot locate the option to split a payment across multiple payees within the payments or tasks sections.\n  quote: I’m not seeing the option under payments or tasks right now."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Missing multi-payee payment split option\",\n  \"problem_statement\": \"Users cannot find a way to divide a single claim payment among multiple recipients. This prevents them from processing claims that require distributing funds to several parties.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 208,
+   "tokens_out": 54,
+   "cost_usd": 0.0001766
+  }
+ }
+}

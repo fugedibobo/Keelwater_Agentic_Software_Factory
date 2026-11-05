@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (duplicate) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is the core problem still open, not solved by a shipped story and not covered by a roadmap item? Pass means yes.\nCompare the problem itself, not the product area. A spike that is unstarted or in progress is not shipped.\nFail if a completed story solves the same problem, or a roadmap item already covers it.\nThe evidence is the problem statement and the five most similar stories and roadmap pages, with status and dates.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"Users struggle to track changes to documents, leading to confusion about which version is current. This lack of clear versioning creates risk and inefficiency in managing claim files.\",\n \"similar\": [\n  {\n   \"source\": \"notion\",\n   \"id\": \"4f3af2fd-e874-528b-a6f7-1719625085d3\",\n   \"similarity\": 0.069,\n   \"record\": \"{\\\"id\\\": \\\"4f3af2fd-e874-528b-a6f7-1719625085d3\\\", \\\"object\\\": \\\"page\\\", \\\"properties\\\": {\\\"Name\\\": {\\\"title\\\": [{\\\"plain_text\\\": \\\"Claims timeline\\\", \\\"text\\\": {\\\"content\\\": \\\"Claims timeline\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"title\\\"}, \\\"Problem\\\": {\\\"rich_text\\\": [{\\\"plain_text\\\": \\\"Keelwater's Claims timeline provides a clear, chronological view of each claim's progress, helping users track key events, decisions, and deadlines from submission through resolution.\\\", \\\"text\\\": {\\\"content\\\": \\\"Keelwater's Claims timeline provides a clear, chronological view of each claim's progress, helping users track key events, decisions, and deadlines from submission through resolution.\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"rich_text\\\"}, \\\"Status\\\": {\\\"sta\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4127\",\n   \"similarity\": 0.062,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-10-06T00:00:00Z\\\", \\\"description\\\": \\\"Users can now upload multiple documents at once to a claim in Keelwater, streamlining the process and reducing manual effort for claims handlers.\\\", \\\"id\\\": 4127, \\\"name\\\": \\\"Bulk upload documents to a claim\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4135\",\n   \"similarity\": 0.055,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": false, \\\"completed_at\\\": null, \\\"description\\\": \\\"Keelwater's claim information display provides a clear, real-time overview of active claims, including status, assigned adjuster, and key dates, helping users stay informed without switching screens.\\\", \\\"id\\\": 4135, \\\"name\\\": \\\"Claim information display\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 2}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4137\",\n   \"similarity\": 0.053,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": false, \\\"completed_at\\\": null, \\\"description\\\": \\\"Users can navigate through claim reports using intuitive shortcuts, streamlining access to key data without leaving the current view. Keelwater’s interface ensures quick filtering and drill-downs for efficient claim analysis.\\\", \\\"id\\\": 4137, \\\"name\\\": \\\"Reporting navigation\\\", \\\"started\\\": false, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 1}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4128\",\n   \"similarity\": 0.037,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-09-15T00:00:00Z\\\", \\\"description\\\": \\\"Keelwater now allows users to filter claims by date range, status, and claim type, making it easier to locate specific claims without scrolling through unrelated entries.\\\", \\\"id\\\": 4128, \\\"name\\\": \\\"Claim search refinements\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The problem is unclear document versioning in claim files. I checked the five most similar items: the Claims timeline page (chronological claim view, not versioning), completed story 4127 (bulk document upload), in-progress 4135 (claim information display), unstarted 4137 (reporting navigation), and completed 4128 (claim search refinements). None address document version tracking or identifying the current version of a document, and no roadmap item covers it. The core problem remains open.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1054,
+   "tokens_out": 119,
+   "cost_usd": 0.00111166
+  }
+ }
+}

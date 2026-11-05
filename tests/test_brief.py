@@ -78,7 +78,7 @@ def test_run_stores_passing_brief_and_proposes(tmp_store, fake_gateway):
     run(make_ctx(gw, tmp_store))
     (b,) = tmp_store.select("brief")
     assert b["check_status"] == "passed" and b["check_failures_json"] == [] and sorted(b["citations_json"]) == sorted(ids.values())
-    assert b["call_id"] in {r["call_id"] for r in tmp_store.select("model_call")} and b["model"] == "deepseek/deepseek-v3.2"
+    assert b["call_id"] in {r["call_id"] for r in tmp_store.select("model_call")} and b["model"] == "deepseek/deepseek-v4.1-flash"
     assert tmp_store.select("opportunity", {"opportunity_id": "O1"})[0]["status"] == "proposed"
     (ev,) = tmp_store.select("audit_event")
     assert (ev["actor_kind"], ev["action"]) == ("system", "opportunity.transition")

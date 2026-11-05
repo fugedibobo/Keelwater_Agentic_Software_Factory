@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\n\\nUsers in the claims and reports modules hit repeated failures when they try to save data, forcing retries and disrupting critical workflow steps.\\n\\n## Who is affected\\n\\n- Cindermill Trade Cover, an account with 210000.0 GBP in ARR, shows a save failure in reports [i:53a0a8246321d967].\\n- Duncastle Auto, an account with 80000.0 GBP in ARR, shows a save failure in claims [i:70c5aa1266521193].\\n- Merrow Vale Motor, an account with 46000.0 GBP in ARR, shows a save failure in reports [i:89447aec7087b72c].\\n- Marrowgate Commercial, an account with 1600000.0 GBP in ARR and a renewal date of 2026-12-12, shows a save failure in claim details [i:e0f16662367fc69b].\\n- Tidewell Marine & Cargo, an account with 420000.0 GBP in ARR, shows a save failure in reports [i:e7aba248526ebedf].\\n\\n## Evidence\\n\\n- Across 5 accounts and 5 mentions, all 5 mentions arrive on the sessions route, the only route represented [i:53a0a8246321d967][i:70c5aa1266521193][i:89447aec7087b72c][i:e0f16662367fc69b][i:e7aba248526ebedf].\\n- Cindermill Trade Cover recorded a reports save attempt followed by three rage clicks on 2026-09-22 [i:53a0a8246321d967].\\n- Duncastle Auto recorded a claims open, then a claims save attempt followed by three rage clicks, on 2026-10-20 [i:70c5aa1266521193].\\n- Merrow Vale Motor recorded a reports save attempt followed by three rage clicks on 2026-09-13 [i:89447aec7087b72c].\\n- Marrowgate Commercial recorded a claim details save attempt followed by three rage clicks on 2026-10-25 [i:e0f16662367fc69b].\\n- Tidewell Marine & Cargo recorded a reports save attempt followed by three rage clicks on 2026-10-29 [i:e7aba248526ebedf].\\n- The affected accounts total 2356000.0 GBP in ARR, with 1 renewal inside 90 days [i:e0f16662367fc69b].\\n\\n## Why now\\n\\n- Marrowgate Commercial, the largest affected account at 1600000.0 GBP in ARR, renews on 2026-12-12, and it is the 1 renewal inside 90 days [i:e0f16662367fc69b].\\n- The remaining affected accounts renew later: Cindermill Trade Cover on 2027-04-03, Merrow Vale Motor on 2027-04-08, Tidewell Marine & Cargo on 2027-07-31, and Duncastle Auto on 2027-08-19 [i:53a0a8246321d967][i:89447aec7087b72c][i:e7aba248526ebedf][i:70c5aa1266521193].\\n- No cited insight points the other way; every mention captured here is a save failure [i:53a0a8246321d967][i:70c5aa1266521193][i:89447aec7087b72c][i:e0f16662367fc69b][i:e7aba248526ebedf].\\n\",\n \"cited_insights\": [\n  {\n   \"id\": \"53a0a8246321d967\",\n   \"quote\": \"Reports: click \\\"Save\\\", rage x3\",\n   \"account\": \"Cindermill Trade Cover\",\n   \"route\": \"sessions\",\n   \"date\": \"2026-09-22T09:41:00Z\"\n  },\n  {\n   \"id\": \"70c5aa1266521193\",\n   \"quote\": \"Claims: click \\\"Open\\\"\\nClaims: click \\\"Save\\\", rage x3\",\n   \"account\": \"Duncastle Auto\",\n   \"route\": \"sessions\",\n   \"date\": \"2026-10-20T13:34:00Z\"\n  },\n  {\n   \"id\": \"89447aec7087b72c\",\n   \"quote\": \"Reports: click \\\"Save\\\", rage x3\",\n   \"account\": \"Merrow Vale Motor\",\n   \"route\": \"sessions\",\n   \"date\": \"2026-09-13T13:48:00Z\"\n  },\n  {\n   \"id\": \"e0f16662367fc69b\",\n   \"quote\": \"Claim details: click \\\"Save\\\", rage x3\",\n   \"account\": \"Marrowgate Commercial\",\n   \"route\": \"sessions\",\n   \"date\": \"2026-10-25T12:46:00Z\"\n  },\n  {\n   \"id\": \"e7aba248526ebedf\",\n   \"quote\": \"Reports: click \\\"Save\\\", rage x3\",\n   \"account\": \"Tidewell Marine & Cargo\",\n   \"route\": \"sessions\",\n   \"date\": \"2026-10-29T10:23:00Z\"\n  }\n ],\n \"fact_sheet\": {\n  \"as_of\": \"2026-11-03\",\n  \"accounts_n\": 5,\n  \"mentions_n\": 5,\n  \"routes_n\": 1,\n  \"mentions_by_route\": {\n   \"sessions\": 5\n  },\n  \"arr_total_gbp\": 2356000.0,\n  \"renewals_90d_n\": 1,\n  \"accounts\": [\n   {\n    \"name\": \"Cindermill Trade Cover\",\n    \"arr_gbp\": 210000.0,\n    \"renewal_date\": \"2027-04-03\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Duncastle Auto\",\n    \"arr_gbp\": 80000.0,\n    \"renewal_date\": \"2027-08-19\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Merrow Vale Motor\",\n    \"arr_gbp\": 46000.0,\n    \"renewal_date\": \"2027-04-08\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Marrowgate Commercial\",\n    \"arr_gbp\": 1600000.0,\n    \"renewal_date\": \"2026-12-12\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Tidewell Marine & Cargo\",\n    \"arr_gbp\": 420000.0,\n    \"renewal_date\": \"2027-07-31\",\n    \"mentions\": 1\n   }\n  ]\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked each account's ARR, renewal date, and cited insight quote against the fact sheet: all five figures (210000, 80000, 46000, 1600000, 420000 GBP) and renewal dates match exactly, and the total 2356000 GBP ARR with 1 renewal inside 90 days (Marrowgate Commercial, 2026-12-12, ~39 days from the 2026-11-03 as-of date) is correct. The 5 mentions across 5 accounts all appear on the sessions route as claimed, and each insight quote (save click followed by rage x3 in reports/claims/claim details) matches the brief's paraphrases without overstated wording or invented quotations. No contrary evidence is omitted or misread.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1819,
+   "tokens_out": 301,
+   "cost_usd": 0.0005485481
+  }
+ }
+}

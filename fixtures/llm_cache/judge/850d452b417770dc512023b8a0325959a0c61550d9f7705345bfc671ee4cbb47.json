@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (faithfulness) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is every claim in the brief supported by the cited evidence and the fact sheet, with nothing overstated and no cited contrary evidence left out? Pass means yes.\nFail on an uncited claim, a number that is off the fact sheet, a scope wider than the cited accounts, a paraphrase placed in quotation marks, or an ignored contrary citation.\nThe evidence is the brief, the cited insights and the fact sheet (accounts, ARR, mentions, routes, renewals).\n</definition>\n<evidence>\n{\n \"brief\": \"## Problem\\n\\nUsers are forced to perform repetitive and unreliable save actions across various sections of the platform. This friction causes frustration and delays because the system fails to provide immediate confirmation or requires excessive clicks to complete basic tasks. The friction is concentrated in the sessions route, which accounts for 9 of 9 mentions [i:11897ea3be5abb30].\\n\\n## Who is affected\\n\\n- 9 accounts are affected, with 9 mentions in total, all on the sessions route [i:27646d450fb8710b].\\n- Thistlecombe Mutual, worth £980000.0 in ARR, is affected [i:11897ea3be5abb30].\\n- Cindermill Trade Cover, worth £210000.0 in ARR, is affected [i:27646d450fb8710b].\\n- Stannary Commercial, worth £540000.0 in ARR, is affected [i:358dc611c11a4ee3].\\n- Wexmoor Motor, worth £1950000.0 in ARR, is affected [i:53d9266a0f40889d].\\n- Elderfold Home, worth £170000.0 in ARR, is affected [i:76db68b64a57f1d2].\\n- Calderwick Commercial, worth £52000.0 in ARR, is affected [i:7e36b07e5e865b73].\\n- Quillon Business Insurance, worth £860000.0 in ARR, is affected [i:d17c809e6db26649].\\n- Ormsgill Cyber, worth £135000.0 in ARR, is affected [i:da2669cab9d3fd2c].\\n- Hollinbrook Home Insurance, worth £2400000.0 in ARR, is affected [i:e22d62ba1644eeff].\\n- Total ARR across these accounts is £7297000.0 [i:11897ea3be5abb30].\\n\\n## Evidence\\n\\n- Thistlecombe Mutual reported: \\\"Documents: click \\\\\\\"Document type\\\\\\\", rage x5\\\\nDocuments: click \\\\\\\"Open\\\\\\\"\\\" [i:11897ea3be5abb30].\\n- Cindermill Trade Cover reported: \\\"Documents: click \\\\\\\"Document type\\\\\\\", rage x5\\\\nDocuments: click \\\\\\\"Save\\\\\\\"\\\" [i:27646d450fb8710b].\\n- Stannary Commercial reported: \\\"Documents: click \\\\\\\"Open\\\\\\\"\\\\nDocuments: click \\\\\\\"Save\\\\\\\", rage x3\\\" [i:358dc611c11a4ee3].\\n- Wexmoor Motor reported: \\\"Documents: click \\\\\\\"Document type\\\\\\\", rage x5\\\\nDocuments: click \\\\\\\"Open\\\\\\\"\\\" [i:53d9266a0f40889d].\\n- Elderfold Home reported: \\\"Claim details: click \\\\\\\"Save\\\\\\\", rage x3\\\" [i:76db68b64a57f1d2].\\n- Calderwick Commercial reported: \\\"Tasks: click \\\\\\\"Save\\\\\\\", rage x3\\\" [i:7e36b07e5e865b73].\\n- Quillon Business Insurance reported: \\\"Suppliers: click \\\\\\\"Save\\\\\\\", rage x3\\\" [i:d17c809e6db26649].\\n- Ormsgill Cyber reported: \\\"Tasks: click \\\\\\\"Details\\\\\\\"\\\\nTasks: click \\\\\\\"Save\\\\\\\", rage x3\\\" [i:da2669cab9d3fd2c].\\n- Hollinbrook Home Insurance reported: \\\"Documents: click \\\\\\\"Document type\\\\\\\", rage x5\\\" [i:e22d62ba1644eeff].\\n- The friction spans multiple sections, including Documents, Claim details, Tasks and Suppliers [i:358dc611c11a4ee3].\\n\\n## Why now\\n\\n- 2 renewals fall within the next 90 days, including Stannary Commercial on 2026-12-05 and Elderfold Home on 2026-12-21 [i:358dc611c11a4ee3].\\n- Stannary Commercial, worth £540000.0 in ARR, renews on 2026-12-05 [i:358dc611c11a4ee3].\\n- Elderfold Home, worth £170000.0 in ARR, renews on 2026-12-21 [i:76db68b64a57f1d2].\\n- The fact sheet is current as of 2026-10-01 [i:11897ea3be5abb30].\\n\",\n \"cited_insights\": [\n  {\n   \"id\": \"11897ea3be5abb30\",\n   \"quote\": \"Documents: click \\\"Document type\\\", rage x5\\nDocuments: click \\\"Open\\\"\",\n   \"account\": \"Thistlecombe Mutual\",\n   \"route\": \"sessions\",\n   \"date\": \"2026-09-05T14:45:00Z\"\n  },\n  {\n   \"id\": \"27646d450fb8710b\",\n   \"quote\": \"Documents: click \\\"Document type\\\", rage x5\\nDocuments: click \\\"Save\\\"\",\n   \"account\": \"Cindermill Trade Cover\",\n   \"route\": \"sessions\",\n   \"date\": \"2026-09-14T15:35:00Z\"\n  },\n  {\n   \"id\": \"358dc611c11a4ee3\",\n   \"quote\": \"Documents: click \\\"Open\\\"\\nDocuments: click \\\"Save\\\", rage x3\",\n   \"account\": \"Stannary Commercial\",\n   \"route\": \"sessions\",\n   \"date\": \"2026-09-16T10:04:00Z\"\n  },\n  {\n   \"id\": \"53d9266a0f40889d\",\n   \"quote\": \"Documents: click \\\"Document type\\\", rage x5\\nDocuments: click \\\"Open\\\"\",\n   \"account\": \"Wexmoor Motor\",\n   \"route\": \"sessions\",\n   \"date\": \"2026-09-23T09:05:00Z\"\n  },\n  {\n   \"id\": \"76db68b64a57f1d2\",\n   \"quote\": \"Claim details: click \\\"Save\\\", rage x3\",\n   \"account\": \"Elderfold Home\",\n   \"route\": \"sessions\",\n   \"date\": \"2026-09-28T14:00:00Z\"\n  },\n  {\n   \"id\": \"7e36b07e5e865b73\",\n   \"quote\": \"Tasks: click \\\"Save\\\", rage x3\",\n   \"account\": \"Calderwick Commercial\",\n   \"route\": \"sessions\",\n   \"date\": \"2026-10-22T16:10:00Z\"\n  },\n  {\n   \"id\": \"d17c809e6db26649\",\n   \"quote\": \"Suppliers: click \\\"Save\\\", rage x3\",\n   \"account\": \"Quillon Business Insurance\",\n   \"route\": \"sessions\",\n   \"date\": \"2026-09-09T14:19:00Z\"\n  },\n  {\n   \"id\": \"da2669cab9d3fd2c\",\n   \"quote\": \"Tasks: click \\\"Details\\\"\\nTasks: click \\\"Save\\\", rage x3\",\n   \"account\": \"Ormsgill Cyber\",\n   \"route\": \"sessions\",\n   \"date\": \"2026-09-06T10:17:00Z\"\n  },\n  {\n   \"id\": \"e22d62ba1644eeff\",\n   \"quote\": \"Documents: click \\\"Document type\\\", rage x5\",\n   \"account\": \"Hollinbrook Home Insurance\",\n   \"route\": \"sessions\",\n   \"date\": \"2026-09-03T12:51:00Z\"\n  }\n ],\n \"fact_sheet\": {\n  \"as_of\": \"2026-10-01\",\n  \"accounts_n\": 9,\n  \"mentions_n\": 9,\n  \"routes_n\": 1,\n  \"mentions_by_route\": {\n   \"sessions\": 9\n  },\n  \"arr_total_gbp\": 7297000.0,\n  \"renewals_90d_n\": 2,\n  \"accounts\": [\n   {\n    \"name\": \"Thistlecombe Mutual\",\n    \"arr_gbp\": 980000.0,\n    \"renewal_date\": \"2027-09-01\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Cindermill Trade Cover\",\n    \"arr_gbp\": 210000.0,\n    \"renewal_date\": \"2027-04-03\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Stannary Commercial\",\n    \"arr_gbp\": 540000.0,\n    \"renewal_date\": \"2026-12-05\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Wexmoor Motor\",\n    \"arr_gbp\": 1950000.0,\n    \"renewal_date\": \"2027-06-30\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Elderfold Home\",\n    \"arr_gbp\": 170000.0,\n    \"renewal_date\": \"2026-12-21\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Calderwick Commercial\",\n    \"arr_gbp\": 52000.0,\n    \"renewal_date\": \"2027-09-24\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Quillon Business Insurance\",\n    \"arr_gbp\": 860000.0,\n    \"renewal_date\": \"2027-01-20\",\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Ormsgill Cyber\",\n    \"arr_gbp\": 135000.0,\n    \"renewal_date\": null,\n    \"mentions\": 1\n   },\n   {\n    \"name\": \"Hollinbrook Home Insurance\",\n    \"arr_gbp\": 2400000.0,\n    \"renewal_date\": \"2027-01-15\",\n    \"mentions\": 1\n   }\n  ]\n }\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked the affected-account list, ARR figures, mention/route counts, quotes, and renewal claims against the cited insights and fact sheet. All 9 accounts and their ARR values match the fact sheet, the total £7,297,000 matches, and 9 of 9 mentions on the sessions route is confirmed. The quoted evidence texts match the cited insights verbatim, and the 'multiple sections' claim is supported by quotes spanning Documents, Claim details, Tasks and Suppliers. The two 90-day renewals (Stannary Commercial 2026-12-05, Elderfold Home 2026-12-21) match the fact sheet, as does the as-of date of 2026-10-01. No uncited, overstated, or contrary items were found.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 2513,
+   "tokens_out": 248,
+   "cost_usd": 0.0005228587
+  }
+ }
+}

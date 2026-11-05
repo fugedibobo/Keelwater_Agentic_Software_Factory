@@ -1,0 +1,62 @@
+{
+ "request": {
+  "model": "qwen/qwen3.8-27b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The system fails to display updated supplier payments when generating reports on outstanding claims and reserves.\n  quote: we’re trying to pull a full report on outstanding claims and reserves but the system’s not showing updated supplier payments.\n- problem: The user is unable to view reserves or generate supplier payment reports even after resetting the system, which prevents them from completing their weekly reporting tasks.\n  quote: Yes, I reset it yesterday and still can’t view the reserves or generate supplier payments reports. It’s blocking our weekly reporting.\n- problem: The user is unable to retrieve updated reserve data for high-value claims.\n  quote: we’re having trouble pulling updated reserves for our high-value claims this morning.\n- problem: The reserves report displays outdated figures despite re-syncing integrations.\n  quote: we’re having trouble pulling the latest reserves report for our policyholders. It’s showing outdated figures even after we re-synced the integrations.\n- problem: The system fails to correctly retrieve supplier payment data when reconciling reserves for a batch of claims.\n  quote: I’m trying to reconcile the reserves for our latest batch of claims but the system isn’t pulling through the supplier payments correctly\n- problem: Reserves are not updating in the reporting tab despite reprocessing documents.\n  quote: We’ve already reprocessed the documents twice but the reserves still aren’t updating in the reporting tab.\n- problem: The user is unable to reconcile reserve updates with processed payments because the numbers do not match, indicating a potential data integrity or reporting issue within the platform.\n  quote: I’m trying to reconcile the latest reserves update with the payments we’ve processed for policyholders this week, and the numbers aren’t lining up.\n- problem: The system is failing to generate the latest payments report, causing delays in month-end financial closing.\n  quote: we’re having trouble pulling the latest payments report for our policyholders, and it’s holding up our month-end close."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\n\"title\": \"Outdated Reserves and Payment Data in Reports\",\n\"problem_statement\": \"Users cannot access current reserve figures or supplier payment data when generating reports. This prevents accurate reconciliation and blocks critical weekly and month-end financial tasks.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 520,
+   "tokens_out": 52,
+   "cost_usd": 0.000234
+  }
+ }
+}

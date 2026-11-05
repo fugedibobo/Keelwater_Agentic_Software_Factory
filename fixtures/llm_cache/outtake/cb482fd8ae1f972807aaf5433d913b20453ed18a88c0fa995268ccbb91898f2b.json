@@ -1,0 +1,53 @@
+{
+ "request": {
+  "model": "qwen/qwen3.8-flash",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou draft customer-facing text for Keelwater, which makes claims-handling software. A person reviews every draft before anything is sent.\n</role>\n<story>\n{\n \"id\": 4131,\n \"name\": \"Workspace administration\",\n \"description\": \"Keelwater's workspace administration feature allows users to manage permissions, configure settings, and organize teams within their claims environment — all through a centralized, intuitive dashboard.\"\n}\n</story>\n<problem>\nNot stated.\n</problem>\n<rules>\n- Write a help-centre article: a title, one sentence on what the feature is, then numbered steps to use it.\n- The change ships in an announced release bundle on a published cadence and is controlled by a feature flag. Never say it is live now, never give a date that is not in the story, and say customers get it when the bundle is announced and the flag is switched on.\n- Use only the story and the problem above. Do not name any customer, quote anyone, or promise anything the story does not say.\n</rules>\n<output>\nJSON only: {\"body_md\": the draft as Markdown}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 800,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "outtake",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "body_md": {
+       "title": "Body Md",
+       "type": "string"
+      }
+     },
+     "required": [
+      "body_md"
+     ],
+     "title": "OuttakeOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\n  \"body_md\": \"# Workspace Administration\\n\\nKeelwater's workspace administration feature allows users to manage permissions, configure settings, and organize teams within their claims environment through a centralized, intuitive dashboard.\\n\\n1. Wait for the release bundle containing this feature to be announced and ensure the corresponding feature flag is switched on for your account.\\n2. Access the centralized dashboard from your main navigation menu.\\n3. Use the interface to manage user permissions, configure environment settings, and organize your teams.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 284,
+   "tokens_out": 105,
+   "cost_usd": 9.195e-05
+  }
+ }
+}

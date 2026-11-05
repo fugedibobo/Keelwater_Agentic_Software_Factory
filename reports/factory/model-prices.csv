@@ -1,0 +1,7 @@
+model,input,cache_write_5m,cache_write_1h,cache_read,output,basis,source_url,read_on
+Opus,4,5,8,0.20,20,published,https://platform.claude.com/docs/en/about-claude/pricing (Claude Opus 5.5),05/11/2026
+Sonnet,2,2.50,4,0.10,10,published,https://platform.claude.com/docs/en/about-claude/pricing (Claude Sonnet 5.5),05/11/2026
+Haiku,0.50,0.625,1,0.05,2.50,published,https://platform.claude.com/docs/en/about-claude/pricing (Claude Haiku 5.5; the over-100K-prompt tier),05/11/2026
+Codex Terra,1,0,0,0.05,5,published,https://developers.openai.com/api/docs/pricing (gpt-6.1-terra; 272K-or-less tier),05/11/2026
+Codex Sol,2,0,0,0.10,10,published,https://developers.openai.com/api/docs/pricing (gpt-6.1-sol; 272K-or-less tier),05/11/2026
+Gemini Argon (agy),2,0,0,0.10,10,published,https://aistudio.google.com/docs/pricing (Gemini 4 Argon; rate to 30/11/2026),05/11/2026

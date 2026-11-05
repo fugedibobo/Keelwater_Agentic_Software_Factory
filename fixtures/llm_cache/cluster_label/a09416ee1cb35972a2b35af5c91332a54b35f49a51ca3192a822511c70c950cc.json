@@ -1,0 +1,62 @@
+{
+ "request": {
+  "model": "qwen/qwen3.8-27b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The platform lacks a mechanism to assign backup approvers when the primary approver is unavailable, causing claims to stall.\n  quote: we’ve got a couple of claims held up because the approver’s out and there’s no backup — the approval waiting list is piling up.\n- problem: Tasks are getting stuck in the queue, possibly due to incorrect role assignments for claims handlers.\n  quote: can we also review the roles assigned to our claims handlers? Some tasks are getting stuck in the queue.\n- problem: The platform lacks a delegation or backup approval mechanism for reserve authorizations, causing claims to stall when the primary approver is unavailable.\n  quote: When a reserve change goes beyond what a handler can approve, it just sits there — that reserve authorisation delay has caused real issues for us, especially when the approver’s out and no one’s covering.\n- problem: Claims are stuck in the workflow because reserve changes require an approver who is currently unavailable.\n  quote: we’re seeing claims stuck because reserve changes need approval but no one’s covering for the approver right now.\n- problem: The platform lacks backup or delegation options for reserve adjustments, causing delays when the single approver is unavailable.\n  quote: reserve adjustments above our team’s limit just sit there until the one approver comes back — no backup, no delegation, and claims pile up.\n- problem: Reserve adjustments are blocked when the designated approver is unavailable, causing delays in the approval workflow.\n  quote: when a handler needs to adjust a reserve beyond their limit, it goes into an approval waiting list — but if the approver’s out, nothing moves.\n- problem: Reserve adjustments are blocked indefinitely when the designated approver is unavailable, with no alternative path for approval.\n  quote: When a handler needs to adjust a reserve beyond their limit, it goes into an approval waiting list — but if the approver’s out, nothing moves until they return.\n- problem: The system lacks an automatic fallback or delegation mechanism when a reserve exceeds authority and the designated approver is unavailable, causing claims to stall.\n  quote: When a reserve exceeds authority and the approver’s out with no delegate, it just piles up — that approval waiting list causes unnecessary delays... it’s claims stalling until someone returns."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\"title\": \"Missing backup approver mechanism\", \"problem_statement\": \"Claims handlers are unable to process reserve adjustments when the primary approver is unavailable. This lack of delegation causes claims to stall indefinitely in the approval queue.\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 594,
+   "tokens_out": 48,
+   "cost_usd": 0.00014376
+  }
+ }
+}

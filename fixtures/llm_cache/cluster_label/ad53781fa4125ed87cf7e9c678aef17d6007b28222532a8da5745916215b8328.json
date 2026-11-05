@@ -1,0 +1,62 @@
+{
+ "request": {
+  "model": "qwen/qwen3.8-27b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The current evidence upload process requires adding files one by one, which is inefficient for claims with many documents.\n  quote: it’s tedious to add each file one at a time. We’d really benefit from being able to upload multiple files together... uploading them one by one is slowing us down — we really need the ability to use multiple file upload to batch-add documents to a claim.\n- problem: The user is unable to proceed past the supplier validation step when uploading supporting documents for a claim.\n  quote: I keep getting stuck at the supplier validation step.\n- problem: The 'Link to existing claim' button is unresponsive or broken.\n  quote: click \"Link to existing claim\", dead x1\n- problem: The system incorrectly rejects valid file attachments during the claim submission process.\n  quote: I’m having trouble attaching the right files to the claim — it keeps rejecting them even though I’m sure they’re the correct format.\n- problem: The platform lacks a multiple file upload feature, forcing users to upload documents one by one.\n  quote: We’re still waiting on the multiple file upload feature — right now I have to add each document individually, which takes ages when handling large claims with suppliers and policyholders.\n- problem: The current claim creation process requires uploading files individually, which is inefficient for handling bundled documents.\n  quote: Right now, it’s one by one, which slows us down.\n- problem: The user is unable to upload a claim document because the system incorrectly identifies the selected document category as wrong.\n  quote: I’m trying to upload a claim document but the system says I’ve selected the wrong document category — can you help?\n- problem: The multiple file upload feature is not functioning as intended, forcing users to upload documents individually and slowing down the workflow.\n  quote: they’re having to upload documents one at a time still, which slows things down."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\n  \"problem_statement\": \"Users are forced to upload claim documents one by one because the multiple file upload feature is missing or broken. This inefficiency significantly slows down the processing of claims with many supporting documents.\",\n  \"title\": \"Inefficient single-file document upload\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 512,
+   "tokens_out": 60,
+   "cost_usd": 0.00010148
+  }
+ }
+}

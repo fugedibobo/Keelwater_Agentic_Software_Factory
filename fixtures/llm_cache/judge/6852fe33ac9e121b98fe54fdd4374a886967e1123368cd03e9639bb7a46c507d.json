@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (duplicate) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is the core problem still open, not solved by a shipped story and not covered by a roadmap item? Pass means yes.\nCompare the problem itself, not the product area. A spike that is unstarted or in progress is not shipped.\nFail if a completed story solves the same problem, or a roadmap item already covers it.\nThe evidence is the problem statement and the five most similar stories and roadmap pages, with status and dates.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"Claims handlers are unable to process reserve adjustments when the primary approver is unavailable. This lack of delegation causes claims to stall indefinitely in the approval queue.\",\n \"similar\": [\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4127\",\n   \"similarity\": 0.067,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-10-06T00:00:00Z\\\", \\\"description\\\": \\\"Users can now upload multiple documents at once to a claim in Keelwater, streamlining the process and reducing manual effort for claims handlers.\\\", \\\"id\\\": 4127, \\\"name\\\": \\\"Bulk upload documents to a claim\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"notion\",\n   \"id\": \"3d6f7b4a-ed9c-52d3-97a0-2d967a79bcf2\",\n   \"similarity\": 0.06,\n   \"record\": \"{\\\"id\\\": \\\"3d6f7b4a-ed9c-52d3-97a0-2d967a79bcf2\\\", \\\"object\\\": \\\"page\\\", \\\"properties\\\": {\\\"Name\\\": {\\\"title\\\": [{\\\"plain_text\\\": \\\"Policyholder milestone notifications\\\", \\\"text\\\": {\\\"content\\\": \\\"Policyholder milestone notifications\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"title\\\"}, \\\"Problem\\\": {\\\"rich_text\\\": [{\\\"plain_text\\\": \\\"Keelwater will automatically notify policyholders when they reach key milestones in their claims process, such as document submission completion, adjuster assignment, or payout approval, helping them stay informed without needing to check status manually.\\\", \\\"text\\\": {\\\"content\\\": \\\"Keelwater will automatically notify policyholders when they reach key milestones in their claims process, such as document submi\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4129\",\n   \"similarity\": 0.038,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-09-15T00:00:00Z\\\", \\\"description\\\": \\\"Keelwater automatically pulls and updates supplier contact details from integrated systems, ensuring claims handlers always have the most current information without manual entry.\\\", \\\"id\\\": 4129, \\\"name\\\": \\\"Supplier contact details\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"notion\",\n   \"id\": \"721cd34e-1dc3-5b5f-8068-453592e06a05\",\n   \"similarity\": 0.036,\n   \"record\": \"{\\\"id\\\": \\\"721cd34e-1dc3-5b5f-8068-453592e06a05\\\", \\\"object\\\": \\\"page\\\", \\\"properties\\\": {\\\"Name\\\": {\\\"title\\\": [{\\\"plain_text\\\": \\\"Reserve history audit export\\\", \\\"text\\\": {\\\"content\\\": \\\"Reserve history audit export\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"title\\\"}, \\\"Problem\\\": {\\\"rich_text\\\": [{\\\"plain_text\\\": \\\"Export a detailed audit trail of all reserve adjustments for a claim, including timestamps, user actions, and reason codes, formatted for compliance review in Keelwater.\\\", \\\"text\\\": {\\\"content\\\": \\\"Export a detailed audit trail of all reserve adjustments for a claim, including timestamps, user actions, and reason codes, formatted for compliance review in Keelwater.\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"rich_text\\\"}, \\\"Status\\\": {\\\"statu\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4131\",\n   \"similarity\": 0.02,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-09-15T00:00:00Z\\\", \\\"description\\\": \\\"Keelwater's workspace administration feature allows users to manage permissions, configure settings, and organize teams within their claims environment — all through a centralized, intuitive dashboard.\\\", \\\"id\\\": 4131, \\\"name\\\": \\\"Workspace administration\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The problem is that reserve adjustments stall when the primary approver is unavailable due to lack of delegation. I checked the five most similar items: Shortcut 4127 (bulk document upload), the Notion policyholder milestone notifications page, Shortcut 4129 (supplier contact details), the Notion reserve history audit export page, and Shortcut 4131 (workspace administration). None address approver delegation or approval-queue stalling; all similarities are very low (max 0.067) and the completed stories solve different problems. No shipped story or roadmap item covers this problem.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1169,
+   "tokens_out": 133,
+   "cost_usd": 0.0022218
+  }
+ }
+}

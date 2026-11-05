@@ -1,0 +1,61 @@
+{
+ "request": {
+  "model": "deepseek/deepseek-v4.1-flash",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou write a one-page opportunity brief for a Keelwater product manager. Keelwater makes claims-handling software. You use only the facts and customer insights below.\n</role>\n<opportunity>\n{\n \"title\": \"Missing Welsh language letter templates\",\n \"problem_statement\": \"Customers cannot generate required Welsh-language correspondence for policyholders. This blocks their renewal process and violates contractual compliance obligations.\"\n}\n</opportunity>\n<fact_sheet>\n{\n \"as_of\": \"2026-11-03\",\n \"accounts_n\": 1,\n \"mentions_n\": 5,\n \"routes_n\": 2,\n \"mentions_by_route\": {\n  \"account_management\": 1,\n  \"support\": 4\n },\n \"arr_total_gbp\": 2400000.0,\n \"renewals_90d_n\": 1,\n \"accounts\": [\n  {\n   \"name\": \"Hollinbrook Home Insurance\",\n   \"arr_gbp\": 2400000.0,\n   \"renewal_date\": \"2027-01-15\",\n   \"mentions\": 5\n  }\n ]\n}\n</fact_sheet>\n<insights>\n[\n {\n  \"id\": \"063d773f85ea0ee9\",\n  \"quote\": \"we need Welsh letter formats for claims and payments\",\n  \"account\": \"Hollinbrook Home Insurance\",\n  \"route\": \"account_management\",\n  \"date\": \"2026-09-06T13:01:00+00:00\"\n },\n {\n  \"id\": \"23a4f24463effd2b\",\n  \"quote\": \"We need letters in Welsh for policyholders — it’s not just a nice-to-have, it’s tied to our renewal terms with Keelwater.\",\n  \"account\": \"Hollinbrook Home Insurance\",\n  \"route\": \"support\",\n  \"date\": \"2026-10-16T09:43:00+00:00\"\n },\n {\n  \"id\": \"43cbfa833ccdf747\",\n  \"quote\": \"We need to generate formal correspondence in letters in Welsh for our policyholders in Wales — it’s non-negotiable for us.\",\n  \"account\": \"Hollinbrook Home Insurance\",\n  \"route\": \"support\",\n  \"date\": \"2026-09-12T14:28:00+00:00\"\n },\n {\n  \"id\": \"5fff98e79e155981\",\n  \"quote\": \"We’re under pressure to deliver full compliance for our Welsh-speaking policyholders, which includes letters in Welsh — without them, our renewal won’t proceed.\",\n  \"account\": \"Hollinbrook Home Insurance\",\n  \"route\": \"support\",\n  \"date\": \"2026-09-12T14:28:00+00:00\"\n },\n {\n  \"id\": \"86188cd4c15e1eaf\",\n  \"quote\": \"We need letters in Welsh for policyholders — it’s not just a nice-to-have, it’s tied to our renewal terms with Keelwater.\",\n  \"account\": \"Hollinbrook Home Insurance\",\n  \"route\": \"support\",\n  \"date\": \"2026-10-16T09:43:00+00:00\"\n }\n]\n</insights>\n<rules>\n- Cite every insight you rely on as [i:INSIGHT_ID], using the id exactly as given. Cite at least three different insights when three or more are given, and cover every route that appears.\n- Use these sections, in this order, as Markdown headings: \"## Problem\", \"## Who is affected\", \"## Evidence\", \"## Why now\".\n- Every bullet under \"Who is affected\" and \"Evidence\" ends with a citation. Every sentence that contains a number or a date carries a citation.\n- Copy every account count, mention count, route count, renewal count and ARR figure from the fact sheet. Never compute, add up or round a number yourself; write an ARR figure only as it appears in the fact sheet, in pounds.\n- Write counts as digits exactly as the fact sheet gives them (\"5 accounts\", never \"five accounts\"); never write \"one customer\" or \"a single customer\" unless the fact sheet count says 1 for that same thing.\n- Put text in quotation marks only when it is a customer quote copied word for word, character for character, from one insight cited in the same sentence. Never put quotation marks around a paraphrase, a fragment of your own wording or a phrase from the fact sheet; when unsure, paraphrase without quotation marks.\n- Name a customer only when a cited insight in the same sentence belongs to that customer.\n- Do not claim more than the evidence shows: no \"all customers\", no scope wider than the cited accounts, and mention any cited insight that points the other way.\n- Do not recommend a solution.\n</rules>\n<output>\nJSON only: {\"body_md\": the brief as Markdown, \"citations\": the list of insight ids you cited}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 3000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "brief",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "body_md": {
+       "title": "Body Md",
+       "type": "string"
+      },
+      "citations": {
+       "items": {
+        "type": "string"
+       },
+       "title": "Citations",
+       "type": "array"
+      }
+     },
+     "required": [
+      "body_md",
+      "citations"
+     ],
+     "title": "BriefOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\"body_md\": \"## Problem\\n\\nHollinbrook Home Insurance cannot generate the Welsh-language correspondence its policyholders require, which blocks its renewal process and breaches contractual compliance obligations. The account has raised this 5 times across 2 routes [i:063d773f85ea0ee9][i:23a4f24463effd2b][i:43cbfa833ccdf747][i:5fff98e79e155981][i:86188cd4c15e1eaf].\\n\\n## Who is affected\\n\\n- Hollinbrook Home Insurance, an account with £2400000.0 in ARR and a renewal date of 2027-01-15, is the only account raising this need [i:23a4f24463effd2b].\\n- The account's Welsh-speaking policyholders, who need formal claims and payment correspondence in Welsh [i:063d773f85ea0ee9].\\n- The account's renewal with Keelwater, which the account states will not proceed without Welsh letters [i:5fff98e79e155981].\\n\\n## Evidence\\n\\n- The account asked for Welsh letter formats for claims and payments via account management [i:063d773f85ea0ee9].\\n- The account said it needs to generate formal correspondence in letters in Welsh for its policyholders in Wales and called it non-negotiable [i:43cbfa833ccdf747].\\n- The account said it is under pressure to deliver full compliance for its Welsh-speaking policyholders, including letters in Welsh, and that without them its renewal will not proceed [i:5fff98e79e155981].\\n- The account said Welsh letters are tied to its renewal terms with Keelwater and are not just a nice-to-have [i:23a4f24463effd2b][i:86188cd4c15e1eaf].\\n- Of the 5 mentions, 4 came through support and 1 through account management [i:063d773f85ea0ee9][i:23a4f24463effd2b][i:43cbfa833ccdf747][i:5fff98e79e155981][i:86188cd4c15e1eaf].\\n\\n## Why now\\n\\n- The account renews on 2027-01-15, and it states the renewal will not proceed without Welsh letters [i:5fff98e79e155981].\\n- The need has been raised repeatedly, from 2026-09-06 through 2026-10-16, and remains unresolved [i:063d773f85ea0ee9][i:23a4f24463effd2b][i:43cbfa833ccdf747][i:5fff98e79e155981][i:86188cd4c15e1eaf].\\n- The account frames Welsh letters as a contractual compliance obligation tied to its renewal terms with Keelwater, not a preference [i:23a4f24463effd2b][i:86188cd4c15e1eaf].\", \"citations\": [\"063d773f85ea0ee9\", \"23a4f24463effd2b\", \"43cbfa833ccdf747\", \"5fff98e79e155981\", \"86188cd4c15e1eaf\"]}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1188,
+   "tokens_out": 748,
+   "cost_usd": 0.000493184
+  }
+ }
+}

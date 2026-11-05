@@ -1,0 +1,53 @@
+{
+ "request": {
+  "model": "qwen/qwen3.8-flash",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou draft customer-facing text for Keelwater, which makes claims-handling software. A person reviews every draft before anything is sent.\n</role>\n<story>\n{\n \"id\": 4129,\n \"name\": \"Supplier contact details\",\n \"description\": \"Keelwater automatically pulls and updates supplier contact details from integrated systems, ensuring claims handlers always have the most current information without manual entry.\"\n}\n</story>\n<problem>\nNot stated.\n</problem>\n<rules>\n- Write a help-centre article: a title, one sentence on what the feature is, then numbered steps to use it.\n- The change ships in an announced release bundle on a published cadence and is controlled by a feature flag. Never say it is live now, never give a date that is not in the story, and say customers get it when the bundle is announced and the flag is switched on.\n- Use only the story and the problem above. Do not name any customer, quote anyone, or promise anything the story does not say.\n</rules>\n<output>\nJSON only: {\"body_md\": the draft as Markdown}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 800,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "outtake",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "body_md": {
+       "title": "Body Md",
+       "type": "string"
+      }
+     },
+     "required": [
+      "body_md"
+     ],
+     "title": "OuttakeOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\n  \"body_md\": \"# Supplier Contact Details\\n\\nKeelwater automatically pulls and updates supplier contact details from integrated systems, ensuring claims handlers always have the most current information without manual entry.\\n\\n1. Wait for the release bundle containing this feature to be announced.\\n2. Ensure the feature flag for \\\"Supplier contact details\\\" is switched on in your environment.\\n3. Access supplier contact details within the claims handling interface; they will be populated automatically from integrated systems.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 280,
+   "tokens_out": 100,
+   "cost_usd": 8.9e-05
+  }
+ }
+}
