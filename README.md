@@ -20,7 +20,7 @@ Keelwater is a fictional claims-handling software company whose engineers alread
 
 ## How ready is this
 
-**What runs today:** the whole pipeline end to end in Python (about 8,500 lines of Python outside the tests, 38 test files), the Signal Board web app, evals and judges, replay, and the model gateway with an `aws` profile. It runs on synthetic data from file exports.
+**What runs today:** the whole pipeline end to end in Python (about 9,000 lines of Python outside the tests, 47 test files), the Signal Board web app, evals and judges, replay, and the model gateway with an `aws` profile. It runs on synthetic data from file exports.
 
 **What a production deployment still needs:** live connectors, Bedrock tested in a real account, Postgres, infrastructure as code, SSO and quality work on real data. The effort column is an estimate in engineer-weeks, not a measurement; the total is about 14-22.
 
@@ -98,11 +98,11 @@ Look at: the real-versus-simulated split and the five steps from feedback to opp
 
 [![Opportunities tab: the ranked list with scores and check lines](docs/screenshots/board-opportunities.png)](docs/screenshots/board-opportunities.png)
 
-Look at: each score and its factors, the check line under each title and the quotes behind the top item.
+Look at: each score and its factors, and the check line under each title. A brief that fails a check stays hidden until the PM chooses to open it.
 
-[![Handoffs tab: drafted intent documents and factory jobs](docs/screenshots/board-handoffs.png)](docs/screenshots/board-handoffs.png)
+[![Handoffs tab: release-note and help-article drafts waiting for review](docs/screenshots/board-handoffs.png)](docs/screenshots/board-handoffs.png)
 
-Look at: the drafted intent document beside the factory job and its schema check.
+Look at: the release-note and help-article drafts, each with accept and reject. Intent documents and factory jobs appear here once a PM accepts an opportunity; nothing is accepted in this snapshot.
 
 [![Evals tab: ground-truth results, judge status and one hover](docs/screenshots/board-evals.png)](docs/screenshots/board-evals.png)
 
