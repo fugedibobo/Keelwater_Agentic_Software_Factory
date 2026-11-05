@@ -7,7 +7,7 @@
 </purpose>
 
 <roles>
-- Orchestrator of record: one Claude Code session, model opus, effort high, in the main checkout C:\Users\Andras Bobo Fugedi\Documents\Claude\Projects\Keelwater_Agentic_Software_Factory\Keelwater_Agentic_Software_Factory. It dispatches the milestone's work orders, pushes branches, opens PRs, comments, merges, and alone asks the repo owner.
+- Orchestrator of record: one Claude Code session, model opus, effort high, in the main checkout (the repo root on the author's laptop, outside OneDrive). It dispatches the milestone's work orders, pushes branches, opens PRs, comments, merges, and alone asks the repo owner.
 - Workers: codex, newest terra model, effort high, through the codex plugin; one per issue, in worktree .worktrees/issue-<N> on branch issue-<N>-<slug>; at most 3 at once. Workers build and test offline (FakeGateway, replay), commit and report. They never run live steps, push, comment or merge.
 - Sonnet subagents (effort high), started by the orchestrator: check each PR and return at most 10 lines; run live steps (probe, smokes, live runs, tuning); do work that needs Claude skills (impeccable, playwright-cli).
 - If the codex 5-hour window has under 30% left, a sonnet subagent builds instead; the report says so.
@@ -59,7 +59,7 @@ To ask: post one needs-decision comment, then carry on with other work. Never wa
 
 <engineering>
 - Python 3.12 with uv, SQLite, FastAPI with Jinja, pytest. No Docker, no CI, no front-end build.
-- Windows 10, repo at C:\Users\Andras Bobo Fugedi\Documents\Claude\Projects\Keelwater_Agentic_Software_Factory\Keelwater_Agentic_Software_Factory (outside OneDrive), git core.longpaths true, LF line endings (.gitattributes). Use pathlib; open files and run subprocesses with encoding="utf-8"; the CLI forces UTF-8 stdout; give humans PowerShell-safe commands.
+- Windows 10, repo outside OneDrive, git core.longpaths true, LF line endings (.gitattributes). Use pathlib; open files and run subprocesses with encoding="utf-8"; the CLI forces UTF-8 stdout; give humans PowerShell-safe commands.
 - uv run keelwater run defaults to replay and must always work with no keys and no network.
 - Before any live step run uv run keelwater probe (each stage's real parameters, max_tokens 32). If a primary id is not served, use the stage's fallback in config/models.yaml and record the swap in the PR; anything else is needs-decision.
 - Respect the issue's USD cap (--max-usd); the gateway aborts a run that passes it.
