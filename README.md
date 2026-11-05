@@ -69,7 +69,9 @@ Who owns what:
 
 ### The pipeline
 
-[![The nightly pipeline, from raw feedback to a PM decision](docs/diagrams/pipeline.png)](docs/diagrams/pipeline.png)
+<a href="docs/diagrams/pipeline.png"><img src="docs/diagrams/pipeline.png" alt="The nightly pipeline, from raw feedback to a PM decision" width="202"></a>
+
+Click to open full size.
 
 Click the image to open it full size. The source is [pipeline.mmd](docs/diagrams/pipeline.mmd).
 
