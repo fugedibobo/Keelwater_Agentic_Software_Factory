@@ -1,0 +1,7 @@
+model,calls,tokens_in,tokens_out,cost_usd
+cloudflare/clef,869,691379,0,0.1516
+deepseek/deepseek-v3.2,62,97461,39272,0.0383
+openai/gpt-oss-120b,524,232977,124524,0.0354
+qwen/qwen3-embedding-8b,8,17768,0,0.0002
+qwen/qwen3-next-80b-a3b-instruct,75,19210,3933,0.0062
+z-ai/glm-5.3,239,246954,37238,0.2112
