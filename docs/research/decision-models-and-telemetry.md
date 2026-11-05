@@ -7,7 +7,7 @@ The owner's "JEV" is a real product. It is Jev, made by TypeSafe AI and launched
 ## 1. Jev (TypeSafe AI)
 
 - FOUND: TypeSafe came out of stealth on 15/09/2026. Access is through console.typesafe.ai, with the key stored in `TYPESAFE_API_KEY`. https://flaviocopes.com/jev-api-key/
-- FOUND: the founder is Diogo Almeida, an OpenAI alumnus. It is a transformer but not an LLM and not autoregressive, so it cannot write text or act as an agent. https://www.deeplearning.ai/the-batch/models-built-to-do-one-thing-well
+- FOUND: the founder is an OpenAI alumnus. It is a transformer but not an LLM and not autoregressive, so it cannot write text or act as an agent. https://www.deeplearning.ai/the-batch/models-built-to-do-one-thing-well
 - FOUND: TypeSafe raised $870M at a $7.5B valuation. https://fourweekmba.com/ai-jev-maker-typesafe-raises-870m-at-a-7-5b-valuation/
 - FOUND: it supports three question types, mixed freely in one call:
   - Noul: probability of "yes"

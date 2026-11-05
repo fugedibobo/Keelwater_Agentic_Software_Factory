@@ -28,13 +28,13 @@ One row per model. Totals include cache reads, which make up most of an agent se
 | **Total** | | **628,278,423** | **0.24** | **149.48** |
 
 - Blended rate = the cost of every token type at its list price, divided by total tokens. Cache reads cost a tenth or less of normal input, and agent sessions are mostly cache reads, so the blended rate is far below the headline price.
-- Claude: summed from the usage fields of the laptop's Claude Code session logs from 03/11/2026, subagents included, each API message counted once. Only token counts and model names are read.
-- Codex: the last token count of each Codex session run in this repo or its worktrees from 03/11/2026. Terra and Sol are priced at the 272K-or-less rates.
+- Claude: summed from the usage fields of the laptop's Claude Code session logs from 03/11/2026, subagents included, each API message counted once. Only token counts and model names are kept.
+- Codex: the growth of the running token count in each Codex session run in this repo or its worktrees from 03/11/2026, credited to the model of the turn it happened in. Terra and Sol are priced at the 272K-or-less rates.
 - Gemini Argon (agy): the one total its report gave, all counted as input because no split exists. Its published rate is the one in force until 30/11/2026 and doubles on 01/12/2026.
 - OpenRouter pipeline: summed from the recorded model responses in the repo's replay cache, one entry per distinct request. Repeated and failed calls are not in it, so it is a lower bound; the rate is the cost each response reported.
 - Haiku is priced at the over-100K-prompt rates, which some of its calls reached. Prices were read from the providers' pages on 05/11/2026; sources are in reports/factory/README.md.
 
-At API prices this build would cost a company about USD 149. What it cost me: the Claude and Codex subscriptions I already pay for, which charge no per-token fee, plus OpenRouter spend of USD 0.51 measured and USD 1.44 estimated, as the work-order reports gave it.
+At API prices this build would cost a company about USD 149. What it cost me: the Claude and Codex subscriptions I already pay for, which charge no per-token fee, plus OpenRouter spend to date of USD 6.67 of the USD 10 limit on 05/11/2026, the key's own usage figure. The work-order reports gave a subtotal of USD 0.51 measured and USD 1.44 estimated.
 
 <!-- tokens:end -->
 

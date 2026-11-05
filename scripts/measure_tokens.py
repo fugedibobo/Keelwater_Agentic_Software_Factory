@@ -4,7 +4,7 @@
   python scripts/measure_tokens.py render       print the per-model table (from the CSVs, no logs needed)
   python scripts/measure_tokens.py render --write-doc    rewrite the marked blocks in docs/ai-usage.md, docs/delegation.md and README.md
 
-Privacy: only token counts, model names, timestamps and working-folder names are read. No prompt or response text
+Privacy: only token counts, model names, timestamps and working-folder names are kept. No prompt or response text
 is stored, printed or sent anywhere, and no home-folder path is written to any file (the logs are found at run time).
 """
 import argparse
@@ -44,6 +44,8 @@ def claude_rows(base):
         for path in folder.rglob("*.jsonl"):  # sessions and their subagents/ transcripts
             with open(path, encoding="utf-8") as fh:
                 for line in fh:
+                    if '"usage"' not in line:  # lines carrying usage are parsed in memory; only counts and model names are kept
+                        continue
                     try:
                         o = json.loads(line)
                     except ValueError:
@@ -65,29 +67,39 @@ def claude_rows(base):
 
 
 def codex_rows(base):
-    """Last cumulative token_count per Codex session whose folder is this repo or one of its worktrees."""
+    """Each increment of total_token_usage goes to the model of the latest turn_context, for Codex sessions in this repo."""
     out = []
     for path in sorted(base.glob("**/rollout-*.jsonl")) if base.is_dir() else []:
-        cwd, ts, model, last = "", "", None, None
+        model, prev, mine = None, {}, False
+        use = defaultdict(lambda: [0, 0, 0, 0, 0])
         with open(path, encoding="utf-8") as fh:
             for line in fh:
+                # lines carrying usage are parsed in memory; only counts and model names are kept
+                if not any(k in line for k in ('"token_count"', '"turn_context"', '"session_meta"')):
+                    continue
                 try:
                     o = json.loads(line)
                 except ValueError:
                     continue
                 p = o.get("payload") if isinstance(o.get("payload"), dict) else {}
                 if o.get("type") == "session_meta":
-                    cwd, ts = p.get("cwd") or "", p.get("timestamp") or ""
-                elif o.get("type") == "turn_context" and model is None:
-                    model = p.get("model")
-                elif p.get("type") == "token_count" and isinstance(p.get("info"), dict):
-                    last = p["info"].get("total_token_usage") or last
-        if not (last and ts >= SINCE and any(w in cwd.lower().replace("\\", "/") for w in REPO_WORDS)):
-            continue
-        label = "Codex Sol" if "sol" in (model or "").lower() else "Codex Terra"
-        cached = last.get("cached_input_tokens") or 0  # a subset of input_tokens in Codex logs
-        out.append((label, ((last.get("input_tokens") or 0) - cached, last.get("cache_write_input_tokens") or 0,
-                            cached, last.get("output_tokens") or 0, 0)))
+                    cwd = (p.get("cwd") or "").lower().replace("\\", "/")
+                    mine = (p.get("timestamp") or "") >= SINCE and any(w in cwd for w in REPO_WORDS)
+                    if not mine:
+                        break  # another folder or before SINCE: the rest of the file is never parsed
+                elif o.get("type") == "turn_context":
+                    model = p.get("model") or model
+                elif mine and p.get("type") == "token_count" and isinstance(p.get("info"), dict):
+                    tot = p["info"].get("total_token_usage")
+                    if tot:
+                        d = {k: (tot.get(k) or 0) - (prev.get(k) or 0) for k in tot}
+                        cached = d.get("cached_input_tokens") or 0  # a subset of input_tokens in Codex logs
+                        label = "Codex Sol" if "sol" in (model or "").lower() else "Codex Terra"
+                        for i, v in enumerate(((d.get("input_tokens") or 0) - cached, d.get("cache_write_input_tokens") or 0,
+                                               cached, d.get("output_tokens") or 0)):
+                            use[label][i] += v
+                        prev = tot
+        out.extend((label, tuple(u)) for label, u in use.items())
     return _sum(out)
 
 
@@ -197,18 +209,22 @@ def live_usd(telemetry):
 
 METHODS = [
     "Blended rate = the cost of every token type at its list price, divided by total tokens. Cache reads cost a tenth or less of normal input, and agent sessions are mostly cache reads, so the blended rate is far below the headline price.",
-    "Claude: summed from the usage fields of the laptop's Claude Code session logs from 03/11/2026, subagents included, each API message counted once. Only token counts and model names are read.",
-    "Codex: the last token count of each Codex session run in this repo or its worktrees from 03/11/2026. Terra and Sol are priced at the 272K-or-less rates.",
+    "Claude: summed from the usage fields of the laptop's Claude Code session logs from 03/11/2026, subagents included, each API message counted once. Only token counts and model names are kept.",
+    "Codex: the growth of the running token count in each Codex session run in this repo or its worktrees from 03/11/2026, credited to the model of the turn it happened in. Terra and Sol are priced at the 272K-or-less rates.",
     "Gemini Argon (agy): the one total its report gave, all counted as input because no split exists. Its published rate is the one in force until 30/11/2026 and doubles on 01/12/2026.",
     "OpenRouter pipeline: summed from the recorded model responses in the repo's replay cache, one entry per distinct request. Repeated and failed calls are not in it, so it is a lower bound; the rate is the cost each response reported.",
     "Haiku is priced at the over-100K-prompt rates, which some of its calls reached. Prices were read from the providers' pages on 05/11/2026; sources are in reports/factory/README.md.",
 ]
 
 
+KEY_USAGE = "USD 6.67 of the USD 10 limit on 05/11/2026"  # the key's own usage figure, README.md (Live-run caps)
+
+
 def comparison(usd, spend):
     return (f"At API prices this build would cost a company about USD {usd:,.0f}. What it cost me: the Claude and Codex "
-            f"subscriptions I already pay for, which charge no per-token fee, plus OpenRouter spend of USD {spend['measured']:.2f} "
-            f"measured and USD {spend['estimated']:.2f} estimated, as the work-order reports gave it.")
+            f"subscriptions I already pay for, which charge no per-token fee, plus OpenRouter spend to date of {KEY_USAGE}, "
+            f"the key's own usage figure. The work-order reports gave a subtotal of USD {spend['measured']:.2f} "
+            f"measured and USD {spend['estimated']:.2f} estimated.")
 
 
 def usage_block(tokens, prices, openrouter, telemetry):
