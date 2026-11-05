@@ -72,7 +72,7 @@ def test_run_with_no_env_and_no_network_writes_store_report_and_hash(tmp_path):
     assert run["status"] == "done" and run["as_of"] == "2026-11-03" and run["profile"] == "replay" and run["seed"] == 42
     for k in ("data_hash", "config_hash", "prompt_versions", "model_ids", "batch"):
         assert run[k] not in (None, "")
-    assert run["model_ids"]["extract"] == "openai/gpt-oss-120b"
+    assert run["model_ids"]["extract"] == "qwen/qwen3.8-flash"
     report = rep / "runs" / "latest-replay.json"
     assert report.is_file() and report.read_bytes().count(b"\r") == 0
 

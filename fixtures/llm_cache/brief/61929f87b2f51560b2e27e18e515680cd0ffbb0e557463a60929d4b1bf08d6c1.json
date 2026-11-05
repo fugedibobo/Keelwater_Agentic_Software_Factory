@@ -1,0 +1,61 @@
+{
+ "request": {
+  "model": "deepseek/deepseek-v4.1-flash",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou write a one-page opportunity brief for a Keelwater product manager. Keelwater makes claims-handling software. You use only the facts and customer insights below.\n</role>\n<opportunity>\n{\n \"title\": \"Delayed payments and real-time updates\",\n \"problem_statement\": \"Suppliers and policyholders experience delayed payments and status updates due to slow webhook retries and approval processes. These delays disrupt real-time claim processing and cause financial friction for downstream partners.\"\n}\n</opportunity>\n<fact_sheet>\n{\n \"as_of\": \"2026-10-01\",\n \"accounts_n\": 3,\n \"mentions_n\": 3,\n \"routes_n\": 2,\n \"mentions_by_route\": {\n  \"sales\": 2,\n  \"support\": 1\n },\n \"arr_total_gbp\": 1690000.0,\n \"renewals_90d_n\": 0,\n \"accounts\": [\n  {\n   \"name\": \"Orrinbury Fleet Insurance\",\n   \"arr_gbp\": 120000.0,\n   \"renewal_date\": \"2027-02-16\",\n   \"mentions\": 1\n  },\n  {\n   \"name\": \"Callowfield Auto Assurance\",\n   \"arr_gbp\": 1250000.0,\n   \"renewal_date\": \"2027-03-31\",\n   \"mentions\": 1\n  },\n  {\n   \"name\": \"Holloway Reach Underwriting\",\n   \"arr_gbp\": 320000.0,\n   \"renewal_date\": \"2027-08-22\",\n   \"mentions\": 1\n  }\n ]\n}\n</fact_sheet>\n<insights>\n[\n {\n  \"id\": \"23d386fc82d6c342\",\n  \"quote\": \"We’re still seeing some delays with the webhook retries on our supplier payments module, and it’s causing issues with how we process claims and update policyholders in real time.\",\n  \"account\": \"Orrinbury Fleet Insurance\",\n  \"route\": \"sales\",\n  \"date\": \"2026-10-22T16:09:00Z\"\n },\n {\n  \"id\": \"2c5599e0c4552f3a\",\n  \"quote\": \"it’s been holding up payments and suppliers are starting to ask questions.\",\n  \"account\": \"Callowfield Auto Assurance\",\n  \"route\": \"support\",\n  \"date\": \"2026-10-28T08:19:00+00:00\"\n },\n {\n  \"id\": \"45301fb117b39eed\",\n  \"quote\": \"Exactly. It’s not just inconvenient — it’s holding up payments and supplier invoices too.\",\n  \"account\": \"Holloway Reach Underwriting\",\n  \"route\": \"sales\",\n  \"date\": \"2026-10-17T16:58:00Z\"\n }\n]\n</insights>\n<rules>\n- Cite every insight you rely on as [i:INSIGHT_ID], using the id exactly as given. Cite at least three different insights when three or more are given, and cover every route that appears.\n- Use these sections, in this order, as Markdown headings: \"## Problem\", \"## Who is affected\", \"## Evidence\", \"## Why now\".\n- Every bullet under \"Who is affected\" and \"Evidence\" ends with a citation. Every sentence that contains a number or a date carries a citation.\n- Copy every account count, mention count, route count, renewal count and ARR figure from the fact sheet. Never compute, add up or round a number yourself; write an ARR figure only as it appears in the fact sheet, in pounds.\n- Write counts as digits exactly as the fact sheet gives them (\"5 accounts\", never \"five accounts\"); never write \"one customer\" or \"a single customer\" unless the fact sheet count says 1 for that same thing.\n- Put text in quotation marks only when it is a customer quote copied word for word, character for character, from one insight cited in the same sentence. Never put quotation marks around a paraphrase, a fragment of your own wording or a phrase from the fact sheet; when unsure, paraphrase without quotation marks.\n- Name a customer only when a cited insight in the same sentence belongs to that customer.\n- Do not claim more than the evidence shows: no \"all customers\", no scope wider than the cited accounts, and mention any cited insight that points the other way.\n- Do not recommend a solution.\n</rules>\n<output>\nJSON only: {\"body_md\": the brief as Markdown, \"citations\": the list of insight ids you cited}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 3000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "brief",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "body_md": {
+       "title": "Body Md",
+       "type": "string"
+      },
+      "citations": {
+       "items": {
+        "type": "string"
+       },
+       "title": "Citations",
+       "type": "array"
+      }
+     },
+     "required": [
+      "body_md",
+      "citations"
+     ],
+     "title": "BriefOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\"body_md\": \"## Problem\\n\\nSuppliers and policyholders are experiencing delayed payments and status updates because of slow webhook retries and approval processes. This disrupts real-time claim processing and creates financial friction for downstream partners.\\n\\n## Who is affected\\n\\n- Orrinbury Fleet Insurance reports delays with webhook retries on its supplier payments module, which affects how it processes claims and updates policyholders in real time [i:23d386fc82d6c342].\\n- Callowfield Auto Assurance says the issue has been holding up payments, and suppliers are starting to ask questions [i:2c5599e0c4552f3a].\\n- Holloway Reach Underwriting says the delays are not just inconvenient but are holding up payments and supplier invoices too [i:45301fb117b39eed].\\n\\n## Evidence\\n\\n- Across 3 accounts, there are 3 mentions of this problem, arriving via 2 routes: 2 mentions from sales and 1 from support [i:23d386fc82d6c342][i:2c5599e0c4552f3a][i:45301fb117b39eed].\\n- The affected accounts represent 1690000.0 GBP in total ARR: Orrinbury Fleet Insurance at 120000.0 GBP, Callowfield Auto Assurance at 1250000.0 GBP, and Holloway Reach Underwriting at 320000.0 GBP [i:23d386fc82d6c342][i:2c5599e0c4552f3a][i:45301fb117b39eed].\\n- Orrinbury Fleet Insurance raised the webhook retry delays on 2026-10-22, describing ongoing issues with real-time claim processing and policyholder updates [i:23d386fc82d6c342].\\n- Callowfield Auto Assurance raised the payment hold-up on 2026-10-28, noting that suppliers are starting to ask questions [i:2c5599e0c4552f3a].\\n- Holloway Reach Underwriting raised the impact on payments and supplier invoices on 2026-10-17 [i:45301fb117b39eed].\\n- No renewals fall within the next 90 days: renewals_90d_n is 0, with the nearest renewal dates being 2027-02-16 for Orrinbury Fleet Insurance, 2027-03-31 for Callowfield Auto Assurance, and 2027-08-22 for Holloway Reach Underwriting [i:23d386fc82d6c342][i:2c5599e0c4552f3a][i:45301fb117b39eed].\\n\\n## Why now\\n\\n- The problem is being reported through both sales and support routes, with 2 mentions from sales and 1 from support across 3 accounts [i:23d386fc82d6c342][i:2c5599e0c4552f3a][i:45301fb117b39eed].\\n- The affected accounts carry 1690000.0 GBP in total ARR, including Callowfield Auto Assurance at 1250000.0 GBP [i:2c5599e0c4552f3a].\\n- With renewals_90d_n at 0, the nearest renewal is 2027-02-16 for Orrinbury Fleet Insurance, followed by 2027-03-31 for Callowfield Auto Assurance and 2027-08-22 for Holloway Reach Underwriting, giving a window to address the issue before renewal conversations [i:23d386fc82d6c342][i:2c5599e0c4552f3a][i:45301fb117b39eed].\\n- The cited insights all point to the same direction: delayed payments and status updates are disrupting real-time claim processing and creating financial friction for downstream partners [i:23d386fc82d6c342][i:2c5599e0c4552f3a][i:45301fb117b39eed].\", \"citations\": [\"23d386fc82d6c342\", \"2c5599e0c4552f3a\", \"45301fb117b39eed\"]}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 986,
+   "tokens_out": 932,
+   "cost_usd": 0.00079314
+  }
+ }
+}

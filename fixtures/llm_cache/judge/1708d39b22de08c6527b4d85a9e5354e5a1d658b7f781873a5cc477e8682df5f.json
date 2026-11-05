@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"title\": \"Letter automation and task assignment failures\",\n \"problem_statement\": \"Users cannot reliably automate correspondence or trigger task assignments due to missing features and insufficient default settings. This forces manual handling of letters and causes significant delays in claim processing.\",\n \"quotes\": [\n  {\n   \"quote\": \"we’ve had issues with supplier letters not triggering automatically, and it’s causing delays in task assignments.\",\n   \"route\": \"sales\",\n   \"date\": \"2026-09-26T11:42:00Z\"\n  },\n  {\n   \"quote\": \"can we discuss how policyholders receive automated letters? Some aren’t getting them.\",\n   \"route\": \"sales\",\n   \"date\": \"2026-09-26T14:35:00Z\"\n  },\n  {\n   \"quote\": \"are tasks auto-assigned when letters go out to policyholders? We’re seeing delays.\",\n   \"route\": \"sales\",\n   \"date\": \"2026-09-26T14:35:00Z\"\n  },\n  {\n   \"quote\": \"can we generate letters automatically based on claim status? We’re drowning in manual correspondence.\",\n   \"route\": \"sales\",\n   \"date\": \"2026-09-24T13:42:00Z\"\n  },\n  {\n   \"quote\": \"We’ve been trying to automate those letters and hit a wall with the current defaults.\",\n   \"route\": \"sales\",\n   \"date\": \"2026-09-14T12:30:00Z\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The claim is that letter automation and task assignment failures stem from missing product features and insufficient defaults. The quotes support this: users report supplier letters not triggering automatically, policyholders not receiving automated letters, tasks not auto-assigned, inability to generate letters based on claim status, and hitting a wall with current defaults. These are product capability gaps a squad could act on, not pricing, customer IT, or help-article issues, and none of the quotes are praise.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 541,
+   "tokens_out": 106,
+   "cost_usd": 0.00114316
+  }
+ }
+}

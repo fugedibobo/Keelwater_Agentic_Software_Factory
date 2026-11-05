@@ -1,0 +1,62 @@
+{
+ "request": {
+  "model": "qwen/qwen3.8-27b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: Webhook retries on the supplier payments module are delayed, disrupting real-time claim processing and policyholder updates.\n  quote: We’re still seeing some delays with the webhook retries on our supplier payments module, and it’s causing issues with how we process claims and update policyholders in real time.\n- problem: The platform is delaying payments, causing suppliers to inquire about the status.\n  quote: it’s been holding up payments and suppliers are starting to ask questions.\n- problem: The current approval process is causing significant delays that are negatively impacting downstream financial operations like payments and supplier invoices.\n  quote: Exactly. It’s not just inconvenient — it’s holding up payments and supplier invoices too."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\n  \"problem_statement\": \"Suppliers and policyholders experience delayed payments and status updates due to slow webhook retries and approval processes. These delays disrupt real-time claim processing and cause financial friction for downstream partners.\",\n  \"title\": \"Delayed payments and real-time updates\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 258,
+   "tokens_out": 59,
+   "cost_usd": 0.00014602
+  }
+ }
+}

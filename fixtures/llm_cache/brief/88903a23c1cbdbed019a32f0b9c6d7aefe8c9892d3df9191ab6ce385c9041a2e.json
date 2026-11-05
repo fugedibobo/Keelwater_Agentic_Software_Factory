@@ -1,0 +1,61 @@
+{
+ "request": {
+  "model": "deepseek/deepseek-v4.1-flash",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou write a one-page opportunity brief for a Keelwater product manager. Keelwater makes claims-handling software. You use only the facts and customer insights below.\n</role>\n<opportunity>\n{\n \"title\": \"Missing multi-payee payment split option\",\n \"problem_statement\": \"Users cannot find a way to divide a single claim payment among multiple recipients. This prevents them from processing claims that require distributing funds to several parties.\"\n}\n</opportunity>\n<fact_sheet>\n{\n \"as_of\": \"2026-11-03\",\n \"accounts_n\": 1,\n \"mentions_n\": 2,\n \"routes_n\": 1,\n \"mentions_by_route\": {\n  \"account_management\": 2\n },\n \"arr_total_gbp\": 60000.0,\n \"renewals_90d_n\": 0,\n \"accounts\": [\n  {\n   \"name\": \"Farrowdene Home\",\n   \"arr_gbp\": 60000.0,\n   \"renewal_date\": \"2027-06-02\",\n   \"mentions\": 2\n  }\n ]\n}\n</fact_sheet>\n<insights>\n[\n {\n  \"id\": \"4dc69dfc59fb39bc\",\n  \"quote\": \"We’ve got a claim where we need to split a payment across several payees — not sure how to handle that in the system.\",\n  \"account\": \"Farrowdene Home\",\n  \"route\": \"account_management\",\n  \"date\": \"2026-10-19T11:22:00+00:00\"\n },\n {\n  \"id\": \"6b5fec6f43e17fc0\",\n  \"quote\": \"I’m not seeing the option under payments or tasks right now.\",\n  \"account\": \"Farrowdene Home\",\n  \"route\": \"account_management\",\n  \"date\": \"2026-10-19T11:22:00+00:00\"\n }\n]\n</insights>\n<rules>\n- Cite every insight you rely on as [i:INSIGHT_ID], using the id exactly as given. Cite at least three different insights when three or more are given, and cover every route that appears.\n- Use these sections, in this order, as Markdown headings: \"## Problem\", \"## Who is affected\", \"## Evidence\", \"## Why now\".\n- Every bullet under \"Who is affected\" and \"Evidence\" ends with a citation. Every sentence that contains a number or a date carries a citation.\n- Copy every account count, mention count, route count, renewal count and ARR figure from the fact sheet. Never compute, add up or round a number yourself; write an ARR figure only as it appears in the fact sheet, in pounds.\n- Write counts as digits exactly as the fact sheet gives them (\"5 accounts\", never \"five accounts\"); never write \"one customer\" or \"a single customer\" unless the fact sheet count says 1 for that same thing.\n- Put text in quotation marks only when it is a customer quote copied word for word, character for character, from one insight cited in the same sentence. Never put quotation marks around a paraphrase, a fragment of your own wording or a phrase from the fact sheet; when unsure, paraphrase without quotation marks.\n- Name a customer only when a cited insight in the same sentence belongs to that customer.\n- Do not claim more than the evidence shows: no \"all customers\", no scope wider than the cited accounts, and mention any cited insight that points the other way.\n- Do not recommend a solution.\n</rules>\n<output>\nJSON only: {\"body_md\": the brief as Markdown, \"citations\": the list of insight ids you cited}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 3000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "brief",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "body_md": {
+       "title": "Body Md",
+       "type": "string"
+      },
+      "citations": {
+       "items": {
+        "type": "string"
+       },
+       "title": "Citations",
+       "type": "array"
+      }
+     },
+     "required": [
+      "body_md",
+      "citations"
+     ],
+     "title": "BriefOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\"body_md\": \"## Problem\\n\\nUsers cannot find a way to divide a single claim payment among multiple recipients, which prevents them from processing claims that require distributing funds to several parties.\\n\\n## Who is affected\\n\\n- Farrowdene Home, an account with 60000.0 GBP in ARR and a renewal date of 2027-06-02, raised this need twice [i:4dc69dfc59fb39bc] [i:6b5fec6f43e17fc0].\\n- The affected scope in the fact sheet is 1 account, with 2 mentions across 1 route, account_management [i:4dc69dfc59fb39bc] [i:6b5fec6f43e17fc0].\\n\\n## Evidence\\n\\n- Farrowdene Home said they have a claim where they need to split a payment across several payees and are not sure how to handle that in the system [i:4dc69dfc59fb39bc].\\n- Farrowdene Home also said they are not seeing the option under payments or tasks right now [i:6b5fec6f43e17fc0].\\n- Both mentions came through the account_management route, and the fact sheet records 0 renewals in the next 90 days [i:4dc69dfc59fb39bc] [i:6b5fec6f43e17fc0].\\n\\n## Why now\\n\\n- The fact sheet is dated 2026-11-03 and records 1 account, 2 mentions and 1 route, with 60000.0 GBP in ARR tied to Farrowdene Home [i:4dc69dfc59fb39bc] [i:6b5fec6f43e17fc0].\\n- Farrowdene Home's renewal date is 2027-06-02, and the fact sheet shows 0 renewals in the next 90 days [i:4dc69dfc59fb39bc] [i:6b5fec6f43e17fc0].\\n- No cited insight points the other way; the evidence is limited to this account and route [i:4dc69dfc59fb39bc] [i:6b5fec6f43e17fc0].\\n\", \"citations\": [\"4dc69dfc59fb39bc\", \"6b5fec6f43e17fc0\"]}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 789,
+   "tokens_out": 544,
+   "cost_usd": 0.000307505
+  }
+ }
+}

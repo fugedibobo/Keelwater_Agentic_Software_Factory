@@ -1,0 +1,61 @@
+{
+ "request": {
+  "model": "deepseek/deepseek-v4.1-flash",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou write a one-page opportunity brief for a Keelwater product manager. Keelwater makes claims-handling software. You use only the facts and customer insights below.\n</role>\n<opportunity>\n{\n \"title\": \"Lack of dark mode causes eye strain\",\n \"problem_statement\": \"Users working late-night shifts experience eye strain due to the platform's bright interface. This lack of a dark mode option reduces comfort and usability during extended evening work sessions.\"\n}\n</opportunity>\n<fact_sheet>\n{\n \"as_of\": \"2026-11-03\",\n \"accounts_n\": 1,\n \"mentions_n\": 4,\n \"routes_n\": 1,\n \"mentions_by_route\": {\n  \"support\": 4\n },\n \"arr_total_gbp\": 190000.0,\n \"renewals_90d_n\": 0,\n \"accounts\": [\n  {\n   \"name\": \"Selsby Motor\",\n   \"arr_gbp\": 190000.0,\n   \"renewal_date\": \"2027-09-27\",\n   \"mentions\": 4\n  }\n ]\n}\n</fact_sheet>\n<insights>\n[\n {\n  \"id\": \"1047ddd358940268\",\n  \"quote\": \"we’re running claims reports late into the evening and the bright interface is straining our eyes. Any chance we can get dark mode enabled?\",\n  \"account\": \"Selsby Motor\",\n  \"route\": \"support\",\n  \"date\": \"2026-10-29T16:20:00+00:00\"\n },\n {\n  \"id\": \"2f35eeab8fe49055\",\n  \"quote\": \"We handle a lot of late-night reserves and payments, so eye comfort matters. Let me know if there’s a timeline or workaround.\",\n  \"account\": \"Selsby Motor\",\n  \"route\": \"support\",\n  \"date\": \"2026-10-29T16:20:00+00:00\"\n },\n {\n  \"id\": \"b17eb0096d8122df\",\n  \"quote\": \"We’ll tweak the monitor settings for now and wait for updates on dark mode.\",\n  \"account\": \"Selsby Motor\",\n  \"route\": \"support\",\n  \"date\": \"2026-10-29T16:20:00+00:00\"\n },\n {\n  \"id\": \"d05a47821fefe6a2\",\n  \"quote\": \"We’re running claims reports late into the evening and the bright interface is straining our eyes — any chance we can get dark mode enabled?\",\n  \"account\": \"Selsby Motor\",\n  \"route\": \"support\",\n  \"date\": \"2026-10-29T16:20:00+00:00\"\n }\n]\n</insights>\n<rules>\n- Cite every insight you rely on as [i:INSIGHT_ID], using the id exactly as given. Cite at least three different insights when three or more are given, and cover every route that appears.\n- Use these sections, in this order, as Markdown headings: \"## Problem\", \"## Who is affected\", \"## Evidence\", \"## Why now\".\n- Every bullet under \"Who is affected\" and \"Evidence\" ends with a citation. Every sentence that contains a number or a date carries a citation.\n- Copy every account count, mention count, route count, renewal count and ARR figure from the fact sheet. Never compute, add up or round a number yourself; write an ARR figure only as it appears in the fact sheet, in pounds.\n- Write counts as digits exactly as the fact sheet gives them (\"5 accounts\", never \"five accounts\"); never write \"one customer\" or \"a single customer\" unless the fact sheet count says 1 for that same thing.\n- Put text in quotation marks only when it is a customer quote copied word for word, character for character, from one insight cited in the same sentence. Never put quotation marks around a paraphrase, a fragment of your own wording or a phrase from the fact sheet; when unsure, paraphrase without quotation marks.\n- Name a customer only when a cited insight in the same sentence belongs to that customer.\n- Do not claim more than the evidence shows: no \"all customers\", no scope wider than the cited accounts, and mention any cited insight that points the other way.\n- Do not recommend a solution.\n</rules>\n<output>\nJSON only: {\"body_md\": the brief as Markdown, \"citations\": the list of insight ids you cited}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 3000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "brief",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "body_md": {
+       "title": "Body Md",
+       "type": "string"
+      },
+      "citations": {
+       "items": {
+        "type": "string"
+       },
+       "title": "Citations",
+       "type": "array"
+      }
+     },
+     "required": [
+      "body_md",
+      "citations"
+     ],
+     "title": "BriefOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\"body_md\": \"## Problem\\n\\nUsers working late-night shifts experience eye strain from the platform's bright interface, and the lack of a dark mode option reduces comfort and usability during extended evening work sessions. Selsby Motor reports running claims reports late into the evening and says the bright interface is straining their eyes [i:1047ddd358940268]. The same account handles a lot of late-night reserves and payments and says eye comfort matters [i:2f35eeab8fe49055].\\n\\n## Who is affected\\n\\n- Selsby Motor, an account with 190000.0 GBP in ARR and a renewal date of 2027-09-27, raised this issue 4 times [i:1047ddd358940268].\\n- The account's late-night claims reporting and reserves/payments work is the context for the eye-strain complaint [i:2f35eeab8fe49055].\\n- The account has adopted a temporary workaround of tweaking monitor settings while waiting for updates on dark mode [i:b17eb0096d8122df].\\n\\n## Evidence\\n\\n- Selsby Motor asked whether dark mode could be enabled because running claims reports late into the evening was straining their eyes [i:1047ddd358940268].\\n- Selsby Motor stated that they handle a lot of late-night reserves and payments, that eye comfort matters, and asked for a timeline or workaround [i:2f35eeab8fe49055].\\n- Selsby Motor said they would tweak monitor settings for now and wait for updates on dark mode [i:b17eb0096d8122df].\\n- A near-duplicate report from the same account repeats the late-evening claims reporting and eye-strain request [i:d05a47821fefe6a2].\\n- As of 2026-11-03, this opportunity covers 1 account, 4 mentions, and 1 route, all on support; there are 0 renewals in the next 90 days.\\n\\n## Why now\\n\\n- The account's renewal date is 2027-09-27, and it has 190000.0 GBP in ARR, so the request is tied to a long-lived account rather than an imminent renewal [i:b17eb0096d8122df].\\n- The account has already accepted a manual workaround, which means the underlying request remains open [i:b17eb0096d8122df].\\n- All 4 mentions arrived through the support route, and no other routes are represented in the fact sheet [i:1047ddd358940268].\\n\", \"citations\": [\"1047ddd358940268\", \"2f35eeab8fe49055\", \"b17eb0096d8122df\", \"d05a47821fefe6a2\"]}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 964,
+   "tokens_out": 615,
+   "cost_usd": 0.00035088
+  }
+ }
+}

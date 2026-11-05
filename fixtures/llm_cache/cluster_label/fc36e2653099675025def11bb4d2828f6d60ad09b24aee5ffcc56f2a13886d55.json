@@ -1,0 +1,62 @@
+{
+ "request": {
+  "model": "qwen/qwen3.8-27b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The customer needs to update the purchase order reference on an invoice to fix reconciliation issues.\n  quote: we need to update the purchase order reference on our most recent invoice — it’s causing reconciliation issues with our finance team.\n- problem: The invoice generation process does not allow for easy correction of purchase order references, leading to reconciliation issues.\n  quote: We need to adjust the purchase order reference on the invoice you sent — it’s causing reconciliation problems with our finance team, and we’re hoping you can help with the purchase order correction."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\n\"title\": \"Inability to correct purchase order references on invoices\",\n\"problem_statement\": \"Customers cannot easily update purchase order references on issued invoices. This causes reconciliation issues with their finance teams.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 226,
+   "tokens_out": 44,
+   "cost_usd": 0.0001552
+  }
+ }
+}

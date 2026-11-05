@@ -271,8 +271,8 @@ Never cut: replay mode, quote verification, the ground-truth, held-out and stabi
 | The live run starts late | #9 or a stage issue still open at 15:30 | Critical-path dispatch order; cut items 2 and 3 first; #7's suites are built and tested offline before the live run. |
 | A seed 42 floor fails | #7's ground-truth suite shows FAIL | A 60-minute tuning box on seed 42 only, at most two re-runs, thresholds and prompt text only. Then the honest result with needs-decision; nobody re-runs an unchanged configuration hoping for a luckier draw. |
 | Seed 43 or the stability replay fails | holdout or stability FAIL | One fix, checked on seed 42 only, then one re-run of seed 43; otherwise the honest result is reported. Seed 43 is never used for tuning. |
-| `cloudflare/clef` unavailable or slow on OpenRouter | probe fails for the triage stage; HTTP 429 | Triage runs on `openai/gpt-oss-120b` and the run says so once. Backoff on 429 and 529. |
-| OpenRouter ids drift (several demo ids are INFERRED) | probe shows a primary miss | Each stage has a fallback id from the 02/11 research; the swap is recorded in the pull request and the run manifest. Replay is unaffected. |
+| `cloudflare/clef` unavailable or slow on OpenRouter | probe fails for the triage stage; HTTP 429 | Triage runs on Clef Flash (`cloudflare/clef-flash`, same Decisions API and key) and the run says so once. Backoff on 429 and 529. |
+| OpenRouter ids drift (several demo ids are INFERRED) | probe shows a primary miss | Each stage has a fallback id in `config/models.yaml`; the swap is recorded in the pull request and the run manifest. Replay is unaffected. |
 | No credit behind the key | HTTP 402 on the first probe | #14 step 1 checks for at least USD 10 of credit; a key limit adds none. |
 | Windows path and encoding traps | SQLite or .venv errors in OneDrive; MAX_PATH errors; hashes differ across machines; a crash printing "≥" or "£" | Repo at `C:\dev\keelwater` outside OneDrive; `core.longpaths`; `.gitattributes` with `eol=lf` in the first commit; UTF-8 stdout and `encoding="utf-8"` everywhere. |
 | Replay drifts from the live run | replay prints DIFF | Content-hash ids, the documented hash exclusions, a fixed `as_of`, a fresh store per run, cache-only replay, and MATCH on main after every merge from #7 on. |
@@ -404,7 +404,7 @@ The reports add up to about USD 1.6. The key's own usage figure (`probe --key-us
 - **Start a day late**, and the live part of #7 moved from Tuesday afternoon to the early hours of Wednesday.
 - **Codex did not build.** The plan had codex terra building and Sonnet checking; Sonnet built 11 of 12 work orders. The sol review ran three times, not once, and its fixes were built by Sonnet because codex terra stalled in this setup.
 - **#7 floors fail.** Seed 42 recovers 2 of 6 planted themes, seed 43 recovers 0 of 3, and stability finds 2 forked themes. The plan allowed one tuning loop (60 minutes) and a frozen held-out run; the author added one capped extract filter and stopped there. The results ship as measured, with the diagnosis in the README.
-- **Judges: `glm-5` replaced by `glm-5.3`**, because `glm-5` ignored `json_schema`.
+- **Judges: the plan's older GLM release replaced by GLM 5.3** (`z-ai/glm-5.3`), because the older release ignored `json_schema`.
 - **Triage model** changed from Jev to Cloudflare Clef through OpenRouter's Decisions API (author, 04/11). **The synthetic-data model** changed from Mistral to Qwen3 VL 235B after Mistral returned empty output.
 - **Author time** was about 2 hours by 02:30 on 04/11 (the author's estimate), inside the 4 hours asked for.
 

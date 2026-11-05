@@ -303,7 +303,7 @@ def rank_metrics(a, ranking_cfg, as_of, top=6):
 
 def brief_metrics(a):
     briefs = list(a.briefs.values())
-    judged = [j for j in a.store.select("judgement") if j["judge"] == "faithfulness" and (a.run_id is None or j["run_id"] == a.run_id)]
+    judged = [j for j in a.store.select("judgement") if j["judge"] == "faithfulness" and j["verdict"] != "not_independent" and (a.run_id is None or j["run_id"] == a.run_id)]
     return {"citation_failures": sum(b["check_status"] == "failed_checks" for b in briefs),
             "faithfulness_pass_rate": _ratio(sum(j["verdict"] == "pass" for j in judged), len(judged))}
 

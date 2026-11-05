@@ -1,5 +1,5 @@
 # Model ids pinned per profile and stage. Price is USD per million tokens (in/out); the response's own
-# usage cost wins when present. Prices marked est are INFERRED (docs/research/model-options-and-prices.md).
+# usage cost wins when present. Prices were read from OpenRouter on 05/11/2026 (docs/research/model-options-and-prices.md).
 version: 1
 stage_defaults: {temperature: 0, max_tokens: 1024, timeout_s: 60, retries: 3, concurrency: 8}
 profiles:
@@ -13,46 +13,55 @@ profiles:
         base_url: https://openrouter.ai/api
         timeout_s: 1.5
         retries: 2
-        price: {in: 0.24, out: 0.0}   # est
+        price: {in: 0.192, out: 0.0}
       triage_fallback:
-        model: openai/gpt-oss-120b
-        price: {in: 0.03, out: 0.15}
-        max_tokens: 256
+        backend: clef            # a decision model, not a chat LLM: the fallback must answer in about 50 ms
+        model: cloudflare/clef-flash
+        base_url: https://openrouter.ai/api
+        timeout_s: 1.5
+        retries: 2
+        price: {in: 0.018, out: 0.0}
       extract:
-        model: openai/gpt-oss-120b
-        price: {in: 0.03, out: 0.15}
+        model: qwen/qwen3.8-flash
+        fallback: qwen/qwen3.8-27b
+        price: {in: 0.15, out: 0.47}
         max_tokens: 600
+        reasoning: {enabled: false}   # qwen3.8-flash reasons by default: 14 of 60 real extract calls hit max_tokens before any JSON
       embed:
         model: qwen/qwen3-embedding-8b
+        fallback: openai/text-embedding-3-large
         price: {in: 0.01, out: 0.0}
       cluster_label:
-        model: qwen/qwen3-next-80b-a3b-instruct
-        fallback: qwen/qwen3.6-35b-a3b
-        price: {in: 0.10, out: 0.90}   # est
+        model: qwen/qwen3.8-27b
+        fallback: qwen/qwen3.8-flash
+        price: {in: 0.029, out: 1.575}   # upper end of two quoted ranges (0.023-0.029 / 1.28-1.575) so the budget bound is conservative; usage.cost wins
         max_tokens: 200
+        reasoning: {enabled: false}   # qwen3.8-27b reasons by default and overran 200 tokens before the label
       brief:
-        model: deepseek/deepseek-v3.2
-        fallback: deepseek/deepseek-v4-pro-0813
-        price: {in: 0.66, out: 1.98}   # est
-        max_tokens: 1500
+        model: deepseek/deepseek-v4.1-flash   # swapped from qwen/qwen3.8-max-0902 (05/11/2026): its reasoning is mandatory and used 2400-8000 tokens, so even 8000 ended in finish_reason=length on 2 of 4 briefs
+        price: {in: 0.15, out: 0.60}   # upper end of the quoted range; usage.cost wins
+        max_tokens: 3000   # 1500 cut off briefs for the largest clusters (2 of 12 hit length)
+        reasoning: {enabled: false}
         timeout_s: 120
       judge:
-        model: z-ai/glm-5.3   # swap: glm-5 ignores json_schema (returns prose), glm-5.3 obeys it; reasoning is mandatory there
-        fallback: z-ai/glm-5
-        price: {in: 1.40, out: 4.40}   # est
+        model: z-ai/glm-5.3
+        fallback: deepseek/deepseek-v4.1-flash
+        price: {in: 0.0699, out: 1.40}   # usage.cost wins
         max_tokens: 4000
         reasoning: {effort: low}   # glm-5.3 reasons at length by default and overran 4000 on some briefs
         timeout_s: 120
       handoff:
-        model: deepseek/deepseek-v3.2
-        fallback: deepseek/deepseek-v4-pro-0813
-        price: {in: 0.66, out: 1.98}   # est
-        max_tokens: 1500
+        model: deepseek/deepseek-v4.1-flash   # swapped from qwen/qwen3.8-max-0902 (05/11/2026): its reasoning is mandatory and used 2400-8000 tokens, so even 8000 ended in finish_reason=length on 2 of 4 briefs
+        price: {in: 0.15, out: 0.60}   # upper end of the quoted range; usage.cost wins
+        max_tokens: 3000   # 1500 cut off briefs for the largest clusters (2 of 12 hit length)
+        reasoning: {enabled: false}
         timeout_s: 120
       outtake:
-        model: openai/gpt-oss-120b
-        price: {in: 0.03, out: 0.15}
+        model: qwen/qwen3.8-flash
+        fallback: deepseek/deepseek-v4.1-flash
+        price: {in: 0.15, out: 0.47}
         max_tokens: 800
+        reasoning: {enabled: false}   # same model as extract, same reason
       generate:
         model: qwen/qwen3-vl-235b-a22b-instruct   # passed the 6-record smoke; deepseek-v4.1-flash did not
         fallback: deepseek/deepseek-v4.1-flash    # needs reasoning: {enabled: false} on this stage
@@ -65,31 +74,34 @@ profiles:
     extends: demo
     cache_only: true
   aws:
+    # Bedrock ids only where an AWS page confirms them; every other name is the open-weight model, availability on Bedrock
+    # not confirmed (INFERRED), checked 05/11/2026 (docs/research/model-options-and-prices.md). No Decisions API in the VPC,
+    # so triage runs on triage_fallback (a chat model) until Clef is self-hosted.
     base_url: https://bedrock-runtime.eu-west-2.amazonaws.com/openai/v1
     base_url_env: KEELWATER_AWS_BASE_URL
     key_env: KEELWATER_AWS_KEY
     request_metadata: true
     stages:
-      triage: {model: "openai.gpt-oss-20b-1:0"}
-      triage_fallback: {model: "openai.gpt-oss-120b-1:0"}
-      extract: {model: "openai.gpt-oss-120b-1:0"}
-      embed: {model: qwen3-embedding-8b}
-      cluster_label: {model: "qwen.qwen3-next-80b-a3b"}
-      brief: {model: "deepseek.v3.2"}
-      judge: {model: "zai.glm-5"}
-      handoff: {model: "deepseek.v3.2"}
-      outtake: {model: "openai.gpt-oss-120b-1:0"}
+      triage: {model: Clef}                      # availability on Bedrock not confirmed (INFERRED); self-hosted open weights
+      triage_fallback: {model: Qwen3.8-Flash}    # availability on Bedrock not confirmed (INFERRED)
+      extract: {model: Qwen3.8-Flash}            # availability on Bedrock not confirmed (INFERRED)
+      embed: {model: Qwen3-VL-Embedding-8B}      # availability on Bedrock not confirmed (INFERRED)
+      cluster_label: {model: Qwen3.8-27B}        # availability on Bedrock not confirmed (INFERRED)
+      brief: {model: Qwen3.8-Max}                # availability on Bedrock not confirmed (INFERRED); Qwen 4 once released and qualified
+      judge: {model: "global.zai.glm-5.3"}       # FOUND: docs.aws.amazon.com/bedrock/latest/userguide/model-card-zai-glm-5-3.html; global routing, no UK residency guarantee
+      handoff: {model: Qwen3.8-Max}              # availability on Bedrock not confirmed (INFERRED)
+      outtake: {model: Qwen3.8-Flash}            # availability on Bedrock not confirmed (INFERRED)
   self-hosted:
     base_url: http://vllm.keelwater.internal:8000/v1
     base_url_env: KEELWATER_SELFHOSTED_BASE_URL
     key_env: KEELWATER_SELFHOSTED_KEY
     stages:
-      triage: {model: gpt-oss-120b}
-      triage_fallback: {model: gpt-oss-120b}
-      extract: {model: gpt-oss-120b}
-      embed: {model: Qwen3-Embedding-8B}
-      cluster_label: {model: qwen3-next-80b-a3b}
-      brief: {model: deepseek-v3.2}
-      judge: {model: glm-5}
-      handoff: {model: deepseek-v3.2}
-      outtake: {model: gpt-oss-120b}
+      triage: {model: Clef}
+      triage_fallback: {model: Qwen3.8-Flash}
+      extract: {model: Qwen3.8-Flash}
+      embed: {model: Qwen3-VL-Embedding-8B}
+      cluster_label: {model: Qwen3.8-27B}
+      brief: {model: Qwen3.8-Max}
+      judge: {model: GLM-5.3}
+      handoff: {model: Qwen3.8-Max}
+      outtake: {model: Qwen3.8-Flash}

@@ -27,6 +27,7 @@ TagState = _e("TagState", "proposed confirmed removed")
 CheckStatus = _e("CheckStatus", "passed failed_checks")
 Judge = _e("Judge", "faithfulness signal duplicate")  # coherence is reserved, not built in v1
 Verdict = _e("Verdict", "pass fail")
+JudgementVerdict = _e("JudgementVerdict", "pass fail not_independent")  # judgement table only: writer and judge are the same model family
 JudgeState = _e("JudgeState", "uncalibrated calibrating trusted revoked")
 AnnotationAction = _e("AnnotationAction", "accept merge split reject park reassign edit undo confirm_tag remove_tag")
 ReasonCode = _e("ReasonCode", "not_product_signal already_shipped already_on_roadmap evidence_wrong mixed_problems low_value other")
@@ -250,7 +251,7 @@ class Judgement(_Checked):
     judge: Judge
     target_type: TargetType
     target_id: str
-    verdict: Verdict
+    verdict: JudgementVerdict
     critique: str
 
 

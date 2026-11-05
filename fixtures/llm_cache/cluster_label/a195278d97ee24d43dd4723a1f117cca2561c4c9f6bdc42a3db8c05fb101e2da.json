@@ -1,0 +1,62 @@
+{
+ "request": {
+  "model": "qwen/qwen3.8-27b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The customer is overwhelmed by the volume of supplier invoices and policyholder letters, and their current reporting capabilities are inconsistent.\n  quote: we’re drowning in supplier invoices and policyholder letters, and our reporting is all over the place.\n- problem: The current system lacks proper task tracking capabilities and does not support automated document routing or clear role assignment.\n  quote: We need to assign clear roles and automate document routing — our current system doesn’t let us track tasks properly.\n- problem: The current platform lacks smooth integrations and real-time updates, forcing users to manually chase for information.\n  quote: Just the basics — smoother integrations, real-time updates, and less manual chasing.\n- problem: The current task tracking capabilities in the platform are insufficient for the customer's needs.\n  quote: we’ve been needing better task tracking.\n- problem: The current platform lacks sufficient visibility and planning features, causing users to waste time daily.\n  quote: Just that we’re losing time daily on this — it’s not sustainable without better visibility and planning.\n- problem: The customer finds it difficult to manage supplier communications and task tracking because these functions are not integrated or distinct enough in the current workflow.\n  quote: We’re also struggling with supplier comms and task tracking — it’s all tied together.\n- problem: The customer is currently relying on disconnected spreadsheets and emails to manage tasks and generate policyholder letters, indicating a lack of integrated workflow features in their current process.\n  quote: Right now it’s a mix of spreadsheets and email threads — not ideal when we need to assign tasks or generate letters for policyholders."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Fragmented workflow and poor task visibility\",\n  \"problem_statement\": \"Users struggle to manage high volumes of documents and tasks due to a lack of integrated tracking, routing, and real-time updates. This forces reliance on disconnected tools like spreadsheets, causing inconsistent reporting and significant time loss.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 455,
+   "tokens_out": 68,
+   "cost_usd": 0.00023825
+  }
+ }
+}

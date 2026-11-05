@@ -1,0 +1,62 @@
+{
+ "request": {
+  "model": "qwen/qwen3.8-27b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: Supplier letters are failing to trigger automatically, which delays task assignments.\n  quote: we’ve had issues with supplier letters not triggering automatically, and it’s causing delays in task assignments.\n- problem: Some policyholders are not receiving automated letters as expected.\n  quote: can we discuss how policyholders receive automated letters? Some aren’t getting them.\n- problem: Tasks are not being automatically assigned when letters are sent to policyholders, causing delays.\n  quote: are tasks auto-assigned when letters go out to policyholders? We’re seeing delays.\n- problem: The platform lacks an automated feature to generate correspondence letters based on claim status, forcing users to handle this manually.\n  quote: can we generate letters automatically based on claim status? We’re drowning in manual correspondence.\n- problem: The current default settings for letter automation are insufficient, preventing the customer from automating their letters.\n  quote: We’ve been trying to automate those letters and hit a wall with the current defaults."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Letter automation and task assignment failures\",\n  \"problem_statement\": \"Users cannot reliably automate correspondence or trigger task assignments due to missing features and insufficient default settings. This forces manual handling of letters and causes significant delays in claim processing.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 322,
+   "tokens_out": 56,
+   "cost_usd": 0.0003129
+  }
+ }
+}

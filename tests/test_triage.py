@@ -1,3 +1,4 @@
+import copy
 import hashlib
 import re
 from datetime import date
@@ -26,10 +27,10 @@ def boom(body):
     raise GatewayError("down")
 
 
-def setup(store, gw_factory, canned, texts):
+def setup(store, gw_factory, canned, texts, **kw):
     for sid, text in texts.items():
         store.insert("snippet", Snippet(snippet_id=sid, raw_id="raw", text=text))
-    gw = gw_factory(canned)
+    gw = gw_factory(canned, **kw)
     cfg = {n: config.load(n) for n in config.CONFIG_FILES}
     ctx = RunContext(store, gw, "r1", date(2026, 11, 3), Path("."), 42, "all", "demo", Path("."), cfg, None, "triage")
     return ctx, gw
@@ -57,16 +58,29 @@ def test_one_decide_call_asks_four_questions_and_every_row_has_a_call(tmp_store,
     assert r["call_id"] == tmp_store.select("model_call")[0]["call_id"]
 
 
-def test_clef_failure_falls_back_to_the_second_model_and_loses_nothing(tmp_store, fake_gateway, capsys):
+def test_clef_failure_falls_back_to_clef_flash_through_the_decisions_api_and_loses_nothing(tmp_store, fake_gateway, capsys):
     texts = {f"s{i}": f"text {i}" for i in range(5)}
-    ctx, gw = setup(tmp_store, fake_gateway, {"triage": boom, "triage_fallback": fb(0.9)}, texts)  # the probe fails too
+    ctx, gw = setup(tmp_store, fake_gateway, {"triage": boom, "triage_fallback": answers(0.9)}, texts)  # the probe fails too
     triage.run(ctx)
     rs = rows(tmp_store)
     assert len(rs) == 5 and {r["backend"] for r in rs.values()} == {"fallback"} and {r["decision"] for r in rs.values()} == {"keep"}
-    call = next(c for c in gw.calls if c[0] == "triage_fallback")[2]
-    assert call["response_format"]["type"] == "json_schema" and call["model"] == "openai/gpt-oss-120b"
+    kind, call = next(c for c in gw.calls if c[0] == "triage_fallback")[1:]
+    assert kind == "decide" and call["model"] == "cloudflare/clef-flash" and "response_format" not in call and "messages" not in call
+    assert call["provider"]["data_collection"] == "deny" and set(call["questions"]) == {"is_product_signal", "bucket", "severity", "signal_type"}
     assert tmp_store.select("model_call", {"stage": "triage_fallback"})
-    assert capsys.readouterr().out.count("cloudflare/clef unavailable") == 1
+    assert capsys.readouterr().out.count("cloudflare/clef unavailable, using cloudflare/clef-flash") == 1
+
+
+def test_a_profile_without_a_decision_fallback_still_falls_back_to_a_chat_model(tmp_store, fake_gateway):
+    models = copy.deepcopy(config.load("models"))
+    models["profiles"]["demo"]["stages"]["triage_fallback"] = {"model": "vendor/chat-model", "max_tokens": 256}  # no backend: a chat model
+    texts = {f"s{i}": f"text {i}" for i in range(3)}
+    ctx, gw = setup(tmp_store, fake_gateway, {"triage": boom, "triage_fallback": fb(0.9)}, texts, models=models)
+    triage.run(ctx)
+    rs = rows(tmp_store)
+    assert {r["backend"] for r in rs.values()} == {"fallback"} and {r["decision"] for r in rs.values()} == {"keep"}
+    kind, call = next(c for c in gw.calls if c[0] == "triage_fallback")[1:]
+    assert kind == "chat" and call["response_format"]["type"] == "json_schema" and call["model"] == "vendor/chat-model"
 
 
 def test_both_backends_fail_gives_untriaged_never_dropped(tmp_store, fake_gateway, capsys):
@@ -82,14 +96,14 @@ def test_one_bad_snippet_falls_back_while_clef_stays_primary(tmp_store, fake_gat
             raise GatewayError("x")
         return answers(0.9)
 
-    ctx, _ = setup(tmp_store, fake_gateway, {"triage": clef, "triage_fallback": fb(0.3)}, {"a": "good", "b": "bad"})
+    ctx, _ = setup(tmp_store, fake_gateway, {"triage": clef, "triage_fallback": answers(0.3)}, {"a": "good", "b": "bad"})
     triage.run(ctx)
     rs = rows(tmp_store)
     assert (rs["a"]["backend"], rs["b"]["backend"], rs["b"]["decision"]) == ("clef", "fallback", "low_confidence")
 
 
 def test_unknown_bucket_from_the_model_is_a_failed_call(tmp_store, fake_gateway):
-    ctx, _ = setup(tmp_store, fake_gateway, {"triage": lambda b: answers(0.9, bucket="not_a_bucket"), "triage_fallback": fb(0.9)}, {"s1": "x"})
+    ctx, _ = setup(tmp_store, fake_gateway, {"triage": lambda b: answers(0.9, bucket="not_a_bucket"), "triage_fallback": answers(0.9)}, {"s1": "x"})
     triage.run(ctx)
     assert rows(tmp_store)["s1"]["backend"] == "fallback"
 
@@ -98,7 +112,7 @@ def test_budget_exceeded_is_not_swallowed(tmp_store, fake_gateway):
     def over(body):
         raise BudgetExceeded("over")
 
-    ctx, _ = setup(tmp_store, fake_gateway, {"triage": over, "triage_fallback": fb(0.9)}, {"s1": "x"})
+    ctx, _ = setup(tmp_store, fake_gateway, {"triage": over, "triage_fallback": answers(0.9)}, {"s1": "x"})
     with pytest.raises(BudgetExceeded):
         triage.run(ctx)
 

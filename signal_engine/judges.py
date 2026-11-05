@@ -34,6 +34,11 @@ def similar_items(store, statement, tag_ref=None, n=5):
     return [x[3] for x in sorted(scored, key=lambda x: x[:3])[:n]]
 
 
+def family(model):
+    """Vendor prefix of a model id: before the first "/" (OpenRouter) or, for Bedrock-style ids, the first "."."""
+    return re.split(r"[/.]", model, maxsplit=1)[0]
+
+
 def judge(ctx, name, target_type, target_id, evidence):
     store, gw = ctx.store, ctx.gateway
     body, pv = load_prompt("judge", name)
@@ -42,6 +47,14 @@ def judge(ctx, name, target_type, target_id, evidence):
     with store.lock:
         if not store.select("judge_version", {"judge_version_id": jv}):
             store.insert("judge_version", JudgeVersion(judge_version_id=jv, judge=name, prompt_version=pv, model=model))
+    if target_type == "brief":  # a judge never grades its own family's writing (handoff drafts are not judged in this codebase)
+        writer = store.select("brief", {"brief_id": target_id})[0]["model"]
+        if family(writer) == family(model):
+            critique = f"Not graded: the brief was written by {writer} and the judge is {model}. The writer and the judge are the same model family ({family(model)}), so the grade would not be independent."
+            store.insert("judgement", Judgement(judgement_id=content_id("judgement", ctx.run_id, jv, target_type, target_id), run_id=ctx.run_id,
+                                                judge_version_id=jv, judge=name, target_type=target_type, target_id=target_id,
+                                                verdict="not_independent", critique=critique), replace=True)
+            return
     out, call_id = chat_with_id(gw, "judge", render(body, evidence=evidence), target_type, target_id, pv, SCHEMA)
     store.insert("judgement", Judgement(judgement_id=content_id("judgement", ctx.run_id, jv, target_type, target_id), run_id=ctx.run_id,
                                         call_id=call_id, judge_version_id=jv, judge=name, target_type=target_type, target_id=target_id,

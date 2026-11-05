@@ -132,22 +132,24 @@ Intake is a fixed workflow of typed steps ([ADR-001](docs/decisions.md)). Each s
 
 ## Models and cost
 
-One OpenAI-compatible gateway serves every model stage, triage included. The demo runs the same open weights that Bedrock serves wherever OpenRouter has them, so moving to the `aws` profile is a configuration change plus one re-qualification run of the eval suites ([ADR-002](docs/decisions.md)). Routing follows the cost of being wrong:
+One OpenAI-compatible gateway serves every model stage, triage included. The demo runs open-weight models through OpenRouter. Only GLM 5.3 is confirmed on Bedrock, so moving to the `aws` profile means confirming or self-hosting the rest, plus one re-qualification run of the eval suites ([ADR-002](docs/decisions.md)). Routing follows the cost of being wrong. Prices are USD per million tokens, in / out, read on OpenRouter on 05/11/2026:
 
-| Job | Tier | `demo` profile (OpenRouter) | `aws` profile (inside the VPC; open weights by default) |
+| Job | Tier | `demo` profile (OpenRouter) | `aws` profile (inside the VPC; open weights) |
 |---|---|---|---|
-| Triage | Decision model | Clef (`cloudflare/clef`, 27B, open weights) through OpenRouter's Decisions API; fallback gpt-oss-120b | gpt-oss-20b or 120b on Bedrock; later a self-hosted Clef (the same weights as the demo) or a classifier trained on PM labels |
-| Extract | Cheap | gpt-oss-120b | gpt-oss-120b on Bedrock (eu-west-2) |
-| Cluster labels | Cheap | Qwen3 Next 80B A3B | Same weights on Bedrock |
-| Embeddings | Open weights | Qwen3 Embedding 8B | Same weights, or Qwen3 Embedding 0.6B as a nightly batch job |
-| Brief, top 10 only | Strong | DeepSeek V3.2 | DeepSeek V3.2 on Bedrock |
-| Judges | Different family from the writer | GLM 5 | GLM 5 on Bedrock |
+| Triage | Decision model | Clef (`cloudflare/clef`, 27B, 0.192 / 0), falling back to Clef Flash (`cloudflare/clef-flash`, 9B, 0.018 / 0): decision models on OpenRouter's Decisions API with the same key, about 50 ms a call | Clef weights self-hosted in the VPC; availability on Bedrock not confirmed (INFERRED). Later a classifier trained on PM labels |
+| Extract | Cheap | Qwen3.8 Flash (`qwen/qwen3.8-flash`, 0.15 / 0.47), falling back to Qwen3.8 27B | Qwen3.8 Flash; availability on Bedrock not confirmed (INFERRED) |
+| Cluster labels | Cheap | Qwen3.8 27B (`qwen/qwen3.8-27b`, 0.023 to 0.029 / 1.28 to 1.575; two pages differ), falling back to Qwen3.8 Flash | Qwen3.8 27B; availability on Bedrock not confirmed (INFERRED) |
+| Embeddings | Open weights | Qwen3 Embedding 8B (`qwen/qwen3-embedding-8b`, 0.01), falling back to OpenAI text-embedding-3-large | Qwen3-VL-Embedding-8B, the newest Qwen embedding model (open weights, not on OpenRouter); availability on Bedrock not confirmed (INFERRED) |
+| Brief and handoff, top 10 only | Strong | DeepSeek V4.1 Flash (`deepseek/deepseek-v4.1-flash`, reasoning off, 0.15 / 0.60), the configured fallback. Qwen3.8 Max (`qwen/qwen3.8-max-0902`, 2.00 / 6.00) was the primary, but its reasoning cannot be switched off and ran out of tokens on 2 of 4 test briefs even at 8,000, so the live run used the fallback | Qwen3.8 Max; availability on Bedrock not confirmed (INFERRED) |
+| Judges | Different family from the writer | GLM 5.3 (`z-ai/glm-5.3`, reasoning always on, effort low, 0.0699 / 1.40), falling back to DeepSeek V4.1 Flash | GLM 5.3 as `global.zai.glm-5.3` on Bedrock (FOUND, 05/11/2026); global routing cannot guarantee UK data residency |
+| Outtake | Cheap | Qwen3.8 Flash, falling back to DeepSeek V4.1 Flash | Qwen3.8 Flash; availability on Bedrock not confirmed (INFERRED) |
 
-- **Model ids:** the build probes each id and falls back to the ids in the 02/11/2026 research if one is missing on OpenRouter.
+- **Model ids:** the build probes each id and uses the stage's fallback in `config/models.yaml` if one is missing on OpenRouter.
+- **Family rule:** writers are Qwen with DeepSeek as fallback (in the 05/11/2026 run brief and handoff used the DeepSeek fallback, as the table says); judges are GLM with DeepSeek as fallback. A brief written by DeepSeek is never graded by a DeepSeek judge: that judgement is stored as `not_independent`, shown, and left out of pass counts. Qwen 4 is not released (05/11/2026); it is the planned swap for brief and handoff, once the same eval suites qualify it.
 - **Replay profile:** recorded responses, no network, no keys, byte-for-byte reproducible from the run manifest.
-- **Synthetic data** was written by Qwen3 VL 235B Instruct (`qwen/qwen3-vl-235b-a22b-instruct`), a family no judge belongs to, so no judge grades its own family's text. Mistral Large was dropped: the data is invented, so the cheapest model that passes the generator's checks is enough. DeepSeek V4.1 Flash (reasoning off) is the recorded fallback.
-- **Cost:** tokens come to about USD 0.8 per nightly run at demo volume, 2.6 at 10x and 21 at 100x (estimated from list prices, INFERRED). At scale the real costs are GPU hosting and PM attention, so routing exists to protect attention and latency as much as money. Decision calls run with a concurrency of 50 or more.
-- **Live-run caps:** the OpenRouter key has a hard USD 10 limit for the whole build; the per-step caps inside it total about USD 7.80, with the first live run capped at USD 1.50, and the plan expected the whole build to cost about USD 3.50. The key's own usage figure read USD 4.16 of 10 before the fresh live proof; the issue reports add up to about 1.6, and [build-plan.md](docs/build-plan.md) lists the gap as unexplained. Judges are seeded with 60 items each. OpenRouter requests deny data collection.
+- **Synthetic data** was written by Qwen3 VL 235B Instruct (`qwen/qwen3-vl-235b-a22b-instruct`), a family no judge belongs to, so no judge grades its own family's text. The committed seeds were made with it and are not regenerated. Mistral Large was dropped: the data is invented, so the cheapest model that passes the generator's checks is enough. DeepSeek V4.1 Flash (reasoning off) is the recorded fallback.
+- **Cost:** <!-- generated:cost:start -->tokens come to about USD 0.17 per nightly run at demo volume, 1.7 at 10x and 17 at 100x (estimated from list prices and the recorded token counts of the demo run, INFERRED).<!-- generated:cost:end --> At scale the real costs are GPU hosting and PM attention, so routing exists to protect attention and latency as much as money. Decision calls run with a concurrency of 50 or more.
+- **Live-run caps:** the OpenRouter key has a hard USD 10 limit for the whole build; the per-step caps inside it total about USD 7.80, with the first live run capped at USD 1.50, and the plan expected the whole build to cost about USD 3.50. The key's own usage figure read USD 4.16 of 10 before the fresh live proof; the issue reports add up to about 1.6, and [build-plan.md](docs/build-plan.md) lists the gap as unexplained. The #62 re-run on the current routing moved it from USD 4.53 to 6.67 (cap 3.00). Judges are seeded with 60 items each. OpenRouter requests deny data collection.
 
 ## Quickstart
 
@@ -171,9 +173,10 @@ Live run: copy `.env.example` to `.env`, add `OPENROUTER_API_KEY`, then run `uv 
 
 All figures come from the committed reports in `reports/eval/` and are measured on synthetic data (docs/evals.md section 7 says which numbers are synthetic and which are real clicks). They measure the pipeline against its own planted-truth gates and say nothing about accuracy on real customers.
 
+<!-- generated:results:start -->
 Verdict: the floors fail on seed 42, on seed 43 and on stability. The judge suite passes only because no judge can be certified without real PM labels. `eval --suite all` exits 1. The tables are the latest run of each suite in `reports/eval/`; the numbers are the same in the board's Evals tab.
 
-**Seed 42** (`eval --suite ground-truth`, report `ground-truth-efe009d511d14c7d`; the gates are in [evals.md section 4.2](docs/evals.md)). Synthetic.
+**Seed 42** (`eval --suite ground-truth`, report `ground-truth-9a0156dd325d49fc`; the gates are in [evals.md section 4.2](docs/evals.md)). Synthetic.
 
 | Metric | Result | Floor | Holds |
 |---|---|---|---|
@@ -182,32 +185,32 @@ Verdict: the floors fail on seed 42, on seed 43 and on stability. The judge suit
 | Bucket accuracy | 0.90 | 0.75 | yes |
 | Quote verification | 0.99 | 0.93 | yes |
 | Account attribution | 0.98 | 1.00 | no |
-| Themes recovered | 2 of 6 | 6 of 6 | no |
-| Mean purity | 0.59 | 0.75 | no |
+| Themes recovered | 1 of 6 | 6 of 6 | no |
+| Mean purity | 0.54 | 0.75 | no |
 | Split themes | 2 | at most 1 | no |
 | Over-merges | 0 | at most 1 | yes |
 | Noise themes in the top 10 | 0 | 0 | yes |
 | Top-6 set equals the six real themes | no | yes | no |
 | Adversarial probe ranks below all six | yes | yes | yes |
-| Citation failures after retry | 7 | 0 | no |
+| Citation failures after retry | 6 | 0 | no |
 | Faithfulness pass rate (reported) | 0.80 | not gated | n/a |
 
-**Seed 43, held out** (`eval --suite holdout`, report `holdout-67fb4d4fbff640ad`; floors in [evals.md section 4.3](docs/evals.md)). Synthetic.
+**Seed 43, held out** (`eval --suite holdout`, report `holdout-b6cb1749832b493d`; floors in [evals.md section 4.3](docs/evals.md)). Synthetic.
 
 | Metric | Result | Floor | Holds |
 |---|---|---|---|
 | Signal recall | 1.00 | 0.85 | yes |
-| Quote verification | 1.00 | 0.93 | yes |
+| Quote verification | 0.99 | 0.93 | yes |
 | Account attribution | 1.00 | 1.00 | yes |
 | Themes recovered | 0 of 3 | 2 of 3 | no |
-| Mean purity | 0.39 | 0.75 | no |
-| Noise themes in the top 10 | 1 | 0 | no |
+| Mean purity | 0.37 | 0.75 | no |
+| Noise themes in the top 10 | 0 | 0 | yes |
 | Citation failures after retry | 5 | not gated | n/a |
 | Noise-drop rate, bucket accuracy (reported) | 0.52, 1.00 | not gated | n/a |
 
-**Stability** (`eval --suite stability`, report `stability-6d7f81793bec4276`): fails. No September opportunity lost its id (0 of 12) and no membership shrank, but 2 planted themes are held by two opportunities of 25% or more each.
+**Stability** (`eval --suite stability`, report `stability-d32ee635e4994de5`): fails. No September opportunity lost its id (0 of 12) and no membership shrank, but 2 planted themes are held by two opportunities of 25% or more each.
 
-**Judges** (`eval --suite judges`, report `judges-8483fdb0aaee4817`; passes, none certified). The `synthetic_seed` rows are constructed items and never certify (evals.md section 7). The `real_pm` rows hold 0 of 50 labels per class, so every judge is uncalibrated. Held-out agreement on the constructed items, with 95% intervals:
+**Judges** (`eval --suite judges`, report `judges-d29d0a9d635c47d9`; passes, none certified). The `synthetic_seed` rows are constructed items and never certify (evals.md section 7). The `real_pm` rows hold 0 of 50 labels per class, so every judge is uncalibrated. Held-out agreement on the constructed items, with 95% intervals:
 
 | Judge | True-positive rate | True-negative rate |
 |---|---|---|
@@ -215,7 +218,30 @@ Verdict: the floors fail on seed 42, on seed 43 and on stability. The judge suit
 | duplicate | 0.95 (0.78 to 0.99) | 0.80 (0.55 to 0.93) |
 | faithfulness | 1.00 (0.51 to 1.00) | 0.75 (0.30 to 0.95) |
 
-Cost, tokens and latency are real `model_call` rows from the recorded live runs; everything else above is measured on planted data. **Fresh live proof (04/11/2026):** the first attempt (empty cache, `--max-usd 0.364`) stopped at the judge stage after 17 min 14 s, because the budget guard found no room under the cap (metered USD 0.1708). The second attempt, `--max-usd 0.65` and an empty cache, failed after 8 min 39 s at the brief stage on one `APIConnectionError` (metered USD 0.1524). Resumed from that run's own cache with `--max-usd 0.50`, it completed in 6 min 23 s: 15 min 2 s of run time in total, 2 s over the 15-minute target. Metered cost USD 0.1977 (0.1524 + 0.0453); the key's usage rose by USD 0.2049 (4.3292 to 4.5341 of 10). `eval --suite ground-truth` on that run matched the committed seed 42 report on every metric (2 of 6 themes, purity 0.59, 7 citation failures, floors fail). Follow-up: the gateway does not retry `APIConnectionError`, so one network blip killed a run. The recorded demo run still replays offline.
+**Earlier run (previous routing, 04/11/2026)**, same suites and floors:
+
+| Metric | Earlier | Now | Floor |
+|---|---|---|---|
+| Seed 42: Signal recall | 0.95 | 0.95 | 0.90 |
+| Seed 42: Noise-drop rate | 0.64 | 0.64 | 0.60 |
+| Seed 42: Bucket accuracy | 0.90 | 0.90 | 0.75 |
+| Seed 42: Quote verification | 0.99 | 0.99 | 0.93 |
+| Seed 42: Account attribution | 0.98 | 0.98 | 1.00 |
+| Seed 42: Themes recovered | 2 of 6 | 1 of 6 | 6 of 6 |
+| Seed 42: Mean purity | 0.59 | 0.54 | 0.75 |
+| Seed 42: Split themes | 2 | 2 | at most 1 |
+| Seed 42: Over-merges | 0 | 0 | at most 1 |
+| Seed 42: Noise themes in the top 10 | 0 | 0 | 0 |
+| Seed 42: Citation failures after retry | 7 | 6 | 0 |
+| Seed 43: Signal recall | 1.00 | 1.00 | 0.85 |
+| Seed 43: Quote verification | 1.00 | 0.99 | 0.93 |
+| Seed 43: Account attribution | 1.00 | 1.00 | 1.00 |
+| Seed 43: Themes recovered | 0 of 3 | 0 of 3 | 2 of 3 |
+| Seed 43: Mean purity | 0.39 | 0.37 | 0.75 |
+| Seed 43: Noise themes in the top 10 | 1 | 0 | 0 |
+<!-- generated:results:end -->
+
+Cost, tokens and latency are real `model_call` rows from the recorded live runs; everything else above is measured on planted data. **Live re-run on the current routing (05/11/2026, #62):** one run per seed, thresholds and prompts unchanged. Before the run, a smoke on the September batch found that Qwen3.8 Flash and Qwen3.8 27B reason by default and ran out of tokens (14 of 60 extract calls), so extract, cluster labels and outtake run with reasoning off. Qwen3.8 Max cannot switch reasoning off, so brief and handoff moved to their configured fallback, DeepSeek V4.1 Flash, with a 3,000-token limit. The smoke's triage, extract and cluster recordings had the same requests as the seed 42 run and were reused by it. Seed 42 then took 2 min 30 s (metered USD 0.0269), seed 43 took 3 min (USD 0.0589), and the four suites took 6 min live and 5 min 30 s from the recording. The key's usage rose from USD 4.53 to 6.67 of 10 (USD 2.13 against a cap of 3.00), most of it on the smoke runs that found the token overruns. Seed 42 recovered 1 of 6 themes against 2 of 6 before; both seeds and stability still fail their floors. Replay prints MATCH for both seeds. No brief needed the `not_independent` rule, because the judge (GLM 5.3) and the writer (DeepSeek) are different families. The earlier fresh live proof (04/11/2026, previous routing) completed in 15 min 2 s of run time for metered USD 0.1977, after a budget stop and one `APIConnectionError`; the gateway still does not retry that error.
 
 ## Production path
 
@@ -257,7 +283,7 @@ The author's account will be written in #16. Until then this is a candidate list
 | C9 | The rule to hand over instead of compacting applied to every session. | Author instruction: it applies to planning chats only, never to build sessions. | [PR #42](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/pull/42) |
 | C10 | Codex Sol's adversarial review of the finished build returned a BLOCK with six high and one medium finding (budget cap, citation numbers, actor check, undo and outbox, unsafe factory job, audit replace, absolute paths). | Author ruled that the budget, citation and path fixes be built and the outbox ordering documented. Sonnet builders fixed them (PRs #51 and #52) after codex terra stalled; two scoped re-checks followed, and the last still blocked on three items (1, 2 and 7), which went into Limits with no third loop. | [sol review](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/13#issuecomment-6625795243), [author ruling](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/13#issuecomment-6629466728), [re-check](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/13#issuecomment-6630268863), [PR #51](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/pull/51), [PR #52](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/pull/52) |
 | C11 | After the first live run the seed 42 floors failed (1 of 6 themes at the time). The orchestrator offered three options and recommended an extract filter. | Author chose option 1 but capped it: decide from seed 42 only, one re-run on each seed, no further loop. The floors still fail and ship as measured. | [needs-decision](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/7#issuecomment-6625438210), [ruling](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/7#issuecomment-6629466310), [final report](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/7#issuecomment-6631522428), [PR #55](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/pull/55) |
-| C12 | GLM 5 was the judge model in the plan. | It ignored the `json_schema` response format, so the runner switched to `glm-5.3` and recorded the swap. | [#7 report](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/7#issuecomment-6631522428), [PR #48](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/pull/48) |
+| C12 | The plan's first judge model, an older GLM release, was the judge. | It ignored the `json_schema` response format, so the runner switched to `glm-5.3` and recorded the swap. | [#7 report](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/7#issuecomment-6631522428), [PR #48](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/pull/48) |
 | C13 | The Phoenix bridge was specified to show human labels beside judge verdicts. | No PM labels exist, so the report states the cut: 0 human annotations, code path unit-tested with fakes only. | [#10 report](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/10#issuecomment-6629808276) |
 | C14 | A seed 43 replay missed its recorded response. | The runner re-recorded it; coalescing identical in-flight requests is listed as a follow-up and not built. | [#7 report](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/7#issuecomment-6631522428), [PR #55](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/pull/55) |
 
@@ -265,7 +291,7 @@ The author's account will be written in #16. Until then this is a candidate list
 
 What the results above do not show, and what the review did not fix. Each line links to its evidence.
 
-- **Clustering is the main limit.** Average-linkage cosine clustering cannot separate planted themes that share vocabulary, so seed 42 recovers 2 of 6 themes and seed 43 recovers 0 of 3. Citation failures come from the brief stage. Diagnosis and the capped extract-filter fix: [#7 final report](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/7#issuecomment-6631522428), [author ruling](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/7#issuecomment-6629466310). The floors still fail and ship as measured.
+- **Clustering is the main limit.** Average-linkage cosine clustering cannot separate planted themes that share vocabulary, so <!-- generated:limits-clustering:start -->seed 42 recovers 1 of 6 themes and seed 43 recovers 0 of 3<!-- generated:limits-clustering:end -->. Citation failures come from the brief stage. Diagnosis and the capped extract-filter fix: [#7 final report](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/7#issuecomment-6631522428), [author ruling](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/7#issuecomment-6629466310). The floors still fail and ship as measured.
 - **No human labels.** The optional PM review (#15) did not run. No judge is certified, and Phoenix shows 0 human annotations beside the judge verdicts ([#10 report](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/10#issuecomment-6629808276)).
 - **Handoff drafts fail the citation check.** In the #13 verification run, live previews (`handoff <id> --preview`) of three top-scoring opportunities all came back invalid on the citation checks: numbers that match no fact-sheet value, customer names not tied to a cited insight, and a quote that is not from a cited insight. Nothing invalid reaches a factory job, and the Handoffs tab shows no accepted opportunities. Measured by this verification run; it has no separate issue.
 - **Outbox ordering (finding 4b).** A board action commits before its replay record is written to the outbox, so a crash in between can lose the JSONL record, and a partial append needs recovery. Documented, not fixed, per the [author ruling](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/13#issuecomment-6629466728); evidence in [sol's first review](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/13#issuecomment-6625795243).

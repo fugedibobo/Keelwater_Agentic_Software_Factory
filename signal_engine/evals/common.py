@@ -43,8 +43,8 @@ def f2(v):
 
 
 def judged_verdicts(store):
-    """{(target_id, judge): verdict} from the newest judgement rows."""
-    return {(j["target_id"], j["judge"]): j["verdict"] for j in store.select("judgement")}
+    """{(target_id, judge): verdict} from the newest judgement rows; not_independent rows are no grade and are left out."""
+    return {(j["target_id"], j["judge"]): j["verdict"] for j in store.select("judgement") if j["verdict"] != "not_independent"}
 
 
 def agreement(items):

@@ -1,0 +1,62 @@
+{
+ "request": {
+  "model": "qwen/qwen3.8-27b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The latest payment batch is not appearing in the supplier ledger.\n  quote: I’m trying to figure out why the latest payment batch didn’t reflect in our supplier ledger\n- problem: The user is unable to find the specific supplier invoices needed to reconcile a payment batch within the system.\n  quote: I’m trying to reconcile the latest payment batch with our suppliers’ invoices but can’t locate the matching documents in the system.\n- problem: The user is experiencing an issue where uploaded claim documents are not automatically assigned to the correct supplier tasks.\n  quote: I’m trying to figure out why my latest batch of claims documents didn’t auto-assign to the right supplier tasks."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Payment batch reconciliation and assignment failures\",\n  \"problem_statement\": \"Users cannot reconcile payment batches because supplier ledgers and invoices are missing or inaccessible. Additionally, uploaded claim documents fail to auto-assign to the correct supplier tasks, disrupting the workflow.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 255,
+   "tokens_out": 60,
+   "cost_usd": 0.000201
+  }
+ }
+}

@@ -1,0 +1,62 @@
+{
+ "request": {
+  "model": "qwen/qwen3.8-27b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The Claims Tasks panel disappeared unexpectedly, forcing the team to undergo mid-week retraining due to a lack of advance notice for interface changes.\n  quote: last week the Claims Tasks panel vanished without warning, and we had to retrain our team mid-week. We’d really appreciate advance notice and grouped updates.\n- problem: Unexpected UI changes cause staff confusion and operational delays due to lack of prior notice.\n  quote: We had unannounced screen changes last time and it caused confusion and delays because staff had to relearn where everything was — we really need advance notice and previews going forward.\n- problem: The customer wants advance notice and a preview of interface changes to avoid unnecessary retraining efforts.\n  quote: we just need a bit of warning and maybe a preview before changes go live, so we don’t waste time retraining.\n- problem: Unexpected changes to the user interface require frequent staff retraining, leading to lost time and reduced accuracy.\n  quote: It’s the unexpected interface changes — we keep having to retrain staff because buttons and menus shift without warning, and that’s costing us time and accuracy.\n- problem: Unexpected interface changes are causing processing errors and requiring mid-cycle staff retraining.\n  quote: The unexpected interface changes have forced us to retrain staff mid-cycle, which is causing errors in our claims and payments processing — we really need advance notice and bundled releases next time.\n- problem: The Claims Tasks panel disappeared unexpectedly, forcing the team to undergo mid-week retraining due to a lack of advance notice for interface changes.\n  quote: last week the Claims Tasks panel vanished without warning, and we had to retrain our team mid-week. We’d really appreciate advance notice and grouped updates.\n- problem: Recent interface changes in the platform are disrupting the team's workflow efficiency.\n  quote: we’ve been meaning to talk about how your platform’s recent interface tweaks are throwing off our team’s rhythm.\n- problem: Unexpected interface changes moved key controls without warning, causing staff errors and requiring retraining.\n  quote: we had to retrain three people just to find the new location, and someone even submitted a payment in error because the button moved. We’ve had to retrain staff because unexpected interface changes moved key controls without warning — it’s causing real errors in claims and payments."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Unannounced interface changes disrupt operations\",\n  \"problem_statement\": \"Staff experience confusion and processing errors when the platform's interface changes without prior notice. This forces teams to undergo disruptive mid-week retraining, leading to lost time and reduced accuracy in claims processing.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 595,
+   "tokens_out": 63,
+   "cost_usd": 0.00014665
+  }
+ }
+}

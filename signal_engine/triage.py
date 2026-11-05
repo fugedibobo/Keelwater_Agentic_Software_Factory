@@ -46,15 +46,19 @@ def run(ctx):
     lock = threading.Lock()
     misses = [0]
 
+    def decided(stage, sn):
+        out = gw.decide(sn["text"], stage=stage, target_type="snippet", target_id=sn["snippet_id"])
+        TriageOutput(is_product_signal=out["is_signal_p"], bucket=out["bucket"], bucket_confidence=out["bucket_conf"],
+                     severity=out["severity"], signal_type=out["signal_type"])  # a bad bucket or type counts as a failed call
+        return out
+
     def primary(sn):
         with lock:
             if state["down"]:
                 return None
         body = gw.decide_request("triage", sn["text"])
         try:
-            out = gw.decide(sn["text"], target_type="snippet", target_id=sn["snippet_id"])
-            TriageOutput(is_product_signal=out["is_signal_p"], bucket=out["bucket"], bucket_confidence=out["bucket_conf"],
-                         severity=out["severity"], signal_type=out["signal_type"])  # a bad bucket or type counts as a failed call
+            out = decided("triage", sn)
         except STRICT:
             raise
         except (GatewayError, KeyError, ValueError, TypeError):
@@ -64,11 +68,20 @@ def run(ctx):
                         gw.probe_one("triage")
                     except GatewayError:
                         state["down"] = True
-                        print("triage: cloudflare/clef unavailable, using the fallback model for this run")
+                        print(f"triage: {gw.stage_cfg('triage')['model']} unavailable, using {gw.stage_cfg('triage_fallback')['model']} for this run")
             return None
         return "clef", out, call_id_for("triage", sha256(canonical(body)), "snippet", sn["snippet_id"])
 
     def fallback(sn):
+        if gw.stage_cfg("triage_fallback").get("backend") == "clef":  # demo: a second decision model, about 50 ms, never a chat LLM
+            body = gw.decide_request("triage_fallback", sn["text"])
+            try:
+                out = decided("triage_fallback", sn)
+            except STRICT:
+                raise
+            except (GatewayError, KeyError, ValueError, TypeError):
+                return None
+            return "fallback", out, call_id_for("triage_fallback", sha256(canonical(body)), "snippet", sn["snippet_id"])
         messages = [{"role": "system", "content": system}, {"role": "user", "content": sn["text"]}]
         body = gw.chat_request("triage_fallback", messages)
         try:

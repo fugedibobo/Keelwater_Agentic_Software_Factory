@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (duplicate) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is the core problem still open, not solved by a shipped story and not covered by a roadmap item? Pass means yes.\nCompare the problem itself, not the product area. A spike that is unstarted or in progress is not shipped.\nFail if a completed story solves the same problem, or a roadmap item already covers it.\nThe evidence is the problem statement and the five most similar stories and roadmap pages, with status and dates.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"Users cannot effectively filter tasks by due date or locate the task queue, hindering claim prioritization and document management. Additionally, the reporting module fails to consistently synchronize task updates with policyholder records.\",\n \"similar\": [\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4128\",\n   \"similarity\": 0.093,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-09-15T00:00:00Z\\\", \\\"description\\\": \\\"Keelwater now allows users to filter claims by date range, status, and claim type, making it easier to locate specific claims without scrolling through unrelated entries.\\\", \\\"id\\\": 4128, \\\"name\\\": \\\"Claim search refinements\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"notion\",\n   \"id\": \"5d34277f-8ec2-5892-b44d-efd7248786a5\",\n   \"similarity\": 0.063,\n   \"record\": \"{\\\"id\\\": \\\"5d34277f-8ec2-5892-b44d-efd7248786a5\\\", \\\"object\\\": \\\"page\\\", \\\"properties\\\": {\\\"Name\\\": {\\\"title\\\": [{\\\"plain_text\\\": \\\"Reporting navigation\\\", \\\"text\\\": {\\\"content\\\": \\\"Reporting navigation\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"title\\\"}, \\\"Problem\\\": {\\\"rich_text\\\": [{\\\"plain_text\\\": \\\"Users can navigate through reporting sections in Keelwater with a streamlined menu, allowing quick access to claims summaries, analytics, and export options without leaving the current context.\\\", \\\"text\\\": {\\\"content\\\": \\\"Users can navigate through reporting sections in Keelwater with a streamlined menu, allowing quick access to claims summaries, analytics, and export options without leaving the current context.\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\":\"\n  },\n  {\n   \"source\": \"notion\",\n   \"id\": \"3725e3b1-1ae8-55a3-9286-7db8d9b8fbd5\",\n   \"similarity\": 0.062,\n   \"record\": \"{\\\"id\\\": \\\"3725e3b1-1ae8-55a3-9286-7db8d9b8fbd5\\\", \\\"object\\\": \\\"page\\\", \\\"properties\\\": {\\\"Name\\\": {\\\"title\\\": [{\\\"plain_text\\\": \\\"Task overview\\\", \\\"text\\\": {\\\"content\\\": \\\"Task overview\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"title\\\"}, \\\"Problem\\\": {\\\"rich_text\\\": [{\\\"plain_text\\\": \\\"A centralized dashboard in Keelwater that displays all active, pending, and completed tasks related to claims processing, helping users track progress and prioritize work without switching contexts.\\\", \\\"text\\\": {\\\"content\\\": \\\"A centralized dashboard in Keelwater that displays all active, pending, and completed tasks related to claims processing, helping users track progress and prioritize work without switching contexts.\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"ri\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4134\",\n   \"similarity\": 0.051,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": false, \\\"completed_at\\\": null, \\\"description\\\": \\\"Keelwater is enhancing its task list interface to improve user efficiency, allowing for better prioritization, drag-and-drop reordering, and real-time status updates—all designed to streamline claims processing workflows.\\\", \\\"id\\\": 4134, \\\"name\\\": \\\"Task list improvements\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 2}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4137\",\n   \"similarity\": 0.05,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": false, \\\"completed_at\\\": null, \\\"description\\\": \\\"Users can navigate through claim reports using intuitive shortcuts, streamlining access to key data without leaving the current view. Keelwater’s interface ensures quick filtering and drill-downs for efficient claim analysis.\\\", \\\"id\\\": 4137, \\\"name\\\": \\\"Reporting navigation\\\", \\\"started\\\": false, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 1}\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The problem asks for task filtering by due date, task queue discoverability, and reporting sync with policyholder records. The completed story 4128 ('Claim search refinements', completed 2026-09-15) only covers filtering claims, not tasks, so it does not solve the same problem. However, the roadmap item 'Task overview' ('A centralized dashboard... displays all active, pending, and completed tasks... helping users track progress and prioritize work') already covers the task queue location and prioritization portion, and in-progress story 4134 ('Task list improvements') covers task prioritization and status updates. Since a roadmap item already covers a core part of the problem, the opportunity is not fully open.\", \"verdict\": \"fail\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1167,
+   "tokens_out": 270,
+   "cost_usd": 0.00164941
+  }
+ }
+}

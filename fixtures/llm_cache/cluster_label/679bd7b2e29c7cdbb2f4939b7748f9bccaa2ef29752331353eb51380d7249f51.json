@@ -1,0 +1,62 @@
+{
+ "request": {
+  "model": "qwen/qwen3.8-27b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The data in the export file does not match the data shown on the dashboard for monthly claims reserves and payments.\n  quote: It’s the monthly claims reserves and payments report. Finance is questioning which figure is correct because the export doesn’t match the dashboard.\n- problem: The dashboard totals do not match the export figures because the system uses UTC cutoffs instead of UK time.\n  quote: the dashboard totals don’t match the export figures mismatch — I’ve re-exported three times and it’s consistent with UTC cutoff, not UK time.\n- problem: The total values shown in the dashboard do not match the totals in the exported report file, leading to discrepancies.\n  quote: the report totals differ between the dashboard and the exported file. It’s causing some trust issues.\n- problem: The user encounters an error exception when attempting to export reports as CSV.\n  quote: Reports: click \"Export CSV\", error exception\n- problem: The dashboard totals do not match the CSV export figures, causing reconciliation issues for the finance team.\n  quote: the dashboard totals don’t match the CSV exports, causing export figures mismatch headaches\n- problem: The dashboard totals do not match the data in the exported CSV file.\n  quote: I’m having trouble with the dashboard totals not matching the CSV we export for finance.\n- problem: The data export does not match the dashboard figures, causing delays in month-end financial close.\n  quote: the export doesn’t match the dashboard — the export figures mismatch is causing delays in our month-end close.\n- problem: The MI dashboard totals do not match the CSV export figures, causing distrust in monthly reporting data.\n  quote: Finance keeps comparing the MI dashboard totals with the CSV export and finds them off—this export figures mismatch is causing distrust in the numbers they use for monthly reporting."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Dashboard and export data mismatch\",\n  \"problem_statement\": \"Finance teams cannot reconcile monthly claims data because dashboard totals differ from exported CSV files. This discrepancy causes delays in month-end close and erodes trust in the platform's reporting accuracy.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 494,
+   "tokens_out": 58,
+   "cost_usd": 0.0002438
+  }
+ }
+}
