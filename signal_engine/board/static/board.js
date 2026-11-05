@@ -6,7 +6,7 @@
 
   function showTab() {
     const id = location.hash.slice(1);
-    const hit = id && document.getElementById(id), tab = id ? (hit && hit.classList.contains("tab") ? hit : null) : $("#opportunities");
+    const hit = id && document.getElementById(id), tab = id ? (hit && hit.classList.contains("tab") ? hit : null) : $("#about");
     if (!tab) return;  // a hash that is not a tab (for example a raw record) leaves the current tab alone
     $$(".tab").forEach((t) => t.classList.toggle("active", t === tab));
     $$("[role=tab]").forEach((a) => a.setAttribute("aria-selected", a.dataset.tab === tab.id ? "true" : "false"));
@@ -63,9 +63,31 @@
   const here = () => { const a = document.activeElement && document.activeElement.closest(".opp"); return a || rows()[Math.max(cur, 0)]; };
   function field(sel, open) { const o = here(); if (!o) return; const d = $("details", o); if (open) d.open = true; const el = $(sel, o); if (el) el.focus(); }
 
+  // theme: dark by default; the toggle remembers the choice (storage may be blocked, so every access is guarded)
+  const root = document.documentElement, tt = $("#theme-toggle");
+  function setTheme(t, save) {
+    if (t === "light") root.setAttribute("data-theme", "light"); else root.removeAttribute("data-theme");
+    tt.textContent = t === "light" ? "Dark mode" : "Light mode"; tt.setAttribute("aria-pressed", String(t === "light"));
+    if (save) try { localStorage.setItem("board-theme", t); } catch (e) { /* no storage: the choice lasts until reload */ }
+  }
+  setTheme(root.getAttribute("data-theme") === "light" ? "light" : "dark", false);
+  tt.addEventListener("click", () => setTheme(root.getAttribute("data-theme") === "light" ? "dark" : "light", true));
+
+  // info markers: swap the native title for a tip that also shows on keyboard focus
+  $$(".info > .i").forEach((b) => { b.dataset.title = b.title; b.removeAttribute("title"); });
+  const marker = (e) => e.target.closest && e.target.closest(".info > .i");
+  function tip(b, on) {
+    const t = b.nextElementSibling; t.classList.toggle("show", on); if (!on) return;
+    const r = b.getBoundingClientRect(), h = t.offsetHeight;
+    t.style.left = Math.max(8, Math.min(r.left, innerWidth - t.offsetWidth - 8)) + "px";
+    t.style.top = (r.bottom + 6 + h > innerHeight ? Math.max(8, r.top - 6 - h) : r.bottom + 6) + "px";
+  }
+  ["mouseover", "focusin"].forEach((n) => document.addEventListener(n, (e) => { const b = marker(e); if (b) tip(b, true); }));
+  ["mouseout", "focusout"].forEach((n) => document.addEventListener(n, (e) => { const b = marker(e); if (b) tip(b, false); }));
+
   document.addEventListener("keydown", (e) => {
     const tag = (e.target.tagName || "").toLowerCase();
-    if (e.key === "Escape") { $$(".opp details[open]").forEach((d) => (d.open = false)); return; }
+    if (e.key === "Escape") { $$(".tip.show").forEach((t) => t.classList.remove("show")); $$(".opp details[open]").forEach((d) => (d.open = false)); return; }
     if (tag === "input" || tag === "textarea" || tag === "select" || e.ctrlKey || e.metaKey || e.altKey) return;
     const k = e.key;
     if (k === "j") move(1); else if (k === "k") move(-1);

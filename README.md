@@ -18,15 +18,20 @@ Keelwater is a fictional claims-handling software company whose engineers alread
 | Interest in method | [How this was built with AI](docs/ai-usage.md) | What AI did, where it was trusted or overridden, one error it made and how it was caught |
 | 10 minutes | [Delegation ruleset](docs/delegation.md) | How the factory delegates work across models, the evidence behind it, and how telemetry keeps routing honest |
 
-## Screenshots
+## How ready is this
 
-The Signal Board on synthetic data (all customers and numbers are invented).
+**What runs today:** the whole pipeline end to end in Python (about 9,000 lines of Python outside the tests, 47 test files), the Signal Board web app, evals and judges, replay, and the model gateway with an `aws` profile. It runs on synthetic data from file exports.
 
-![Opportunities tab: the ranked list with scores and check lines](docs/screenshots/board-opportunities.png)
+**What a production deployment still needs:** live connectors, Bedrock tested in a real account, Postgres, infrastructure as code, SSO and quality work on real data. The effort column is an estimate in engineer-weeks, not a measurement; the total is about 14-22.
 
-![Evals tab: ground-truth gates and judge status](docs/screenshots/board-evals.png)
-
-![Handoffs tab: drafted intent documents and factory jobs](docs/screenshots/board-handoffs.png)
+| Still needed | Engineer-weeks (estimate) | Where the repo covers it |
+|---|---|---|
+| Live API connectors with auth and incremental sync for each source | 4-6 | [Limits](#limits) |
+| Bedrock with IAM and SigV4 tested in a real account | 1-2 | [Production path](#production-path) |
+| Postgres with pgvector behind the store layer | 2-3 | [Production path](#production-path) |
+| Infrastructure as code: VPC, scheduler, secrets, CI | 3-5 | [Production path](#production-path) |
+| SSO on the board | 1-2 | [Limits](#limits) |
+| Quality work on real data: clustering, citations, PM labels | 3-4 | [Limits](#limits) |
 
 ## The problem in five lines
 
@@ -40,29 +45,9 @@ The Signal Board on synthetic data (all customers and numbers are invented).
 
 Seven stages, five human gates. Agents read, draft and check; a named person passes each gate.
 
-```mermaid
-flowchart LR
-  subgraph LEFT["Product lifecycle layer: left of build"]
-    S["Sense"] --> D["Decide"]
-    D --> G1{{"Gate 1: PM accepts opportunity"}}
-    G1 --> DF["Define"]
-    DF --> G2{{"Gate 2: Trio signs off intent"}}
-  end
-  subgraph FACTORY["Platform team: engineering factory"]
-    B["Build"] --> G3{{"Gate 3: engineer reviews and merges PR"}}
-    G3 --> R["Release"]
-    R --> G4{{"Gate 4: PM and customer success approve bundle"}}
-  end
-  subgraph RIGHT["Product lifecycle layer: right of build"]
-    E["Enable"] --> G5{{"Gate 5: product marketing accepts comms"}}
-    G5 --> L["Learn"]
-  end
-  G2 -- "intent doc + factory job" --> B
-  G4 -- "announced bundle" --> E
-  L -. "outcomes and labels" .-> S
-```
+[![The agentic product lifecycle: seven stages and five human gates](docs/diagrams/agentic-pdlc.png)](docs/diagrams/agentic-pdlc.png)
 
-Diagrams: [A, the lifecycle and gates](docs/diagrams/agentic-pdlc.png) ([interactive](docs/diagrams/agentic-pdlc.html)) and [C, production on AWS](docs/diagrams/production-architecture.png) ([interactive](docs/diagrams/production-architecture.html)). Diagram B, the nightly run data flow, was cut for time; its content is the Mermaid chart in [architecture section 3](docs/architecture.md) and the pipeline chart below.
+Click the image to open it full size. A second diagram, [C, production on AWS](docs/diagrams/production-architecture.png), is also an image. Diagram B, the nightly run data flow, was cut for time; its content is in [architecture section 3](docs/architecture.md) and the pipeline chart below.
 
 Who owns what:
 
@@ -84,20 +69,9 @@ Who owns what:
 
 ### The pipeline
 
-```mermaid
-flowchart LR
-  SRC["Sales calls, support tickets, onboarding and account calls, sessions"] --> SEG["Segment (code): customer turns plus unquotable context, idle session time cut"]
-  SEG --> TRI["Triage (decision model): signal? bucket? severity?"]
-  TRI -- "dropped: 40 a week sampled" --> NQ["Noise audit queue (PM)"]
-  TRI -- "signal or unsure" --> EXT["Extract (cheap model), quote check (code)"]
-  EXT --> CL["Enrich from HubSpot, cluster, match roadmap and shipped"]
-  CL --> RK["Rank (formula)"]
-  RK --> BR["Brief, top 10 only (strong model, cited)"]
-  BR --> JD["3 judges (different model family)"]
-  JD --> SB["Signal Board: PM decides"]
-  SB -- "accept" --> HO["Intent doc + factory job"]
-  SB -. "blind labels" .-> JD
-```
+[![The nightly pipeline, from raw feedback to a PM decision](docs/diagrams/pipeline.png)](docs/diagrams/pipeline.png)
+
+Click the image to open it full size. The source is [pipeline.mmd](docs/diagrams/pipeline.mmd).
 
 The demo runs on synthetic data: 30 fictional insurers (£15.44m ARR) and about 200 records across seven tools in their native export shapes, roughly 1,200 snippets after segmentation. A second, held-out seed (about 40% of the volume, three unseen themes and one noise theme) is never used for tuning, and every report shows both seeds ([data spec](docs/data.md)).
 
@@ -114,6 +88,26 @@ This is the designed path, and the quote is illustrative; the theme and accounts
 7. **PM decision.** On Monday the PM reads the brief and evidence, clicks Accept and confirms. That writes an audit event with her name. The accept is stored as an implicit label, but only blind labels count towards certifying a judge.
 8. **Handoff.** An agent drafts the intent document (problem, evidence, outcome metric, acceptance criteria, non-goals) and a factory job that must validate against the schema. The Trio signs it off at gate 2 before the factory sees it.
 
+### Screenshots
+
+The Signal Board on synthetic data (all customers and numbers are invented). Click an image to open it full size.
+
+[![About tab: what the board is, what is real and what is simulated](docs/screenshots/board-about.png)](docs/screenshots/board-about.png)
+
+Look at: the real-versus-simulated split and the five steps from feedback to opportunity.
+
+[![Opportunities tab: the ranked list with scores and check lines](docs/screenshots/board-opportunities.png)](docs/screenshots/board-opportunities.png)
+
+Look at: each score and its factors, and the check line under each title. A brief that fails a check stays hidden until the PM chooses to open it.
+
+[![Handoffs tab: release-note and help-article drafts waiting for review](docs/screenshots/board-handoffs.png)](docs/screenshots/board-handoffs.png)
+
+Look at: the release-note and help-article drafts, each with accept and reject. Intent documents and factory jobs appear here once a PM accepts an opportunity; nothing is accepted in this snapshot.
+
+[![Evals tab: ground-truth results, judge status and one hover](docs/screenshots/board-evals.png)](docs/screenshots/board-evals.png)
+
+Look at: the holds and fails words beside each result and the hover that explains a metric in plain English.
+
 ## Why trust it
 
 ### How is accuracy maintained?
@@ -124,7 +118,7 @@ Three binary judges from a different model family check faithfulness, real signa
 
 ### How is noise kept out?
 
-Five filters run in sequence, each with a measured leak rate. Segmenting keeps internal speakers only as context that cannot be quoted, and removes Fin's own replies and idle session time. Triage drops an item only when it is at least 90% sure it is noise. A fixed weekly sample of 40 drops, weighted towards the borderline ones, is re-weighted to estimate the miss rate, so the audit cost stays flat as volume grows. Unsure items go forward flagged. Extraction needs a stated problem and a verifiable quote. The ranking formula rewards breadth and corroboration: an adversarial probe (one strategic account, renewing, severity 4, three routes) must rank below all six real themes. The planted noise (renewal-price haggling from big accounts, customer-side IT outages) must never reach the top 10. See [evals.md section 1](docs/evals.md).
+Five filters run in sequence, each with a measured leak rate. Segmenting keeps internal speakers only as context that cannot be quoted, and removes Fin's own replies and idle session time. Triage drops an item only when it is at least 75% sure it is noise (`drop_p` 0.25 in `config/pipeline.yaml`). A fixed weekly sample of 40 drops, weighted towards the borderline ones, is re-weighted to estimate the miss rate, so the audit cost stays flat as volume grows. Unsure items go forward flagged. Extraction needs a stated problem and a verifiable quote. The ranking formula rewards breadth and corroboration: an adversarial probe (one strategic account, renewing, severity 4, three routes) must rank below all six real themes. The planted noise (renewal-price haggling from big accounts, customer-side IT outages) must never reach the top 10. See [evals.md section 1](docs/evals.md).
 
 ### How does work hand off between agents and people?
 
@@ -317,7 +311,7 @@ Assumptions (flagged throughout the docs):
 
 Cut, to fit about 4 hours of author time:
 
-- Diagram B, the nightly run data flow: the diagram tool needs about 140 px between stages for 17 exact edge labels, so five stages do not fit under 1240 px ([PR #23](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/pull/23)). The Mermaid chart stands in.
+- Diagram B, the nightly run data flow: the diagram tool needs about 140 px between stages for 17 exact edge labels, so five stages do not fit under 1240 px ([PR #23](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/pull/23)). The pipeline chart in Part 2 stands in.
 - Board extras (build-plan cut-list items 5 and 6): design passes beyond the automatic detector, the drill-down side panel (inline details instead), links from the funnel to the Audit tab, the counts or percent toggle and the judge-disagreement drill-down ([PR #35](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/pull/35)).
 - The optional PM review (#15) and, with it, human labels beside the judge verdicts in Phoenix ([#10 report](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/10#issuecomment-6629808276)).
 - Live connectors and write-back to Notion, Shortcut, Slack and Intercom.

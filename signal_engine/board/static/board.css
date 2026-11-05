@@ -1,15 +1,16 @@
 /* Signal Board: one stylesheet, design tokens for light and dark. Status is never colour alone (words carry it). */
 :root {
-  --bg: #fbfaf7; --surface: #ffffff; --fg: #1c1b19; --muted: #55524b; --line: #8a867c; --line-soft: #dedbd2;
-  --accent: #1f5f8b; --accent-fg: #ffffff; --ok: #1d6b3a; --bad: #a3261d; --warn-bg: #fdf0d5; --mark: #fff0a8;
+  --bg: #15171a; --surface: #1d2024; --fg: #ecebe7; --muted: #aaa8a0; --line: #7d7b74; --line-soft: #33363b;
+  --accent: #86bfe8; --accent-fg: #10212d; --ok: #6fcf91; --bad: #ff8f86; --warn-bg: #3a3118; --mark: #5b4f12;
   --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; --mono: ui-monospace, Consolas, monospace;
   --s1: .25rem; --s2: .5rem; --s3: 1rem; --s4: 1.5rem; --radius: 6px; --measure: 72rem;
+  color-scheme: dark;
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #15171a; --surface: #1d2024; --fg: #ecebe7; --muted: #aaa8a0; --line: #7d7b74; --line-soft: #33363b;
-    --accent: #86bfe8; --accent-fg: #10212d; --ok: #6fcf91; --bad: #ff8f86; --warn-bg: #3a3118; --mark: #5b4f12;
-  }
+/* Dark is the default whatever the OS says; the header toggle sets data-theme="light" and board.js remembers it. */
+:root[data-theme=light] {
+  --bg: #fbfaf7; --surface: #ffffff; --fg: #1c1b19; --muted: #55524b; --line: #8a867c; --line-soft: #dedbd2;
+  --accent: #1f5f8b; --accent-fg: #ffffff; --ok: #1d6b3a; --bad: #a3261d; --warn-bg: #fdf0d5; --mark: #fff0a8;
+  color-scheme: light;
 }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--fg); font: 1rem/1.5 var(--font); }
@@ -18,6 +19,7 @@ a { color: var(--accent); }
 .skip { position: absolute; left: -999px; } .skip:focus { left: var(--s3); top: var(--s2); background: var(--surface); padding: var(--s2); }
 header, nav, main, footer { max-width: var(--measure); margin: 0 auto; padding: var(--s2) var(--s3); }
 h1 { margin: var(--s3) 0 0; font-size: 1.6rem; letter-spacing: -.01em; } h2 { margin-top: var(--s2); font-size: 1.3rem; } h3 { font-size: 1.1rem; } h4, h5 { margin: var(--s3) 0 var(--s1); }
+.titlebar { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s3); align-items: center; justify-content: space-between; }
 .runline, .judgeline { margin: 0; color: var(--muted); }
 .banner { margin: var(--s2) 0 0; padding: var(--s2) var(--s3); background: var(--warn-bg); border: 1px solid var(--line); border-radius: var(--radius); font-weight: 600; }
 nav { display: flex; flex-wrap: wrap; gap: var(--s1) var(--s4); border-bottom: 1px solid var(--line-soft); padding-bottom: var(--s2); }
@@ -27,7 +29,7 @@ nav { display: flex; flex-wrap: wrap; gap: var(--s1) var(--s4); border-bottom: 1
 [role=tab][aria-selected=true] { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); font-weight: 600; }
 .tab { display: none; }
 .tab.active, .tab:target { display: block; }
-main:not(:has(.tab.active)):not(:has(.tab:target)) #opportunities { display: block; }
+main:not(:has(.tab.active)):not(:has(.tab:target)) #about { display: block; }
 .rawrec { display: none; } .rawrec:target { display: block; }
 .strip, .filters { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s3); align-items: center; }
 .count, .btn { font: inherit; padding: var(--s1) var(--s2); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--fg); cursor: pointer; }
@@ -69,3 +71,16 @@ dialog::backdrop { background: rgba(0, 0, 0, .5); }
 .keys, footer { color: var(--muted); font-size: .9rem; } .placeholder { padding: var(--s3); border: 1px dashed var(--line); }
 @media (max-width: 40rem) { header, nav, main, footer { padding-left: var(--s3); padding-right: var(--s3); } .opp .title { flex-basis: 100%; } iframe { height: 20rem; } }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+
+/* info markers: board.js shows .tip on hover and keyboard focus; without script the title attribute is the fallback */
+.info { display: inline-block; white-space: nowrap; }
+.info > .i { font: .75rem/1 var(--font); font-weight: 700; width: 1.5rem; height: 1.5rem; border: 1px solid var(--line); border-radius: 50%; background: var(--surface); color: var(--accent); cursor: help; padding: 0; vertical-align: middle; }
+.tip { display: none; position: fixed; z-index: 10; width: min(22rem, calc(100vw - 1rem)); padding: var(--s2) var(--s3); background: var(--surface); color: var(--fg); border: 1px solid var(--line); border-radius: var(--radius); font: .9rem/1.4 var(--font); font-weight: 400; white-space: normal; text-align: left; box-shadow: 0 4px 16px rgba(0, 0, 0, .35); }
+.tip.show { display: block; }
+.gate { font-size: .85rem; padding: 0 var(--s2); border: 1px solid var(--line); border-radius: 999px; margin-left: var(--s1); }
+.note { color: var(--muted); font-size: .9rem; }
+.flow { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: var(--s3); counter-reset: step; }
+.flow li { position: relative; padding: var(--s2) var(--s3); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); counter-increment: step; }
+.flow li::before { content: counter(step); display: inline-block; margin-right: var(--s2); width: 1.5rem; height: 1.5rem; line-height: 1.5rem; text-align: center; border-radius: 50%; background: var(--accent); color: var(--accent-fg); font-weight: 700; }
+.flow li:not(:last-child)::after { content: "\2192"; position: absolute; right: calc(-1 * var(--s3) - .1rem); top: 50%; transform: translateY(-50%); color: var(--muted); }
+@media (max-width: 40rem) { .flow li::after { display: none; } }

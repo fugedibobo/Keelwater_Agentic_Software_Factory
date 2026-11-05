@@ -1,0 +1,180 @@
+# Plain-English help for every number on the board's Opportunities and Evals tabs (the hover text next to each "i" marker).
+# Source of truth for definitions: docs/evals.md (sections 3-6, 8) and docs/architecture.md (ranking formula). Keep them in step.
+# Floors and targets for the ground-truth metrics are added at render time from signal_engine/evals/ground_truth.py (FLOORS_42, FLOORS_43),
+# so they are not typed here. Numbers for the score factors come from config/ranking.yaml and are checked by tests/test_board_help.py.
+# Each entry: label (what the row or column is called on the board; the internal key stays in the data) and what (one or two sentences).
+
+metrics:
+  signal_recall:
+    label: Signal recall (real feedback kept)
+    what: Of the planted real-signal mentions, the share that triage kept instead of dropping as noise. Low means real customer problems are being thrown away.
+  noise_drop_rate:
+    label: Noise dropped (share of noise removed)
+    what: Of the snippets that are noise only, the share that triage dropped. Low means noise is reaching the later stages.
+  bucket_accuracy:
+    label: Bucket accuracy (filed under the right topic)
+    what: Of the real-signal snippets, the share that triage filed under the correct product bucket.
+  quote_verification:
+    label: Quote check (quotes found in the source)
+    what: Share of extracted quotes that code found word for word in the customer's own turn. A quote that is not found is rejected.
+  attribution:
+    label: Account match (linked to the right customer)
+    what: Share of insights linked to the correct customer account, counting the cases where the right answer is "no account".
+  themes_recovered:
+    label: Themes recovered (of planted themes)
+    what: How many of the planted real themes came back as one opportunity that is at least 60% pure and holds at least half of that theme's mentions.
+  themes_total:
+    label: Planted themes (the answer key)
+    what: How many real themes the data generator planted for this seed. It is the number "themes recovered" is measured against.
+  mean_purity:
+    label: Cluster purity (how little mixing)
+    what: The average share of each opportunity's evidence that belongs to its single most common planted theme. 1.00 means no mixing between themes.
+  split_themes:
+    label: Split themes (one theme spread over two opportunities)
+    what: Planted themes that ended up in two or more opportunities, each holding at least 25% of that theme.
+  over_merges:
+    label: Over-merges (two real themes merged into one)
+    what: Opportunities where two or more planted themes each make up at least 25% of the evidence.
+  noise_in_top10:
+    label: Noise themes in the top 10
+    what: How many planted noise themes, such as renewal price haggling or a customer's own IT outage, reached the top 10 opportunities.
+  top_set:
+    label: Top six are the six real themes
+    what: Whether the six highest-ranked opportunities are exactly the six planted real themes.
+  top3_set:
+    label: Top three are the three real themes
+    what: Whether the three highest-ranked opportunities are exactly the three planted real themes of the held-out seed. Reported, not gated.
+  probe_below_six:
+    label: Misleading test item ranks below all six
+    what: A deliberately misleading opportunity (one strategic account that is renewing, severity 4, three routes) must rank below all six real themes. It checks that the formula rewards breadth, not one loud account.
+  tag_ok:
+    label: Shipped and roadmap tags right
+    what: Shipped and on-roadmap themes are tagged, the two themes that only look similar are not, and both post-ship mentions land in post-ship feedback.
+  citation_failures:
+    label: Brief citation failures (after one retry)
+    what: Briefs whose citations or numbers still failed the code check after one retry. A brief with a failed check is hidden until a person opens it.
+  faithfulness_pass_rate:
+    label: Briefs the faithfulness judge passed
+    what: Share of briefs where the faithfulness judge found every claim supported by the cited evidence. Reported only until that judge is certified.
+  kendall_tau:
+    label: Rank agreement with the answer-key order (Kendall tau)
+    what: How closely the board's order matches the order the same formula gives on the true inputs. 1 means identical, 0 means unrelated. Reported only.
+  noise_audit_estimate:
+    label: Missed signal among drops (estimated from the sample)
+    what: The weekly sample of dropped items, weighted back up, gives this estimate of how much real signal triage dropped. It is shown beside the exact figure so the method can be checked.
+  noise_audit_exact:
+    label: Missed signal among drops (exact, from the answer key)
+    what: The exact share of dropped snippets that were real signal, known here because the data is planted. Reported only.
+  post_ship_found:
+    label: Post-ship mentions found
+    what: How many of the planted mentions that arrived after a feature shipped were listed as post-ship feedback.
+  post_ship_total:
+    label: Post-ship mentions planted
+    what: How many mentions arriving after a ship date the data generator planted. It is the number "post-ship mentions found" is measured against.
+
+stability:
+  stable:
+    label: Stability verdict
+    what: STABLE means every planted-theme opportunity kept its id between the September and October runs, no theme split across two opportunities of 25% or more each, and no membership shrank.
+  ids_lost:
+    label: Opportunity ids lost
+    what: September opportunities whose id disappeared after the October run. It must be 0, so a PM's decisions stay attached to the same item.
+  memberships_shrunk:
+    label: Opportunities that lost evidence
+    what: September opportunities that held fewer insights after October. It must be 0, because new data should only add evidence.
+  opportunities_after_sep:
+    label: Opportunities after September
+    what: How many opportunities the September batch produced. Context for the other counts; not gated.
+  themes_forked:
+    label: Themes forked in two
+    what: Planted themes now held by two opportunities of 25% or more each after the October run. It must be 0.
+
+judges:
+  judge:
+    label: Judge
+    what: A second AI model, from a different family from the writer, that answers one yes/no question about a brief. Judges advise; they never accept, reject or hide anything.
+  signal:
+    label: signal
+    what: "Asks: is this a problem with Keelwater's product that a squad could act on? Typical fail: price haggling, a customer's own IT outage."
+  faithfulness:
+    label: faithfulness
+    what: "Asks: is every claim in the brief supported by the cited evidence, nothing overstated, nothing contrary left out?"
+  duplicate:
+    label: duplicate
+    what: "Asks: is the core problem still open, not already solved by a shipped story or covered by a roadmap item?"
+  n_pass:
+    label: Human "pass" labels
+    what: Blind PM labels where the PM said the item passes. A judge needs at least 50 per class on a held-out set before it can be trusted.
+  n_fail:
+    label: Human "fail" labels
+    what: Blind PM labels where the PM said the item fails. A judge needs at least 50 per class on a held-out set before it can be trusted.
+  tpr:
+    label: Passes the judge agrees with (TPR)
+    what: Of the items a PM passed, the share the judge also passed. The figure in brackets is the 95% lower bound, which must be at least 0.75 (target 0.90) for trust.
+  tnr:
+    label: Fails the judge catches (TNR)
+    what: Of the items a PM failed, the share the judge also failed. The figure in brackets is the 95% lower bound, which must be at least 0.75 (target 0.90) for trust.
+  state:
+    label: Status
+    what: "uncalibrated: no blind PM labels yet. calibrating: some labels, fewer than 50 per class. trusted: enough labels and both lower bounds at least 0.75. revoked: trust was withdrawn. Only trusted judges change what a PM sees."
+
+drift:
+  agreement:
+    label: Label-panel agreement
+    what: How often the judges' verdicts match the PM's blind labels in the weekly panel. Healthy is at least 0.90; a drop below 0.85 warns.
+  miss_rate:
+    label: Noise-audit miss rate
+    what: The weighted share of sampled dropped items that a PM marked as real signal. Healthy is 3% or less; above 5% warns and above 10% means the drop threshold gets tightened.
+  acceptance:
+    label: PM acceptance
+    what: The share of top-10 opportunities that PMs accepted or merged, over a rolling four weeks. Healthy is 50% or more; below 40% warns and below 30% triggers a review with the PMs.
+
+noise_audit:
+  label: Noise audit
+  what: Each week a fixed sample of 40 dropped items goes to a PM, who marks each one noise or missed signal. Items the model was least sure about are over-sampled. The weights turn the sample into an estimate for all drops.
+
+scores:
+  total:
+    label: Priority score
+    what: Breadth x severity x value x corroboration x recency, then times the renewal and roadmap adjustments. The list is ranked by it, highest first, and the formula is fixed so a PM can read every factor.
+  breadth:
+    label: breadth
+    what: How many different customers raised it, as log2(1 + accounts). Ten customers count for more than one loud one, but not ten times more.
+  severity:
+    label: severity
+    what: The average severity of the evidence (1 to 4), weighted by each customer's ARR.
+  value:
+    label: value
+    what: 1 + log10(affected ARR / median customer ARR), never below 0.5. It rises with the revenue behind the problem.
+  corroboration:
+    label: corroboration
+    what: How many separate routes it came through, such as a sales call, a support ticket or an account review. One route is 1.0, two are 1.3, three or more are 1.5.
+  recency:
+    label: recency
+    what: The share of the evidence dated in the last 30 days, never below 0.2. Older problems fade but never vanish.
+  renewal:
+    label: renewal
+    what: Multiplies the score by 1 + 0.25 x the share of affected ARR that renews within 90 days. Shown only when it applies.
+  roadmap:
+    label: on roadmap
+    what: Halves the score (x0.5) when the problem is already on the roadmap, so the list favours what is not yet planned. Shown only when it applies.
+
+columns:
+  ground_truth:
+    label: Ground truth
+    what: The data generator plants a known answer (real themes, noise themes, a few traps) and every run is scored against it. These figures measure the pipeline against its own answer key, not against real customers.
+  metric:
+    label: Metric
+    what: One thing the suite measures. Hover the marker beside a row for what it is, how it is worked out, and its floor.
+  seed42:
+    label: seed 42 (main)
+    what: The main synthetic data set, with six planted real themes. Prompts and thresholds were tuned on it.
+  seed43:
+    label: seed 43 (held out)
+    what: A second data set with three themes the pipeline has never seen, used only to check that the tuning on seed 42 generalises.
+  gate:
+    label: holds / fails
+    what: Holds means the result meets its floor. Fails means it does not. A metric with no word beside it is reported only.
+  stability:
+    label: Two-batch replay and stability
+    what: Runs September's data, then adds October's, and checks that opportunity ids stay the same and no real theme splits in two.

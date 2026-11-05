@@ -41,7 +41,7 @@ def context(store, reports_dir, static):
     aud["audit_event"]["rows"] = [_scrub(r) for r in aud["audit_event"]["rows"]]
     prefix = "diagrams/" if static else "/diagrams/"
     return dict(
-        static=static, hdr=read.header(store), strip=read.since_last_week(store), opps=opps, tagq=read.tag_queue(store),
+        static=static, H=read.HELP, drop_sure=round((1 - config.load("pipeline")["triage"]["backends"]["clef"]["drop_p"]) * 100), hdr=read.header(store), strip=read.since_last_week(store), opps=opps, tagq=read.tag_queue(store),
         labelq=read.label_queue(store), buckets=read.buckets(), squads=read.squads(), statuses=[s.value for s in Status],
         reasons=[r.value for r in ReasonCode], handoffs=read.handoffs(store), outtakes=read.outtakes(store), pipe=read.pipeline(store),
         ev=read.evals(store, reports_dir), aud=aud, diagrams=[dict(src=prefix + f, title=t, exists=(config.ROOT / "docs" / "diagrams" / f).is_file()) for f, t in DIAGRAMS],

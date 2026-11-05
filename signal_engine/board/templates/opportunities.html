@@ -21,10 +21,10 @@
 <li class="opp" data-id="{{ o.opportunity_id }}" data-status="{{ o.status }}" data-bucket="{{ o.bucket }}" data-squad="{{ o.squad }}" data-flags="{{ o.flags }}">
 <details>
  <summary><span class="rank">#{{ o.rank or '-' }}</span> <span class="title">{{ o.title }}</span>
-  <span class="score">score {{ o.score if o.score is not none else '-' }}</span> <span class="trend">{{ m.trend(o) }}</span>
+  <span class="score">score {{ '%.2f'|format(o.score) if o.score is not none else '-' }} {{ m.info(o.opportunity_id ~ '-score', H.scores.total.what) }}</span> <span class="trend">{{ m.trend(o) }}</span>
   <span class="status status-{{ o.status }}">{{ o.status }}</span></summary>
  <div class="oppline">
-  <p class="chips">{% for c in o.chips %}<span class="chip" tabindex="0" title="{{ c.hint }}">{{ c.name }} {{ c.value }}</span>{% endfor %}</p>
+  <p class="chips">{% for c in o.chips %}<span class="chip">{{ c.name }} {{ c.value }} {{ m.info(o.opportunity_id ~ '-' ~ c.key, c.hint) }}</span>{% endfor %}</p>
   {{ m.checkline(o) }}
   <p class="acct">{{ o.accounts_n }} accounts, {{ m.money(o.arr_gbp) }} ARR, {{ o.renewing_n }} renew in 90 days</p>
  </div>

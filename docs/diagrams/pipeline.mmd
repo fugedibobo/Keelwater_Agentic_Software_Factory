@@ -1,0 +1,12 @@
+flowchart TB
+  SRC["Sales calls, support tickets, onboarding and account calls, sessions"] --> SEG["Segment (code): customer turns plus unquotable context, idle session time cut"]
+  SEG --> TRI["Triage (decision model): signal? bucket? severity?"]
+  TRI -- "dropped: 40 a week sampled" --> NQ["Noise audit queue (PM)"]
+  TRI -- "signal or unsure" --> EXT["Extract (cheap model), quote check (code)"]
+  EXT --> CL["Enrich from HubSpot, cluster, match roadmap and shipped"]
+  CL --> RK["Rank (formula)"]
+  RK --> BR["Brief, top 10 only (strong model, cited)"]
+  BR --> JD["3 judges (different model family)"]
+  JD --> SB["Signal Board: PM decides"]
+  SB -- "accept" --> HO["Intent doc + factory job"]
+  SB -. "blind labels" .-> JD
