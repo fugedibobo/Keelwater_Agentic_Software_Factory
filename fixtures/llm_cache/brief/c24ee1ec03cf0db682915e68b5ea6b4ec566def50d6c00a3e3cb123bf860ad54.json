@@ -1,0 +1,61 @@
+{
+ "request": {
+  "model": "deepseek/deepseek-v4.1-flash",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou write a one-page opportunity brief for a Keelwater product manager. Keelwater makes claims-handling software. You use only the facts and customer insights below.\n</role>\n<opportunity>\n{\n \"title\": \"Missing keyboard shortcuts in claim notes\",\n \"problem_statement\": \"Users cannot use keyboard shortcuts when entering data into claim notes. This forces slower manual input, which significantly reduces efficiency during busy periods.\"\n}\n</opportunity>\n<fact_sheet>\n{\n \"as_of\": \"2026-11-03\",\n \"accounts_n\": 1,\n \"mentions_n\": 2,\n \"routes_n\": 1,\n \"mentions_by_route\": {\n  \"support\": 2\n },\n \"arr_total_gbp\": 52000.0,\n \"renewals_90d_n\": 0,\n \"accounts\": [\n  {\n   \"name\": \"Calderwick Commercial\",\n   \"arr_gbp\": 52000.0,\n   \"renewal_date\": \"2027-09-24\",\n   \"mentions\": 2\n  }\n ]\n}\n</fact_sheet>\n<insights>\n[\n {\n  \"id\": \"591caf4d5467d5d2\",\n  \"quote\": \"I was wondering if there’s a way to use keyboard shortcuts in claim notes to speed up data entry — it’d save us a lot of time during busy periods.\",\n  \"account\": \"Calderwick Commercial\",\n  \"route\": \"support\",\n  \"date\": \"2026-10-16T11:16:00+00:00\"\n },\n {\n  \"id\": \"fd0917cacded3850\",\n  \"quote\": \"I was wondering if there’s a way to use keyboard shortcuts in claim notes to speed up data entry — it’d save us a lot of time during busy periods.\",\n  \"account\": \"Calderwick Commercial\",\n  \"route\": \"support\",\n  \"date\": \"2026-10-16T11:16:00+00:00\"\n }\n]\n</insights>\n<rules>\n- Cite every insight you rely on as [i:INSIGHT_ID], using the id exactly as given. Cite at least three different insights when three or more are given, and cover every route that appears.\n- Use these sections, in this order, as Markdown headings: \"## Problem\", \"## Who is affected\", \"## Evidence\", \"## Why now\".\n- Every bullet under \"Who is affected\" and \"Evidence\" ends with a citation. Every sentence that contains a number or a date carries a citation.\n- Copy every account count, mention count, route count, renewal count and ARR figure from the fact sheet. Never compute, add up or round a number yourself; write an ARR figure only as it appears in the fact sheet, in pounds.\n- Write counts as digits exactly as the fact sheet gives them (\"5 accounts\", never \"five accounts\"); never write \"one customer\" or \"a single customer\" unless the fact sheet count says 1 for that same thing.\n- Put text in quotation marks only when it is a customer quote copied word for word, character for character, from one insight cited in the same sentence. Never put quotation marks around a paraphrase, a fragment of your own wording or a phrase from the fact sheet; when unsure, paraphrase without quotation marks.\n- Name a customer only when a cited insight in the same sentence belongs to that customer.\n- Do not claim more than the evidence shows: no \"all customers\", no scope wider than the cited accounts, and mention any cited insight that points the other way.\n- Do not recommend a solution.\n</rules>\n<output>\nJSON only: {\"body_md\": the brief as Markdown, \"citations\": the list of insight ids you cited}\n</output>\n\n<failed_checks>\nYour previous draft failed these checks. Fix them and write the brief again.\n- uncited_claims: no citation: The fact sheet records 1 account, 2 mentions, 1 route, 0 renewals in the next 90\n- uncited_claims: no citation: Calderwick Commercial's renewal date is 2027-09-24, and the fact sheet shows 0 r\n- customer_names: Calderwick Commercial is not the account of a cited insight\n</failed_checks>\n<previous_draft>\n## Problem\n\nUsers cannot use keyboard shortcuts when entering data into claim notes, which forces slower manual input and reduces efficiency during busy periods.\n\n## Who is affected\n\n- Calderwick Commercial, an account with 52000.0 GBP in ARR, raised this need through the support route [i:591caf4d5467d5d2].\n- The same account raised the same request again through the support route [i:fd0917cacded3850].\n\n## Evidence\n\n- A user at Calderwick Commercial asked whether there is a way to use keyboard shortcuts in claim notes to speed up data entry, saying it would save them a lot of time during busy periods [i:591caf4d5467d5d2].\n- The identical request was logged again from Calderwick Commercial through the support route [i:fd0917cacded3850].\n- The fact sheet records 1 account, 2 mentions, 1 route, 0 renewals in the next 90 days, and 52000.0 GBP in total ARR as of 2026-11-03.\n\n## Why now\n\n- Calderwick Commercial's renewal date is 2027-09-24, and the fact sheet shows 0 renewals in the next 90 days, so there is no near-term renewal pressure attached to this request.\n- Both mentions came through the support route, and no insight in the fact sheet points the other way.\n\n</previous_draft>"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 3000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "brief",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "body_md": {
+       "title": "Body Md",
+       "type": "string"
+      },
+      "citations": {
+       "items": {
+        "type": "string"
+       },
+       "title": "Citations",
+       "type": "array"
+      }
+     },
+     "required": [
+      "body_md",
+      "citations"
+     ],
+     "title": "BriefOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\n  \"body_md\": \"## Problem\\n\\nUsers cannot use keyboard shortcuts when entering data into claim notes, which forces slower manual input and reduces efficiency during busy periods.\\n\\n## Who is affected\\n\\n- Calderwick Commercial, an account with 52000.0 GBP in ARR, raised this need through the support route [i:591caf4d5467d5d2].\\n- The same account raised the same request again through the support route [i:fd0917cacded3850].\\n\\n## Evidence\\n\\n- A user at Calderwick Commercial asked whether there is a way to use keyboard shortcuts in claim notes to speed up data entry, saying it would save them a lot of time during busy periods [i:591caf4d5467d5d2].\\n- The identical request was logged again from Calderwick Commercial through the support route [i:fd0917cacded3850].\\n- The fact sheet records 1 account, 2 mentions, 1 route, 0 renewals in the next 90 days, and 52000.0 GBP in total ARR as of 2026-11-03 [i:591caf4d5467d5d2].\\n\\n## Why now\\n\\n- Calderwick Commercial's renewal date is 2027-09-24, and the fact sheet shows 0 renewals in the next 90 days, so there is no near-term renewal pressure attached to this request [i:fd0917cacded3850].\\n- Both mentions came through the support route, and no insight in the fact sheet points the other way [i:591caf4d5467d5d2].\\n\",\n  \"citations\": [\n    \"591caf4d5467d5d2\",\n    \"fd0917cacded3850\"\n  ]\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1219,
+   "tokens_out": 404,
+   "cost_usd": 0.000256855
+  }
+ }
+}

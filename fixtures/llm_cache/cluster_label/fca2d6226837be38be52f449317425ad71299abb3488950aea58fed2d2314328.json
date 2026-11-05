@@ -1,0 +1,62 @@
+{
+ "request": {
+  "model": "qwen/qwen3.8-27b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The user wants to modify reserves on policyholder claims without the system automatically generating alerts.\n  quote: can we adjust the reserves on policyholder claims without triggering alerts?\n- problem: The current system requires manual overrides to ensure reserves reflect real-time changes.\n  quote: we need to ensure reserves reflect real-time changes without manual overrides.\n- problem: The reserve calculation logic in the platform does not align with the customer's internal reporting standards.\n  quote: any update on the reserve calculation logic? We need it aligned with our reporting standards."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Reserve calculation and alerting misalignment\",\n  \"problem_statement\": \"Users cannot adjust reserves to match internal reporting standards without triggering unwanted alerts or requiring manual overrides. This disconnect between the platform's logic and business needs creates operational friction and data integrity risks.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 228,
+   "tokens_out": 62,
+   "cost_usd": 0.00019112
+  }
+ }
+}

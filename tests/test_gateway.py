@@ -217,19 +217,19 @@ def test_embed_goes_through_the_cache(tmp_path):
 
 # ---- probe ----------------------------------------------------------------------------------------------------
 def test_probe_table_fallback_and_missing_clef_key(fake_gateway):
-    def brief(body):
-        if body["model"] == "qwen/qwen3.8-max-0902":
+    def extract(body):
+        if body["model"] == "qwen/qwen3.8-flash":
             raise GatewayError("model not served")
         return {"body_md": "x", "citations": []}
 
-    gw = fake_gateway({"brief": brief})  # both Decisions API stages are skipped without a key
-    rows, ok = gwm.run_probe(gw, ["triage", "triage_fallback", "brief"], out=lambda s: None)
+    gw = fake_gateway({"extract": extract})  # both Decisions API stages are skipped without a key
+    rows, ok = gwm.run_probe(gw, ["triage", "triage_fallback", "extract"], out=lambda s: None)
     assert ok
     assert rows[:2] == [("triage", "cloudflare/clef", "-", "skipped (no key)", "-"),
                         ("triage_fallback", "cloudflare/clef-flash", "-", "skipped (no key)", "-")]
-    assert [r[:4] for r in rows[2:]] == [("brief", "qwen/qwen3.8-max-0902", "primary", "fail"),
-                                         ("brief", "deepseek/deepseek-v4.1-flash", "fallback", "ok")]
-    assert gw.swaps == {"brief": "deepseek/deepseek-v4.1-flash"}
+    assert [r[:4] for r in rows[2:]] == [("extract", "qwen/qwen3.8-flash", "primary", "fail"),
+                                         ("extract", "qwen/qwen3.8-27b", "fallback", "ok")]
+    assert gw.swaps == {"extract": "qwen/qwen3.8-27b"}
     assert all(c[2].get("max_tokens", 32) == 32 for c in gw.calls if "questions" not in c[2])
 
 
@@ -346,6 +346,7 @@ def test_reasoning_option_reaches_generate_requests_only(tmp_path):
     from signal_engine import config
     models = copy.deepcopy(config.load("models"))
     models["profiles"]["demo"]["stages"]["generate"]["reasoning"] = {"enabled": False}
+    models["profiles"]["demo"]["stages"]["extract"].pop("reasoning", None)  # extract carries its own flag in the committed config
     gw = demo(tmp_path, models=models)
     assert gw.chat_request("generate", gwm.PROBE_MESSAGES, schema={"type": "object"})["reasoning"] == {"enabled": False}
     assert "reasoning" not in gw.chat_request("extract", gwm.PROBE_MESSAGES)

@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (duplicate) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is the core problem still open, not solved by a shipped story and not covered by a roadmap item? Pass means yes.\nCompare the problem itself, not the product area. A spike that is unstarted or in progress is not shipped.\nFail if a completed story solves the same problem, or a roadmap item already covers it.\nThe evidence is the problem statement and the five most similar stories and roadmap pages, with status and dates.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"Users struggle to attach documents due to confusing workflows and validation failures, and cannot easily locate settings to print full claim summaries. This hinders efficient claim processing and internal record-keeping.\",\n \"similar\": [\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4127\",\n   \"similarity\": 0.06,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-10-06T00:00:00Z\\\", \\\"description\\\": \\\"Users can now upload multiple documents at once to a claim in Keelwater, streamlining the process and reducing manual effort for claims handlers.\\\", \\\"id\\\": 4127, \\\"name\\\": \\\"Bulk upload documents to a claim\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4136\",\n   \"similarity\": 0.058,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": false, \\\"completed_at\\\": null, \\\"description\\\": \\\"Keelwater is updating its supplier address fields to support international formats and improve data validation, ensuring accurate claim processing across global regions.\\\", \\\"id\\\": 4136, \\\"name\\\": \\\"Supplier address fields\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 2}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4138\",\n   \"similarity\": 0.057,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": false, \\\"completed_at\\\": null, \\\"description\\\": \\\"Configure global settings for your organisation within Keelwater, including default claim categories, notification preferences, and user permissions to ensure consistent workflows across teams.\\\", \\\"id\\\": 4138, \\\"name\\\": \\\"Organisation settings\\\", \\\"started\\\": false, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 1}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4128\",\n   \"similarity\": 0.055,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-09-15T00:00:00Z\\\", \\\"description\\\": \\\"Keelwater now allows users to filter claims by date range, status, and claim type, making it easier to locate specific claims without scrolling through unrelated entries.\\\", \\\"id\\\": 4128, \\\"name\\\": \\\"Claim search refinements\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4137\",\n   \"similarity\": 0.051,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": false, \\\"completed_at\\\": null, \\\"description\\\": \\\"Users can navigate through claim reports using intuitive shortcuts, streamlining access to key data without leaving the current view. Keelwater’s interface ensures quick filtering and drill-downs for efficient claim analysis.\\\", \\\"id\\\": 4137, \\\"name\\\": \\\"Reporting navigation\\\", \\\"started\\\": false, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 1}\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The problem covers two pain points: confusing document-attachment workflows with validation failures, and inability to print full claim summaries. I checked the five similar stories: #4127 (bulk upload, completed) addresses multi-document upload but not the confusing workflow or validation failures, nor printing; #4136 and #4138 address unrelated settings/validation and org settings; #4128 and #4137 concern claim search and reporting navigation. No shipped story or roadmap item resolves the same core problem, so it remains open.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 912,
+   "tokens_out": 137,
+   "cost_usd": 0.00056616
+  }
+ }
+}

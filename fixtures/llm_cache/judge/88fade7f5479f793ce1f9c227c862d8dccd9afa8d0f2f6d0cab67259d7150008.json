@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"title\": \"Large batch processing failures\",\n \"problem_statement\": \"Users experience system failures or significant slowdowns when processing large batches of claims. This limits the platform's ability to handle high-volume workloads efficiently.\",\n \"quotes\": [\n  {\n   \"quote\": \"we’ve had a few cases where the system choked on large batches — maybe a bug or limit?\",\n   \"route\": \"sales\",\n   \"date\": \"2026-10-28T16:59:00Z\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The claim is that the system fails or slows when processing large batches of claims. The single quote (sales, 2026-10-28) directly reports the system 'choked on large batches', which describes in-product behavior a squad could investigate and fix. It is not a pricing, contract, IT, or documentation issue, and it is not praise. The evidence is thin (one quote, uncertain cause), but it is still a product problem signal.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 328,
+   "tokens_out": 107,
+   "cost_usd": 0.0009186
+  }
+ }
+}

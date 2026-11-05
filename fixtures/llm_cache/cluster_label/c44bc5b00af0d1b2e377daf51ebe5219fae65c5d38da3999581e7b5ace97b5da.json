@@ -1,0 +1,62 @@
+{
+ "request": {
+  "model": "qwen/qwen3.8-27b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The system does not provide live updates from garages, causing daily frustration for the team.\n  quote: daily frustrations with the system’s lack of live updates from garages\n- problem: The platform lacks live repair updates, forcing users to manually call garages for status checks.\n  quote: we can’t see live repair updates — it’s a daily grind. We’re spending too much time calling garages because we can’t see live repair updates\n- problem: The platform lacks automated claim progress messaging, forcing users to manually draft and send updates which is inefficient and error-prone.\n  quote: we’re manually sending claim progress messages, but it’s time-consuming and inconsistent. Right now we’re manually drafting and sending claim progress messages to keep policyholders informed, but it’s inefficient and error-prone.\n- problem: The platform lacks an automated way to send status updates to policyholders during the claims process.\n  quote: Is there a way to automate those messages?\n- problem: The current process for tracking garage progress requires manual calls to suppliers, which disrupts the workflow and takes time away from core claims tasks.\n  quote: We’re still wrestling with how to track garage progress visibility without calling every supplier manually — it really breaks up our day and distracts from core claims work.\n- problem: The system lacks built-in visibility into garage progress, forcing users to interrupt their work with phone calls.\n  quote: we need garage progress visibility baked into the system so we don’t have to interrupt our daily work with phone calls\n- problem: The system does not display live repair progress, forcing handlers to manually call garages for updates.\n  quote: our handlers are spending half their day calling garages because we can’t see live repair progress in the system.\n- problem: The current workflow or missing features are causing inefficiency and consuming time that should be spent on core tasks.\n  quote: it’s not just annoying, it’s eating into time we could spend on policyholders or tasks."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Missing live garage repair updates\",\n  \"problem_statement\": \"Claims handlers lack real-time visibility into garage repair progress, forcing them to manually call suppliers for status checks. This disrupts their workflow and consumes time that should be spent on core claims tasks and policyholder communication.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 531,
+   "tokens_out": 65,
+   "cost_usd": 0.0002687
+  }
+ }
+}

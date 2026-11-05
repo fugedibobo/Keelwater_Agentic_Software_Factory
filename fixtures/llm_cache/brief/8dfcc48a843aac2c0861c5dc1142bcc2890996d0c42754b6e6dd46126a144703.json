@@ -1,0 +1,61 @@
+{
+ "request": {
+  "model": "deepseek/deepseek-v4.1-flash",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou write a one-page opportunity brief for a Keelwater product manager. Keelwater makes claims-handling software. You use only the facts and customer insights below.\n</role>\n<opportunity>\n{\n \"title\": \"Payment batch reconciliation and assignment failures\",\n \"problem_statement\": \"Users cannot reconcile payment batches because supplier ledgers and invoices are missing or inaccessible. Additionally, uploaded claim documents fail to auto-assign to the correct supplier tasks, disrupting the workflow.\"\n}\n</opportunity>\n<fact_sheet>\n{\n \"as_of\": \"2026-11-03\",\n \"accounts_n\": 3,\n \"mentions_n\": 3,\n \"routes_n\": 1,\n \"mentions_by_route\": {\n  \"support\": 3\n },\n \"arr_total_gbp\": 2770000.0,\n \"renewals_90d_n\": 0,\n \"accounts\": [\n  {\n   \"name\": \"Cindermill Trade Cover\",\n   \"arr_gbp\": 210000.0,\n   \"renewal_date\": \"2027-04-03\",\n   \"mentions\": 1\n  },\n  {\n   \"name\": \"Wexmoor Motor\",\n   \"arr_gbp\": 1950000.0,\n   \"renewal_date\": \"2027-06-30\",\n   \"mentions\": 1\n  },\n  {\n   \"name\": \"Brackwater Homecover\",\n   \"arr_gbp\": 610000.0,\n   \"renewal_date\": \"2027-10-10\",\n   \"mentions\": 1\n  }\n ]\n}\n</fact_sheet>\n<insights>\n[\n {\n  \"id\": \"550f2b6c46f2b3dd\",\n  \"quote\": \"I’m trying to figure out why the latest payment batch didn’t reflect in our supplier ledger\",\n  \"account\": \"Cindermill Trade Cover\",\n  \"route\": \"support\",\n  \"date\": \"2026-09-09T15:46:00+00:00\"\n },\n {\n  \"id\": \"d93acbbda99a4ae5\",\n  \"quote\": \"I’m trying to reconcile the latest payment batch with our suppliers’ invoices but can’t locate the matching documents in the system.\",\n  \"account\": \"Wexmoor Motor\",\n  \"route\": \"support\",\n  \"date\": \"2026-10-30T09:52:00+00:00\"\n },\n {\n  \"id\": \"f65321d912d263c2\",\n  \"quote\": \"I’m trying to figure out why my latest batch of claims documents didn’t auto-assign to the right supplier tasks.\",\n  \"account\": \"Brackwater Homecover\",\n  \"route\": \"support\",\n  \"date\": \"2026-09-10T10:12:00+00:00\"\n }\n]\n</insights>\n<rules>\n- Cite every insight you rely on as [i:INSIGHT_ID], using the id exactly as given. Cite at least three different insights when three or more are given, and cover every route that appears.\n- Use these sections, in this order, as Markdown headings: \"## Problem\", \"## Who is affected\", \"## Evidence\", \"## Why now\".\n- Every bullet under \"Who is affected\" and \"Evidence\" ends with a citation. Every sentence that contains a number or a date carries a citation.\n- Copy every account count, mention count, route count, renewal count and ARR figure from the fact sheet. Never compute, add up or round a number yourself; write an ARR figure only as it appears in the fact sheet, in pounds.\n- Write counts as digits exactly as the fact sheet gives them (\"5 accounts\", never \"five accounts\"); never write \"one customer\" or \"a single customer\" unless the fact sheet count says 1 for that same thing.\n- Put text in quotation marks only when it is a customer quote copied word for word, character for character, from one insight cited in the same sentence. Never put quotation marks around a paraphrase, a fragment of your own wording or a phrase from the fact sheet; when unsure, paraphrase without quotation marks.\n- Name a customer only when a cited insight in the same sentence belongs to that customer.\n- Do not claim more than the evidence shows: no \"all customers\", no scope wider than the cited accounts, and mention any cited insight that points the other way.\n- Do not recommend a solution.\n</rules>\n<output>\nJSON only: {\"body_md\": the brief as Markdown, \"citations\": the list of insight ids you cited}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 3000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "brief",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "body_md": {
+       "title": "Body Md",
+       "type": "string"
+      },
+      "citations": {
+       "items": {
+        "type": "string"
+       },
+       "title": "Citations",
+       "type": "array"
+      }
+     },
+     "required": [
+      "body_md",
+      "citations"
+     ],
+     "title": "BriefOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\"body_md\": \"## Problem\\n\\nUsers cannot reconcile payment batches because supplier ledgers and invoices are missing or inaccessible, and uploaded claim documents fail to auto-assign to the correct supplier tasks, disrupting the workflow.\\n\\n## Who is affected\\n\\n- Cindermill Trade Cover, an account with £210000.0 in ARR and a renewal date of 2027-04-03, reports trouble seeing why a payment batch did not reflect in its supplier ledger [i:550f2b6c46f2b3dd].\\n- Wexmoor Motor, an account with £1950000.0 in ARR and a renewal date of 2027-06-30, reports being unable to locate matching documents in the system when reconciling a payment batch with suppliers' invoices [i:d93acbbda99a4ae5].\\n- Brackwater Homecover, an account with £610000.0 in ARR and a renewal date of 2027-10-10, reports that a batch of claims documents did not auto-assign to the right supplier tasks [i:f65321d912d263c2].\\n- In total, 3 accounts are affected, with 3 mentions across 1 route, all on the support route [i:550f2b6c46f2b3dd][i:d93acbbda99a4ae5][i:f65321d912d263c2].\\n\\n## Evidence\\n\\n- Cindermill Trade Cover raised the ledger reconciliation issue on 2026-09-09 via the support route [i:550f2b6c46f2b3dd].\\n- Wexmoor Motor raised the invoice reconciliation issue on 2026-10-30 via the support route [i:d93acbbda99a4ae5].\\n- Brackwater Homecover raised the auto-assignment issue on 2026-09-10 via the support route [i:f65321d912d263c2].\\n- The 3 accounts together represent £2770000.0 in ARR, with 0 renewals in the next 90 days [i:550f2b6c46f2b3dd][i:d93acbbda99a4ae5][i:f65321d912d263c2].\\n\\n## Why now\\n\\n- All 3 mentions arrived through the support route, and the most recent was on 2026-10-30 [i:d93acbbda99a4ae5].\\n- The affected accounts have renewal dates of 2027-04-03, 2027-06-30 and 2027-10-10, with 0 renewals in the next 90 days as of 2026-11-03 [i:550f2b6c46f2b3dd][i:d93acbbda99a4ae5][i:f65321d912d263c2].\\n- The evidence covers 3 accounts and 3 mentions; no insight in this set points the other way [i:550f2b6c46f2b3dd][i:d93acbbda99a4ae5][i:f65321d912d263c2].\\n\", \"citations\": [\"550f2b6c46f2b3dd\", \"d93acbbda99a4ae5\", \"f65321d912d263c2\"]}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 987,
+   "tokens_out": 745,
+   "cost_usd": 0.000416915
+  }
+ }
+}

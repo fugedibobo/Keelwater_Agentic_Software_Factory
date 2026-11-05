@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"title\": \"Integrations tab visible to all users\",\n \"problem_statement\": \"Junior staff see the integrations tab despite not needing access. This causes confusion among users who should not have that visibility.\",\n \"quotes\": [\n  {\n   \"quote\": \"can we adjust roles so only senior handlers see the integrations tab? It’s causing confusion.\",\n   \"route\": \"sales\",\n   \"date\": \"2026-09-26T14:35:00Z\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked the sole customer quote from sales on 2026-09-26, which requests role-based control over the integrations tab visibility because junior staff see it and get confused. This is a described product behavior (permissions/UI exposure) that a squad could act on; it is not pricing, contracts, customer IT, staffing, or an article-answerable question, nor praise. The request itself constitutes actionable signal.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 326,
+   "tokens_out": 113,
+   "cost_usd": 0.000216451
+  }
+ }
+}

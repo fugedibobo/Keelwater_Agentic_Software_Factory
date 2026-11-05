@@ -1,0 +1,62 @@
+{
+ "request": {
+  "model": "qwen/qwen3.8-27b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The customer cannot automate the generation of letters for overdue claims and is forced to draft them manually.\n  quote: can we automate letters for overdue claims? I’m swamped with manual drafting.\n- problem: The user needs a consolidated report view that links pending letters to their respective policyholders.\n  quote: can we pull a report that shows all claims with pending letters and their associated policyholders in one view?\n- problem: The customer wants to know if the platform allows for customizing policyholder letters based on specific claim types.\n  quote: are we able to customize the letters sent to policyholders for specific claim types?\n- problem: The customer wants a feature to view a summary of recent tasks and letters associated with their account.\n  quote: Also, can we get a summary of recent tasks and letters tied to our account?\n- problem: The customer wants the platform to automatically identify and flag pending letters or documents that are currently blocked.\n  quote: if you can flag any pending letters or documents that might be blocked too, that’d help us plan ahead."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Manual letter drafting and tracking\",\n  \"problem_statement\": \"Users must manually draft and track policyholder letters because the platform lacks automation, consolidated views, and status flags. This creates a heavy administrative burden and prevents teams from efficiently managing overdue or blocked claims.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 339,
+   "tokens_out": 62,
+   "cost_usd": 0.0002228
+  }
+ }
+}

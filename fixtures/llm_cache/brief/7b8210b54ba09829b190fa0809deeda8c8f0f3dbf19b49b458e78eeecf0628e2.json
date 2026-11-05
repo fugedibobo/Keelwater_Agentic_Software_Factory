@@ -1,0 +1,61 @@
+{
+ "request": {
+  "model": "deepseek/deepseek-v4.1-flash",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou write a one-page opportunity brief for a Keelwater product manager. Keelwater makes claims-handling software. You use only the facts and customer insights below.\n</role>\n<opportunity>\n{\n \"title\": \"Unreliable Save Functionality\",\n \"problem_statement\": \"Users across the claims and reports modules experience repeated failures when attempting to save data. This inconsistency forces multiple retries and causes significant frustration during critical workflow steps.\"\n}\n</opportunity>\n<fact_sheet>\n{\n \"as_of\": \"2026-11-03\",\n \"accounts_n\": 5,\n \"mentions_n\": 5,\n \"routes_n\": 1,\n \"mentions_by_route\": {\n  \"sessions\": 5\n },\n \"arr_total_gbp\": 2356000.0,\n \"renewals_90d_n\": 1,\n \"accounts\": [\n  {\n   \"name\": \"Cindermill Trade Cover\",\n   \"arr_gbp\": 210000.0,\n   \"renewal_date\": \"2027-04-03\",\n   \"mentions\": 1\n  },\n  {\n   \"name\": \"Duncastle Auto\",\n   \"arr_gbp\": 80000.0,\n   \"renewal_date\": \"2027-08-19\",\n   \"mentions\": 1\n  },\n  {\n   \"name\": \"Merrow Vale Motor\",\n   \"arr_gbp\": 46000.0,\n   \"renewal_date\": \"2027-04-08\",\n   \"mentions\": 1\n  },\n  {\n   \"name\": \"Marrowgate Commercial\",\n   \"arr_gbp\": 1600000.0,\n   \"renewal_date\": \"2026-12-12\",\n   \"mentions\": 1\n  },\n  {\n   \"name\": \"Tidewell Marine & Cargo\",\n   \"arr_gbp\": 420000.0,\n   \"renewal_date\": \"2027-07-31\",\n   \"mentions\": 1\n  }\n ]\n}\n</fact_sheet>\n<insights>\n[\n {\n  \"id\": \"53a0a8246321d967\",\n  \"quote\": \"Reports: click \\\"Save\\\", rage x3\",\n  \"account\": \"Cindermill Trade Cover\",\n  \"route\": \"sessions\",\n  \"date\": \"2026-09-22T09:41:00Z\"\n },\n {\n  \"id\": \"70c5aa1266521193\",\n  \"quote\": \"Claims: click \\\"Open\\\"\\nClaims: click \\\"Save\\\", rage x3\",\n  \"account\": \"Duncastle Auto\",\n  \"route\": \"sessions\",\n  \"date\": \"2026-10-20T13:34:00Z\"\n },\n {\n  \"id\": \"89447aec7087b72c\",\n  \"quote\": \"Reports: click \\\"Save\\\", rage x3\",\n  \"account\": \"Merrow Vale Motor\",\n  \"route\": \"sessions\",\n  \"date\": \"2026-09-13T13:48:00Z\"\n },\n {\n  \"id\": \"e0f16662367fc69b\",\n  \"quote\": \"Claim details: click \\\"Save\\\", rage x3\",\n  \"account\": \"Marrowgate Commercial\",\n  \"route\": \"sessions\",\n  \"date\": \"2026-10-25T12:46:00Z\"\n },\n {\n  \"id\": \"e7aba248526ebedf\",\n  \"quote\": \"Reports: click \\\"Save\\\", rage x3\",\n  \"account\": \"Tidewell Marine & Cargo\",\n  \"route\": \"sessions\",\n  \"date\": \"2026-10-29T10:23:00Z\"\n }\n]\n</insights>\n<rules>\n- Cite every insight you rely on as [i:INSIGHT_ID], using the id exactly as given. Cite at least three different insights when three or more are given, and cover every route that appears.\n- Use these sections, in this order, as Markdown headings: \"## Problem\", \"## Who is affected\", \"## Evidence\", \"## Why now\".\n- Every bullet under \"Who is affected\" and \"Evidence\" ends with a citation. Every sentence that contains a number or a date carries a citation.\n- Copy every account count, mention count, route count, renewal count and ARR figure from the fact sheet. Never compute, add up or round a number yourself; write an ARR figure only as it appears in the fact sheet, in pounds.\n- Write counts as digits exactly as the fact sheet gives them (\"5 accounts\", never \"five accounts\"); never write \"one customer\" or \"a single customer\" unless the fact sheet count says 1 for that same thing.\n- Put text in quotation marks only when it is a customer quote copied word for word, character for character, from one insight cited in the same sentence. Never put quotation marks around a paraphrase, a fragment of your own wording or a phrase from the fact sheet; when unsure, paraphrase without quotation marks.\n- Name a customer only when a cited insight in the same sentence belongs to that customer.\n- Do not claim more than the evidence shows: no \"all customers\", no scope wider than the cited accounts, and mention any cited insight that points the other way.\n- Do not recommend a solution.\n</rules>\n<output>\nJSON only: {\"body_md\": the brief as Markdown, \"citations\": the list of insight ids you cited}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 3000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "brief",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "body_md": {
+       "title": "Body Md",
+       "type": "string"
+      },
+      "citations": {
+       "items": {
+        "type": "string"
+       },
+       "title": "Citations",
+       "type": "array"
+      }
+     },
+     "required": [
+      "body_md",
+      "citations"
+     ],
+     "title": "BriefOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\"body_md\": \"## Problem\\n\\nUsers in the claims and reports modules hit repeated failures when they try to save data, forcing retries and disrupting critical workflow steps.\\n\\n## Who is affected\\n\\n- Cindermill Trade Cover, an account with 210000.0 GBP in ARR, shows a save failure in reports [i:53a0a8246321d967].\\n- Duncastle Auto, an account with 80000.0 GBP in ARR, shows a save failure in claims [i:70c5aa1266521193].\\n- Merrow Vale Motor, an account with 46000.0 GBP in ARR, shows a save failure in reports [i:89447aec7087b72c].\\n- Marrowgate Commercial, an account with 1600000.0 GBP in ARR and a renewal date of 2026-12-12, shows a save failure in claim details [i:e0f16662367fc69b].\\n- Tidewell Marine & Cargo, an account with 420000.0 GBP in ARR, shows a save failure in reports [i:e7aba248526ebedf].\\n\\n## Evidence\\n\\n- Across 5 accounts and 5 mentions, all 5 mentions arrive on the sessions route, the only route represented [i:53a0a8246321d967][i:70c5aa1266521193][i:89447aec7087b72c][i:e0f16662367fc69b][i:e7aba248526ebedf].\\n- Cindermill Trade Cover recorded the sequence \\\"Reports: click \\\\\\\"Save\\\\\\\", rage x3\\\" on 2026-09-22 [i:53a0a8246321d967].\\n- Duncastle Auto recorded the sequence \\\"Claims: click \\\\\\\"Open\\\\\\\"\\\\nClaims: click \\\\\\\"Save\\\\\\\", rage x3\\\" on 2026-10-20 [i:70c5aa1266521193].\\n- Merrow Vale Motor recorded the sequence \\\"Reports: click \\\\\\\"Save\\\\\\\", rage x3\\\" on 2026-09-13 [i:89447aec7087b72c].\\n- Marrowgate Commercial recorded the sequence \\\"Claim details: click \\\\\\\"Save\\\\\\\", rage x3\\\" on 2026-10-25 [i:e0f16662367fc69b].\\n- Tidewell Marine & Cargo recorded the sequence \\\"Reports: click \\\\\\\"Save\\\\\\\", rage x3\\\" on 2026-10-29 [i:e7aba248526ebedf].\\n- The affected accounts total 2356000.0 GBP in ARR, with 1 renewal inside 90 days [i:e0f16662367fc69b].\\n\\n## Why now\\n\\n- Marrowgate Commercial, the largest affected account at 1600000.0 GBP in ARR, renews on 2026-12-12, and it is the 1 renewal inside 90 days [i:e0f16662367fc69b].\\n- The remaining affected accounts renew later: Cindermill Trade Cover on 2027-04-03, Merrow Vale Motor on 2027-04-08, Tidewell Marine & Cargo on 2027-07-31, and Duncastle Auto on 2027-08-19 [i:53a0a8246321d967][i:89447aec7087b72c][i:e7aba248526ebedf][i:70c5aa1266521193].\\n- No cited insight points the other way; every mention captured here is a save failure [i:53a0a8246321d967][i:70c5aa1266521193][i:89447aec7087b72c][i:e0f16662367fc69b][i:e7aba248526ebedf].\\n\", \"citations\": [\"53a0a8246321d967\", \"70c5aa1266521193\", \"89447aec7087b72c\", \"e0f16662367fc69b\", \"e7aba248526ebedf\"]}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1296,
+   "tokens_out": 924,
+   "cost_usd": 0.00076908
+  }
+ }
+}

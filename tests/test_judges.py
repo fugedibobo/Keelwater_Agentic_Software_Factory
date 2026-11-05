@@ -51,10 +51,10 @@ def test_duplicate_fail_on_tagged_opportunity_is_a_disagreement_and_keeps_the_ta
 
 
 def test_judge_primary_family_differs_from_writer_and_extractor():
-    # the fallbacks share DeepSeek on purpose; the not_independent rule covers that case
+    # brief and handoff run on DeepSeek and the judge falls back to DeepSeek on purpose; the not_independent rule covers that case
     stages = config.load("models")["profiles"]["demo"]["stages"]
     assert family(stages["judge"]["model"]) not in {family(stages[s]["model"]) for s in ("brief", "handoff", "extract")}
-    assert family(stages["judge"]["model"]) == "z-ai" and family(stages["brief"]["fallback"]) == "deepseek"
+    assert family(stages["judge"]["model"]) == "z-ai" and family(stages["judge"]["fallback"]) == family(stages["brief"]["model"]) == "deepseek"
 
 
 def test_family_is_the_vendor_prefix_of_openrouter_and_bedrock_ids():

@@ -1,0 +1,62 @@
+{
+ "request": {
+  "model": "qwen/qwen3.8-27b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The platform lacks the ability to configure manual claim routing options on a per-team basis.\n  quote: We need manual claim routing options configurable per team.\n- problem: The automatic claim assignment logic does not correctly account for team workload or geographic postcode zones.\n  quote: we’ve been having some issues with how claims are assigned in our motor team — it’s not matching our workload or postcode zones.\n- problem: The platform lacks team-specific configuration for claim routing, forcing a conflict between automated and manual workflows.\n  quote: we really need configuration that varies by team to keep everyone happy.\n- problem: The current claim allocation system does not support the motor team's need for automatic allocation based on postcode and workload, while also accommodating the commercial team's preference for manual control.\n  quote: our motor team wants more automatic claim allocation based on postcode and workload, but commercial prefers manual control for complex cases.\n- problem: The current auto-routing system is too rigid for commercial claims, requiring a way to manually route them while keeping motor claims automated.\n  quote: Our commercial claims are too complex for auto-routing — we need manual claim routing for those, while motor claims can stay automated by postcode and workload.\n- problem: The automatic claim routing feature is ineffective for complex commercial and specialty claims, requiring manual intervention to handle multiple suppliers and policyholders.\n  quote: Our commercial and specialty claims handlers find auto-routing unhelpful — we need manual claim routing to manage complex files properly, especially with multiple suppliers and policyholders involved.\n- problem: The platform currently applies a uniform claim routing approach across all teams, which fails to accommodate the specific needs of different departments like commercial claims.\n  quote: We really need per-team configuration because our commercial team handles complex claims and prefers manual claim routing — one-size-fits-all doesn’t work for us.\n- problem: The motor team requires automated claim routing based on postcode and workload to handle high volumes, as manual routing is too slow.\n  quote: Our motor team handles hundreds of claims weekly and needs automated routing by postcode and workload — manual claim routing slows them down too much."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\"title\": \"Lack of per-team claim routing configuration\", \"problem_statement\": \"Claims handlers across different teams cannot configure routing rules to match their specific workflows, such as automated postcode-based assignment for motor claims or manual control for complex commercial cases. This one-size-fits-all approach forces teams to use inefficient methods, slowing down high-volume processing and complicating the handling of intricate files.\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 554,
+   "tokens_out": 80,
+   "cost_usd": 0.0003108
+  }
+ }
+}

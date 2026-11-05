@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"title\": \"Misleading network failure error message\",\n \"problem_statement\": \"Users encounter error messages that incorrectly suggest a Keelwater system bug when the issue is actually a customer network failure. This confusion misdirects troubleshooting efforts and undermines trust in the platform's reliability.\",\n \"quotes\": [\n  {\n   \"quote\": \"it’s definitely a customer network failure, not Keelwater being down, though the error message makes it sound like a bug.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-27T11:53:00+00:00\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The claim is that error messages misattribute customer network failures to Keelwater bugs, misdirecting troubleshooting. The single support quote confirms the message wording causes confusion even when the user knows the real cause. This is a product messaging issue a squad could fix (improve error copy/diagnostics), not pricing, contracts, or customer IT itself. One quote is thin, but it directly supports the claim.\",\"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 349,
+   "tokens_out": 94,
+   "cost_usd": 0.00047991
+  }
+ }
+}

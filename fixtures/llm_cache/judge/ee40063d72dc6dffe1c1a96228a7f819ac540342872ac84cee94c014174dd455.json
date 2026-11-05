@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"title\": \"Missing keyboard shortcuts in claim notes\",\n \"problem_statement\": \"Users cannot use keyboard shortcuts when entering data into claim notes. This forces slower manual input, which significantly reduces efficiency during busy periods.\",\n \"quotes\": [\n  {\n   \"quote\": \"I was wondering if there’s a way to use keyboard shortcuts in claim notes to speed up data entry — it’d save us a lot of time during busy periods.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-16T11:16:00+00:00\"\n  },\n  {\n   \"quote\": \"I was wondering if there’s a way to use keyboard shortcuts in claim notes to speed up data entry — it’d save us a lot of time during busy periods.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-16T11:16:00+00:00\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The item 'Missing keyboard shortcuts in claim notes' describes users being unable to use keyboard shortcuts during claim note entry, forcing slower manual input. The support quote is a feature request asking for keyboard shortcuts to speed up data entry, which is signal per the definition. The cause is within the product (missing functionality), not pricing, contracts, customer IT, or staffing, and no help article would resolve it. The duplicate quote does not change the assessment.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 414,
+   "tokens_out": 104,
+   "cost_usd": 0.00041696
+  }
+ }
+}

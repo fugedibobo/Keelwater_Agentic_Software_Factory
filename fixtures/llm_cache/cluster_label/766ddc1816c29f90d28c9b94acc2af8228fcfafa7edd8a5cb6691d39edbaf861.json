@@ -1,0 +1,62 @@
+{
+ "request": {
+  "model": "qwen/qwen3.8-27b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The system incorrectly categorizes garage estimates as correspondence, causing evidence to be misfiled and potentially overlooked.\n  quote: Every time a garage estimate gets dumped into correspondence, someone has to manually fix it — and sometimes the wrong document category means evidence gets overlooked entirely.\n- problem: Garage estimates are incorrectly categorized as correspondence, forcing manual re-categorization and causing missed evidence.\n  quote: Garage estimates keep landing in correspondence — we have to manually recategorise them, and sometimes evidence gets missed because of it. The incorrect file type assignment is causing real delays and oversight risks.\n- problem: Garage estimates are incorrectly routed to correspondence, requiring manual recategorization and causing missed evidence.\n  quote: garage estimates keep landing in correspondence — we have to manually recategorise them, and sometimes evidence gets missed because of it.\n- problem: Handlers are manually moving garage estimates out of correspondence, which causes delays.\n  quote: we’ve got some handlers still manually moving garage estimates out of correspondence, and it’s causing delays.\n- problem: Handlers are wasting time manually correcting incorrect file type assignments for garage estimates, which risks missing critical evidence.\n  quote: Handlers are spending too much time fixing the incorrect file type assignments — we need a better way to classify garage estimates so we don’t miss critical evidence during claims processing.\n- problem: Uploaded garage estimates are incorrectly categorized as correspondence, causing handlers to miss key evidence.\n  quote: every time we upload a garage estimate, it lands in correspondence — it’s a wrong document category and handlers keep missing key evidence because of it.\n- problem: Garage estimates are incorrectly categorized as Correspondence, forcing handlers to manually reclassify them and risking missed evidence.\n  quote: garage estimates keep landing in Correspondence, and our handlers have to manually move them, which risks missing critical evidence.\n- problem: The system incorrectly assigns file types, forcing handlers to manually fix them and reducing claim accuracy.\n  quote: handlers are wasting time fixing incorrect file type assignments, and it’s impacting claim accuracy."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Garage estimates misfiled as correspondence\",\n  \"problem_statement\": \"Handlers are forced to manually recategorize garage estimates that the system incorrectly files as correspondence. This manual correction causes delays and risks overlooking critical evidence during claims processing.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 537,
+   "tokens_out": 58,
+   "cost_usd": 0.0002524
+  }
+ }
+}

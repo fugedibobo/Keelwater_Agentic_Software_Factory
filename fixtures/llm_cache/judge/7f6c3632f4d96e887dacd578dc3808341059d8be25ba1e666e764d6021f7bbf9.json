@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"title\": \"Document versioning and update tracking\",\n \"problem_statement\": \"Users struggle to track changes to documents, leading to confusion about which version is current. This lack of clear versioning creates risk and inefficiency in managing claim files.\",\n \"quotes\": [\n  {\n   \"quote\": \"Great. And how do you handle document versioning? We’ve lost track of updates before.\",\n   \"route\": \"sales\",\n   \"date\": \"2026-09-15T14:44:00Z\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The only evidence is a single sales-route quote ('how do you handle document versioning? We've lost track of updates before'), which is a pre-sales question rather than feedback describing a problem with Keelwater's product. The problem statement asserts users struggle with version tracking, but no customer quote from actual product use substantiates this, and the loss of track of updates may have occurred outside Keelwater. With no concrete product-use evidence, this does not establish an actionable product problem.\", \"verdict\": \"fail\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 333,
+   "tokens_out": 145,
+   "cost_usd": 0.00049494
+  }
+ }
+}

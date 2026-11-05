@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (duplicate) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is the core problem still open, not solved by a shipped story and not covered by a roadmap item? Pass means yes.\nCompare the problem itself, not the product area. A spike that is unstarted or in progress is not shipped.\nFail if a completed story solves the same problem, or a roadmap item already covers it.\nThe evidence is the problem statement and the five most similar stories and roadmap pages, with status and dates.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"Users cannot upload supplier invoices because the system rejects specific file formats. This blocks the claims process and prevents valid documents from being processed.\",\n \"similar\": [\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4127\",\n   \"similarity\": 0.109,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-10-06T00:00:00Z\\\", \\\"description\\\": \\\"Users can now upload multiple documents at once to a claim in Keelwater, streamlining the process and reducing manual effort for claims handlers.\\\", \\\"id\\\": 4127, \\\"name\\\": \\\"Bulk upload documents to a claim\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4128\",\n   \"similarity\": 0.057,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-09-15T00:00:00Z\\\", \\\"description\\\": \\\"Keelwater now allows users to filter claims by date range, status, and claim type, making it easier to locate specific claims without scrolling through unrelated entries.\\\", \\\"id\\\": 4128, \\\"name\\\": \\\"Claim search refinements\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4129\",\n   \"similarity\": 0.056,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-09-15T00:00:00Z\\\", \\\"description\\\": \\\"Keelwater automatically pulls and updates supplier contact details from integrated systems, ensuring claims handlers always have the most current information without manual entry.\\\", \\\"id\\\": 4129, \\\"name\\\": \\\"Supplier contact details\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4133\",\n   \"similarity\": 0.054,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": false, \\\"completed_at\\\": null, \\\"description\\\": \\\"Keelwater's document classifier confidence threshold setting allows users to define the minimum confidence level required for automatic categorization of claims documents, ensuring only high-certainty classifications are applied without manual review.\\\", \\\"id\\\": 4133, \\\"name\\\": \\\"Document classifier confidence threshold\\\", \\\"started\\\": false, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 1}\"\n  },\n  {\n   \"source\": \"notion\",\n   \"id\": \"4f3af2fd-e874-528b-a6f7-1719625085d3\",\n   \"similarity\": 0.051,\n   \"record\": \"{\\\"id\\\": \\\"4f3af2fd-e874-528b-a6f7-1719625085d3\\\", \\\"object\\\": \\\"page\\\", \\\"properties\\\": {\\\"Name\\\": {\\\"title\\\": [{\\\"plain_text\\\": \\\"Claims timeline\\\", \\\"text\\\": {\\\"content\\\": \\\"Claims timeline\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"title\\\"}, \\\"Problem\\\": {\\\"rich_text\\\": [{\\\"plain_text\\\": \\\"Keelwater's Claims timeline provides a clear, chronological view of each claim's progress, helping users track key events, decisions, and deadlines from submission through resolution.\\\", \\\"text\\\": {\\\"content\\\": \\\"Keelwater's Claims timeline provides a clear, chronological view of each claim's progress, helping users track key events, decisions, and deadlines from submission through resolution.\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"rich_text\\\"}, \\\"Status\\\": {\\\"sta\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The problem is that supplier invoice uploads are rejected due to unsupported file formats, blocking claims processing. I checked the five most similar items: story 4127 (bulk upload, completed) addresses multi-document upload, not format rejection; 4128 (claim search) and 4129 (supplier contacts) are unrelated; 4133 (classifier confidence threshold, unstarted) does not address file format support; and the Claims timeline roadmap page is unrelated. No completed story or roadmap item covers the file-format rejection problem, so it remains open.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1050,
+   "tokens_out": 127,
+   "cost_usd": 0.00113266
+  }
+ }
+}

@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"title\": \"Manual role assignment friction\",\n \"problem_statement\": \"Users struggle to assign claim roles to new staff and map existing groups. This causes extra manual work and confusion about permissions.\",\n \"quotes\": [\n  {\n   \"quote\": \"when assigning staff to different claim roles, we can’t seem to map our existing sign-on groups to those roles directly... right now that mapping isn’t available, and it’s causing extra manual work for our team.\",\n   \"route\": \"onboarding\",\n   \"date\": \"2026-09-22T12:57:00+00:00\"\n  },\n  {\n   \"quote\": \"I’m trying to update our team’s access levels and I’m stuck on assigning roles for new staff.\",\n   \"route\": \"support\",\n   \"date\": \"2026-09-06T10:46:00+00:00\"\n  },\n  {\n   \"quote\": \"I’m under the impression I’m assigned the right role, but maybe something’s misconfigured on our end.\",\n   \"route\": \"support\",\n   \"date\": \"2026-10-28T08:26:00+00:00\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The claim is that users struggle to assign claim roles to new staff and map existing sign-on groups to roles, causing manual work. The first quote explicitly describes a missing mapping capability between sign-on groups and claim roles, which is a product gap a squad could act on. The second quote describes being stuck assigning roles, consistent with product friction. The third quote is ambiguous (user suspects their own misconfiguration), but the first quote alone is clear product signal. No pricing, contract, staffing, or help-article issues are present.\",\"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 469,
+   "tokens_out": 118,
+   "cost_usd": 0.0004138
+  }
+ }
+}

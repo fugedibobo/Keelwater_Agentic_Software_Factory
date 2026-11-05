@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (duplicate) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is the core problem still open, not solved by a shipped story and not covered by a roadmap item? Pass means yes.\nCompare the problem itself, not the product area. A spike that is unstarted or in progress is not shipped.\nFail if a completed story solves the same problem, or a roadmap item already covers it.\nThe evidence is the problem statement and the five most similar stories and roadmap pages, with status and dates.\n</definition>\n<evidence>\n{\n \"problem_statement\": \"Users cannot adjust reserves to match internal reporting standards without triggering unwanted alerts or requiring manual overrides. This disconnect between the platform's logic and business needs creates operational friction and data integrity risks.\",\n \"similar\": [\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4137\",\n   \"similarity\": 0.063,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": false, \\\"completed_at\\\": null, \\\"description\\\": \\\"Users can navigate through claim reports using intuitive shortcuts, streamlining access to key data without leaving the current view. Keelwater’s interface ensures quick filtering and drill-downs for efficient claim analysis.\\\", \\\"id\\\": 4137, \\\"name\\\": \\\"Reporting navigation\\\", \\\"started\\\": false, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 1}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4133\",\n   \"similarity\": 0.048,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": false, \\\"completed_at\\\": null, \\\"description\\\": \\\"Keelwater's document classifier confidence threshold setting allows users to define the minimum confidence level required for automatic categorization of claims documents, ensuring only high-certainty classifications are applied without manual review.\\\", \\\"id\\\": 4133, \\\"name\\\": \\\"Document classifier confidence threshold\\\", \\\"started\\\": false, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 1}\"\n  },\n  {\n   \"source\": \"notion\",\n   \"id\": \"5d34277f-8ec2-5892-b44d-efd7248786a5\",\n   \"similarity\": 0.044,\n   \"record\": \"{\\\"id\\\": \\\"5d34277f-8ec2-5892-b44d-efd7248786a5\\\", \\\"object\\\": \\\"page\\\", \\\"properties\\\": {\\\"Name\\\": {\\\"title\\\": [{\\\"plain_text\\\": \\\"Reporting navigation\\\", \\\"text\\\": {\\\"content\\\": \\\"Reporting navigation\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\": \\\"title\\\"}, \\\"Problem\\\": {\\\"rich_text\\\": [{\\\"plain_text\\\": \\\"Users can navigate through reporting sections in Keelwater with a streamlined menu, allowing quick access to claims summaries, analytics, and export options without leaving the current context.\\\", \\\"text\\\": {\\\"content\\\": \\\"Users can navigate through reporting sections in Keelwater with a streamlined menu, allowing quick access to claims summaries, analytics, and export options without leaving the current context.\\\"}, \\\"type\\\": \\\"text\\\"}], \\\"type\\\":\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4127\",\n   \"similarity\": 0.036,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-10-06T00:00:00Z\\\", \\\"description\\\": \\\"Users can now upload multiple documents at once to a claim in Keelwater, streamlining the process and reducing manual effort for claims handlers.\\\", \\\"id\\\": 4127, \\\"name\\\": \\\"Bulk upload documents to a claim\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  },\n  {\n   \"source\": \"shortcut\",\n   \"id\": \"4128\",\n   \"similarity\": 0.033,\n   \"record\": \"{\\\"blocked\\\": false, \\\"completed\\\": true, \\\"completed_at\\\": \\\"2026-09-15T00:00:00Z\\\", \\\"description\\\": \\\"Keelwater now allows users to filter claims by date range, status, and claim type, making it easier to locate specific claims without scrolling through unrelated entries.\\\", \\\"id\\\": 4128, \\\"name\\\": \\\"Claim search refinements\\\", \\\"started\\\": true, \\\"story_type\\\": \\\"feature\\\", \\\"workflow_state_id\\\": 3}\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"The problem concerns reserve adjustments triggering unwanted alerts or requiring manual overrides. I checked the five most similar items: story 4137 (reporting navigation, unstarted), 4133 (document classifier threshold, unstarted), a Notion roadmap page on reporting navigation, and completed stories 4127 (bulk document upload) and 4128 (claim search refinements). None of these address reserve adjustment logic, alert triggering, or override workflows; the completed stories solve unrelated problems, and the roadmap item covers navigation only. The core problem remains open.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1048,
+   "tokens_out": 128,
+   "cost_usd": 0.00075584
+  }
+ }
+}

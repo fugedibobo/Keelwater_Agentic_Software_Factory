@@ -26,6 +26,7 @@ profiles:
         fallback: qwen/qwen3.8-27b
         price: {in: 0.15, out: 0.47}
         max_tokens: 600
+        reasoning: {enabled: false}   # qwen3.8-flash reasons by default: 14 of 60 real extract calls hit max_tokens before any JSON
       embed:
         model: qwen/qwen3-embedding-8b
         fallback: openai/text-embedding-3-large
@@ -35,11 +36,12 @@ profiles:
         fallback: qwen/qwen3.8-flash
         price: {in: 0.029, out: 1.575}   # upper end of two quoted ranges (0.023-0.029 / 1.28-1.575) so the budget bound is conservative; usage.cost wins
         max_tokens: 200
+        reasoning: {enabled: false}   # qwen3.8-27b reasons by default and overran 200 tokens before the label
       brief:
-        model: qwen/qwen3.8-max-0902
-        fallback: deepseek/deepseek-v4.1-flash
-        price: {in: 2.00, out: 6.00}
-        max_tokens: 1500
+        model: deepseek/deepseek-v4.1-flash   # swapped from qwen/qwen3.8-max-0902 (05/11/2026): its reasoning is mandatory and used 2400-8000 tokens, so even 8000 ended in finish_reason=length on 2 of 4 briefs
+        price: {in: 0.15, out: 0.60}   # upper end of the quoted range; usage.cost wins
+        max_tokens: 3000   # 1500 cut off briefs for the largest clusters (2 of 12 hit length)
+        reasoning: {enabled: false}
         timeout_s: 120
       judge:
         model: z-ai/glm-5.3
@@ -49,16 +51,17 @@ profiles:
         reasoning: {effort: low}   # glm-5.3 reasons at length by default and overran 4000 on some briefs
         timeout_s: 120
       handoff:
-        model: qwen/qwen3.8-max-0902
-        fallback: deepseek/deepseek-v4.1-flash
-        price: {in: 2.00, out: 6.00}
-        max_tokens: 1500
+        model: deepseek/deepseek-v4.1-flash   # swapped from qwen/qwen3.8-max-0902 (05/11/2026): its reasoning is mandatory and used 2400-8000 tokens, so even 8000 ended in finish_reason=length on 2 of 4 briefs
+        price: {in: 0.15, out: 0.60}   # upper end of the quoted range; usage.cost wins
+        max_tokens: 3000   # 1500 cut off briefs for the largest clusters (2 of 12 hit length)
+        reasoning: {enabled: false}
         timeout_s: 120
       outtake:
         model: qwen/qwen3.8-flash
         fallback: deepseek/deepseek-v4.1-flash
         price: {in: 0.15, out: 0.47}
         max_tokens: 800
+        reasoning: {enabled: false}   # same model as extract, same reason
       generate:
         model: qwen/qwen3-vl-235b-a22b-instruct   # passed the 6-record smoke; deepseek-v4.1-flash did not
         fallback: deepseek/deepseek-v4.1-flash    # needs reasoning: {enabled: false} on this stage

@@ -1,0 +1,62 @@
+{
+ "request": {
+  "model": "qwen/qwen3.8-27b",
+  "messages": [
+   {
+    "role": "system",
+    "content": "You name a group of customer insights about the Keelwater claims platform that describe the same underlying problem.\n\nReturn JSON with exactly these fields:\n- title: a short noun phrase, at most 8 words, naming the problem.\n- problem_statement: two sentences at most, in plain words: who is affected, what goes wrong and why it matters.\n\nUse only the problems and quotes given. Name no customer or person. Do not mention ARR or counts.\n"
+   },
+   {
+    "role": "user",
+    "content": "- problem: The customer is unable to access the reporting portal because they have lost their password.\n  quote: I’m trying to pull the latest reporting for our policyholders but I can’t access the portal. I think I’ve lost my password.\n- problem: Customer login outages are preventing users from accessing the platform, which delays claims processing.\n  quote: we’ve had three people report the same customer login outage today, and it’s holding up claims processing.\n- problem: The customer is unable to access the platform due to a login failure, preventing them from uploading claims documents.\n  quote: Actually, I can’t log in right now — I think I need a password reset to proceed with the claims documents.\n- problem: The user is unable to access the claims dashboard due to a password issue.\n  quote: I need to reset my password because I can’t access the claims dashboard this morning.\n- problem: The customer is unable to log in to the claims portal and needs to reset their password.\n  quote: I need to reset my password for the claims portal — it’s not letting me in despite multiple attempts.\n- problem: The platform displays a generic 'Keelwater is down' error message when the actual issue is likely an external network or authentication provider failure, causing confusion.\n  quote: We keep getting error messages that say Keelwater is down, but I think it’s actually our own customer network failure — maybe the sign-on provider or our corporate VPN is interfering with the login flow.\n- problem: The customer's team is experiencing a login outage preventing access to the platform, despite no changes to their SSO configuration.\n  quote: Our team’s been unable to access Keelwater this morning — it looks like a customer login outage, but we haven’t touched our SSO setup, and it’s impacting multiple staff.\n- problem: The user is experiencing a login failure that persists despite checking their VPN and email, suggesting a potential issue with the platform's authentication or network handling.\n  quote: It’s not my login — I’ve checked the VPN and email, and it’s still happening. Feels like a customer network failure."
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 200,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "cluster_label",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "title": {
+       "title": "Title",
+       "type": "string"
+      },
+      "problem_statement": {
+       "title": "Problem Statement",
+       "type": "string"
+      }
+     },
+     "required": [
+      "title",
+      "problem_statement"
+     ],
+     "title": "ClusterLabelOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\n  \"title\": \"Authentication failures blocking platform access\",\n  \"problem_statement\": \"Users are unable to log in due to password issues or SSO outages, which prevents them from accessing claims data and processing documents. This access blockage delays critical operations and creates confusion when generic error messages obscure the root cause.\"\n}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 565,
+   "tokens_out": 69,
+   "cost_usd": 0.00046125
+  }
+ }
+}

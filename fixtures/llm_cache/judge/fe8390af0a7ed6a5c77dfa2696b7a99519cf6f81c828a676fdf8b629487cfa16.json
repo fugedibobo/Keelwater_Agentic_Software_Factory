@@ -1,0 +1,59 @@
+{
+ "request": {
+  "model": "z-ai/glm-5.3",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou check one property (signal) of a product-feedback opportunity for Keelwater, a claims-handling software company. You do not rewrite anything.\n</role>\n<definition>\nQuestion: is this a problem with Keelwater's product that a squad could act on? Pass means yes.\nFail if the cause is outside the product (pricing, contracts, the customer's own IT, staffing), if a help article would have answered it, or if it is praise.\nA feature request or a described workaround is signal.\nThe evidence is the title, the problem statement and up to 12 customer quotes with route and date.\n</definition>\n<evidence>\n{\n \"title\": \"Missing multi-payee payment split option\",\n \"problem_statement\": \"Users cannot find a way to divide a single claim payment among multiple recipients. This prevents them from processing claims that require distributing funds to several parties.\",\n \"quotes\": [\n  {\n   \"quote\": \"We’ve got a claim where we need to split a payment across several payees — not sure how to handle that in the system.\",\n   \"route\": \"account_management\",\n   \"date\": \"2026-10-19T11:22:00+00:00\"\n  },\n  {\n   \"quote\": \"I’m not seeing the option under payments or tasks right now.\",\n   \"route\": \"account_management\",\n   \"date\": \"2026-10-19T11:22:00+00:00\"\n  }\n ]\n}\n</evidence>\n<task>\nWrite a critique of 2-5 sentences naming the claim, quote or item you checked and what you found. Then give the verdict. If any single item fails, the verdict is fail.\n</task>\n<output>\nJSON only: {\"critique\": string, \"verdict\": \"pass\" | \"fail\"}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 4000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "judge",
+    "strict": true,
+    "schema": {
+     "type": "object",
+     "properties": {
+      "critique": {
+       "type": "string"
+      },
+      "verdict": {
+       "type": "string",
+       "enum": [
+        "pass",
+        "fail"
+       ]
+      }
+     },
+     "required": [
+      "critique",
+      "verdict"
+     ],
+     "additionalProperties": false
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "effort": "low"
+  }
+ },
+ "response": {
+  "content": "{\"critique\": \"I checked the 'Missing multi-payee payment split option' claim. The quotes show users cannot find any way to split a single claim payment across multiple payees, indicating the product lacks this capability rather than a help article or external cause. This is a clear product gap that a squad could act on, and a feature request qualifies as signal.\", \"verdict\": \"pass\"}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 394,
+   "tokens_out": 88,
+   "cost_usd": 0.00034832
+  }
+ }
+}

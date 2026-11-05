@@ -1,0 +1,61 @@
+{
+ "request": {
+  "model": "deepseek/deepseek-v4.1-flash",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou write a one-page opportunity brief for a Keelwater product manager. Keelwater makes claims-handling software. You use only the facts and customer insights below.\n</role>\n<opportunity>\n{\n \"title\": \"Manual role assignment friction\",\n \"problem_statement\": \"Users struggle to assign claim roles to new staff and map existing groups. This causes extra manual work and confusion about permissions.\"\n}\n</opportunity>\n<fact_sheet>\n{\n \"as_of\": \"2026-10-01\",\n \"accounts_n\": 3,\n \"mentions_n\": 3,\n \"routes_n\": 2,\n \"mentions_by_route\": {\n  \"onboarding\": 1,\n  \"support\": 2\n },\n \"arr_total_gbp\": 385000.0,\n \"renewals_90d_n\": 1,\n \"accounts\": [\n  {\n   \"name\": \"Elderfold Home\",\n   \"arr_gbp\": 170000.0,\n   \"renewal_date\": \"2026-12-21\",\n   \"mentions\": 1\n  },\n  {\n   \"name\": \"Duncastle Auto\",\n   \"arr_gbp\": 80000.0,\n   \"renewal_date\": \"2027-08-19\",\n   \"mentions\": 1\n  },\n  {\n   \"name\": \"Ormsgill Cyber\",\n   \"arr_gbp\": 135000.0,\n   \"renewal_date\": null,\n   \"mentions\": 1\n  }\n ]\n}\n</fact_sheet>\n<insights>\n[\n {\n  \"id\": \"5df8390f15e924f4\",\n  \"quote\": \"when assigning staff to different claim roles, we can’t seem to map our existing sign-on groups to those roles directly... right now that mapping isn’t available, and it’s causing extra manual work for our team.\",\n  \"account\": \"Elderfold Home\",\n  \"route\": \"onboarding\",\n  \"date\": \"2026-09-22T12:57:00+00:00\"\n },\n {\n  \"id\": \"b396c2a22824afc3\",\n  \"quote\": \"I’m trying to update our team’s access levels and I’m stuck on assigning roles for new staff.\",\n  \"account\": \"Duncastle Auto\",\n  \"route\": \"support\",\n  \"date\": \"2026-09-06T10:46:00+00:00\"\n },\n {\n  \"id\": \"fecead1bb8254bea\",\n  \"quote\": \"I’m under the impression I’m assigned the right role, but maybe something’s misconfigured on our end.\",\n  \"account\": \"Ormsgill Cyber\",\n  \"route\": \"support\",\n  \"date\": \"2026-10-28T08:26:00+00:00\"\n }\n]\n</insights>\n<rules>\n- Cite every insight you rely on as [i:INSIGHT_ID], using the id exactly as given. Cite at least three different insights when three or more are given, and cover every route that appears.\n- Use these sections, in this order, as Markdown headings: \"## Problem\", \"## Who is affected\", \"## Evidence\", \"## Why now\".\n- Every bullet under \"Who is affected\" and \"Evidence\" ends with a citation. Every sentence that contains a number or a date carries a citation.\n- Copy every account count, mention count, route count, renewal count and ARR figure from the fact sheet. Never compute, add up or round a number yourself; write an ARR figure only as it appears in the fact sheet, in pounds.\n- Write counts as digits exactly as the fact sheet gives them (\"5 accounts\", never \"five accounts\"); never write \"one customer\" or \"a single customer\" unless the fact sheet count says 1 for that same thing.\n- Put text in quotation marks only when it is a customer quote copied word for word, character for character, from one insight cited in the same sentence. Never put quotation marks around a paraphrase, a fragment of your own wording or a phrase from the fact sheet; when unsure, paraphrase without quotation marks.\n- Name a customer only when a cited insight in the same sentence belongs to that customer.\n- Do not claim more than the evidence shows: no \"all customers\", no scope wider than the cited accounts, and mention any cited insight that points the other way.\n- Do not recommend a solution.\n</rules>\n<output>\nJSON only: {\"body_md\": the brief as Markdown, \"citations\": the list of insight ids you cited}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 3000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "brief",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "body_md": {
+       "title": "Body Md",
+       "type": "string"
+      },
+      "citations": {
+       "items": {
+        "type": "string"
+       },
+       "title": "Citations",
+       "type": "array"
+      }
+     },
+     "required": [
+      "body_md",
+      "citations"
+     ],
+     "title": "BriefOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\"body_md\": \"## Problem\\n\\nUsers struggle to assign claim roles to new staff and to map existing sign-on groups to those roles, which creates extra manual work and confusion about permissions.\\n\\n## Who is affected\\n\\n- Elderfold Home reports that when assigning staff to different claim roles, the team cannot map its existing sign-on groups to those roles directly, and that this missing mapping is causing extra manual work for the team [i:5df8390f15e924f4].\\n- Duncastle Auto reports being stuck on assigning roles for new staff while trying to update the team's access levels [i:b396c2a22824afc3].\\n- Ormsgill Cyber reports believing the right role is assigned but suspecting something may be misconfigured on their end [i:fecead1bb8254bea].\\n\\n## Evidence\\n\\n- 3 accounts and 3 mentions are recorded as of 2026-10-01, across 2 routes, with 1 mention on onboarding and 2 mentions on support [i:5df8390f15e924f4][i:b396c2a22824afc3][i:fecead1bb8254bea].\\n- Elderfold Home, with an ARR of £170000.0 and a renewal date of 2026-12-21, raised the group-to-role mapping gap on the onboarding route on 2026-09-22 [i:5df8390f15e924f4].\\n- Duncastle Auto, with an ARR of £80000.0 and a renewal date of 2027-08-19, raised role assignment for new staff on the support route on 2026-09-06 [i:b396c2a22824afc3].\\n- Ormsgill Cyber, with an ARR of £135000.0 and no renewal date recorded, raised a possible misconfiguration on the support route on 2026-10-28 [i:fecead1bb8254bea].\\n- Total ARR across these accounts is £385000.0, with 1 renewal within 90 days [i:5df8390f15e924f4][i:b396c2a22824afc3][i:fecead1bb8254bea].\\n- Ormsgill Cyber's report points in a different direction: the user believes the correct role is assigned and that the issue may be a misconfiguration on their end rather than a missing capability [i:fecead1bb8254bea].\\n\\n## Why now\\n\\n- Elderfold Home renews on 2026-12-21, which is 1 renewal within 90 days, and its onboarding feedback describes ongoing extra manual work for the team [i:5df8390f15e924f4].\\n- The 3 accounts involved represent £385000.0 in ARR, and the friction spans both the onboarding and support routes, with 2 of the 3 mentions arriving through support [i:5df8390f15e924f4][i:b396c2a22824afc3][i:fecead1bb8254bea].\\n\", \"citations\": [\"5df8390f15e924f4\", \"b396c2a22824afc3\", \"fecead1bb8254bea\"]}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 986,
+   "tokens_out": 736,
+   "cost_usd": 0.00041237
+  }
+ }
+}

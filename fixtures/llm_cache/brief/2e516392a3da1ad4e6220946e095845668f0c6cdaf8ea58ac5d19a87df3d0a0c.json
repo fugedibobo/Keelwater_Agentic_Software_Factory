@@ -1,0 +1,61 @@
+{
+ "request": {
+  "model": "deepseek/deepseek-v4.1-flash",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou write a one-page opportunity brief for a Keelwater product manager. Keelwater makes claims-handling software. You use only the facts and customer insights below.\n</role>\n<opportunity>\n{\n \"title\": \"Document versioning and update tracking\",\n \"problem_statement\": \"Users struggle to track changes to documents, leading to confusion about which version is current. This lack of clear versioning creates risk and inefficiency in managing claim files.\"\n}\n</opportunity>\n<fact_sheet>\n{\n \"as_of\": \"2026-11-03\",\n \"accounts_n\": 1,\n \"mentions_n\": 1,\n \"routes_n\": 1,\n \"mentions_by_route\": {\n  \"sales\": 1\n },\n \"arr_total_gbp\": 2400000.0,\n \"renewals_90d_n\": 1,\n \"accounts\": [\n  {\n   \"name\": \"Hollinbrook Home Insurance\",\n   \"arr_gbp\": 2400000.0,\n   \"renewal_date\": \"2027-01-15\",\n   \"mentions\": 1\n  }\n ]\n}\n</fact_sheet>\n<insights>\n[\n {\n  \"id\": \"58121f2a061cdd5b\",\n  \"quote\": \"Great. And how do you handle document versioning? We’ve lost track of updates before.\",\n  \"account\": \"Hollinbrook Home Insurance\",\n  \"route\": \"sales\",\n  \"date\": \"2026-09-15T14:44:00Z\"\n }\n]\n</insights>\n<rules>\n- Cite every insight you rely on as [i:INSIGHT_ID], using the id exactly as given. Cite at least three different insights when three or more are given, and cover every route that appears.\n- Use these sections, in this order, as Markdown headings: \"## Problem\", \"## Who is affected\", \"## Evidence\", \"## Why now\".\n- Every bullet under \"Who is affected\" and \"Evidence\" ends with a citation. Every sentence that contains a number or a date carries a citation.\n- Copy every account count, mention count, route count, renewal count and ARR figure from the fact sheet. Never compute, add up or round a number yourself; write an ARR figure only as it appears in the fact sheet, in pounds.\n- Write counts as digits exactly as the fact sheet gives them (\"5 accounts\", never \"five accounts\"); never write \"one customer\" or \"a single customer\" unless the fact sheet count says 1 for that same thing.\n- Put text in quotation marks only when it is a customer quote copied word for word, character for character, from one insight cited in the same sentence. Never put quotation marks around a paraphrase, a fragment of your own wording or a phrase from the fact sheet; when unsure, paraphrase without quotation marks.\n- Name a customer only when a cited insight in the same sentence belongs to that customer.\n- Do not claim more than the evidence shows: no \"all customers\", no scope wider than the cited accounts, and mention any cited insight that points the other way.\n- Do not recommend a solution.\n</rules>\n<output>\nJSON only: {\"body_md\": the brief as Markdown, \"citations\": the list of insight ids you cited}\n</output>\n"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 3000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "brief",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "body_md": {
+       "title": "Body Md",
+       "type": "string"
+      },
+      "citations": {
+       "items": {
+        "type": "string"
+       },
+       "title": "Citations",
+       "type": "array"
+      }
+     },
+     "required": [
+      "body_md",
+      "citations"
+     ],
+     "title": "BriefOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\"body_md\": \"## Problem\\n\\nUsers struggle to track changes to documents, leading to confusion about which version is current. This lack of clear versioning creates risk and inefficiency in managing claim files.\\n\\n## Who is affected\\n\\n- Hollinbrook Home Insurance, an account with 2400000.0 GBP in ARR and a renewal date of 2027-01-15, raised document versioning on the sales route [i:58121f2a061cdd5b].\\n- This is the only account, mention and route recorded in the fact sheet as of 2026-11-03, so the evidence covers 1 account, 1 mention and 1 route [i:58121f2a061cdd5b].\\n\\n## Evidence\\n\\n- On 2026-09-15, Hollinbrook Home Insurance asked how document versioning is handled and said they have lost track of updates before [i:58121f2a061cdd5b].\\n- The mention came through the sales route, the only route represented in the fact sheet [i:58121f2a061cdd5b].\\n- The account has 2400000.0 GBP in ARR and 1 renewal within 90 days, dated 2027-01-15 [i:58121f2a061cdd5b].\\n- No insight in the fact sheet points the other way; the single recorded insight is a concern about versioning, not a statement that current handling is sufficient [i:58121f2a061cdd5b].\\n\\n## Why now\\n\\n- The account renews on 2027-01-15, which is 1 renewal within 90 days of the fact sheet date of 2026-11-03 [i:58121f2a061cdd5b].\\n- The versioning question was raised on the sales route on 2026-09-15, ahead of that renewal [i:58121f2a061cdd5b].\\n- With 2400000.0 GBP in ARR attached to this account, the versioning concern sits against a live renewal window [i:58121f2a061cdd5b].\\n\", \"citations\": [\"58121f2a061cdd5b\"]}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 700,
+   "tokens_out": 503,
+   "cost_usd": 0.0002557
+  }
+ }
+}

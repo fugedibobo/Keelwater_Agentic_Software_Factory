@@ -1,0 +1,61 @@
+{
+ "request": {
+  "model": "deepseek/deepseek-v4.1-flash",
+  "messages": [
+   {
+    "role": "user",
+    "content": "<role>\nYou write a one-page opportunity brief for a Keelwater product manager. Keelwater makes claims-handling software. You use only the facts and customer insights below.\n</role>\n<opportunity>\n{\n \"title\": \"Unscalable manual letter merge fixes\",\n \"problem_statement\": \"Users processing high volumes of claims must manually edit letter merge fields to correct errors. This workaround is inefficient and unsustainable for teams handling hundreds of claims weekly.\"\n}\n</opportunity>\n<fact_sheet>\n{\n \"as_of\": \"2026-11-03\",\n \"accounts_n\": 1,\n \"mentions_n\": 1,\n \"routes_n\": 1,\n \"mentions_by_route\": {\n  \"sales\": 1\n },\n \"arr_total_gbp\": 1250000.0,\n \"renewals_90d_n\": 0,\n \"accounts\": [\n  {\n   \"name\": \"Callowfield Auto Assurance\",\n   \"arr_gbp\": 1250000.0,\n   \"renewal_date\": \"2027-03-31\",\n   \"mentions\": 1\n  }\n ]\n}\n</fact_sheet>\n<insights>\n[\n {\n  \"id\": \"ddd2160a67683c35\",\n  \"quote\": \"That’s a workaround, but we’re handling 200+ claims a week—manual edits aren’t scalable.\",\n  \"account\": \"Callowfield Auto Assurance\",\n  \"route\": \"sales\",\n  \"date\": \"2026-10-07T14:03:00Z\"\n }\n]\n</insights>\n<rules>\n- Cite every insight you rely on as [i:INSIGHT_ID], using the id exactly as given. Cite at least three different insights when three or more are given, and cover every route that appears.\n- Use these sections, in this order, as Markdown headings: \"## Problem\", \"## Who is affected\", \"## Evidence\", \"## Why now\".\n- Every bullet under \"Who is affected\" and \"Evidence\" ends with a citation. Every sentence that contains a number or a date carries a citation.\n- Copy every account count, mention count, route count, renewal count and ARR figure from the fact sheet. Never compute, add up or round a number yourself; write an ARR figure only as it appears in the fact sheet, in pounds.\n- Write counts as digits exactly as the fact sheet gives them (\"5 accounts\", never \"five accounts\"); never write \"one customer\" or \"a single customer\" unless the fact sheet count says 1 for that same thing.\n- Put text in quotation marks only when it is a customer quote copied word for word, character for character, from one insight cited in the same sentence. Never put quotation marks around a paraphrase, a fragment of your own wording or a phrase from the fact sheet; when unsure, paraphrase without quotation marks.\n- Name a customer only when a cited insight in the same sentence belongs to that customer.\n- Do not claim more than the evidence shows: no \"all customers\", no scope wider than the cited accounts, and mention any cited insight that points the other way.\n- Do not recommend a solution.\n</rules>\n<output>\nJSON only: {\"body_md\": the brief as Markdown, \"citations\": the list of insight ids you cited}\n</output>\n\n<failed_checks>\nYour previous draft failed these checks. Fix them and write the brief again.\n- numbers: '200' matches no fact-sheet value: Callowfield Auto Assurance, an account with £1250000.0 in AR\n- numbers: '200' matches no fact-sheet value: Callowfield Auto Assurance, with £1250000.0 in ARR and a ren\n</failed_checks>\n<previous_draft>\n## Problem\n\nUsers processing high volumes of claims must manually edit letter merge fields to correct errors. This workaround is inefficient and unsustainable for teams handling hundreds of claims weekly.\n\n## Who is affected\n\n- Callowfield Auto Assurance, an account with £1250000.0 in ARR, is handling 200+ claims a week and reports that manual edits are not scalable [i:ddd2160a67683c35].\n\n## Evidence\n\n- The only insight in the fact sheet comes from the sales route: 1 mention across 1 account, with 1 route represented [i:ddd2160a67683c35].\n- Callowfield Auto Assurance, with £1250000.0 in ARR and a renewal date of 2027-03-31, described the manual editing as a workaround that is not scalable at 200+ claims a week [i:ddd2160a67683c35].\n- The fact sheet records 0 renewals in the next 90 days as of 2026-11-03 [i:ddd2160a67683c35].\n\n## Why now\n\n- The single mention is dated 2026-10-07 and arrived through the sales route, while the account's renewal date is 2027-03-31 and there are 0 renewals in the next 90 days as of 2026-11-03 [i:ddd2160a67683c35].\n- No insight in the fact sheet points the other way; the evidence is limited to 1 account and 1 mention, so the scope of the problem beyond Callowfield Auto Assurance is not established [i:ddd2160a67683c35].\n\n</previous_draft>"
+   }
+  ],
+  "temperature": 0,
+  "max_tokens": 3000,
+  "response_format": {
+   "type": "json_schema",
+   "json_schema": {
+    "name": "brief",
+    "strict": true,
+    "schema": {
+     "additionalProperties": false,
+     "properties": {
+      "body_md": {
+       "title": "Body Md",
+       "type": "string"
+      },
+      "citations": {
+       "items": {
+        "type": "string"
+       },
+       "title": "Citations",
+       "type": "array"
+      }
+     },
+     "required": [
+      "body_md",
+      "citations"
+     ],
+     "title": "BriefOutput",
+     "type": "object"
+    }
+   }
+  },
+  "provider": {
+   "data_collection": "deny",
+   "require_parameters": true
+  },
+  "usage": {
+   "include": true
+  },
+  "reasoning": {
+   "enabled": false
+  }
+ },
+ "response": {
+  "content": "{\"body_md\": \"## Problem\\n\\nUsers processing high volumes of claims must manually edit letter merge fields to correct errors. This workaround is inefficient and unsustainable for teams handling hundreds of claims weekly.\\n\\n## Who is affected\\n\\n- Callowfield Auto Assurance, an account with £1250000.0 in ARR, reports handling more than 200 claims a week and says manual edits are not scalable [i:ddd2160a67683c35].\\n\\n## Evidence\\n\\n- The fact sheet records 1 account, 1 mention and 1 route, with the mention arriving through the sales route [i:ddd2160a67683c35].\\n- Callowfield Auto Assurance, with £1250000.0 in ARR and a renewal date of 2027-03-31, described the manual editing as a workaround that is not scalable at its weekly claims volume [i:ddd2160a67683c35].\\n- The fact sheet records 0 renewals in the next 90 days as of 2026-11-03 [i:ddd2160a67683c35].\\n\\n## Why now\\n\\n- The single mention is dated 2026-10-07 and arrived through the sales route, while the account's renewal date is 2027-03-31 and there are 0 renewals in the next 90 days as of 2026-11-03 [i:ddd2160a67683c35].\\n- No insight in the fact sheet points the other way; the evidence is limited to 1 account and 1 mention, so the scope of the problem beyond Callowfield Auto Assurance is not established [i:ddd2160a67683c35].\\n\", \"citations\": [\"ddd2160a67683c35\"]}",
+  "finish_reason": "stop",
+  "usage": {
+   "tokens_in": 1151,
+   "tokens_out": 389,
+   "cost_usd": 0.000246295
+  }
+ }
+}
