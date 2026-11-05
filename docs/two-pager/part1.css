@@ -1,17 +1,44 @@
-@page { size: A4; margin: 12mm; }
-html { font-size: 9.5pt; }
-body { font-family: "Segoe UI", Arial, sans-serif; line-height: 1.28; color: #1a1a1a; margin: 0; }
-h1 { font-size: 15pt; margin: 0 0 1mm; color: #0b3d5c; }
-p.by { margin: 0 0 2mm; color: #555; font-weight: 600; }
-h2 { font-size: 10.5pt; margin: 2.5mm 0 1mm; color: #0b3d5c; border-bottom: 0.4pt solid #9ab; break-after: avoid; }
+/* One accent colour (navy) and its tints; greys for everything else. */
+:root { --accent: #0b3d5c; --tint: #e8eff4; --line: #b8c7d2; --grey: #5b6770; }
+@page { size: A4; margin: 10mm 11mm 14mm; @bottom-right { content: counter(page) " / " counter(pages); font: 8pt "Segoe UI", Arial, sans-serif; color: #5b6770; } }
+html { font-size: 8.7pt; }
+body { font-family: "Segoe UI", Arial, sans-serif; line-height: 1.26; color: #1a1a1a; margin: 0; }
+h1 { font-size: 16pt; margin: 0 0 1mm; color: var(--accent); }
+p.by { margin: 0 0 3mm; color: var(--grey); font-weight: 600; }
+h2 { font-size: 10pt; margin: 3mm 0 1.2mm; color: var(--accent); border-bottom: 0.6pt solid var(--accent); padding-bottom: 0.4mm; break-after: avoid; }
+h2.pb { break-before: page; margin-top: 0; }
 p { margin: 0 0 1.4mm; }
-ul { margin: 0 0 1.4mm; padding-left: 4.5mm; }
-li { margin: 0; }
-a { color: #0b5cad; }
-table { border-collapse: collapse; width: 100%; margin: 0 0 1.6mm; break-inside: avoid; }
-th, td { border: 0.4pt solid #9ab; padding: 0.6mm 1.4mm; text-align: left; vertical-align: top; }
-th { background: #e6eef4; }
-.footnote { font-size: 8.5pt; margin-top: 1.5mm; }
-.footnote hr { display: none; }
-.footnote ol { margin: 0; padding-left: 4mm; }
-.footnote-backref { display: none; }
+ul.cols { column-count: 2; column-gap: 6mm; }
+ul.cols li { break-inside: avoid; }
+ul { margin: 0 0 1.6mm; padding-left: 4.5mm; }
+li { margin: 0 0 0.4mm; }
+a { color: var(--accent); }
+strong { color: var(--accent); }
+blockquote { margin: 0 0 2mm; padding: 1.6mm 3mm; background: var(--tint); border-left: 1.6mm solid var(--accent); break-inside: avoid; }
+blockquote p { margin: 0 0 0.6mm; }
+blockquote ul { margin: 0; }
+blockquote:first-of-type { font-size: 8.5pt; color: #333; }
+table { border-collapse: collapse; width: 100%; margin: 0 0 2.4mm; break-inside: avoid; }
+th, td { border: 0.4pt solid var(--line); padding: 0.45mm 1.6mm; text-align: left; vertical-align: top; }
+th { background: var(--tint); color: var(--accent); }
+tbody tr:nth-child(even) td { background: #f6f9fb; }
+/* Lifecycle diagnosis: seven stages as a chevron row, leak points marked, one cause each. */
+table.leaks { table-layout: fixed; border-collapse: separate; border-spacing: 1mm 0; }
+table.leaks th { background: var(--accent); color: #fff; border: 0; text-align: center; padding: 1.4mm 1mm; font-size: 9pt;
+  clip-path: polygon(0 0, calc(100% - 2.6mm) 0, 100% 50%, calc(100% - 2.6mm) 100%, 0 100%, 2.6mm 50%); }
+table.leaks td { border: 0; border-top: 1.2mm solid var(--accent); background: var(--tint); font-size: 8.2pt; line-height: 1.25; padding: 1.6mm 1.4mm; }
+table.leaks td::before { content: "\25CF  Leak"; display: block; font-weight: 700; color: var(--accent); font-size: 7.5pt; margin-bottom: 0.6mm; }
+table.leaks td.none { background: #fff; border-top-color: var(--line); color: var(--grey); text-align: center; }
+table.leaks td.none::before { content: none; }
+/* 90-day plan: three 30-day phases as columns with a band at the top. */
+table.plan { table-layout: fixed; border-collapse: separate; border-spacing: 1mm 0; }
+table.plan th { background: var(--accent); color: #fff; border: 0; text-align: center; font-size: 9pt; padding: 1.1mm 1mm;
+  clip-path: polygon(0 0, calc(100% - 3mm) 0, 100% 50%, calc(100% - 3mm) 100%, 0 100%, 3mm 50%); }
+table.plan th:first-child { background: none; clip-path: none; width: 13mm; }
+table.plan td { border: 0; border-bottom: 0.4pt solid var(--line); padding: 0.7mm 1.2mm; font-size: 8.2pt; line-height: 1.25; }
+table.plan td:first-child { font-weight: 700; color: var(--accent); background: none; width: 13mm; font-size: 8pt; }
+table.plan tbody tr:nth-child(even) td { background: #f6f9fb; }
+table.plan tr:last-child td { background: var(--tint); border-bottom: 1.2mm solid var(--accent); }
+table.split { table-layout: fixed; }
+table.split th:first-child { width: 58%; }
+table.split td { font-size: 8.4pt; }
