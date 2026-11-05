@@ -14,7 +14,7 @@
 <span class="info"><button type="button" class="i" aria-label="What this means" aria-describedby="h-{{ id }}" title="{{ text }}">i</button><span id="h-{{ id }}" role="tooltip" class="tip">{{ text }}</span></span>
 {%- endmacro %}
 {% macro money(v) %}{% if v is none %}-{% else %}GBP {{ '{:,.0f}'.format(v) }}{% endif %}{% endmacro %}
-{% macro num(v) %}{% if v is none %}-{% elif v is boolean %}{{ 'yes' if v else 'no' }}{% elif v is number %}{{ v }}{% else %}{{ v }}{% endif %}{% endmacro %}
+{% macro num(v) %}{% if v is none %}-{% elif v is boolean %}{{ 'yes' if v else 'no' }}{% elif v is float %}{{ '%.2f'|format(v) }}{% elif v is number %}{{ v }}{% else %}{{ v }}{% endif %}{% endmacro %}
 {% macro labelbtns(kind, target_type, target_id, judge, static) -%}
 <span class="lblbtns" data-tt="{{ target_type }}" data-tid="{{ target_id }}" data-judge="{{ judge }}">
 {%- if kind == 'noise' %}<button type="button" class="btn" data-act="label" data-verdict="fail"{% if static %} disabled{% endif %}>noise</button><button type="button" class="btn" data-act="label" data-verdict="pass"{% if static %} disabled{% endif %}>missed signal</button>

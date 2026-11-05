@@ -74,7 +74,7 @@
   tt.addEventListener("click", () => setTheme(root.getAttribute("data-theme") === "light" ? "dark" : "light", true));
 
   // info markers: swap the native title for a tip that also shows on keyboard focus
-  $(".info > .i").forEach((b) => { b.dataset.title = b.title; b.removeAttribute("title"); });
+  $$(".info > .i").forEach((b) => { b.dataset.title = b.title; b.removeAttribute("title"); });
   const marker = (e) => e.target.closest && e.target.closest(".info > .i");
   function tip(b, on) {
     const t = b.nextElementSibling; t.classList.toggle("show", on); if (!on) return;
@@ -87,7 +87,7 @@
 
   document.addEventListener("keydown", (e) => {
     const tag = (e.target.tagName || "").toLowerCase();
-    if (e.key === "Escape") { $(".tip.show").forEach((t) => t.classList.remove("show")); $(".opp details[open]").forEach((d) => (d.open = false)); return; }
+    if (e.key === "Escape") { $$(".tip.show").forEach((t) => t.classList.remove("show")); $$(".opp details[open]").forEach((d) => (d.open = false)); return; }
     if (tag === "input" || tag === "textarea" || tag === "select" || e.ctrlKey || e.metaKey || e.altKey) return;
     const k = e.key;
     if (k === "j") move(1); else if (k === "k") move(-1);

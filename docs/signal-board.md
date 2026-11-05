@@ -29,6 +29,7 @@ Layout rule: one template per tab (`templates/{opportunities,handoffs,pipeline,e
 | Judges: 0 of 3 trusted (calibrating)                         |
 | [Banner in static mode: actions disabled]                    |
 +--------------------------------------------------------------+
+| 0 About this board                                           |
 | PM workspace: 1 Opportunities | 2 Handoffs                   |
 | Ops console: 3 Pipeline | 4 Evals | 5 Audit | 6 How it works |
 +--------------------------------------------------------------+
@@ -37,6 +38,8 @@ Layout rule: one template per tab (`templates/{opportunities,handoffs,pipeline,e
 | Synthetic data. Keelwater is fictional.                      |
 +--------------------------------------------------------------+
 ```
+
+The board opens on tab 0, About this board: what the board is, what is real and what is simulated, the five steps from feedback to opportunity, what each tab is for and where to start (about 250 words, plain English). Every score on Opportunities and every metric, column header and gate on Evals has an "i" marker that shows a one- or two-sentence definition on hover and keyboard focus; the text lives in `signal_engine/board/metric_help.yaml` (sourced from docs/evals.md, floors added from the code that gates the suites), and a test fails if a metric shown has no entry. Dark is the default theme; a header toggle switches to light and the choice is remembered in `localStorage` (guarded, so the board works without storage).
 
 The judge status in the header comes from the `judge_version` rows (tab 4) and links there. Tabs are real links (`/#opportunities` etc.) so they work with JavaScript off in static mode. The board opens on Opportunities.
 
@@ -287,7 +290,7 @@ How an action writes records (example: reject):
 ## 10. Accessibility basics
 
 - Everything reachable and operable by keyboard; visible focus ring on every control; no keyboard traps outside the accept dialog, which holds focus until Confirm, Cancel or `Esc` and then returns it to the row.
-- Contrast at least 4.5:1 for text and 3:1 for chips and borders, checked in light and dark (`prefers-color-scheme`).
+- Contrast at least 4.5:1 for text and 3:1 for chips and borders, checked in light and dark (dark by default, light by the header toggle; `tests/test_board_help.py` computes the ratios from the stylesheet tokens).
 - Status is never colour alone: check lines and badges carry words (ok, FAILED, calibrating, VALID), and trend arrows carry signs and numbers.
 - Semantic landmarks (`header`, `nav`, `main`); each tab group is a labelled `role="tablist"`; tables have header cells; `aria-live="polite"` on the action result and undo toast.
 - The undo toast stays for 10 seconds and does not steal focus; `u` works anywhere outside a text field.

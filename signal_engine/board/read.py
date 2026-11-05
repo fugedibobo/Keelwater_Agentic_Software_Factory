@@ -155,9 +155,9 @@ def judge_line(j, states):
 
 
 def _chips(sc):
-    chips = [(n, sc[k], k) for n, k in (("breadth", "breadth"), ("severity", "severity"), ("value", "value"), ("corroboration", "corroboration"), ("recency", "recency"))]
+    chips = [(n, f"{sc[k]:.2f}", k) for n, k in (("breadth", "breadth"), ("severity", "severity"), ("value", "value"), ("corroboration", "corroboration"), ("recency", "recency"))]
     if abs(sc["renewal"] - 1) > 1e-9:
-        chips.append(("renewal", f"x{sc['renewal']:g}", "renewal"))
+        chips.append(("renewal", f"x{sc['renewal']:.2f}", "renewal"))
     if abs(sc["roadmap"] - 1) > 1e-9:
         chips.append(("on roadmap", f"x{sc['roadmap']:g}", "roadmap"))
     return [{"name": n, "value": v, "key": k, "hint": HELP["scores"][k]["what"]} for n, v, k in chips]
@@ -408,6 +408,8 @@ def evals(store, reports_dir=None):
     reports = {s: newest_report(reports_dir, s) for s in ("ground-truth", "holdout", "stability", "judges")}
     gt, ho = reports["ground-truth"], reports["holdout"]
     keys = list(dict.fromkeys(list((gt or {}).get("metrics", {})) + list((ho or {}).get("metrics", {}))))
+    order = list(HELP["metrics"])  # rows follow the help file: triage, extract, cluster, rank, brief
+    keys.sort(key=lambda k: order.index(k) if k in order else len(order))
     m42, m43, g42, g43 = (gt or {}).get("metrics", {}), (ho or {}).get("metrics", {}), (gt or {}).get("gates", {}), (ho or {}).get("gates", {})
     rows = [dict(metric=k, label=HELP["metrics"].get(k, {}).get("label", k), help=f"{HELP['metrics'].get(k, {}).get('what', '')} {gate_text(k)}".strip(),
                  seed42=m42.get(k), seed43=m43.get(k), ok42=g42.get(k), ok43=g43.get(k)) for k in keys]
