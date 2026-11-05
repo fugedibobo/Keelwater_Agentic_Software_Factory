@@ -1,0 +1,8 @@
+model,input,cache_write,cache_read,output,total,source,cache_write_1h
+Opus,934,2193471,114619563,280894,117094862,measured,2157242
+Sonnet,6317,11456937,451790383,2276087,465529724,measured,1277079
+Haiku,122,607205,6240688,137248,6985263,measured,0
+Codex Terra,446867,0,35077760,118286,35642913,measured,0
+Codex Sol,196689,0,1256704,8552,1461945,measured,0
+Gemini Argon (agy),53000,0,0,0,53000,measured,0
+OpenRouter pipeline,1305749,0,0,204967,1510716,measured,0

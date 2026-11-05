@@ -74,24 +74,10 @@ def summarise(rows):
     return s
 
 
-def usd(u):
-    if not (u["measured"] or u["estimated"]):
-        return "not reported"
-    parts = [f"{u['measured']:.2f} measured"] if u["measured"] else []
-    return " + ".join(parts + ([f"{u['estimated']:.2f} estimated"] if u["estimated"] else []))
-
-
 def render(s, date):
     c = s["counts"]
     L = [f"{c['done']} done, {c['partial']} partial, {c['in-progress']} in progress: refreshed on {date}",
-         f"({s['n_rows']} rows across {s['n_orders']} work orders.)", "",
-         "Tokens and live spend per engine. Measured and estimated tokens are kept apart; "
-         "rows with no figure are counted, never added in.", "",
-         "| Engine | Tokens measured | Tokens estimated | Rows with tokens not reported | Live USD |",
-         "|---|---|---|---|---|"]
-    for e in s["engines"]:
-        t = s["tokens"][e]
-        L.append(f"| {e} | {t['measured']:,.0f} | {t['estimated']:,.0f} | {t['missing']} | {usd(s['usd'][e])} |")
+         f"({s['n_rows']} rows across {s['n_orders']} work orders.)"]
     L += ["", "First-check pass rate, reworks and share of building, per engine "
           "(build rows only; rows without a PASS or REWORK first check are left out of the rate).", "",
           "| Engine | First check passed | Pass rate | Reworks | Build rows | Share of build rows |",

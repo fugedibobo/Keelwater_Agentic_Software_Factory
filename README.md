@@ -258,7 +258,13 @@ Everything that touches customer data runs inside Keelwater's own AWS VPC, with 
 
 ## How this repo was built
 
-An orchestrating AI produced the plan overnight on 02-03/11/2026, sending research subagents to check tools, prices and evidence (sources in `docs/research/`) and review subagents to attack each draft. For the build, one orchestrating session dispatches each GitHub work order to a coding agent in its own git worktree, has a reviewer subagent check every pull request, and squash-merges it after that check passes; a second session makes the diagrams and the PDF. Human gates cover rules and permissions, spending, publishing and anything customer-facing. Author time is about 4 hours, spent on direction, decisions and review. The plan budgets about 22 agent-hours (20.25 on pipeline and board work orders, 1.75 on diagrams and the PDF) plus orchestration; actual figures go in [ai-usage.md](docs/ai-usage.md) after the build. The work orders and the as-executed record are in [build-plan.md](docs/build-plan.md); the longer account is [ai-usage.md](docs/ai-usage.md).
+An orchestrating AI produced the plan overnight on 02-03/11/2026, sending research subagents to check tools, prices and evidence (sources in `docs/research/`) and review subagents to attack each draft. For the build, one orchestrating session dispatches each GitHub work order to a coding agent in its own git worktree, has a reviewer subagent check every pull request, and squash-merges it after that check passes; a second session makes the diagrams and the PDF. Human gates cover rules and permissions, spending, publishing and anything customer-facing. Author time is about 4 hours, spent on direction, decisions and review. The plan budgets about 22 agent-hours (20.25 on pipeline and board work orders, 1.75 on diagrams and the PDF) plus orchestration. The work orders and the as-executed record are in [build-plan.md](docs/build-plan.md); the longer account is [ai-usage.md](docs/ai-usage.md).
+
+<!-- tokens:start -->
+
+Measured from the session logs, the build used 628,278,423 tokens across all models, an API cost equivalent of about USD 149; the table is in [ai-usage.md](docs/ai-usage.md).
+
+<!-- tokens:end -->
 
 ## How I used AI
 

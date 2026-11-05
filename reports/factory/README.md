@@ -39,3 +39,21 @@ uv run python scripts/telemetry_summary.py --write-doc
 ```
 
 The script reads this CSV and rewrites only the block between `<!-- measured:start -->` and `<!-- measured:end -->` in `docs/delegation.md`. The "refreshed on" date is the CSV's modification time, or `--date DD/MM/YYYY`. Without `--write-doc` it prints the block. The test is `tests/test_telemetry_summary.py`.
+
+## Tokens by model (#64)
+
+`tokens-by-model.csv` is the per-model token record: `model, input, cache_write, cache_read, output, total, source` (`measured` or `estimated`), plus `cache_write_1h`, the part of `cache_write` written to the one-hour cache (it is priced higher than the five-minute write). `total` is the sum of the four token types. `openrouter-usage.csv` is the per-model breakdown behind the OpenRouter row. `model-prices.csv` holds the list prices used, in USD per million tokens, with the page each was read from.
+
+```
+python scripts/measure_tokens.py measure              reads the local session logs, rewrites the two token CSVs
+python scripts/measure_tokens.py render --write-doc   rewrites the generated blocks in docs/ai-usage.md, docs/delegation.md and README.md
+```
+
+`measure` needs the laptop's Claude Code and Codex session logs; `render` and the tests need only the CSVs. The script reads token counts, model names and timestamps only. It never copies prompt or response text, and no file it writes holds a home-folder path.
+
+Sources for `model-prices.csv`, all read on 05/11/2026:
+
+- Claude Opus 5.5, Sonnet 5.5 and Haiku 5.5: https://platform.claude.com/docs/en/about-claude/pricing. Cache reads on Opus and Sonnet 5.5 are 0.05x the input price. Haiku has two tiers by prompt size; the table uses the over-100K tier, so its cost is not understated.
+- Codex GPT-6.1 Terra and Sol: https://developers.openai.com/api/docs/pricing, standard tier, prompts of 272K tokens or less. The other OpenAI pricing page (openai.com/api/pricing) returned HTTP 403 and was not retried.
+- Gemini Argon (agy): https://aistudio.google.com/docs/pricing lists Gemini 4 Argon at USD 2 input, 0.10 cached input and 10 output until 30/11/2026, then double. The page does not say that agy uses this model, so the match is by name and the row is a published price applied to a small figure.
+- OpenRouter pipeline: no list price needed; each recorded response carries the cost OpenRouter billed (`cost_usd`), and the row sums those.
