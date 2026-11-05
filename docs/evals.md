@@ -188,7 +188,7 @@ No few-shot examples in v1, so labels never change a prompt behind its version. 
 
 ### 5.3 Judge model
 
-Demo `z-ai/glm-5.3` (reasoning always on, effort low; fallback `deepseek/deepseek-v4.1-flash`), aws `global.zai.glm-5.3` (global routing cannot guarantee UK data residency). The brief and handoff writer is Qwen3.8 Max, the extractor Qwen3.8 Flash and the data generator Qwen3 VL 235B Instruct, so no judge grades its own family's text. The DeepSeek fallback is used for both writing and judging, so a brief written by DeepSeek is never graded by the DeepSeek judge: that judgement is stored as `not_independent`, shown, and excluded from pass counts. About 33 calls a run; the price is the live-run figure in the README, not an estimate here.
+Demo `z-ai/glm-5.3` (reasoning always on, effort low; fallback `deepseek/deepseek-v4.1-flash`), aws `global.zai.glm-5.3` (global routing cannot guarantee UK data residency). The brief and handoff writer is DeepSeek V4.1 Flash in the 05/11/2026 run (swapped from Qwen3.8 Max, whose reasoning overran the token limit), the extractor Qwen3.8 Flash and the data generator Qwen3 VL 235B Instruct, so no judge grades its own family's text. The DeepSeek fallback is used for both writing and judging, so a brief written by DeepSeek is never graded by the DeepSeek judge: that judgement is stored as `not_independent`, shown, and excluded from pass counts. About 33 calls a run; the price is the live-run figure in the README, not an estimate here.
 
 ### 5.4 From board actions to labels
 

@@ -145,3 +145,10 @@ Author rulings (decisions, not findings): no gpt-oss for any stage or profile; Q
   - Qwen3.8 (any variant), Qwen3-Embedding-8B and Qwen3-VL-Embedding-8B: https://docs.aws.amazon.com/bedrock/latest/userguide/model-cards-qwen.html
   - Clef: https://docs.aws.amazon.com/bedrock/latest/userguide/model-cards.html
 - **The `aws` and `self-hosted` profiles (INFERRED).** They name the open-weight model for every stage except judge, with the note "availability on Bedrock not confirmed (INFERRED)". Embeddings name Qwen3-VL-Embedding-8B as the target: open weights, Bedrock availability not confirmed. No Bedrock id is written unless an AWS page above confirms it.
+
+### Live probe and run findings (05/11/2026, FOUND by the #62 live run)
+
+- **All 16 ids answered the probe** (one call each, json_schema where the stage uses it; Clef and Clef Flash through the Decisions API): Clef 508 ms, Clef Flash 319 ms.
+- **Qwen3.8 Flash and Qwen3.8 27B reason by default.** On real extract requests 14 of 60 calls ended with `finish_reason=length` before any JSON. With `reasoning: {enabled: false}` none of 30 failed (mean 77 output tokens). Extract, cluster_label and outtake run with reasoning off.
+- **Qwen3.8 Max (`qwen/qwen3.8-max-0902`) cannot switch reasoning off** (`enabled: false` returns HTTP 400). At effort low it used 2,400 to 8,000 tokens, and 2 of 4 test briefs still ended in `length` at 8,000. Brief and handoff therefore run on the configured fallback, DeepSeek V4.1 Flash with reasoning off and a 3,000-token limit (1,500 cut off 2 of 12 briefs for the largest clusters).
+- **GLM 5.3 as judge** (reasoning effort low, 4,000 tokens) worked unchanged.
