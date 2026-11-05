@@ -174,21 +174,29 @@ Saving       : 67.8%
 
 This repo was built with the same pattern: an Opus orchestrator, Codex Terra and Gemini via agy as builders, and Sonnet subagents checking every pull request. Gemini was used here only to save cost on a non-critical demo. It is not part of the Keelwater proposal.
 
-Figures per work order and engine task: reports/factory/build-telemetry.csv, filled and refreshed by scripts/telemetry_summary.py (#28 Part B; columns explained in reports/factory/README.md). The block below is generated from that file: do not edit it by hand.
+Tokens per model are measured from the session logs by scripts/measure_tokens.py (reports/factory/tokens-by-model.csv; method and price sources in reports/factory/README.md). The table is generated: do not edit it by hand.
+
+<!-- tokens:start -->
+
+| Model | What it did | Total tokens | Blended rate (USD per million tokens) | API cost equivalent (USD) |
+|---|---|---|---|---|
+| Opus | Orchestrated, dispatched work orders, merged | 117,094,862 (measured) | 0.39 | 45.98 |
+| Sonnet | Built work orders, checked every pull request, ran live steps | 465,529,724 (measured) | 0.21 | 98.51 |
+| Haiku | Read, searched, summarised logs | 6,985,263 (measured) | 0.15 | 1.03 |
+| Codex Terra | Offline builds, mostly stalled or hit its limit | 35,642,913 (measured) | 0.08 | 2.79 |
+| Codex Sol | Adversarial review of the finished build | 1,461,945 (measured) | 0.41 | 0.60 |
+| Gemini Argon (agy) | One blocked turn, wrote nothing | 53,000 (measured) | 2.00 | 0.11 |
+| OpenRouter pipeline | Ran the product's pipeline stages on open-weight models | 1,510,716 (measured, lower bound) | 0.29 | 0.44 |
+| **Total** | | **628,278,423** | **0.24** | **149.48** |
+
+<!-- tokens:end -->
+
+Pass rates and reworks per work order and engine task come from reports/factory/build-telemetry.csv, refreshed by scripts/telemetry_summary.py (#28 Part B; columns explained in reports/factory/README.md). The block below is generated from that file: do not edit it by hand.
 
 <!-- measured:start -->
 
-11 done, 2 partial, 0 in progress: refreshed on 04/11/2026
+11 done, 2 partial, 0 in progress: refreshed on 05/11/2026
 (55 rows across 13 work orders.)
-
-Tokens and live spend per engine. Measured and estimated tokens are kept apart; rows with no figure are counted, never added in.
-
-| Engine | Tokens measured | Tokens estimated | Rows with tokens not reported | Live USD |
-|---|---|---|---|---|
-| opus | 0 | 157,000 | 0 | not reported |
-| sonnet | 4,268,000 | 2,087,000 | 6 | 0.51 measured + 1.44 estimated |
-| codex | 0 | 0 | 8 | not reported |
-| agy | 53,000 | 0 | 0 | not reported |
 
 First-check pass rate, reworks and share of building, per engine (build rows only; rows without a PASS or REWORK first check are left out of the rate).
 
