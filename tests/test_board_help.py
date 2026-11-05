@@ -123,7 +123,9 @@ def test_readme_has_images_not_interactive_diagrams():
     readme = (config.ROOT / "README.md").read_text(encoding="utf-8")
     assert not re.search(r"mermaid|iframe|docs/diagrams/[\w-]+\.html|\(interactive\)", readme, re.I)
     for png in ("agentic-pdlc", "pipeline"):
-        assert f"[![" in readme and f"](docs/diagrams/{png}.png)](docs/diagrams/{png}.png)" in readme
+        md = f"](docs/diagrams/{png}.png)](docs/diagrams/{png}.png)" in readme
+        html = f'<a href="docs/diagrams/{png}.png"><img src="docs/diagrams/{png}.png"' in readme  # thumbnail form (#76)
+        assert md or html
         assert (config.ROOT / "docs" / "diagrams" / f"{png}.png").is_file()
     assert (config.ROOT / "docs" / "diagrams" / "pipeline.mmd").is_file()
     assert readme.index("## Start here") < readme.index("## How ready is this") < readme.index("## Part 2") < readme.index("### Screenshots")
