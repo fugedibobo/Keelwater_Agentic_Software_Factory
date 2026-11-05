@@ -52,7 +52,7 @@ To ask: post one needs-decision comment, then carry on with other work. Never wa
 - Never print, log, commit, cache or send key values to any model, codex included. Model caches hold request and response bodies only.
 - Never open .env or the publish deny-list ($HOME\keelwater-denylist.txt); .claude/settings.json denies both. Only scripts/scan_public.py reads them.
 - All data is synthetic and every domain ends in .example. Never add real company or person names; the generator checks names against the spec files.
-- OpenRouter requests set provider.data_collection to "deny" and require_parameters to true.
+- Pipeline requests to OpenRouter set provider.data_collection to "deny" (the synthetic-data generator is the one exception, config/models.yaml) and require_parameters to true.
 - Pipeline stages use the open-weight models in config/models.yaml; demo triage uses Clef (cloudflare/clef) through OpenRouter's Decisions API. The aws and self-hosted profiles never call OpenRouter. No paid API calls to Claude or OpenAI hosted models.
 - Nothing is published until scripts/scan_public.py reports 0 hits.
 </security_floor>
