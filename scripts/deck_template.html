@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Keelwater: lifecycle recommendations</title>
+<meta name="description" content="Eight slides: the diagnosis, the agentic lifecycle, how AI builds under delegation rules, the halving answer for the board, the Signal Engine running, the results against their floors, and how AI was used. Fictional company, synthetic data.">
+<!-- Built by scripts/build_deck.py from scripts/deck_template.html. Charts: scripts/deck_charts.py, from repo reports. Do not edit site/presentation/index.html by hand.
+     Images (downscaled, embedded as data URIs): docs/diagrams/pipeline.png, docs/screenshots/board-about.png and docs/screenshots/board-opportunities.png,
+     taken from main fba88af (PR #69, first built from its head 9b54694). Refresh after they change: uv run python scripts/build_deck.py -->
+<style>
+:root{color-scheme:light;--bg:#fafbfc;--surface:#ffffff;--ink:#14202e;--ink2:#46515f;--mute:#7b8697;--grid:#e3e7ee;--rule:#d3d9e2;--accent:#1b4fa0;--tint:#e8eefa;--rest:#eef1f6;--on-accent:#ffffff;--good:#1d6b3a;--bad:#b3261e;--shadow:0 1px 2px rgba(20,32,46,.06),0 8px 22px rgba(20,32,46,.05);--focus:#1b4fa0}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0f141b;--surface:#171d26;--ink:#eaeef4;--ink2:#b3bdcb;--mute:#8793a5;--grid:#262f3b;--rule:#2f3a48;--accent:#8db4f5;--tint:#1d2b46;--rest:#222a35;--on-accent:#0f141b;--good:#79d79f;--bad:#ff9084;--shadow:none;--focus:#8db4f5}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font:20px/1.45 "Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;overflow:hidden;-webkit-text-size-adjust:100%}
+a{color:var(--accent);text-underline-offset:.18em}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:4px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--surface);padding:8px 14px;z-index:20;border:1px solid var(--rule)}
+.skip:focus{left:8px}
+.topbar{position:fixed;inset:0 0 auto 0;height:56px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 24px;background:var(--bg);border-bottom:1px solid var(--rule);z-index:10}
+.brand{font-weight:700;letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand span{color:var(--ink2);font-weight:400}
+.ctl{display:flex;align-items:center;gap:10px}
+.ctl button{font:inherit;font-size:18px;line-height:1.3;min-width:44px;height:40px;padding:0 12px;background:var(--surface);color:var(--ink);border:1px solid var(--rule);border-radius:8px;cursor:pointer}
+.ctl button:hover{border-color:var(--ink2)}
+#count{font-variant-numeric:tabular-nums;min-width:4.4em;text-align:center;font-weight:600}
+main{position:fixed;inset:56px 0 0 0}
+.slide{height:100%;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain}
+.slide[hidden]{display:none}
+.slide:focus,.slide:focus-visible{outline:none}
+.inner{max-width:1380px;margin:0 auto;padding:0 48px 24px;min-height:100%;display:flex;flex-direction:column;gap:14px}
+@media (prefers-reduced-motion:no-preference){.slide.on{animation:in .2s ease-out}@keyframes in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}}
+h2{position:sticky;top:0;z-index:5;margin:0;padding:20px 0 10px;background:var(--bg);font:600 clamp(28px,2.75vw,40px)/1.2 Georgia,"Iowan Old Style","Palatino Linotype",serif;letter-spacing:-.01em;text-wrap:balance}
+.stage{flex:1 1 auto;min-height:300px;display:grid;grid-template-columns:minmax(300px,31%) minmax(0,1fr);gap:32px;align-items:stretch}
+.stage.stack{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);gap:16px}
+.pts{list-style:none;margin:0;padding:0;align-self:center}
+.pts li{position:relative;padding-left:1.1em;margin:0 0 .9em}
+.pts li:last-child{margin-bottom:0}
+.pts li::before{content:"";position:absolute;left:0;top:.6em;width:.5em;height:.5em;border-radius:50%;background:var(--accent)}
+.stack .pts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px;align-self:start}
+.stack .pts li{margin:0}
+.viz{position:relative;min-height:0;margin:0;background:var(--surface);border:1px solid var(--rule);border-radius:12px;box-shadow:var(--shadow)}
+.viz>svg.chart,.viz>img{position:absolute;inset:12px;width:calc(100% - 24px);height:calc(100% - 24px)}
+.viz>img{object-fit:contain}
+.chart text{font-family:inherit}
+.tk{font-size:20px;fill:var(--ink2)}.tl{font-size:22px;font-weight:650;fill:var(--ink)}.ts{font-size:20px;fill:var(--ink2)}
+.tw{font-size:22px;font-weight:650;fill:var(--on-accent)}.twb{font-size:30px;font-weight:700;fill:var(--on-accent)}
+.tp{font-size:20px;fill:var(--ink)}.tp2{font-size:20px;fill:var(--ink)}.tp2.b{font-weight:650}.tg2{font-size:20px;fill:var(--ink)}.tg3{font-size:22px;font-weight:700;fill:var(--ink)}
+.gn{font-size:22px;font-weight:700;fill:var(--on-accent)}
+.gr{stroke:var(--grid);stroke-width:1}
+.box{fill:var(--surface);stroke:var(--accent);stroke-width:2}.boxa{fill:var(--accent)}.boxt{fill:var(--tint);stroke:var(--accent);stroke-width:2}
+.dash{fill:none;stroke:var(--ink2);stroke-width:2;stroke-dasharray:9 7}
+.chip{fill:var(--tint)}
+.arr{stroke:var(--ink2);stroke-width:2.5;fill:none}.dsh{stroke-dasharray:8 6}.mk{fill:var(--ink2)}
+.tick{stroke:var(--ink2);stroke-width:1.5;stroke-dasharray:3 4}
+.gate{fill:var(--accent)}.sw{fill:var(--surface);stroke:var(--accent);stroke-width:2}.bgrect{fill:var(--surface)}
+.fa{fill:var(--accent)}.fr{fill:var(--rest)}.fb{fill:var(--tint);stroke:var(--accent);stroke-width:2}
+.gap{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-dasharray:8 6}
+.hf{fill:var(--surface)}.hl{stroke:var(--accent);stroke-width:3}
+.ln{fill:none;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.ln.accent{stroke:var(--accent)}.ln.ink{stroke:var(--ink)}.ln.mute{stroke:var(--mute)}
+.dot.accent{fill:var(--accent)}.dot.ink{fill:var(--ink)}.dot.mute{fill:var(--mute)}
+.tgt{stroke:var(--ink);stroke-width:2;stroke-dasharray:3 6}
+.okb{fill:var(--accent)}.badb{fill:var(--bad)}.okt{font-size:20px;font-weight:650;fill:var(--ink2)}.badt{font-size:20px;font-weight:650;fill:var(--bad)}
+.floor{stroke:var(--ink);stroke-width:3}.rl{stroke:var(--ink2);stroke-width:1.5}
+.more{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start}
+details{border:1.5px solid var(--accent);border-radius:10px;background:var(--surface);padding:3px}
+details[open]{flex:1 1 100%}
+summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;min-height:48px;padding:8px 18px 8px 14px;font-weight:650;font-size:20px;line-height:1.3;color:var(--accent);border-radius:9px}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+";flex:none;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:inline-grid;place-items:center;font-size:20px;line-height:1.3;font-weight:700}
+details[open]>summary::before{content:"\2212"}
+summary:hover{background:var(--tint)}
+.dtl{padding:4px 19px 18px;font-size:20px;line-height:1.45}
+.dtl h3{margin:1.1em 0 .3em;font-weight:650;font-size:20px;line-height:1.3;color:var(--ink)}
+.dtl p{margin:.6em 0;max-width:62em}
+.dtl ul,.dtl ol{margin:.5em 0;padding-left:1.3em;max-width:62em}
+.dtl li{margin:.3em 0}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:6px 32px;align-items:start}
+table{border-collapse:collapse;width:100%;margin:.6em 0 .9em;font-size:20px;line-height:1.35}
+th,td{text-align:left;vertical-align:top;padding:7px 14px 7px 0;border-bottom:1px solid var(--rule)}
+th{font-weight:650;color:var(--ink2);border-bottom:2px solid var(--ink2)}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;padding-left:16px;white-space:nowrap}
+caption{text-align:left;color:var(--ink2);padding:0 0 4px;caption-side:top;font-weight:600}
+.pass{color:var(--good);font-weight:650}.fail{color:var(--bad);font-weight:650}
+.note{background:var(--tint);border-radius:8px;padding:8px 16px;max-width:62em;margin:.8em 0}
+.note p{margin:.3em 0}
+.small{font-size:18px;color:var(--ink2)}
+.full{display:block;width:min(100%,640px);height:auto;margin:.6em auto;border:1px solid var(--rule);border-radius:8px}
+@media (max-height:800px){h2{font-size:27px;padding:12px 0 8px}.inner{padding-bottom:14px;gap:10px}.pts{font-size:18px;line-height:1.4}.pts li{margin-bottom:.6em}.stack .pts{gap:24px}summary{min-height:42px;padding:4px 14px 4px 10px;font-size:18px}.viz>svg.chart,.viz>img{inset:8px;width:calc(100% - 16px);height:calc(100% - 16px)}.more{gap:8px}}
+@media (max-width:900px){.stage{grid-template-columns:1fr}.stack .pts{grid-template-columns:1fr}.cols{grid-template-columns:1fr}.inner{padding:16px 18px 22px}.brand span{display:none}.viz{min-height:300px}}
+@media print{
+ :root:root:root{color-scheme:light;--bg:#fff;--surface:#fff;--ink:#14202e;--ink2:#46515f;--mute:#7b8697;--grid:#e3e7ee;--rule:#d3d9e2;--accent:#1b4fa0;--tint:#e8eefa;--rest:#eef1f6;--on-accent:#fff;--good:#1d6b3a;--bad:#b3261e;--shadow:none}
+ @page{size:A4 landscape;margin:10mm}
+ html,body{height:auto;overflow:visible;font-size:11pt}
+ .topbar,.skip{display:none!important}
+ main{position:static}
+ .slide,.slide[hidden]{display:block!important;height:auto;overflow:visible;break-before:page;animation:none}
+ .slide:first-child{break-before:auto}
+ .inner{display:block;padding:0;max-width:none;min-height:0}
+ h2{position:static;font-size:17pt;padding:0 0 4pt}
+ .pts{font-size:11pt;line-height:1.35}
+ .stage,.stage.stack{display:block;min-height:0!important;height:auto!important}
+ .stack .pts{display:grid;grid-template-columns:repeat(3,1fr);gap:12pt;margin:0 0 4pt}
+ .viz{break-inside:avoid;margin:0 0 6pt}
+ .viz>svg.chart,.viz>img{position:static;display:block;width:100%;height:auto;padding:0}
+ .viz{padding:2pt}
+  summary,.dtl,table,.small,.dtl h3{font-size:11pt}
+ summary{min-height:0;padding:2pt 6pt}summary::before{display:none}
+ .more{display:block;column-count:2;column-gap:14pt}
+ details,details[open]{display:block;border-width:1px;margin:0 0 3pt;padding:0;break-inside:auto}
+ .cols{display:block}
+ .dtl{padding:0 6pt 3pt}
+ .dtl p,.dtl ul{margin:.3em 0}
+ table{margin:.3em 0 .5em}
+ th,td{padding:1pt 6pt 1pt 0}
+ tr{break-inside:avoid}
+ .dtl h3{margin:.5em 0 .2em}
+ .full{width:42%;margin:4pt 0}
+ .about{width:64%}
+ #s8 .viz>svg.chart{width:74%;margin:0 auto}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#deck">Skip to the slides</a>
+<header class="topbar">
+  <div class="brand">Keelwater <span>lifecycle recommendations</span></div>
+  <nav class="ctl" aria-label="Slide controls">
+    <button type="button" id="prev" aria-label="Previous slide">&larr;</button>
+    <span id="count" aria-live="polite" aria-atomic="true">1 / 8</span>
+    <button type="button" id="next" aria-label="Next slide">&rarr;</button>
+    <button type="button" id="theme" aria-pressed="false" aria-label="Switch to dark theme">Dark</button>
+  </nav>
+</header>
+<main id="deck">
+
+<!-- ========== SLIDE 1: diagnosis ========== -->
+<section class="slide" id="s1" aria-labelledby="h1" tabindex="0">
+<div class="inner">
+<h2 id="h1">The constraint has moved from building to deciding what to build and getting it adopted.</h2><!-- src: docs/part1-diagnosis-and-plan.md -->
+<div class="stage stack">
+<ul class="pts">
+<li>Coding and testing are 25 to 35% of idea-to-launch time. Free code still leaves 15 to 25 of the 50 points needed to halve it.<!-- src: docs/part1-diagnosis-and-plan.md (the 25-35% is from an industry report; 15 to 25 is 50 minus 25 to 35) --></li>
+<li>Value leaks at the joins: feedback nobody consolidates, decisions left unwritten, and growing review queues.<!-- src: docs/part1-diagnosis-and-plan.md --></li>
+<li>Six recommendations follow. Part 2 runs end to end, but its quality floors fail (slide 7).<!-- src: docs/part1-diagnosis-and-plan.md, reports/eval/ground-truth-9a0156dd325d49fc.json --></li>
+</ul>
+<!-- chart src: docs/part1-diagnosis-and-plan.md, "The point" -->
+<figure class="viz">{{LEADTIME}}</figure>
+</div>
+<div class="more">
+<details><summary>More: where value leaks, and what is still unmeasured</summary>
+<div class="dtl">
+<table>
+<thead><tr><th>Leak</th><th>What happens</th></tr></thead>
+<tbody>
+<tr><td>Feedback</td><td>Four routes, no consolidation; the loudest account wins.<!-- src: docs/part1-diagnosis-and-plan.md --></td></tr>
+<tr><td>Decisions</td><td>Decisions go unwritten, settled arguments reopen, and engineers and agents guess at intent.<!-- src: docs/part1-diagnosis-and-plan.md --></td></tr>
+<tr><td>Status work</td><td>A third of PM time goes on status, data chasing and "what shipped?" (self-reported).<!-- src: docs/part1-diagnosis-and-plan.md --></td></tr>
+<tr><td>Review</td><td>Across 655 firms, coding agents raised pull request volume about 36% and submission-to-approval time 56% (working paper).<!-- src: docs/part1-diagnosis-and-plan.md --></td></tr>
+<tr><td>Release</td><td>Daily releases make customers retrain claims handlers.<!-- src: docs/part1-diagnosis-and-plan.md --></td></tr>
+</tbody>
+</table>
+<p>Still missing: value-stream timing per squad, pull request review wait, signal share per route, each tool's metrics side by side, retraining cost per release, and a two-week PM time diary.<!-- src: docs/part1-diagnosis-and-plan.md --></p>
+</div></details>
+<details><summary>More: the six recommendations and where each is covered</summary>
+<div class="dtl">
+<table>
+<thead><tr><th class="n">#</th><th>Recommendation</th><th>Slide</th></tr></thead>
+<tbody>
+<tr><td class="n">1</td><td>Pull feedback from four routes into one weekly board, and write every build decision down.</td><td><a href="#2">2</a>, <a href="#5">5</a>, <a href="#6">6</a></td></tr>
+<tr><td class="n">2</td><td>Run AI builds on the delegation rules: route by task class, review with the other model family, escalate on failure.</td><td><a href="#3">3</a></td></tr>
+<tr><td class="n">3</td><td>Product ops owns the shared standards; squads own their extensions.</td><td><a href="#2">2</a></td></tr>
+<tr><td class="n">4</td><td>Pilot one squad for 90 days against a control, with one engineer.</td><td><a href="#4">4</a></td></tr>
+<tr><td class="n">5</td><td>Tell the board that halving is not plausible in 18 months, and report lead time monthly.</td><td><a href="#4">4</a></td></tr>
+<tr><td class="n">6</td><td>Do not claim Part 2 accuracy until the floors pass and each judge has 50 real labels per class.</td><td><a href="#7">7</a></td></tr>
+</tbody>
+</table><!-- src: docs/part1-diagnosis-and-plan.md, docs/evals.md -->
+</div></details>
+</div>
+</div>
+</section>
+
+<!-- ========== SLIDE 2: lifecycle ========== -->
+<section class="slide" id="s2" aria-labelledby="h2" tabindex="0" hidden>
+<div class="inner">
+<h2 id="h2">Seven stages, five human gates: agents read, draft and check; people decide.</h2><!-- src: docs/part1-diagnosis-and-plan.md -->
+<div class="stage stack">
+<ul class="pts">
+<li>Agents work in every stage. A named person passes each of the five gates, and no agent merges its own work.<!-- src: docs/part1-diagnosis-and-plan.md, docs/delegation.md --></li>
+<li>Each stage hands a typed artefact to the next, and every move is logged.<!-- src: docs/part1-diagnosis-and-plan.md --></li>
+<li>Product ops owns what crosses squads; the platform team keeps the coding harness.<!-- src: docs/part1-diagnosis-and-plan.md --></li>
+</ul>
+<!-- chart src: docs/part1-diagnosis-and-plan.md section 2 (stages, agents, gates) -->
+<figure class="viz">{{LIFECYCLE}}</figure>
+</div>
+<div class="more">
+<details><summary>More: the seven stages, their agents and their gates</summary>
+<div class="dtl">
+<table>
+<thead><tr><th>Stage</th><th>Agents and pipelines</th><th>Gate (who)</th></tr></thead>
+<tbody>
+<tr><td>Sense</td><td>Nightly Signal Engine: triage, extraction, verified quotes</td><td>None; 40 drops a week audited</td></tr>
+<tr><td>Decide</td><td>Clustering, ranking, cited briefs, judges</td><td>Gate 1: accept (PM)</td></tr>
+<tr><td>Define</td><td>Intent-doc agent; mockup on real design-system components</td><td>Gate 2: sign-off (Trio, designer included)</td></tr>
+<tr><td>Build</td><td>Platform factory</td><td>Gate 3: merge (engineers)</td></tr>
+<tr><td>Release</td><td>Bundle assembler: notes, notices, customer impact</td><td>Gate 4: bundle (PM, customer success)</td></tr>
+<tr><td>Enable</td><td>Help articles, videos, post-call briefs</td><td>Gate 5: comms (product marketing manager)</td></tr>
+<tr><td>Learn</td><td>Adoption against the intent doc's outcome metric</td><td>None</td></tr>
+</tbody>
+</table><!-- src: docs/part1-diagnosis-and-plan.md section 2 -->
+<p>The factory is a delegation meta-harness: it routes work to people and to coding tools, and passes the human gates. Owning the coding harness is not required.<!-- src: docs/part1-diagnosis-and-plan.md, docs/architecture.md --></p>
+</div></details>
+<details><summary>More: who owns what, and what I leave alone</summary>
+<div class="dtl">
+<div class="cols">
+<table>
+<thead><tr><th>Product ops owns</th><th>Each squad sets</th></tr></thead>
+<tbody>
+<tr><td>Signal schema and core taxonomy</td><td>Taxonomy extensions, ranking weights</td></tr>
+<tr><td>Intent-doc template, factory job schema, decision log, skill library</td><td>Its own skills, extra template sections</td></tr>
+<tr><td>Model gateway and routing rules</td><td>Prompts within guardrails</td></tr>
+<tr><td>Eval harness and judge registry</td><td>Judge thresholds above the shared floor</td></tr>
+<tr><td>Telemetry, audit, access control</td><td>Digest cadence, in-squad visibility</td></tr>
+<tr><td>One metric dictionary: v0 (about 10 lifecycle metrics) in 60 days</td><td>Squad metrics, defined in it</td></tr>
+</tbody>
+</table><!-- src: docs/part1-diagnosis-and-plan.md -->
+<div>
+<h3>What I leave alone</h3>
+<ul>
+<li>The coding-agent harness: a second one would split two engineers.</li>
+<li>Code-review policy: engineering owns it; I supply review-wait data.</li>
+<li>Squad structure: changing it with tooling would hide which approaches worked.</li>
+<li>The design system: I only generate mockups on its components.</li>
+</ul><!-- src: docs/part1-diagnosis-and-plan.md -->
+<h3>The platform contract</h3>
+<p>An intent document plus a factory job, checked against a versioned JSON Schema (draft v1) that both teams own. The job carries references and de-identified text; quotes and account names stay inside the company's private network.<!-- src: README.md --></p>
+</div>
+</div>
+</div></details>
+</div>
+</div>
+</section>
+
+<!-- ========== SLIDE 3: delegation ========== -->
+<section class="slide" id="s3" aria-labelledby="h3" tabindex="0" hidden>
+<div class="inner">
+<h2 id="h3">Route each task by the cost of being wrong: Opus orchestrates, cheaper models build, Codex Sol checks.</h2><!-- src: docs/delegation.md -->
+<div class="stage stack">
+<ul class="pts">
+<li>Opus 5.5 splits, routes and checks, and never writes production code. Sonnet 5.5, Haiku 5.5 and Codex Terra build.<!-- src: docs/delegation.md sections 2 and 6 --></li>
+<li>Codex Sol checks, so the checker is always a different model family from the builder. A person passes every merge.<!-- src: docs/delegation.md section 3 --></li>
+<li>The open stack waits in reserve and routes no tasks until 50 shadow tasks clear the bar the judges must clear.<!-- src: docs/delegation.md section 6 --></li>
+</ul>
+<!-- chart src: docs/delegation.md section 6 (phases: now, back pocket, later) -->
+<figure class="viz">{{DELEGATION}}</figure>
+</div>
+<div class="more">
+<details><summary>More: the routing table and escalation</summary>
+<div class="dtl">
+<table>
+<thead><tr><th>Class</th><th>Typical work</th><th>Builder (effort)</th><th>Reviewer</th><th class="n">Token cap</th></tr></thead>
+<tbody>
+<tr><td>T0</td><td>Renames, lint fixes, docs, tests from a written spec</td><td>Haiku 5.5 (low)</td><td>Codex GPT-6 Luna</td><td class="n">0.5M</td></tr>
+<tr><td>T1</td><td>One change in one module, with tests</td><td>Codex GPT-6.1 Terra, fallback Sonnet 5.5 (medium)</td><td>Sonnet 5.5</td><td class="n">1.5M</td></tr>
+<tr><td>T2</td><td>Several modules, unclear spec, migrations</td><td>Sonnet 5.5 or GPT-6.1 Sol (medium)</td><td>The other family</td><td class="n">3M</td></tr>
+<tr><td>T3</td><td>Payments, authentication, audit chain</td><td>A T1 or T2 engine; Opus 5.5 plans</td><td>Opus 5.5, adversarial</td><td class="n">5M</td></tr>
+</tbody>
+</table><!-- src: docs/delegation.md section 2; the caps are starting values to change from telemetry -->
+<ul>
+<li>A failed check gets one rework at the same tier. A second failure moves the task up one tier; a third goes to a named engineer and the agents stop.<!-- src: docs/delegation.md section 3 --></li>
+<li>Every task carries a cost tag through the model gateway; a call without one is rejected.<!-- src: docs/delegation.md section 3 --></li>
+<li>On this build, Gemini (agy) was used only to save cost. It is not part of the proposal.<!-- src: docs/delegation.md section 10 --></li>
+</ul>
+</div></details>
+<details><summary>More: what routing saves at list prices</summary>
+<div class="dtl">
+<table>
+<thead><tr><th>Scenario: 100 tasks a day</th><th class="n">USD a day</th></tr></thead>
+<tbody>
+<tr><td>Everything on Opus 5.5</td><td class="n">1,142.00</td></tr>
+<tr><td>Routed by task class</td><td class="n">368.30</td></tr>
+<tr><td>Saving</td><td class="n">67.8%</td></tr>
+</tbody>
+</table><!-- src: docs/delegation.md section 9, scripts/delegation_cost.py -->
+<p>This is list-price arithmetic, not a measurement. It assumes 45 T0, 35 T1, 15 T2 and 5 T3 tasks a day, and that 30% of T0 and T1 tasks fail once and move up a tier. The Opus figure is likely high for routine work, so the saving is probably overstated.<!-- src: docs/delegation.md section 9 --></p>
+</div></details>
+<details><summary>More: Clef as router and triager, and the open stack's bar</summary>
+<div class="dtl">
+<p>Clef, an open-weight decision model, would answer four typed questions at work-order intake: task class, crown-jewel path, spec clear enough, expected size. Code decides T3, and below its confidence threshold a task routes one class up, never down. Clef Flash is the fallback. This is designed, not built in this demo.<!-- src: docs/delegation.md section 7 --></p>
+<table>
+<thead><tr><th>Open model</th><th>Status on 05/11/2026</th></tr></thead>
+<tbody>
+<tr><td>GLM 5.3</td><td>Weights public by 28/08/2026, custom licence; the back-pocket builder</td></tr>
+<tr><td>DeepSeek V4.1 Flash</td><td>MIT licence, 17/10/2026 snapshot; a back-pocket checker</td></tr>
+<tr><td>Qwen3.8</td><td>Open weights for the 27B; larger variants are API-only; a back-pocket checker</td></tr>
+<tr><td>Qwen 4</td><td>Not released; named only as the planned next step</td></tr>
+</tbody>
+</table><!-- src: docs/delegation.md section 6 -->
+<p>A task class moves to the open stack only when, on at least 50 shadow tasks of that class, its first-check pass rate has a Wilson 95% lower bound no more than 5 points below the hosted stack's, and its escaped-defect rate is not higher. Shadow runs replay past work orders with their hidden tests and never touch live code.<!-- src: docs/delegation.md section 6 --></p>
+</div></details>
+</div>
+</div>
+</section>
+
+<!-- ========== SLIDE 4: halving ========== -->
+<section class="slide" id="s4" aria-labelledby="h4" tabindex="0" hidden>
+<div class="inner">
+<h2 id="h4">Tell the board: halving idea-to-customer time is not plausible within 18 months.</h2><!-- src: reports/halving/summary.md -->
+<div class="stage stack">
+<ul class="pts">
+<li>On my mid inputs lead time is 79% of today's at month 18. The high case reaches 51%, and AI alone 95%.<!-- src: reports/halving/summary.md --></li>
+<li>All 24 inputs are my assumptions, so this is a model output, not a measurement.<!-- src: docs/halving-model.md --></li>
+<li>A 90-day pilot against a control squad starts replacing assumptions with data.<!-- src: docs/part1-diagnosis-and-plan.md --></li>
+</ul>
+<!-- chart src: reports/halving/summary.md and scripts/halving_model.py (config/halving_inputs.yaml) -->
+<figure class="viz">{{HALVING}}</figure>
+</div>
+<div class="more">
+<details><summary>More: the month-18 index and the inputs that move it most</summary>
+<div class="dtl">
+<div class="cols">
+<table>
+<caption>Month-18 lead-time index (100% is today)</caption>
+<thead><tr><th>Case</th><th class="n">AI only</th><th class="n">AI plus process</th></tr></thead>
+<tbody>
+<tr><td>Low</td><td class="n">102%</td><td class="n">99%</td></tr>
+<tr><td>Mid</td><td class="n">95%</td><td class="n">79%</td></tr>
+<tr><td>High</td><td class="n">79%</td><td class="n">51%</td></tr>
+</tbody>
+</table><!-- src: reports/halving/summary.md -->
+<table>
+<caption>Swing in the month-18 index, other inputs at mid</caption>
+<thead><tr><th>Input</th><th class="n">Swing</th></tr></thead>
+<tbody>
+<tr><td>Discovery and decision process effect</td><td class="n">13.1 points</td></tr>
+<tr><td>Release process effect</td><td class="n">6.9 points</td></tr>
+<tr><td>Build AI effect</td><td class="n">5.0 points</td></tr>
+<tr><td>Review process effect</td><td class="n">4.4 points</td></tr>
+</tbody>
+</table><!-- src: reports/halving/summary.md -->
+</div>
+<p>Even a 90% cut to both decision latency and review wait leaves the index at 55% at month 18.<!-- src: reports/halving/summary.md --></p>
+</div></details>
+<details><summary>More: what would change the answer, and the monthly tracker</summary>
+<div class="dtl">
+<ul>
+<li>Coding speed alone cannot do it. In a study of 40 product managers, a 40% productivity gain moved time to market about 5%.<!-- src: docs/part1-diagnosis-and-plan.md --></li>
+<li>The recommendation changes if pilot decision time halves and release time falls 70%, if acceptance stays below 30% after calibration, or if customers reject bundles.<!-- src: docs/part1-diagnosis-and-plan.md --></li>
+<li>Fund review first if it takes more than 12% of lead time.<!-- src: docs/halving-model.md --></li>
+<li>Each month: load real stage timestamps, run the tracker command, read both lead-time definitions against the 50% target and throughput against +100%, then post one line to the board.<!-- src: docs/halving-model.md --></li>
+</ul>
+<div class="note"><p>The tracker's current figures are invented demo data: idea-to-customer sits 5% of the way to target. Do not report them to the board as real.<!-- src: reports/halving/summary.md, tracker status --></p></div>
+</div></details>
+<details><summary>More: the 90-day pilot against a control squad</summary>
+<div class="dtl">
+<table>
+<thead><tr><th class="n">Day</th><th>What runs, and who uses it</th><th>Go or learning test</th></tr></thead>
+<tbody>
+<tr><td class="n">30</td><td>The Signal Engine nightly for a pilot squad; a "what shipped" digest for every squad. All PMs label for a half-day.</td><td>A pilot PM accepts three of the top 10 in 30 minutes.</td></tr>
+<tr><td class="n">60</td><td>All routes plus sessions; intent-doc handoff for two squads; decision log; metric dictionary v0; a bundle pilot with three large customers.</td><td>Acceptance above 30%; no pilot customer leaves bundles.</td></tr>
+<tr><td class="n">90</td><td>Intake for three to five squads, depending on staffing; outtake drafts (release notes, help articles, change notices, follow-up briefs).</td><td>Pilot against control; where the bottleneck moved.</td></tr>
+</tbody>
+</table><!-- src: docs/part1-diagnosis-and-plan.md -->
+<ul>
+<li>The VP Product sponsors it and a pilot squad volunteers. The digest removes status reporting before PMs label anything.</li>
+<li>My ask is one engineer for 90 days. Without one, day 90 covers three squads, not five.</li>
+<li>Labelling happens in the Monday review, where the board replaces the weekly feedback meeting. It takes a half-day at day 30, then about 30 minutes a week.<!-- src: docs/part1-diagnosis-and-plan.md, README.md --></li>
+<li>Three metrics: weekly active PMs, the share of decisions with a written rationale, and the share of customer-visible changes flagged.<!-- src: docs/part1-diagnosis-and-plan.md --></li>
+</ul>
+</div></details>
+</div>
+</div>
+</section>
+
+<!-- ========== SLIDE 5: pipeline ========== -->
+<section class="slide" id="s5" aria-labelledby="h5" tabindex="0" hidden>
+<div class="inner">
+<h2 id="h5">Part 2 runs end to end: raw feedback goes in, a ranked and cited list comes out for the PM.</h2><!-- src: README.md -->
+<div class="stage stack">
+<ul class="pts">
+<li>Code checks every quote against the customer's own turn and every number in a brief against a fact sheet.<!-- src: README.md, docs/evals.md --></li>
+<li>Cheap models handle the volume. A strong model writes only the top 10 briefs, and three judges from another model family check them.<!-- src: README.md, config/models.yaml --></li>
+<li>It runs today on synthetic data from file exports. Production needs about 14 to 22 more engineer-weeks (an estimate).<!-- src: README.md, section "How ready is this" --></li>
+</ul>
+<!-- chart src: README.md "The pipeline", config/models.yaml (demo profile); drawn from the same stages as docs/diagrams/pipeline.png -->
+<figure class="viz">{{PIPELINE}}</figure>
+</div>
+<div class="more">
+<details><summary>More: each step in detail, with the README diagram</summary>
+<div class="dtl">
+<table>
+<thead><tr><th>Step</th><th>What happens, and with which model</th></tr></thead>
+<tbody>
+<tr><td>1 Collect</td><td>Sales calls, support tickets, onboarding and account calls and sessions arrive each night. Code keeps the customer's turns and cuts idle session time.</td></tr>
+<tr><td>2 Filter</td><td>Clef (Clef Flash as fallback) answers three typed questions: signal, bucket, severity. Small talk is dropped; about 40 dropped items a week go to a PM audit.</td></tr>
+<tr><td>3 Extract</td><td>Qwen3.8 Flash writes the problem and the customer's exact words; code finds those words in the customer's own turn.</td></tr>
+<tr><td>4 Rank</td><td>Pull in account data from HubSpot, cluster similar problems, match the roadmap and what shipped; a formula ranks them.</td></tr>
+<tr><td>5 Decide</td><td>The top 10 get a cited brief (DeepSeek V4.1 Flash). Three judges (GLM 5.3) check it. The PM decides on the board; accepting drafts an intent doc and a factory job.</td></tr>
+</tbody>
+</table><!-- src: README.md "The pipeline", config/models.yaml (demo profile), docs/diagrams/pipeline.png -->
+<img class="full" alt="Flowchart of the Signal Engine pipeline from sales calls, tickets and sessions through segmenting, triage, extraction with a quote check, enrichment and clustering, ranking, briefs for the top 10, three judges and the Signal Board, ending in an intent document and factory job. Triage sends dropped items to a noise audit queue for a PM." src="{{IMG_PIPELINE}}">
+</div></details>
+<details><summary>More: one piece of feedback, end to end</summary>
+<div class="dtl">
+<table>
+<caption>Illustrative, synthetic data</caption>
+<thead><tr><th>Step</th><th>What happens</th></tr></thead>
+<tbody>
+<tr><td>Sales call</td><td>A customer says that when the approver is on leave, "anything over a handler's limit just sits there".</td></tr>
+<tr><td>Triage</td><td>Marked product signal, severity 3, in about 0.2 seconds; small talk in the call is dropped and logged.</td></tr>
+<tr><td>Extract</td><td>The problem and the verbatim quote are written; code finds the quote in the customer's turn.</td></tr>
+<tr><td>Cluster and rank</td><td>It joins "Reserve approvals stall when the approver is away": 7 accounts, GBP 5.42m ARR, three routes.</td></tr>
+<tr><td>Brief and judges</td><td>The brief cites each insight; code checks every number; the judges pass it, still calibrating.</td></tr>
+<tr><td>PM decision</td><td>The PM clicks Accept and confirms. An agent drafts an intent document and a factory job; the Trio signs off at gate 2.</td></tr>
+</tbody>
+</table><!-- src: README.md "One piece of feedback, end to end" -->
+</div></details>
+<details><summary>More: what production still needs</summary>
+<div class="dtl">
+<p>Today: the whole pipeline end to end in Python (about 9,000 lines outside the tests, 47 test files), the Signal Board, evals and judges, replay, and the model gateway with an <code>aws</code> profile. Effort is an estimate, not a measurement.<!-- src: README.md, section "How ready is this" --></p>
+<table>
+<thead><tr><th>Still needed</th><th class="n">Engineer-weeks</th></tr></thead>
+<tbody>
+<tr><td>Live API connectors with auth and incremental sync for each source</td><td class="n">4 to 6</td></tr>
+<tr><td>Bedrock with IAM and SigV4 tested in a real account</td><td class="n">1 to 2</td></tr>
+<tr><td>Postgres with pgvector behind the store layer</td><td class="n">2 to 3</td></tr>
+<tr><td>Infrastructure as code: VPC, scheduler, secrets, CI</td><td class="n">3 to 5</td></tr>
+<tr><td>SSO on the board</td><td class="n">1 to 2</td></tr>
+<tr><td>Quality work on real data: clustering, citations, PM labels</td><td class="n">3 to 4</td></tr>
+<tr><td><b>Total</b></td><td class="n"><b>about 14 to 22</b></td></tr>
+</tbody>
+</table><!-- src: README.md, section "How ready is this" -->
+</div></details>
+</div>
+</div>
+</section>
+
+<!-- ========== SLIDE 6: board ========== -->
+<section class="slide" id="s6" aria-labelledby="h6" tabindex="0" hidden>
+<div class="inner">
+<h2 id="h6">Each Monday a PM opens one ranked list, with the evidence and every check beside each item.</h2><!-- src: README.md, docs/signal-board.md -->
+<div class="stage stack">
+<ul class="pts">
+<li>The board ranks the problems customers keep raising. Each top-10 item carries a cited brief and its ranking factors.<!-- src: README.md --></li>
+<li>The target is a review of the top 10 in 30 minutes. Accepting an item drafts an intent document and a factory job.<!-- src: README.md --></li>
+<li>The checks show their failures: a brief that fails a number check stays hidden, and no judge is trusted yet (0 of 3).<!-- src: docs/screenshots/board-opportunities.png, README.md --></li>
+</ul>
+<!-- image: docs/screenshots/board-opportunities.png from main fba88af (PR #69), cropped to one opportunity card; a static snapshot of replay run 2be56408d5da4bba -->
+<figure class="viz"><img alt="One opportunity on the Signal Board: its title, score 19.85 and ranking factors (breadth, severity, value, corroboration, recency, renewal), a check line showing quotes ok, citations ok, a failed numbers check and names ok, three judges marked not yet calibrated, the account count and ARR, and a note that the brief is hidden because a deterministic check failed." src="{{IMG_OPPS}}"></figure>
+</div>
+<div class="more">
+<details><summary>More: the About tab, and what each tab is for</summary>
+<div class="dtl">
+<img class="full about" alt="The Signal Board's About tab: what is real and what is simulated, and five steps from feedback to opportunity: collect, filter, extract, group and rank, brief and decide." src="{{IMG_ABOUT}}">
+<ul>
+<li><b>Real:</b> the code, the AI models, the checks and the audit trail. Code verifies every quote against its source and every model call is logged.</li>
+<li><b>Simulated:</b> the customers, calls and tickets (30 fictional insurers). In the static snapshot the PM buttons are switched off.</li>
+<li><b>Opportunities:</b> the ranked list. <b>Handoffs:</b> the build brief drafted for each accepted item. <b>Pipeline:</b> what each stage kept, dropped and cost. <b>Evals:</b> the run against the planted answers; several checks fail and the tab says so. <b>Audit:</b> every decision and model call, in a log that shows tampering.</li>
+</ul><!-- src: docs/screenshots/board-about.png (the About tab), docs/signal-board.md -->
+<p class="small">Screenshots are from a replay run on synthetic data. Keelwater is fictional.</p>
+</div></details>
+<details><summary>More: the same run in Phoenix, and what it holds</summary>
+<div class="dtl">
+<p>The run is recorded in Phoenix as 1,250 spans in one trace.<!-- src: docs/screenshots/phoenix-trace-detail.png --> Phoenix also holds 4 datasets and 1 experiment. There are no human labels yet, so human and judge verdicts cannot be shown side by side.<!-- src: docs/screenshots/phoenix-experiments.png --></p>
+<p>Running cost is about USD 0.17 per nightly run at demo volume, from list prices and the recorded token counts.<!-- src: README.md, section "Models and cost" --></p>
+</div></details>
+</div>
+</div>
+</section>
+
+<!-- ========== SLIDE 7: results ========== -->
+<section class="slide" id="s7" aria-labelledby="h7" tabindex="0" hidden>
+<div class="inner">
+<h2 id="h7">It runs end to end, but its quality floors fail, and the board says so.</h2><!-- src: reports/eval/ground-truth-9a0156dd325d49fc.json -->
+<div class="stage stack">
+<ul class="pts">
+<li>Seed 42: recall, noise dropping, bucket accuracy and quote checks hold. Theme recovery (1 of 6) and mean purity (0.54 against 0.75) do not.<!-- src: reports/eval/ground-truth-9a0156dd325d49fc.json --></li>
+<li>Held-out seed 43 recovers 0 of 3 themes, stability fails, and no judge is certified (0 of 50 real PM labels per class).<!-- src: reports/eval/holdout-b6cb1749832b493d.json, reports/eval/stability-d32ee635e4994de5.json, reports/eval/judges-d29d0a9d635c47d9.json --></li>
+<li>I capped the fix at one re-run per seed, so the floors ship as measured on the 05/11/2026 routing.<!-- src: README.md, section "Results" --></li>
+</ul>
+<!-- chart src: reports/eval/ground-truth-9a0156dd325d49fc.json and holdout-b6cb1749832b493d.json; floors from signal_engine/evals/ground_truth.py (read by scripts/readme_sections.py) -->
+<figure class="viz">{{RESULTS}}</figure>
+</div>
+<div class="more">
+<details><summary>More: every check against its floor</summary>
+<div class="dtl">
+<!-- EVAL-RESULTS START -->
+<p>Floors come from docs/evals.md; PASS and FAIL are each suite's own gates. All data is synthetic, so these measure the pipeline against planted truth, not real customers.<!-- src: reports/eval/ground-truth-9a0156dd325d49fc.json, holdout-b6cb1749832b493d.json --></p>
+<div class="cols">
+{{RESULTS_TABLES}}
+</div>
+<p>Stability fails: no September opportunity lost its id (0 of 12) and no membership shrank, but 2 planted themes are held by two opportunities of 25% or more each.<!-- src: reports/eval/stability-d32ee635e4994de5.json --></p>
+<!-- EVAL-RESULTS END -->
+</div></details>
+<details><summary>More: the judges, and why none is certified</summary>
+<div class="dtl">
+{{JUDGES_TABLE}}<!-- src: reports/eval/judges-d29d0a9d635c47d9.json -->
+<p>The constructed items never certify a judge. Each judge needs 50 real PM labels per class and a Wilson 95% lower bound before the board trusts it. None has any, so all three read "calibrating". The judge suite passes its own gates: every item judged, no trust without labels.<!-- src: docs/evals.md section 7, reports/eval/judges-d29d0a9d635c47d9.json --></p>
+</div></details>
+<details><summary>More: what the re-run changed, and what the verification found</summary>
+<div class="dtl">
+{{EARLIER_TABLE}}<!-- src: reports/eval/ground-truth-efe009d511d14c7d.json, holdout-67fb4d4fbff640ad.json, ground-truth-9a0156dd325d49fc.json, holdout-b6cb1749832b493d.json -->
+<ul>
+<li>Clustering is the limit: average-linkage cosine cannot separate planted themes that share vocabulary. Citation failures come from the brief stage.<!-- src: README.md, section "Limits" --></li>
+<li>On the new routing, Qwen3.8 Flash and 27B reason by default and ran out of tokens, so extract runs with reasoning off. Brief and handoff use their DeepSeek V4.1 Flash fallback.<!-- src: README.md, section "Results" --></li>
+<li>From a clean clone with no key, the replay printed MATCH in 58 seconds.<!-- src: README.md, section "Limits" --></li>
+<li>An adversarial review by Codex Sol, a different family from the Sonnet builders, blocked twice. Fixes came with failing-first tests, and three narrowed items are listed in the README Limits.<!-- src: docs/ai-usage.md, README.md --></li>
+</ul>
+</div></details>
+</div>
+</div>
+</section>
+
+<!-- ========== SLIDE 8: AI use ========== -->
+<section class="slide" id="s8" aria-labelledby="h8" tabindex="0" hidden>
+<div class="inner">
+<h2 id="h8">AI built most of it; I held the spend limit and every judgement call.</h2><!-- src: docs/ai-usage.md -->
+<div class="stage">
+<ul class="pts">
+<li>Claude did most of the work: Opus orchestrated, Sonnet built 12 of 13 work orders and checked every pull request, and Haiku read and searched.<!-- src: docs/ai-usage.md, docs/delegation.md section 10 --></li>
+<li>At API prices the build is worth about USD 149 across 628,278,423 measured tokens. I paid for subscriptions I already hold, plus USD 0.51 measured and 1.44 estimated on OpenRouter.<!-- src: docs/ai-usage.md, reports/factory/tokens-by-model.csv --></li>
+<li>I overrode four AI recommendations. The AI got two things wrong, and a check caught both.<!-- src: docs/ai-usage.md --></li>
+</ul>
+<!-- chart src: docs/ai-usage.md (table generated from reports/factory/tokens-by-model.csv and reports/factory/model-prices.csv by scripts/measure_tokens.py) -->
+<figure class="viz">{{USAGE}}</figure>
+</div>
+<div class="more">
+<details><summary>More: tokens, rates and cost for each model</summary>
+<div class="dtl">
+{{USAGE_TABLE}}<!-- src: docs/ai-usage.md, reports/factory/tokens-by-model.csv, reports/factory/model-prices.csv -->
+<p>Totals include cache reads, which make up most of an agent session, so each blended rate sits far below the headline price. OpenRouter tokens are a lower bound. Prices were read from the providers' pages on 05/11/2026. The build cost me the Claude and Codex subscriptions I already pay for, which charge no per-token fee, plus OpenRouter spend of USD 0.51 measured and USD 1.44 estimated.<!-- src: docs/ai-usage.md --></p>
+</div></details>
+<details><summary>More: where I trusted it, where I overrode it, what it got wrong</summary>
+<div class="dtl">
+<ol>
+<li><b>Trusted:</b> mechanical work (scaffolding, schemas, test plumbing) once the tests ran and a separate check passed.<!-- src: docs/ai-usage.md --></li>
+<li><b>Overrode:</b> open-weight models instead of a paid frontier API, a public repo, a one-day demo build, and keeping a decision model the AI had dismissed.<!-- src: docs/ai-usage.md --></li>
+<li><b>Wrong, and caught:</b> the AI put a closed-weight, US-hosted decision model into production triage; research found it cannot run inside a private network, so I replaced it. A worker's report said 5 links where the PDF had 4; a separate check caught it after the first check had passed the same commit, and the issue was reopened.<!-- src: docs/ai-usage.md --></li>
+</ol>
+</div></details>
+<details><summary>More: build telemetry and the human gates</summary>
+<div class="dtl">
+<!-- TELEMETRY START -->
+<ul>
+<li>Sonnet built 12 of the 13 work orders (92%); Codex and agy built 1 of 13 (8%).<!-- src: docs/delegation.md section 10, reports/factory/build-telemetry.csv --></li>
+<li>First check passed on 7 of 12 Sonnet builds (58%) and 1 of 1 Codex build; there were 5 reworks in total.<!-- src: docs/delegation.md section 10, reports/factory/build-telemetry.csv --></li>
+<li>The plan budgeted about 22 agent-hours. My own time was about 2 hours by 04/11/2026 02:30 (my estimate), within the 4-hour ask.<!-- src: docs/ai-usage.md --></li>
+</ul>
+<!-- TELEMETRY END -->
+<table>
+<thead><tr><th>Gate on this build</th><th>Who passes it</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>Rule and permission files</td><td>Me</td><td>Passed</td></tr>
+<tr><td>Key, credit and spend (OpenRouter key limit USD 10)</td><td>Me</td><td>Key set; credit balance not reported</td></tr>
+<tr><td>Publishing the repo after a clean scan</td><td>Me</td><td>Open</td></tr>
+<tr><td>Each merge</td><td>The orchestrator, after a Sonnet check PASS; a gated pull request also needs my written GO</td><td>In force</td></tr>
+</tbody>
+</table><!-- src: docs/ai-usage.md, section "Human gates" -->
+</div></details>
+</div>
+</div>
+</section>
+
+</main>
+<script>
+(function(){
+"use strict";
+var slides=[].slice.call(document.querySelectorAll(".slide")),N=slides.length,cur=0;
+var count=document.getElementById("count"),root=document.documentElement;
+function clamp(i){return Math.max(0,Math.min(N-1,i))}
+function show(i,focus){
+  cur=clamp(i);
+  [].forEach.call(document.querySelectorAll("details[open]"),function(d){d.open=false});
+  slides.forEach(function(s,k){s.hidden=k!==cur;s.classList.toggle("on",k===cur)});
+  count.textContent=(cur+1)+" / "+N;
+  document.title="Keelwater: slide "+(cur+1)+" of "+N;
+  var s=slides[cur];s.scrollTop=0;fit();
+  if(focus!==false){try{s.focus({preventScroll:true})}catch(e){s.focus()}}
+  var h="#"+(cur+1);if(location.hash!==h){try{history.replaceState(null,"",h)}catch(e){location.hash=h}}
+}
+/* the visual keeps the size it has with every expander closed, so opening one never shrinks it */
+function fit(){var st=slides[cur].querySelector(".stage");if(!st)return;st.style.minHeight="";st.style.minHeight=st.offsetHeight+"px"}
+window.addEventListener("resize",function(){[].forEach.call(document.querySelectorAll("details[open]"),function(d){d.open=false});fit()});
+function fromHash(){var n=parseInt((location.hash||"").slice(1),10);return isNaN(n)?0:clamp(n-1)}
+window.addEventListener("hashchange",function(){var i=fromHash();if(i!==cur)show(i)});
+function step(d){show(cur+d)}
+document.addEventListener("keydown",function(e){
+  if(e.altKey||e.ctrlKey||e.metaKey||e.defaultPrevented)return;
+  var k=e.key,s=slides[cur],t=e.target,page=s.clientHeight*0.85;
+  /* Space and Enter on a summary, button or link belong to that control: summary toggles its expander */
+  if((k===" "||k==="Enter")&&t!==s&&t.closest&&t.closest("summary,button,a"))return;
+  if(k==="ArrowRight"||k==="PageDown"){e.preventDefault();step(1)}
+  else if(k==="ArrowLeft"||k==="PageUp"){e.preventDefault();step(-1)}
+  else if(k==="Home"){e.preventDefault();show(0)}
+  else if(k==="End"){e.preventDefault();show(N-1)}
+  else if(k==="ArrowDown"){e.preventDefault();s.scrollBy({top:80})}
+  else if(k==="ArrowUp"){e.preventDefault();s.scrollBy({top:-80})}
+  else if(k===" "&&t===s){e.preventDefault();s.scrollBy({top:e.shiftKey?-page:page})}
+});
+document.getElementById("prev").addEventListener("click",function(){step(-1)});
+document.getElementById("next").addEventListener("click",function(){step(1)});
+var tx=0,ty=0;
+document.addEventListener("touchstart",function(e){tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+document.addEventListener("touchend",function(e){var dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>70&&Math.abs(dx)>2*Math.abs(dy))step(dx<0?1:-1)},{passive:true});
+/* theme: light by default; dark only when the visitor picks it, remembered in localStorage when it is available */
+var btn=document.getElementById("theme");
+function sync(){var d=root.getAttribute("data-theme")==="dark";btn.setAttribute("aria-pressed",d);btn.textContent=d?"Light":"Dark";btn.setAttribute("aria-label",d?"Switch to light theme":"Switch to dark theme")}
+try{var st=localStorage.getItem("deck-theme");if(st==="dark")root.setAttribute("data-theme","dark")}catch(e){}
+btn.addEventListener("click",function(){var d=root.getAttribute("data-theme")!=="dark";if(d)root.setAttribute("data-theme","dark");else root.removeAttribute("data-theme");try{localStorage.setItem("deck-theme",d?"dark":"light")}catch(e){}sync()});
+/* print: one slide per page with every expander open */
+var wasOpen=[];
+window.addEventListener("beforeprint",function(){wasOpen=[];[].forEach.call(document.querySelectorAll("details"),function(d){wasOpen.push(d.open);d.open=true})});
+window.addEventListener("afterprint",function(){[].forEach.call(document.querySelectorAll("details"),function(d,k){d.open=!!wasOpen[k]})});
+sync();
+show(fromHash());
+})();
+</script>
+</body>
+</html>
