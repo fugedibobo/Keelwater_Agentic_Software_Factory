@@ -132,21 +132,23 @@ Intake is a fixed workflow of typed steps ([ADR-001](docs/decisions.md)). Each s
 
 ## Models and cost
 
-One OpenAI-compatible gateway serves every model stage, triage included. The demo runs the same open weights that Bedrock serves wherever OpenRouter has them, so moving to the `aws` profile is a configuration change plus one re-qualification run of the eval suites ([ADR-002](docs/decisions.md)). Routing follows the cost of being wrong:
+One OpenAI-compatible gateway serves every model stage, triage included. The demo runs open-weight models through OpenRouter. Only GLM 5.3 is confirmed on Bedrock, so moving to the `aws` profile means confirming or self-hosting the rest, plus one re-qualification run of the eval suites ([ADR-002](docs/decisions.md)). Routing follows the cost of being wrong. Prices are USD per million tokens, in / out, read on OpenRouter on 05/11/2026:
 
-| Job | Tier | `demo` profile (OpenRouter) | `aws` profile (inside the VPC; open weights by default) |
+| Job | Tier | `demo` profile (OpenRouter) | `aws` profile (inside the VPC; open weights) |
 |---|---|---|---|
-| Triage | Decision model | Clef (`cloudflare/clef`, 27B, open weights) through OpenRouter's Decisions API; fallback gpt-oss-120b | gpt-oss-20b or 120b on Bedrock; later a self-hosted Clef (the same weights as the demo) or a classifier trained on PM labels |
-| Extract | Cheap | gpt-oss-120b | gpt-oss-120b on Bedrock (eu-west-2) |
-| Cluster labels | Cheap | Qwen3 Next 80B A3B | Same weights on Bedrock |
-| Embeddings | Open weights | Qwen3 Embedding 8B | Same weights, or Qwen3 Embedding 0.6B as a nightly batch job |
-| Brief, top 10 only | Strong | DeepSeek V3.2 | DeepSeek V3.2 on Bedrock |
-| Judges | Different family from the writer | GLM 5 | GLM 5 on Bedrock |
+| Triage | Decision model | Clef (`cloudflare/clef`, 27B, 0.192 / 0), falling back to Clef Flash (`cloudflare/clef-flash`, 9B, 0.018 / 0): decision models on OpenRouter's Decisions API with the same key, about 50 ms a call | Clef weights self-hosted in the VPC; availability on Bedrock not confirmed (INFERRED). Later a classifier trained on PM labels |
+| Extract | Cheap | Qwen3.8 Flash (`qwen/qwen3.8-flash`, 0.15 / 0.47), falling back to Qwen3.8 27B | Qwen3.8 Flash; availability on Bedrock not confirmed (INFERRED) |
+| Cluster labels | Cheap | Qwen3.8 27B (`qwen/qwen3.8-27b`, 0.023 to 0.029 / 1.28 to 1.575; two pages differ), falling back to Qwen3.8 Flash | Qwen3.8 27B; availability on Bedrock not confirmed (INFERRED) |
+| Embeddings | Open weights | Qwen3 Embedding 8B (`qwen/qwen3-embedding-8b`, 0.01), falling back to OpenAI text-embedding-3-large | Qwen3-VL-Embedding-8B, the newest Qwen embedding model (open weights, not on OpenRouter); availability on Bedrock not confirmed (INFERRED) |
+| Brief and handoff, top 10 only | Strong | Qwen3.8 Max (`qwen/qwen3.8-max-0902`, 2.00 / 6.00), falling back to DeepSeek V4.1 Flash | Qwen3.8 Max; availability on Bedrock not confirmed (INFERRED) |
+| Judges | Different family from the writer | GLM 5.3 (`z-ai/glm-5.3`, reasoning always on, effort low, 0.0699 / 1.40), falling back to DeepSeek V4.1 Flash | GLM 5.3 as `global.zai.glm-5.3` on Bedrock (FOUND, 05/11/2026); global routing cannot guarantee UK data residency |
+| Outtake | Cheap | Qwen3.8 Flash, falling back to DeepSeek V4.1 Flash | Qwen3.8 Flash; availability on Bedrock not confirmed (INFERRED) |
 
-- **Model ids:** the build probes each id and falls back to the ids in the 02/11/2026 research if one is missing on OpenRouter.
+- **Model ids:** the build probes each id and uses the stage's fallback in `config/models.yaml` if one is missing on OpenRouter.
+- **Family rule:** writers are Qwen with DeepSeek as fallback; judges are GLM with DeepSeek as fallback. A brief written by DeepSeek is never graded by a DeepSeek judge: that judgement is stored as `not_independent`, shown, and left out of pass counts. Qwen 4 is not released (05/11/2026); it is the planned swap for brief and handoff, once the same eval suites qualify it.
 - **Replay profile:** recorded responses, no network, no keys, byte-for-byte reproducible from the run manifest.
-- **Synthetic data** was written by Qwen3 VL 235B Instruct (`qwen/qwen3-vl-235b-a22b-instruct`), a family no judge belongs to, so no judge grades its own family's text. Mistral Large was dropped: the data is invented, so the cheapest model that passes the generator's checks is enough. DeepSeek V4.1 Flash (reasoning off) is the recorded fallback.
-- **Cost:** tokens come to about USD 0.8 per nightly run at demo volume, 2.6 at 10x and 21 at 100x (estimated from list prices, INFERRED). At scale the real costs are GPU hosting and PM attention, so routing exists to protect attention and latency as much as money. Decision calls run with a concurrency of 50 or more.
+- **Synthetic data** was written by Qwen3 VL 235B Instruct (`qwen/qwen3-vl-235b-a22b-instruct`), a family no judge belongs to, so no judge grades its own family's text. The committed seeds were made with it and are not regenerated. Mistral Large was dropped: the data is invented, so the cheapest model that passes the generator's checks is enough. DeepSeek V4.1 Flash (reasoning off) is the recorded fallback.
+- **Cost:** <!-- generated:cost:start -->tokens come to about USD 0.3 per nightly run at demo volume, 3 at 10x and 30 at 100x (estimated from list prices and the recorded token counts of the demo run, INFERRED).<!-- generated:cost:end --> At scale the real costs are GPU hosting and PM attention, so routing exists to protect attention and latency as much as money. Decision calls run with a concurrency of 50 or more.
 - **Live-run caps:** the OpenRouter key has a hard USD 10 limit for the whole build; the per-step caps inside it total about USD 7.80, with the first live run capped at USD 1.50, and the plan expected the whole build to cost about USD 3.50. The key's own usage figure read USD 4.16 of 10 before the fresh live proof; the issue reports add up to about 1.6, and [build-plan.md](docs/build-plan.md) lists the gap as unexplained. Judges are seeded with 60 items each. OpenRouter requests deny data collection.
 
 ## Quickstart
@@ -171,6 +173,7 @@ Live run: copy `.env.example` to `.env`, add `OPENROUTER_API_KEY`, then run `uv 
 
 All figures come from the committed reports in `reports/eval/` and are measured on synthetic data (docs/evals.md section 7 says which numbers are synthetic and which are real clicks). They measure the pipeline against its own planted-truth gates and say nothing about accuracy on real customers.
 
+<!-- generated:results:start -->
 Verdict: the floors fail on seed 42, on seed 43 and on stability. The judge suite passes only because no judge can be certified without real PM labels. `eval --suite all` exits 1. The tables are the latest run of each suite in `reports/eval/`; the numbers are the same in the board's Evals tab.
 
 **Seed 42** (`eval --suite ground-truth`, report `ground-truth-efe009d511d14c7d`; the gates are in [evals.md section 4.2](docs/evals.md)). Synthetic.
@@ -214,6 +217,7 @@ Verdict: the floors fail on seed 42, on seed 43 and on stability. The judge suit
 | signal | 1.00 (0.85 to 1.00) | 0.85 (0.64 to 0.95) |
 | duplicate | 0.95 (0.78 to 0.99) | 0.80 (0.55 to 0.93) |
 | faithfulness | 1.00 (0.51 to 1.00) | 0.75 (0.30 to 0.95) |
+<!-- generated:results:end -->
 
 Cost, tokens and latency are real `model_call` rows from the recorded live runs; everything else above is measured on planted data. **Fresh live proof (04/11/2026):** the first attempt (empty cache, `--max-usd 0.364`) stopped at the judge stage after 17 min 14 s, because the budget guard found no room under the cap (metered USD 0.1708). The second attempt, `--max-usd 0.65` and an empty cache, failed after 8 min 39 s at the brief stage on one `APIConnectionError` (metered USD 0.1524). Resumed from that run's own cache with `--max-usd 0.50`, it completed in 6 min 23 s: 15 min 2 s of run time in total, 2 s over the 15-minute target. Metered cost USD 0.1977 (0.1524 + 0.0453); the key's usage rose by USD 0.2049 (4.3292 to 4.5341 of 10). `eval --suite ground-truth` on that run matched the committed seed 42 report on every metric (2 of 6 themes, purity 0.59, 7 citation failures, floors fail). Follow-up: the gateway does not retry `APIConnectionError`, so one network blip killed a run. The recorded demo run still replays offline.
 
@@ -259,7 +263,7 @@ The author's account will be written in #16. Until then this is a candidate list
 
 What the results above do not show, and what the review did not fix. Each line links to its evidence.
 
-- **Clustering is the main limit.** Average-linkage cosine clustering cannot separate planted themes that share vocabulary, so seed 42 recovers 2 of 6 themes and seed 43 recovers 0 of 3. Citation failures come from the brief stage. Diagnosis and the capped extract-filter fix: [#7 final report](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/7#issuecomment-6631522428), [author ruling](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/7#issuecomment-6629466310). The floors still fail and ship as measured.
+- **Clustering is the main limit.** Average-linkage cosine clustering cannot separate planted themes that share vocabulary, so <!-- generated:limits-clustering:start -->seed 42 recovers 2 of 6 themes and seed 43 recovers 0 of 3<!-- generated:limits-clustering:end -->. Citation failures come from the brief stage. Diagnosis and the capped extract-filter fix: [#7 final report](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/7#issuecomment-6631522428), [author ruling](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/7#issuecomment-6629466310). The floors still fail and ship as measured.
 - **No human labels.** The optional PM review (#15) did not run. No judge is certified, and Phoenix shows 0 human annotations beside the judge verdicts ([#10 report](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/10#issuecomment-6629808276)).
 - **Handoff drafts fail the citation check.** In the #13 verification run, live previews (`handoff <id> --preview`) of three top-scoring opportunities all came back invalid on the citation checks: numbers that match no fact-sheet value, customer names not tied to a cited insight, and a quote that is not from a cited insight. Nothing invalid reaches a factory job, and the Handoffs tab shows no accepted opportunities. Measured by this verification run; it has no separate issue.
 - **Outbox ordering (finding 4b).** A board action commits before its replay record is written to the outbox, so a crash in between can lose the JSONL record, and a partial append needs recovery. Documented, not fixed, per the [author ruling](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/13#issuecomment-6629466728); evidence in [sol's first review](https://github.com/fugedibobo/Keelwater_Agentic_Software_Factory/issues/13#issuecomment-6625795243).
