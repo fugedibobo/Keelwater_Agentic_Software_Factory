@@ -2,7 +2,7 @@
 
 By Andras Fugedi
 
-**Status (04/11/2026):** the Signal Engine is built, merged and checked end to end: ingest, triage, extraction, clustering, ranking, briefs, judges, the Signal Board and handoff drafts all run, and replay reproduces the recorded run. The quality floors do not all hold. On the main seed the pipeline recovers 1 of the 6 planted themes, and the results and limits below say so plainly. The repo is frozen on 05/11/2026.
+**Status (05/11/2026):** the Signal Engine is built, merged and checked end to end: ingest, triage, extraction, clustering, ranking, briefs, judges, the Signal Board and handoff drafts all run, and replay reproduces the recorded run. The quality floors do not all hold. On the main seed the pipeline recovers 1 of the 6 planted themes, and the results and limits below say so plainly. The repo is frozen on 05/11/2026.
 
 Keelwater is a fictional claims-handling software company whose engineers already write most of their code with AI. This repo plans the layer around its engineering factory: how work is found, decided, specified, released and adopted, with agents doing the work and people passing five gates. The working piece is the **Signal Engine**, a nightly pipeline that turns sales calls, support tickets, onboarding and account-review calls and session analytics into a ranked, evidence-backed list of opportunities that a PM reviews every Monday. Code checks every quote against its source, every model call is logged, and the three AI judges show "uncalibrated" until enough blind PM labels certify them.
 
