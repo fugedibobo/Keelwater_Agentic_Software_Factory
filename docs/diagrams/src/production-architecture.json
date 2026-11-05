@@ -109,7 +109,7 @@
     {
       "id": "triage",
       "type": "backend",
-      "label": "Triage (gpt-oss)",
+      "label": "Triage (Clef)",
       "sublabel": "noise filter",
       "pos": [
         577,

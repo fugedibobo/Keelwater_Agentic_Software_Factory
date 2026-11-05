@@ -213,7 +213,7 @@ Purpose: prove every model call and human decision is on record.
 | Hash chain: verified to event 1,284                          |
 +--------------------------------------------------------------+
 | 02:03:11 triage cloudflare/clef in a1f3 out 77c2 210ms $0.00  |
-| 02:03:12 extract  gpt-oss...  in 19bd out e0a4  640ms $0.00  |
+| 02:03:12 extract  qwen3.8-... in 19bd out e0a4  640ms $0.00  |
 | 09:12:40 audit_event  priya.n  opportunity#7 reject low_value|
 | 09:12:44 audit_event  priya.n  opportunity#7 undo            |
 +--------------------------------------------------------------+

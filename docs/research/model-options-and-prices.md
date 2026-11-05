@@ -2,6 +2,8 @@
 
 Researched 02/11/2026. FOUND = checked at the source URL; INFERRED = reasoned. Prices change weekly: re-check before relying on them.
 
+The routing in Q5 and every gpt-oss, Qwen3 Next 80B A3B, DeepSeek V3.2 and GLM 5 line below were replaced on 05/11/2026; the dated section at the end holds the current routing. The 02/11/2026 text is kept as history.
+
 Findings below are labelled FOUND (with URL) or INFERRED, prices in USD per million tokens (in/out) as listed on 02/11/2026.
 
 Four limits on the data:
@@ -110,3 +112,36 @@ All models have 1M context and 128K output.
 - **Switching demo to production:** change the OpenAI-compatible base URL and keep a small eval set.
 
 Not checked: Bedrock London prices for gpt-oss, DeepSeek V3.2 and Claude; per-model ZDR; Kimi K3.1 Pro licence and weights; OpenRouter tool and JSON support on pages that did not state it. Risk: this is a fast-moving market, and several OpenRouter prices were inconsistent between page views, so re-pull live prices before committing a budget.
+
+## 05/11/2026 routing update
+
+Prices are USD per million tokens (in/out). FOUND means read on the URL shown; INFERRED means reasoned from the findings. OpenRouter pages were read 05/11/2026 between 00:40 and 01:40 UTC; the AWS pages on 05/11/2026.
+
+Author rulings (decisions, not findings): no gpt-oss for any stage or profile; Qwen3 (all, except the embedding model below), the 80B A3B and DeepSeek V3.2 dropped everywhere; one API key only.
+
+### Demo routing (OpenRouter)
+
+| Stage | Primary | Fallback | Price of primary | Label and source |
+|---|---|---|---|---|
+| triage | `cloudflare/clef` (27B decision model) | `cloudflare/clef-flash` (9B decision model, same Decisions API and key; ranked 7th by weekly decision requests) | 0.192/0; fallback 0.018/0 | FOUND https://openrouter.ai/cloudflare, https://openrouter.ai/cloudflare/clef, https://openrouter.ai/rankings/decisions |
+| extract | `qwen/qwen3.8-flash` | `qwen/qwen3.8-27b` | 0.15/0.47 | FOUND https://openrouter.ai/compare/qwen/qwen3.8-27b/qwen/qwen3.8-flash |
+| cluster_label | `qwen/qwen3.8-27b` | `qwen/qwen3.8-flash` | 0.023-0.029/1.28-1.575 (two pages differ; the response's `usage.cost` wins) | FOUND https://openrouter.ai/qwen/qwen3.8-27b and the compare page above |
+| embed | `qwen/qwen3-embedding-8b` | `openai/text-embedding-3-large` | 0.01 | FOUND https://openrouter.ai/collections/embedding-models |
+| brief, handoff | `qwen/qwen3.8-max-0902` | `deepseek/deepseek-v4.1-flash` | 2.00/6.00 | FOUND https://openrouter.ai/qwen/qwen3.8-max-0902, https://openrouter.ai/deepseek/deepseek-v4.1-flash |
+| judge | `z-ai/glm-5.3` (reasoning always on, effort low) | `deepseek/deepseek-v4.1-flash` | 0.0699/1.40 | FOUND https://openrouter.ai/z-ai/glm-5.3 |
+| outtake | `qwen/qwen3.8-flash` | `deepseek/deepseek-v4.1-flash` | 0.15/0.47 | FOUND https://openrouter.ai/compare/qwen/qwen3.8-27b/qwen/qwen3.8-flash |
+| generate | `qwen/qwen3-vl-235b-a22b-instruct`, unchanged | | | The committed seeds were made with it; the data is not regenerated. |
+
+- **Family rule (a ruling).** Writers are Qwen, with DeepSeek as fallback. Judges are GLM, with DeepSeek as fallback. A brief or handoff written by the DeepSeek fallback and judged by DeepSeek is stored as `not_independent`, shown, and excluded from pass counts.
+- **Qwen 4 is not released** (no release found as of 05/11/2026). It is the planned swap for brief and handoff, qualified by the same eval suites. No id is named until it ships.
+- **Embeddings.** The newest Qwen embedding model is Qwen3-VL-Embedding (8B, January 2026, arXiv 2601.04720). FOUND https://github.com/QwenLM/Qwen3-VL-Embedding. It is not on OpenRouter, which lists only `qwen/qwen3-embedding-8b` (FOUND https://openrouter.ai/collections/embedding-models; model card FOUND https://github.com/QwenLM/Qwen3-Embedding). The demo keeps `qwen/qwen3-embedding-8b`. No Qwen3.5, 3.6 or 3.8 embedding model was found.
+- **Prices move.** The cluster_label price differs between two OpenRouter pages, and the 02/11/2026 section above recorded other figures for the same models. Re-read before relying on any figure.
+
+### AWS Bedrock (FOUND on AWS pages fetched 05/11/2026)
+
+- **GLM 5.3 is the only one of these models on Bedrock.** Callable ids: `global.zai.glm-5.3` (global cross-Region inference, which includes eu-west-2) and `us.zai.glm-5.3`. It is not callable in-Region in London. It supports OpenAI-compatible Chat Completions on bedrock-runtime. Access is limited to eligible customers. Global routing cannot guarantee UK data residency. FOUND https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-zai-glm-5-3.html and https://aws.amazon.com/about-aws/whats-new/2026/10/amazon-bedrock-glm-5-3/ (05/10/2026).
+- **Not confirmed on Bedrock** (not found on the AWS model card pages, 05/11/2026):
+  - DeepSeek V4.1 Flash: https://docs.aws.amazon.com/bedrock/latest/userguide/model-cards-deepseek.html
+  - Qwen3.8 (any variant), Qwen3-Embedding-8B and Qwen3-VL-Embedding-8B: https://docs.aws.amazon.com/bedrock/latest/userguide/model-cards-qwen.html
+  - Clef: https://docs.aws.amazon.com/bedrock/latest/userguide/model-cards.html
+- **The `aws` and `self-hosted` profiles (INFERRED).** They name the open-weight model for every stage except judge, with the note "availability on Bedrock not confirmed (INFERRED)". Embeddings name Qwen3-VL-Embedding-8B as the target: open weights, Bedrock availability not confirmed. No Bedrock id is written unless an AWS page above confirms it.
